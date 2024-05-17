@@ -42,6 +42,7 @@ class UserForm extends Component
         }
         $user->name = $this->name;
         $user->email = $this->email;
+        $user->updated_at = now();
         $user->save();
         $message = $this->isEditMode ? 'User updated successfully.' : 'User created successfully.';
         flash($message, 'success');

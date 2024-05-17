@@ -133,12 +133,12 @@ return [
     |
     */
 
-    'usermenu_enabled' => true,
+    'usermenu_enabled' => false,
     'usermenu_header' => false,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
     'usermenu_desc' => false,
-    'usermenu_profile_url' => true,
+    'usermenu_profile_url' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -263,7 +263,7 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => 'profil',
 
     /*
     |--------------------------------------------------------------------------
@@ -327,6 +327,8 @@ return [
             'text' => 'Pegawai',
             'url' => 'pegawai',
             'icon' => 'fas fa-user-tie',
+            'active'  => ['pegawai', 'pegawai/create', 'pegawai/edit/*'],
+
         ],
         [
             'text' => 'User',
