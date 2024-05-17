@@ -5,9 +5,12 @@ use App\Livewire\Pegawai\PegawaiCreate;
 use App\Livewire\Pegawai\PegawaiForm;
 use App\Livewire\Pegawai\PegawaiIndex;
 use App\Livewire\Profil\ProfilIndex;
+use App\Livewire\User\PermissionIndex;
+use App\Livewire\User\RoleIndex;
 use App\Livewire\User\UserCreate;
 use App\Livewire\User\UserForm;
 use App\Livewire\User\UserIndex;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,12 +32,14 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('pegawai', PegawaiIndex::class)->name('pegawai.index');
-    Route::get('pegawai/create', PegawaiForm::class)->name('pegawai.create');
-    Route::get('pegawai/edit/{id}', PegawaiForm::class)->name('pegawai.edit');
+    Route::get('permission', PermissionIndex::class)->name('permission.index');
+    Route::get('role', RoleIndex::class)->name('role.index');
     Route::get('user', UserIndex::class)->name('user.index');
     Route::get('user/create', UserForm::class)->name('user.create');
     Route::get('user/edit/{id}', UserForm::class)->name('user.edit');
+    Route::get('pegawai', PegawaiIndex::class)->name('pegawai.index');
+    Route::get('pegawai/create', PegawaiForm::class)->name('pegawai.create');
+    Route::get('pegawai/edit/{id}', PegawaiForm::class)->name('pegawai.edit');
     Route::get('counter', Counter::class)->name('counter.index');
     Route::get('profil', ProfilIndex::class)->name('profil');
 });

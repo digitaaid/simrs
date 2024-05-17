@@ -111,7 +111,7 @@ return [
 
     'preloader' => [
         'enabled' => false,
-        'mode' => 'fullscreen',
+        'mode' => 'cwrapper',
         'img' => [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'AdminLTE Preloader Image',
@@ -324,17 +324,29 @@ return [
         ],
         ['header' => 'account_settings'],
         [
-            'text' => 'Pegawai',
-            'url' => 'pegawai',
-            'icon' => 'fas fa-user-tie',
-            'active'  => ['pegawai', 'pegawai/create', 'pegawai/edit/*'],
-
+            'text' => 'Permission',
+            'url' => 'permission',
+            'icon' => 'fas fa-user-cog',
+            'active'  => ['permission', 'permission/create', 'permission/edit/*'],
+        ],
+        [
+            'text' => 'Role',
+            'url' => 'role',
+            'icon' => 'fas fa-user-tag',
+            'active'  => ['role', 'role/create', 'role/edit/*'],
         ],
         [
             'text' => 'User',
             'url' => 'user',
             'icon' => 'fas fa-users',
             'active'  => ['user', 'user/create', 'user/edit/*'],
+        ],
+        [
+            'text' => 'Pegawai',
+            'url' => 'pegawai',
+            'icon' => 'fas fa-user-tie',
+            'active'  => ['pegawai', 'pegawai/create', 'pegawai/edit/*'],
+
         ],
         [
             'text' => 'Profil',
