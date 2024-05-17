@@ -6,7 +6,6 @@
             </x-adminlte-alert>
         </div>
     @endif
-
     <div class="col-md-4">
         <x-adminlte-profile-widget name="{{ $user->name }}" desc="{{ $user->email }}" theme="primary"
             img="{{ $user->adminlte_image() }}">
@@ -28,14 +27,16 @@
     </div>
     <div class="col-md-8">
         <x-adminlte-card title="Identitas User" theme="primary">
-            <form id="formUpdate">
+            <form>
                 <input hidden wire:model="id" name="id">
                 <x-adminlte-input wire:model="name" fgroup-class="row" label-class="text-left col-3"
-                    igroup-class="col-9" igroup-size="sm" name="name" label="Nama" placeholder="Nama Lengkap"
-                    enable-old-support required />
+                    igroup-class="col-9" igroup-size="sm" name="name" label="Nama" placeholder="Nama Lengkap" />
                 <x-adminlte-input wire:model="email" fgroup-class="row" label-class="text-left col-3"
                     igroup-class="col-9" igroup-size="sm" name="email" type="email" label="Email"
-                    placeholder="Email" enable-old-support required />
+                    placeholder="Email" />
+                <x-adminlte-input wire:model="password" fgroup-class="row" label-class="text-left col-3"
+                    igroup-class="col-9" igroup-size="sm" name="password" type="password" label="Password"
+                    placeholder="Password" />
             </form>
             <x-slot name="footerSlot">
                 <x-adminlte-button label="Update" wire:click="save"

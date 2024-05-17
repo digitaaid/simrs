@@ -332,6 +332,7 @@ return [
             'text' => 'User',
             'url' => 'user',
             'icon' => 'fas fa-users',
+            'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
         [
             'text' => 'Profil',
