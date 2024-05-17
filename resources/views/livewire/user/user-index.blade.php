@@ -37,4 +37,3 @@
         </x-adminlte-card>
     </div>
 </div>
-@section('plugins.Datatables', true)

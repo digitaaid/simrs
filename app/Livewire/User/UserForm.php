@@ -11,7 +11,6 @@ class UserForm extends Component
     public $id;
     public $name;
     public $email;
-    public $password;
     public $isEditMode = false;
 
     protected function rules()
@@ -43,9 +42,6 @@ class UserForm extends Component
         }
         $user->name = $this->name;
         $user->email = $this->email;
-        if ($this->password) {
-            $user->password = Hash::make($this->password);
-        }
         $user->save();
         $message = $this->isEditMode ? 'User updated successfully.' : 'User created successfully.';
         flash($message, 'success');

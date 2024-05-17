@@ -34,9 +34,6 @@
                 <x-adminlte-input wire:model="email" fgroup-class="row" label-class="text-left col-3"
                     igroup-class="col-9" igroup-size="sm" name="email" type="email" label="Email"
                     placeholder="Email" />
-                <x-adminlte-input wire:model="password" fgroup-class="row" label-class="text-left col-3"
-                    igroup-class="col-9" igroup-size="sm" name="password" type="password" label="Password"
-                    placeholder="Password" />
             </form>
             <x-slot name="footerSlot">
                 <x-adminlte-button label="Update" wire:click="save"
