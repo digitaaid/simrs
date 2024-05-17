@@ -1,7 +1,9 @@
 <?php
 
+use App\Livewire\Counter;
 use App\Livewire\Pegawai\PegawaiCreate;
 use App\Livewire\Pegawai\PegawaiIndex;
+use App\Livewire\Profil\ProfilIndex;
 use App\Livewire\User\UserIndex;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +30,5 @@ Route::get('pegawai', PegawaiIndex::class)->name('pegawai.index');
 Route::get('pegawai/create', PegawaiCreate::class)->name('pegawai.create');
 
 Route::get('user', UserIndex::class)->name('user.index');
+Route::get('counter', Counter::class)->name('counter.index');
+Route::get('profil', ProfilIndex::class)->name('profil');

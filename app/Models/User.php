@@ -42,4 +42,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function adminlte_image()
+    {
+        if ($this->avatar) {
+            return $this->avatar;
+        } else {
+            return asset('simrs/logoprofile.png');
+        }
+    }
+    public function adminlte_profile_url()
+    {
+        return route('profil');
+    }
 }

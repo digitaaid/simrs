@@ -1,19 +1,26 @@
-@extends('adminlte::page')
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <p class="mb-0">User</p>
+                {{-- <div>
+                        <form wire:submit.prevent="save">
+                            <input type="text" wire:model="title">
+                            <input type="text" wire:model="content">
+                            <button type="submit">Save</button>
+                        </form>
+                        <button type="button" wire:click="download">
+                            Download Invoice
+                        </button>
+                    </div> --}}
+                <div> <!-- Added this wrapping div -->
+                    <div>
+                        Some content
+                    </div>
 
-@section('title', 'User')
-
-@section('content_header')
-    <h1 class="m-0 text-dark">User</h1>
-@stop
-
-@section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <p class="mb-0">User</p>
+                    <button wire:click="download">Do Something</button>
                 </div>
             </div>
         </div>
     </div>
-@stop
+</div>

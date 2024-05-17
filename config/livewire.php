@@ -38,7 +38,7 @@ return [
     |
     */
 
-    'layout' => 'vendor.adminlte.master',
+    'layout' => 'components.layouts.app',
 
     /*
     |---------------------------------------------------------------------------
