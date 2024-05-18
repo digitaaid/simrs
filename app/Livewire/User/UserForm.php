@@ -13,14 +13,6 @@ class UserForm extends Component
     public $email;
     public $isEditMode = false;
 
-    protected function rules()
-    {
-        return [
-            'name' => 'required|string|min:3',
-            'email' => 'required|email|unique:users,email,' . $this->id,
-        ];
-    }
-
     public function mount($id = null)
     {
         if ($id) {
@@ -34,7 +26,11 @@ class UserForm extends Component
 
     public function save()
     {
-        $this->validate();
+        $this->validate([
+            'name' => 'required|string|min:3',
+            'email' => 'required|email|unique:users,email,' . $this->id,
+        ]);
+
         if ($this->isEditMode) {
             $user = User::findOrFail($this->id);
         } else {
@@ -46,7 +42,8 @@ class UserForm extends Component
         $user->save();
         $message = $this->isEditMode ? 'User updated successfully.' : 'User created successfully.';
         flash($message, 'success');
-        return redirect()->route('user.index');
+
+        return redirect()->to('/user');
     }
 
     public function render()

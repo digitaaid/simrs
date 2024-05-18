@@ -10,9 +10,6 @@ class UserIndex extends Component
     public function render()
     {
         return view('livewire.user.user-index')
-            ->with([
-                'users' => User::get(),
-            ])
             ->title('User');
     }
 }
