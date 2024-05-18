@@ -1,9 +1,39 @@
 <div>
+    <div class="row ">
+        <div class="col-md-6">
+            <a wire:navigate href="{{ route('pegawai.create') }}">
+                <x-adminlte-button class="btn-sm mb-3" label="Tambah Pegawai" theme="success" icon="fas fa-user-plus" />
+            </a>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Pegawai" igroup-size="sm">
+                <x-slot name="appendSlot">
+                    <x-adminlte-button wire:click="test" theme="primary" label="Cari" />
+                </x-slot>
+                <x-slot name="prependSlot">
+                    <div class="input-group-text text-primary">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </x-slot>
+            </x-adminlte-input>
+        </div>
+    </div>
     <table class="table text-nowrap table-sm table-hover table-bordered table-responsive-xl">
         <thead>
             <tr>
                 <th>#</th>
-                <th>Nama</th>
+                <th wire:click="sort('name')">
+                    @if ($sortBy === 'name')
+                        @if ($sortDirection === 'asc')
+                            <i class="fa fa-sort-alpha-down"></i>
+                        @else
+                            <i class="fa fa-sort-alpha-up"></i>
+                        @endif
+                    @endif
+                    Nama
+
+                </th>
                 <th>NIK</th>
                 <th>No HP</th>
                 <th>Email</th>
