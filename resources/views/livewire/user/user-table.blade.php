@@ -1,12 +1,12 @@
 <div>
     <x-adminlte-card title="Table User" theme="secondary">
         <div class="row ">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <a href="{{ route('user.create') }}" wire:navigate>
                     <x-adminlte-button class="btn-sm" label="Tambah User" theme="success" icon="fas fa-user-plus" />
                 </a>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Pegawai"
                     igroup-size="sm">
                     <x-slot name="appendSlot">
@@ -40,8 +40,9 @@
                         <td>{{ $user->email_verified_at }}</td>
                         <td>{{ $user->updated_at }}</td>
                         <td>
-                            <x-adminlte-button wire:click="formShow({{ $user->id }})" class="btn-xs" label="Edit"
-                                theme="warning" icon="fas fa-edit" />
+                            <a href="{{ route('user.edit', $user->id) }}" wire:navigate>
+                                <x-adminlte-button class="btn-xs" label="Edit" theme="warning" icon="fas fa-edit" />
+                            </a>
                         </td>
                     </tr>
                 @endforeach
