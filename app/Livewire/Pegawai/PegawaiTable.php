@@ -36,7 +36,7 @@ class PegawaiTable extends Component
             'users' => User::where('name', 'like', $search)
                 ->orWhere('email', 'like', $search)
                 ->orderBy($this->sortBy, $this->sortDirection)
-                ->with('pegawai')->orderBy('created_at', 'desc')->paginate(13),
+                ->with('pegawai')->orderBy('created_at', 'desc')->paginate(),
         ]);
     }
 }

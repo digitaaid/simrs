@@ -69,7 +69,7 @@ class PegawaiForm extends Component
             ]
         );
         flash($message, 'success');
-        return redirect()->route('pegawai.index');
+        return redirect()->to('/pegawai');
     }
 
     public function render()

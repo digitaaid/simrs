@@ -19,7 +19,7 @@ class UserTable extends Component
     {
         return view('livewire.user.user-table')
             ->with([
-                'users' => User::orderBy('created_at', 'desc')->paginate(13),
+                'users' => User::orderBy('created_at', 'desc')->paginate(),
             ]);
     }
 }
