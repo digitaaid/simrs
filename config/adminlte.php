@@ -324,16 +324,10 @@ return [
         ],
         ['header' => 'account_settings'],
         [
-            'text' => 'Permission',
-            'url' => 'permission',
-            'icon' => 'fas fa-user-cog',
-            'active'  => ['permission', 'permission/create', 'permission/edit/*'],
-        ],
-        [
-            'text' => 'Role',
-            'url' => 'role',
-            'icon' => 'fas fa-user-tag',
-            'active'  => ['role', 'role/create', 'role/edit/*'],
+            'text' => 'Role & Permission',
+            'url' => 'role-permission',
+            'icon' => 'fas fa-users-cog',
+            'active'  => ['role-permission', 'permission/create', 'role/create', 'permission/edit/*'],
         ],
         [
             'text' => 'User',

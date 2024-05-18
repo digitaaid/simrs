@@ -6,7 +6,10 @@
             </x-adminlte-alert>
         </div>
     @endif
-    <div class="col-md-12">
-        <livewire:user.user-table lazy />
+    <div class="col-md-6">
+        <livewire:user.role-table lazy />
+    </div>
+    <div class="col-md-6">
+        <livewire:user.permission-table lazy />
     </div>
 </div>

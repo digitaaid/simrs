@@ -7,8 +7,6 @@
         </div>
     @endif
     <div class="col-md-12">
-        <x-adminlte-card title="Table Pegawai" theme="secondary">
-            <livewire:pegawai.pegawai-table lazy />
-        </x-adminlte-card>
+        <livewire:pegawai.pegawai-table lazy />
     </div>
 </div>

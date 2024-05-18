@@ -7,6 +7,7 @@ use App\Livewire\Pegawai\PegawaiIndex;
 use App\Livewire\Profil\ProfilIndex;
 use App\Livewire\User\PermissionIndex;
 use App\Livewire\User\RoleIndex;
+use App\Livewire\User\RolePermission;
 use App\Livewire\User\UserCreate;
 use App\Livewire\User\UserForm;
 use App\Livewire\User\UserIndex;
@@ -32,8 +33,7 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('permission', PermissionIndex::class)->name('permission.index');
-    Route::get('role', RoleIndex::class)->name('role.index');
+    Route::get('role-permission', RolePermission::class)->name('role-permission');
     Route::get('user', UserIndex::class)->name('user.index');
     Route::get('user/create', UserForm::class)->name('user.create');
     Route::get('user/edit/{id}', UserForm::class)->name('user.edit');
