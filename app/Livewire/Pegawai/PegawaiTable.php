@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire\User;
+namespace App\Livewire\Pegawai;
 
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class UserTable extends Component
+class PegawaiTable extends Component
 {
     use WithPagination;
 
@@ -17,9 +17,9 @@ class UserTable extends Component
 
     public function render()
     {
-        return view('livewire.user.user-table')
+        return view('livewire.pegawai.pegawai-table')
             ->with([
-                'users' => User::orderBy('created_at', 'desc')->paginate(13),
+                'users' => User::with('pegawai')->orderBy('created_at', 'desc')->paginate(13),
             ]);
     }
 }

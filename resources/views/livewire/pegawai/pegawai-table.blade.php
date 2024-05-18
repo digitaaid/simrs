@@ -4,10 +4,13 @@
             <tr>
                 <th>#</th>
                 <th>Nama</th>
+                <th>NIK</th>
+                <th>No HP</th>
                 <th>Email</th>
-                <th>Verify</th>
-                <th>Updated</th>
                 <th>Action</th>
+                <th>Verify</th>
+                <th>PIC</th>
+                <th>Updated</th>
             </tr>
         </thead>
         <tbody>
@@ -15,17 +18,21 @@
                 <tr wire:key="{{ $user->id }}">
                     <td scope="row">{{ $loop->index + $users->firstItem() }}</td>
                     <td>{{ $user->name }}</td>
+                    <td>{{ $user->pegawai?->nik }}</td>
+                    <td>{{ $user->pegawai?->nohp }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->email_verified_at }}</td>
-                    <td>{{ $user->updated_at }}</td>
                     <td>
-                        <a wire:navigate href="{{ route('user.edit', $user) }}">
+                        <a wire:navigate href="{{ route('pegawai.edit', $user) }}">
                             <x-adminlte-button class="btn-xs" label="Edit" theme="warning" icon="fas fa-edit" />
                         </a>
                     </td>
+                    <td>{{ $user->email_verified_at }}</td>
+                    <td>{{ $user->pegawai?->pic }}</td>
+                    <td>{{ $user->updated_at }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     {{ $users->links() }}
 </div>
+@section('plugins.Datatables', true)
