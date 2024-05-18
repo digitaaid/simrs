@@ -2,9 +2,7 @@
     <x-adminlte-card title="Table Role" theme="secondary">
         <div class="row">
             <div class="col-md-6">
-                <a wire:navigate href="{{ route('pegawai.create') }}">
-                    <x-adminlte-button class="btn-sm mb-3" label="Add Role" theme="success" icon="fas fa-user-plus" />
-                </a>
+                <x-adminlte-button class="btn-sm mb-3" label="Add Role" theme="success" icon="fas fa-user-plus" />
             </div>
             <div class="col-md-6">
                 <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Role" igroup-size="sm">
