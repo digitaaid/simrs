@@ -1,13 +1,11 @@
 <div class="row">
-    @if (flash()->message)
-        <div class="col-md-12">
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        </div>
-    @endif
     <div class="col-md-12">
         <x-adminlte-card title="Identitas User" theme="secondary">
+            @if (flash()->message)
+                <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
+                    {{ flash()->message }}
+                </x-adminlte-alert>
+            @endif
             <form>
                 <input hidden wire:model="id" name="id">
                 <x-adminlte-input wire:model="name" fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
@@ -15,6 +13,13 @@
                 <x-adminlte-input wire:model="email" fgroup-class="row" label-class="text-left col-3"
                     igroup-class="col-9" igroup-size="sm" name="email" type="email" label="Email"
                     placeholder="Email" />
+                <x-adminlte-select wire:model="role" name="role" label="Role" fgroup-class="row"
+                    label-class="text-left col-3" igroup-class="col-9" igroup-size="sm">
+                    <option selected disabled>Pilih Role</option>
+                    @foreach ($roles as $item)
+                        <option value="{{ $item }}">{{ $item }}</option>
+                    @endforeach
+                </x-adminlte-select>
             </form>
             <x-slot name="footerSlot">
                 <x-adminlte-button label="Simpan" class="btn-sm" icon="fas fa-save" wire:click="save"

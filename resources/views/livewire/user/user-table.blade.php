@@ -26,6 +26,7 @@
                     <th>#</th>
                     <th>Nama</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Verify</th>
                     <th>Updated</th>
                     <th>Action</th>
@@ -37,6 +38,11 @@
                         <td scope="row">{{ $loop->index + $users->firstItem() }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>
+                            @foreach ($user->roles as $role)
+                                {{ $role->name }}
+                            @endforeach
+                        </td>
                         <td>{{ $user->email_verified_at }}</td>
                         <td>{{ $user->updated_at }}</td>
                         <td>

@@ -29,7 +29,8 @@ class UserTable extends Component
     {
         $search = '%' . $this->search . '%';
         return view('livewire.user.user-table', [
-            'users' => User::where('name', 'like', $search)
+            'users' => User::with(['roles'])
+                ->where('name', 'like', $search)
                 ->orWhere('email', 'like', $search)
                 ->orderBy($this->sortBy, $this->sortDirection)
                 ->paginate(),
