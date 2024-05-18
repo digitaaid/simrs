@@ -1,15 +1,12 @@
 <div>
-    @if ($form)
-        @livewire('user.user-form', ['id' => $id])
-    @endif
     <x-adminlte-card title="Table User" theme="secondary">
         <div class="row ">
             <div class="col-md-6">
-                <x-adminlte-button wire:click="formShow(null)" class="btn-sm" label="Tambah User" theme="success"
-                    icon="fas fa-user-plus" />
+                <a href="{{ route('user.create') }}" wire:navigate>
+                    <x-adminlte-button class="btn-sm" label="Tambah User" theme="success" icon="fas fa-user-plus" />
+                </a>
             </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Pegawai"
                     igroup-size="sm">
                     <x-slot name="appendSlot">
@@ -43,8 +40,8 @@
                         <td>{{ $user->email_verified_at }}</td>
                         <td>{{ $user->updated_at }}</td>
                         <td>
-                            <x-adminlte-button wire:click="formShow({{ $user->id }})" class="btn-xs"
-                                label="Edit" theme="warning" icon="fas fa-edit" />
+                            <x-adminlte-button wire:click="formShow({{ $user->id }})" class="btn-xs" label="Edit"
+                                theme="warning" icon="fas fa-edit" />
                         </td>
                     </tr>
                 @endforeach

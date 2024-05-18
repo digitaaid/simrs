@@ -9,19 +9,9 @@ use Livewire\WithPagination;
 class PegawaiTable extends Component
 {
     use WithPagination;
-
-    public $id = null;
-    public $form = false;
     public $search = '';
     public $sortBy = 'name';
     public $sortDirection = 'asc';
-
-    public function formShow($id = null, $form = null)
-    {
-        $this->form = $form ? true : ($this->form ? false : true);
-        $this->id =  $id;
-    }
-
     public function sort($field)
     {
         if ($this->sortBy === $field) {
@@ -31,12 +21,10 @@ class PegawaiTable extends Component
         }
         $this->sortBy = $field;
     }
-
     public function placeholder()
     {
         return view('components.placeholder.placeholder-text');
     }
-
     public function render()
     {
         $search = '%' . $this->search . '%';

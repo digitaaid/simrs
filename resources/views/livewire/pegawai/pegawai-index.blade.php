@@ -7,6 +7,6 @@
         </div>
     @endif
     <div class="col-md-12">
-        <livewire:pegawai.pegawai-table lazy />
+        @livewire('pegawai.pegawai-table', ['id' => null, 'form' => false, 'search' => '', 'sortBy' => 'name', 'sortDirection' => 'asc', 'lazy' => true])
     </div>
 </div>
