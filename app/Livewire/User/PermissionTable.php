@@ -10,13 +10,6 @@ class PermissionTable extends Component
 {
     public $id, $name;
     public $form = false;
-    public function edit($id)
-    {
-        $this->form = true;
-        $permission = Permission::find($id);
-        $this->name = $permission->name;
-        $this->id = $permission->id;
-    }
     public function store()
     {
         $this->validate([
@@ -34,6 +27,13 @@ class PermissionTable extends Component
         $permission = Permission::find($id);
         $permission->delete();
         flash('Permission ' . $permission->name . ' deleted successfully.', 'success');
+    }
+    public function edit($id)
+    {
+        $this->form = true;
+        $permission = Permission::find($id);
+        $this->name = $permission->name;
+        $this->id = $permission->id;
     }
     public function openForm()
     {
@@ -53,7 +53,7 @@ class PermissionTable extends Component
     }
     public function render()
     {
-        $permissions = Permission::get();
+        $permissions = Permission::orderBy('name', 'asc')->get();
         return view('livewire.user.permission-table', compact('permissions'));
     }
 }

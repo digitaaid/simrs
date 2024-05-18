@@ -8,7 +8,7 @@
             </form>
             <x-slot name="footerSlot">
                 <x-adminlte-button label="Simpan" class="btn-sm" icon="fas fa-save" wire:click="store"
-                    wire:confirm="Apakah anda yakin ingin menyimpan permission ?" form="formUpdate" theme="success" />
+                    wire:confirm="Apakah anda yakin ingin menyimpan permission ?" theme="success" />
                 <x-adminlte-button wire:click='closeForm' class="btn-sm" label="Tutup" theme="danger"
                     icon="fas fa-times" />
             </x-slot>
