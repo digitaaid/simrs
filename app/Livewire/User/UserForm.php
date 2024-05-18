@@ -42,14 +42,11 @@ class UserForm extends Component
         $user->save();
         $message = $this->isEditMode ? 'User updated successfully.' : 'User created successfully.';
         flash($message, 'success');
-
         return redirect()->to('/user');
     }
 
     public function render()
     {
-        $title =  $this->name ? 'Edit User ' . $this->name : 'Tambah User';
-        return view('livewire.user.user-form')
-            ->title($title);
+        return view('livewire.user.user-form');
     }
 }

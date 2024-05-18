@@ -10,6 +10,29 @@ class UserTable extends Component
 {
     use WithPagination;
 
+    public $id = null;
+    public $form = false;
+    public $search = '';
+    public $sortBy = 'name';
+    public $sortDirection = 'asc';
+
+
+    public function sort($field)
+    {
+        if ($this->sortBy === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+        $this->sortBy = $field;
+    }
+
+    public function formShow($id = null, $form = null)
+    {
+        $this->form = $form ? true : ($this->form ? false : true);
+        $this->id =  $id;
+    }
+
     public function placeholder()
     {
         return view('components.placeholder.placeholder-text');
@@ -17,9 +40,12 @@ class UserTable extends Component
 
     public function render()
     {
-        return view('livewire.user.user-table')
-            ->with([
-                'users' => User::orderBy('created_at', 'desc')->paginate(),
-            ]);
+        $search = '%' . $this->search . '%';
+        return view('livewire.user.user-table', [
+            'users' => User::where('name', 'like', $search)
+                ->orWhere('email', 'like', $search)
+                ->orderBy($this->sortBy, $this->sortDirection)
+                ->paginate(),
+        ]);
     }
 }

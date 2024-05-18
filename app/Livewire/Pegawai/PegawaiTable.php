@@ -10,9 +10,17 @@ class PegawaiTable extends Component
 {
     use WithPagination;
 
+    public $id = null;
+    public $form = false;
     public $search = '';
     public $sortBy = 'name';
     public $sortDirection = 'asc';
+
+    public function formShow($id = null, $form = null)
+    {
+        $this->form = $form ? true : ($this->form ? false : true);
+        $this->id =  $id;
+    }
 
     public function sort($field)
     {

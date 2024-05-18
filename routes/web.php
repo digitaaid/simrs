@@ -35,11 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('role-permission', RolePermission::class)->name('role-permission');
     Route::get('user', UserIndex::class)->name('user.index');
-    Route::get('user/create', UserForm::class)->name('user.create');
-    Route::get('user/edit/{id}', UserForm::class)->name('user.edit');
     Route::get('pegawai', PegawaiIndex::class)->name('pegawai.index');
-    Route::get('pegawai/create', PegawaiForm::class)->name('pegawai.create');
-    Route::get('pegawai/edit/{id}', PegawaiForm::class)->name('pegawai.edit');
     Route::get('counter', Counter::class)->name('counter.index');
     Route::get('profil', ProfilIndex::class)->name('profil');
 });
