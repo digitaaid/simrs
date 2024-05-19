@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Bpjs\Antrian\RefDokter;
+use App\Livewire\Bpjs\Antrian\RefJadwalDokter;
 use App\Livewire\Bpjs\Antrian\RefPoliklinik;
 use App\Livewire\Counter;
 use App\Livewire\Integration\IntegrationForm;
@@ -50,7 +52,8 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::middleware(['can:antrian-bpjs'])->group(function () {
         Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->lazy()->name('antrian.refpoliklinik');
+        Route::get('bpjs/antrian/refdokter', RefDokter::class)->lazy()->name('antrian.refdokter');
+        Route::get('bpjs/antrian/refjadwaldokter', RefJadwalDokter::class)->name('antrian.refjadwaldokter');
     });
-    Route::get('counter', Counter::class)->name('counter.index');
     Route::get('profil', ProfilIndex::class)->lazy()->name('profil');
 });

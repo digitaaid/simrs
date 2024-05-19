@@ -15,4 +15,3 @@
 @section('content')
     {{ $slot }}
 @stop
-@section('plugins.Datatables', true)

@@ -84,9 +84,9 @@ class AntrianController extends ApiController
     public function ref_jadwal_dokter(Request $request)
     {
         try {
-            $validator = Validator::make(request()->all(), [
+            $validator = Validator::make($request->all(), [
                 "kodepoli" => "required",
-                "tanggal" =>  "required|date",
+                "tanggal" => "required|date",
             ]);
             if ($validator->fails()) {
                 return $this->sendError($validator->errors()->first(), 400);

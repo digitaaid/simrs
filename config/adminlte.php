@@ -501,12 +501,6 @@ return [
             'icon'    => 'fas fa-project-diagram',
             'submenu' => [
                 [
-                    'text' => 'Status Bridging',
-                    'icon'    => 'fas fa-info-circle',
-                    'url'  => 'statusAntrianBpjs',
-                    'shift'   => 'ml-2',
-                ],
-                [
                     'text' => 'Poliklinik',
                     'icon'    => 'fas fa-clinic-medical',
                     'url'  => 'bpjs/antrian/refpoliklinik',
@@ -515,20 +509,19 @@ return [
                 [
                     'text' => 'Dokter',
                     'icon'    => 'fas fa-user-md',
-                    'url'  => 'dokterAntrianBpjs',
+                    'url'  => 'bpjs/antrian/refdokter',
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Jadwal Dokter',
                     'icon'    => 'fas fa-calendar-alt',
-                    'url'  => 'jadwalDokterAntrianBpjs',
+                    'url'  => 'bpjs/antrian/refjadwaldokter',
                     'shift'   => 'ml-2',
-                    'can' =>  ['pendaftaran', 'bpjs', 'manajemen'],
                 ],
                 [
                     'text' => 'Cek Fingerprint Peserta',
                     'icon'    => 'fas fa-fingerprint',
-                    'url'  => 'fingerprintPeserta',
+                    'url'  => 'bpjs/antrian/',
                     'shift'   => 'ml-2',
                 ],
                 [
@@ -817,23 +810,103 @@ return [
     */
 
     'plugins' => [
+        'TempusDominusBs4' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/moment/moment.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css',
+                ],
+            ],
+        ],
         'Datatables' => [
             'active' => false,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/jquery.dataTables.min.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/dataTables.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/css/dataTables.bootstrap4.min.css',
+                ],
+            ],
+        ],
+        'DatatablesPlugins' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/buttons/js/dataTables.buttons.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/buttons/js/buttons.bootstrap4.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/buttons/js/buttons.html5.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/buttons/js/buttons.print.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/jszip/jszip.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/pdfmake/pdfmake.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/pdfmake/vfs_fonts.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/buttons/css/buttons.bootstrap4.min.css',
+                ],
+            ],
+        ],
+        'DatatablesFixedColumns' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/fixedcolumns/js/dataTables.fixedColumns.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/fixedcolumns/css/fixedColumns.bootstrap4.min.css',
                 ],
             ],
         ],
@@ -842,13 +915,18 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/select2/js/select2.full.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
+                    'asset' => true,
+                    'location' => 'vendor/select2/css/select2.min.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css',
                 ],
             ],
         ],
@@ -857,8 +935,13 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/chart.js/Chart.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/chart.js/Chart.min.css',
                 ],
             ],
         ],
@@ -867,23 +950,83 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'asset' => true,
+                    'location' => 'vendor/sweetalert2/sweetalert2.all.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css',
+                ],
+            ],
+        ],
+        'BootstrapSwitch' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/bootstrap-switch/js/bootstrap-switch.min.js',
                 ],
             ],
         ],
         'Pace' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
+                    'asset' => true,
+                    'location' => 'vendor/pace-progress/themes/blue/pace-theme-flat-top.css'
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/pace-progress/pace.min.js'
+                ],
+            ],
+        ],
+        'DateRangePicker' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' =>  'vendor/moment/moment.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/daterangepicker/daterangepicker.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/daterangepicker/daterangepicker.css',
+                ],
+            ],
+        ],
+        'EkkoLightBox' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' =>  'vendor/ekko-lightbox/ekko-lightbox.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' =>  'vendor/ekko-lightbox/ekko-lightbox.css',
+                ],
+            ],
+        ],
+        'BsCustomFileInput' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/bs-custom-file-input/bs-custom-file-input.min.js',
                 ],
             ],
         ],
