@@ -31,7 +31,10 @@ class ProfilIndex extends Component
         ]);
         flash('User updated successfully!', 'success');
     }
-
+    public function placeholder()
+    {
+        return view('components.placeholder.placeholder-text')->title('Profil');
+    }
     public function render()
     {
         return view('livewire.profil.profil-index')

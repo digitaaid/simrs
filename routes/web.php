@@ -1,6 +1,9 @@
 <?php
 
+use App\Livewire\Bpjs\Antrian\RefPoliklinik;
 use App\Livewire\Counter;
+use App\Livewire\Integration\IntegrationForm;
+use App\Livewire\Integration\IntegrationIndex;
 use App\Livewire\Pegawai\PegawaiCreate;
 use App\Livewire\Pegawai\PegawaiForm;
 use App\Livewire\Pegawai\PegawaiIndex;
@@ -35,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::middleware(['can:admin'])->group(function () {
         Route::get('role-permission', RolePermission::class)->name('role-permission');
+        Route::get('integration', IntegrationIndex::class)->name('integration.index');
         Route::get('user', UserIndex::class)->name('user.index');
         Route::get('user/create', UserForm::class)->name('user.create');
         Route::get('user/edit/{id}', UserForm::class)->name('user.edit');
@@ -44,6 +48,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pegawai/create', PegawaiForm::class)->name('pegawai.create');
         Route::get('pegawai/edit/{id}', PegawaiForm::class)->name('pegawai.edit');
     });
+    Route::middleware(['can:antrian-bpjs'])->group(function () {
+        Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->lazy()->name('antrian.refpoliklinik');
+    });
     Route::get('counter', Counter::class)->name('counter.index');
-    Route::get('profil', ProfilIndex::class)->name('profil');
+    Route::get('profil', ProfilIndex::class)->lazy()->name('profil');
 });

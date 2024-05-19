@@ -48,7 +48,7 @@ return [
     */
 
     'google_fonts' => [
-        'allowed' => true,
+        'allowed' => false,
     ],
 
     /*
@@ -84,7 +84,7 @@ return [
     */
 
     'auth_logo' => [
-        'enabled' => false,
+        'enabled' => true,
         'img' => [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'Auth Logo',
@@ -154,7 +154,7 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
+    'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
@@ -215,13 +215,13 @@ return [
     */
 
     'sidebar_mini' => 'lg',
-    'sidebar_collapse' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
-    'sidebar_nav_accordion' => true,
+    'sidebar_nav_accordion' => false,
     'sidebar_nav_animation_speed' => 300,
 
     /*
@@ -509,7 +509,7 @@ return [
                 [
                     'text' => 'Poliklinik',
                     'icon'    => 'fas fa-clinic-medical',
-                    'url'  => 'poliklikAntrianBpjs',
+                    'url'  => 'bpjs/antrian/refpoliklinik',
                     'shift'   => 'ml-2',
                 ],
                 [
@@ -758,8 +758,8 @@ return [
             'text' => 'Intergrasi',
             'url' => 'integration',
             'can' => 'admin',
-            'icon' => 'fas fa-users',
-            // 'active'  => ['user', 'user/create', 'user/edit/*'],
+            'icon' => 'fas fa-cloud-upload-alt',
+            'active'  => ['integration', 'integration/create', 'integration/edit/*'],
         ],
         [
             'text' => 'User',
