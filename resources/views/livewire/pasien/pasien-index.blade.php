@@ -14,7 +14,7 @@
                     </a>
                 </div>
                 <div class="col-md-4">
-                    <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Pegawai"
+                    <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Pasien"
                         igroup-size="sm">
                         <x-slot name="appendSlot">
                             <x-adminlte-button theme="primary" label="Cari" />
