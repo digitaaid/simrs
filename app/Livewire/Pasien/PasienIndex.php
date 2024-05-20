@@ -12,17 +12,14 @@ class PasienIndex extends Component
 {
     use WithPagination;
     public $search = '';
-    public function mount()
-    {
-    }
-    public function placeholder()
-    {
-        return view('components.placeholder.placeholder-text')->title('Pasien');
-    }
     public function render()
     {
         $search = '%' . $this->search . '%';
-        $pasiens = Pasien::paginate();
+        $pasiens = Pasien::where('nama', 'like', $search)
+            ->OrWhere('nik', 'like', $search)
+            ->OrWhere('norm', 'like', $search)
+            ->OrWhere('nomorkartu', 'like', $search)
+            ->paginate();
         return view('livewire.pasien.pasien-index', compact('pasiens'))->title('Pasien');
     }
 }

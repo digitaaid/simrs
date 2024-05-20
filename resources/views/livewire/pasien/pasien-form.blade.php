@@ -22,6 +22,8 @@
                             igroup-class="col-8" igroup-size="sm" name="nohp" label="nohp" placeholder="nohp" />
                     </div>
                     <div class="col-md-4">
+                        <x-adminlte-input wire:model="gender" fgroup-class="row" label-class="text-left col-4"
+                            igroup-class="col-8" igroup-size="sm" name="gender" label="gender" placeholder="gender" />
                         <x-adminlte-input wire:model="tempat_lahir" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="tempat_lahir" label="tempat_lahir"
                             placeholder="tempat_lahir" />
@@ -38,7 +40,8 @@
                             igroup-class="col-8" igroup-size="sm" name="jenispeserta" label="jenispeserta"
                             placeholder="jenispeserta" />
                         <x-adminlte-input wire:model="fktp" fgroup-class="row" label-class="text-left col-4"
-                            igroup-class="col-8" igroup-size="sm" name="fktp" label="fktp" placeholder="fktp" />
+                            igroup-class="col-8" igroup-size="sm" name="fktp" label="fktp"
+                            placeholder="fktp" />
                     </div>
                     <div class="col-md-4">
                         <x-adminlte-input wire:model="alamat" fgroup-class="row" label-class="text-left col-4"

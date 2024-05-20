@@ -8,15 +8,28 @@ use Livewire\Component;
 
 class PasienForm extends Component
 {
-    public $id, $norm, $nama, $nomorkartu, $nik, $idpatient,  $nohp, $gender, $tempat_lahir, $tgl_lahir, $hakkelas, $jenispeserta, $fktp, $desa_id, $kecamatan_id, $kabupaten_id, $provinsi_id, $alamat, $status = 1, $keterangan;
+    public $id, $norm, $nama, $nomorkartu, $nik, $idpatient, $nohp, $gender, $tempat_lahir, $tgl_lahir, $hakkelas, $jenispeserta, $fktp, $desa_id, $kecamatan_id, $kabupaten_id, $provinsi_id, $alamat, $status = 1, $keterangan;
     public function store()
     {
+        $this->validate([
+            'nama' => 'required',
+            'gender' => 'required',
+            'tempat_lahir' => 'required',
+            'tgl_lahir' => 'required|date',
+
+        ]);
         if ($this->id) {
             $pasien = Pasien::find($this->id);
         } else {
             $pasien = new Pasien();
+            $pasiensebelumnya  = Pasien::latest()->first()?->norm;
+            if ($pasiensebelumnya) {
+                $norm = sprintf("%06d", $pasiensebelumnya + 1);
+            } else {
+                $norm = "000001";
+            }
+            $pasien->norm =  $norm;
         }
-        $pasien->norm = $this->norm;
         $pasien->nomorkartu = $this->nomorkartu;
         $pasien->nik = $this->nik;
         $pasien->idpatient = $this->idpatient;
@@ -39,13 +52,13 @@ class PasienForm extends Component
         $pasien->pic = Auth::user()->name;
         $pasien->updated_at = now();
         $pasien->save();
-        flash('Pasien saved successfully', 'success');
+        flash('Pasien ' . $pasien->name . ' saved successfully', 'success');
         return redirect()->to('/pasien');
     }
     public function render()
     {
-        if ($this->norm) {
-            $pasien = Pasien::firstWhere('norm', $this->norm);
+        $pasien = Pasien::firstWhere('norm', $this->norm);
+        if ($pasien) {
             $this->id = $pasien->id;
             $this->nama = $pasien->nama;
             $this->nomorkartu = $pasien->nomorkartu;
@@ -65,8 +78,6 @@ class PasienForm extends Component
             $this->alamat = $pasien->alamat;
             $this->status = $pasien->status;
             $this->keterangan = $pasien->keterangan;
-        } else {
-            $this->tgl_lahir = now()->format('Y-m-d');
         }
         return view('livewire.pasien.pasien-form')->title('Pasien ' . $this->nama);
     }
