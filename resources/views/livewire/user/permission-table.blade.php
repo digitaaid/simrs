@@ -1,4 +1,9 @@
 <div>
+    @if (flash()->message)
+        <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
+            {{ flash()->message }}
+        </x-adminlte-alert>
+    @endif
     @if ($form)
         <x-adminlte-card title="Permission" theme="secondary">
             <form>
@@ -15,11 +20,6 @@
         </x-adminlte-card>
     @endif
     <x-adminlte-card title="Table Permission" theme="secondary">
-        @if (flash()->message)
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        @endif
         <div class="row">
             <div class="col-md-6">
                 <x-adminlte-button wire:click='openForm' class="btn-sm mb-3" label="Add Permission" theme="success"
@@ -39,31 +39,30 @@
                 </x-adminlte-input>
             </div>
         </div>
-        <table class="table text-nowrap table-sm table-hover table-bordered table-responsive-xl mb-3">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>Action</th>
+        @php
+            $heads = ['#', 'Name', 'Role', 'Action'];
+            $config['order'] = [0, 'desc'];
+            $config['paging'] = false;
+            $config['searching'] = false;
+            $config['info'] = false;
+            $config['scrollX'] = true;
+        @endphp
+        <x-adminlte-datatable id="table1" class="text-nowrap" :heads="$heads" :config="$config" bordered hoverable
+            compressed>
+            @foreach ($permissions as $item)
+                <tr wire:key="{{ $item->id }}">
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->name }}</td>
+                    <td></td>
+                    <td>
+                        <x-adminlte-button label="Edit" class="btn-xs" icon="fas fa-edit"
+                            wire:click="edit({{ $item->id }})" theme="warning" />
+                        <x-adminlte-button label="Hapus" class="btn-xs" icon="fas fa-trash"
+                            wire:click="destroy({{ $item->id }})"
+                            wire:confirm="Apakah anda yakin ingin menghapus permission ?" theme="danger" />
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($permissions as $item)
-                    <tr wire:key="{{ $item->id }}">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td></td>
-                        <td>
-                            <x-adminlte-button label="Edit" class="btn-xs" icon="fas fa-edit"
-                                wire:click="edit({{ $item->id }})" theme="warning" />
-                            <x-adminlte-button label="Hapus" class="btn-xs" icon="fas fa-trash"
-                                wire:click="destroy({{ $item->id }})"
-                                wire:confirm="Apakah anda yakin ingin menghapus permission ?" theme="danger" />
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+            @endforeach
+        </x-adminlte-datatable>
     </x-adminlte-card>
 </div>

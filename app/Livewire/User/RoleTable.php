@@ -12,6 +12,7 @@ class RoleTable extends Component
     public $permissions = [];
     public $selectedPermissions = [];
     public $form = false;
+    public $search = '';
     public function store()
     {
         $this->validate([
@@ -61,7 +62,10 @@ class RoleTable extends Component
     }
     public function render()
     {
-        $roles = Role::orderBy('name', 'asc')->with(['permissions'])->get();
+        $search = '%' . $this->search . '%';
+        $roles = Role::orderBy('name', 'asc')->with(['permissions'])
+            ->where('name', 'like', $search)
+            ->get();
         $this->permissions = Permission::pluck('name', 'id');
         return view('livewire.user.role-table', compact('roles'));
     }

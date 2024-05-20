@@ -14,12 +14,6 @@
                     <b class="nav-link">Nama <b class="float-right ">{{ $user->name }}</b></b>
                 </li>
                 <li class="nav-item">
-                    <b class="nav-link">Username <b class="float-right ">{{ $user->username }}</b></b>
-                </li>
-                <li class="nav-item">
-                    <b class="nav-link">Phone <b class="float-right ">{{ $user->phone }}</b></b>
-                </li>
-                <li class="nav-item">
                     <b class="nav-link">Email <b class="float-right ">{{ $user->email }}</b></b>
                 </li>
             </ul>

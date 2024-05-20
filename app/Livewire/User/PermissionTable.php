@@ -10,6 +10,7 @@ class PermissionTable extends Component
 {
     public $id, $name;
     public $form = false;
+    public $search = '';
     public function store()
     {
         $this->validate([
@@ -53,7 +54,10 @@ class PermissionTable extends Component
     }
     public function render()
     {
-        $permissions = Permission::orderBy('name', 'asc')->get();
+        $search = '%' . $this->search . '%';
+        $permissions = Permission::orderBy('name', 'asc')
+            ->where('name', 'like', $search)
+            ->get();
         return view('livewire.user.permission-table', compact('permissions'));
     }
 }
