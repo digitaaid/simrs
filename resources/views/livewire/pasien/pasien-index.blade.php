@@ -27,39 +27,34 @@
                     </x-adminlte-input>
                 </div>
             </div>
-            <table class="table text-nowrap table-sm table-hover table-bordered table-responsive-xl mb-3">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>No RM</th>
-                        <th>Nama</th>
-                        <th>NIK</th>
-                        <th>No BPJS</th>
-                        <th>IdPatient</th>
-                        <th>Updated</th>
-                        <th>Action</th>
+            @php
+                $heads = ['#', 'No RM', 'Nama Pasien', 'NIK', 'No BPJS', 'IdPatient', 'Updated', 'Action'];
+                $config['order'] = [0, 'desc'];
+                $config['paging'] = false;
+                $config['searching'] = false;
+                $config['info'] = false;
+                $config['scrollX'] = true;
+            @endphp
+            <x-adminlte-datatable id="table1" class="text-nowrap" :heads="$heads" :config="$config" bordered hoverable
+                compressed>
+                @forelse ($pasiens as $item)
+                    <tr wire:key="{{ $item->id }}">
+                        <td>{{ $loop->index + $pasiens->firstItem() }}</td>
+                        <td>{{ $item->norm }}</td>
+                        <td>{{ $item->nama }}</td>
+                        <td>{{ $item->nik }}</td>
+                        <td>{{ $item->nomorkartu }}</td>
+                        <td>{{ $item->idpatient }}</td>
+                        <td>{{ $item->updated_at }}</td>
+                        <td>
+                            <a href="{{ route('pasien.edit', $item->norm) }}" wire:navigate>
+                                <x-adminlte-button class="btn-xs" label="Edit" theme="warning" icon="fas fa-edit" />
+                            </a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pasiens as $pasien)
-                        <tr wire:key="{{ $pasien->id }}">
-                            <td>{{ $loop->index + $pasiens->firstItem() }}</td>
-                            <td>{{ $pasien->norm }}</td>
-                            <td>{{ $pasien->nama }}</td>
-                            <td>{{ $pasien->nik }}</td>
-                            <td>{{ $pasien->nomorkartu }}</td>
-                            <td>{{ $pasien->idpatient }}</td>
-                            <td>{{ $pasien->updated_at }}</td>
-                            <td>
-                                <a href="{{ route('pasien.edit', $pasien->norm) }}" wire:navigate>
-                                    <x-adminlte-button class="btn-xs" label="Edit" theme="warning"
-                                        icon="fas fa-edit" />
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                @empty
+                @endforelse
+            </x-adminlte-datatable>
             {{ $pasiens->links() }}
         </x-adminlte-card>
     </div>

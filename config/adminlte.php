@@ -468,7 +468,7 @@ return [
             'active'  => ['unit', 'unit/create', 'unit/edit/*'],
         ],
         [
-            'text' => 'Jadwal Dokter',
+            'text' => 'Jadwal Dokter Rajal',
             'url' => 'jadwaldokter',
             'icon' => 'fas fa-calendar-alt',
             'can' => 'manajemen-pelayanan',
@@ -1024,6 +1024,16 @@ return [
                     'type' => 'css',
                     'asset' => true,
                     'location' =>  'vendor/ekko-lightbox/ekko-lightbox.css',
+                ],
+            ],
+        ],
+        'InputMask' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/inputmask/inputmask.min.js',
                 ],
             ],
         ],
