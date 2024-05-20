@@ -114,8 +114,6 @@
         </x-adminlte-card>
     </div>
 </div>
-@section('plugins.TempusDominusBs4', true)
-@section('plugins.Select2', true)
 @push('js')
     <script>
         function cari() {

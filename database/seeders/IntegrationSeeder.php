@@ -25,6 +25,8 @@ class IntegrationSeeder extends Seeder
             Integration::create([
                 'slug' => Str::slug($item),
                 'name' => $item,
+                'user' => 1,
+                'pic' => 'Admin Super',
             ]);
         }
     }

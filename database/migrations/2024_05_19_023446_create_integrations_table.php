@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('user_key')->nullable();
             $table->string('secret_key')->nullable();
             $table->string('description')->nullable();
+            $table->string('user');
+            $table->string('pic');
             $table->timestamps();
         });
     }

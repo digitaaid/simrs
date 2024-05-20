@@ -6,6 +6,8 @@ use App\Livewire\Bpjs\Antrian\RefPoliklinik;
 use App\Livewire\Counter;
 use App\Livewire\Integration\IntegrationForm;
 use App\Livewire\Integration\IntegrationIndex;
+use App\Livewire\Pasien\PasienForm;
+use App\Livewire\Pasien\PasienIndex;
 use App\Livewire\Pegawai\PegawaiCreate;
 use App\Livewire\Pegawai\PegawaiForm;
 use App\Livewire\Pegawai\PegawaiIndex;
@@ -54,6 +56,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->lazy()->name('antrian.refpoliklinik');
         Route::get('bpjs/antrian/refdokter', RefDokter::class)->lazy()->name('antrian.refdokter');
         Route::get('bpjs/antrian/refjadwaldokter', RefJadwalDokter::class)->name('antrian.refjadwaldokter');
+    });
+    Route::middleware(['can:manajemen-pelayanan'])->group(function () {
+        Route::get('pasien', PasienIndex::class)->lazy()->name('pasien.index');
+        Route::get('pasien/create', PasienForm::class)->lazy()->name('pasien.create');
+        Route::get('pasien/edit/{norm}', PasienForm::class)->lazy()->name('pasien.edit');
     });
     Route::get('profil', ProfilIndex::class)->lazy()->name('profil');
 });

@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>' . env('APP_NAME') . '</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'SIMRS Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -434,65 +434,65 @@ return [
         ],
         [
             'text' => 'Pasien',
-            'url' => 'aplication',
-            'icon' => 'fas fa-users',
-            // 'can' => 'admin',
-            // 'active'  => ['user', 'user/create', 'user/edit/*'],
+            'url' => 'pasien',
+            'icon' => 'fas fa-user-injured',
+            'can' => 'manajemen-pelayanan',
+            'active'  => ['pasien', 'pasien/create', 'pasien/edit/*'],
         ],
         [
             'text' => 'Dokter',
             'url' => 'aplication',
             'icon' => 'fas fa-users',
-            // 'can' => 'admin',
+            'can' => 'manajemen-pelayanan',
             // 'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
         [
             'text' => 'Perawat',
             'url' => 'aplication',
             'icon' => 'fas fa-users',
-            // 'can' => 'admin',
+            'can' => 'manajemen-pelayanan',
             // 'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
         [
             'text' => 'Unit',
             'url' => 'aplication',
             'icon' => 'fas fa-users',
-            // 'can' => 'admin',
+            'can' => 'manajemen-pelayanan',
             // 'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
         [
             'text' => 'Jadwal Dokter',
             'url' => 'aplication',
             'icon' => 'fas fa-users',
-            // 'can' => 'admin',
+            'can' => 'manajemen-pelayanan',
             // 'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
         [
             'text' => 'Obat',
             'url' => 'aplication',
             'icon' => 'fas fa-users',
-            // 'can' => 'admin',
+            'can' => 'manajemen-farmasi',
             // 'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
         [
             'text' => 'Layanan',
             'url' => 'aplication',
             'icon' => 'fas fa-users',
-            // 'can' => 'admin',
+            'can' => 'manajemen-pelayanan',
             // 'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
         [
             'text' => 'Jaminan',
             'url' => 'aplication',
             'icon' => 'fas fa-users',
-            // 'can' => 'admin',
+            'can' => 'manajemen-pelayanan',
             // 'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
         [
             'text' => 'Diagnosa',
             'url' => 'aplication',
             'icon' => 'fas fa-users',
-            // 'can' => 'admin',
+            'can' => 'rekam-medis',
             // 'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
         // ANTRIAN BPJS
