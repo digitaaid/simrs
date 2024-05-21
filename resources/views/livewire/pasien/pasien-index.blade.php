@@ -8,10 +8,12 @@
         @if ($formImport)
             <x-adminlte-card title="Import Pasien" theme="secondary">
                 <x-adminlte-input-file wire:model='filePasienImport' name="filePasienImport"
-                    placeholder="Pilih file Import" igroup-size="sm" label="File Import Obat" />
+                    placeholder="{{ $filePasienImport ? $filePasienImport->getClientOriginalName() : 'Pilih File Pasien' }}"
+                    igroup-size="sm" label="File Import" />
                 <x-slot name="footerSlot">
                     <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
-                        theme="success" label="Import" />
+                        theme="success" label="Import"
+                        wire:confirm='Apakah anda yakin akan mengimport file pasien saat ini ?' />
                     <x-adminlte-button theme="danger" wire:click='closeFormImport' class="btn-sm" icon="fas fa-times"
                         label="Kembali" data-dismiss="modal" />
                 </x-slot>
@@ -24,8 +26,9 @@
                         <x-adminlte-button class="btn-sm" label="Tambah Pasien" theme="success"
                             icon="fas fa-user-plus" />
                     </a>
-                    <x-adminlte-button wire:click='export' class="btn-sm" label="Export" theme="primary"
-                        icon="fas fa-upload" />
+                    <x-adminlte-button wire:click='export'
+                        wire:confirm='Apakah anda yakin akan mendownload file pasien saat ini ? ' class="btn-sm"
+                        label="Export" theme="primary" icon="fas fa-upload" />
                     <x-adminlte-button wire:click='openFormImport' class="btn-sm" label="Import" theme="primary"
                         icon="fas fa-download" />
                 </div>
@@ -60,7 +63,7 @@
                     'PIC',
                     'Updated',
                 ];
-                $config['order'] = [0, 'desc'];
+                $config['order'] = [0, 'asc'];
                 $config['paging'] = false;
                 $config['searching'] = false;
                 $config['info'] = false;
@@ -96,3 +99,4 @@
         </x-adminlte-card>
     </div>
 </div>
+@section('plugins.BsCustomFileInput', true)

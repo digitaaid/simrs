@@ -19,18 +19,15 @@ class PasienIndex extends Component
     public $search = '';
     public $formImport = false;
     public $filePasienImport;
-
     public function import()
     {
-        // $this->validate([
-        //     'filePasienImport' => 'required|file',
-        // ]);
-        set_time_limit(300);
-        $excel =  Excel::import(new PasienImport, $this->filePasienImport);
-        dd($excel);
-        session()->flash('message', 'File uploaded successfully.');
+        $this->validate([
+            'filePasienImport' => 'required|mimes:xlsx'
+        ]);
+        Excel::import(new PasienImport, $this->filePasienImport->getRealPath());
+        flash('Import Pasien saved successfully', 'success');
+        return redirect()->to('/pasien');
     }
-
     public function export()
     {
         $time = now()->format('Y-m-d');
