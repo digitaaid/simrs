@@ -339,6 +339,14 @@ return [
             'icon'    => 'fas fa-hand-holding-medical',
             'submenu' => [
                 [
+                    'text' => 'Anjungan Antrian',
+                    'url' => 'anjunganantrian',
+                    'icon' => 'fas fa-desktop',
+                    'shift'   => 'ml-2',
+                    // 'can' => 'admin',
+                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                ],
+                [
                     'text' => 'Pendaftaran',
                     'url' => 'aplication',
                     'icon' => 'fas fa-users',
