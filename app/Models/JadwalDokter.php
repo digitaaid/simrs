@@ -18,5 +18,8 @@ class JadwalDokter extends Model
     {
         return $this->hasOne(Unit::class, 'kode', 'kodepoli');
     }
-
+    public function antrians()
+    {
+        return $this->hasMany(Antrian::class, 'id', 'jadwal_id');
+    }
 }
