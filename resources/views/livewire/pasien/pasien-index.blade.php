@@ -1,5 +1,13 @@
 <div class="row">
     <div class="col-md-12">
+        <div wire:loading>
+            <h3>Loading...</h3>
+            <div class="overlay">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
         @if (flash()->message)
             <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
                 {{ flash()->message }}
@@ -19,13 +27,6 @@
                 </x-slot>
             </x-adminlte-card>
         @endif
-        <div wire:loading>
-            <div class="overlay">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </div>
-        </div>
         <x-adminlte-card title="Table Pasien" theme="secondary">
             <div class="row ">
                 <div class="col-md-8">
