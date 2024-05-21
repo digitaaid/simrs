@@ -1,18 +1,7 @@
 <div class="row">
+    @include('components.layouts.loading_indicator')
+    @include('components.layouts.flash_message')
     <div class="col-md-12">
-        <div wire:loading>
-            <h3>Loading...</h3>
-            <div class="overlay">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </div>
-        </div>
-        @if (flash()->message)
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        @endif
         @if ($formImport)
             <x-adminlte-card title="Import Pasien" theme="secondary">
                 <x-adminlte-input-file wire:model='filePasienImport' name="filePasienImport"
