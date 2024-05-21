@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(IntegrationSeeder::class);
         $this->call(UnitSeeder::class);
-        Pasien::factory(100)->create();
+        // Pasien::factory(100)->create();
         Dokter::factory(10)->create();
         Perawat::factory(10)->create();
     }
