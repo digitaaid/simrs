@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Integration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 
@@ -101,6 +102,14 @@ class AntrianController extends ApiController
     }
     public function ref_poli_fingerprint()
     {
+        $url = $this->api()->base_url . "ref/poli/fp";
+        $signature = $this->signature();
+        $response = Http::withHeaders($signature)->get($url);
+        return $this->response_decrypt($response, $signature);
+    }
+    public function update_jadwal_dokter()
+    {
+        dd('lakukan update di hafis');
         $url = $this->api()->base_url . "ref/poli/fp";
         $signature = $this->signature();
         $response = Http::withHeaders($signature)->get($url);
@@ -352,16 +361,16 @@ class AntrianController extends ApiController
         return $this->response_decrypt($response, $signature);
     }
     // WS BPJS
-    // public function token(Request $request)
-    // {
-    //     if (Auth::attempt(['username' => $request->header('x-username'), 'password' => $request->header('x-password')])) {
-    //         $user = Auth::user();
-    //         $data['token'] =  $user->createToken('MyApp')->plainTextToken;
-    //         return $this->sendResponse($data, 200);
-    //     } else {
-    //         return $this->sendError("Unauthorized (Username dan Password Salah)",  401);
-    //     }
-    // }
+    public function token(Request $request)
+    {
+        if (Auth::attempt(['username' => $request->header('x-username'), 'password' => $request->header('x-password')])) {
+            $user = Auth::user();
+            $data['token'] =  $user->createToken('MyApp')->plainTextToken;
+            return $this->sendResponse($data, 200);
+        } else {
+            return $this->sendError("Unauthorized (Username dan Password Salah)",  401);
+        }
+    }
     // public function status_antrian(Request $request)
     // {
     //     // validator

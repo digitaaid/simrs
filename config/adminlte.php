@@ -326,8 +326,8 @@ return [
             'submenu' => [
                 [
                     'text' => 'Pendaftaran',
-                    'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'url' => 'pendaftaran/igd',
+                    'icon' => 'fas fa-user-plus',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
@@ -348,8 +348,8 @@ return [
                 ],
                 [
                     'text' => 'Pendaftaran',
-                    'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'url' => 'pendaftaran/rajal',
+                    'icon' => 'fas fa-user-plus',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],

@@ -16,11 +16,21 @@ class UserSeeder extends Seeder
     {
         $user = User::create([
             "name" => "Marwan Dhiaur Rahman",
+            "username" => "marwan",
             "email" => "marwandhiaurrahman@gmail.com",
+            "phone" => "089529909036",
             'password' => bcrypt('qweqweqwe'),
             'email_verified_at' => now()
         ]);
         $user->assignRole('Admin Super');
+        $user = User::create([
+            "name" => "Bridging Antrian BPJS",
+            "username" => "antrianbpjs",
+            "email" => "marwandhiaurrahman@gmail.com",
+            "phone" => "089529909036",
+            'password' => bcrypt('antrianbpjs'),
+            'email_verified_at' => now()
+        ]);
         $roles = [
             'Admin',
             'Pegawai',
@@ -28,7 +38,9 @@ class UserSeeder extends Seeder
         foreach ($roles as  $value) {
             $user = User::create([
                 "name" => $value,
+                "username" => Str::slug($value),
                 "email" => Str::slug($value) . "@gmail.com",
+                "phone" => "089529909036",
                 'password' => bcrypt(Str::slug($value)),
                 'email_verified_at' => now()
             ]);
