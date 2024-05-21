@@ -19,6 +19,13 @@
                 </x-slot>
             </x-adminlte-card>
         @endif
+        <div wire:loading>
+            <div class="overlay">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
         <x-adminlte-card title="Table Pasien" theme="secondary">
             <div class="row ">
                 <div class="col-md-8">

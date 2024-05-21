@@ -17,17 +17,17 @@ class PasienImport implements ToCollection, WithHeadingRow
                     'norm' => strtoupper($row['norm']),
                 ],
                 [
-                    'nama' => $row['nama'],
+                    'nama' => $row['nama'] ?? 'Nama Pasien Tidak Diketahui',
                     'nomorkartu' => $row['nomorkartu'],
                     'nik' => $row['nik'],
-                    'idpatient' => $row['idpatient'],
+                    'idpatient' => $row['idpatient'] ?? null,
                     'nohp' => $row['nohp'],
                     'gender' => $row['gender'],
                     'tempat_lahir' => $row['tempat_lahir'],
                     'tgl_lahir' => $row['tgl_lahir'],
-                    'hakkelas' => $row['hakkelas'],
-                    'jenispeserta' => $row['jenispeserta'],
-                    'fktp' => $row['fktp'],
+                    'hakkelas' => $row['hakkelas'] ?? null,
+                    'jenispeserta' => $row['jenispeserta'] ?? null,
+                    'fktp' => $row['fktp'] ?? null,
                     'desa_id' => $row['desa_id'],
                     'kecamatan_id' => $row['kecamatan_id'],
                     'kabupaten_id' => $row['kabupaten_id'],
@@ -36,7 +36,7 @@ class PasienImport implements ToCollection, WithHeadingRow
                     'status' => $row['status'] ?? 1,
                     'keterangan' => $row['keterangan'],
                     'user' => $row['user'],
-                    'pic' => $row['pic'],
+                    'pic' => $row['pic'] ?? 'Admin Import',
                 ]
             );
         }

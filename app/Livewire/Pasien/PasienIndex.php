@@ -21,17 +21,28 @@ class PasienIndex extends Component
     public $filePasienImport;
     public function import()
     {
-        $this->validate([
-            'filePasienImport' => 'required|mimes:xlsx'
-        ]);
-        Excel::import(new PasienImport, $this->filePasienImport->getRealPath());
-        flash('Import Pasien saved successfully', 'success');
-        return redirect()->to('/pasien');
+        try {
+            $this->validate([
+                'filePasienImport' => 'required|mimes:xlsx'
+            ]);
+            Excel::import(new PasienImport, $this->filePasienImport->getRealPath());
+            flash('Import Pasien successfully', 'success');
+            $this->formImport = false;
+            $this->filePasienImport = null;
+            return redirect()->to('/pasien');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
     }
     public function export()
     {
-        $time = now()->format('Y-m-d');
-        return Excel::download(new PasienExport, 'pasien_backup_' . $time . '.xlsx');
+        try {
+            $time = now()->format('Y-m-d');
+            return Excel::download(new PasienExport, 'pasien_backup_' . $time . '.xlsx');
+            flash('Export Pasien successfully', 'success');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
     }
     function openFormImport()
     {
@@ -40,6 +51,18 @@ class PasienIndex extends Component
     function closeFormImport()
     {
         $this->formImport = false;
+        $this->filePasienImport = null;
+    }
+    public $sortBy = 'norm';
+    public $sortDirection = 'desc';
+    public function sort($field)
+    {
+        if ($this->sortBy === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+        $this->sortBy = $field;
     }
     public function render()
     {
@@ -48,6 +71,7 @@ class PasienIndex extends Component
             ->OrWhere('nik', 'like', $search)
             ->OrWhere('norm', 'like', $search)
             ->OrWhere('nomorkartu', 'like', $search)
+            ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate();
         return view('livewire.pasien.pasien-index', compact('pasiens'))->title('Pasien');
     }
