@@ -17,7 +17,6 @@ class AnjunganAntrianCreate extends Component
 
     public function ambilantrian($jadwal)
     {
-        // dd($jadwal, $this->jenispasien, $this->tanggalperiksa);
         $jadwal = JadwalDokter::find($jadwal);
         $antrian = new Antrian();
         $antrian->jadwal_id = $jadwal->id;
@@ -30,6 +29,8 @@ class AnjunganAntrianCreate extends Component
         $antrian->nama = '';
         $antrian->jeniskunjungan = '';
         $antrian->pasienbaru = 0;
+        $antrian->taskid = 1;
+        $antrian->taskid1 = now();
         $antrian->method = 'Offline';
         $antrian->kodepoli = $jadwal->kodepoli;
         $antrian->namapoli = $jadwal->namapoli;

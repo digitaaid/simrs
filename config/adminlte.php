@@ -320,20 +320,20 @@ return [
             'url' => 'home',
             'icon' => 'fas fa-home',
         ],
-        [
-            'text'    => 'Pelayanan IGD',
-            'icon'    => 'fas fa-hand-holding-medical',
-            'submenu' => [
-                [
-                    'text' => 'Pendaftaran',
-                    'url' => 'pendaftaran/igd',
-                    'icon' => 'fas fa-user-plus',
-                    'shift'   => 'ml-2',
-                    // 'can' => 'admin',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
-                ],
-            ]
-        ],
+        // [
+        //     'text'    => 'Pelayanan IGD',
+        //     'icon'    => 'fas fa-hand-holding-medical',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Pendaftaran',
+        //             'url' => 'pendaftaran/igd',
+        //             'icon' => 'fas fa-user-plus',
+        //             'shift'   => 'ml-2',
+        //             // 'can' => 'admin',
+        //             // 'active'  => ['user', 'user/create', 'user/edit/*'],
+        //         ],
+        //     ]
+        // ],
         [
             'text'    => 'Pelayanan Rawat Jalan',
             'icon'    => 'fas fa-hand-holding-medical',
@@ -357,7 +357,7 @@ return [
                 [
                     'text' => 'Pemeriksaan Awal',
                     'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'icon' => 'fas fa-user-nurse',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
@@ -365,7 +365,7 @@ return [
                 [
                     'text' => 'Pemeriksaan Dokter',
                     'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'icon' => 'fas fa-user-md',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
@@ -373,7 +373,7 @@ return [
                 [
                     'text' => 'Pengambilan Obat',
                     'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'icon' => 'fas fa-pills',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
@@ -381,27 +381,27 @@ return [
                 [
                     'text' => 'Kasir Pembayaran',
                     'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'icon' => 'fas fa-cash-register',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
             ]
         ],
-        [
-            'text'    => 'Pelayanan Rawat Inap',
-            'icon'    => 'fas fa-hand-holding-medical',
-            'submenu' => [
-                [
-                    'text' => 'Pendaftaran',
-                    'url' => 'aplication',
-                    'icon' => 'fas fa-users',
-                    'shift'   => 'ml-2',
-                    // 'can' => 'admin',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
-                ],
-            ]
-        ],
+        // [
+        //     'text'    => 'Pelayanan Rawat Inap',
+        //     'icon'    => 'fas fa-hand-holding-medical',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Pendaftaran',
+        //             'url' => 'aplication',
+        //             'icon' => 'fas fa-users',
+        //             'shift'   => 'ml-2',
+        //             // 'can' => 'admin',
+        //             // 'active'  => ['user', 'user/create', 'user/edit/*'],
+        //         ],
+        //     ]
+        // ],
         [
             'text'    => 'Pelayanan Penunjang',
             'icon'    => 'fas fa-hand-holding-medical',
