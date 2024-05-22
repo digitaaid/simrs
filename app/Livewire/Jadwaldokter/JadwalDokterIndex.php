@@ -25,6 +25,14 @@ class JadwalDokterIndex extends Component
         6 => 'Sabtu',
         7 => 'Minggu',
     ];
+
+    public function libur(JadwalDokter $jadwal)
+    {
+        $libur = $jadwal->libur ? 0 : 1;
+        $jadwal->libur =  $libur;
+        $jadwal->save();
+        flash('Jadwal hari ' . $jadwal->namahari . ' ' . $jadwal->namadokter . ' diliburkan', 'success');
+    }
     public function destroy(JadwalDokter $jadwal)
     {
         $jadwal->delete();
