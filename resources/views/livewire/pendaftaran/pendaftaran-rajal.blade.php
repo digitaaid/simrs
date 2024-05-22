@@ -43,6 +43,8 @@
                                 label="Cari" />
                         </x-slot>
                     </x-adminlte-input-date>
+                    {{-- <x-adminlte-input name="tanggal" placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
+                    </x-adminlte-input> --}}
                 </div>
                 <div class="col-md-4">
                 </div>
@@ -96,7 +98,8 @@
                             <td>{{ $item->nama }}</td>
                             <td>
                                 <a wire:navigate href="{{ route('pendaftaran.rajal.erm', $item->kodebooking) }}">
-                                    <x-adminlte-button class="btn-xs" label="Proses" theme="success" icon="fas fa-user-plus" />
+                                    <x-adminlte-button class="btn-xs" label="Proses" theme="success"
+                                        icon="fas fa-user-plus" />
                                 </a>
                                 {{-- @switch($item->taskid)
                                     @case(1)
@@ -176,11 +179,9 @@
         </x-adminlte-card>
     </div>
 </div>
-@push('js')
-    <script>
-        function caritanggal() {
-            @this.set('tanggalperiksa', $('#tanggalperiksa').val());
-            console.log($('#tanggalperiksa').val());
-        }
-    </script>
-@endpush
+<script>
+    function caritanggal() {
+        @this.set('tanggalperiksa', $('#tanggalperiksa').val());
+    }
+</script>
+

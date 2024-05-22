@@ -825,8 +825,23 @@ return [
     */
 
     'plugins' => [
+        'Flatpicker' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/flatpickr/flatpickr.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/flatpickr/flatpickr.min.css',
+                ],
+            ],
+        ],
         'TempusDominusBs4' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -846,7 +861,7 @@ return [
             ],
         ],
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

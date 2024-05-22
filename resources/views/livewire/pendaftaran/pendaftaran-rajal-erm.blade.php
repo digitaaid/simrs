@@ -123,11 +123,13 @@
                 </a> --}}
             </x-slot>
         </x-adminlte-card>
-
+        <x-adminlte-input fgroup-class="row" label-class="text-left col-3" igroup-class="col-9" name="tgl_masuk"
+            label="Kode Kunjungan" igroup-size="sm" placeholder="Tgl Masuk"
+            value="{{ $antrian->kunjungan->kode ?? null }}" enable-old-support />
     </div>
     <div class="col-md-9">
         @if ($openformAntrian)
-            <x-adminlte-card  theme="primary" title="Antrian Pasien">
+            <x-adminlte-card theme="primary" title="Antrian Pasien">
                 <form wire:submit="editAntrian">
                     <input type="hidden" wire:model='kodebooking' name="kodebooking"
                         value="{{ $antrian->kodebooking }}">
@@ -245,7 +247,7 @@
         @endif
         @if ($openformKunjungan)
             <x-adminlte-card theme="primary" title="Kunjungan Pasien">
-                <form >
+                <form>
                     <input type="hidden" name="kodebooking" value="{{ $antrian->kodebooking }}">
                     <input type="hidden" name="antrian_id" value="{{ $antrian->id }}">
                     <div class="row">
@@ -306,14 +308,15 @@
                             <x-adminlte-input fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
                                 name="counter" label="Counter" igroup-size="sm" placeholder="Counter Kunjungan"
                                 value="{{ $antrian->kunjungan->counter ?? null }}" enable-old-support readonly />
-                            @php
+                            {{-- @php
                                 $config = ['format' => 'YYYY-MM-DD HH:mm:ss'];
-                            @endphp
-                            <x-adminlte-input-date fgroup-class="row" label-class="text-left col-3"
+                            @endphp --}}
+                            {{-- <x-adminlte-input-date fgroup-class="row" label-class="text-left col-3"
                                 igroup-class="col-9" name="tgl_masuk" igroup-size="sm" label="Tanggal Masuk"
                                 enable-old-support placeholder="Tanggal Masuk" :config="$config"
                                 value="{{ $antrian->kunjungan->tgl_masuk ?? now() }}">
-                            </x-adminlte-input-date>
+                            </x-adminlte-input-date> --}}
+
                             <x-adminlte-select igroup-size="sm" fgroup-class="row" label-class="text-left col-3"
                                 igroup-class="col-9" name="jaminan" label="Jaminan Pasien" enable-old-support>
                                 <option selected disabled>Pilih Jaminan</option>
@@ -426,7 +429,5 @@
                 </x-slot>
             </x-adminlte-card>
         @endif
-
     </div>
-
 </div>
