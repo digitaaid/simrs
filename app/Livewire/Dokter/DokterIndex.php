@@ -12,6 +12,7 @@ class DokterIndex extends Component
     public $search = '';
     public $form = false;
     public $id, $nama, $kode, $kodejkn, $nik, $user_id, $idpractitioner, $title, $gender, $sip, $image, $status, $user, $pic;
+    public $dokter;
 
     public function store()
     {
@@ -19,29 +20,28 @@ class DokterIndex extends Component
             'nama' => 'required',
             'kode' => 'required',
         ]);
-        $dokter =  Dokter::updateOrCreate(
-            [
-                'id' => $this->id,
-                'kode' => $this->kode,
-
-            ],
-            [
-                'nama' => $this->nama,
-                'kodejkn' => $this->kodejkn,
-                'nik' => $this->nik,
-                'user_id' => $this->user_id,
-                'idpractitioner' => $this->idpractitioner,
-                'title' => $this->title,
-                'user' => auth()->user()->id,
-                'pic' => auth()->user()->name,
-            ]
-        );
+        if ($this->dokter) {
+            $dokter = $this->dokter;
+        } else {
+            $dokter = new Dokter();
+        }
+        $dokter->kode = $this->kode;
+        $dokter->nama = $this->nama;
+        $dokter->kodejkn = $this->kodejkn;
+        $dokter->nik = $this->nik;
+        $dokter->idpractitioner = $this->idpractitioner;
+        $dokter->title = $this->title;
+        $dokter->sip = $this->sip;
+        $dokter->user = auth()->user()->id;
+        $dokter->pic = auth()->user()->name;
+        $dokter->save();
         $this->resetForm();
         $this->closeForm();
         flash('Dokter ' . $dokter->name . ' saved successfully', 'success');
     }
     public function edit(Dokter $dokter)
     {
+        $this->dokter = $dokter;
         $this->id = $dokter->id;
         $this->nama = $dokter->nama;
         $this->kode = $dokter->kode;
@@ -50,6 +50,9 @@ class DokterIndex extends Component
         $this->user_id = $dokter->user_id;
         $this->idpractitioner = $dokter->idpractitioner;
         $this->title = $dokter->title;
+        $this->gender = $dokter->gender;
+        $this->sip = $dokter->sip;
+        $this->status = $dokter->status;
         $this->openForm();
     }
     public function destroy(Dokter $dokter)
@@ -57,8 +60,16 @@ class DokterIndex extends Component
         $dokter->delete();
         flash('Dokter ' . $dokter->name . ' deleted successfully', 'success');
     }
+    public function nonaktif(Dokter $dokter)
+    {
+        $status = $dokter->status ? 0 : 1;
+        $dokter->status =  $status;
+        $dokter->save();
+        flash('Dokter ' . $dokter->name . ' noncactive successfully', 'success');
+    }
     public function resetForm()
     {
+        $this->dokter = null;
         $this->id = null;
         $this->nama = null;
         $this->kode = null;

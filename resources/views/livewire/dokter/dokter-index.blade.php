@@ -6,15 +6,37 @@
             </x-adminlte-alert>
         @endif
         @if ($form)
-            <x-adminlte-card title="Table item" theme="secondary">
+            <x-adminlte-card title="Identitas Dokter" theme="secondary">
                 <form>
                     <input hidden wire:model="id" name="id">
-                    <div class="col-md-6">
-                        <x-adminlte-input wire:model="nama" fgroup-class="row" label-class="text-left col-4"
-                            igroup-class="col-8" igroup-size="sm" name="nama" label="nama" placeholder="nama" />
-                        <x-adminlte-input wire:model="kode" fgroup-class="row" label-class="text-left col-4"
-                            igroup-class="col-8" igroup-size="sm" name="kode" label="kode" placeholder="kode" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <x-adminlte-input wire:model="nama" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="nama" label="nama" />
+                            <x-adminlte-input wire:model="kode" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="kode" label="kode" />
+                            <x-adminlte-input wire:model="kodejkn" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="kodejkn" label="kodejkn" />
+                            <x-adminlte-input wire:model="nik" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="nik" label="nik" />
+                            <x-adminlte-input wire:model="idpractitioner" fgroup-class="row"
+                                label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
+                                name="idpractitioner" label="idpractitioner" />
+                        </div>
+                        <div class="col-md-6">
+                            <x-adminlte-select wire:model="gender" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="gender" label="gender">
+                                <option value=null disabled>Pilih Jenis Kelamin</option>
+                                <option value="L">Laki-laki</option>
+                                <option value="P">Perempuan</option>
+                            </x-adminlte-select>
+                            <x-adminlte-input wire:model="title" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="title" label="title" />
+                            <x-adminlte-input wire:model="sip" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="sip" label="sip" />
+                        </div>
                     </div>
+
                 </form>
                 <x-slot name="footerSlot">
                     <x-adminlte-button label="Simpan" class="btn-sm" onclick="store()" icon="fas fa-save"
@@ -26,7 +48,7 @@
                 </x-slot>
             </x-adminlte-card>
         @endif
-        <x-adminlte-card title="Table item" theme="secondary">
+        <x-adminlte-card title="Table Dokter" theme="secondary">
             <div class="row ">
                 <div class="col-md-8">
                     <x-adminlte-button wire:click='openForm' class="btn-sm" label="Tambah item" theme="success"
@@ -52,8 +74,16 @@
                         <th>#</th>
                         <th>Kode</th>
                         <th>Nama</th>
-                        <th>Updated</th>
                         <th>Action</th>
+                        <th>Kode JKN</th>
+                        <th>NIK</th>
+                        <th>IdPractitioner</th>
+                        <th>Sex</th>
+                        <th>Title</th>
+                        <th>SIP</th>
+                        <th>Status</th>
+                        <th>PIC</th>
+                        <th>Updated</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,14 +92,32 @@
                             <td>{{ $loop->index + $dokters->firstItem() }}</td>
                             <td>{{ $item->kode }}</td>
                             <td>{{ $item->nama }}</td>
-                            <td>{{ $item->updated_at }}</td>
                             <td>
-                                <x-adminlte-button class="btn-xs" wire:click='edit({{ $item }})' label="Edit"
-                                    theme="warning" icon="fas fa-edit" />
+                                <x-adminlte-button class="btn-xs" wire:click='edit({{ $item }})'
+                                    label="Edit" theme="warning" icon="fas fa-edit" />
                                 <x-adminlte-button class="btn-xs" wire:click='destroy({{ $item }})'
-                                    wire:confirm="Apakah anda yakin ingin menghapus dokter ?" label="Hapus"
-                                    theme="danger" icon="fas fa-trash" />
+                                    wire:confirm="Apakah anda yakin ingin menghapus dokter ?" theme="danger"
+                                    icon="fas fa-trash" />
+                                <x-adminlte-button class="btn-xs" wire:click='nonaktif({{ $item }})'
+                                    wire:confirm="Apakah anda yakin ingin nonactive dokter ?" label="Nonaktif"
+                                    theme="danger" icon="fas fa-times" />
                             </td>
+                            <td>{{ $item->kodejkn }}</td>
+                            <td>{{ $item->nik }}</td>
+                            <td>{{ $item->idpractitioner }}</td>
+                            <td>{{ $item->gender }}</td>
+                            <td>{{ $item->title }}</td>
+                            <td>{{ $item->sip }}</td>
+                            <td>
+                                @if ($item->status)
+                                    <span class="badge badge-success">active</span>
+                                @else
+                                    <span class="badge badge-danger">nonactive</span>
+                                @endif
+                            </td>
+                            <td>{{ $item->pic }}</td>
+                            <td>{{ $item->updated_at }}</td>
+
                         </tr>
                     @endforeach
                 </tbody>
