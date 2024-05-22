@@ -351,8 +351,8 @@ return [
                     'url' => 'pendaftaran/rajal',
                     'icon' => 'fas fa-user-plus',
                     'shift'   => 'ml-2',
-                    // 'can' => 'admin',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                    // 'can' => 'pen',
+                    'active'  => ['pendaftaran/rajal', 'pendaftaran/rajal/*'],
                 ],
                 [
                     'text' => 'Pemeriksaan Awal',

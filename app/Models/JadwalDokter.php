@@ -20,6 +20,6 @@ class JadwalDokter extends Model
     }
     public function antrians()
     {
-        return $this->hasMany(Antrian::class, 'id', 'jadwal_id');
+        return $this->hasMany(Antrian::class, 'jadwal_id', 'id');
     }
 }

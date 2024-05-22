@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('hari');
             $table->string('namahari');
-            $table->string('kodepoli')->nullable();
-            $table->string('kodesubspesialis')->nullable();
+            $table->string('kodepoli');
+            $table->string('kodesubspesialis');
             $table->string('namapoli');
             $table->string('namasubspesialis');
             $table->string('kodedokter');

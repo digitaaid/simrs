@@ -102,7 +102,9 @@
                                     <td>{{ $jadwal->namadokter }}</td>
                                     <td>{{ $jadwal->jampraktek }}</td>
                                     <td>{{ $jadwal->kapasitas }}</td>
-                                    <td></td>
+                                    <td>
+                                        {{ $jadwal->antrians->where('tanggalperiksa', now()->format('Y-m-d'))->where('taskid', '!=', 99)->count() }}
+                                    </td>
                                 </tr>
                             @endforeach
                         </x-adminlte-datatable>
@@ -114,7 +116,8 @@
                         </a>
                     </div>
                     <div class="col-md-6">
-                        <a wire:navigate href="{{ route('anjunganantrian.create', ['NON-JKN', now()->format('Y-m-d')]) }}">
+                        <a wire:navigate
+                            href="{{ route('anjunganantrian.create', ['NON-JKN', now()->format('Y-m-d')]) }}">
                             <x-adminlte-button icon="fas fa-user-plus" class="btn-lg w-100" theme="success"
                                 label="Ambil Antrian Umum" />
                         </a>

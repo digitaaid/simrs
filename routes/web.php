@@ -16,6 +16,7 @@ use App\Livewire\Pegawai\PegawaiCreate;
 use App\Livewire\Pegawai\PegawaiForm;
 use App\Livewire\Pegawai\PegawaiIndex;
 use App\Livewire\Pendaftaran\PendaftaranRajal;
+use App\Livewire\Pendaftaran\PendaftaranRajalErm;
 use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Profil\ProfilIndex;
 use App\Livewire\Unit\UnitIndex;
@@ -73,15 +74,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('unit', UnitIndex::class)->name('unit.index');
         Route::get('jadwaldokter', JadwalDokterIndex::class)->name('jadwaldokter.index');
     });
+    // anjungan antrian
     Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
     Route::get('anjunganantrian/create/{jenispasien}/{tanggalperiksa}', AnjunganAntrianCreate::class)->name('anjunganantrian.create');
     Route::get('anjunganantrian/checkin/', AnjunganAntrian::class)->name('anjunganantrian.checkin');
     Route::get('anjunganantrian/print/', AnjunganAntrian::class)->name('anjunganantrian.print');
     Route::get('anjunganantrian/test/', AnjunganAntrian::class)->name('anjunganantrian.test');
-
+    // pendaftaran
     Route::get('pendaftaran/rajal', PendaftaranRajal::class)->name('pendaftaran.rajal');
-
-
-
+    Route::get('pendaftaran/rajal/{kodebooking}', PendaftaranRajalErm::class)->name('pendaftaran.rajal.erm');
     Route::get('profil', ProfilIndex::class)->lazy()->name('profil');
 });
