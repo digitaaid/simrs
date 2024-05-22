@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PendaftaranController;
 use App\Livewire\Antrian\AnjunganAntrian;
 use App\Livewire\Antrian\AnjunganAntrianCreate;
 use App\Livewire\Bpjs\Antrian\RefDokter;
@@ -77,7 +78,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
     Route::get('anjunganantrian/create/{jenispasien}/{tanggalperiksa}', AnjunganAntrianCreate::class)->name('anjunganantrian.create');
     Route::get('anjunganantrian/checkin/', AnjunganAntrian::class)->name('anjunganantrian.checkin');
-    Route::get('anjunganantrian/print/', AnjunganAntrian::class)->name('anjunganantrian.print');
+    Route::get('anjunganantrian/print/{kodebooking}', [PendaftaranController::class, 'printkarcis'])->name('anjunganantrian.print');
     Route::get('anjunganantrian/test/', AnjunganAntrian::class)->name('anjunganantrian.test');
     // pendaftaran
     Route::get('pendaftaran/rajal', PendaftaranRajal::class)->name('pendaftaran.rajal');
