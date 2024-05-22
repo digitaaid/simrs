@@ -41,13 +41,13 @@
         </div>
         @php
             $heads = ['#', 'Name', 'Role', 'Action'];
-            $config['order'] = [0, 'desc'];
+            $config['order'] = [0, 'asc'];
             $config['paging'] = false;
             $config['searching'] = false;
             $config['info'] = false;
             $config['scrollX'] = true;
         @endphp
-        <x-adminlte-datatable id="table1" class="text-nowrap" :heads="$heads" :config="$config" bordered hoverable
+        <x-adminlte-datatable id="tablePermission" class="text-nowrap" :heads="$heads" :config="$config" bordered hoverable
             compressed>
             @foreach ($permissions as $item)
                 <tr wire:key="{{ $item->id }}">

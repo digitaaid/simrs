@@ -53,13 +53,13 @@
         </div>
         @php
             $heads = ['#', 'Name', 'User', 'Action', 'Permission'];
-            $config['order'] = [0, 'desc'];
+            $config['order'] = [0, 'asc'];
             $config['paging'] = false;
             $config['searching'] = false;
             $config['info'] = false;
             $config['scrollX'] = true;
         @endphp
-        <x-adminlte-datatable id="table1" class="text-nowrap" :heads="$heads" :config="$config" bordered hoverable
+        <x-adminlte-datatable id="tableRole" class="text-nowrap" :heads="$heads" :config="$config" bordered hoverable
             compressed>
             @foreach ($roles as $item)
                 <tr wire:key="{{ $item->id }}">
