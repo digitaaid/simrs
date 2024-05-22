@@ -7,10 +7,10 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
-                                    <img src="{{ asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}" width="100">
+                                    <img src="{{ asset('kitasehat/logokitasehat-lingkar.png') }}" width="100">
                                     <div class="col">
                                         <h1>{{ env('APP_NAME') }}</h1>
-                                        <h4>{{ env('APP_NAME') }}</h4>
+                                        <h4>{{ env('APP_NAME_LONG') }}</h4>
                                     </div>
                                 </div>
                             </div>

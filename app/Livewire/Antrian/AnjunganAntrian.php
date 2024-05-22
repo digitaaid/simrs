@@ -26,7 +26,7 @@ class AnjunganAntrian extends Component
 
     public function render()
     {
-        $this->jadwals = JadwalDokter::get();
+        $this->jadwals = JadwalDokter::where('hari', now()->dayOfWeek)->get();
         return view('livewire.antrian.anjungan-antrian')->layout('components.layouts.layout_anjungan');
     }
 }

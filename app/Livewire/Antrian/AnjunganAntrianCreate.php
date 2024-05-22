@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Antrian;
 
+use App\Models\Antrian;
 use App\Models\JadwalDokter;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -16,7 +17,30 @@ class AnjunganAntrianCreate extends Component
 
     public function ambilantrian($jadwal)
     {
-        dd($jadwal, $this->jenispasien, $this->tanggalperiksa);
+        // dd($jadwal, $this->jenispasien, $this->tanggalperiksa);
+        $jadwal = JadwalDokter::find($jadwal);
+        $antrian = new Antrian();
+        $antrian->jadwal_id = $jadwal->id;
+        $antrian->jenispasien = $this->jenispasien;
+        $antrian->tanggalperiksa = $this->tanggalperiksa;
+        $antrian->nomorkartu = '';
+        $antrian->nik = '';
+        $antrian->norm = '';
+        $antrian->nohp = '';
+        $antrian->nama = '';
+        $antrian->jeniskunjungan = '';
+        $antrian->pasienbaru = 0;
+        $antrian->method = 'Offline';
+        $antrian->kodepoli = $jadwal->kodepoli;
+        $antrian->namapoli = $jadwal->namapoli;
+        $antrian->kodedokter = $jadwal->kodedokter;
+        $antrian->namadokter = $jadwal->namadokter;
+        $antiranhari = Antrian::where('tanggalperiksa', $this->tanggalperiksa)->count();
+        $antrian->kodebooking = strtoupper(uniqid());
+        $antrian->nomorantrean = 'A' . $antiranhari + 1;
+        $antrian->angkaantrean = $antiranhari + 1;
+        $antrian->save();
+        return redirect()->route('anjunganantrian.print', $antrian->kodebooking);
     }
     public function mount($jenispasien, $tanggalperiksa)
     {
