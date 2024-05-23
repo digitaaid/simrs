@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dokter;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -12,6 +13,7 @@ class HomeController extends Controller
     }
     public function  landingpage()
     {
-        return view('kitasehat');
+        $dokters = Dokter::where('status', 1)->get();
+        return view('kitasehat', compact('dokters'));
     }
 }

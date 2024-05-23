@@ -10,40 +10,48 @@
             <div class="carousel-inner" role="listbox">
 
                 <!-- Slide 1 -->
-                <div class="carousel-item active"
-                    style="background-image: url({{ asset('kitasehat/depan.jpg') }})">
+                <div class="carousel-item active" style="background-image: url({{ asset('kitasehat/depan.jpg') }})">
                     <div class="container">
-                        <h2>Welcome to <span>Klinik Utama Kita Sehat</span></h2>
-                        <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil
-                            ut
-                            aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque
-                            accusamus repellendus deleniti vel.</p>
+                        <h2>Selamat Datang di Klinik Utama Kita Sehat</h2>
+                        <p>Kami berkomitmen untuk memberikan pelayanan kesehatan terbaik bagi Anda dan keluarga. Dengan tim
+                            medis yang profesional dan berpengalaman, serta fasilitas yang lengkap dan modern, kami siap
+                            membantu Anda mencapai kesehatan optimal</p>
+                        <a href="#about" class="btn-get-started scrollto">Read More</a>
+                    </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="carousel-item" style="background-image: url({{ asset('kitasehat/ruangdokter.jpg') }})">
+                    <div class="container">
+                        <h2>Pelayanan Rawat Jalan</h2>
+                        <p>Pelayanan Rawat Jalan di Klinik Utama Kita Sehat menawarkan berbagai layanan kesehatan, termasuk
+                            poliklinik jantung dan penyakit dalam. Tim medis kami yang berpengalaman siap memberikan
+                            konsultasi dan perawatan dengan pendekatan profesional dan personal. Kami berkomitmen untuk
+                            memastikan kesehatan Anda terjaga dengan baik melalui
+                            layanan rawat jalan yang efisien dan berkualitas.</p>
                         <a href="#about" class="btn-get-started scrollto">Read More</a>
                     </div>
                 </div>
 
                 <!-- Slide 2 -->
-                <div class="carousel-item"
-                    style="background-image: url({{ asset('kitasehat/igd.jpg') }})">
+                <div class="carousel-item" style="background-image: url({{ asset('kitasehat/igd.jpg') }})">
                     <div class="container">
-                        <h2>Lorem Ipsum Dolor</h2>
-                        <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil
-                            ut
-                            aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque
-                            accusamus repellendus deleniti vel.</p>
+                        <h2>Pelayanan Instalasi Gawat Darurat</h2>
+                        <p>Pelayanan Instalasi Gawat Darurat (IGD) di Klinik Utama Kita Sehat siap melayani Anda 24 jam
+                            sehari 7 hari seminggu.</p>
                         <a href="#about" class="btn-get-started scrollto">Read More</a>
                     </div>
                 </div>
 
                 <!-- Slide 3 -->
-                <div class="carousel-item"
-                    style="background-image: url({{ asset('kitasehat/ranap1.jpg') }})">
+                <div class="carousel-item" style="background-image: url({{ asset('kitasehat/ranap1.jpg') }})">
                     <div class="container">
-                        <h2>Sequi ea ut et est quaerat</h2>
-                        <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil
-                            ut
-                            aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque
-                            accusamus repellendus deleniti vel.</p>
+                        <h2>Pelayanan Rawat Inap</h2>
+                        <p>Pelayanan Rawat Inap di Klinik Utama Kita Sehat dirancang untuk memberikan kenyamanan dan
+                            perawatan terbaik bagi pasien. Kami menawarkan kamar yang bersih dan nyaman. Tim medis kami,
+                            terdiri dari dokter
+                            spesialis dan perawat yang berpengalaman, siap memberikan perawatan yang personal dan
+                            profesional selama 24 jam. </p>
                         <a href="#about" class="btn-get-started scrollto">Read More</a>
                     </div>
                 </div>
@@ -66,40 +74,37 @@
             <div class="row">
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-                        <div class="icon"><i class="fas fa-heartbeat"></i></div>
-                        <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                        <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi
-                        </p>
+                        <div class="icon"><i class="fas fa-ambulance"></i></div>
+                        <h4 class="title"><a href="">IGD</a></h4>
+                        <p class="description">Layanan darurat 24/7 siap melayani dalam keadaan darurat.</p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
-                        <div class="icon"><i class="fas fa-pills"></i></div>
-                        <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-                        <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                        </p>
+                        <div class="icon"><i class="fas fa-user-md"></i></div>
+                        <h4 class="title"><a href="">Rawat Jalan</a></h4>
+                        <p class="description">Konsultasi dan perawatan profesional di poliklinik jantung dan penyakit
+                            dalam.</p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
-                        <div class="icon"><i class="fas fa-thermometer"></i></div>
-                        <h4 class="title"><a href="">Magni Dolores</a></h4>
-                        <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+                        <div class="icon"><i class="fas fa-procedures"></i></div>
+                        <h4 class="title"><a href="">Rawat Inap</a></h4>
+                        <p class="description">Fasilitas nyaman dengan perawatan intensif 24 jam dari tim medis
+                            berpengalaman.</p>
                     </div>
                 </div>
-
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
-                        <div class="icon"><i class="fas fa-dna"></i></div>
-                        <h4 class="title"><a href="">Nemo Enim</a></h4>
-                        <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                        <div class="icon"><i class="fas fa-vials"></i></div>
+                        <h4 class="title"><a href="">Laboratorium</a></h4>
+                        <p class="description">Layanan tes diagnostik lengkap dengan teknologi canggih dan akurat.</p>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </section><!-- End Featured Services Section -->
 
@@ -141,7 +146,8 @@
                         magna aliqua.
                     </p>
                     <ul>
-                        <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                        <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        </li>
                         <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.
                         </li>
                         <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -554,94 +560,38 @@
     <!-- ======= Doctors Section ======= -->
     <section id="doctors" class="doctors section-bg">
         <div class="container" data-aos="fade-up">
-
             <div class="section-title">
                 <h2>Doctors</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat
-                    sit in iste officiis commodi quidem hic quas.</p>
+                <p>Tim dokter kami terdiri dari ahli yang berdedikasi dan berpengalaman, siap memberikan perawatan terbaik
+                    dengan pendekatan profesional dan empati.</p>
             </div>
-
             <div class="row">
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                    <div class="member" data-aos="fade-up" data-aos-delay="100">
-                        <div class="member-img">
-                            <img src="{{ asset('medicio/assets/img/doctors/doctors-1.jpg') }}" class="img-fluid"
-                                alt="">
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
+                @foreach ($dokters as $dr)
+                    <div class="col-md-3  align-items-stretch">
+                        <div class="member" data-aos="fade-up" data-aos-delay="100">
+                            <div class="member-img">
+                                @if ($dr->gender == 'P')
+                                    <img src="{{ asset('img/dr-female.jpg') }}" width="100%"
+                                        class="img-fluid max-width" alt="">
+                                @else
+                                    <img src="{{ asset('img/dr-male.jpg') }}" width="100%" class="img-fluid max-width"
+                                        alt="">
+                                @endif
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h4>{{ $dr->nama }}</h4>
+                                <span>{{ $dr->title }}</span>
                             </div>
                         </div>
-                        <div class="member-info">
-                            <h4>Walter White</h4>
-                            <span>Chief Medical Officer</span>
-                        </div>
                     </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                    <div class="member" data-aos="fade-up" data-aos-delay="200">
-                        <div class="member-img">
-                            <img src="{{ asset('medicio/assets/img/doctors/doctors-2.jpg') }}" class="img-fluid"
-                                alt="">
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
-                            </div>
-                        </div>
-                        <div class="member-info">
-                            <h4>Sarah Jhonson</h4>
-                            <span>Anesthesiologist</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                    <div class="member" data-aos="fade-up" data-aos-delay="300">
-                        <div class="member-img">
-                            <img src="{{ asset('medicio/assets/img/doctors/doctors-3.jpg') }}" class="img-fluid"
-                                alt="">
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
-                            </div>
-                        </div>
-                        <div class="member-info">
-                            <h4>William Anderson</h4>
-                            <span>Cardiology</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                    <div class="member" data-aos="fade-up" data-aos-delay="400">
-                        <div class="member-img">
-                            <img src="{{ asset('medicio/assets/img/doctors/doctors-4.jpg') }}" class="img-fluid"
-                                alt="">
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
-                            </div>
-                        </div>
-                        <div class="member-info">
-                            <h4>Amanda Jepson</h4>
-                            <span>Neurosurgeon</span>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
-
         </div>
     </section><!-- End Doctors Section -->
 
