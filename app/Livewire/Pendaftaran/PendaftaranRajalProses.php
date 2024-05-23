@@ -18,7 +18,15 @@ class PendaftaranRajalProses extends Component
     public $openformAntrian = false;
     public $openformKunjungan = false;
     public $openformPasien = false;
-    protected $listeners = ['closeformAntrian',  'closeformKunjungan', 'closeformPasien'];
+    protected $listeners = ['closeformAntrian',  'closeformKunjungan', 'closeformPasien', 'refreshPage' => '$refresh'];
+    public function batal()
+    {
+        $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
+        $antrian->taskid = 99;
+        $antrian->user1 = auth()->user()->id;
+        $antrian->update();
+        flash('Nomor antrian ' . $antrian->nomorantrean . ' telah dibatalakan pendaftaran.', 'success');
+    }
     public function selesaiPendaftaran()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
@@ -26,6 +34,7 @@ class PendaftaranRajalProses extends Component
             $antrian->taskid = 3;
             $antrian->taskid3 = now();
             $antrian->panggil = 0;
+            $antrian->user1 = auth()->user()->id;
             $antrian->update();
             flash('Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pendaftaran.', 'success');
             return redirect()->to(route('pendaftaran.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
@@ -40,6 +49,7 @@ class PendaftaranRajalProses extends Component
             $antrian->taskid2 = now();
             $antrian->panggil = 0;
             $antrian->taskid = 2;
+            $antrian->user1 = auth()->user()->id;
             $antrian->update();
             flash('Nomor antrian ' . $antrian->nomorantrean . ' dipanggil.', 'success');
         } else {

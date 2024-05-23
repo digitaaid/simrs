@@ -46,7 +46,7 @@
                         fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
                 </div>
                 <div class="col-md-6">
-                    <x-adminlte-input wire:model='kodekunjungan' name="kodekunjungan" fgroup-class="row"
+                    <x-adminlte-input wire:model='kode' name="kode" fgroup-class="row"
                         label-class="text-left col-4" igroup-class="col-8" label="Kode Kunjungan" igroup-size="sm"
                         readonly />
                     <x-adminlte-input wire:model='counter' name="counter" fgroup-class="row"

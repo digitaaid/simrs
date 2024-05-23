@@ -14,7 +14,7 @@ use Livewire\Component;
 class ModalKunjunganRajal extends Component
 {
     public $antrian, $jaminans, $polikliniks, $dokters;
-    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $tgl_masuk, $unit, $dokter, $caramasuk, $diag_awal, $jeniskunjungan, $nomorreferensi, $sep;
+    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kode, $counter, $jaminan, $tgl_masuk, $unit, $dokter, $caramasuk, $diag_awal, $jeniskunjungan, $nomorreferensi, $sep;
     public function editKunjungan()
     {
         $antrian = Antrian::find($this->antrianId);
@@ -48,10 +48,11 @@ class ModalKunjunganRajal extends Component
         $antrian->update([
             'kunjungan_id' => $kunjungan->id,
             'kodekunjungan' => $kunjungan->kode,
-            'user1' =>auth()->user()->id,
+            'user1' => auth()->user()->id,
         ]);
         // masukan tarif
         flash('Kunjungan atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
+        $this->dispatch('refreshPage');
     }
     public function carNomorKartu()
     {
@@ -108,9 +109,19 @@ class ModalKunjunganRajal extends Component
         $this->nik = $antrian->nik;
         $this->norm = $antrian->norm;
         $this->nama = $antrian->nama;
-        $this->unit = $antrian->kodepoli;
-        $this->dokter = $antrian->kodedokter;
-        $this->jeniskunjungan = $antrian->jeniskunjungan;
+        $this->tgl_lahir = $antrian->kunjungan?->tgl_lahir;
+        $this->gender = $antrian->kunjungan?->gender;
+        $this->hakkelas = $antrian->kunjungan?->kelas;
+        $this->jenispeserta = $antrian->kunjungan?->penjamin;
+        $this->kode = $antrian->kunjungan?->kode;
+        $this->counter = $antrian->kunjungan?->counter;
+        $this->tgl_masuk = $antrian->kunjungan?->tgl_masuk;
+        $this->jaminan = $antrian->kunjungan?->jaminan;
+        $this->unit = $antrian->kunjungan?->unit;
+        $this->dokter = $antrian->kunjungan?->dokter;
+        $this->caramasuk = $antrian->kunjungan?->cara_masuk;
+        $this->diag_awal = $antrian->kunjungan?->diagnosa_awal;
+        $this->jeniskunjungan =  $antrian->kunjungan?->jeniskunjungan ?? $antrian->jeniskunjungan;
         $this->polikliniks = Unit::pluck('nama', 'kode');
         $this->dokters = Dokter::pluck('nama', 'kode');
         $this->jaminans = Jaminan::pluck('nama', 'kode');

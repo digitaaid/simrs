@@ -103,9 +103,17 @@
             @endif
         </ul>
         <x-slot name="footerSlot">
+            <a href="{{ route('pendaftaran.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
+                <x-adminlte-button class="btn-xs" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
+            </a>
             @if ($antrian?->kunjungan?->status)
-                <x-adminlte-button wire:click='selesaiPendaftaran' wire:confirm='Apakah anda yakin antrian ini telah selesai ?' label="Selesai Pendaftaran" class="btn-sm" icon="fas fa-check" theme="success" />
+                <x-adminlte-button wire:click='selesaiPendaftaran'
+                    wire:confirm='Apakah anda yakin antrian ini telah selesai ?' label="Selesai Pendaftaran"
+                    class="btn-xs" icon="fas fa-check" theme="success" />
             @endif
+            <x-adminlte-button wire:click='batal'
+                wire:confirm='Apakah anda yakin ingin membatalkan antrian dan kunjungan ini ?' label="Batal"
+                class="btn-xs" icon="fas fa-times" theme="danger" />
             {{-- <a href="{{ route('batalantrian') }}?kodebooking={{ $antrian->kodebooking }}&keterangan=Dibatalkan dipendaftaran {{ Auth::user()->name }}"
                 class="btn btn-sm btn-danger withLoad">
                 <i class="fas fa-times"></i> Batal
