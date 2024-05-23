@@ -12,60 +12,21 @@ class PemeriksaanPerawatRajalProses extends Component
     public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
     public $antrian;
     public $polikliniks, $dokters, $jaminans;
-    public $openformAntrian = false;
-    public $openformKunjungan = false;
-    public $openformPasien = false;
-    protected $listeners = ['closeformAntrian',  'closeformKunjungan', 'closeformPasien'];
-    public function selesaiPendaftaran()
+    public $openmodalAsesmenRajal = false;
+    public $openmodalPerawat = false;
+    public $openmodalDokter = false;
+    protected $listeners = ['modalAsesmenRajal',  'modalPemeriksaanPerawat', 'modalPemeriksaanDokter'];
+    public function modalAsesmenRajal()
     {
-        $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
-        if ($antrian->taskid <= 2) {
-            $antrian->taskid = 3;
-            $antrian->taskid3 = now();
-            $antrian->panggil = 0;
-            $antrian->update();
-            flash('Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pendaftaran.', 'success');
-            return redirect()->to(route('pendaftaran.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
-        } else {
-            flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
-        }
+        $this->openmodalAsesmenRajal = $this->openmodalAsesmenRajal ? false : true;
     }
-    public function panggilPendaftaran()
+    public function modalPemeriksaanPerawat()
     {
-        $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
-        if ($antrian->taskid <= 2) {
-            $antrian->taskid2 = now();
-            $antrian->panggil = 0;
-            $antrian->taskid = 2;
-            $antrian->update();
-            flash('Nomor antrian ' . $antrian->nomorantrean . ' dipanggil.', 'success');
-        } else {
-            flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
-        }
+        $this->openmodalPerawat = $this->openmodalPerawat ? false : true;
     }
-    public function formPasien()
+    public function modalPemeriksaanDokter()
     {
-        $this->openformPasien =  $this->openformPasien ? false : true;
-    }
-    public function closeformPasien()
-    {
-        $this->openformPasien = false;
-    }
-    public function formKunjungan()
-    {
-        $this->openformKunjungan = $this->openformKunjungan ? false : true;
-    }
-    public function closeformKunjungan()
-    {
-        $this->openformKunjungan = false;
-    }
-    public function formAntrian()
-    {
-        $this->openformAntrian = $this->openformAntrian ? false : true;
-    }
-    public function closeformAntrian()
-    {
-        $this->openformAntrian = false;
+        $this->openmodalDokter =  $this->openmodalDokter ? false : true;
     }
     public function mount($kodebooking)
     {
