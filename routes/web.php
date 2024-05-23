@@ -4,6 +4,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PendaftaranController;
 use App\Livewire\Antrian\AnjunganAntrian;
 use App\Livewire\Antrian\AnjunganAntrianCreate;
+use App\Livewire\Bpjs\Antrian\AntreanBelumLayani;
+use App\Livewire\Bpjs\Antrian\AntreanDokter;
+use App\Livewire\Bpjs\Antrian\AntreanKodebooking;
+use App\Livewire\Bpjs\Antrian\AntreanTanggal;
+use App\Livewire\Bpjs\Antrian\DashboardBulan;
+use App\Livewire\Bpjs\Antrian\DashboardTanggal;
+use App\Livewire\Bpjs\Antrian\ListTaskid;
 use App\Livewire\Bpjs\Antrian\RefDokter;
 use App\Livewire\Bpjs\Antrian\RefJadwalDokter;
 use App\Livewire\Bpjs\Antrian\RefPesertaFingerprint;
@@ -68,6 +75,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('bpjs/antrian/refjadwaldokter', RefJadwalDokter::class)->name('antrian.refjadwaldokter')->lazy();
         Route::get('bpjs/antrian/refpoliklinik-fingerprint', RefPoliklinikFingerprint::class)->name('antrian.refpoliklinik.fingerprint')->lazy();
         Route::get('bpjs/antrian/refpeserta-fingerprint', RefPesertaFingerprint::class)->name('antrian.refpeserta.fingerprint')->lazy();
+        Route::get('bpjs/antrian/listtaskid', ListTaskid::class)->name('antrian.listtaskid')->lazy();
+        Route::get('bpjs/antrian/dashboardtanggal', DashboardTanggal::class)->name('antrian.dashboardtanggal')->lazy();
+        Route::get('bpjs/antrian/dashboardbulan', DashboardBulan::class)->name('antrian.dashboardbulan')->lazy();
+        Route::get('bpjs/antrian/antreantanggal', AntreanTanggal::class)->name('antrian.antreantanggal')->lazy();
+        Route::get('bpjs/antrian/antreankodebooking', AntreanKodebooking::class)->name('antrian.antreankodebooking')->lazy();
+        Route::get('bpjs/antrian/antreanbelumlayani', AntreanBelumLayani::class)->name('antrian.antreanbelumlayani')->lazy();
+        Route::get('bpjs/antrian/antreandokter', AntreanDokter::class)->name('antrian.antreandokter')->lazy();
     });
     Route::middleware(['can:manajemen-pelayanan'])->group(function () {
         Route::get('pasien', PasienIndex::class)->name('pasien.index');

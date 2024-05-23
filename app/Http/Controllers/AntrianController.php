@@ -122,13 +122,13 @@ class AntrianController extends ApiController
     public function ref_pasien_fingerprint(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "jenisIdentitas" => "required",
-            "noIdentitas" =>  "required",
+            "identitas" => "required",
+            "noidentitas" =>  "required",
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first(),  400);
         }
-        $url = $this->api()->base_url . "ref/pasien/fp/identitas/" . $request->jenisIdentitas . "/noidentitas/" . $request->noIdentitas;
+        $url = $this->api()->base_url . "ref/pasien/fp/identitas/" . $request->identitas . "/noidentitas/" . $request->noidentitas;
         $signature = $this->signature();
         $response = Http::withHeaders($signature)->get($url);
         return $this->response_decrypt($response, $signature);
