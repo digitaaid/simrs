@@ -12,28 +12,28 @@
                     <div class="row">
                         <div class="col-md-6">
                             <x-adminlte-input wire:model="nama" fgroup-class="row" label-class="text-left col-4"
-                                igroup-class="col-8" igroup-size="sm" name="nama" label="nama" />
+                                igroup-class="col-8" igroup-size="sm" name="nama" label="Nama" />
                             <x-adminlte-input wire:model="kode" fgroup-class="row" label-class="text-left col-4"
-                                igroup-class="col-8" igroup-size="sm" name="kode" label="kode" />
+                                igroup-class="col-8" igroup-size="sm" name="kode" label="Kode" />
                             <x-adminlte-input wire:model="kodejkn" fgroup-class="row" label-class="text-left col-4"
-                                igroup-class="col-8" igroup-size="sm" name="kodejkn" label="kodejkn" />
+                                igroup-class="col-8" igroup-size="sm" name="kodejkn" label="Kode JKN" />
                             <x-adminlte-input wire:model="nik" fgroup-class="row" label-class="text-left col-4"
-                                igroup-class="col-8" igroup-size="sm" name="nik" label="nik" />
+                                igroup-class="col-8" igroup-size="sm" name="nik" label="NIK" />
                             <x-adminlte-input wire:model="idpractitioner" fgroup-class="row"
                                 label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
-                                name="idpractitioner" label="idpractitioner" />
+                                name="idpractitioner" label="IdPractitioner" />
                         </div>
                         <div class="col-md-6">
                             <x-adminlte-select wire:model="gender" fgroup-class="row" label-class="text-left col-4"
-                                igroup-class="col-8" igroup-size="sm" name="gender" label="gender">
+                                igroup-class="col-8" igroup-size="sm" name="gender" label="Gender">
                                 <option value=null disabled>Pilih Jenis Kelamin</option>
                                 <option value="L">Laki-laki</option>
                                 <option value="P">Perempuan</option>
                             </x-adminlte-select>
                             <x-adminlte-input wire:model="title" fgroup-class="row" label-class="text-left col-4"
-                                igroup-class="col-8" igroup-size="sm" name="title" label="title" />
+                                igroup-class="col-8" igroup-size="sm" name="title" label="Title" />
                             <x-adminlte-input wire:model="sip" fgroup-class="row" label-class="text-left col-4"
-                                igroup-class="col-8" igroup-size="sm" name="sip" label="sip" />
+                                igroup-class="col-8" igroup-size="sm" name="sip" label="SIP" />
                         </div>
                     </div>
 

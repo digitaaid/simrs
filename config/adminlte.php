@@ -190,7 +190,7 @@ return [
     |
     */
 
-    'classes_body' => '',
+    'classes_body' => 'text-sm',
     'classes_brand' => '',
     'classes_brand_text' => '',
     'classes_content_wrapper' => '',
@@ -534,9 +534,15 @@ return [
                     'shift'   => 'ml-2',
                 ],
                 [
-                    'text' => 'Cek Fingerprint Peserta',
+                    'text' => 'Poliklinik Fingerprint',
+                    'icon'    => 'fas fa-clinic-medical',
+                    'url'  => 'bpjs/antrian/refpoliklinik-fingerprint',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Peserta Fingerprint',
                     'icon'    => 'fas fa-fingerprint',
-                    'url'  => 'bpjs/antrian/',
+                    'url'  => 'bpjs/antrian/refpeserta-fingerprint',
                     'shift'   => 'ml-2',
                 ],
                 [

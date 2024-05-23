@@ -30,13 +30,12 @@ class PendaftaranRajalProses extends Component
     }
     public function formKunjungan()
     {
-        $this->openformKunjungan = true;
+        $this->openformKunjungan = $this->openformKunjungan ? false : true;
     }
     public function closeformKunjungan()
     {
         $this->openformKunjungan = false;
     }
-
     public function formAntrian()
     {
         $this->openformAntrian = $this->openformAntrian ? false : true;
@@ -48,26 +47,27 @@ class PendaftaranRajalProses extends Component
     public function mount($kodebooking)
     {
         $antrian = Antrian::firstWhere('kodebooking', $kodebooking);
-        $this->antrian = $antrian;
-        $this->kodebooking = $kodebooking;
-        $this->antrianId = $antrian->id;
-        $this->nomorkartu = $antrian->nomorkartu;
-        $this->nik = $antrian->nik;
-        $this->norm = $antrian->norm;
-        $this->nama = $antrian->nama;
-        $this->nohp = $antrian->nohp;
-        $this->tanggalperiksa = $antrian->tanggalperiksa;
-        $this->jenispasien = $antrian->jenispasien;
-        $this->kodepoli = $antrian->kodepoli;
-        $this->kodedokter = $antrian->kodedokter;
+        if ($antrian) {
+            $this->antrian = $antrian;
+            $this->kodebooking = $kodebooking;
+            $this->antrianId = $antrian->id;
+            $this->nomorkartu = $antrian->nomorkartu;
+            $this->nik = $antrian->nik;
+            $this->norm = $antrian->norm;
+            $this->nama = $antrian->nama;
+            $this->nohp = $antrian->nohp;
+            $this->tanggalperiksa = $antrian->tanggalperiksa;
+            $this->jenispasien = $antrian->jenispasien;
+            $this->kodepoli = $antrian->kodepoli;
+            $this->kodedokter = $antrian->kodedokter;
+        } else {
+            flash('Antrian tidak ditemukan.', 'danger');
+            return redirect()->route('pendaftaran.rajal');
+        }
     }
     public function render()
     {
-        // $this->antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         $pasiencount = Pasien::count();
-        // $this->polikliniks = Unit::pluck('nama', 'kode');
-        // $this->dokters = Dokter::pluck('nama', 'kode');
-        // $this->jaminans = Jaminan::pluck('nama', 'kode');
         return view('livewire.pendaftaran.pendaftaran-rajal-proses', compact('pasiencount'))->title('Pendaftaran ' . $this->antrian->nama);
     }
 }

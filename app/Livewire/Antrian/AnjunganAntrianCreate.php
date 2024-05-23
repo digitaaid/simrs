@@ -36,6 +36,7 @@ class AnjunganAntrianCreate extends Component
         $antrian->namapoli = $jadwal->namapoli;
         $antrian->kodedokter = $jadwal->kodedokter;
         $antrian->namadokter = $jadwal->namadokter;
+        $antrian->jampraktek = $jadwal->jampraktek;
         $antiranhari = Antrian::where('tanggalperiksa', $this->tanggalperiksa)->count();
         $antrian->kodebooking = strtoupper(uniqid());
         $antrian->nomorantrean = 'A' . $antiranhari + 1;

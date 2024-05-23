@@ -175,7 +175,7 @@
             </dd>
             <dt class="col-sm-3 m-0">Dokter</dt>
             <dd class="col-sm-9 m-0">
-                {{ $antrian->kunjungan ? $antrian->kunjungan->dokters->namadokter : 'Belum Kunjungan' }}
+                {{ $antrian->kunjungan ? $antrian->kunjungan->dokters->nama : 'Belum Kunjungan' }}
             </dd>
             <dt class="col-sm-3 m-0">Farmasi</dt>
             <dd class="col-sm-9 m-0">

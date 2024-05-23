@@ -6,7 +6,9 @@ use App\Livewire\Antrian\AnjunganAntrian;
 use App\Livewire\Antrian\AnjunganAntrianCreate;
 use App\Livewire\Bpjs\Antrian\RefDokter;
 use App\Livewire\Bpjs\Antrian\RefJadwalDokter;
+use App\Livewire\Bpjs\Antrian\RefPesertaFingerprint;
 use App\Livewire\Bpjs\Antrian\RefPoliklinik;
+use App\Livewire\Bpjs\Antrian\RefPoliklinikFingerprint;
 use App\Livewire\Counter;
 use App\Livewire\Dokter\DokterIndex;
 use App\Livewire\Integration\IntegrationForm;
@@ -61,9 +63,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pegawai/edit/{id}', PegawaiForm::class)->name('pegawai.edit');
     });
     Route::middleware(['can:antrian-bpjs'])->group(function () {
-        Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->name('antrian.refpoliklinik');
-        Route::get('bpjs/antrian/refdokter', RefDokter::class)->name('antrian.refdokter');
-        Route::get('bpjs/antrian/refjadwaldokter', RefJadwalDokter::class)->name('antrian.refjadwaldokter');
+        Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->name('antrian.refpoliklinik')->lazy();
+        Route::get('bpjs/antrian/refdokter', RefDokter::class)->name('antrian.refdokter')->lazy();
+        Route::get('bpjs/antrian/refjadwaldokter', RefJadwalDokter::class)->name('antrian.refjadwaldokter')->lazy();
+        Route::get('bpjs/antrian/refpoliklinik-fingerprint', RefPoliklinikFingerprint::class)->name('antrian.refpoliklinik.fingerprint')->lazy();
+        Route::get('bpjs/antrian/refpeserta-fingerprint', RefPesertaFingerprint::class)->name('antrian.refpeserta.fingerprint')->lazy();
     });
     Route::middleware(['can:manajemen-pelayanan'])->group(function () {
         Route::get('pasien', PasienIndex::class)->name('pasien.index');

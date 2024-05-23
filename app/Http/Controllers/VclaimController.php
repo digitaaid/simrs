@@ -81,7 +81,7 @@ class VclaimController extends ApiController
     // MONITORING
     public function monitoring_data_kunjungan(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "tanggal" => "required|date",
             "jenispelayanan" => "required",
         ]);
@@ -95,7 +95,7 @@ class VclaimController extends ApiController
     }
     public function monitoring_data_klaim(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "tanggalPulang" => "required|date",
             "jenisPelayanan" => "required",
             "statusKlaim" => "required",
@@ -110,7 +110,7 @@ class VclaimController extends ApiController
     }
     public function monitoring_pelayanan_peserta(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "nomorkartu" => "required",
             "tanggalMulai" => "required|date",
             "tanggalAkhir" => "required|date",
@@ -125,7 +125,7 @@ class VclaimController extends ApiController
     }
     public function monitoring_klaim_jasaraharja(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "jenisPelayanan" => "required",
             "tanggalMulai" => "required|date",
             "tanggalAkhir" => "required|date",
@@ -142,7 +142,7 @@ class VclaimController extends ApiController
     public function peserta_nomorkartu(Request $request)
     {
         try {
-            $validator = Validator::make(request()->all(), [
+            $validator = Validator::make($request->all(), [
                 "nomorkartu" => "required",
                 "tanggal" => "required|date",
             ]);
@@ -160,7 +160,7 @@ class VclaimController extends ApiController
     }
     public function peserta_nik(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "nik" => "required",
             "tanggal" => "required|date",
         ]);
@@ -175,7 +175,7 @@ class VclaimController extends ApiController
     // REFERENSI
     public function ref_diagnosa(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "diagnosa" => "required",
         ]);
         if ($validator->fails()) {
@@ -188,7 +188,7 @@ class VclaimController extends ApiController
     }
     public function ref_poliklinik(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "poliklinik" => "required",
         ]);
         if ($validator->fails()) {
@@ -201,7 +201,7 @@ class VclaimController extends ApiController
     }
     public function ref_faskes(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "nama" => "required",
             "jenisfaskes" => "required",
         ]);
@@ -217,7 +217,7 @@ class VclaimController extends ApiController
     }
     public function ref_dpjp(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "jenispelayanan" => "required",
             "tanggal" => "required|date",
             "kodespesialis" => "required",
@@ -239,7 +239,7 @@ class VclaimController extends ApiController
     }
     public function ref_kabupaten(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "kodeprovinsi" => "required",
         ]);
         if ($validator->fails()) {
@@ -252,7 +252,7 @@ class VclaimController extends ApiController
     }
     public function ref_kecamatan(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "kodekabupaten" => "required",
         ]);
         if ($validator->fails()) {
@@ -272,7 +272,7 @@ class VclaimController extends ApiController
     }
     public function ref_obat_prb(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "obat" => "required",
         ]);
         if ($validator->fails()) {
@@ -285,7 +285,7 @@ class VclaimController extends ApiController
     }
     public function ref_tindakan(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "tindakan" => "required",
         ]);
         if ($validator->fails()) {
@@ -305,7 +305,7 @@ class VclaimController extends ApiController
     }
     public function ref_dokter(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "dokter" => "required",
         ]);
         if ($validator->fails()) {
@@ -347,7 +347,7 @@ class VclaimController extends ApiController
     // RENCANA KONTROL
     public function suratkontrol_insert(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "noSEP" => "required",
             "tglRencanaKontrol" => "required|date",
             "kodeDokter" => "required",
@@ -374,7 +374,7 @@ class VclaimController extends ApiController
     }
     public function suratkontrol_update(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "noSuratKontrol" => "required",
             "noSEP" => "required",
             "kodeDokter" => "required",
@@ -403,7 +403,7 @@ class VclaimController extends ApiController
     }
     public function suratkontrol_delete(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "noSuratKontrol" => "required",
             "user" => "required",
         ]);
@@ -426,7 +426,7 @@ class VclaimController extends ApiController
     }
     public function suratkontrol_nomor(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "noSuratKontrol" => "required",
         ]);
         if ($validator->fails()) {
@@ -439,7 +439,7 @@ class VclaimController extends ApiController
     }
     public function suratkontrol_sep(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "nomorkartu" => "required",
         ]);
         if ($validator->fails()) {
@@ -457,7 +457,7 @@ class VclaimController extends ApiController
             $request['tahun'] = Carbon::parse($request->tanggal)->year;
             $request['formatfilter'] = 2;
         }
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "bulan" => "required",
             "tahun" => "required",
             "nomorkartu" => "required",
@@ -473,7 +473,7 @@ class VclaimController extends ApiController
     }
     public function suratkontrol_tanggal(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "tglawal" => "required|date",
             "tglakhir" => "required|date",
             "formatfilter" => "required",
@@ -488,7 +488,7 @@ class VclaimController extends ApiController
     }
     public function suratkontrol_poli(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "nomor" => "required",
             "jenisKontrol" => "required",
             "tglRencanaKontrol" => "required|date",
@@ -503,7 +503,7 @@ class VclaimController extends ApiController
     }
     public function suratkontrol_dokter(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "kodePoli" => "required",
             "tglRencanaKontrol" => "required",
         ]);
@@ -518,7 +518,7 @@ class VclaimController extends ApiController
     // SPRI
     public function spri_insert(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "noKartu" => "required",
             "tglRencanaKontrol" => "required|date",
             "kodeDokter" => "required",
@@ -546,7 +546,7 @@ class VclaimController extends ApiController
     // RUJUKAN
     public function rujukan_nomor(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "nomorrujukan" => "required",
         ]);
         if ($validator->fails()) {
@@ -559,7 +559,7 @@ class VclaimController extends ApiController
     }
     public function rujukan_peserta(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "nomorkartu" => "required",
         ]);
         if ($validator->fails()) {
@@ -572,7 +572,7 @@ class VclaimController extends ApiController
     }
     public function rujukan_rs_nomor(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "nomorrujukan" => "required",
         ]);
         if ($validator->fails()) {
@@ -585,7 +585,7 @@ class VclaimController extends ApiController
     }
     public function rujukan_rs_peserta(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "nomorkartu" => "required",
         ]);
         if ($validator->fails()) {
@@ -599,7 +599,7 @@ class VclaimController extends ApiController
     public function rujukan_jumlah_sep(Request $request)
     {
         // checking request
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "jenisRujukan" => "required",
             "nomorRujukan" => "required",
         ]);
@@ -613,7 +613,7 @@ class VclaimController extends ApiController
     }
     public function list_rujukan_keluar(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "tglMulai" => "required|date",
             "tglAkhir" => "required|date",
         ]);
@@ -628,7 +628,7 @@ class VclaimController extends ApiController
     // SEP
     public function sep_insert(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "noKartu" => "required",
             "noMR" => "required",
             "tglSep" => "required",
@@ -727,7 +727,7 @@ class VclaimController extends ApiController
     }
     public function sep_delete(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "noSep" => "required",
             "user" => "required",
         ]);
@@ -750,7 +750,7 @@ class VclaimController extends ApiController
     }
     public function sep_nomor(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "noSep" => "required",
         ]);
         if ($validator->fails()) {
@@ -764,7 +764,7 @@ class VclaimController extends ApiController
     }
     public function list_approval_sep(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "bulan" => "required",
             "tahun" => "required",
         ]);
@@ -778,7 +778,7 @@ class VclaimController extends ApiController
     }
     public function pengajuan_approval_sep(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "noKartu" => "required",
             "tglSep" => "required",
             "jnsPelayanan" => "required",
@@ -809,7 +809,7 @@ class VclaimController extends ApiController
     }
     public function approval_sep(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "noKartu" => "required",
             "tglSep" => "required",
             "jnsPelayanan" => "required",
@@ -841,7 +841,7 @@ class VclaimController extends ApiController
     // LPK
     public function data_lpk(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "tanggal" => "required|date",
             "jenispelayanan" => "required",
         ]);

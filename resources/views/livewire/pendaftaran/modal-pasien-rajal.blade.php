@@ -52,6 +52,11 @@
             <x-slot name="footerSlot">
                 <x-adminlte-button wire:click='closeformPasien' theme="danger" class="btn-sm" icon="fas fa-times"
                     label="Tutup" />
+                <div wire:loading>
+                    <div class="spinner-border spinner-border-sm text-primary" role="status">
+                    </div>
+                    Loading ...
+                </div>
             </x-slot>
         </x-adminlte-card>
     </div>
