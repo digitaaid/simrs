@@ -1,11 +1,11 @@
 <div class="row">
-    {{-- @if (isset($antrians))
+    @if (isset($antrians))
         <div class="col-md-12">
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <x-adminlte-small-box title="{{ $antrians->where('taskid', 2)->first()->nomorantrean ?? '-' }}"
                         text="Antrian Dilayani" theme="primary" icon="fas fa-user-injured"
-                        url="{{ route('prosespendaftaran') }}?kodebooking={{ $antrians->where('taskid', 1)->first()->kodebooking ?? '00' }}"
+                        url="{{ route('pendaftaran.rajal.proses', $antrians->where('taskid', 1)->first()->kodebooking ?? '00') }}"
                         url-text="Proses Antrian Selanjutnya" />
                 </div>
                 <div class="col-lg-3 col-6">
@@ -22,48 +22,39 @@
                 </div>
             </div>
         </div>
-    @endif --}}
+    @endif
     <div class="col-md-12">
         <x-adminlte-card title="Table Antrian Pendaftaran" theme="secondary">
             <div class="row">
                 <div class="col-md-4">
-                    @php
-                        $config = ['format' => 'YYYY-MM-DD'];
-                    @endphp
-                    <x-adminlte-input-date wire:model='tanggalperiksa' name="tanggalperiksa"
-                        value="{{ $tanggalperiksa ?? now()->format('Y-m-d') }}" placeholder="Pilih Tanggal"
-                        igroup-size="sm" :config="$config">
+                    <x-adminlte-input wire:model.change='tanggalperiksa' type="date" name="tanggalperiksa"
+                        igroup-size="sm">
+                        <x-slot name="appendSlot">
+                            <x-adminlte-button wire:click='caritanggal' theme="primary" label="Pilih" />
+                        </x-slot>
                         <x-slot name="prependSlot">
                             <div class="input-group-text text-primary">
                                 <i class="fas fa-calendar-alt"></i>
                             </div>
                         </x-slot>
+                    </x-adminlte-input>
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <x-adminlte-input name="search" placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
                         <x-slot name="appendSlot">
-                            <x-adminlte-button wire:click='caritanggal' onclick="caritanggal()" theme="primary"
-                                label="Cari" />
+                            <x-adminlte-button wire:click='caritanggal' theme="primary" label="Cari" />
                         </x-slot>
-                    </x-adminlte-input-date>
-                    {{-- <x-adminlte-input name="tanggal" placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
-                    </x-adminlte-input> --}}
-                </div>
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4">
-                    <form action="" method="get">
-                        <x-adminlte-input name="search" placeholder="Pencarian Berdasarkan Nama / No RM"
-                            igroup-size="sm">
-                            <x-slot name="appendSlot">
-                                <x-adminlte-button type="submit" theme="primary" label="Cari" />
-                            </x-slot>
-                            <x-slot name="prependSlot">
-                                <div class="input-group-text text-primary">
-                                    <i class="fas fa-search"></i>
-                                </div>
-                            </x-slot>
-                        </x-adminlte-input>
-                    </form>
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text text-primary">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-input>
                 </div>
             </div>
+
             @php
                 $heads = [
                     'No',
@@ -83,9 +74,7 @@
                     'Status',
                 ];
                 $config['order'] = [5, 'asc'];
-                $config['paging'] = false;
                 $config['scrollX'] = true;
-                $config['scrollY'] = '300px';
             @endphp
             <x-adminlte-datatable id="table1" class="text-nowrap" :heads="$heads" :config="$config" bordered
                 hoverable compressed>
@@ -97,7 +86,7 @@
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
-                                <a wire:navigate href="{{ route('pendaftaran.rajal.erm', $item->kodebooking) }}">
+                                <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
                                     <x-adminlte-button class="btn-xs" label="Proses" theme="success"
                                         icon="fas fa-user-plus" />
                                 </a>
@@ -179,9 +168,3 @@
         </x-adminlte-card>
     </div>
 </div>
-<script>
-    function caritanggal() {
-        @this.set('tanggalperiksa', $('#tanggalperiksa').val());
-    }
-</script>
-

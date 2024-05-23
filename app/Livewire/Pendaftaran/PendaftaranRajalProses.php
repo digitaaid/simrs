@@ -9,17 +9,24 @@ use App\Models\Pasien;
 use App\Models\Unit;
 use Livewire\Component;
 
-class PendaftaranRajalErm extends Component
+class PendaftaranRajalProses extends Component
 {
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien;
     public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
     public $antrian;
-    public $polikliniks,$dokters, $jaminans;
+    public $polikliniks, $dokters, $jaminans;
     public $openformAntrian = false;
     public $openformKunjungan = false;
-    public function dataPasien()
+    public $openformPasien = false;
+
+    protected $listeners = ['closeformAntrian',  'closeformKunjungan', 'closeformPasien'];
+    public function formPasien()
     {
-        dd('datapasien');
+        $this->openformPasien =  $this->openformPasien ? false : true;
+    }
+    public function closeformPasien()
+    {
+        $this->openformPasien = false;
     }
     public function formKunjungan()
     {
@@ -29,13 +36,10 @@ class PendaftaranRajalErm extends Component
     {
         $this->openformKunjungan = false;
     }
-    public function editAntrian()
-    {
-        dd($this->nomorkartu);
-    }
+
     public function formAntrian()
     {
-        $this->openformAntrian = true;
+        $this->openformAntrian = $this->openformAntrian ? false : true;
     }
     public function closeformAntrian()
     {
@@ -43,8 +47,9 @@ class PendaftaranRajalErm extends Component
     }
     public function mount($kodebooking)
     {
-        $this->kodebooking = $kodebooking;
         $antrian = Antrian::firstWhere('kodebooking', $kodebooking);
+        $this->antrian = $antrian;
+        $this->kodebooking = $kodebooking;
         $this->antrianId = $antrian->id;
         $this->nomorkartu = $antrian->nomorkartu;
         $this->nik = $antrian->nik;
@@ -58,11 +63,11 @@ class PendaftaranRajalErm extends Component
     }
     public function render()
     {
-        $this->antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
+        // $this->antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         $pasiencount = Pasien::count();
-        $this->polikliniks = Unit::pluck('nama', 'kode');
-        $this->dokters = Dokter::pluck('nama', 'kode');
+        // $this->polikliniks = Unit::pluck('nama', 'kode');
+        // $this->dokters = Dokter::pluck('nama', 'kode');
         // $this->jaminans = Jaminan::pluck('nama', 'kode');
-        return view('livewire.pendaftaran.pendaftaran-rajal-erm', compact('pasiencount'))->title('Pendaftaran ' . $this->antrian->nama);
+        return view('livewire.pendaftaran.pendaftaran-rajal-proses', compact('pasiencount'))->title('Pendaftaran ' . $this->antrian->nama);
     }
 }

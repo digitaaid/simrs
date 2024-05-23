@@ -18,7 +18,7 @@ use App\Livewire\Pegawai\PegawaiCreate;
 use App\Livewire\Pegawai\PegawaiForm;
 use App\Livewire\Pegawai\PegawaiIndex;
 use App\Livewire\Pendaftaran\PendaftaranRajal;
-use App\Livewire\Pendaftaran\PendaftaranRajalErm;
+use App\Livewire\Pendaftaran\PendaftaranRajalProses;
 use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Profil\ProfilIndex;
 use App\Livewire\Unit\UnitIndex;
@@ -82,6 +82,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('anjunganantrian/test/', AnjunganAntrian::class)->name('anjunganantrian.test');
     // pendaftaran
     Route::get('pendaftaran/rajal', PendaftaranRajal::class)->name('pendaftaran.rajal');
-    Route::get('pendaftaran/rajal/{kodebooking}', PendaftaranRajalErm::class)->name('pendaftaran.rajal.erm');
+    Route::get('pendaftaran/rajal/{kodebooking}', PendaftaranRajalProses::class)->name('pendaftaran.rajal.proses');
     Route::get('profil', ProfilIndex::class)->lazy()->name('profil');
 });
