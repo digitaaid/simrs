@@ -76,8 +76,6 @@
                     </div>
                 </div>
             </div>
-
-
         </x-adminlte-card>
     </div>
 </div>

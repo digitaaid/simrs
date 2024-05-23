@@ -30,6 +30,6 @@ class RefPesertaFingerprint extends Component
     }
     public function render()
     {
-        return view('livewire.bpjs.antrian.ref-peserta-fingerprint');
+        return view('livewire.bpjs.antrian.ref-peserta-fingerprint')->title('Peserta Fingerprint');
     }
 }

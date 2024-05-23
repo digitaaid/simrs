@@ -347,6 +347,14 @@ return [
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
+                    'text' => 'Display Antrian',
+                    'url' => 'displayantrian',
+                    'icon' => 'fas fa-desktop',
+                    'shift'   => 'ml-2',
+                    // 'can' => 'admin',
+                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                ],
+                [
                     'text' => 'Pendaftaran',
                     'url' => 'pendaftaran/rajal',
                     'icon' => 'fas fa-user-plus',

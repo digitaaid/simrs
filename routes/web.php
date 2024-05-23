@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PendaftaranController;
 use App\Livewire\Antrian\AnjunganAntrian;
@@ -55,6 +56,12 @@ Route::get('/', [HomeController::class, 'landingpage'])->name('landingpage');
 
 Auth::routes();
 
+// display antrian
+Route::get('displayantrian', [AntrianController::class, 'displayAntrian'])->name('displayantrian');
+Route::get('updatenomorantrean', [AntrianController::class, 'updatenomorantrean'])->name('updatenomorantrean');
+Route::get('displaynomor', [AntrianController::class, 'displaynomor'])->name('displaynomor');
+Route::get('getdisplayantrian', [AntrianController::class, 'getdisplayantrian'])->name('getdisplayantrian');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::middleware(['can:admin'])->group(function () {
@@ -98,6 +105,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('anjunganantrian/checkin/', AnjunganAntrian::class)->name('anjunganantrian.checkin');
     Route::get('anjunganantrian/print/{kodebooking}', [PendaftaranController::class, 'printkarcis'])->name('anjunganantrian.print');
     Route::get('anjunganantrian/test/', AnjunganAntrian::class)->name('anjunganantrian.test');
+
     // pendaftaran
     Route::get('pendaftaran/rajal', PendaftaranRajal::class)->name('pendaftaran.rajal');
     Route::get('pendaftaran/rajal/{kodebooking}', PendaftaranRajalProses::class)->name('pendaftaran.rajal.proses');

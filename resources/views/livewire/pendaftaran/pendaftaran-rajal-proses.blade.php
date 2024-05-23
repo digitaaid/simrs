@@ -1,11 +1,17 @@
 <div class="row">
     {{-- profile --}}
     <div class="col-md-12">
+        @if (flash()->message)
+            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
+                {{ flash()->message }}
+            </x-adminlte-alert>
+        @endif
         <x-adminlte-card theme="primary" theme-mode="outline">
             <a href="{{ route('pendaftaran.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
                 <x-adminlte-button class="btn-xs" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
             </a>
-            <x-adminlte-button class="btn-xs" label="Panggil Pendaftaran" theme="primary" icon="fas fa-volume" />
+            <x-adminlte-button wire:click='panggilPendaftaran' class="btn-xs" label="Panggil Pendaftaran"
+                theme="primary" icon="fas fa-microphone" />
             @include('livewire.pendaftaran.modal-profil-rajal')
         </x-adminlte-card>
     </div>

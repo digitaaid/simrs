@@ -6,8 +6,13 @@ use Livewire\Component;
 
 class ListTaskid extends Component
 {
+    public $kodebooking;
+    public function cari()
+    {
+        dd($this->kodebooking);
+    }
     public function render()
     {
-        return view('livewire.bpjs.antrian.list-taskid');
+        return view('livewire.bpjs.antrian.list-taskid')->title('List Taskid');
     }
 }

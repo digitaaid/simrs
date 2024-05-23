@@ -20,6 +20,16 @@ class PendaftaranRajalProses extends Component
     public $openformPasien = false;
 
     protected $listeners = ['closeformAntrian',  'closeformKunjungan', 'closeformPasien'];
+
+    public function panggilPendaftaran()
+    {
+        $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
+        $antrian->taskid2 = now();
+        $antrian->panggil = 0;
+        $antrian->taskid = 2;
+        $antrian->update();
+        flash('Nomor antrian ' . $antrian->nomorantrean . ' dipanggil.', 'success');
+    }
     public function formPasien()
     {
         $this->openformPasien =  $this->openformPasien ? false : true;

@@ -14,7 +14,42 @@ use Illuminate\Support\Facades\Validator;
 
 class AntrianController extends ApiController
 {
-    // // API FUNCTION
+    public function displayantrian()
+    {
+        return view('livewire.antrian.display-antrian');
+    }
+    public function displaynomor()
+    {
+        $antrian = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('kodepoli', '!=', 'FAR')->orderBy('angkaantrean', 'ASC')->get();
+        $data = [
+            "pendaftaran" => $antrian->where('taskid', 2)->first()->angkaantrean ?? "-",
+            "pendaftarankodebooking" => $antrian->where('taskid', 2)->first()->kodebooking ?? "-",
+            "pendaftaranstatus" => $antrian->where('taskid', 2)->first()->panggil ?? "-",
+            "pendaftaranselanjutnya" => $antrian->where('taskid', 1)->pluck('kodebooking', 'nomorantrean'),
+            "poliklinik" => $antrian->where('taskid', 4)->first()->angkaantrean ?? "-",
+            "poliklinikkodebooking" => $antrian->where('taskid', 4)->first()->kodebooking ?? "-",
+            "poliklinikstatus" => $antrian->where('taskid', 4)->first()->panggil ?? "-",
+            "poliklinikselanjutnya" => $antrian->where('taskid', 3)->pluck('kodebooking', 'nomorantrean',),
+            // "farmasi" => $antrian->where('taskid', 7)->first()->angkaantrean ?? "-",
+            // "farmasistatus" => $antrian->where('taskid', 7)->first()->panggil ?? "-",
+            // "farmasikodebooking" => $antrian->where('taskid', 7)->first()->kodebooking ?? "-",
+            // "farmasiselanjutnya" => $antrian->where('taskid', 6)->first()->angkaantrean ?? "-",
+        ];
+        return $this->sendResponse($data, 200);
+    }
+    public function updatenomorantrean(Request $request)
+    {
+        $antrian = Antrian::where('kodebooking', $request->kodebooking)->first();
+        if ($antrian) {
+            $antrian->update([
+                'panggil' => 1,
+            ]);
+            return $this->sendResponse('Antrian telah dipanggil', 200);
+        } else {
+            return $this->sendError('Antrian tidak ditemukan', 400);
+        }
+    }
+    // API FUNCTION
     public function api()
     {
         $api = Integration::where('slug', 'antrian-bpjs')->first();
