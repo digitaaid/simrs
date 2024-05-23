@@ -16,7 +16,10 @@ class PendaftaranRajal extends Component
     }
     public function caritanggal()
     {
-        $this->tanggalperiksa;
+        $this->validate([
+            'tanggalperiksa' => 'required|date',
+        ]);
+        $this->tanggalperiksa = $this->tanggalperiksa;
     }
     public function render()
     {

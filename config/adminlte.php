@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'use_ico_only' => false,
+    'use_ico_only' => true,
     'use_full_favicon' => false,
 
     /*
@@ -190,7 +190,7 @@ return [
     |
     */
 
-    'classes_body' => '',
+    'classes_body' => 'text-sm',
     'classes_brand' => '',
     'classes_brand_text' => '',
     'classes_content_wrapper' => '',
@@ -320,20 +320,20 @@ return [
             'url' => 'home',
             'icon' => 'fas fa-home',
         ],
-        [
-            'text'    => 'Pelayanan IGD',
-            'icon'    => 'fas fa-hand-holding-medical',
-            'submenu' => [
-                [
-                    'text' => 'Pendaftaran',
-                    'url' => 'pendaftaran/igd',
-                    'icon' => 'fas fa-user-plus',
-                    'shift'   => 'ml-2',
-                    // 'can' => 'admin',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
-                ],
-            ]
-        ],
+        // [
+        //     'text'    => 'Pelayanan IGD',
+        //     'icon'    => 'fas fa-hand-holding-medical',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Pendaftaran',
+        //             'url' => 'pendaftaran/igd',
+        //             'icon' => 'fas fa-user-plus',
+        //             'shift'   => 'ml-2',
+        //             // 'can' => 'admin',
+        //             // 'active'  => ['user', 'user/create', 'user/edit/*'],
+        //         ],
+        //     ]
+        // ],
         [
             'text'    => 'Pelayanan Rawat Jalan',
             'icon'    => 'fas fa-hand-holding-medical',
@@ -341,6 +341,14 @@ return [
                 [
                     'text' => 'Anjungan Antrian',
                     'url' => 'anjunganantrian',
+                    'icon' => 'fas fa-desktop',
+                    'shift'   => 'ml-2',
+                    // 'can' => 'admin',
+                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                ],
+                [
+                    'text' => 'Display Antrian',
+                    'url' => 'displayantrian',
                     'icon' => 'fas fa-desktop',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
@@ -355,25 +363,26 @@ return [
                     'active'  => ['pendaftaran/rajal', 'pendaftaran/rajal/*'],
                 ],
                 [
-                    'text' => 'Pemeriksaan Awal',
-                    'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'text' => 'Pemeriksaan Perawat',
+                    'url' => 'pemeriksaan/perawat/rajal',
+                    'icon' => 'fas fa-user-nurse',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                    'active'  => ['pemeriksaan/perawat/rajal', 'pemeriksaan/perawat/rajal*'],
                 ],
                 [
                     'text' => 'Pemeriksaan Dokter',
-                    'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'url' => 'pemeriksaan/dokter/rajal',
+                    'icon' => 'fas fa-user-md',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                    'active'  => ['pemeriksaan/dokter/rajal', 'pemeriksaan/dokter/rajal*'],
+
                 ],
                 [
                     'text' => 'Pengambilan Obat',
                     'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'icon' => 'fas fa-pills',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
@@ -381,27 +390,27 @@ return [
                 [
                     'text' => 'Kasir Pembayaran',
                     'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'icon' => 'fas fa-cash-register',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
             ]
         ],
-        [
-            'text'    => 'Pelayanan Rawat Inap',
-            'icon'    => 'fas fa-hand-holding-medical',
-            'submenu' => [
-                [
-                    'text' => 'Pendaftaran',
-                    'url' => 'aplication',
-                    'icon' => 'fas fa-users',
-                    'shift'   => 'ml-2',
-                    // 'can' => 'admin',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
-                ],
-            ]
-        ],
+        // [
+        //     'text'    => 'Pelayanan Rawat Inap',
+        //     'icon'    => 'fas fa-hand-holding-medical',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Pendaftaran',
+        //             'url' => 'aplication',
+        //             'icon' => 'fas fa-users',
+        //             'shift'   => 'ml-2',
+        //             // 'can' => 'admin',
+        //             // 'active'  => ['user', 'user/create', 'user/edit/*'],
+        //         ],
+        //     ]
+        // ],
         [
             'text'    => 'Pelayanan Penunjang',
             'icon'    => 'fas fa-hand-holding-medical',
@@ -534,39 +543,45 @@ return [
                     'shift'   => 'ml-2',
                 ],
                 [
-                    'text' => 'Cek Fingerprint Peserta',
+                    'text' => 'Poliklinik Fingerprint',
+                    'icon'    => 'fas fa-clinic-medical',
+                    'url'  => 'bpjs/antrian/refpoliklinik-fingerprint',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Peserta Fingerprint',
                     'icon'    => 'fas fa-fingerprint',
-                    'url'  => 'bpjs/antrian/',
+                    'url'  => 'bpjs/antrian/refpeserta-fingerprint',
                     'shift'   => 'ml-2',
                 ],
+                // [
+                //     'text' => 'Anjungan Antrian',
+                //     'icon'    => 'fas fa-desktop',
+                //     'url'  => 'anjunganantrian',
+                //     'shift'   => 'ml-2',
+                // ],
+                // [
+                //     'text' => 'Antrian',
+                //     'icon'    => 'fas fa-hospital-user',
+                //     'url'  => 'antrianBpjs',
+                //     'shift'   => 'ml-2',
+                // ],
                 [
-                    'text' => 'Anjungan Antrian',
-                    'icon'    => 'fas fa-desktop',
-                    'url'  => 'anjunganantrian',
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Antrian',
-                    'icon'    => 'fas fa-hospital-user',
-                    'url'  => 'antrianBpjs',
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'List Task',
+                    'text' => 'List Taskid',
                     'icon'    => 'fas fa-user-clock',
-                    'url'  => 'listTaskID',
+                    'url'  => 'bpjs/antrian/listtaskid',
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Dasboard Tanggal',
                     'icon'    => 'fas fa-calendar-day',
-                    'url'  => 'dashboardTanggalAntrian',
+                    'url'  => 'bpjs/antrian/dashboardtanggal',
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Dashboard Bulan',
                     'icon'    => 'fas fa-calendar-week',
-                    'url'  => 'dashboardBulanAntrian',
+                    'url'  => 'bpjs/antrian/dashboardbulan',
                     'shift'   => 'ml-2',
                 ],
                 // [
@@ -579,31 +594,25 @@ return [
                 [
                     'text' => 'Antrian Per Tanggal',
                     'icon'    => 'fas fa-calendar-day',
-                    'url'  => 'antrianPerTanggal',
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Monitoring Antrian',
-                    'icon'    => 'fas fa-calendar-day',
-                    'url'  => 'monitoringAntrian',
+                    'url'  => 'bpjs/antrian/antreantanggal',
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Antrian Per Kodebooking',
                     'icon'    => 'fas fa-calendar-day',
-                    'url'  => 'antrianPerKodebooking',
+                    'url'  => 'bpjs/antrian/antreankodebooking',
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Antrian Belum  Dilayani',
                     'icon'    => 'fas fa-calendar-day',
-                    'url'  => 'antrianBelumDilayani',
+                    'url'  => 'bpjs/antrian/antreanbelumlayani',
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Antrian Per Dokter',
                     'icon'    => 'fas fa-calendar-day',
-                    'url'  => 'antrianPerDokter',
+                    'url'  => 'bpjs/antrian/antreandokter',
                     'shift'   => 'ml-2',
                 ],
 
@@ -825,8 +834,23 @@ return [
     */
 
     'plugins' => [
+        'Flatpicker' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/flatpickr/flatpickr.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/flatpickr/flatpickr.min.css',
+                ],
+            ],
+        ],
         'TempusDominusBs4' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -846,7 +870,7 @@ return [
             ],
         ],
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -976,7 +1000,7 @@ return [
             ],
         ],
         'BootstrapSwitch' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

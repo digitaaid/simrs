@@ -13,6 +13,44 @@ return new class extends Migration
     {
         Schema::create('kunjungans', function (Blueprint $table) {
             $table->id();
+            $table->string('kode')->unique()->index();
+            $table->integer('counter');
+            $table->datetime('tgl_masuk');
+            $table->datetime('tgl_pulang')->nullable();
+            $table->string('jaminan');
+            // identitas pasien
+            $table->string('nomorkartu');
+            $table->string('norm');
+            $table->string('nama');
+            $table->date('tgl_lahir');
+            $table->string('gender');
+            $table->string('kelas');
+            $table->string('penjamin');
+
+            $table->string('unit');
+            $table->string('dokter');
+
+            $table->string('jeniskunjungan');
+            $table->string('nomorreferensi')->nullable();
+            $table->string('sep')->nullable();
+
+            $table->string('diagnosa_awal')->nullable();
+            $table->string('diagnosa1')->nullable();
+            $table->string('diagnosa2')->nullable();
+
+            $table->string('cara_masuk');
+            $table->string('alasan_pulang')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->string('catatan')->nullable();
+            $table->string('status');
+            $table->string('idencounter')->nullable();
+            $table->string('idcondititon')->nullable();
+            $table->string('user1')->nullable(); #pendaftaran
+            $table->string('user2')->nullable(); #perawat
+            $table->string('user3')->nullable(); #dokter
+            $table->string('user4')->nullable(); #farmasi
+            $table->string('user5')->nullable(); #rm
+            $table->string('user6')->nullable(); #keuangan
             $table->timestamps();
         });
     }

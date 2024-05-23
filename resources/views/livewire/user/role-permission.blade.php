@@ -7,9 +7,9 @@
         </div>
     @endif
     <div class="col-md-6">
-        @livewire('user.role-table',['lazy' => true])
+        @livewire('user.role-table')
     </div>
     <div class="col-md-6">
-        @livewire('user.permission-table', ['lazy' => true])
+        @livewire('user.permission-table')
     </div>
 </div>

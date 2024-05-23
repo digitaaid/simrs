@@ -11,7 +11,7 @@ use Livewire\WithPagination;
 class JadwalDokterIndex extends Component
 {
     use WithPagination;
-    public $id, $hari, $dokter, $unit, $jampraktek, $kapasitas;
+    public $id, $hari, $dokter, $unit, $jampraktek, $mulai, $selesai, $kapasitas;
     public JadwalDokter $jadwal;
     public $form = false;
     public $dokters = [];
@@ -25,6 +25,13 @@ class JadwalDokterIndex extends Component
         6 => 'Sabtu',
         7 => 'Minggu',
     ];
+    public function libur(JadwalDokter $jadwal)
+    {
+        $libur = $jadwal->libur ? 0 : 1;
+        $jadwal->libur =  $libur;
+        $jadwal->save();
+        flash('Jadwal hari ' . $jadwal->namahari . ' ' . $jadwal->namadokter . ' diliburkan', 'success');
+    }
     public function destroy(JadwalDokter $jadwal)
     {
         $jadwal->delete();
@@ -36,7 +43,8 @@ class JadwalDokterIndex extends Component
         $this->hari = $jadwal->hari;
         $this->dokter = $jadwal->kodedokter;
         $this->unit = $jadwal->kodepoli;
-        $this->jampraktek = $jadwal->jampraktek;
+        $this->mulai = explode('-', $jadwal->jampraktek)[0];
+        $this->selesai = explode('-', $jadwal->jampraktek)[1];
         $this->kapasitas = $jadwal->kapasitas;
         $this->form = true;
     }
@@ -46,7 +54,8 @@ class JadwalDokterIndex extends Component
             'hari' => 'required',
             'dokter' => 'required',
             'unit' => 'required',
-            'jampraktek' => 'required',
+            'mulai' => 'required',
+            'selesai' => 'required',
             'kapasitas' => 'required',
         ]);
         $jadwal = JadwalDokter::updateOrCreate(
@@ -58,7 +67,7 @@ class JadwalDokterIndex extends Component
                 'kodedokter' => $this->dokter,
                 'kodepoli' => $this->unit,
                 'kodesubspesialis' => $this->unit,
-                'jampraktek' => $this->jampraktek,
+                'jampraktek' => $this->mulai . '-' . $this->selesai,
                 'namahari' => $this->haris[$this->hari],
                 'namapoli' => $this->units[$this->unit],
                 'namasubspesialis' => $this->units[$this->unit],
@@ -73,7 +82,6 @@ class JadwalDokterIndex extends Component
     }
     public function openForm()
     {
-
         $this->form = true;
     }
     public function closeForm()

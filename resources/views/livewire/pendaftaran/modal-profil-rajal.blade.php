@@ -20,19 +20,19 @@
     @break
 
     @case(5)
-        Tunggu Farmasi
+        <x-adminlte-button class="btn-xs" label="{{ $antrian->taskid }}. Tunggu Farmasi" theme="warning" />
     @break
 
     @case(6)
-        Proses Farmasi
+        <x-adminlte-button class="btn-xs" label="{{ $antrian->taskid }}. Proses Racik Obat" theme="primary" />
     @break
 
     @case(7)
-        Selesai Pelayanan
+        <x-adminlte-button class="btn-xs" label="{{ $antrian->taskid }}. Selesai" theme="success" />
     @break
 
     @case(99)
-        Batal
+        <x-adminlte-button class="btn-xs" label="{{ $antrian->taskid }}. Batal" theme="danger" />
     @break
 
     @default
@@ -175,7 +175,7 @@
             </dd>
             <dt class="col-sm-3 m-0">Dokter</dt>
             <dd class="col-sm-9 m-0">
-                {{ $antrian->kunjungan ? $antrian->kunjungan->dokters->namadokter : 'Belum Kunjungan' }}
+                {{ $antrian->kunjungan ? $antrian->kunjungan->dokters->nama : 'Belum Kunjungan' }}
             </dd>
             <dt class="col-sm-3 m-0">Farmasi</dt>
             <dd class="col-sm-9 m-0">

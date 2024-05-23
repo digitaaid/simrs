@@ -9,41 +9,35 @@ use Livewire\Component;
 
 class ProfilIndex extends Component
 {
-    // public $user;
-    public $id;
-    public $name;
-    public $email;
-
-    public function mount()
-    {
-        $user = Auth::user();
-        $this->id = $user->id;
-        $this->name = $user->name;
-        $this->email = $user->email;
-    }
-
+    public $user;
+    public $id, $name, $email, $phone, $username;
     public function save()
     {
-        $user = User::findOrFail($this->id);
-        $user->update([
-            'name' => $this->name,
-            'email' => $this->email,
-        ]);
+        $user = Auth::user();
+        $user->name = $this->name;
+        $user->username = $this->username;
+        $user->phone = $this->phone;
+        $user->email = $this->email;
+        $user->save();
         flash('User updated successfully!', 'success');
     }
-    public function placeholder()
+    public function resetForm()
     {
-        return view('components.placeholder.placeholder-text')->title('Profil');
+        $this->name = null;
+        $this->email = null;
+        $this->phone = null;
+        $this->username = null;
     }
     public function render()
     {
+        $user = Auth::user();
+        $this->user = $user;
+        $this->id = $user->id;
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->phone = $user->phone;
+        $this->username = $user->username;
         return view('livewire.profil.profil-index')
-            ->with([
-                'user' => Auth::user(),
-                'id' => Auth::user()->id,
-                'name' => Auth::user()->name,
-                'email' => Auth::user()->email,
-            ])
             ->title('Profil');
     }
 }
