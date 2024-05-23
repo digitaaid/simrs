@@ -7,7 +7,7 @@
                 </a>
             </div>
             <div class="col-md-4">
-                <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Pegawai"
+                <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian USer"
                     igroup-size="sm">
                     <x-slot name="appendSlot">
                         <x-adminlte-button theme="primary" label="Cari" />
@@ -25,6 +25,8 @@
                 <tr>
                     <th>#</th>
                     <th>Nama</th>
+                    <th>Username</th>
+                    <th>Phone</th>
                     <th>Email</th>
                     <th>Role</th>
                     <th>Verify</th>
@@ -37,6 +39,8 @@
                     <tr wire:key="{{ $user->id }}">
                         <td scope="row">{{ $loop->index + $users->firstItem() }}</td>
                         <td>{{ $user->name }}</td>
+                        <td>{{ $user->username }}</td>
+                        <td>{{ $user->phone }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
                             @foreach ($user->roles as $role)

@@ -11,37 +11,31 @@
         <x-adminlte-card title="Table Referensi Dokter" theme="secondary">
             <div class="row">
                 <div class="col-md-3">
-                    <div wire:ignore>
-                        <x-adminlte-select2 wire:model="kodepoli" name="kodepoli" igroup-size="sm">
-                            @forelse ($polikliniks as $item)
-                                <option value="{{ $item->kdpoli }}">{{ $item->nmsubspesialis }}</option>
-                            @empty
-                            @endforelse
-                            <x-slot name="prependSlot">
-                                <div class="input-group-text text-primary">
-                                    <i class="fas fa-clinic-medical"></i>
-                                </div>
-                            </x-slot>
-                        </x-adminlte-select2>
-                    </div>
+                    <x-adminlte-input wire:model="kodepoli" list="search" name="kodepoli" placeholder="Pencarian Dokter"
+                        igroup-size="sm">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text text-primary">
+                                <i class="fas fa-clinic-medical"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-input>
+                    <datalist id="search">
+                        @foreach ($polikliniks as $item)
+                            <option value="{{ $item->kdpoli }}">{{ $item->nmsubspesialis }}</option>
+                        @endforeach
+                    </datalist>
                 </div>
                 <div class="col-md-3">
-                    @php
-                        $config = ['format' => 'YYYY-MM-DD'];
-                    @endphp
-                    <x-adminlte-input-date wire:model="tanggal" name="tanggalperiksa"
-                        value="{{ now()->format('Y-m-d') }}" placeholder="Pilih Tanggal" igroup-size="sm"
-                        :config="$config">
+                    <x-adminlte-input wire:model="tanggal" type="date" name="tanggal" igroup-size="sm">
+                        <x-slot name="appendSlot">
+                            <x-adminlte-button wire:click='cari' theme="primary" label="Cari" />
+                        </x-slot>
                         <x-slot name="prependSlot">
                             <div class="input-group-text text-primary">
                                 <i class="fas fa-calendar-alt"></i>
                             </div>
                         </x-slot>
-                        <x-slot name="appendSlot">
-                            <x-adminlte-button class="btn-sm" wire:click='cari' onclick="cari()" type="submit"
-                                theme="primary" label="Cari" />
-                        </x-slot>
-                    </x-adminlte-input-date>
+                    </x-adminlte-input>
                 </div>
                 <div class="col-md-6">
                 </div>
@@ -114,13 +108,3 @@
         </x-adminlte-card>
     </div>
 </div>
-@push('js')
-    <script>
-        function cari() {
-            @this.set('tanggal', $('#tanggalperiksa').val());
-            @this.set('kodepoli', $('#kodepoli').val());
-            console.log($('#kodepoli').val());
-            console.log($('#tanggalperiksa').val());
-        }
-    </script>
-@endpush

@@ -8,11 +8,7 @@ use Livewire\Component;
 class RefDokter extends Component
 {
     public $dokters = [];
-    public function placeholder()
-    {
-        return view('components.placeholder.placeholder-text')->title('Referensi Dokter');
-    }
-    public function render()
+    public function mount()
     {
         $api = new AntrianController();
         $res  = $api->ref_dokter();
@@ -21,6 +17,13 @@ class RefDokter extends Component
         } else {
             flash($res->metadata->message, 'danger');
         }
+    }
+    public function placeholder()
+    {
+        return view('components.placeholder.placeholder-text')->title('Referensi Dokter');
+    }
+    public function render()
+    {
         return view('livewire.bpjs.antrian.ref-dokter')
             ->title('Referensi Dokter');
     }

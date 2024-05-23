@@ -1,12 +1,22 @@
 <?php
 
+use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PendaftaranController;
 use App\Livewire\Antrian\AnjunganAntrian;
 use App\Livewire\Antrian\AnjunganAntrianCreate;
+use App\Livewire\Bpjs\Antrian\AntreanBelumLayani;
+use App\Livewire\Bpjs\Antrian\AntreanDokter;
+use App\Livewire\Bpjs\Antrian\AntreanKodebooking;
+use App\Livewire\Bpjs\Antrian\AntreanTanggal;
+use App\Livewire\Bpjs\Antrian\DashboardBulan;
+use App\Livewire\Bpjs\Antrian\DashboardTanggal;
+use App\Livewire\Bpjs\Antrian\ListTaskid;
 use App\Livewire\Bpjs\Antrian\RefDokter;
 use App\Livewire\Bpjs\Antrian\RefJadwalDokter;
+use App\Livewire\Bpjs\Antrian\RefPesertaFingerprint;
 use App\Livewire\Bpjs\Antrian\RefPoliklinik;
+use App\Livewire\Bpjs\Antrian\RefPoliklinikFingerprint;
 use App\Livewire\Counter;
 use App\Livewire\Dokter\DokterIndex;
 use App\Livewire\Integration\IntegrationForm;
@@ -18,7 +28,11 @@ use App\Livewire\Pegawai\PegawaiCreate;
 use App\Livewire\Pegawai\PegawaiForm;
 use App\Livewire\Pegawai\PegawaiIndex;
 use App\Livewire\Pendaftaran\PendaftaranRajal;
-use App\Livewire\Pendaftaran\PendaftaranRajalErm;
+use App\Livewire\Pendaftaran\PendaftaranRajalProses;
+use App\Livewire\Dokter\PemeriksaanDokterRajal;
+use App\Livewire\Dokter\PemeriksaanDokterRajalProses;
+use App\Livewire\Perawat\PemeriksaanPerawatRajal;
+use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
 use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Profil\ProfilIndex;
 use App\Livewire\Unit\UnitIndex;
@@ -46,8 +60,15 @@ Route::get('/', [HomeController::class, 'landingpage'])->name('landingpage');
 
 Auth::routes();
 
+// display antrian
+Route::get('displayantrian', [AntrianController::class, 'displayAntrian'])->name('displayantrian');
+Route::get('updatenomorantrean', [AntrianController::class, 'updatenomorantrean'])->name('updatenomorantrean');
+Route::get('displaynomor', [AntrianController::class, 'displaynomor'])->name('displaynomor');
+Route::get('getdisplayantrian', [AntrianController::class, 'getdisplayantrian'])->name('getdisplayantrian');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('profil', ProfilIndex::class)->lazy()->name('profil');
     Route::middleware(['can:admin'])->group(function () {
         Route::get('role-permission', RolePermission::class)->name('role-permission');
         Route::get('integration', IntegrationIndex::class)->name('integration.index');
@@ -61,9 +82,18 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pegawai/edit/{id}', PegawaiForm::class)->name('pegawai.edit');
     });
     Route::middleware(['can:antrian-bpjs'])->group(function () {
-        Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->name('antrian.refpoliklinik');
-        Route::get('bpjs/antrian/refdokter', RefDokter::class)->name('antrian.refdokter');
-        Route::get('bpjs/antrian/refjadwaldokter', RefJadwalDokter::class)->name('antrian.refjadwaldokter');
+        Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->name('antrian.refpoliklinik')->lazy();
+        Route::get('bpjs/antrian/refdokter', RefDokter::class)->name('antrian.refdokter')->lazy();
+        Route::get('bpjs/antrian/refjadwaldokter', RefJadwalDokter::class)->name('antrian.refjadwaldokter')->lazy();
+        Route::get('bpjs/antrian/refpoliklinik-fingerprint', RefPoliklinikFingerprint::class)->name('antrian.refpoliklinik.fingerprint')->lazy();
+        Route::get('bpjs/antrian/refpeserta-fingerprint', RefPesertaFingerprint::class)->name('antrian.refpeserta.fingerprint')->lazy();
+        Route::get('bpjs/antrian/listtaskid', ListTaskid::class)->name('antrian.listtaskid')->lazy();
+        Route::get('bpjs/antrian/dashboardtanggal', DashboardTanggal::class)->name('antrian.dashboardtanggal')->lazy();
+        Route::get('bpjs/antrian/dashboardbulan', DashboardBulan::class)->name('antrian.dashboardbulan')->lazy();
+        Route::get('bpjs/antrian/antreantanggal', AntreanTanggal::class)->name('antrian.antreantanggal')->lazy();
+        Route::get('bpjs/antrian/antreankodebooking', AntreanKodebooking::class)->name('antrian.antreankodebooking')->lazy();
+        Route::get('bpjs/antrian/antreanbelumlayani', AntreanBelumLayani::class)->name('antrian.antreanbelumlayani')->lazy();
+        Route::get('bpjs/antrian/antreandokter', AntreanDokter::class)->name('antrian.antreandokter')->lazy();
     });
     Route::middleware(['can:manajemen-pelayanan'])->group(function () {
         Route::get('pasien', PasienIndex::class)->name('pasien.index');
@@ -82,6 +112,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('anjunganantrian/test/', AnjunganAntrian::class)->name('anjunganantrian.test');
     // pendaftaran
     Route::get('pendaftaran/rajal', PendaftaranRajal::class)->name('pendaftaran.rajal');
-    Route::get('pendaftaran/rajal/{kodebooking}', PendaftaranRajalErm::class)->name('pendaftaran.rajal.erm');
-    Route::get('profil', ProfilIndex::class)->lazy()->name('profil');
+    Route::get('pendaftaran/rajal/{kodebooking}', PendaftaranRajalProses::class)->name('pendaftaran.rajal.proses');
+    // pemeriksaan perawat
+    Route::get('pemeriksaan/perawat/rajal', PemeriksaanPerawatRajal::class)->name('pemeriksaan.perawat.rajal');
+    Route::get('pemeriksaan/perawat/rajal/{kodebooking}', PemeriksaanPerawatRajalProses::class)->name('pemeriksaan.perawat.rajal.proses');
+    Route::get('pemeriksaan/dokter/rajal', PemeriksaanDokterRajal::class)->name('pemeriksaan.dokter.rajal');
+    Route::get('pemeriksaan/dokter/rajal/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('pemeriksaan.dokter.rajal.proses');
 });

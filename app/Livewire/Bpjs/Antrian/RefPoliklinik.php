@@ -8,11 +8,7 @@ use Livewire\Component;
 class RefPoliklinik extends Component
 {
     public $polikliniks = [];
-    public function placeholder()
-    {
-        return view('components.placeholder.placeholder-text')->title('Referensi Poliklinik');
-    }
-    public function render()
+    public function mount()
     {
         $api = new AntrianController();
         $res  = $api->ref_poli();
@@ -21,6 +17,13 @@ class RefPoliklinik extends Component
         } else {
             flash($res->metadata->message, 'danger');
         }
+    }
+    public function placeholder()
+    {
+        return view('components.placeholder.placeholder-text')->title('Referensi Poliklinik');
+    }
+    public function render()
+    {
         return view('livewire.bpjs.antrian.ref-poliklinik')->title('Referensi Poliklinik');
     }
 }

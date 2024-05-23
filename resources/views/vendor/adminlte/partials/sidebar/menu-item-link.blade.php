@@ -1,7 +1,5 @@
 <li @isset($item['id']) id="{{ $item['id'] }}" @endisset class="nav-item">
-
-    <a wire:navigate
-        class="nav-link {{ $item['class'] }} @isset($item['shift']) {{ $item['shift'] }} @endisset"
+    <a class="nav-link {{ $item['class'] }} @isset($item['shift']) {{ $item['shift'] }} @endisset"
         href="{{ $item['href'] }}" @isset($item['target']) target="{{ $item['target'] }}" @endisset
         {!! $item['data-compiled'] ?? '' !!}>
 
@@ -17,7 +15,5 @@
                 </span>
             @endisset
         </p>
-
     </a>
-
 </li>

@@ -26,11 +26,7 @@ class RefJadwalDokter extends Component
             flash($res->metadata->message, 'danger');
         }
     }
-    public function placeholder()
-    {
-        return view('components.placeholder.placeholder-text')->title('Referensi Jadwal Dokter');
-    }
-    public function render()
+    public function mount()
     {
         $api = new AntrianController();
         $res  = $api->ref_poli();
@@ -39,6 +35,13 @@ class RefJadwalDokter extends Component
         } else {
             flash($res->metadata->message, 'danger');
         }
+    }
+    public function placeholder()
+    {
+        return view('components.placeholder.placeholder-text')->title('Referensi Jadwal Dokter');
+    }
+    public function render()
+    {
         return view('livewire.bpjs.antrian.ref-jadwal-dokter')->title('Referensi Jadwal Dokter');
     }
 }

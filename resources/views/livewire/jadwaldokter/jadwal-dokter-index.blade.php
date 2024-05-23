@@ -6,50 +6,7 @@
             </x-adminlte-alert>
         @endif
         @if ($form)
-            <x-adminlte-card title="Jadwal Dokter Rawat Jalan" theme="secondary">
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="hidden" wire:model="id" name="id">
-                        <x-adminlte-select fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
-                            wire:model="hari" igroup-size="sm" name="dokter" label="dokter">
-                            @forelse ($haris as $kode =>  $nama)
-                                <option value="{{ $kode }}">{{ $nama }}</option>
-                            @empty
-                                <option disabled>Data Hari Tidak Ditemukan</option>
-                            @endforelse
-                        </x-adminlte-select>
-                        <x-adminlte-select fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
-                            wire:model="dokter" igroup-size="sm" name="dokter" label="dokter">
-                            @forelse ($dokters as $kode =>  $nama)
-                                <option value="{{ $kode }}">{{ $nama }}</option>
-                            @empty
-                                <option disabled>Data Dokter Tidak Ditemukan</option>
-                            @endforelse
-                        </x-adminlte-select>
-                        <x-adminlte-select fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
-                            wire:model="unit" igroup-size="sm" name="unit" label="unit">
-                            @forelse ($units as $kode =>  $nama)
-                                <option value="{{ $kode }}">{{ $nama }}</option>
-                            @empty
-                                <option disabled>Data Unit Tidak Ditemukan</option>
-                            @endforelse
-                        </x-adminlte-select>
-                        <x-adminlte-input wire:model="jampraktek" fgroup-class="row" label-class="text-left col-3"
-                            igroup-class="col-9" igroup-size="sm" name="jampraktek" label="jampraktek"
-                            placeholder="jampraktek" />
-                        <x-adminlte-input wire:model="kapasitas" fgroup-class="row" label-class="text-left col-3"
-                            igroup-class="col-9" igroup-size="sm" name="kapasitas" label="kapasitas"
-                            placeholder="kapasitas" />
-                    </div>
-                    <div class="col-md-6"></div>
-                </div>
-                <x-slot name="footerSlot">
-                    <x-adminlte-button label="Simpan" class="btn-sm" icon="fas fa-save" wire:click="store"
-                        wire:confirm="Apakah anda yakin ingin menyimpan permission ?" theme="success" />
-                    <x-adminlte-button wire:click='closeForm' class="btn-sm" label="Tutup" theme="danger"
-                        icon="fas fa-times" />
-                </x-slot>
-            </x-adminlte-card>
+          @include('livewire.jadwaldokter.form-jadwal-dokter')
         @endif
         <x-adminlte-card title="Table Jadwal Dokter Rawat Jalan" theme="secondary">
             <div class="row ">
@@ -78,10 +35,10 @@
                         <th>Hari</th>
                         <th>Dokter</th>
                         <th>Unit</th>
+                        <th>Action</th>
                         <th>Jampraktek</th>
                         <th>Kapasitas</th>
                         <th>Libur</th>
-                        <th>Action</th>
                         <th>PIC</th>
                         <th>Updated</th>
                     </tr>
@@ -93,15 +50,24 @@
                             <td>{{ $item->namahari }}</td>
                             <td>{{ $item->namadokter }}</td>
                             <td>{{ $item->namapoli }}</td>
-                            <td>{{ $item->jampraktek }}</td>
-                            <td>{{ $item->kapasitas }}</td>
-                            <td>{{ $item->libur }}</td>
                             <td>
                                 <x-adminlte-button label="Edit" class="btn-xs" icon="fas fa-edit"
                                     wire:click="edit({{ $item }})" theme="warning" />
-                                <x-adminlte-button label="Hapus" class="btn-xs" icon="fas fa-trash"
+                                <x-adminlte-button class="btn-xs" icon="fas fa-trash"
                                     wire:click="destroy({{ $item }})"
                                     wire:confirm="Apakah anda yakin ingin menghapus jadwal ?" theme="danger" />
+                                <x-adminlte-button label="Libur" class="btn-xs" icon="fas fa-times"
+                                    wire:click="libur({{ $item }})"
+                                    wire:confirm="Apakah anda yakin ingin meliburkan jadwal ?" theme="danger" />
+                            </td>
+                            <td>{{ $item->jampraktek }}</td>
+                            <td>{{ $item->kapasitas }}</td>
+                            <td>
+                                @if ($item->libur)
+                                    <span class="badge badge-danger">Libur</span>
+                                @else
+                                    <span class="badge badge-success">Masuk</span>
+                                @endif
                             </td>
                             <td>{{ $item->pic }}</td>
                             <td>{{ $item->updated_at }}</td>

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <x-adminlte-card title="Identitas Pegawai" theme="secondary">
+        <x-adminlte-card title="Identitas Pasien" theme="secondary">
             <form>
                 <div class="row">
                     <input hidden wire:model="id" name="id">
@@ -22,8 +22,12 @@
                             igroup-class="col-8" igroup-size="sm" name="nohp" label="nohp" placeholder="nohp" />
                     </div>
                     <div class="col-md-4">
-                        <x-adminlte-input wire:model="gender" fgroup-class="row" label-class="text-left col-4"
-                            igroup-class="col-8" igroup-size="sm" name="gender" label="gender" placeholder="gender" />
+                        <x-adminlte-select wire:model="gender" fgroup-class="row" label-class="text-left col-4"
+                            igroup-class="col-8" igroup-size="sm" name="gender" label="gender">
+                            <option value=null disabled>Pilih Jenis Kelamin</option>
+                            <option value="L">Laki-laki</option>
+                            <option value="P">Perempuan</option>
+                        </x-adminlte-select>
                         <x-adminlte-input wire:model="tempat_lahir" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="tempat_lahir" label="tempat_lahir"
                             placeholder="tempat_lahir" />
@@ -47,18 +51,18 @@
                         <x-adminlte-input wire:model="alamat" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="alamat" label="alamat"
                             placeholder="alamat" />
-                        <x-adminlte-input wire:model="desa_id" fgroup-class="row" label-class="text-left col-4"
-                            igroup-class="col-8" igroup-size="sm" name="desa_id" label="desa_id"
-                            placeholder="desa_id" />
-                        <x-adminlte-input wire:model="kecamatan_id" fgroup-class="row" label-class="text-left col-4"
-                            igroup-class="col-8" igroup-size="sm" name="kecamatan_id" label="kecamatan_id"
-                            placeholder="kecamatan_id" />
-                        <x-adminlte-input wire:model="kabupaten_id" fgroup-class="row" label-class="text-left col-4"
-                            igroup-class="col-8" igroup-size="sm" name="kabupaten_id" label="kabupaten_id"
-                            placeholder="kabupaten_id" />
                         <x-adminlte-input wire:model="provinsi_id" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="provinsi_id" label="provinsi_id"
                             placeholder="provinsi_id" />
+                        <x-adminlte-input wire:model="kabupaten_id" fgroup-class="row" label-class="text-left col-4"
+                            igroup-class="col-8" igroup-size="sm" name="kabupaten_id" label="kabupaten_id"
+                            placeholder="kabupaten_id" />
+                        <x-adminlte-input wire:model="kecamatan_id" fgroup-class="row" label-class="text-left col-4"
+                            igroup-class="col-8" igroup-size="sm" name="kecamatan_id" label="kecamatan_id"
+                            placeholder="kecamatan_id" />
+                        <x-adminlte-input wire:model="desa_id" fgroup-class="row" label-class="text-left col-4"
+                            igroup-class="col-8" igroup-size="sm" name="desa_id" label="desa_id"
+                            placeholder="desa_id" />
                         <x-adminlte-input wire:model="keterangan" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="keterangan" label="keterangan"
                             placeholder="keterangan" />
@@ -75,7 +79,6 @@
             </x-slot>
         </x-adminlte-card>
     </div>
-
 </div>
 @push('js')
     <script>
