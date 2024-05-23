@@ -363,20 +363,21 @@ return [
                     'active'  => ['pendaftaran/rajal', 'pendaftaran/rajal/*'],
                 ],
                 [
-                    'text' => 'Pemeriksaan Awal',
-                    'url' => 'aplication',
+                    'text' => 'Pemeriksaan Perawat',
+                    'url' => 'pemeriksaan/perawat/rajal',
                     'icon' => 'fas fa-user-nurse',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                    'active'  => ['pemeriksaan/perawat/rajal', 'pemeriksaan/perawat/rajal*'],
                 ],
                 [
                     'text' => 'Pemeriksaan Dokter',
-                    'url' => 'aplication',
+                    'url' => 'pemeriksaan/dokter/rajal',
                     'icon' => 'fas fa-user-md',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                    'active'  => ['pemeriksaan/dokter/rajal', 'pemeriksaan/dokter/rajal*'],
+
                 ],
                 [
                     'text' => 'Pengambilan Obat',

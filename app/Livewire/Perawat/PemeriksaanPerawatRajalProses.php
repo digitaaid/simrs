@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Livewire\Pendaftaran;
+namespace App\Livewire\Perawat;
 
 use App\Models\Antrian;
-use App\Models\Dokter;
-use App\Models\Jaminan;
 use App\Models\Pasien;
-use App\Models\Unit;
 use Livewire\Component;
 
-class PendaftaranRajalProses extends Component
+class PemeriksaanPerawatRajalProses extends Component
 {
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien;
     public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
@@ -94,6 +91,6 @@ class PendaftaranRajalProses extends Component
     public function render()
     {
         $pasiencount = Pasien::count();
-        return view('livewire.pendaftaran.pendaftaran-rajal-proses', compact('pasiencount'))->title('Pendaftaran ' . $this->antrian->nama);
+        return view('livewire.perawat.pemeriksaan-perawat-rajal-proses', compact('pasiencount'))->title('Pemeriksaan Perawat ' . $this->antrian->nama);
     }
 }
