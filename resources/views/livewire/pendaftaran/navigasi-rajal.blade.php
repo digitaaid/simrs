@@ -103,19 +103,18 @@
             @endif
         </ul>
         <x-slot name="footerSlot">
+            @if ($antrian?->kunjungan?->status)
+                <x-adminlte-button wire:click='selesaiPendaftaran' wire:confirm='Apakah anda yakin antrian ini telah selesai ?' label="Selesai Pendaftaran" class="btn-sm" icon="fas fa-check" theme="success" />
+            @endif
+            {{-- <a href="{{ route('batalantrian') }}?kodebooking={{ $antrian->kodebooking }}&keterangan=Dibatalkan dipendaftaran {{ Auth::user()->name }}"
+                class="btn btn-sm btn-danger withLoad">
+                <i class="fas fa-times"></i> Batal
+            </a> --}}
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>
                 Loading ...
             </div>
-            {{-- @if ($antrian?->kunjungan?->status)
-                <x-adminlte-button label="Selesai Pendaftaran" class="btn-sm" icon="fas fa-check" theme="success"
-                    onclick="modalPendaftaranSelesai()" />
-            @endif
-            <a href="{{ route('batalantrian') }}?kodebooking={{ $antrian->kodebooking }}&keterangan=Dibatalkan dipendaftaran {{ Auth::user()->name }}"
-                class="btn btn-sm btn-danger withLoad">
-                <i class="fas fa-times"></i> Batal
-            </a> --}}
         </x-slot>
     </x-adminlte-card>
 </div>

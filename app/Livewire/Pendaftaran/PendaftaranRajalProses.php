@@ -21,14 +21,32 @@ class PendaftaranRajalProses extends Component
 
     protected $listeners = ['closeformAntrian',  'closeformKunjungan', 'closeformPasien'];
 
+    public function selesaiPendaftaran()
+    {
+        $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
+        if ($antrian->taskid <= 2) {
+            $antrian->taskid = 3;
+            $antrian->taskid3 = now();
+            $antrian->panggil = 0;
+            $antrian->update();
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pendaftaran.', 'success');
+            return redirect()->to(route('pendaftaran.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
+        } else {
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
+        }
+    }
     public function panggilPendaftaran()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
-        $antrian->taskid2 = now();
-        $antrian->panggil = 0;
-        $antrian->taskid = 2;
-        $antrian->update();
-        flash('Nomor antrian ' . $antrian->nomorantrean . ' dipanggil.', 'success');
+        if ($antrian->taskid <= 2) {
+            $antrian->taskid2 = now();
+            $antrian->panggil = 0;
+            $antrian->taskid = 2;
+            $antrian->update();
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' dipanggil.', 'success');
+        } else {
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
+        }
     }
     public function formPasien()
     {
