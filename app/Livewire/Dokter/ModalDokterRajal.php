@@ -183,37 +183,46 @@ class ModalDokterRajal extends Component
         $this->antrian_id = $antrian->id;
         $this->kodekunjungan = $antrian->kunjungan->kode;
         $this->kunjungan_id = $antrian->kunjungan->id;
-        $this->sumber_data = $antrian->asesmenrajal?->sumber_data;
-        $this->pernah_berobat = $antrian->asesmenrajal?->pernah_berobat;
-        $this->keluhan_utama = $antrian->asesmenrajal?->keluhan_utama;
-        $this->riwayat_pengobatan = $antrian->asesmenrajal?->riwayat_pengobatan;
-        $this->riwayat_penyakit = $antrian->asesmenrajal?->riwayat_penyakit;
-        $this->riwayat_alergi = $antrian->asesmenrajal?->riwayat_alergi;
-        $this->denyut_jantung = $antrian->asesmenrajal?->denyut_jantung;
-        $this->pernapasan = $antrian->asesmenrajal?->pernapasan;
-        $this->sistole = $antrian->asesmenrajal?->sistole;
-        $this->distole = $antrian->asesmenrajal?->distole;
-        $this->suhu = $antrian->asesmenrajal?->suhu;
-        $this->berat_badan = $antrian->asesmenrajal?->berat_badan;
-        $this->tinggi_badan = $antrian->asesmenrajal?->tinggi_badan;
-        $this->bsa = $antrian->asesmenrajal?->bsa;
-        $this->pemeriksaan_fisik_perawat = $antrian->asesmenrajal?->pemeriksaan_fisik_perawat;
-        $this->pemeriksaan_fisik_dokter = $antrian->asesmenrajal?->pemeriksaan_fisik_dokter;
-        $this->pemeriksaan_lab = $antrian->asesmenrajal?->pemeriksaan_lab;
-        $this->pemeriksaan_rad = $antrian->asesmenrajal?->pemeriksaan_rad;
-        $this->pemeriksaan_penunjang = $antrian->asesmenrajal?->pemeriksaan_penunjang;
-        $this->diagnosa = $antrian->asesmenrajal?->diagnosa;
-        $this->icd1 = $antrian->asesmenrajal?->icd1;
-        $this->icd2 = $antrian->asesmenrajal?->icd2;
-        $this->diagnosa_dokter = $antrian->asesmenrajal?->diagnosa_dokter;
-        $this->diagnosa_keperawatan = $antrian->asesmenrajal?->diagnosa_keperawatan;
-        $this->rencana_medis = $antrian->asesmenrajal?->rencana_medis;
-        $this->rencana_keperawatan = $antrian->asesmenrajal?->rencana_keperawatan;
-        $this->tindakan_medis = $antrian->asesmenrajal?->tindakan_medis;
-        $this->instruksi_medis = $antrian->asesmenrajal?->instruksi_medis;
+        $antrianlast = Antrian::where('norm', $this->antrian->norm)
+            ->where('id', '<', $this->antrian->id)
+            ->orderBy('id', 'desc')
+            ->first();
+        $this->sumber_data = $antrian->asesmenrajal?->sumber_data ?? $antrianlast?->asesmenrajal?->sumber_data;
+        $this->pernah_berobat = $antrian->asesmenrajal?->pernah_berobat ?? $antrianlast?->asesmenrajal?->pernah_berobat;
+        $this->keluhan_utama = $antrian->asesmenrajal?->keluhan_utama ?? $antrianlast?->asesmenrajal?->keluhan_utama;
+        $this->riwayat_pengobatan = $antrian->asesmenrajal?->riwayat_pengobatan ?? $antrianlast?->asesmenrajal?->riwayat_pengobatan;
+        $this->riwayat_penyakit = $antrian->asesmenrajal?->riwayat_penyakit ?? $antrianlast?->asesmenrajal?->riwayat_penyakit;
+        $this->riwayat_alergi = $antrian->asesmenrajal?->riwayat_alergi ?? $antrianlast?->asesmenrajal?->riwayat_alergi;
+        $this->denyut_jantung = $antrian->asesmenrajal?->denyut_jantung ?? $antrianlast?->asesmenrajal?->denyut_jantung;
+        $this->pernapasan = $antrian->asesmenrajal?->pernapasan ?? $antrianlast?->asesmenrajal?->pernapasan;
+        $this->sistole = $antrian->asesmenrajal?->sistole ?? $antrianlast?->asesmenrajal?->sistole;
+        $this->distole = $antrian->asesmenrajal?->distole ?? $antrianlast?->asesmenrajal?->distole;
+        $this->suhu = $antrian->asesmenrajal?->suhu ?? $antrianlast?->asesmenrajal?->suhu;
+        $this->berat_badan = $antrian->asesmenrajal?->berat_badan ?? $antrianlast?->asesmenrajal?->berat_badan;
+        $this->tinggi_badan = $antrian->asesmenrajal?->tinggi_badan ?? $antrianlast?->asesmenrajal?->tinggi_badan;
+        $this->bsa = $antrian->asesmenrajal?->bsa ?? $antrianlast?->asesmenrajal?->bsa;
+        $this->pemeriksaan_fisik_perawat = $antrian->asesmenrajal?->pemeriksaan_fisik_perawat ?? $antrianlast?->asesmenrajal?->pemeriksaan_fisik_perawat;
+        $this->pemeriksaan_fisik_dokter = $antrian->asesmenrajal?->pemeriksaan_fisik_dokter ?? $antrianlast?->asesmenrajal?->pemeriksaan_fisik_dokter;
+        $this->pemeriksaan_lab = $antrian->asesmenrajal?->pemeriksaan_lab ?? $antrianlast?->asesmenrajal?->pemeriksaan_lab;
+        $this->pemeriksaan_rad = $antrian->asesmenrajal?->pemeriksaan_rad ?? $antrianlast?->asesmenrajal?->pemeriksaan_rad;
+        $this->pemeriksaan_penunjang = $antrian->asesmenrajal?->pemeriksaan_penunjang ?? $antrianlast?->asesmenrajal?->pemeriksaan_penunjang;
+        $this->diagnosa = $antrian->asesmenrajal?->diagnosa ?? $antrianlast?->asesmenrajal?->diagnosa;
+        $this->icd1 = $antrian->asesmenrajal?->icd1 ?? $antrianlast?->asesmenrajal?->icd1;
+        $this->icd2 = $antrian->asesmenrajal?->icd2 ?? $antrianlast?->asesmenrajal?->icd2;
+        $this->diagnosa_dokter = $antrian->asesmenrajal?->diagnosa_dokter ?? $antrianlast?->asesmenrajal?->diagnosa_dokter;
+        $this->diagnosa_keperawatan = $antrian->asesmenrajal?->diagnosa_keperawatan ?? $antrianlast?->asesmenrajal?->diagnosa_keperawatan;
+        $this->rencana_medis = $antrian->asesmenrajal?->rencana_medis ?? $antrianlast?->asesmenrajal?->rencana_medis;
+        $this->rencana_keperawatan = $antrian->asesmenrajal?->rencana_keperawatan ?? $antrianlast?->asesmenrajal?->rencana_keperawatan;
+        $this->tindakan_medis = $antrian->asesmenrajal?->tindakan_medis ?? $antrianlast?->asesmenrajal?->tindakan_medis;
+        $this->instruksi_medis = $antrian->asesmenrajal?->instruksi_medis ?? $antrianlast?->asesmenrajal?->instruksi_medis;
         if (count($this->antrian->resepobatdetails)) {
             $this->resepObat = [];
             foreach ($this->antrian->resepobatdetails as $key => $value) {
+                $this->resepObat[] = ['obat' => $value->nama, 'jumlahobat' => $value->jumlah, 'frekuensiobat' => $value->frekuensi, 'waktuobat' => $value->waktu, 'keterangan' =>  $value->keterangan,];
+            }
+        } else if ($antrianlast) {
+            $this->resepObat = [];
+            foreach ($antrianlast->resepobatdetails as $key => $value) {
                 $this->resepObat[] = ['obat' => $value->nama, 'jumlahobat' => $value->jumlah, 'frekuensiobat' => $value->frekuensi, 'waktuobat' => $value->waktu, 'keterangan' =>  $value->keterangan,];
             }
         }
