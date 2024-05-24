@@ -34,9 +34,11 @@ use App\Livewire\Dokter\PemeriksaanDokterRajal;
 use App\Livewire\Dokter\PemeriksaanDokterRajalProses;
 use App\Livewire\Farmasi\ObatIndex;
 use App\Livewire\Farmasi\PengambilanResep;
+use App\Livewire\Perawat\LayananIndex;
 use App\Livewire\Perawat\PemeriksaanPerawatRajal;
 use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
 use App\Livewire\Perawat\PerawatIndex;
+use App\Livewire\Perawat\TindakanIndex;
 use App\Livewire\Profil\ProfilIndex;
 use App\Livewire\Unit\UnitIndex;
 use App\Livewire\User\PermissionIndex;
@@ -105,8 +107,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('dokter', DokterIndex::class)->name('dokter.index');
         Route::get('perawat', PerawatIndex::class)->name('perawat.index');
         Route::get('unit', UnitIndex::class)->name('unit.index');
-        Route::get('obat', ObatIndex::class)->name('obat.index');
         Route::get('jadwaldokter', JadwalDokterIndex::class)->name('jadwaldokter.index');
+        Route::get('obat', ObatIndex::class)->name('obat.index');
+        Route::get('tindakan', TindakanIndex::class)->name('tindakan.index');
     });
     // anjungan antrian
     Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
@@ -124,5 +127,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('pemeriksaan/dokter/rajal/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('pemeriksaan.dokter.rajal.proses');
     // farmasi
     Route::get('farmasi/pengambilan_resep', PengambilanResep::class)->name('pengambilan.resep');
-    Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class,'print_resep'])->name('print.resep');
+    Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class, 'print_resep'])->name('print.resep');
 });

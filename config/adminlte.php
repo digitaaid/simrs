@@ -499,11 +499,11 @@ return [
             'active'  => ['obat', 'obat/create', 'obat/edit/*'],
         ],
         [
-            'text' => 'Layanan',
-            'url' => 'layanan',
+            'text' => 'Tindakan',
+            'url' => 'tindakan',
             'icon' => 'fas fa-hand-holding-medical',
             'can' => 'manajemen-pelayanan',
-            'active'  => ['layanan', 'layanan/create', 'layanan/edit/*'],
+            'active'  => ['tindakan', 'tindakan/create', 'tindakan/edit/*'],
         ],
         [
             'text' => 'Jaminan',

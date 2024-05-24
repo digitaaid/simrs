@@ -35,9 +35,10 @@
                                 igroup-class="col-8" igroup-size="sm" name="jenisobat" label="jenisobat">
                                 <option value=null disabled>Pilih Jenis Obat</option>
                                 <option>Obat</option>
-                                <option>BMHP</option>
                                 <option>Obat Kronis</option>
                                 <option>Obat Kemoterapi</option>
+                                <option>BMHP</option>
+                                <option>Alkes</option>
                             </x-adminlte-select>
                         </div>
                         <div class="col-md-6">
@@ -122,6 +123,7 @@
                         <th>Harga BPJS</th>
                         <th>Action</th>
                         <th>Jenis</th>
+                        <th>Status</th>
                         <th>Merek</th>
                         <th>Distributor</th>
                         <th>BPOM</th>
@@ -146,6 +148,13 @@
                                     label="Edit" theme="warning" icon="fas fa-edit" />
                             </td>
                             <td>{{ $item->jenisobat }}</td>
+                            <td>
+                                @if ($item->status)
+                                    <span class="badge badge-success">Aktif</span>
+                                @else
+                                    <span class="badge badge-danger">Nonaktif</span>
+                                @endif
+                            </td>
                             <td>{{ $item->merk }}</td>
                             <td>{{ $item->distributor }}</td>
                             <td>{{ $item->bpom }}</td>

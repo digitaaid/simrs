@@ -79,7 +79,7 @@ class ObatIndex extends Component
                 'fileObatImport' => 'required|mimes:xlsx'
             ]);
             Excel::import(new ObatImport, $this->fileObatImport->getRealPath());
-            flash('Import Pasien successfully', 'success');
+            flash('Import Obat successfully', 'success');
             $this->formImport = false;
             $this->fileObatImport = null;
             return redirect()->route('obat.index');
@@ -97,7 +97,7 @@ class ObatIndex extends Component
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
     }
-    function openFormImport()
+    public function openFormImport()
     {
         $this->formImport =  $this->formImport ? false : true;
     }
