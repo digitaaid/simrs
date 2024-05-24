@@ -171,15 +171,15 @@
             </dd>
             <dt class="col-sm-3 m-0">Perawat</dt>
             <dd class="col-sm-9 m-0">
-                {{ $antrian->pic2 ? $antrian->pic2->name : 'Belum Asesmen Perawat' }}
+                {{ $antrian->pic2 ? $antrian->pic2->name : 'Belum Asesmen' }}
             </dd>
             <dt class="col-sm-3 m-0">Dokter</dt>
             <dd class="col-sm-9 m-0">
-                {{ $antrian->kunjungan ? $antrian->kunjungan->dokters->nama : 'Belum Kunjungan' }}
+                {{ $antrian->pic3 ? $antrian->pic3->name : 'Belum Asesmen' }}
             </dd>
             <dt class="col-sm-3 m-0">Farmasi</dt>
             <dd class="col-sm-9 m-0">
-                {{ $antrian->pic4 ? $antrian->pic4->name : 'Belum Ada Resep Obat' }}
+                {{ $antrian->pic4 ? $antrian->pic4->name : 'Belum Resep Obat' }}
             </dd>
         </dl>
     </div>

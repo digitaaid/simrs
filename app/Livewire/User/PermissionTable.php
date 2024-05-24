@@ -8,7 +8,7 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionTable extends Component
 {
-    public $id, $name;
+    public $id, $name, $permissions;
     public $form = false;
     public $search = '';
     public function store()
@@ -52,12 +52,16 @@ class PermissionTable extends Component
     {
         return view('components.placeholder.placeholder-text');
     }
-    public function render()
+    public function mount()
     {
         $search = '%' . $this->search . '%';
-        $permissions = Permission::orderBy('name', 'asc')
+        $this->permissions = Permission::orderBy('name', 'asc')
             ->where('name', 'like', $search)
             ->get();
-        return view('livewire.user.permission-table', compact('permissions'));
+    }
+    public function render()
+    {
+
+        return view('livewire.user.permission-table');
     }
 }

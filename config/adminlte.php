@@ -380,8 +380,8 @@ return [
 
                 ],
                 [
-                    'text' => 'Pengambilan Obat',
-                    'url' => 'aplication',
+                    'text' => 'Pengambilan Resep Obat',
+                    'url' => 'farmasi/pengambilan_resep',
                     'icon' => 'fas fa-pills',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',
@@ -493,31 +493,31 @@ return [
         ],
         [
             'text' => 'Obat',
-            'url' => 'aplication',
-            'icon' => 'fas fa-users',
+            'url' => 'obat',
+            'icon' => 'fas fa-pills',
             'can' => 'manajemen-farmasi',
-            // 'active'  => ['user', 'user/create', 'user/edit/*'],
+            'active'  => ['obat', 'obat/create', 'obat/edit/*'],
         ],
         [
-            'text' => 'Layanan',
-            'url' => 'aplication',
-            'icon' => 'fas fa-users',
+            'text' => 'Tindakan',
+            'url' => 'tindakan',
+            'icon' => 'fas fa-hand-holding-medical',
             'can' => 'manajemen-pelayanan',
-            // 'active'  => ['user', 'user/create', 'user/edit/*'],
+            'active'  => ['tindakan', 'tindakan/create', 'tindakan/edit/*'],
         ],
         [
             'text' => 'Jaminan',
-            'url' => 'aplication',
-            'icon' => 'fas fa-users',
+            'url' => 'jaminan',
+            'icon' => 'fas fa-id-card',
             'can' => 'manajemen-pelayanan',
-            // 'active'  => ['user', 'user/create', 'user/edit/*'],
+            'active'  => ['jaminan', 'jaminan/create', 'jaminan/edit/*'],
         ],
         [
             'text' => 'Diagnosa',
-            'url' => 'aplication',
-            'icon' => 'fas fa-users',
+            'url' => 'diagnosa',
+            'icon' => 'fas fa-diagnoses',
             'can' => 'rekam-medis',
-            // 'active'  => ['user', 'user/create', 'user/edit/*'],
+            'active'  => ['diagnosa', 'diagnosa/create', 'diagnosa/edit/*'],
         ],
         // ANTRIAN BPJS
         [
@@ -835,7 +835,7 @@ return [
 
     'plugins' => [
         'Flatpicker' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
@@ -850,7 +850,7 @@ return [
             ],
         ],
         'TempusDominusBs4' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
@@ -870,7 +870,7 @@ return [
             ],
         ],
         'Datatables' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
@@ -1000,7 +1000,7 @@ return [
             ],
         ],
         'BootstrapSwitch' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',

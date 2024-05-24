@@ -96,4 +96,3 @@
         </x-adminlte-card>
     </div>
 </div>
-@section('plugins.BsCustomFileInput', true)

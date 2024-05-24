@@ -64,6 +64,10 @@ class PasienIndex extends Component
         }
         $this->sortBy = $field;
     }
+    public function placeholder()
+    {
+        return view('components.placeholder.placeholder-text');
+    }
     public function render()
     {
         $search = '%' . $this->search . '%';

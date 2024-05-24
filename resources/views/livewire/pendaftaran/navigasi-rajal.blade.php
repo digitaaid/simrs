@@ -68,6 +68,14 @@
                         </span>
                     </a>
                 </li>
+                <li class="nav-item" wire:click='modalLayanan'>
+                    <a href="#nav" class="nav-link">
+                        <i class="fas fa-hand-holding-medical"></i> Layanan & Tindakan
+                        <span class="badge bg-success float-right">
+                            {{ $antrian->layanans->count() }} Layanan
+                        </span>
+                    </a>
+                </li>
                 <li class="nav-item" onclick="btnFileUplpad()">
                     <a href="#nav" class="nav-link">
                         <i class="fas fa-file-medical"></i> Berkas File Upload
@@ -76,14 +84,7 @@
                         </span>
                     </a>
                 </li>
-                <li class="nav-item" onclick="tambahLayanan()">
-                    <a href="#nav" class="nav-link">
-                        <i class="fas fa-hand-holding-medical"></i> Layanan & Tindakan
-                        <span class="badge bg-success float-right">
-                            {{ $antrian->layanans->count() }} Layanan
-                        </span>
-                    </a>
-                </li>
+
                 <li class="nav-item" onclick="modalInvoicePasien()">
                     <a href="#nav" class="nav-link">
                         <i class="fas fa-file-invoice-dollar"></i> Invoice Billing

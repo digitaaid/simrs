@@ -210,9 +210,10 @@
                     <x-adminlte-input wire:model="resepObat.{{ $index }}.obat" list="obatlist" name="obat[]"
                         igroup-size="sm" placeholder="Nama Obat" />
                     <datalist id="obatlist">
-                        <option value="Obat"></option>
+                        @foreach ($obats as $key => $item)
+                            <option value="{{ $item }}"></option>
+                        @endforeach
                     </datalist>
-
                 </div>
                 <div class="col-md-2">
                     @error('resepObat.' . $index . '.jumlahobat')
@@ -222,12 +223,23 @@
                         igroup-size="sm" type="number" placeholder="Jumlah Obat" />
                 </div>
                 <div class="col-md-2">
-                    <x-adminlte-input wire:model="resepObat.{{ $index }}.frekuensiobat" name="frekuensiobat[]"
-                        igroup-size="sm" placeholder="Frekuensi Obat" />
+                    <x-adminlte-input wire:model="resepObat.{{ $index }}.frekuensiobat"
+                        list="frekuensiobatlist" name="frekuensiobat[]" igroup-size="sm"
+                        placeholder="Frekuensi Obat" />
+                    <datalist id="frekuensiobatlist">
+                        @foreach ($frekuensiObats as $key => $item)
+                            <option value="{{ $item }}"></option>
+                        @endforeach
+                    </datalist>
                 </div>
                 <div class="col-md-2">
-                    <x-adminlte-input wire:model="resepObat.{{ $index }}.waktuobat" name="waktuobat[]"
-                        igroup-size="sm" placeholder="Waktu Obat" />
+                    <x-adminlte-input wire:model="resepObat.{{ $index }}.waktuobat" list="waktuobatlist"
+                        name="waktuobat[]" igroup-size="sm" placeholder="Waktu Obat" />
+                    <datalist id="waktuobatlist">
+                        @foreach ($waktuObats as $key => $item)
+                            <option value="{{ $item }}"></option>
+                        @endforeach
+                    </datalist>
                 </div>
                 <div class="col-md-2">
                     <x-adminlte-input wire:model="resepObat.{{ $index }}.keterangan" name="keterangan[]"

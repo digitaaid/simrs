@@ -16,10 +16,11 @@ class PendaftaranRajalProses extends Component
     public $antrian, $pasien;
     public $polikliniks, $dokters, $jaminans;
     public $openmodalCppt = false;
+    public $openmodalLayanan = false;
     public $openformAntrian = false;
     public $openformKunjungan = false;
     public $openformPasien = false;
-    protected $listeners = ['modalCppt', 'formAntrian',  'formKunjungan', 'formPasien', 'refreshPage' => '$refresh'];
+    protected $listeners = ['modalCppt', 'modalLayanan', 'formAntrian',  'formKunjungan', 'formPasien', 'refreshPage' => '$refresh'];
     public function batal()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
@@ -60,6 +61,10 @@ class PendaftaranRajalProses extends Component
     public function modalCppt()
     {
         $this->openmodalCppt = $this->openmodalCppt ? false : true;
+    }
+    public function modalLayanan()
+    {
+        $this->openmodalLayanan = $this->openmodalLayanan ? false : true;
     }
     public function formPasien()
     {

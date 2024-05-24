@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AntrianController;
+use App\Http\Controllers\FarmasiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PendaftaranController;
 use App\Livewire\Antrian\AnjunganAntrian;
@@ -31,9 +32,13 @@ use App\Livewire\Pendaftaran\PendaftaranRajal;
 use App\Livewire\Pendaftaran\PendaftaranRajalProses;
 use App\Livewire\Dokter\PemeriksaanDokterRajal;
 use App\Livewire\Dokter\PemeriksaanDokterRajalProses;
+use App\Livewire\Farmasi\ObatIndex;
+use App\Livewire\Farmasi\PengambilanResep;
+use App\Livewire\Perawat\LayananIndex;
 use App\Livewire\Perawat\PemeriksaanPerawatRajal;
 use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
 use App\Livewire\Perawat\PerawatIndex;
+use App\Livewire\Perawat\TindakanIndex;
 use App\Livewire\Profil\ProfilIndex;
 use App\Livewire\Unit\UnitIndex;
 use App\Livewire\User\PermissionIndex;
@@ -68,9 +73,9 @@ Route::get('getdisplayantrian', [AntrianController::class, 'getdisplayantrian'])
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('profil', ProfilIndex::class)->lazy()->name('profil');
+    Route::get('profil', ProfilIndex::class)->name('profil')->lazy();
     Route::middleware(['can:admin'])->group(function () {
-        Route::get('role-permission', RolePermission::class)->name('role-permission');
+        Route::get('role-permission', RolePermission::class)->name('role-permission')->lazy();
         Route::get('integration', IntegrationIndex::class)->name('integration.index');
         Route::get('user', UserIndex::class)->name('user.index');
         Route::get('user/create', UserForm::class)->name('user.create');
@@ -96,13 +101,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('bpjs/antrian/antreandokter', AntreanDokter::class)->name('antrian.antreandokter')->lazy();
     });
     Route::middleware(['can:manajemen-pelayanan'])->group(function () {
-        Route::get('pasien', PasienIndex::class)->name('pasien.index');
+        Route::get('pasien', PasienIndex::class)->name('pasien.index')->lazy();
         Route::get('pasien/create', PasienForm::class)->name('pasien.create');
         Route::get('pasien/edit/{norm}', PasienForm::class)->name('pasien.edit');
         Route::get('dokter', DokterIndex::class)->name('dokter.index');
         Route::get('perawat', PerawatIndex::class)->name('perawat.index');
         Route::get('unit', UnitIndex::class)->name('unit.index');
         Route::get('jadwaldokter', JadwalDokterIndex::class)->name('jadwaldokter.index');
+        Route::get('obat', ObatIndex::class)->name('obat.index');
+        Route::get('tindakan', TindakanIndex::class)->name('tindakan.index');
     });
     // anjungan antrian
     Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
@@ -118,4 +125,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('pemeriksaan/perawat/rajal/{kodebooking}', PemeriksaanPerawatRajalProses::class)->name('pemeriksaan.perawat.rajal.proses');
     Route::get('pemeriksaan/dokter/rajal', PemeriksaanDokterRajal::class)->name('pemeriksaan.dokter.rajal');
     Route::get('pemeriksaan/dokter/rajal/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('pemeriksaan.dokter.rajal.proses');
+    // farmasi
+    Route::get('farmasi/pengambilan_resep', PengambilanResep::class)->name('pengambilan.resep');
+    Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class, 'print_resep'])->name('print.resep');
 });
