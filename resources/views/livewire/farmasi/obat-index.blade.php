@@ -31,12 +31,14 @@
                             <x-adminlte-input wire:model="stok_minimum" fgroup-class="row" label-class="text-left col-4"
                                 igroup-class="col-8" igroup-size="sm" name="stok_minimum" type="number"
                                 label="stok_minimum" />
-                            <x-adminlte-input wire:model="jenisobat" list="jenisobatlist" name="jenisobat"
-                                label="jenisobat" fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                                igroup-size="sm" />
-                            <datalist id="jenisobatlist">
-                                <option value="Jenis Obat"></option>
-                            </datalist>
+                            <x-adminlte-select wire:model="jenisobat" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="jenisobat" label="jenisobat">
+                                <option value=null disabled>Pilih Jenis Obat</option>
+                                <option>Obat</option>
+                                <option>BMHP</option>
+                                <option>Obat Kronis</option>
+                                <option>Obat Kemoterapi</option>
+                            </x-adminlte-select>
                         </div>
                         <div class="col-md-6">
                             <x-adminlte-input wire:model="harga_beli" fgroup-class="row" label-class="text-left col-4"
@@ -77,8 +79,8 @@
                     <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
                         theme="success" label="Import"
                         wire:confirm='Apakah anda yakin akan mengimport data obat ?' />
-                    <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm"
-                        icon="fas fa-times" label="Tutup" data-dismiss="modal" />
+                    <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
+                        label="Tutup" data-dismiss="modal" />
                 </x-slot>
             </x-adminlte-card>
         @endif

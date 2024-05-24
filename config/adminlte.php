@@ -380,8 +380,8 @@ return [
 
                 ],
                 [
-                    'text' => 'Pengambilan Obat',
-                    'url' => 'aplication',
+                    'text' => 'Pengambilan Resep Obat',
+                    'url' => 'farmasi/pengambilan_resep',
                     'icon' => 'fas fa-pills',
                     'shift'   => 'ml-2',
                     // 'can' => 'admin',

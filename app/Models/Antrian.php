@@ -31,7 +31,7 @@ class Antrian extends Model
     }
     public function resepobat()
     {
-        return $this->hasMany(ResepObat::class);
+        return $this->hasOne(ResepObat::class);
     }
     public function resepobatdetails()
     {

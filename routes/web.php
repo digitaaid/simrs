@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AntrianController;
+use App\Http\Controllers\FarmasiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PendaftaranController;
 use App\Livewire\Antrian\AnjunganAntrian;
@@ -32,6 +33,7 @@ use App\Livewire\Pendaftaran\PendaftaranRajalProses;
 use App\Livewire\Dokter\PemeriksaanDokterRajal;
 use App\Livewire\Dokter\PemeriksaanDokterRajalProses;
 use App\Livewire\Farmasi\ObatIndex;
+use App\Livewire\Farmasi\PengambilanResep;
 use App\Livewire\Perawat\PemeriksaanPerawatRajal;
 use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
 use App\Livewire\Perawat\PerawatIndex;
@@ -120,4 +122,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('pemeriksaan/perawat/rajal/{kodebooking}', PemeriksaanPerawatRajalProses::class)->name('pemeriksaan.perawat.rajal.proses');
     Route::get('pemeriksaan/dokter/rajal', PemeriksaanDokterRajal::class)->name('pemeriksaan.dokter.rajal');
     Route::get('pemeriksaan/dokter/rajal/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('pemeriksaan.dokter.rajal.proses');
+    // farmasi
+    Route::get('farmasi/pengambilan_resep', PengambilanResep::class)->name('pengambilan.resep');
+    Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class,'print_resep'])->name('print.resep');
 });
