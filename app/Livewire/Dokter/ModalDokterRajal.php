@@ -4,14 +4,18 @@ namespace App\Livewire\Dokter;
 
 use App\Models\Antrian;
 use App\Models\AsesmenRajal;
+use App\Models\FrekuensiObat;
 use App\Models\Kunjungan;
+use App\Models\Obat;
 use App\Models\ResepObat;
 use App\Models\ResepObatDetail;
+use App\Models\WaktuObat;
 use Livewire\Component;
 
 class ModalDokterRajal extends Component
 {
     public $antrian, $kodebooking, $antrian_id, $kodekunjungan, $kunjungan_id;
+    public $obats = [], $frekuensiObats = [], $waktuObats = [];
     public $sumber_data, $keluhan_utama, $riwayat_pengobatan, $riwayat_penyakit, $riwayat_alergi, $pernah_berobat, $denyut_jantung, $pernapasan, $sistole, $distole, $suhu, $berat_badan, $tinggi_badan, $bsa, $pemeriksaan_fisik_perawat, $pemeriksaan_fisik_dokter, $pemeriksaan_lab, $pemeriksaan_rad, $pemeriksaan_penunjang, $diagnosa, $icd1, $icd2, $diagnosa_dokter, $diagnosa_keperawatan, $rencana_medis, $rencana_keperawatan, $tindakan_medis, $instruksi_medis;
     public $resepObat = [
         [
@@ -164,6 +168,12 @@ class ModalDokterRajal extends Component
                     'waktu' => $this->resepObat[$key]['waktuobat'],
                     'keterangan' => $this->resepObat[$key]['keterangan'],
                 ]);
+                FrekuensiObat::updateOrCreate([
+                    'nama' => $this->resepObat[$key]['frekuensiobat'],
+                ]);
+                WaktuObat::updateOrCreate([
+                    'nama' => $this->resepObat[$key]['waktuobat'],
+                ]);
             }
         }
         flash('Asesmen dokter saved successfully.', 'success');
@@ -226,6 +236,9 @@ class ModalDokterRajal extends Component
                 $this->resepObat[] = ['obat' => $value->nama, 'jumlahobat' => $value->jumlah, 'frekuensiobat' => $value->frekuensi, 'waktuobat' => $value->waktu, 'keterangan' =>  $value->keterangan,];
             }
         }
+        $this->obats = Obat::pluck('nama');
+        $this->frekuensiObats = FrekuensiObat::pluck('nama');
+        $this->waktuObats = WaktuObat::pluck('nama');
     }
     public function modalPemeriksaanDokter()
     {
