@@ -31,6 +31,7 @@ use App\Livewire\Pendaftaran\PendaftaranRajal;
 use App\Livewire\Pendaftaran\PendaftaranRajalProses;
 use App\Livewire\Dokter\PemeriksaanDokterRajal;
 use App\Livewire\Dokter\PemeriksaanDokterRajalProses;
+use App\Livewire\Farmasi\ObatIndex;
 use App\Livewire\Perawat\PemeriksaanPerawatRajal;
 use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
 use App\Livewire\Perawat\PerawatIndex;
@@ -102,6 +103,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('dokter', DokterIndex::class)->name('dokter.index');
         Route::get('perawat', PerawatIndex::class)->name('perawat.index');
         Route::get('unit', UnitIndex::class)->name('unit.index');
+        Route::get('obat', ObatIndex::class)->name('obat.index');
         Route::get('jadwaldokter', JadwalDokterIndex::class)->name('jadwaldokter.index');
     });
     // anjungan antrian
