@@ -9,6 +9,10 @@ class Antrian extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    public function pasien()
+    {
+        return $this->hasOne(Pasien::class, 'norm', 'norm');
+    }
     public function kunjungan()
     {
         return $this->belongsTo(Kunjungan::class, 'kodebooking', 'kode');

@@ -4,17 +4,20 @@ namespace App\Livewire\Dokter;
 
 use App\Models\Antrian;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class PemeriksaanDokterRajalProses extends Component
 {
+    use WithPagination;
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien;
     public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
-    public $antrian;
+    public $antrian, $pasien;
     public $polikliniks, $dokters, $jaminans;
+    public $openmodalCppt = false;
     public $openmodalAsesmenRajal = false;
     public $openmodalPerawat = false;
     public $openmodalDokter = false;
-    protected $listeners = ['modalAsesmenRajal',  'modalPemeriksaanPerawat', 'modalPemeriksaanDokter', 'refreshPage' => '$refresh'];
+    protected $listeners = ['modalCppt', 'modalAsesmenRajal',  'modalPemeriksaanPerawat', 'modalPemeriksaanDokter', 'refreshPage' => '$refresh'];
     public function panggilPemeriksaan()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
@@ -61,6 +64,10 @@ class PemeriksaanDokterRajalProses extends Component
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan obat.', 'danger');
         }
     }
+    public function modalCppt()
+    {
+        $this->openmodalCppt = $this->openmodalCppt ? false : true;
+    }
     public function modalAsesmenRajal()
     {
         $this->openmodalAsesmenRajal = $this->openmodalAsesmenRajal ? false : true;
@@ -75,7 +82,8 @@ class PemeriksaanDokterRajalProses extends Component
     }
     public function mount($kodebooking)
     {
-        $antrian = Antrian::firstWhere('kodebooking', $kodebooking);
+        $antrian = Antrian::where('kodebooking', $kodebooking)
+            ->first();
         if ($antrian) {
             $this->antrian = $antrian;
             $this->kodebooking = $kodebooking;
@@ -89,6 +97,8 @@ class PemeriksaanDokterRajalProses extends Component
             $this->jenispasien = $antrian->jenispasien;
             $this->kodepoli = $antrian->kodepoli;
             $this->kodedokter = $antrian->kodedokter;
+            $this->pasien =  $antrian->pasien;
+            $this->openmodalCppt = true;
         } else {
             flash('Antrian tidak ditemukan.', 'danger');
             return redirect()->route('pendaftaran.rajal');
@@ -96,6 +106,6 @@ class PemeriksaanDokterRajalProses extends Component
     }
     public function render()
     {
-        return view('livewire.dokter.pemeriksaan-dokter-rajal-proses')->title('Pemeriksaan Perawat ' . $this->antrian->nama);
+        return view('livewire.dokter.pemeriksaan-dokter-rajal-proses')->title('Pemeriksaan Dokter ' . $this->antrian->nama);
     }
 }

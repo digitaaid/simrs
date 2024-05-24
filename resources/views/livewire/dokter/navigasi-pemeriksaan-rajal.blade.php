@@ -12,7 +12,7 @@
             </span>
         </a>
     </li>
-    <li class="nav-item" onclick="modalCPPT()">
+    <li class="nav-item" wire:click='modalCppt' >
         <a href="#" class="nav-link">
             <i class="fas fa-file-medical"></i> CPPT
             <span class="badge bg-success float-right">
@@ -24,7 +24,7 @@
         <a href="#" class="nav-link">
             <i class="fas fa-file-medical"></i> Berkas File Upload
             <span class="badge bg-success float-right">
-                {{ $antrian->pasien ? $antrian->pasien->fileuploads->count() : 0 }} Berkas File
+                {{-- {{ $antrian->pasien ? $antrian->pasien->fileuploads->count() : 0 }} Berkas File --}}
             </span>
         </a>
     </li>

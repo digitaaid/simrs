@@ -6,8 +6,6 @@
             </x-adminlte-alert>
         @endif
         <x-slot name="footerSlot">
-            <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan" wire:click="editAntrian"
-                wire:confirm='Apakah anda yakin akan menyimpan data antrian ?' />
             <x-adminlte-button wire:click='modalAsesmenRajal' theme="danger" class="btn-sm" icon="fas fa-times"
                 label="Tutup" />
             <div wire:loading>

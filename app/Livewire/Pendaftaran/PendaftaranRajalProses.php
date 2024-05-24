@@ -13,8 +13,9 @@ class PendaftaranRajalProses extends Component
 {
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien;
     public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
-    public $antrian;
+    public $antrian, $pasien;
     public $polikliniks, $dokters, $jaminans;
+    public $openmodalCppt = false;
     public $openformAntrian = false;
     public $openformKunjungan = false;
     public $openformPasien = false;
@@ -56,6 +57,10 @@ class PendaftaranRajalProses extends Component
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
         }
     }
+    public function modalCppt()
+    {
+        $this->openmodalCppt = $this->openmodalCppt ? false : true;
+    }
     public function formPasien()
     {
         $this->openformPasien =  $this->openformPasien ? false : true;
@@ -85,6 +90,7 @@ class PendaftaranRajalProses extends Component
         $antrian = Antrian::firstWhere('kodebooking', $kodebooking);
         if ($antrian) {
             $this->antrian = $antrian;
+            $this->pasien = $antrian->pasien;
             $this->kodebooking = $kodebooking;
             $this->antrianId = $antrian->id;
             $this->nomorkartu = $antrian->nomorkartu;

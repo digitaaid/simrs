@@ -25,5 +25,13 @@ class Kunjungan extends Model
     {
         return $this->hasOne(AsesmenRajal::class);
     }
+    public function resepobat()
+    {
+        return $this->hasOne(ResepObat::class);
+    }
+    public function resepobatdetails()
+    {
+        return $this->hasMany(ResepObatDetail::class);
+    }
 
 }
