@@ -96,7 +96,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('bpjs/antrian/antreandokter', AntreanDokter::class)->name('antrian.antreandokter')->lazy();
     });
     Route::middleware(['can:manajemen-pelayanan'])->group(function () {
-        Route::get('pasien', PasienIndex::class)->name('pasien.index');
+        Route::get('pasien', PasienIndex::class)->name('pasien.index')->lazy();
         Route::get('pasien/create', PasienForm::class)->name('pasien.create');
         Route::get('pasien/edit/{norm}', PasienForm::class)->name('pasien.edit');
         Route::get('dokter', DokterIndex::class)->name('dokter.index');
