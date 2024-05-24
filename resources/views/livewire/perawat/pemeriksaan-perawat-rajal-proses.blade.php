@@ -24,7 +24,7 @@
             @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian])
         @endif
         @if ($openmodalDokter)
-            @livewire('dokter.modal-dokter-rajal')
+            @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian])
         @endif
     </div>
 </div>

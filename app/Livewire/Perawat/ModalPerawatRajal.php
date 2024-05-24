@@ -10,7 +10,7 @@ use Livewire\Component;
 class ModalPerawatRajal extends Component
 {
     public $antrian, $kodebooking, $antrian_id, $kodekunjungan, $kunjungan_id;
-    public $sumber_data, $pernah_berobat, $keluhan_utama, $riwayat_pengobatan, $riwayat_penyakit, $riwayat_alergi, $denyut_jantung, $pernapasan, $sistole, $distole, $suhu, $berat_badan, $tinggi_badan, $bsa, $tingkat_kesadaran, $pemeriksaan_fisik, $pemeriksaan_lab, $pemeriksaan_rad, $pemeriksaan_penunjang, $diagnosa_keperawatan, $rencana_keperawatan, $tindakan_keperawatan, $evaluasi_keperawatan;
+    public $sumber_data, $pernah_berobat, $keluhan_utama, $riwayat_pengobatan, $riwayat_penyakit, $riwayat_alergi, $denyut_jantung, $pernapasan, $sistole, $distole, $suhu, $berat_badan, $tinggi_badan, $bsa, $tingkat_kesadaran, $pemeriksaan_fisik_perawat, $pemeriksaan_lab, $pemeriksaan_rad, $pemeriksaan_penunjang, $diagnosa_keperawatan, $rencana_keperawatan, $tindakan_keperawatan, $evaluasi_keperawatan;
     public function simpanAsesmen()
     {
         $this->validate([
@@ -34,7 +34,7 @@ class ModalPerawatRajal extends Component
             'tinggi_badan' => 'required',
             'bsa' => 'required',
             'tingkat_kesadaran' => 'required',
-            'pemeriksaan_fisik' => 'required',
+            '_perawat' => 'required',
             'pemeriksaan_lab' => 'required',
             'pemeriksaan_rad' => 'required',
             'pemeriksaan_penunjang' => 'required',
@@ -67,7 +67,7 @@ class ModalPerawatRajal extends Component
             'tinggi_badan' => $this->tinggi_badan,
             'bsa' => $this->bsa,
             'tingkat_kesadaran' => $this->tingkat_kesadaran,
-            'pemeriksaan_fisik_perawat' => $this->pemeriksaan_fisik,
+            'pemeriksaan_fisik_perawat' => $this->pemeriksaan_fisik_perawat,
             'pemeriksaan_lab' => $this->pemeriksaan_lab,
             'pemeriksaan_rad' => $this->pemeriksaan_rad,
             'pemeriksaan_penunjang' => $this->pemeriksaan_penunjang,
@@ -119,7 +119,7 @@ class ModalPerawatRajal extends Component
         $this->tinggi_badan = $antrian->asesmenrajal?->tinggi_badan;
         $this->bsa = $antrian->asesmenrajal?->bsa;
         $this->tingkat_kesadaran = $antrian->asesmenrajal?->tingkat_kesadaran;
-        $this->pemeriksaan_fisik = $antrian->asesmenrajal?->pemeriksaan_fisik_perawat;
+        $this->pemeriksaan_fisik_perawat = $antrian->asesmenrajal?->pemeriksaan_fisik_perawat;
         $this->pemeriksaan_lab = $antrian->asesmenrajal?->pemeriksaan_lab;
         $this->pemeriksaan_rad = $antrian->asesmenrajal?->pemeriksaan_rad;
         $this->pemeriksaan_penunjang = $antrian->asesmenrajal?->pemeriksaan_penunjang;

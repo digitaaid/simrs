@@ -79,16 +79,16 @@ return new class extends Migration
             $table->string('user_perawat')->nullable();
             // s & a dokter
             $table->text('pemeriksaan_fisik_dokter')->nullable();
-            $table->string('diagnosa')->nullable();
             $table->text('diagnosa_dokter')->nullable();
+            $table->string('diagnosa')->nullable();
             $table->string('icd1')->nullable();
             $table->string('idc1_text')->nullable();
             $table->string('icd2')->nullable();
             $table->string('icd2_text')->nullable();
             // p dokter
+            $table->text('rencana_medis')->nullable();
             $table->text('tindakan_medis')->nullable();
             $table->text('instruksi_medis')->nullable();
-            $table->text('rencana_medis')->nullable();
             // asesmen dokter
             $table->datetime('waktu_asesmen_dokter')->nullable();
             $table->string('status_asesmen_dokter')->default('0');

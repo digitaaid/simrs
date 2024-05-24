@@ -50,12 +50,12 @@
             <li class="nav-item" wire:click='modalPemeriksaanDokter'>
                 <a href="#" class="nav-link">
                     <i class="fas fa-user-md"></i> Pemeriksaan Dokter
-                    @if ($antrian->asesmendokter)
+                    @if ($antrian->asesmenrajal?->status_asesmen_dokter)
                         <span class="badge bg-success float-right">
-                            {{ $antrian->asesmendokter->pic->name ?? null }}
+                            {{ $antrian->asesmenrajal?->pic_dokter }}
                         </span>
                     @else
-                        <span class="badge bg-danger float-right">Belum Pemeriksaan</span>
+                        <span class="badge bg-danger float-right">Belum Asesmen</span>
                     @endif
                 </a>
             </li>

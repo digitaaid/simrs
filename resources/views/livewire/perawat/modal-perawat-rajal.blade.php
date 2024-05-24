@@ -55,7 +55,6 @@
                     wire:model="riwayat_alergi" />
             </div>
         </div>
-        <hr>
         <h6>Objective (O) - Pemeriksaan Fisik</h6>
         <div class="row">
             <div class="col-md-6">
@@ -144,8 +143,8 @@
             <option value="5">Gelisah atau bingung</option>
             <option value="6">Acute Confusional States</option>
         </x-adminlte-select>
-        <x-adminlte-textarea igroup-size="sm" rows=4 label="Pemeriksaan Fisik Perawat" name="pemeriksaan_fisik"
-            wire:model="pemeriksaan_fisik"></x-adminlte-textarea>
+        <x-adminlte-textarea igroup-size="sm" rows=4 label="Pemeriksaan Fisik Perawat"
+            name="pemeriksaan_fisik_perawat" wire:model="pemeriksaan_fisik_perawat" />
         <h6>Expertise Laboratorium, Radiologi, & Penunjang Lainnya</h6>
         <div class="row">
             <div class="col-md-4">
