@@ -18,10 +18,9 @@
         <x-adminlte-card theme="primary" title="Navigasi" body-class="p-0">
             @include('livewire.dokter.navigasi-pemeriksaan-rajal')
             <x-slot name="footerSlot">
-                <a href="{{ route('pemeriksaan.perawat.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
-                    <x-adminlte-button class="btn-xs" label="Selesai & Kembali" theme="success"
-                        icon="fas fa-arrow-left" />
-                </a>
+                <x-adminlte-button wire:click='selesaiPerawat'
+                    wire:confirm='Apakah anda yakin telah selesai pemeriksaan perawat ?' class="btn-xs"
+                    label="Selesai & Kembali" theme="success" icon="fas fa-arrow-left" />
                 <div wire:loading>
                     <div class="spinner-border spinner-border-sm text-primary" role="status">
                     </div>
@@ -32,6 +31,9 @@
     </div>
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
+        @if ($openmodalCppt)
+            @livewire('dokter.modal-cppt', ['pasien' => $pasien])
+        @endif
         @if ($openmodalAsesmenRajal)
             @livewire('dokter.modal-asesmen-rajal')
         @endif

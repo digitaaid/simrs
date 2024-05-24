@@ -34,7 +34,7 @@ class ModalPerawatRajal extends Component
             'tinggi_badan' => 'required',
             'bsa' => 'required',
             'tingkat_kesadaran' => 'required',
-            '_perawat' => 'required',
+            'pemeriksaan_fisik_perawat' => 'required',
             'pemeriksaan_lab' => 'required',
             'pemeriksaan_rad' => 'required',
             'pemeriksaan_penunjang' => 'required',
@@ -104,29 +104,33 @@ class ModalPerawatRajal extends Component
         $this->antrian_id = $antrian->id;
         $this->kodekunjungan = $antrian->kunjungan->kode;
         $this->kunjungan_id = $antrian->kunjungan->id;
-        $this->sumber_data = $antrian->asesmenrajal?->sumber_data;
-        $this->pernah_berobat = $antrian->asesmenrajal?->pernah_berobat;
-        $this->keluhan_utama = $antrian->asesmenrajal?->keluhan_utama;
-        $this->riwayat_pengobatan = $antrian->asesmenrajal?->riwayat_pengobatan;
-        $this->riwayat_penyakit = $antrian->asesmenrajal?->riwayat_penyakit;
-        $this->riwayat_alergi = $antrian->asesmenrajal?->riwayat_alergi;
-        $this->denyut_jantung = $antrian->asesmenrajal?->denyut_jantung;
-        $this->pernapasan = $antrian->asesmenrajal?->pernapasan;
-        $this->sistole = $antrian->asesmenrajal?->sistole;
-        $this->distole = $antrian->asesmenrajal?->distole;
-        $this->suhu = $antrian->asesmenrajal?->suhu;
-        $this->berat_badan = $antrian->asesmenrajal?->berat_badan;
-        $this->tinggi_badan = $antrian->asesmenrajal?->tinggi_badan;
-        $this->bsa = $antrian->asesmenrajal?->bsa;
-        $this->tingkat_kesadaran = $antrian->asesmenrajal?->tingkat_kesadaran;
-        $this->pemeriksaan_fisik_perawat = $antrian->asesmenrajal?->pemeriksaan_fisik_perawat;
-        $this->pemeriksaan_lab = $antrian->asesmenrajal?->pemeriksaan_lab;
-        $this->pemeriksaan_rad = $antrian->asesmenrajal?->pemeriksaan_rad;
-        $this->pemeriksaan_penunjang = $antrian->asesmenrajal?->pemeriksaan_penunjang;
-        $this->diagnosa_keperawatan = $antrian->asesmenrajal?->diagnosa_keperawatan;
-        $this->rencana_keperawatan = $antrian->asesmenrajal?->rencana_keperawatan;
-        $this->tindakan_keperawatan = $antrian->asesmenrajal?->tindakan_keperawatan;
-        $this->evaluasi_keperawatan = $antrian->asesmenrajal?->evaluasi_keperawatan;
+        $antrianlast = Antrian::where('norm', $this->antrian->norm)
+            ->where('id', '<', $this->antrian->id)
+            ->orderBy('id', 'desc')
+            ->first();
+        $this->sumber_data = $antrian->asesmenrajal?->sumber_data ?? $antrianlast?->asesmenrajal?->sumber_data;
+        $this->pernah_berobat = $antrian->asesmenrajal?->pernah_berobat ?? $antrianlast?->asesmenrajal?->pernah_berobat;
+        $this->keluhan_utama = $antrian->asesmenrajal?->keluhan_utama ?? $antrianlast?->asesmenrajal?->keluhan_utama;
+        $this->riwayat_pengobatan = $antrian->asesmenrajal?->riwayat_pengobatan ?? $antrianlast?->asesmenrajal?->riwayat_pengobatan;
+        $this->riwayat_penyakit = $antrian->asesmenrajal?->riwayat_penyakit ?? $antrianlast?->asesmenrajal?->riwayat_penyakit;
+        $this->riwayat_alergi = $antrian->asesmenrajal?->riwayat_alergi ?? $antrianlast?->asesmenrajal?->riwayat_alergi;
+        $this->denyut_jantung = $antrian->asesmenrajal?->denyut_jantung ?? $antrianlast?->asesmenrajal?->denyut_jantung;
+        $this->pernapasan = $antrian->asesmenrajal?->pernapasan ?? $antrianlast?->asesmenrajal?->pernapasan;
+        $this->sistole = $antrian->asesmenrajal?->sistole ?? $antrianlast?->asesmenrajal?->sistole;
+        $this->distole = $antrian->asesmenrajal?->distole ?? $antrianlast?->asesmenrajal?->distole;
+        $this->suhu = $antrian->asesmenrajal?->suhu ?? $antrianlast?->asesmenrajal?->suhu;
+        $this->berat_badan = $antrian->asesmenrajal?->berat_badan ?? $antrianlast?->asesmenrajal?->berat_badan;
+        $this->tinggi_badan = $antrian->asesmenrajal?->tinggi_badan ?? $antrianlast?->asesmenrajal?->tinggi_badan;
+        $this->bsa = $antrian->asesmenrajal?->bsa ?? $antrianlast?->asesmenrajal?->bsa;
+        $this->tingkat_kesadaran = $antrian->asesmenrajal?->tingkat_kesadaran ?? $antrianlast?->asesmenrajal?->tingkat_kesadaran;
+        $this->pemeriksaan_fisik_perawat = $antrian->asesmenrajal?->pemeriksaan_fisik_perawat ?? $antrianlast?->asesmenrajal?->pemeriksaan_fisik_perawat;
+        $this->pemeriksaan_lab = $antrian->asesmenrajal?->pemeriksaan_lab ?? $antrianlast?->asesmenrajal?->pemeriksaan_lab;
+        $this->pemeriksaan_rad = $antrian->asesmenrajal?->pemeriksaan_rad ?? $antrianlast?->asesmenrajal?->pemeriksaan_rad;
+        $this->pemeriksaan_penunjang = $antrian->asesmenrajal?->pemeriksaan_penunjang ?? $antrianlast?->asesmenrajal?->pemeriksaan_penunjang;
+        $this->diagnosa_keperawatan = $antrian->asesmenrajal?->diagnosa_keperawatan ?? $antrianlast?->asesmenrajal?->diagnosa_keperawatan;
+        $this->rencana_keperawatan = $antrian->asesmenrajal?->rencana_keperawatan ?? $antrianlast?->asesmenrajal?->rencana_keperawatan;
+        $this->tindakan_keperawatan = $antrian->asesmenrajal?->tindakan_keperawatan ?? $antrianlast?->asesmenrajal?->tindakan_keperawatan;
+        $this->evaluasi_keperawatan = $antrian->asesmenrajal?->evaluasi_keperawatan ?? $antrianlast?->asesmenrajal?->evaluasi_keperawatan;
     }
     public function modalPemeriksaanPerawat()
     {
