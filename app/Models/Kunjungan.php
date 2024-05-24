@@ -21,5 +21,9 @@ class Kunjungan extends Model
     {
         return $this->hasOne(Unit::class,  'kode', 'unit');
     }
+    public function asesmenrajal()
+    {
+        return $this->hasOne(AsesmenRajal::class);
+    }
 
 }

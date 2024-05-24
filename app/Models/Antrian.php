@@ -13,9 +13,21 @@ class Antrian extends Model
     {
         return $this->belongsTo(Kunjungan::class, 'kodebooking', 'kode');
     }
+    public function dokters()
+    {
+        return $this->hasOne(Dokter::class, 'kode', 'kodedokter');
+    }
+    public function units()
+    {
+        return $this->hasOne(Unit::class,  'kode', 'kodepoli');
+    }
     public function layanans()
     {
         return $this->hasMany(Layanan::class);
+    }
+    public function asesmenrajal()
+    {
+        return $this->hasOne(AsesmenRajal::class);
     }
     public function pic1()
     {

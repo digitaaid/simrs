@@ -38,9 +38,9 @@
             <li class="nav-item" wire:click='modalPemeriksaanPerawat'>
                 <a href="#" class="nav-link">
                     <i class="fas fa-user-nurse"></i> Pemeriksaan Perawat
-                    @if ($antrian->asesmenperawat)
+                    @if ($antrian->asesmenrajal?->status_asesmen_perawat)
                         <span class="badge bg-success float-right">
-                            {{ $antrian->asesmenperawat->pic ?? null }}
+                            {{ $antrian->asesmenrajal?->pic_perawat }}
                         </span>
                     @else
                         <span class="badge bg-danger float-right">Belum Asesmen</span>

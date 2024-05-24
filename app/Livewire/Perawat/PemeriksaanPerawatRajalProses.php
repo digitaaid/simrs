@@ -15,7 +15,7 @@ class PemeriksaanPerawatRajalProses extends Component
     public $openmodalAsesmenRajal = false;
     public $openmodalPerawat = false;
     public $openmodalDokter = false;
-    protected $listeners = ['modalAsesmenRajal',  'modalPemeriksaanPerawat', 'modalPemeriksaanDokter'];
+    protected $listeners = ['modalAsesmenRajal',  'modalPemeriksaanPerawat', 'modalPemeriksaanDokter', 'refreshPage' => '$refresh'];
     public function modalAsesmenRajal()
     {
         $this->openmodalAsesmenRajal = $this->openmodalAsesmenRajal ? false : true;
