@@ -125,9 +125,9 @@ class ModalKunjunganRajal extends Component
             $this->jenispeserta = $pasien->jenispeserta;
         }
     }
-    public function closeformKunjungan()
+    public function formKunjungan()
     {
-        $this->dispatch('closeformKunjungan');
+        $this->dispatch('formKunjungan');
     }
     public function mount(Antrian $antrian)
     {

@@ -175,9 +175,9 @@ class ModalAntrianRajal extends Component
             $this->nohp = $pasien->nohp;
         }
     }
-    public function closeformAntrian()
+    public function formAntrian()
     {
-        $this->dispatch('closeformAntrian');
+        $this->dispatch('formAntrian');
     }
     public function mount(Antrian $antrian)
     {

@@ -19,7 +19,7 @@ class PendaftaranRajalProses extends Component
     public $openformAntrian = false;
     public $openformKunjungan = false;
     public $openformPasien = false;
-    protected $listeners = ['closeformAntrian',  'closeformKunjungan', 'closeformPasien', 'refreshPage' => '$refresh'];
+    protected $listeners = ['modalCppt', 'formAntrian',  'formKunjungan', 'formPasien', 'refreshPage' => '$refresh'];
     public function batal()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
@@ -65,25 +65,13 @@ class PendaftaranRajalProses extends Component
     {
         $this->openformPasien =  $this->openformPasien ? false : true;
     }
-    public function closeformPasien()
-    {
-        $this->openformPasien = false;
-    }
     public function formKunjungan()
     {
         $this->openformKunjungan = $this->openformKunjungan ? false : true;
     }
-    public function closeformKunjungan()
-    {
-        $this->openformKunjungan = false;
-    }
     public function formAntrian()
     {
         $this->openformAntrian = $this->openformAntrian ? false : true;
-    }
-    public function closeformAntrian()
-    {
-        $this->openformAntrian = false;
     }
     public function mount($kodebooking)
     {

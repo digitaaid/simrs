@@ -10,9 +10,9 @@ class ModalPasienRajal extends Component
 {
     use WithPagination;
     public $search = '';
-    public function closeformPasien()
+    public function formPasien()
     {
-        $this->dispatch('closeformPasien');
+        $this->dispatch('formPasien');
     }
     public function render()
     {
