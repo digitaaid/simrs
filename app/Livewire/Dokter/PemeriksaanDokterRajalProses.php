@@ -14,6 +14,7 @@ class PemeriksaanDokterRajalProses extends Component
     public $antrian, $pasien;
     public $polikliniks, $dokters, $jaminans;
     public $openmodalCppt = false;
+    public $openmodalLayanan = false;
     public $openmodalAsesmenRajal = false;
     public $openmodalPerawat = false;
     public $openmodalDokter = false;
@@ -67,6 +68,10 @@ class PemeriksaanDokterRajalProses extends Component
     public function modalCppt()
     {
         $this->openmodalCppt = $this->openmodalCppt ? false : true;
+    }
+    public function modalLayanan()
+    {
+        $this->openmodalLayanan = $this->openmodalLayanan ? false : true;
     }
     public function modalAsesmenRajal()
     {

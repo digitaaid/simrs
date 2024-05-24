@@ -13,14 +13,12 @@ class PemeriksaanPerawatRajalProses extends Component
     public $antrian, $pasien;
     public $polikliniks, $dokters, $jaminans;
     public $openmodalCppt = false;
+    public $openmodalLayanan = false;
     public $openmodalAsesmenRajal = false;
     public $openmodalPerawat = false;
     public $openmodalDokter = false;
     protected $listeners = ['modalAsesmenRajal',  'modalPemeriksaanPerawat', 'modalPemeriksaanDokter', 'refreshPage' => '$refresh'];
-    public function modalCppt()
-    {
-        $this->openmodalCppt = $this->openmodalCppt ? false : true;
-    }
+
     public function selesaiPerawat()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
@@ -32,6 +30,14 @@ class PemeriksaanPerawatRajalProses extends Component
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan obat.', 'danger');
         }
+    }
+    public function modalCppt()
+    {
+        $this->openmodalCppt = $this->openmodalCppt ? false : true;
+    }
+    public function modalLayanan()
+    {
+        $this->openmodalLayanan = $this->openmodalLayanan ? false : true;
     }
     public function modalAsesmenRajal()
     {

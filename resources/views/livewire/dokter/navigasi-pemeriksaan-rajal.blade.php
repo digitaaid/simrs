@@ -4,19 +4,19 @@
             <i class="fas fa-file-medical"></i> I-Care JKN
         </a>
     </li>
-    <li class="nav-item" onclick="tambahLayanan()">
-        <a href="#" class="nav-link">
-            <i class="fas fa-hand-holding-medical"></i> Layanan & Tindakan
-            <span class="badge bg-success float-right">
-                {{ $antrian->layanans->count() }} Layanan
-            </span>
-        </a>
-    </li>
-    <li class="nav-item" wire:click='modalCppt' >
+    <li class="nav-item" wire:click='modalCppt'>
         <a href="#" class="nav-link">
             <i class="fas fa-file-medical"></i> CPPT
             <span class="badge bg-success float-right">
                 {{ $antrian->pasien ? $antrian->pasien->kunjungans->count() : 0 }} Kunjungan
+            </span>
+        </a>
+    </li>
+    <li class="nav-item" wire:click='modalLayanan'>
+        <a href="#nav" class="nav-link">
+            <i class="fas fa-hand-holding-medical"></i> Layanan & Tindakan
+            <span class="badge bg-success float-right">
+                {{ $antrian->layanans->count() }} Layanan
             </span>
         </a>
     </li>
@@ -63,5 +63,3 @@
         </a>
     </li>
 </ul>
-
-
