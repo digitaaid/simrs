@@ -329,7 +329,7 @@ return [
         //             'url' => 'pendaftaran/igd',
         //             'icon' => 'fas fa-user-plus',
         //             'shift'   => 'ml-2',
-        //             // 'can' => 'admin',
+        // 'can' => 'admin',
         //             // 'active'  => ['user', 'user/create', 'user/edit/*'],
         //         ],
         //     ]
@@ -337,13 +337,14 @@ return [
         [
             'text'    => 'Pelayanan Rawat Jalan',
             'icon'    => 'fas fa-hand-holding-medical',
+            'can' => 'admin',
             'submenu' => [
                 [
                     'text' => 'Anjungan Antrian',
                     'url' => 'anjunganantrian',
                     'icon' => 'fas fa-desktop',
                     'shift'   => 'ml-2',
-                    // 'can' => 'admin',
+                    'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
@@ -351,7 +352,7 @@ return [
                     'url' => 'displayantrian',
                     'icon' => 'fas fa-desktop',
                     'shift'   => 'ml-2',
-                    // 'can' => 'admin',
+                    'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
@@ -367,7 +368,7 @@ return [
                     'url' => 'pemeriksaan/perawat/rajal',
                     'icon' => 'fas fa-user-nurse',
                     'shift'   => 'ml-2',
-                    // 'can' => 'admin',
+                    'can' => 'admin',
                     'active'  => ['pemeriksaan/perawat/rajal', 'pemeriksaan/perawat/rajal*'],
                 ],
                 [
@@ -375,7 +376,7 @@ return [
                     'url' => 'pemeriksaan/dokter/rajal',
                     'icon' => 'fas fa-user-md',
                     'shift'   => 'ml-2',
-                    // 'can' => 'admin',
+                    'can' => 'admin',
                     'active'  => ['pemeriksaan/dokter/rajal', 'pemeriksaan/dokter/rajal*'],
 
                 ],
@@ -384,7 +385,7 @@ return [
                     'url' => 'farmasi/pengambilan_resep',
                     'icon' => 'fas fa-pills',
                     'shift'   => 'ml-2',
-                    // 'can' => 'admin',
+                    'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
@@ -392,7 +393,7 @@ return [
                     'url' => 'aplication',
                     'icon' => 'fas fa-cash-register',
                     'shift'   => 'ml-2',
-                    // 'can' => 'admin',
+                    'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
             ]
@@ -406,7 +407,7 @@ return [
         //             'url' => 'aplication',
         //             'icon' => 'fas fa-users',
         //             'shift'   => 'ml-2',
-        //             // 'can' => 'admin',
+        // 'can' => 'admin',
         //             // 'active'  => ['user', 'user/create', 'user/edit/*'],
         //         ],
         //     ]
@@ -420,7 +421,7 @@ return [
                     'url' => 'aplication',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    // 'can' => 'admin',
+                    'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
@@ -428,7 +429,7 @@ return [
                     'url' => 'aplication',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    // 'can' => 'admin',
+                    'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
@@ -436,7 +437,7 @@ return [
                     'url' => 'aplication',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    // 'can' => 'admin',
+                    'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
@@ -444,7 +445,7 @@ return [
                     'url' => 'aplication',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    // 'can' => 'admin',
+                    'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
             ]
@@ -523,36 +524,42 @@ return [
         [
             'text'    => 'Integrasi Antrian BPJS',
             'icon'    => 'fas fa-project-diagram',
+            'can' => 'antrian-bpjs',
             'submenu' => [
                 [
                     'text' => 'Poliklinik',
                     'icon'    => 'fas fa-clinic-medical',
                     'url'  => 'bpjs/antrian/refpoliklinik',
                     'shift'   => 'ml-2',
+                    'can' => 'antrian-bpjs',
                 ],
                 [
                     'text' => 'Dokter',
                     'icon'    => 'fas fa-user-md',
                     'url'  => 'bpjs/antrian/refdokter',
                     'shift'   => 'ml-2',
+                    'can' => 'antrian-bpjs',
                 ],
                 [
                     'text' => 'Jadwal Dokter',
                     'icon'    => 'fas fa-calendar-alt',
                     'url'  => 'bpjs/antrian/refjadwaldokter',
                     'shift'   => 'ml-2',
+                    'can' => 'antrian-bpjs',
                 ],
                 [
                     'text' => 'Poliklinik Fingerprint',
                     'icon'    => 'fas fa-clinic-medical',
                     'url'  => 'bpjs/antrian/refpoliklinik-fingerprint',
                     'shift'   => 'ml-2',
+                    'can' => 'antrian-bpjs',
                 ],
                 [
                     'text' => 'Peserta Fingerprint',
                     'icon'    => 'fas fa-fingerprint',
                     'url'  => 'bpjs/antrian/refpeserta-fingerprint',
                     'shift'   => 'ml-2',
+                    'can' => 'antrian-bpjs',
                 ],
                 // [
                 //     'text' => 'Anjungan Antrian',
@@ -571,18 +578,21 @@ return [
                     'icon'    => 'fas fa-user-clock',
                     'url'  => 'bpjs/antrian/listtaskid',
                     'shift'   => 'ml-2',
+                    'can' => 'antrian-bpjs',
                 ],
                 [
                     'text' => 'Dasboard Tanggal',
                     'icon'    => 'fas fa-calendar-day',
                     'url'  => 'bpjs/antrian/dashboardtanggal',
                     'shift'   => 'ml-2',
+                    'can' => 'antrian-bpjs',
                 ],
                 [
                     'text' => 'Dashboard Bulan',
                     'icon'    => 'fas fa-calendar-week',
                     'url'  => 'bpjs/antrian/dashboardbulan',
                     'shift'   => 'ml-2',
+                    'can' => 'antrian-bpjs',
                 ],
                 // [
                 //     'text' => 'Jadwal Operasi',
@@ -596,24 +606,28 @@ return [
                     'icon'    => 'fas fa-calendar-day',
                     'url'  => 'bpjs/antrian/antreantanggal',
                     'shift'   => 'ml-2',
+                    'can' => 'antrian-bpjs',
                 ],
                 [
                     'text' => 'Antrian Per Kodebooking',
                     'icon'    => 'fas fa-calendar-day',
                     'url'  => 'bpjs/antrian/antreankodebooking',
                     'shift'   => 'ml-2',
+                    'can' => 'antrian-bpjs',
                 ],
                 [
                     'text' => 'Antrian Belum  Dilayani',
                     'icon'    => 'fas fa-calendar-day',
                     'url'  => 'bpjs/antrian/antreanbelumlayani',
                     'shift'   => 'ml-2',
+                    'can' => 'antrian-bpjs',
                 ],
                 [
                     'text' => 'Antrian Per Dokter',
                     'icon'    => 'fas fa-calendar-day',
                     'url'  => 'bpjs/antrian/antreandokter',
                     'shift'   => 'ml-2',
+                    'can' => 'antrian-bpjs',
                 ],
 
             ],
@@ -622,79 +636,90 @@ return [
         [
             'text'    => 'Integrasi VClaim BPJS',
             'icon'    => 'fas fa-project-diagram',
+            'can' => 'vclaim-bpjs',
             'submenu' => [
                 [
                     'text' => 'Pelayanan Peserta',
                     'icon'    => 'fas fa-id-card',
                     'url'  => 'monitoringPelayananPeserta',
                     'shift'   => 'ml-2',
+                    'can' => 'vclaim-bpjs',
                 ],
                 [
                     'text' => 'SEP Rawat Jalan',
                     'icon'    => 'fas fa-file-medical',
                     'url'  => 'sep_rajal',
                     'shift'   => 'ml-2',
-                    'can' => ['bpjs', 'vclaim', 'pendaftaran', 'manajemen'],
+                    'can' => 'vclaim-bpjs',
                 ],
                 [
                     'text' => 'SEP Rawat Inap',
                     'icon'    => 'fas fa-file-medical',
                     'url'  => 'sep_ranap',
                     'shift'   => 'ml-2',
+                    'can' => 'vclaim-bpjs',
                 ],
                 [
                     'text' => 'Approval Penjaminan SEP',
                     'icon'    => 'fas fa-comment-medical',
                     'url'  => 'list_approval_sep',
                     'shift'   => 'ml-2',
+                    'can' => 'vclaim-bpjs',
                 ],
                 [
                     'text' => 'Surat Kontrol',
                     'icon'    => 'fas fa-file-medical',
                     'url'  => 'suratkontrol',
                     'shift'   => 'ml-2',
-                    'can' => ['bpjs', 'vclaim', 'pendaftaran', 'manajemen'],
+                    'can' => 'vclaim-bpjs',
                 ],
                 [
                     'text' => 'Rujukan Keluar',
                     'icon'    => 'fas fa-comment-medical',
                     'url'  => 'rujukan',
                     'shift'   => 'ml-2',
+                    'can' => 'vclaim-bpjs',
                 ],
                 [
                     'text' => 'Rujukan Khusus',
                     'icon'    => 'fas fa-comment-medical',
                     'url'  => 'rujukankhusus',
                     'shift'   => 'ml-2',
+                    'can' => 'vclaim-bpjs',
                 ],
                 [
                     'text' => 'PRB',
                     'icon'    => 'fas fa-first-aid',
                     'url'  => 'vclaim/prb',
+                    'can' => 'vclaim-bpjs',
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Lembar Pengajuan Klaim',
                     'icon'    => 'fas fa-file-contract',
                     'url'  => 'lpk',
+                    'can' => 'vclaim-bpjs',
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Data Kunjungan',
                     'icon'    => 'fas fa-chart-bar',
                     'url'  => 'monitoringDataKunjungan',
+                    'can' => 'vclaim-bpjs',
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Data Klaim',
                     'icon'    => 'fas fa-chart-bar',
                     'url'  => 'monitoringDataKlaim',
+                    'can' => 'vclaim-bpjs',
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Data Klaim Jasa Raharja',
                     'icon'    => 'fas fa-chart-bar',
                     'url'  => 'monitoringKlaimJasaraharja',
+                    'can' => 'vclaim-bpjs',
                     'shift'   => 'ml-2',
                 ],
 
@@ -702,6 +727,7 @@ return [
                     'text' => 'Referensi',
                     'icon'    => 'fas fa-info-circle',
                     'url'  => 'referensiVclaim',
+                    'can' => 'vclaim-bpjs',
                     'shift'   => 'ml-2',
                 ],
             ],
