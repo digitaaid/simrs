@@ -200,8 +200,56 @@
                     wire:model="instruksi_medis"></x-adminlte-textarea>
             </div>
         </div>
-        @php
-        @endphp
+        <h6>Resep Obat</h6>
+        @foreach ($resepObat as $index => $obat)
+            <div class="row">
+                <div class="col-md-2">
+                    @error('resepObat.' . $index . '.obat')
+                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                    @enderror
+                    <x-adminlte-input wire:model="resepObat.{{ $index }}.obat" list="obatlist" name="obat[]"
+                        igroup-size="sm" placeholder="Nama Obat" />
+                    <datalist id="obatlist">
+                        <option value="Obat"></option>
+                    </datalist>
+
+                </div>
+                <div class="col-md-2">
+                    @error('resepObat.' . $index . '.jumlahobat')
+                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                    @enderror
+                    <x-adminlte-input wire:model="resepObat.{{ $index }}.jumlahobat" name="jumlahobat[]"
+                        igroup-size="sm" type="number" placeholder="Jumlah Obat" />
+                </div>
+                <div class="col-md-2">
+                    <x-adminlte-input wire:model="resepObat.{{ $index }}.frekuensiobat" name="frekuensiobat[]"
+                        igroup-size="sm" placeholder="Frekuensi Obat" />
+                </div>
+                <div class="col-md-2">
+                    <x-adminlte-input wire:model="resepObat.{{ $index }}.waktuobat" name="waktuobat[]"
+                        igroup-size="sm" placeholder="Waktu Obat" />
+                </div>
+                <div class="col-md-2">
+                    <x-adminlte-input wire:model="resepObat.{{ $index }}.keterangan" name="keterangan[]"
+                        igroup-size="sm" placeholder="Keterangan" />
+                </div>
+                <div class="col-md-2">
+                    <button wire:click.prevent="removeObat({{ $index }})" class="btn btn-danger btn-sm">Hapus
+                        Obat</button>
+                </div>
+            </div>
+        @endforeach
+        <button wire:click.prevent="addObat" class="btn btn-success btn-sm">Tambah Obat</button>
+        {{-- <div class="row">
+            <div class="col-md-6">
+                <x-adminlte-textarea igroup-size="sm" rows=3 label="Rencana Medis Dokter" name="rencana_medis"
+                    wire:model="rencana_medis"></x-adminlte-textarea>
+            </div>
+            <div class="col-md-6">
+                <x-adminlte-textarea igroup-size="sm" rows=3 label="Rencana Keperawatan" name="rencana_keperawatan"
+                    wire:model="rencana_keperawatan"></x-adminlte-textarea>
+            </div>
+        </div> --}}
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
                 wire:click="simpanAsesmen" wire:confirm='Apakah anda ingin menyimpan asesmen ini ?' />

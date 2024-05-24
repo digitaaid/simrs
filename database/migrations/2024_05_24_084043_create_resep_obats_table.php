@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('namaunit')->nullable();
             $table->string('user')->nullable();
             $table->string('pic')->nullable();
-            $table->string('status');
+            $table->string('status')->default('1');
             $table->timestamps();
         });
     }
