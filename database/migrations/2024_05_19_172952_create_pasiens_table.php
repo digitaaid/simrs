@@ -32,6 +32,12 @@ return new class extends Migration
             $table->text('alamat')->nullable();
             $table->string('status')->default(1);
             $table->string('keterangan')->nullable();
+            // masuk ke pasien
+            // $table->string('pekerjaan')->nullable();
+            // $table->string('agama')->nullable();
+            // $table->string('pendidikan')->nullable();
+            // $table->string('status_nikah')->nullable();
+            // $table->string('bahasa')->nullable();
             $table->string('user');
             $table->string('pic');
             $table->timestamps();

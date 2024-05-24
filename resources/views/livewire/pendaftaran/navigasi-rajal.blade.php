@@ -60,12 +60,11 @@
                 </li>
             @endif
             @if ($antrian->kunjungan)
-                <li class="nav-item" onclick="modalCPPT()">
-                    <a href="#nav" class="nav-link">
+                <li class="nav-item" wire:click='modalCppt'>
+                    <a href="#" class="nav-link">
                         <i class="fas fa-file-medical"></i> CPPT
                         <span class="badge bg-success float-right">
-                            {{ $antrian->pasien ? $antrian->pasien->kunjungans->where('status', 1)->count() : 0 }}
-                            Kunjungan
+                            {{ $antrian->pasien ? $antrian->pasien->kunjungans->count() : 0 }} Kunjungan
                         </span>
                     </a>
                 </li>
@@ -73,7 +72,7 @@
                     <a href="#nav" class="nav-link">
                         <i class="fas fa-file-medical"></i> Berkas File Upload
                         <span class="badge bg-success float-right">
-                            {{ $antrian->pasien ? $antrian->pasien->fileuploads->count() : 0 }} Berkas File
+                            {{-- {{ $antrian->pasien ? $antrian->pasien->fileuploads->count() : 0 }} Berkas File --}}
                         </span>
                     </a>
                 </li>
@@ -106,10 +105,12 @@
             <a href="{{ route('pendaftaran.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
                 <x-adminlte-button class="btn-xs" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
             </a>
-            @if ($antrian?->kunjungan?->status)
-                <x-adminlte-button wire:click='selesaiPendaftaran'
-                    wire:confirm='Apakah anda yakin antrian ini telah selesai ?' label="Selesai Pendaftaran"
-                    class="btn-xs" icon="fas fa-check" theme="success" />
+            @if ($antrian->taskid <= 2)
+                @if ($antrian?->kunjungan?->status)
+                    <x-adminlte-button wire:click='selesaiPendaftaran'
+                        wire:confirm='Apakah anda yakin antrian ini telah selesai ?' label="Selesai Pendaftaran"
+                        class="btn-xs" icon="fas fa-check" theme="success" />
+                @endif
             @endif
             <x-adminlte-button wire:click='batal'
                 wire:confirm='Apakah anda yakin ingin membatalkan antrian dan kunjungan ini ?' label="Batal"

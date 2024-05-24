@@ -14,18 +14,34 @@
         </x-adminlte-card>
     </div>
     {{-- navigasi --}}
-    @include('livewire.dokter.navigasi-pemeriksaan-rajal')
+    <div class="col-md-3">
+        <x-adminlte-card theme="primary" title="Navigasi" body-class="p-0">
+            @include('livewire.dokter.navigasi-pemeriksaan-rajal')
+            <x-slot name="footerSlot">
+                <x-adminlte-button wire:click='selesaiPerawat'
+                    wire:confirm='Apakah anda yakin telah selesai pemeriksaan perawat ?' class="btn-xs"
+                    label="Selesai & Kembali" theme="success" icon="fas fa-arrow-left" />
+                <div wire:loading>
+                    <div class="spinner-border spinner-border-sm text-primary" role="status">
+                    </div>
+                    Loading ...
+                </div>
+            </x-slot>
+        </x-adminlte-card>
+    </div>
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
+        @if ($openmodalCppt)
+            @livewire('dokter.modal-cppt', ['pasien' => $pasien])
+        @endif
         @if ($openmodalAsesmenRajal)
             @livewire('dokter.modal-asesmen-rajal')
         @endif
         @if ($openmodalPerawat)
-            @livewire('perawat.modal-perawat-rajal')
+            @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian])
         @endif
         @if ($openmodalDokter)
-            @livewire('dokter.modal-dokter-rajal')
-
+            @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian])
         @endif
     </div>
 </div>

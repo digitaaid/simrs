@@ -17,8 +17,36 @@ class ModalKunjunganRajal extends Component
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kode, $counter, $jaminan, $tgl_masuk, $unit, $dokter, $caramasuk, $diag_awal, $jeniskunjungan, $nomorreferensi, $sep;
     public function editKunjungan()
     {
+        $this->validate([
+            'kodebooking' => 'required',
+            'nomorkartu' => 'required',
+            'nik' => 'required|digits:16',
+            'norm' => 'required|digits:9',
+            'nama' => 'required',
+            'tgl_lahir' => 'required|date',
+            'gender' => 'required',
+            'hakkelas' => 'required',
+            'jenispeserta' => 'required',
+            'tgl_masuk' => 'required',
+            'jaminan' => 'required',
+            'unit' => 'required',
+            'dokter' => 'required',
+            'caramasuk' => 'required',
+            'jeniskunjungan' => 'required',
+        ]);
         $antrian = Antrian::find($this->antrianId);
         $counter = Kunjungan::where('norm', $antrian->norm)->first()?->counter ?? 1;
+        // update pasien
+        $pasien = Pasien::firstWhere('norm', $this->norm);
+        $pasien->update([
+            'nomorkartu' => $this->nomorkartu,
+            'nik' => $this->nik,
+            'nama' => $this->nama,
+            'tgl_lahir' => $this->tgl_lahir,
+            'gender' => $this->gender,
+            'hakkelas' => $this->hakkelas,
+            'jenispeserta' => $this->jenispeserta,
+        ]);
         // simpan kunjungan
         $kunjungan = Kunjungan::updateOrCreate([
             'kode' => $antrian->kodebooking,
@@ -85,6 +113,7 @@ class ModalKunjunganRajal extends Component
     public function cariNoRM()
     {
         $pasien = Pasien::where('norm', $this->norm)->first();
+        dd($pasien);
         if ($pasien) {
             $this->nomorkartu = $pasien->nomorkartu;
             $this->nik = $pasien->nik;
@@ -96,9 +125,9 @@ class ModalKunjunganRajal extends Component
             $this->jenispeserta = $pasien->jenispeserta;
         }
     }
-    public function closeformKunjungan()
+    public function formKunjungan()
     {
-        $this->dispatch('closeformKunjungan');
+        $this->dispatch('formKunjungan');
     }
     public function mount(Antrian $antrian)
     {

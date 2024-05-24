@@ -65,11 +65,11 @@
             @php
                 $heads = [
                     'No',
-                    'Kodebooking',
                     'No RM',
                     'Nama Pasien',
                     'Action',
                     'Taskid',
+                    'Asesmen',
                     'Jenis Pasien',
                     'Layanan',
                     'Unit',
@@ -79,6 +79,7 @@
                     'NIK',
                     'Method',
                     'Status',
+                    'Kodebooking',
                 ];
                 $config['order'] = [5, 'asc'];
                 $config['scrollX'] = true;
@@ -89,7 +90,6 @@
                     @foreach ($antrians as $item)
                         <tr>
                             <td>{{ $item->angkaantrean }}</td>
-                            <td>{{ $item->kodebooking }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
@@ -97,23 +97,6 @@
                                     <x-adminlte-button class="btn-xs" label="Proses" theme="success"
                                         icon="fas fa-user-nurse" />
                                 </a>
-                                {{-- @switch($item->taskid)
-                                    @case(1)
-                                        <a href="{{ route('prosespendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-warning withLoad">Proses</a>
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-secondary withLoad">Lihat</a>
-                                    @break
-
-                                    @case(2)
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-primary withLoad">Proses</a>
-                                    @break
-
-                                    @default
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-secondary withLoad">Lihat</a>
-                                @endswitch --}}
                             </td>
                             <td>
                                 @switch($item->taskid)
@@ -122,11 +105,11 @@
                                     @break
 
                                     @case(1)
-                                        <span class="badge badge-warning">1. Menunggu Pendaftaran</span>
+                                        <span class="badge badge-warning">97. Menunggu Pendaftaran</span>
                                     @break
 
                                     @case(2)
-                                        <span class="badge badge-primary">0. Proses Pendaftaran</span>
+                                        <span class="badge badge-primary">96. Proses Pendaftaran</span>
                                     @break
 
                                     @case(3)
@@ -159,15 +142,23 @@
                                         {{ $item->taskid }}
                                 @endswitch
                             </td>
+                            <td>
+                                @if ($item->asesmenrajal?->status_asesmen_perawat)
+                                    <span class="badge badge-success">1. Sudah</span>
+                                @else
+                                    <span class="badge badge-danger">0. Belum</span>
+                                @endif
+                            </td>
                             <td>{{ $item->jenispasien }} </td>
                             <td class="text-right">{{ money($item->layanans->sum('harga'), 'IDR') }} </td>
                             <td>{{ $item->kunjungan->units->nama ?? $item->namapoli }} </td>
-                            <td>{{ $item->pic1->name ?? 'Belum Didaftarkan' }} </td>
+                            <td>{{ $item->pic2->name ?? 'Belum Diperiksa' }} </td>
                             <td>{{ $item->kunjungan->dokters->namadokter ?? $item->namadokter }}</td>
                             <td>{{ $item->nomorkartu }}</td>
                             <td>{{ $item->nik }} </td>
                             <td>{{ $item->method }} </td>
                             <td>{{ $item->status }} </td>
+                            <td>{{ $item->kodebooking }}</td>
                         </tr>
                     @endforeach
                 @endisset

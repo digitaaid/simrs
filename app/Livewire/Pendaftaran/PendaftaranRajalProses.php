@@ -13,12 +13,13 @@ class PendaftaranRajalProses extends Component
 {
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien;
     public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
-    public $antrian;
+    public $antrian, $pasien;
     public $polikliniks, $dokters, $jaminans;
+    public $openmodalCppt = false;
     public $openformAntrian = false;
     public $openformKunjungan = false;
     public $openformPasien = false;
-    protected $listeners = ['closeformAntrian',  'closeformKunjungan', 'closeformPasien', 'refreshPage' => '$refresh'];
+    protected $listeners = ['modalCppt', 'formAntrian',  'formKunjungan', 'formPasien', 'refreshPage' => '$refresh'];
     public function batal()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
@@ -56,35 +57,28 @@ class PendaftaranRajalProses extends Component
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
         }
     }
+    public function modalCppt()
+    {
+        $this->openmodalCppt = $this->openmodalCppt ? false : true;
+    }
     public function formPasien()
     {
         $this->openformPasien =  $this->openformPasien ? false : true;
-    }
-    public function closeformPasien()
-    {
-        $this->openformPasien = false;
     }
     public function formKunjungan()
     {
         $this->openformKunjungan = $this->openformKunjungan ? false : true;
     }
-    public function closeformKunjungan()
-    {
-        $this->openformKunjungan = false;
-    }
     public function formAntrian()
     {
         $this->openformAntrian = $this->openformAntrian ? false : true;
-    }
-    public function closeformAntrian()
-    {
-        $this->openformAntrian = false;
     }
     public function mount($kodebooking)
     {
         $antrian = Antrian::firstWhere('kodebooking', $kodebooking);
         if ($antrian) {
             $this->antrian = $antrian;
+            $this->pasien = $antrian->pasien;
             $this->kodebooking = $kodebooking;
             $this->antrianId = $antrian->id;
             $this->nomorkartu = $antrian->nomorkartu;

@@ -21,6 +21,9 @@
     @include('livewire.pendaftaran.navigasi-rajal')
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
+        @if ($openmodalCppt)
+            @livewire('dokter.modal-cppt', ['pasien' => $pasien])
+        @endif
         @if ($openformPasien)
             @livewire('pendaftaran.modal-pasien-rajal')
         @endif

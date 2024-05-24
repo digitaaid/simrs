@@ -136,10 +136,11 @@ class ModalAntrianRajal extends Component
         if ($res->metadata->code == 200) {
             $antrian->status = 1;
             $antrian->update();
-            return flash('Antrian atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
+            flash('Antrian atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
         } else {
-            return flash($res->metadata->message, 'danger');
+            flash($res->metadata->message, 'danger');
         }
+        $this->dispatch('refreshPage');
     }
     public function cariNomorKartu()
     {
@@ -174,9 +175,9 @@ class ModalAntrianRajal extends Component
             $this->nohp = $pasien->nohp;
         }
     }
-    public function closeformAntrian()
+    public function formAntrian()
     {
-        $this->dispatch('closeformAntrian');
+        $this->dispatch('formAntrian');
     }
     public function mount(Antrian $antrian)
     {

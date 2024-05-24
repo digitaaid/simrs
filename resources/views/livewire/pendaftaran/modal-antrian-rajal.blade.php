@@ -99,7 +99,7 @@
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
                 wire:click="editAntrian" wire:confirm='Apakah anda yakin akan menyimpan data antrian ?' />
-            <x-adminlte-button wire:click='closeformAntrian' theme="danger" class="btn-sm" icon="fas fa-times"
+            <x-adminlte-button wire:click='formAntrian' theme="danger" class="btn-sm" icon="fas fa-times"
                 label="Tutup" />
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
