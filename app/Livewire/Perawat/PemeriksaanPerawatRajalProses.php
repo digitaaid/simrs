@@ -51,7 +51,6 @@ class PemeriksaanPerawatRajalProses extends Component
     }
     public function render()
     {
-        $pasiencount = Pasien::count();
-        return view('livewire.perawat.pemeriksaan-perawat-rajal-proses', compact('pasiencount'))->title('Pemeriksaan Perawat ' . $this->antrian->nama);
+        return view('livewire.perawat.pemeriksaan-perawat-rajal-proses')->title('Pemeriksaan Perawat ' . $this->antrian->nama);
     }
 }

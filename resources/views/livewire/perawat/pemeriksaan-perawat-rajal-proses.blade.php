@@ -14,7 +14,22 @@
         </x-adminlte-card>
     </div>
     {{-- navigasi --}}
-    @include('livewire.dokter.navigasi-pemeriksaan-rajal')
+    <div class="col-md-3">
+        <x-adminlte-card theme="primary" title="Navigasi" body-class="p-0">
+            @include('livewire.dokter.navigasi-pemeriksaan-rajal')
+            <x-slot name="footerSlot">
+                <a href="{{ route('pemeriksaan.perawat.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
+                    <x-adminlte-button class="btn-xs" label="Selesai & Kembali" theme="success"
+                        icon="fas fa-arrow-left" />
+                </a>
+                <div wire:loading>
+                    <div class="spinner-border spinner-border-sm text-primary" role="status">
+                    </div>
+                    Loading ...
+                </div>
+            </x-slot>
+        </x-adminlte-card>
+    </div>
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
         @if ($openmodalAsesmenRajal)
