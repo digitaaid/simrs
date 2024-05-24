@@ -24,6 +24,9 @@
         @if ($openmodalCppt)
             @livewire('dokter.modal-cppt', ['pasien' => $pasien])
         @endif
+        @if ($openmodalLayanan)
+            @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
+        @endif
         @if ($openformPasien)
             @livewire('pendaftaran.modal-pasien-rajal')
         @endif
