@@ -68,9 +68,9 @@ Route::get('getdisplayantrian', [AntrianController::class, 'getdisplayantrian'])
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('profil', ProfilIndex::class)->lazy()->name('profil');
+    Route::get('profil', ProfilIndex::class)->name('profil')->lazy();
     Route::middleware(['can:admin'])->group(function () {
-        Route::get('role-permission', RolePermission::class)->name('role-permission');
+        Route::get('role-permission', RolePermission::class)->name('role-permission')->lazy();
         Route::get('integration', IntegrationIndex::class)->name('integration.index');
         Route::get('user', UserIndex::class)->name('user.index');
         Route::get('user/create', UserForm::class)->name('user.create');

@@ -8,7 +8,7 @@ use Spatie\Permission\Models\Role;
 
 class RoleTable extends Component
 {
-    public $id, $name;
+    public $id, $name, $roles;
     public $permissions = [];
     public $selectedPermissions = [];
     public $form = false;
@@ -60,13 +60,16 @@ class RoleTable extends Component
     {
         return view('components.placeholder.placeholder-text');
     }
-    public function render()
+    public function mount()
     {
         $search = '%' . $this->search . '%';
-        $roles = Role::orderBy('name', 'asc')->with(['permissions'])
+        $this->roles = Role::orderBy('name', 'asc')->with(['permissions'])
             ->where('name', 'like', $search)
             ->get();
         $this->permissions = Permission::pluck('name', 'id');
-        return view('livewire.user.role-table', compact('roles'));
+    }
+    public function render()
+    {
+        return view('livewire.user.role-table');
     }
 }

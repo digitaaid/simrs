@@ -835,7 +835,7 @@ return [
 
     'plugins' => [
         'Flatpicker' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
@@ -850,7 +850,7 @@ return [
             ],
         ],
         'TempusDominusBs4' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
@@ -870,7 +870,7 @@ return [
             ],
         ],
         'Datatables' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
@@ -1000,7 +1000,7 @@ return [
             ],
         ],
         'BootstrapSwitch' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
