@@ -15,12 +15,14 @@ class PendaftaranRajalProses extends Component
     public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
     public $antrian, $pasien;
     public $polikliniks, $dokters, $jaminans;
-    public $openmodalCppt = false;
-    public $openmodalLayanan = false;
     public $openformAntrian = false;
     public $openformKunjungan = false;
+    public $openmodalSK = false;
+    public $openmodalSEP = false;
+    public $openmodalCppt = false;
+    public $openmodalLayanan = false;
     public $openformPasien = false;
-    protected $listeners = ['modalCppt', 'modalLayanan', 'formAntrian',  'formKunjungan', 'formPasien', 'refreshPage' => '$refresh'];
+    protected $listeners = ['modalCppt', 'modalSEP', 'modalSK', 'modalLayanan', 'formAntrian',  'formKunjungan', 'formPasien', 'refreshPage' => '$refresh'];
     public function batal()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
@@ -57,6 +59,14 @@ class PendaftaranRajalProses extends Component
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
         }
+    }
+    public function modalSEP()
+    {
+        $this->openmodalSEP = $this->openmodalSEP ? false : true;
+    }
+    public function modalSK()
+    {
+        $this->openmodalSK = $this->openmodalSK ? false : true;
     }
     public function modalCppt()
     {
