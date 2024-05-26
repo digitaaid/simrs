@@ -32,6 +32,8 @@ class DashboardBulan extends Component
     }
     public function render()
     {
-        return view('livewire.bpjs.antrian.dashboard-bulan');
+        return view('livewire.bpjs.antrian.dashboard-bulan')->title(
+            'Dashboard Antrian Bulan'
+        );
     }
 }

@@ -627,7 +627,8 @@ return [
                 [
                     'text' => 'Antrian Per Kodebooking',
                     'icon'    => 'fas fa-calendar-day',
-                    'url'  => 'bpjs/antrian/antreankodebooking',
+                    'url'  => 'bpjs/antrian/antreankodebooking/*',
+                    'active'  => ['bpjs/antrian/antreankodebooking/*'],
                     'shift'   => 'ml-2',
                     'can' => 'antrian-bpjs',
                 ],

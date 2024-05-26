@@ -366,12 +366,12 @@ class AntrianController extends ApiController
     public function antrian_kodebooking(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "kodeBooking" =>  "required",
+            "kodebooking" =>  "required",
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first(),  201);
         }
-        $url = $this->api()->base_url . "antrean/pendaftaran/kodebooking/" . $request->kodeBooking;
+        $url = $this->api()->base_url . "antrean/pendaftaran/kodebooking/" . $request->kodebooking;
         $signature = $this->signature();
         $response = Http::withHeaders($signature)->get($url);
         return $this->response_decrypt($response, $signature);
