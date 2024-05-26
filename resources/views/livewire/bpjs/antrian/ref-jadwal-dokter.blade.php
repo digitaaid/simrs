@@ -95,6 +95,7 @@
                             <th>Jampraktek</th>
                             <th>Kapasitas</th>
                             <th>Libur</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -108,6 +109,12 @@
                                 <td>{{ $item->jadwal }}</td>
                                 <td>{{ $item->kapasitaspasien }}</td>
                                 <td>{{ $item->libur }}</td>
+                                <td>
+                                    <a
+                                        href="{{ route('antrian.antreandokter') }}?kodepoli={{ $item->kodepoli }}&kodedokter={{ $item->kodedokter }}&hari={{ $item->hari }}&jampraktek={{ $item->jadwal }}">
+                                        <x-adminlte-button class="btn-xs" theme="primary" label="Antrian" />
+                                    </a>
+                                </td>
                             </tr>
                         @empty
                         @endforelse

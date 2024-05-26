@@ -386,15 +386,15 @@ class AntrianController extends ApiController
     public function antrian_poliklinik(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "kodePoli" =>  "required",
-            "kodeDokter" =>  "required",
+            "kodepoli" =>  "required",
+            "kodedokter" =>  "required",
             "hari" =>  "required",
-            "jamPraktek" =>  "required",
+            "jampraktek" =>  "required",
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first(),  201);
         }
-        $url = $this->api()->base_url . "antrean/pendaftaran/kodepoli/" . $request->kodePoli . "/kodedokter/" . $request->kodeDokter . "/hari/" . $request->hari . "/jampraktek/" . $request->jamPraktek;
+        $url = $this->api()->base_url . "antrean/pendaftaran/kodepoli/" . $request->kodepoli . "/kodedokter/" . $request->kodedokter . "/hari/" . $request->hari . "/jampraktek/" . $request->jampraktek;
         $signature = $this->signature();
         $response = Http::withHeaders($signature)->get($url);
         return $this->response_decrypt($response, $signature);
