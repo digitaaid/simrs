@@ -29,7 +29,6 @@ class MonitoringDataKunjungan extends Component
             flash($res->metadata->message, 'danger');
         }
     }
-
     public function render()
     {
         return view('livewire.bpjs.vclaim.monitoring-data-kunjungan')->title(

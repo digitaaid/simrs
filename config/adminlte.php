@@ -656,6 +656,13 @@ return [
             'can' => 'vclaim-bpjs',
             'submenu' => [
                 [
+                    'text' => 'Lembar Pengajuan Klaim',
+                    'icon'    => 'fas fa-file-contract',
+                    'url'  => 'lpk',
+                    'can' => 'vclaim-bpjs',
+                    'shift'   => 'ml-2',
+                ],
+                [
                     'text' => 'Data Kunjungan',
                     'icon' => 'fas fa-chart-bar',
                     'url' => 'bpjs/vclaim/monitoring-data-kunjungan',
@@ -683,47 +690,11 @@ return [
                     'can' => 'vclaim-bpjs',
                     'shift' => 'ml-2',
                 ],
-
                 [
-                    'text' => 'SEP Rawat Jalan',
-                    'icon'    => 'fas fa-file-medical',
-                    'url'  => 'sep_rajal',
-                    'shift'   => 'ml-2',
-                    'can' => 'vclaim-bpjs',
-                ],
-                [
-                    'text' => 'SEP Rawat Inap',
-                    'icon'    => 'fas fa-file-medical',
-                    'url'  => 'sep_ranap',
-                    'shift'   => 'ml-2',
-                    'can' => 'vclaim-bpjs',
-                ],
-                [
-                    'text' => 'Approval Penjaminan SEP',
-                    'icon'    => 'fas fa-comment-medical',
-                    'url'  => 'list_approval_sep',
-                    'shift'   => 'ml-2',
-                    'can' => 'vclaim-bpjs',
-                ],
-                [
-                    'text' => 'Surat Kontrol',
-                    'icon'    => 'fas fa-file-medical',
-                    'url'  => 'suratkontrol',
-                    'shift'   => 'ml-2',
-                    'can' => 'vclaim-bpjs',
-                ],
-                [
-                    'text' => 'Rujukan Keluar',
-                    'icon'    => 'fas fa-comment-medical',
-                    'url'  => 'rujukan',
-                    'shift'   => 'ml-2',
-                    'can' => 'vclaim-bpjs',
-                ],
-                [
-                    'text' => 'Rujukan Khusus',
-                    'icon'    => 'fas fa-comment-medical',
-                    'url'  => 'rujukankhusus',
-                    'shift'   => 'ml-2',
+                    'text' => 'Peserta BPJS',
+                    'icon' => 'fas fa-id-card',
+                    'url' => 'bpjs/vclaim/peserta-bpjs',
+                    'shift' => 'ml-2',
                     'can' => 'vclaim-bpjs',
                 ],
                 [
@@ -734,20 +705,37 @@ return [
                     'shift'   => 'ml-2',
                 ],
                 [
-                    'text' => 'Lembar Pengajuan Klaim',
-                    'icon'    => 'fas fa-file-contract',
-                    'url'  => 'lpk',
-                    'can' => 'vclaim-bpjs',
-                    'shift'   => 'ml-2',
-                ],
-
-                [
                     'text' => 'Referensi',
                     'icon'    => 'fas fa-info-circle',
-                    'url'  => 'referensiVclaim',
+                    'url'  => 'bpjs/vclaim/referensi',
                     'can' => 'vclaim-bpjs',
                     'shift'   => 'ml-2',
                 ],
+                [
+                    'text' => 'Surat Kontrol',
+                    'icon'    => 'fas fa-file-medical',
+                    'url'  => 'suratkontrol',
+                    'shift'   => 'ml-2',
+                    'can' => 'vclaim-bpjs',
+                ],
+                [
+                    'text' => 'Rujukan',
+                    'icon'    => 'fas fa-comment-medical',
+                    'url'  => 'bpjs/vclaim/rujukan',
+                    'shift'   => 'ml-2',
+                    'can' => 'vclaim-bpjs',
+                ],
+                [
+                    'text' => 'SEP',
+                    'icon'    => 'fas fa-file-medical',
+                    'url'  => 'bpjs/vclaim/sep',
+                    'shift'   => 'ml-2',
+                    'can' => 'vclaim-bpjs',
+                ],
+
+
+
+
             ],
         ],
         // SATU SEHAT
