@@ -679,7 +679,7 @@ return [
                 [
                     'text' => 'Data Klaim Jasa Raharja',
                     'icon' => 'fas fa-chart-bar',
-                    'url' => 'monitoringKlaimJasaraharja',
+                    'url' => 'bpjs/vclaim/monitoring-klaim-jasa-raharja',
                     'can' => 'vclaim-bpjs',
                     'shift' => 'ml-2',
                 ],
