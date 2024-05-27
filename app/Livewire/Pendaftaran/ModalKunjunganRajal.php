@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pendaftaran;
 
+use App\Http\Controllers\VclaimController;
 use App\Models\Antrian;
 use App\Models\Dokter;
 use App\Models\Jaminan;
@@ -9,12 +10,40 @@ use App\Models\Kunjungan;
 use App\Models\Pasien;
 use App\Models\Unit;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class ModalKunjunganRajal extends Component
 {
     public $antrian, $jaminans, $polikliniks, $dokters;
-    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kode, $counter, $jaminan, $tgl_masuk, $unit, $dokter, $caramasuk, $diag_awal, $jeniskunjungan, $nomorreferensi, $sep;
+    public $diagnosas = [];
+    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kode, $counter, $jaminan, $tgl_masuk, $unit, $dokter, $caramasuk, $diagnosa, $jeniskunjungan, $nomorreferensi, $sep;
+    public function updatedDiagnosa()
+    {
+        $this->validate([
+            'diagnosa' => 'required|min:3',
+        ]);
+        try {
+            $api = new VclaimController();
+            $request = new Request([
+                'diagnosa' => $this->diagnosa,
+            ]);
+            $res = $api->ref_diagnosa($request);
+            if ($res->metadata->code == 200) {
+                $this->diagnosas = [];
+                foreach ($res->response->diagnosa as $key => $value) {
+                    $this->diagnosas[] = [
+                        'kode' => $value->kode,
+                        'nama' => $value->nama,
+                    ];
+                }
+            } else {
+                return flash($res->metadata->message, 'danger');
+            }
+        } catch (\Throwable $th) {
+            return flash($th->getMessage(), 'danger');
+        }
+    }
     public function editKunjungan()
     {
         $this->validate([
@@ -67,7 +96,7 @@ class ModalKunjunganRajal extends Component
             'jeniskunjungan' => $this->jeniskunjungan,
             'nomorreferensi' => $this->nomorreferensi,
             'sep' => $this->sep,
-            'diagnosa_awal' => $this->diag_awal,
+            'diagnosa_awal' => $this->diagnosa,
             'cara_masuk' => $this->caramasuk,
             'status' => 1,
             'user1' => auth()->user()->id,
@@ -149,7 +178,7 @@ class ModalKunjunganRajal extends Component
         $this->unit = $antrian->kunjungan?->unit;
         $this->dokter = $antrian->kunjungan?->dokter;
         $this->caramasuk = $antrian->kunjungan?->cara_masuk;
-        $this->diag_awal = $antrian->kunjungan?->diagnosa_awal;
+        $this->diagnosa = $antrian->kunjungan?->diagnosa_awal;
         $this->jeniskunjungan =  $antrian->kunjungan?->jeniskunjungan ?? $antrian->jeniskunjungan;
         $this->polikliniks = Unit::pluck('nama', 'kode');
         $this->dokters = Dokter::pluck('nama', 'kode');

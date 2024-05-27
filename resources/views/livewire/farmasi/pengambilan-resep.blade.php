@@ -73,9 +73,11 @@
                                 igroup-size="sm" placeholder="Keterangan" />
                         </div>
                         <div class="col-md-2">
-                            <button wire:click.prevent="removeObat({{ $index }})"
-                                class="btn btn-danger btn-sm">Hapus
+                            <button wire:click="removeObat({{ $index }})" class="btn btn-danger btn-sm">Hapus
                                 Obat</button>
+                            <a href="{{ route('print.etiket') }}">
+                                <button class="btn btn-success btn-sm">Etiket Obat</button>
+                            </a>
                         </div>
                     </div>
                 @endforeach

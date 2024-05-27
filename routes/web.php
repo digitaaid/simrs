@@ -148,4 +148,5 @@ Route::middleware(['auth'])->group(function () {
     // farmasi
     Route::get('farmasi/pengambilan_resep', PengambilanResep::class)->name('pengambilan.resep');
     Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class, 'print_resep'])->name('print.resep');
+    Route::get('farmasi/print_etiket', [FarmasiController::class, 'print_etiket'])->name('print.etiket');
 });
