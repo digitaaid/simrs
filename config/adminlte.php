@@ -714,7 +714,7 @@ return [
                 [
                     'text' => 'Surat Kontrol',
                     'icon'    => 'fas fa-file-medical',
-                    'url'  => 'suratkontrol',
+                    'url'  => 'bpjs/vclaim/surat-kontrol',
                     'shift'   => 'ml-2',
                     'can' => 'vclaim-bpjs',
                 ],
@@ -732,10 +732,6 @@ return [
                     'shift'   => 'ml-2',
                     'can' => 'vclaim-bpjs',
                 ],
-
-
-
-
             ],
         ],
         // SATU SEHAT
