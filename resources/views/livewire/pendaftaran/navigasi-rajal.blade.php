@@ -17,28 +17,8 @@
                     @endif
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#" wire:click='formKunjungan' class="nav-link">
-                    <i class="fas fa-user-plus"></i> Kunjungan
-                    @if ($antrian->kunjungan)
-                        <span class="badge bg-success float-right">Sudah Didaftarkan</span>
-                    @else
-                        <span class="badge bg-danger float-right">Belum Kunjungan</span>
-                    @endif
-                </a>
-            </li>
             @if ($antrian->jenispasien == 'JKN')
-                <li class="nav-item" onclick="cariSEP()">
-                    <a href="#nav" class="nav-link">
-                        <i class="fas fa-file-medical"></i> SEP
-                        @if ($antrian->sep)
-                            <span class="badge bg-success float-right">Sudah Dibuatkan</span>
-                        @else
-                            <span class="badge bg-danger float-right">Belum Dibuatkan</span>
-                        @endif
-                    </a>
-                </li>
-                <li class="nav-item" onclick="cariSuratKontrol()">
+                <li class="nav-item" wire:click='modalSK'>
                     <a href="#nav" class="nav-link">
                         <i class="fas fa-file-medical"></i> Surat Kontrol
                         {{-- @if ($antrian->suratkontrols->count())
@@ -46,6 +26,16 @@
                         @else
                             <span class="badge bg-danger float-right">Belum Ada SKontrol Berikutnya</span>
                         @endif --}}
+                    </a>
+                </li>
+                <li class="nav-item" wire:click='modalSEP'>
+                    <a href="#nav" class="nav-link">
+                        <i class="fas fa-file-medical"></i> SEP
+                        @if ($antrian->sep)
+                            <span class="badge bg-success float-right">Sudah Dibuatkan</span>
+                        @else
+                            <span class="badge bg-danger float-right">Belum Dibuatkan</span>
+                        @endif
                     </a>
                 </li>
                 <li class="nav-item" onclick="cariRujukanFktp()">
@@ -59,6 +49,16 @@
                     </a>
                 </li>
             @endif
+            <li class="nav-item">
+                <a href="#" wire:click='formKunjungan' class="nav-link">
+                    <i class="fas fa-user-plus"></i> Kunjungan
+                    @if ($antrian->kunjungan)
+                        <span class="badge bg-success float-right">Sudah Didaftarkan</span>
+                    @else
+                        <span class="badge bg-danger float-right">Belum Kunjungan</span>
+                    @endif
+                </a>
+            </li>
             @if ($antrian->kunjungan)
                 <li class="nav-item" wire:click='modalCppt'>
                     <a href="#" class="nav-link">

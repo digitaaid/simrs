@@ -10,14 +10,14 @@
         <x-adminlte-card title="Table Referensi Dokter" theme="secondary">
             <div class="row">
                 <div class="col-md-3">
-                    <x-adminlte-select wire:model="waktu" fgroup-class="row" label-class="text-left col-4"
-                        igroup-class="col-8" igroup-size="sm" name="waktu">
-                        <option value=null disabled>Pilih Waktu</option>
-                        <option value="rs">RS</option>
-                        <option value="server">Server</option>
+                    <x-adminlte-select wire:model="jenispelayanan" fgroup-class="row" label-class="text-left col-4"
+                        igroup-class="col-8" igroup-size="sm" name="jenispelayanan">
+                        <option value=null disabled>Pilih Jenis Pelayanan</option>
+                        <option value="1">Rawat Inap</option>
+                        <option value="2">Rawat Jalan</option>
                         <x-slot name="prependSlot">
                             <div class="input-group-text text-primary">
-                                <i class="fas fa-clock"></i>
+                                <i class="fas fa-hospital"></i>
                             </div>
                         </x-slot>
                     </x-adminlte-select>
@@ -44,32 +44,33 @@
                 <table class="table text-nowrap table-sm table-hover table-bordered table-responsive-xl mb-3">
                     <thead>
                         <tr>
-                            <th>Tanggal</th>
-                            <th>Poliklinik</th>
-                            <th>Jumlah</th>
-                            <th>Tunggu Admisi</th>
-                            <th>Layan Admisi</th>
-                            <th>Tunggu Dokter</th>
-                            <th>Layan Dokter</th>
-                            <th>Tunggu Farmasi</th>
-                            <th>Layan Farmasi</th>
-                            <th>Total Waktu</th>
+                            <th>#</th>
+                            <th>No SEP</th>
+                            <th>Tanggal SEP</th>
+                            <th>Tanggal Pulang</th>
+                            <th>Pelayanan</th>
+                            <th>Kelas Rawat</th>
+                            <th>No Kartu</th>
+                            <th>Nama</th>
+                            <th>Poli</th>
+                            <th>Diagnosa</th>
+                            <th>No Rujukan</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($antrians as $item)
+                        @foreach ($kunjungans as $item)
                             <tr>
-                                <td>{{ $item->tanggal }}</td>
-                                <td>{{ $item->namapoli }}</td>
-                                <td>{{ $item->jumlah_antrean }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task1) }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task2) }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task3) }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task4) }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task5) }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task6) }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task1 + $item->avg_waktu_task2 + $item->avg_waktu_task3 + $item->avg_waktu_task4 + $item->avg_waktu_task5 + $item->avg_waktu_task6) }}
-                                </td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->noSep }}</td>
+                                <td>{{ $item->tglSep }}</td>
+                                <td>{{ $item->tglPlgSep }}</td>
+                                <td>{{ $item->jnsPelayanan }}</td>
+                                <td>{{ $item->kelasRawat }}</td>
+                                <td>{{ $item->noKartu }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>{{ $item->poli }}</td>
+                                <td>{{ $item->diagnosa }}</td>
+                                <td>{{ $item->noRujukan }}</td>
                             </tr>
                         @endforeach
                     </tbody>

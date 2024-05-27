@@ -13,6 +13,10 @@ class RefJadwalDokter extends Component
     public $jadwals = [];
     public function cari()
     {
+        $this->validate([
+            'tanggal' => 'required',
+            'kodepoli' => 'required',
+        ]);
         $request = new Request([
             'kodepoli' => $this->kodepoli,
             'tanggal' => $this->tanggal,

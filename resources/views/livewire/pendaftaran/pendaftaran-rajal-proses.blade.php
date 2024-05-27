@@ -30,6 +30,12 @@
         @if ($openformPasien)
             @livewire('pendaftaran.modal-pasien-rajal')
         @endif
+        @if ($openmodalSK)
+            @livewire('pendaftaran.modal-suratkontrol')
+        @endif
+        @if ($openmodalSEP)
+            @livewire('pendaftaran.modal-sep', ['antrian' => $antrian])
+        @endif
         @if ($openformAntrian)
             @livewire('pendaftaran.modal-antrian-rajal', ['antrian' => $antrian])
         @endif

@@ -9,14 +9,71 @@ use App\Models\Dokter;
 use App\Models\JadwalDokter;
 use App\Models\Pasien;
 use App\Models\Unit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
 class ModalAntrianRajal extends Component
 {
     public $antrian, $polikliniks, $dokters;
-    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien, $keterangan, $perujuk, $jeniskunjungan, $jeniskunjunjgan, $nomorreferensi, $noRujukan, $noSurat;
+    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien, $keterangan, $perujuk, $jeniskunjungan, $jeniskunjunjgan;
     public $pasienbaru = 0, $estimasidilayani, $sisakuotajkn, $kuotajkn, $sisakuotanonjkn, $kuotanonjkn;
+    public $asalRujukan, $nomorreferensi, $noRujukan, $noSurat;
+    public $rujukans = [], $suratkontrols = [];
+    public function cariRujukan()
+    {
+        $api  = new VclaimController();
+        $request = new Request([
+            "nomorkartu" => $this->nomorkartu,
+        ]);
+        if ($this->asalRujukan == 1) {
+            $res = $api->rujukan_peserta($request);
+        } else {
+            $res = $api->rujukan_rs_peserta($request);
+        }
+        if ($res->metadata->code == 200) {
+            $this->rujukans = [];
+            foreach ($res->response->rujukan as $key => $value) {
+                $this->rujukans[] = [
+                    'no' => $key + 1,
+                    'noKunjungan' => $value->noKunjungan,
+                    'tglKunjungan' => $value->tglKunjungan,
+                    'namaPoli' => $value->poliRujukan->nama,
+                    'jenisPelayanan' => $value->pelayanan->nama,
+                ];
+            }
+            return flash($res->metadata->message, 'success');
+        } else {
+            return flash($res->metadata->message, 'danger');
+        }
+    }
+    public function cariSuratKontrol()
+    {
+        $api  = new VclaimController();
+        $request = new Request([
+            "nomorkartu" => $this->nomorkartu,
+            "formatfilter" => 2,
+            "bulan" => Carbon::parse($this->tanggalperiksa)->format('m'),
+            "tahun" => Carbon::parse($this->tanggalperiksa)->format('Y'),
+        ]);
+        $res = $api->suratkontrol_peserta($request);
+        if ($res->metadata->code == 200) {
+            $this->suratkontrols = [];
+            foreach ($res->response->list as $key => $value) {
+                $this->suratkontrols[] = [
+                    'no' => $key + 1,
+                    'noSuratKontrol' => $value->noSuratKontrol,
+                    'tglRencanaKontrol' => $value->tglRencanaKontrol,
+                    'namaPoliTujuan' => $value->namaPoliTujuan,
+                    'terbitSEP' => $value->terbitSEP,
+                ];
+            }
+            return flash($res->metadata->message, 'success');
+        } else {
+            return flash($res->metadata->message, 'danger');
+        }
+    }
+
     public function editAntrian()
     {
         $this->validate([

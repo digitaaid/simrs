@@ -18,6 +18,15 @@ use App\Livewire\Bpjs\Antrian\RefJadwalDokter;
 use App\Livewire\Bpjs\Antrian\RefPesertaFingerprint;
 use App\Livewire\Bpjs\Antrian\RefPoliklinik;
 use App\Livewire\Bpjs\Antrian\RefPoliklinikFingerprint;
+use App\Livewire\Bpjs\Vclaim\MonitoringDataKlaim;
+use App\Livewire\Bpjs\Vclaim\MonitoringDataKunjungan;
+use App\Livewire\Bpjs\Vclaim\MonitoringKlaimJasaRaharja;
+use App\Livewire\Bpjs\Vclaim\MonitoringPelayananPeserta;
+use App\Livewire\Bpjs\Vclaim\Peserta;
+use App\Livewire\Bpjs\Vclaim\Referensi;
+use App\Livewire\Bpjs\Vclaim\Rujukan;
+use App\Livewire\Bpjs\Vclaim\Sep;
+use App\Livewire\Bpjs\Vclaim\SuratKontrol;
 use App\Livewire\Counter;
 use App\Livewire\Dokter\DokterIndex;
 use App\Livewire\Integration\IntegrationForm;
@@ -96,9 +105,20 @@ Route::middleware(['auth'])->group(function () {
         Route::get('bpjs/antrian/dashboardtanggal', DashboardTanggal::class)->name('antrian.dashboardtanggal')->lazy();
         Route::get('bpjs/antrian/dashboardbulan', DashboardBulan::class)->name('antrian.dashboardbulan')->lazy();
         Route::get('bpjs/antrian/antreantanggal', AntreanTanggal::class)->name('antrian.antreantanggal')->lazy();
-        Route::get('bpjs/antrian/antreankodebooking', AntreanKodebooking::class)->name('antrian.antreankodebooking')->lazy();
+        Route::get('bpjs/antrian/antreankodebooking/{kodebooking}', AntreanKodebooking::class)->name('antrian.antreankodebooking')->lazy();
         Route::get('bpjs/antrian/antreanbelumlayani', AntreanBelumLayani::class)->name('antrian.antreanbelumlayani')->lazy();
         Route::get('bpjs/antrian/antreandokter', AntreanDokter::class)->name('antrian.antreandokter')->lazy();
+    });
+    Route::middleware(['can:vclaim-bpjs'])->group(function () {
+        Route::get('bpjs/vclaim/monitoring-data-kunjungan', MonitoringDataKunjungan::class)->name('vclaim.monitoring.datakunjungan')->lazy();
+        Route::get('bpjs/vclaim/monitoring-data-klaim', MonitoringDataKlaim::class)->name('vclaim.monitoring.dataklaim')->lazy();
+        Route::get('bpjs/vclaim/monitoring-pelayanan-peserta', MonitoringPelayananPeserta::class)->name('vclaim.monitoring.pelayananpeserta')->lazy();
+        Route::get('bpjs/vclaim/monitoring-klaim-jasa-raharja', MonitoringKlaimJasaRaharja::class)->name('vclaim.monitoring.klaimjasaraharja')->lazy();
+        Route::get('bpjs/vclaim/peserta-bpjs', Peserta::class)->name('vclaim.peserta.bpjs')->lazy();
+        Route::get('bpjs/vclaim/referensi', Referensi::class)->name('vclaim.referensi')->lazy();
+        Route::get('bpjs/vclaim/surat-kontrol', SuratKontrol::class)->name('vclaim.suratkontrol')->lazy();
+        Route::get('bpjs/vclaim/rujukan', Rujukan::class)->name('vclaim.rujukan')->lazy();
+        Route::get('bpjs/vclaim/sep', Sep::class)->name('vclaim.sep')->lazy();
     });
     Route::middleware(['can:manajemen-pelayanan'])->group(function () {
         Route::get('pasien', PasienIndex::class)->name('pasien.index')->lazy();
