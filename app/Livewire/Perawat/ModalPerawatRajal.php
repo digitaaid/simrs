@@ -34,14 +34,6 @@ class ModalPerawatRajal extends Component
             'tinggi_badan' => 'required',
             'bsa' => 'required',
             'tingkat_kesadaran' => 'required',
-            'pemeriksaan_fisik_perawat' => 'required',
-            'pemeriksaan_lab' => 'required',
-            'pemeriksaan_rad' => 'required',
-            'pemeriksaan_penunjang' => 'required',
-            'diagnosa_keperawatan' => 'required',
-            'rencana_keperawatan' => 'required',
-            'tindakan_keperawatan' => 'required',
-            'evaluasi_keperawatan' => 'required',
         ]);
         // $antrian = Antrian::find($this->antrian_id);
         $kunjungan = Kunjungan::find($this->kunjungan_id);

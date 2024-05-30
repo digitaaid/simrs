@@ -32,6 +32,7 @@ class PemeriksaanDokterRajalProses extends Component
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
         }
+        $this->dispatch('refreshPage');
     }
     public function selesaiPelayanan()
     {
@@ -48,6 +49,7 @@ class PemeriksaanDokterRajalProses extends Component
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan obat.', 'danger');
         }
+        $this->dispatch('refreshPage');
     }
     public function lanjutFarmasi()
     {
@@ -64,6 +66,7 @@ class PemeriksaanDokterRajalProses extends Component
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan obat.', 'danger');
         }
+        $this->dispatch('refreshPage');
     }
     public function modalCppt()
     {

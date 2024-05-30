@@ -20,4 +20,10 @@ class FarmasiController extends Controller
         $pdf = Pdf::loadView('livewire.farmasi.etiket-obat');
         return $pdf->stream('etiket.pdf');
     }
+    public function print_gelang()
+    {
+        $pdf = Pdf::loadView('livewire.farmasi.etiket-obat');
+        return $pdf->stream('etiket.pdf');
+    }
+
 }
