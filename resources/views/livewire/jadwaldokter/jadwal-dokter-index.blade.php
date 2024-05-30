@@ -11,7 +11,7 @@
         <x-adminlte-card title="Table Jadwal Dokter Rawat Jalan" theme="secondary">
             <div class="row ">
                 <div class="col-md-8">
-                    <x-adminlte-button wire:click='openForm' class="btn-sm" label="Tambah Jadwal" theme="success"
+                    <x-adminlte-button wire:click='formJadwal' class="btn-sm" label="Tambah Jadwal" theme="success"
                         icon="fas fa-user-plus" />
                 </div>
                 <div class="col-md-4">
