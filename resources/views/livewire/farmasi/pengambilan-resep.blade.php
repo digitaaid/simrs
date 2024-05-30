@@ -83,11 +83,11 @@
                 <x-slot name="footerSlot">
                     <x-adminlte-button wire:confirm='Apakah anda yakin akan menyimpan resep obat terbaru ini ?'
                         wire:click='simpanResep' class="btn-sm" label="Simpan" theme="success" icon="fas fa-save" />
-                    <x-adminlte-button wire:click='openformEdit' class="btn-sm" label="Tutup" theme="danger"
-                        icon="fas fa-times" />
-                    <a href="{{ route('print.etiket') }}?kode={{ $antrianedit->kodebooking }}">
+                    <a target="_blank" href="{{ route('print.etiket') }}?kode={{ $antrianedit->kodebooking }}">
                         <button class="btn btn-success btn-sm">Etiket Obat</button>
                     </a>
+                    <x-adminlte-button wire:click='openformEdit' class="btn-sm" label="Tutup" theme="danger"
+                        icon="fas fa-times" />
                     <div wire:loading>
                         <div class="spinner-border spinner-border-sm text-primary" role="status">
                         </div>

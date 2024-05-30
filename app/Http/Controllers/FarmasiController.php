@@ -15,9 +15,11 @@ class FarmasiController extends Controller
         $resepobatdetails = $antrian->resepobatdetails;
         return view('livewire.farmasi.print_resep_obat', compact('antrian', 'resepobat', 'resepobatdetails'));
     }
-    public function print_etiket()
+    public function print_etiket(Request $request)
     {
-        $pdf = Pdf::loadView('livewire.farmasi.etiket-obat');
+        $antrian = Antrian::where('kodebooking', $request->kode)->first();
+        $resepobatdetails = $antrian->resepobatdetails;
+        $pdf = Pdf::loadView('livewire.farmasi.etiket-obat', compact('resepobatdetails', 'antrian'));
         return $pdf->stream('etiket.pdf');
     }
     public function print_gelang()
@@ -25,5 +27,4 @@ class FarmasiController extends Controller
         $pdf = Pdf::loadView('livewire.farmasi.etiket-obat');
         return $pdf->stream('etiket.pdf');
     }
-
 }

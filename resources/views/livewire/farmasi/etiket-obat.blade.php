@@ -103,105 +103,41 @@
 </head>
 
 <body style="font-size: 8px; font-family: Calibri;">
-    <b>Nama Klinik</b>
-    <hr style="margin: 0">
-    <table class="table table-borderless">
-        <tr>
-            <td>No RM</td>
-            <td>:</td>
-            <td>000000000</td>
+    @foreach ($resepobatdetails as $key => $item)
+        <b>Farimasi {{ env('APP_NAME_LONG') }}</b>
+        <hr style="margin: 0">
+        <table class="table table-borderless">
+            <tr>
+                <td>No RM</td>
+                <td>:</td>
+                <td>{{ $antrian->norm }}</td>
+            </tr>
+            <tr>
+                <td>Nama</td>
+                <td>:</td>
+                <td>{{ $antrian->nama }}</td>
 
-        </tr>
-        <tr>
-            <td>Nama</td>
-            <td>:</td>
-            <td>Marwan Dhiaur Rahman</td>
-
-        </tr>
-        <tr>
-            <td>Tgl Lahir</td>
-            <td>:</td>
-            <td>9 Mei 1998 (26th)</td>
-        </tr>
-        <tr>
-            <td>Poliklinik</td>
-            <td>:</td>
-            <td>Penyakit Dalam</td>
-        </tr>
-    </table>
-    <br>
-    <div class="text-center" style="font-size: 12px">
-        <b>Nama Obat</b> <br>
-        1x2 pagi siang sore <br>
-        Sebelum sesudah dan saat makan
-    </div>
-    <div class="page-break"></div>
-    <b>Nama Klinik</b>
-    <hr style="margin: 0">
-    <table class="table table-borderless">
-        <tr>
-            <td>No RM</td>
-            <td>:</td>
-            <td>000000000</td>
-
-        </tr>
-        <tr>
-            <td>Nama</td>
-            <td>:</td>
-            <td>Marwan Dhiaur Rahman</td>
-
-        </tr>
-        <tr>
-            <td>Tgl Lahir</td>
-            <td>:</td>
-            <td>9 Mei 1998 (26th)</td>
-        </tr>
-        <tr>
-            <td>Poliklinik</td>
-            <td>:</td>
-            <td>Penyakit Dalam</td>
-        </tr>
-    </table>
-    <br>
-    <div class="text-center" style="font-size: 12px">
-        <b>Nama Obat</b> <br>
-        1x2 pagi siang sore <br>
-        Sebelum sesudah dan saat makan
-    </div>
-    <div class="page-break"></div>
-    <b>Nama Klinik</b>
-    <hr style="margin: 0">
-    <table class="table table-borderless">
-        <tr>
-            <td>No RM</td>
-            <td>:</td>
-            <td>000000000</td>
-
-        </tr>
-        <tr>
-            <td>Nama</td>
-            <td>:</td>
-            <td>Marwan Dhiaur Rahman</td>
-
-        </tr>
-        <tr>
-            <td>Tgl Lahir</td>
-            <td>:</td>
-            <td>9 Mei 1998 (26th)</td>
-        </tr>
-        <tr>
-            <td>Poliklinik</td>
-            <td>:</td>
-            <td>Penyakit Dalam</td>
-        </tr>
-    </table>
-    <br>
-    <div class="text-center" style="font-size: 12px">
-        <b>Nama Obat</b> <br>
-        1x2 pagi siang sore <br>
-        Sebelum sesudah dan saat makan
-    </div>
-
+            </tr>
+            <tr>
+                <td>Tgl Lahir</td>
+                <td>:</td>
+                <td>{{ $antrian->kunjungan->tgl_lahir }}</td>
+            </tr>
+            <tr>
+                <td>Poliklinik</td>
+                <td>:</td>
+                <td>{{ $antrian->kunjungan->units->nama }}</td>
+            </tr>
+        </table>
+        <br>
+        <div class="text-center" style="font-size: 12px">
+            <b>{{ $item->nama }}</b> <br>
+            {{ $item->frekuensi }} {{ $item->waktu }} <br>
+            {{ $item->keterangan }}
+        </div>
+        @if ($key != count($resepobatdetails) - 1)
+            <div class="page-break"></div>
+        @endif
+    @endforeach
 </body>
-
 </html>
