@@ -51,6 +51,7 @@ use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
 use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Perawat\TindakanIndex;
 use App\Livewire\Profil\ProfilIndex;
+use App\Livewire\Rekammedis\RekamMedisRajal;
 use App\Livewire\Unit\UnitIndex;
 use App\Livewire\User\PermissionIndex;
 use App\Livewire\User\RoleIndex;
@@ -155,5 +156,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('farmasi/print_etiket', [FarmasiController::class, 'print_etiket'])->name('print.etiket');
     Route::get('farmasi/print_gelang', [FarmasiController::class, 'print_gelang'])->name('print.gelang');
     // rekam medis
-    Route::get('rekammedis/rajal', PengambilanResep::class)->name('pengambilan.resep');
+    Route::get('rekammedis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
 });

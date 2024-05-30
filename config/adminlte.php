@@ -399,7 +399,7 @@ return [
                 [
                     'text' => 'Rekam Medis Rawat Jalan',
                     'url' => 'rekammedis/rajal',
-                    'icon' => 'fas fa-cash-register',
+                    'icon' => 'fas fa-laptop-medical',
                     'shift'   => 'ml-2',
                     'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        test etiket
+        Print Etiket Obat {{ $antrian->nama }}
     </title>
     <style>
         .unicode {
@@ -106,7 +106,7 @@
     @foreach ($resepobatdetails as $key => $item)
         <b>Farimasi {{ env('APP_NAME_LONG') }}</b>
         <hr style="margin: 0">
-        <table class="table table-borderless">
+        <table class="table table-borderless" style="font-size: 7px" >
             <tr>
                 <td>No RM</td>
                 <td>:</td>
@@ -116,17 +116,21 @@
                 <td>Nama</td>
                 <td>:</td>
                 <td>{{ $antrian->nama }}</td>
-
             </tr>
             <tr>
                 <td>Tgl Lahir</td>
                 <td>:</td>
-                <td>{{ $antrian->kunjungan->tgl_lahir }}</td>
+                <td>{{ $antrian->kunjungan->tgl_lahir }} </td>
             </tr>
             <tr>
                 <td>Poliklinik</td>
                 <td>:</td>
                 <td>{{ $antrian->kunjungan->units->nama }}</td>
+            </tr>
+            <tr>
+                <td>Dokter</td>
+                <td>:</td>
+                <td>{{ $antrian->kunjungan->dokters->nama }}</td>
             </tr>
         </table>
         <br>
