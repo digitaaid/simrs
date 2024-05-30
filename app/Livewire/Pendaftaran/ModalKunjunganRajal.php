@@ -63,53 +63,59 @@ class ModalKunjunganRajal extends Component
             'caramasuk' => 'required',
             'jeniskunjungan' => 'required',
         ]);
-        $antrian = Antrian::find($this->antrianId);
-        $counter = Kunjungan::where('norm', $antrian->norm)->first()?->counter ?? 1;
-        // update pasien
-        $pasien = Pasien::firstWhere('norm', $this->norm);
-        $pasien->update([
-            'nomorkartu' => $this->nomorkartu,
-            'nik' => $this->nik,
-            'nama' => $this->nama,
-            'tgl_lahir' => $this->tgl_lahir,
-            'gender' => $this->gender,
-            'hakkelas' => $this->hakkelas,
-            'jenispeserta' => $this->jenispeserta,
-        ]);
-        // simpan kunjungan
-        $kunjungan = Kunjungan::updateOrCreate([
-            'kode' => $antrian->kodebooking,
-            'counter' => $counter,
-        ], [
-            'tgl_masuk' => Carbon::parse($this->tgl_masuk),
-            'jaminan' => $this->jaminan,
-            'nomorkartu' => $this->nomorkartu,
-            'nik' => $this->nik,
-            'norm' => $this->norm,
-            'nama' => $this->nama,
-            'tgl_lahir' => $this->tgl_lahir,
-            'gender' => $this->gender,
-            'kelas' => $this->hakkelas,
-            'penjamin' => $this->jenispeserta,
-            'unit' => $this->unit,
-            'dokter' => $this->dokter,
-            'jeniskunjungan' => $this->jeniskunjungan,
-            'nomorreferensi' => $this->nomorreferensi,
-            'sep' => $this->sep,
-            'diagnosa_awal' => $this->diagnosa,
-            'cara_masuk' => $this->caramasuk,
-            'status' => 1,
-            'user1' => auth()->user()->id,
-        ]);
-        // update antrian
-        $antrian->update([
-            'kunjungan_id' => $kunjungan->id,
-            'kodekunjungan' => $kunjungan->kode,
-            'user1' => auth()->user()->id,
-        ]);
-        // masukan tarif
-        flash('Kunjungan atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
-        $this->dispatch('refreshPage');
+        try {
+            //code...
+            $antrian = Antrian::find($this->antrianId);
+            $counter = Kunjungan::where('norm', $antrian->norm)->first()?->counter ?? 1;
+            // update pasien
+            $pasien = Pasien::firstWhere('norm', $this->norm);
+            $pasien->update([
+                'nomorkartu' => $this->nomorkartu,
+                'nik' => $this->nik,
+                'nama' => $this->nama,
+                'tgl_lahir' => $this->tgl_lahir,
+                'gender' => $this->gender,
+                'hakkelas' => $this->hakkelas,
+                'jenispeserta' => $this->jenispeserta,
+            ]);
+            // simpan kunjungan
+            $kunjungan = Kunjungan::updateOrCreate([
+                'kode' => $antrian->kodebooking,
+                'counter' => $counter,
+            ], [
+                'tgl_masuk' => Carbon::parse($this->tgl_masuk),
+                'jaminan' => $this->jaminan,
+                'nomorkartu' => $this->nomorkartu,
+                'nik' => $this->nik,
+                'norm' => $this->norm,
+                'nama' => $this->nama,
+                'tgl_lahir' => $this->tgl_lahir,
+                'gender' => $this->gender,
+                'kelas' => $this->hakkelas,
+                'penjamin' => $this->jenispeserta,
+                'unit' => $this->unit,
+                'dokter' => $this->dokter,
+                'jeniskunjungan' => $this->jeniskunjungan,
+                'nomorreferensi' => $this->nomorreferensi,
+                'sep' => $this->sep,
+                'diagnosa_awal' => $this->diagnosa,
+                'cara_masuk' => $this->caramasuk,
+                'status' => 1,
+                'user1' => auth()->user()->id,
+            ]);
+            // update antrian
+            $antrian->update([
+                'kunjungan_id' => $kunjungan->id,
+                'kodekunjungan' => $kunjungan->kode,
+                'user1' => auth()->user()->id,
+            ]);
+            // masukan tarif
+            flash('Kunjungan atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
+            $this->dispatch('refreshPage');
+            $this->dispatch('formKunjungan');
+        } catch (\Throwable $th) {
+            flash($th->getMessage(), 'danger');
+        }
     }
     public function carNomorKartu()
     {
