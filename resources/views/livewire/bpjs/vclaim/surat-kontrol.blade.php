@@ -89,12 +89,12 @@
         </div>
     @endif
     <div class="col-md-12">
-        <x-adminlte-card title="Table Referensi Dokter" theme="secondary">
+        <x-adminlte-card title="Table Rencana Kontrol / SPRI" theme="secondary">
             <div class="row">
                 <div class="col-md-3">
                     <x-adminlte-select wire:model="formatfilter" fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" name="formatfilter" label="Format Filter">
-                        <option value=null disabled>Pilih Format Fileter</option>
+                        <option value=null disabled>Pilih Format Filter</option>
                         <option value="1">Tanggal Entri</option>
                         <option value="2">Tanggal Rencana Kontrol</option>
                     </x-adminlte-select>
@@ -160,7 +160,6 @@
                                         wire:click="hapusSurat('{{ $item->noSuratKontrol }}')"
                                         wire:confirm='Apakah anda yakin ingin menghapus surat teresebut ?'
                                         icon="fas fa-trash" />
-
                                 </td>
                                 <td>{{ $item->jnsPelayanan }}</td>
                                 <td>{{ $item->namaJnsKontrol }}</td>

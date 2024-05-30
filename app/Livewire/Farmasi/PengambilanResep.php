@@ -78,6 +78,12 @@ class PengambilanResep extends Component
                 'kunjungan_id' => $kunjungan->id,
                 'kode' => $kunjungan->kode,
             ], [
+                'counter' => $kunjungan->counter,
+                'norm' => $kunjungan->norm,
+                'nama' => $kunjungan->nama,
+                'gender' => $kunjungan->gender,
+                'waktu' =>  now(),
+                'tgl_lahir' => $kunjungan->tgl_lahir,
                 'user' => auth()->user()->id,
                 'pic' => auth()->user()->name,
                 'status' => '1',

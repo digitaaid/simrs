@@ -75,9 +75,7 @@
                         <div class="col-md-2">
                             <button wire:click="removeObat({{ $index }})" class="btn btn-danger btn-sm">Hapus
                                 Obat</button>
-                            <a href="{{ route('print.etiket') }}">
-                                <button class="btn btn-success btn-sm">Etiket Obat</button>
-                            </a>
+
                         </div>
                     </div>
                 @endforeach
@@ -87,6 +85,9 @@
                         wire:click='simpanResep' class="btn-sm" label="Simpan" theme="success" icon="fas fa-save" />
                     <x-adminlte-button wire:click='openformEdit' class="btn-sm" label="Tutup" theme="danger"
                         icon="fas fa-times" />
+                    <a href="{{ route('print.etiket') }}?kode={{ $antrianedit->kodebooking }}">
+                        <button class="btn btn-success btn-sm">Etiket Obat</button>
+                    </a>
                     <div wire:loading>
                         <div class="spinner-border spinner-border-sm text-primary" role="status">
                         </div>
