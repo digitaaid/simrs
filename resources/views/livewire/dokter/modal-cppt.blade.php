@@ -107,7 +107,7 @@
                             @if ($kunjungan->asesmenrajal?->instruksi_medis)
                                 <b>Instruksi :</b> {{ $kunjungan->asesmenrajal?->instruksi_medis }} <br>
                             @endif
-                            {{ $kunjungan->asesmenrajal?->pic_dokter }}
+                            {{ $kunjungan->asesmenrajal?->pic_dokter }} <br>
                             {{ $kunjungan->asesmenrajal?->waktu_asesmen_dokter }}
                         </td>
                         <td>
