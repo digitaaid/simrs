@@ -35,52 +35,55 @@ class ModalPerawatRajal extends Component
             'bsa' => 'required',
             'tingkat_kesadaran' => 'required',
         ]);
-        // $antrian = Antrian::find($this->antrian_id);
-        $kunjungan = Kunjungan::find($this->kunjungan_id);
-        $asesmen = AsesmenRajal::updateOrCreate([
-            'kodebooking' => $this->kodebooking,
-            'antrian_id' => $this->antrian_id,
-            'kodekunjungan' => $this->kodekunjungan,
-            'kunjungan_id' => $this->kunjungan_id,
-        ], [
-            // isi asesmen
-            'sumber_data' => $this->sumber_data,
-            'pernah_berobat' => $this->pernah_berobat,
-            'keluhan_utama' => $this->keluhan_utama,
-            'riwayat_pengobatan' => $this->riwayat_pengobatan,
-            'riwayat_penyakit' => $this->riwayat_penyakit,
-            'riwayat_alergi' => $this->riwayat_alergi,
-            'denyut_jantung' => $this->denyut_jantung,
-            'pernapasan' => $this->pernapasan,
-            'sistole' => $this->sistole,
-            'distole' => $this->distole,
-            'suhu' => $this->suhu,
-            'berat_badan' => $this->berat_badan,
-            'tinggi_badan' => $this->tinggi_badan,
-            'bsa' => $this->bsa,
-            'tingkat_kesadaran' => $this->tingkat_kesadaran,
-            'pemeriksaan_fisik_perawat' => $this->pemeriksaan_fisik_perawat,
-            'pemeriksaan_lab' => $this->pemeriksaan_lab,
-            'pemeriksaan_rad' => $this->pemeriksaan_rad,
-            'pemeriksaan_penunjang' => $this->pemeriksaan_penunjang,
-            'diagnosa_keperawatan' => $this->diagnosa_keperawatan,
-            'rencana_keperawatan' => $this->rencana_keperawatan,
-            'tindakan_keperawatan' => $this->tindakan_keperawatan,
-            'evaluasi_keperawatan' => $this->evaluasi_keperawatan,
-            // data asesmen
-            'counter' => $kunjungan->counter,
-            'norm' => $kunjungan->norm,
-            'nama' => $kunjungan->nama,
-            'tgl_lahir' => $kunjungan->tgl_lahir,
-            'gender' => $kunjungan->gender,
-            // asesmen perawat
-            'waktu_asesmen_perawat' => now(),
-            'status_asesmen_perawat' => '1',
-            'user_perawat' => auth()->user()->id,
-            'pic_perawat' => auth()->user()->name,
-        ]);
-        flash('Asesmen perawat saved successfully.', 'success');
-        $this->dispatch('refreshPage');
+        try {
+            $kunjungan = Kunjungan::find($this->kunjungan_id);
+            $asesmen = AsesmenRajal::updateOrCreate([
+                'kodebooking' => $this->kodebooking,
+                'antrian_id' => $this->antrian_id,
+                'kodekunjungan' => $this->kodekunjungan,
+                'kunjungan_id' => $this->kunjungan_id,
+            ], [
+                'sumber_data' => $this->sumber_data,
+                'pernah_berobat' => $this->pernah_berobat,
+                'keluhan_utama' => $this->keluhan_utama,
+                'riwayat_pengobatan' => $this->riwayat_pengobatan,
+                'riwayat_penyakit' => $this->riwayat_penyakit,
+                'riwayat_alergi' => $this->riwayat_alergi,
+                'denyut_jantung' => $this->denyut_jantung,
+                'pernapasan' => $this->pernapasan,
+                'sistole' => $this->sistole,
+                'distole' => $this->distole,
+                'suhu' => $this->suhu,
+                'berat_badan' => $this->berat_badan,
+                'tinggi_badan' => $this->tinggi_badan,
+                'bsa' => $this->bsa,
+                'tingkat_kesadaran' => $this->tingkat_kesadaran,
+                'pemeriksaan_fisik_perawat' => $this->pemeriksaan_fisik_perawat,
+                'pemeriksaan_lab' => $this->pemeriksaan_lab,
+                'pemeriksaan_rad' => $this->pemeriksaan_rad,
+                'pemeriksaan_penunjang' => $this->pemeriksaan_penunjang,
+                'diagnosa_keperawatan' => $this->diagnosa_keperawatan,
+                'rencana_keperawatan' => $this->rencana_keperawatan,
+                'tindakan_keperawatan' => $this->tindakan_keperawatan,
+                'evaluasi_keperawatan' => $this->evaluasi_keperawatan,
+                // data asesmen
+                'counter' => $kunjungan->counter,
+                'norm' => $kunjungan->norm,
+                'nama' => $kunjungan->nama,
+                'tgl_lahir' => $kunjungan->tgl_lahir,
+                'gender' => $kunjungan->gender,
+                // asesmen perawat
+                'waktu_asesmen_perawat' => now(),
+                'status_asesmen_perawat' => '1',
+                'user_perawat' => auth()->user()->id,
+                'pic_perawat' => auth()->user()->name,
+            ]);
+            flash('Asesmen perawat saved successfully.', 'success');
+            $this->dispatch('refreshPage');
+            $this->dispatch('modalPemeriksaanPerawat');
+        } catch (\Throwable $th) {
+            flash($th->getMessage(), 'danger');
+        }
     }
     function calculateBsa()
     {
@@ -97,6 +100,7 @@ class ModalPerawatRajal extends Component
         $this->kodekunjungan = $antrian->kunjungan->kode;
         $this->kunjungan_id = $antrian->kunjungan->id;
         $antrianlast = Antrian::where('norm', $this->antrian->norm)
+            ->has('asesmenrajal')
             ->where('id', '<', $this->antrian->id)
             ->orderBy('id', 'desc')
             ->first();
