@@ -73,9 +73,9 @@
                                 igroup-size="sm" placeholder="Keterangan" />
                         </div>
                         <div class="col-md-2">
-                            <button wire:click.prevent="removeObat({{ $index }})"
-                                class="btn btn-danger btn-sm">Hapus
+                            <button wire:click="removeObat({{ $index }})" class="btn btn-danger btn-sm">Hapus
                                 Obat</button>
+
                         </div>
                     </div>
                 @endforeach
@@ -83,6 +83,9 @@
                 <x-slot name="footerSlot">
                     <x-adminlte-button wire:confirm='Apakah anda yakin akan menyimpan resep obat terbaru ini ?'
                         wire:click='simpanResep' class="btn-sm" label="Simpan" theme="success" icon="fas fa-save" />
+                    <a target="_blank" href="{{ route('print.etiket') }}?kode={{ $antrianedit->kodebooking }}">
+                        <button class="btn btn-success btn-sm">Etiket Obat</button>
+                    </a>
                     <x-adminlte-button wire:click='openformEdit' class="btn-sm" label="Tutup" theme="danger"
                         icon="fas fa-times" />
                     <div wire:loading>

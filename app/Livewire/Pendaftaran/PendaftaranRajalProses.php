@@ -56,6 +56,7 @@ class PendaftaranRajalProses extends Component
             $antrian->user1 = auth()->user()->id;
             $antrian->update();
             flash('Nomor antrian ' . $antrian->nomorantrean . ' dipanggil.', 'success');
+            $this->dispatch('refreshPage');
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
         }

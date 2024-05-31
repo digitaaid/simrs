@@ -396,6 +396,14 @@ return [
                     'can' => 'admin',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
+                [
+                    'text' => 'Rekam Medis Rawat Jalan',
+                    'url' => 'rekammedis/rajal',
+                    'icon' => 'fas fa-laptop-medical',
+                    'shift'   => 'ml-2',
+                    'can' => 'admin',
+                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                ],
             ]
         ],
         // [

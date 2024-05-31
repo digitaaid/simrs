@@ -4,6 +4,8 @@ use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\FarmasiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\SepController;
+use App\Http\Controllers\SuratKontrolController;
 use App\Livewire\Antrian\AnjunganAntrian;
 use App\Livewire\Antrian\AnjunganAntrianCreate;
 use App\Livewire\Bpjs\Antrian\AntreanBelumLayani;
@@ -49,6 +51,7 @@ use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
 use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Perawat\TindakanIndex;
 use App\Livewire\Profil\ProfilIndex;
+use App\Livewire\Rekammedis\RekamMedisRajal;
 use App\Livewire\Unit\UnitIndex;
 use App\Livewire\User\PermissionIndex;
 use App\Livewire\User\RoleIndex;
@@ -117,8 +120,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('bpjs/vclaim/peserta-bpjs', Peserta::class)->name('vclaim.peserta.bpjs')->lazy();
         Route::get('bpjs/vclaim/referensi', Referensi::class)->name('vclaim.referensi')->lazy();
         Route::get('bpjs/vclaim/surat-kontrol', SuratKontrol::class)->name('vclaim.suratkontrol')->lazy();
+        Route::get('bpjs/vclaim/suratkontrol_print', [SuratKontrolController::class, 'suratkontrol_print'])->name('vclaim.suratkontrol_print');
         Route::get('bpjs/vclaim/rujukan', Rujukan::class)->name('vclaim.rujukan')->lazy();
         Route::get('bpjs/vclaim/sep', Sep::class)->name('vclaim.sep')->lazy();
+        Route::get('bpjs/vclaim/sep_print', [SepController::class, 'sep_print'])->name('vclaim.sep_print');
     });
     Route::middleware(['can:manajemen-pelayanan'])->group(function () {
         Route::get('pasien', PasienIndex::class)->name('pasien.index')->lazy();
@@ -148,4 +153,8 @@ Route::middleware(['auth'])->group(function () {
     // farmasi
     Route::get('farmasi/pengambilan_resep', PengambilanResep::class)->name('pengambilan.resep');
     Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class, 'print_resep'])->name('print.resep');
+    Route::get('farmasi/print_etiket', [FarmasiController::class, 'print_etiket'])->name('print.etiket');
+    Route::get('farmasi/print_gelang', [FarmasiController::class, 'print_gelang'])->name('print.gelang');
+    // rekam medis
+    Route::get('rekammedis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
 });

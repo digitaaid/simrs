@@ -17,8 +17,7 @@ class PemeriksaanPerawatRajalProses extends Component
     public $openmodalAsesmenRajal = false;
     public $openmodalPerawat = false;
     public $openmodalDokter = false;
-    protected $listeners = ['modalAsesmenRajal',  'modalPemeriksaanPerawat', 'modalPemeriksaanDokter', 'refreshPage' => '$refresh'];
-
+    protected $listeners = ['modalAsesmenRajal', 'modalCppt', 'modalPemeriksaanPerawat', 'modalPemeriksaanDokter', 'refreshPage' => '$refresh'];
     public function selesaiPerawat()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);

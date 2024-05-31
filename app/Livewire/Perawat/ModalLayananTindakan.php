@@ -101,7 +101,7 @@ class ModalLayananTindakan extends Component
         $this->kodekunjungan = $antrian->kunjungan->kode;
         $this->kunjungan_id = $antrian->kunjungan->id;
         $this->jaminan = $antrian->kunjungan->jaminan;
-        $this->tindakans = Tindakan::pluck('nama');
+        $this->tindakans = Tindakan::pluck('nama', 'harga');
         $this->jaminans = Jaminan::pluck('nama', 'kode');
     }
     public function render()

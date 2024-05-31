@@ -46,9 +46,8 @@
                         fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
                 </div>
                 <div class="col-md-6">
-                    <x-adminlte-input wire:model='kode' name="kode" fgroup-class="row"
-                        label-class="text-left col-4" igroup-class="col-8" label="Kode Kunjungan" igroup-size="sm"
-                        readonly />
+                    <x-adminlte-input wire:model='kode' name="kode" fgroup-class="row" label-class="text-left col-4"
+                        igroup-class="col-8" label="Kode Kunjungan" igroup-size="sm" readonly />
                     <x-adminlte-input wire:model='counter' name="counter" fgroup-class="row"
                         label-class="text-left col-4" igroup-class="col-8" label="Counter" igroup-size="sm" readonly />
                     <x-adminlte-input wire:model='tgl_masuk' name="tgl_masuk" type='datetime-local'
@@ -100,14 +99,15 @@
                         <option value="other">
                             Lain-lain</option>
                     </x-adminlte-select>
-                    <x-adminlte-select wire:model="diag_awal" name="diag_awal" fgroup-class="row"
-                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" class="diagnosaid2"
-                        label="Diagnosa Awal">
-                        @if ($antrian->kunjungan)
-                            <option value="{{ $antrian->kunjungan->diagnosa_awal }}">
-                                {{ $antrian->kunjungan->diagnosa_awal }}</option>
-                        @endif
-                    </x-adminlte-select>
+                    <x-adminlte-input wire:model.live="diagnosa" list="diagnosalist" name="diagnosa"
+                        fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
+                        label="Diagnosa">
+                    </x-adminlte-input>
+                    <datalist id="diagnosalist">
+                        @foreach ($diagnosas as $item)
+                            <option value="{{ $item['kode'] }}">{{ $item['nama'] }}</option>
+                        @endforeach
+                    </datalist>
                     <x-adminlte-select wire:model="jeniskunjungan" fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" name="jeniskunjungan" label="Jenis Kunjungan">
                         <option value=null disabled>Pilih Jenis Rujukan</option>

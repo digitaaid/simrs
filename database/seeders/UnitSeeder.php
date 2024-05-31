@@ -15,10 +15,14 @@ class UnitSeeder extends Seeder
     {
         $unit = [
             [
-                'kode' => '008',
-                'nama' => 'HEMATOLOGI - ONKOLOGI MEDIK',
-                'kodejkn' => '008',
-
+                'kode' => 'INT',
+                'nama' => 'PENYAKIT DALAM',
+                'kodejkn' => 'INT',
+            ],
+            [
+                'kode' => 'JAN',
+                'nama' => 'JANTUNG',
+                'kodejkn' => 'JAN',
             ],
             [
                 'kode' => 'LAB',

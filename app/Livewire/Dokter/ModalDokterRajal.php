@@ -37,7 +37,6 @@ class ModalDokterRajal extends Component
     }
     public function simpanAsesmen()
     {
-
         $this->validate([
             'kodebooking' => 'required',
             'antrian_id' => 'required',
@@ -60,124 +59,117 @@ class ModalDokterRajal extends Component
             'bsa' => 'required',
             'pemeriksaan_fisik_perawat' => 'required',
             'pemeriksaan_fisik_dokter' => 'required',
-            'pemeriksaan_lab' => 'required',
-            'pemeriksaan_rad' => 'required',
-            'pemeriksaan_penunjang' => 'required',
             'diagnosa' => 'required',
-            'icd1' => 'required',
-            'icd2' => 'required',
-            'diagnosa_dokter' => 'required',
-            'diagnosa_keperawatan' => 'required',
-            'rencana_medis' => 'required',
-            'rencana_keperawatan' => 'required',
-            'tindakan_medis' => 'required',
-            'instruksi_medis' => 'required',
             // resep obat
             'resepObat.*.obat' => 'required',
             'resepObat.*.jumlahobat' => 'required|numeric',
         ]);
-        // $antrian = Antrian::find($this->antrian_id);
-        $kunjungan = Kunjungan::find($this->kunjungan_id);
-        $asesmen = AsesmenRajal::updateOrCreate([
-            'kodebooking' => $this->kodebooking,
-            'antrian_id' => $this->antrian_id,
-            'kodekunjungan' => $this->kodekunjungan,
-            'kunjungan_id' => $this->kunjungan_id,
-        ], [
-            // isi asesmen
-            'sumber_data' => $this->sumber_data,
-            'pernah_berobat' => $this->pernah_berobat,
-            'keluhan_utama' => $this->keluhan_utama,
-            'riwayat_pengobatan' => $this->riwayat_pengobatan,
-            'riwayat_penyakit' => $this->riwayat_penyakit,
-            'riwayat_alergi' => $this->riwayat_alergi,
-            'denyut_jantung' => $this->denyut_jantung,
-            'pernapasan' => $this->pernapasan,
-            'sistole' => $this->sistole,
-            'distole' => $this->distole,
-            'suhu' => $this->suhu,
-            'berat_badan' => $this->berat_badan,
-            'tinggi_badan' => $this->tinggi_badan,
-            'bsa' => $this->bsa,
-            'pemeriksaan_fisik_perawat' => $this->pemeriksaan_fisik_perawat,
-            'pemeriksaan_fisik_dokter' => $this->pemeriksaan_fisik_dokter,
-            'pemeriksaan_lab' => $this->pemeriksaan_lab,
-            'pemeriksaan_rad' => $this->pemeriksaan_rad,
-            'pemeriksaan_penunjang' => $this->pemeriksaan_penunjang,
-            'diagnosa' => $this->diagnosa,
-            'icd1' => $this->icd1,
-            'icd2' => $this->icd2,
-            'diagnosa_dokter' => $this->diagnosa_dokter,
-            'diagnosa_keperawatan' => $this->diagnosa_keperawatan,
-            'rencana_medis' => $this->rencana_medis,
-            'rencana_keperawatan' => $this->rencana_keperawatan,
-            'tindakan_medis' => $this->tindakan_medis,
-            'instruksi_medis' => $this->instruksi_medis,
-            // data asesmen
-            'counter' => $kunjungan->counter,
-            'norm' => $kunjungan->norm,
-            'nama' => $kunjungan->nama,
-            'tgl_lahir' => $kunjungan->tgl_lahir,
-            'gender' => $kunjungan->gender,
-            // asesmen dokter
-            'waktu_asesmen_dokter' => now(),
-            'status_asesmen_dokter' => '1',
-            'user_dokter' => auth()->user()->id,
-            'pic_dokter' => auth()->user()->name,
-        ]);
-        if (count($this->resepObat)) {
-            $resep = ResepObat::updateOrCreate([
+        try {
+            $kunjungan = Kunjungan::find($this->kunjungan_id);
+            $asesmen = AsesmenRajal::updateOrCreate([
                 'kodebooking' => $this->kodebooking,
                 'antrian_id' => $this->antrian_id,
                 'kodekunjungan' => $this->kodekunjungan,
                 'kunjungan_id' => $this->kunjungan_id,
-                'kode' => $kunjungan->kode,
             ], [
+                // isi asesmen
+                'sumber_data' => $this->sumber_data,
+                'pernah_berobat' => $this->pernah_berobat,
+                'keluhan_utama' => $this->keluhan_utama,
+                'riwayat_pengobatan' => $this->riwayat_pengobatan,
+                'riwayat_penyakit' => $this->riwayat_penyakit,
+                'riwayat_alergi' => $this->riwayat_alergi,
+                'denyut_jantung' => $this->denyut_jantung,
+                'pernapasan' => $this->pernapasan,
+                'sistole' => $this->sistole,
+                'distole' => $this->distole,
+                'suhu' => $this->suhu,
+                'berat_badan' => $this->berat_badan,
+                'tinggi_badan' => $this->tinggi_badan,
+                'bsa' => $this->bsa,
+                'pemeriksaan_fisik_perawat' => $this->pemeriksaan_fisik_perawat,
+                'pemeriksaan_fisik_dokter' => $this->pemeriksaan_fisik_dokter,
+                'pemeriksaan_lab' => $this->pemeriksaan_lab,
+                'pemeriksaan_rad' => $this->pemeriksaan_rad,
+                'pemeriksaan_penunjang' => $this->pemeriksaan_penunjang,
+                'diagnosa' => $this->diagnosa,
+                'icd1' => $this->icd1,
+                'icd2' => $this->icd2,
+                'diagnosa_dokter' => $this->diagnosa_dokter,
+                'diagnosa_keperawatan' => $this->diagnosa_keperawatan,
+                'rencana_medis' => $this->rencana_medis,
+                'rencana_keperawatan' => $this->rencana_keperawatan,
+                'tindakan_medis' => $this->tindakan_medis,
+                'instruksi_medis' => $this->instruksi_medis,
+                // data asesmen
                 'counter' => $kunjungan->counter,
                 'norm' => $kunjungan->norm,
                 'nama' => $kunjungan->nama,
                 'tgl_lahir' => $kunjungan->tgl_lahir,
                 'gender' => $kunjungan->gender,
-                'berat_badan' => $this->berat_badan,
-                'tinggi_badan' => $this->tinggi_badan,
-                'bsa' => $this->bsa,
-                // detail
-                'waktu' => now(),
-                'dokter' => $kunjungan->dokter,
-                'namadokter' => $kunjungan->dokters->nama,
-                'unit' => $kunjungan->unit,
-                'namaunit' => $kunjungan->units->nama,
-                'user' => auth()->user()->id,
-                'pic' => auth()->user()->name,
-                'status' => '1',
+                // asesmen dokter
+                'waktu_asesmen_dokter' => now(),
+                'status_asesmen_dokter' => '1',
+                'user_dokter' => auth()->user()->id,
+                'pic_dokter' => auth()->user()->name,
             ]);
-            $resep->resepobatdetails()->each(function ($resepobatdetail) {
-                $resepobatdetail->delete();
-            });
-            foreach ($this->resepObat as $key => $value) {
-                $obatdetails = ResepObatDetail::updateOrCreate([
-                    'kunjungan_id' => $this->kunjungan_id,
+            if (count($this->resepObat)) {
+                $resep = ResepObat::updateOrCreate([
+                    'kodebooking' => $this->kodebooking,
                     'antrian_id' => $this->antrian_id,
-                    'resep_id' => $resep->id,
-                    'koderesep' => $resep->kode,
-                    'nama' => $this->resepObat[$key]['obat'],
+                    'kodekunjungan' => $this->kodekunjungan,
+                    'kunjungan_id' => $this->kunjungan_id,
+                    'kode' => $kunjungan->kode,
                 ], [
-                    'jaminan' => $kunjungan->jaminan,
-                    'jumlah' => $this->resepObat[$key]['jumlahobat'],
-                    'frekuensi' => $this->resepObat[$key]['frekuensiobat'],
-                    'waktu' => $this->resepObat[$key]['waktuobat'],
-                    'keterangan' => $this->resepObat[$key]['keterangan'],
+                    'counter' => $kunjungan->counter,
+                    'norm' => $kunjungan->norm,
+                    'nama' => $kunjungan->nama,
+                    'tgl_lahir' => $kunjungan->tgl_lahir,
+                    'gender' => $kunjungan->gender,
+                    'berat_badan' => $this->berat_badan,
+                    'tinggi_badan' => $this->tinggi_badan,
+                    'bsa' => $this->bsa,
+                    // detail
+                    'waktu' => now(),
+                    'dokter' => $kunjungan->dokter,
+                    'namadokter' => $kunjungan->dokters->nama,
+                    'unit' => $kunjungan->unit,
+                    'namaunit' => $kunjungan->units->nama,
+                    'user' => auth()->user()->id,
+                    'pic' => auth()->user()->name,
+                    'status' => '1',
                 ]);
-                FrekuensiObat::updateOrCreate([
-                    'nama' => $this->resepObat[$key]['frekuensiobat'],
-                ]);
-                WaktuObat::updateOrCreate([
-                    'nama' => $this->resepObat[$key]['waktuobat'],
-                ]);
+                $resep->resepobatdetails()->each(function ($resepobatdetail) {
+                    $resepobatdetail->delete();
+                });
+                foreach ($this->resepObat as $key => $value) {
+                    $obatdetails = ResepObatDetail::updateOrCreate([
+                        'kunjungan_id' => $this->kunjungan_id,
+                        'antrian_id' => $this->antrian_id,
+                        'resep_id' => $resep->id,
+                        'koderesep' => $resep->kode,
+                        'nama' => $this->resepObat[$key]['obat'],
+                    ], [
+                        'jaminan' => $kunjungan->jaminan,
+                        'jumlah' => $this->resepObat[$key]['jumlahobat'],
+                        'frekuensi' => $this->resepObat[$key]['frekuensiobat'],
+                        'waktu' => $this->resepObat[$key]['waktuobat'],
+                        'keterangan' => $this->resepObat[$key]['keterangan'],
+                    ]);
+                    FrekuensiObat::updateOrCreate([
+                        'nama' => $this->resepObat[$key]['frekuensiobat'],
+                    ]);
+                    WaktuObat::updateOrCreate([
+                        'nama' => $this->resepObat[$key]['waktuobat'],
+                    ]);
+                }
             }
+            flash('Asesmen dokter saved successfully.', 'success');
+            $this->dispatch('refreshPage');
+            $this->dispatch('modalPemeriksaanDokter');
+        } catch (\Throwable $th) {
+            flash($th->getMessage(), 'danger');
         }
-        flash('Asesmen dokter saved successfully.', 'success');
-        $this->dispatch('refreshPage');
     }
     function calculateBsa()
     {
@@ -194,6 +186,7 @@ class ModalDokterRajal extends Component
         $this->kodekunjungan = $antrian->kunjungan->kode;
         $this->kunjungan_id = $antrian->kunjungan->id;
         $antrianlast = Antrian::where('norm', $this->antrian->norm)
+            ->has('asesmenrajal')
             ->where('id', '<', $this->antrian->id)
             ->orderBy('id', 'desc')
             ->first();

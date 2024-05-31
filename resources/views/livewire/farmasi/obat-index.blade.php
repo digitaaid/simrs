@@ -140,7 +140,7 @@
                             <td></td>
                             <td>{{ $item->stok_minimum }}</td>
                             <td>{{ money($item->harga_beli, 'IDR') }}</td>
-                            <td>{{ $item->satuan }}</td>
+                            <td>{{ $item->konversi_satuan }} {{ $item->satuan }} / {{ $item->kemasan }}</td>
                             <td>{{ money($item->harga_jual, 'IDR') }}</td>
                             <td>{{ money($item->harga_bpjs, 'IDR') }}</td>
                             <td>

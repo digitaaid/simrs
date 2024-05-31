@@ -36,6 +36,7 @@ class JadwalDokterIndex extends Component
     {
         $jadwal->delete();
         flash('Jadwal Hari ' . $jadwal->namahari . ' ' . $jadwal->namadokter . ' deleted successfully.', 'success');
+        $this->form = false;
     }
     public function edit(JadwalDokter $jadwal)
     {
@@ -60,14 +61,13 @@ class JadwalDokterIndex extends Component
         ]);
         $jadwal = JadwalDokter::updateOrCreate(
             [
-                'id' => $this->id,
-            ],
-            [
                 'hari' => $this->hari,
                 'kodedokter' => $this->dokter,
+                'jampraktek' => $this->mulai . '-' . $this->selesai,
+            ],
+            [
                 'kodepoli' => $this->unit,
                 'kodesubspesialis' => $this->unit,
-                'jampraktek' => $this->mulai . '-' . $this->selesai,
                 'namahari' => $this->haris[$this->hari],
                 'namapoli' => $this->units[$this->unit],
                 'namasubspesialis' => $this->units[$this->unit],
@@ -78,15 +78,13 @@ class JadwalDokterIndex extends Component
             ]
         );
         flash('Jadwal Hari ' . $jadwal->namahari . ' ' . $jadwal->namadokter . ' saved successfully.', 'success');
-        $this->closeForm();
-    }
-    public function openForm()
-    {
-        $this->form = true;
-    }
-    public function closeForm()
-    {
+        $this->formJadwal();
         $this->form = false;
+    }
+    public function formJadwal()
+    {
+        $this->form =  $this->form ? false : true;
+        $this->reset(['id', 'hari', 'dokter', 'unit', 'mulai', 'selesai', 'kapasitas']);
     }
     public $search = '';
     public $sortBy = 'hari';

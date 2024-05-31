@@ -73,7 +73,6 @@ class ModalAntrianRajal extends Component
             return flash($res->metadata->message, 'danger');
         }
     }
-
     public function editAntrian()
     {
         $this->validate([
@@ -154,7 +153,7 @@ class ModalAntrianRajal extends Component
         ]);
         $res = $api->status_antrian($request);
         if ($res->metadata->code == 200) {
-            $this->estimasidilayani = 300 + $res->response->totalantrean * 300;
+            $this->estimasidilayani = Carbon::parse($this->tanggalperiksa . ' ' . explode('-', $antrian->jampraktek)[0])->addSeconds(300 + $res->response->totalantrean * 300);
             $this->sisakuotajkn = $res->response->sisakuotajkn;
             $this->kuotajkn = $res->response->kuotajkn;
             $this->sisakuotanonjkn = $res->response->sisakuotanonjkn;
@@ -194,6 +193,7 @@ class ModalAntrianRajal extends Component
             $antrian->status = 1;
             $antrian->update();
             flash('Antrian atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
+            $this->dispatch('formAntrian');
         } else {
             flash($res->metadata->message, 'danger');
         }

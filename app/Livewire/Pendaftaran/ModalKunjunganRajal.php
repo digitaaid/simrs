@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pendaftaran;
 
+use App\Http\Controllers\VclaimController;
 use App\Models\Antrian;
 use App\Models\Dokter;
 use App\Models\Jaminan;
@@ -9,12 +10,40 @@ use App\Models\Kunjungan;
 use App\Models\Pasien;
 use App\Models\Unit;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class ModalKunjunganRajal extends Component
 {
     public $antrian, $jaminans, $polikliniks, $dokters;
-    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kode, $counter, $jaminan, $tgl_masuk, $unit, $dokter, $caramasuk, $diag_awal, $jeniskunjungan, $nomorreferensi, $sep;
+    public $diagnosas = [];
+    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kode, $counter, $jaminan, $tgl_masuk, $unit, $dokter, $caramasuk, $diagnosa, $jeniskunjungan, $nomorreferensi, $sep;
+    public function updatedDiagnosa()
+    {
+        $this->validate([
+            'diagnosa' => 'required|min:3',
+        ]);
+        try {
+            $api = new VclaimController();
+            $request = new Request([
+                'diagnosa' => $this->diagnosa,
+            ]);
+            $res = $api->ref_diagnosa($request);
+            if ($res->metadata->code == 200) {
+                $this->diagnosas = [];
+                foreach ($res->response->diagnosa as $key => $value) {
+                    $this->diagnosas[] = [
+                        'kode' => $value->kode,
+                        'nama' => $value->nama,
+                    ];
+                }
+            } else {
+                return flash($res->metadata->message, 'danger');
+            }
+        } catch (\Throwable $th) {
+            return flash($th->getMessage(), 'danger');
+        }
+    }
     public function editKunjungan()
     {
         $this->validate([
@@ -34,53 +63,59 @@ class ModalKunjunganRajal extends Component
             'caramasuk' => 'required',
             'jeniskunjungan' => 'required',
         ]);
-        $antrian = Antrian::find($this->antrianId);
-        $counter = Kunjungan::where('norm', $antrian->norm)->first()?->counter ?? 1;
-        // update pasien
-        $pasien = Pasien::firstWhere('norm', $this->norm);
-        $pasien->update([
-            'nomorkartu' => $this->nomorkartu,
-            'nik' => $this->nik,
-            'nama' => $this->nama,
-            'tgl_lahir' => $this->tgl_lahir,
-            'gender' => $this->gender,
-            'hakkelas' => $this->hakkelas,
-            'jenispeserta' => $this->jenispeserta,
-        ]);
-        // simpan kunjungan
-        $kunjungan = Kunjungan::updateOrCreate([
-            'kode' => $antrian->kodebooking,
-            'counter' => $counter,
-        ], [
-            'tgl_masuk' => Carbon::parse($this->tgl_masuk),
-            'jaminan' => $this->jaminan,
-            'nomorkartu' => $this->nomorkartu,
-            'nik' => $this->nik,
-            'norm' => $this->norm,
-            'nama' => $this->nama,
-            'tgl_lahir' => $this->tgl_lahir,
-            'gender' => $this->gender,
-            'kelas' => $this->hakkelas,
-            'penjamin' => $this->jenispeserta,
-            'unit' => $this->unit,
-            'dokter' => $this->dokter,
-            'jeniskunjungan' => $this->jeniskunjungan,
-            'nomorreferensi' => $this->nomorreferensi,
-            'sep' => $this->sep,
-            'diagnosa_awal' => $this->diag_awal,
-            'cara_masuk' => $this->caramasuk,
-            'status' => 1,
-            'user1' => auth()->user()->id,
-        ]);
-        // update antrian
-        $antrian->update([
-            'kunjungan_id' => $kunjungan->id,
-            'kodekunjungan' => $kunjungan->kode,
-            'user1' => auth()->user()->id,
-        ]);
-        // masukan tarif
-        flash('Kunjungan atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
-        $this->dispatch('refreshPage');
+        try {
+            //code...
+            $antrian = Antrian::find($this->antrianId);
+            $counter = Kunjungan::where('norm', $antrian->norm)->first()?->counter ?? 1;
+            // update pasien
+            $pasien = Pasien::firstWhere('norm', $this->norm);
+            $pasien->update([
+                'nomorkartu' => $this->nomorkartu,
+                'nik' => $this->nik,
+                'nama' => $this->nama,
+                'tgl_lahir' => $this->tgl_lahir,
+                'gender' => $this->gender,
+                'hakkelas' => $this->hakkelas,
+                'jenispeserta' => $this->jenispeserta,
+            ]);
+            // simpan kunjungan
+            $kunjungan = Kunjungan::updateOrCreate([
+                'kode' => $antrian->kodebooking,
+                'counter' => $counter,
+            ], [
+                'tgl_masuk' => Carbon::parse($this->tgl_masuk),
+                'jaminan' => $this->jaminan,
+                'nomorkartu' => $this->nomorkartu,
+                'nik' => $this->nik,
+                'norm' => $this->norm,
+                'nama' => $this->nama,
+                'tgl_lahir' => $this->tgl_lahir,
+                'gender' => $this->gender,
+                'kelas' => $this->hakkelas,
+                'penjamin' => $this->jenispeserta,
+                'unit' => $this->unit,
+                'dokter' => $this->dokter,
+                'jeniskunjungan' => $this->jeniskunjungan,
+                'nomorreferensi' => $this->nomorreferensi,
+                'sep' => $this->sep,
+                'diagnosa_awal' => $this->diagnosa,
+                'cara_masuk' => $this->caramasuk,
+                'status' => 1,
+                'user1' => auth()->user()->id,
+            ]);
+            // update antrian
+            $antrian->update([
+                'kunjungan_id' => $kunjungan->id,
+                'kodekunjungan' => $kunjungan->kode,
+                'user1' => auth()->user()->id,
+            ]);
+            // masukan tarif
+            flash('Kunjungan atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
+            $this->dispatch('refreshPage');
+            $this->dispatch('formKunjungan');
+        } catch (\Throwable $th) {
+            flash($th->getMessage(), 'danger');
+        }
     }
     public function carNomorKartu()
     {
@@ -149,7 +184,7 @@ class ModalKunjunganRajal extends Component
         $this->unit = $antrian->kunjungan?->unit;
         $this->dokter = $antrian->kunjungan?->dokter;
         $this->caramasuk = $antrian->kunjungan?->cara_masuk;
-        $this->diag_awal = $antrian->kunjungan?->diagnosa_awal;
+        $this->diagnosa = $antrian->kunjungan?->diagnosa_awal;
         $this->jeniskunjungan =  $antrian->kunjungan?->jeniskunjungan ?? $antrian->jeniskunjungan;
         $this->polikliniks = Unit::pluck('nama', 'kode');
         $this->dokters = Dokter::pluck('nama', 'kode');
