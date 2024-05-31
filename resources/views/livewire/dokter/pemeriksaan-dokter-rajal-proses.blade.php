@@ -10,10 +10,6 @@
             <a href="{{ route('pemeriksaan.dokter.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
                 <x-adminlte-button class="btn-xs" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
             </a>
-            @if ($antrian->taskid <= 4)
-                <x-adminlte-button wire:click='panggilPemeriksaan' class="btn-xs" label="Panggil Pemeriksaan"
-                    theme="primary" icon="fas fa-microphone" />
-            @endif
             @include('livewire.pendaftaran.modal-profil-rajal')
         </x-adminlte-card>
     </div>
@@ -25,7 +21,11 @@
                 <a href="{{ route('pemeriksaan.dokter.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
                     <x-adminlte-button class="btn-xs" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
                 </a>
-                @if ($antrian->taskid <= 4)
+                @if ($antrian->taskid == 3 || $antrian->taskid == 4)
+                    <x-adminlte-button wire:click='panggilPemeriksaan' class="btn-xs" label="Panggil" theme="primary"
+                        icon="fas fa-microphone" />
+                @endif
+                @if ($antrian->taskid == 4)
                     <x-adminlte-button wire:click='lanjutFarmasi'
                         wire:confirm='Apakah anda yakin pasien ini dilanjukan ke farmasi untuk pengambilan obat ?'
                         class="btn-xs" label="Lanjutkan Farmasi" theme="success" icon="fas fa-pills" />
