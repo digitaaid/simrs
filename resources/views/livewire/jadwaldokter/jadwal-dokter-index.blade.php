@@ -6,13 +6,31 @@
             </x-adminlte-alert>
         @endif
         @if ($form)
-          @include('livewire.jadwaldokter.form-jadwal-dokter')
+            @include('livewire.jadwaldokter.form-jadwal-dokter')
+        @endif
+        @if ($formImport)
+            <x-adminlte-card title="Import Dokter" theme="secondary">
+                <x-adminlte-input-file wire:model='fileImport' name="fileImport"
+                    placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File Import' }}"
+                    igroup-size="sm" label="File Import" />
+                <x-slot name="footerSlot">
+                    <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
+                        theme="success" label="Import" wire:confirm='Apakah anda yakin akan mengimport data dokter ?' />
+                    <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
+                        label="Tutup" data-dismiss="modal" />
+                </x-slot>
+            </x-adminlte-card>
         @endif
         <x-adminlte-card title="Table Jadwal Dokter Rawat Jalan" theme="secondary">
             <div class="row ">
                 <div class="col-md-8">
                     <x-adminlte-button wire:click='formJadwal' class="btn-sm" label="Tambah Jadwal" theme="success"
                         icon="fas fa-user-plus" />
+                    <x-adminlte-button wire:click='export'
+                        wire:confirm='Apakah anda yakin akan mendownload semua data dokter ? ' class="btn-sm"
+                        label="Export" theme="primary" icon="fas fa-upload" />
+                    <x-adminlte-button wire:click='openFormImport' class="btn-sm" label="Import" theme="primary"
+                        icon="fas fa-download" />
                 </div>
                 <div class="col-md-4">
                     <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Jadwal Dokter"

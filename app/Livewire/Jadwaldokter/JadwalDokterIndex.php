@@ -2,18 +2,25 @@
 
 namespace App\Livewire\Jadwaldokter;
 
+use App\Exports\JadwalDokterExport;
+use App\Imports\JadwalDokterImport;
 use App\Models\Dokter;
 use App\Models\JadwalDokter;
 use App\Models\Unit;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class JadwalDokterIndex extends Component
 {
     use WithPagination;
+    use WithFileUploads;
     public $id, $hari, $dokter, $unit, $jampraktek, $mulai, $selesai, $kapasitas;
     public JadwalDokter $jadwal;
     public $form = false;
+    public $formImport = false;
+    public $fileImport;
     public $dokters = [];
     public $units = [];
     public $haris = [
@@ -80,6 +87,35 @@ class JadwalDokterIndex extends Component
         flash('Jadwal Hari ' . $jadwal->namahari . ' ' . $jadwal->namadokter . ' saved successfully.', 'success');
         $this->formJadwal();
         $this->form = false;
+    }
+    public function import()
+    {
+        try {
+            $this->validate([
+                'fileImport' => 'required|mimes:xlsx'
+            ]);
+            Excel::import(new JadwalDokterImport, $this->fileImport->getRealPath());
+            flash('Import Jadwal Dokter successfully', 'success');
+            $this->formImport = false;
+            $this->fileImport = null;
+            return redirect()->route('jadwaldokter.index');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
+    }
+    public function export()
+    {
+        try {
+            $time = now()->format('Y-m-d');
+            return Excel::download(new JadwalDokterExport, 'jadwaldokter_backup_' . $time . '.xlsx');
+            flash('Export Jadwal Dokter successfully', 'success');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
+    }
+    public function openFormImport()
+    {
+        $this->formImport =  $this->formImport ? false : true;
     }
     public function formJadwal()
     {
