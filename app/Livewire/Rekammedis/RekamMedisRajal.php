@@ -12,8 +12,6 @@ class RekamMedisRajal extends Component
 {
     public $tanggalperiksa;
     public $antrians;
-
-
     public function syncantrian($kodebooking)
     {
         $antrian = Antrian::where('kodebooking', $kodebooking)->first();
