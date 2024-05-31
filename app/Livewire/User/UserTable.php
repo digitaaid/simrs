@@ -21,6 +21,17 @@ class UserTable extends Component
         }
         $this->sortBy = $field;
     }
+    public function verifikasi($id)
+    {
+        $user = User::find($id);
+        $user->email_verified_at = null;
+        $user->save();
+    }
+    public function hapus($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+    }
     public function placeholder()
     {
         return view('components.placeholder.placeholder-text');
