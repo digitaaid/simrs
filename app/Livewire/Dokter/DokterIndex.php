@@ -2,16 +2,23 @@
 
 namespace App\Livewire\Dokter;
 
+use App\Exports\DokterExport;
+use App\Imports\DokterImport;
 use App\Models\Dokter;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DokterIndex extends Component
 {
     use WithPagination;
+    use WithFileUploads;
     public $search = '';
     public $form = false;
+    public $formImport = false;
     public $id, $nama, $kode, $kodejkn, $nik, $user_id, $idpractitioner, $title, $gender, $sip, $image, $status, $user, $pic;
+    public $fileImport;
     public $dokter;
 
     public function store()
@@ -81,6 +88,35 @@ class DokterIndex extends Component
         $this->gender = null;
         $this->sip = null;
         $this->image = null;
+    }
+    public function import()
+    {
+        try {
+            $this->validate([
+                'fileImport' => 'required|mimes:xlsx'
+            ]);
+            Excel::import(new DokterImport, $this->fileImport->getRealPath());
+            flash('Import Dokter successfully', 'success');
+            $this->formImport = false;
+            $this->fileImport = null;
+            return redirect()->route('dokter.index');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
+    }
+    public function export()
+    {
+        try {
+            $time = now()->format('Y-m-d');
+            return Excel::download(new DokterExport, 'dokter_backup_' . $time . '.xlsx');
+            flash('Export Dokter successfully', 'success');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
+    }
+    public function openFormImport()
+    {
+        $this->formImport =  $this->formImport ? false : true;
     }
     public function openForm()
     {
