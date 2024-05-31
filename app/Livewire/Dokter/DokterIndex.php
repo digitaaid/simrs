@@ -109,7 +109,7 @@ class DokterIndex extends Component
         try {
             $time = now()->format('Y-m-d');
             return Excel::download(new DokterExport, 'dokter_backup_' . $time . '.xlsx');
-            flash('Export Pasien successfully', 'success');
+            flash('Export Dokter successfully', 'success');
         } catch (\Throwable $th) {
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
