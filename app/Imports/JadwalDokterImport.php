@@ -20,6 +20,7 @@ class JadwalDokterImport implements ToCollection, WithHeadingRow
                         'jampraktek' => $row['jampraktek'],
                     ],
                     [
+                        'namahari' => $row['namahari'],
                         'kodepoli' => $row['kodepoli'],
                         'kodesubspesialis' => $row['kodesubspesialis'],
                         'namapoli' => $row['namapoli'],
