@@ -8,8 +8,8 @@ use Livewire\Component;
 
 class Referensi extends Component
 {
-    public $diagnosa, $poliklinik, $jenisfaskes, $faskes, $dokter, $tanggal, $jenispelayanan, $provinsi, $kabupaten, $kecamatan;
-    public $diagnosas = [], $polikliniks = [], $faskess = [], $dokters = [], $provinsis = [], $kabupatens = [], $kecamatans = [];
+    public $diagnosa, $procedure, $poliklinik, $jenisfaskes, $faskes, $dokter, $tanggal, $jenispelayanan, $provinsi, $kabupaten, $kecamatan;
+    public $diagnosas = [], $procedures = [], $polikliniks = [], $faskess = [], $dokters = [], $provinsis = [], $kabupatens = [], $kecamatans = [];
     public function updateKecamatan()
     {
         $this->validate([
@@ -137,6 +137,33 @@ class Referensi extends Component
                 $this->faskess = [];
                 foreach ($res->response->faskes as $key => $value) {
                     $this->faskess[] = [
+                        'kode' => $value->kode,
+                        'nama' => $value->nama,
+                    ];
+                }
+                return flash($res->metadata->message, 'success');
+            } else {
+                return flash($res->metadata->message, 'danger');
+            }
+        } catch (\Throwable $th) {
+            return flash($th->getMessage(), 'danger');
+        }
+    }
+    public function updatedProcedure()
+    {
+        $this->validate([
+            'procedure' => 'required|min:3',
+        ]);
+        try {
+            $api = new VclaimController();
+            $request = new Request([
+                'procedure' => $this->procedure,
+            ]);
+            $res = $api->ref_procedure($request);
+            if ($res->metadata->code == 200) {
+                $this->procedures = [];
+                foreach ($res->response->procedure as $value) {
+                    $this->procedures[] = [
                         'kode' => $value->kode,
                         'nama' => $value->nama,
                     ];

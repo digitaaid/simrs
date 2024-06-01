@@ -9,6 +9,14 @@
                     <option value="{{ $item['kode'] }}">{{ $item['nama'] }}</option>
                 @endforeach
             </datalist>
+            <x-adminlte-input wire:model.live="procedure" list="procedurelist" name="procedure" igroup-size="sm"
+                label="Procedure">
+            </x-adminlte-input>
+            <datalist id="procedurelist">
+                @foreach ($procedures as $item)
+                    <option value="{{ $item['kode'] }}">{{ $item['nama'] }}</option>
+                @endforeach
+            </datalist>
             <x-adminlte-select wire:model="jenisfaskes" name="jenisfaskes" label="Jenis Faskes">
                 <option value=null>Pilih Jenis Faskes</option>
                 <option value="1">FKTP (Puskesmas / Klinik Pratama)</option>

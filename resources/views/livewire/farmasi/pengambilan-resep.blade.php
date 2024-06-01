@@ -84,7 +84,10 @@
                     <x-adminlte-button wire:confirm='Apakah anda yakin akan menyimpan resep obat terbaru ini ?'
                         wire:click='simpanResep' class="btn-sm" label="Simpan" theme="success" icon="fas fa-save" />
                     <a target="_blank" href="{{ route('print.etiket') }}?kode={{ $antrianedit->kodebooking }}">
-                        <button class="btn btn-success btn-sm">Etiket Obat</button>
+                        <x-adminlte-button class="btn-sm" theme="success" icon="fas fa-print" label="Etiket Obat" />
+                    </a>
+                    <a href="{{ route('print.resep', $antrianedit->kodebooking) }}" target="_blank">
+                        <x-adminlte-button class="btn-sm" theme="primary" icon="fas fa-print" label="Cetak Resep" />
                     </a>
                     <x-adminlte-button wire:click='openformEdit' class="btn-sm" label="Tutup" theme="danger"
                         icon="fas fa-times" />
@@ -166,10 +169,7 @@
                                 @endif
                                 @if ($item->taskid == 6)
                                     <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
-                                        theme="warning" icon="fas fa-edit" />
-                                    <a href="{{ route('print.resep', $item->kodebooking) }}" target="_blank">
-                                        <x-adminlte-button class="btn-xs" theme="primary" icon="fas fa-print" />
-                                    </a>
+                                        theme="warning" icon="fas fa-edit" label="Edit" />
                                     <x-adminlte-button wire:confirm='Apakah anda yakin pasien telah mendapatkan obat ?'
                                         wire:click='selesai({{ $item }})' class="btn-xs" label="Selesai"
                                         theme="success" icon="fas fa-check" />
