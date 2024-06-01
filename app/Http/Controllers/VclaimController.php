@@ -186,6 +186,19 @@ class VclaimController extends ApiController
         $response = Http::withHeaders($signature)->get($url);
         return $this->response_decrypt($response, $signature);
     }
+    public function ref_procedure(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "procedure" => "required",
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first(), 400);
+        }
+        $url =  $this->api()->base_url . "referensi/procedure/" . $request->procedure;
+        $signature = $this->signature();
+        $response = Http::withHeaders($signature)->get($url);
+        return $this->response_decrypt($response, $signature);
+    }
     public function ref_poliklinik(Request $request)
     {
         $validator = Validator::make($request->all(), [
