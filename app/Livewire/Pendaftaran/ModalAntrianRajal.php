@@ -79,7 +79,7 @@ class ModalAntrianRajal extends Component
             'kodebooking' => 'required',
             'nomorkartu' => 'required',
             'nik' => 'required|digits:16',
-            'norm' => 'required|digits:9',
+            'norm' => 'required',
             'nama' => 'required',
             'nohp' => 'required|numeric',
             'tanggalperiksa' => 'required|date',
