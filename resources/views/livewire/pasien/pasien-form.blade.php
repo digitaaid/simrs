@@ -1,6 +1,5 @@
 <div class="row">
     <div class="col-md-12">
-
         <x-adminlte-card title="Identitas Pasien" theme="secondary">
             @if (flash()->message)
                 <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
