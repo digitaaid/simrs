@@ -15,7 +15,7 @@
                     igroup-size="sm" label="Nama Tindakan/Layanan" fgroup-class="row" label-class="text-left col-4"
                     igroup-size="sm" igroup-class="col-8" />
                 <datalist id="tindakanlist">
-                    @foreach ($tindakans as $harga => $item)
+                    @foreach ($tindakans as $item => $harga)
                         <option value="{{ $item }}">{{ money($harga, 'IDR') }}</option>
                     @endforeach
                 </datalist>
