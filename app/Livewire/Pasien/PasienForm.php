@@ -99,14 +99,10 @@ class PasienForm extends Component
             'tanggal' => now()->format('Y-m-d'),
         ]);
         $pasien = Pasien::where('nomorkartu', $this->nomorkartu)->first();
-        // if ($pasien) {
-        //     $this->nik = $pasien->nik;
-        //     $this->nomorkartu = $pasien->nomorkartu;
-        //     $this->norm = $pasien->norm;
-        //     $this->nama = $pasien->nama;
-        //     $this->nohp = $pasien->nohp;
-        // }
-        // dd($pasien);
+        if ($pasien) {
+            $this->norm = $pasien->norm;
+            $this->nohp = $pasien->nohp;
+        }
         $api = new VclaimController();
         $res =  $api->peserta_nomorkartu($request);
         if ($res->metadata->code == 200) {
@@ -131,6 +127,10 @@ class PasienForm extends Component
             'tanggal' => now()->format('Y-m-d'),
         ]);
         $pasien = Pasien::where('nik', $this->nik)->first();
+        if ($pasien) {
+            $this->norm = $pasien->norm;
+            $this->nohp = $pasien->nohp;
+        }
         $api = new VclaimController();
         $res =  $api->peserta_nik($request);
         if ($res->metadata->code == 200) {
@@ -143,8 +143,6 @@ class PasienForm extends Component
             $this->jenispeserta = $peserta->jenisPeserta->keterangan;
             $this->hakkelas = $peserta->hakKelas->kode;
             $this->gender = $peserta->sex;
-            // $this->norm = $pasien->norm;
-            // $this->nohp = $pasien->nohp;
             flash($res->metadata->message, 'success');
         } else {
             flash($res->metadata->message, 'danger');
@@ -161,7 +159,7 @@ class PasienForm extends Component
             $this->nohp = $pasien->nohp;
         }
     }
-    public function render()
+    public function mount()
     {
         $pasien = Pasien::firstWhere('norm', $this->norm);
         if ($pasien) {
@@ -185,6 +183,10 @@ class PasienForm extends Component
             $this->status = $pasien->status;
             $this->keterangan = $pasien->keterangan;
         }
-        return view('livewire.pasien.pasien-form')->title('Pasien ' . $this->nama);
+    }
+    public function render()
+    {
+        $pasien = Pasien::firstWhere('norm', $this->norm);
+        return view('livewire.pasien.pasien-form')->title('Pasien ' . $pasien->nama);
     }
 }
