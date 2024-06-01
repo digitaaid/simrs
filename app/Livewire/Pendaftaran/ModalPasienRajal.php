@@ -35,7 +35,7 @@ class ModalPasienRajal extends Component
                 $pasien = Pasien::find($this->id);
             } else {
                 $pasien = new Pasien();
-                $pasiensebelumnya  = Pasien::latest()->first()?->norm;
+                $pasiensebelumnya  = Pasien::orderBy('norm', 'desc')->first()?->norm;
                 if ($pasiensebelumnya) {
                     $norm = sprintf("%06d", $pasiensebelumnya + 1);
                 } else {
@@ -114,14 +114,10 @@ class ModalPasienRajal extends Component
             'tanggal' => now()->format('Y-m-d'),
         ]);
         $pasien = Pasien::where('nomorkartu', $this->nomorkartu)->first();
-        // if ($pasien) {
-        //     $this->nik = $pasien->nik;
-        //     $this->nomorkartu = $pasien->nomorkartu;
-        //     $this->norm = $pasien->norm;
-        //     $this->nama = $pasien->nama;
-        //     $this->nohp = $pasien->nohp;
-        // }
-        // dd($pasien);
+        if ($pasien) {
+            $this->norm = $pasien->norm;
+            $this->nohp = $pasien->nohp;
+        }
         $api = new VclaimController();
         $res =  $api->peserta_nomorkartu($request);
         if ($res->metadata->code == 200) {
@@ -146,6 +142,10 @@ class ModalPasienRajal extends Component
             'tanggal' => now()->format('Y-m-d'),
         ]);
         $pasien = Pasien::where('nik', $this->nik)->first();
+        if ($pasien) {
+            $this->norm = $pasien->norm;
+            $this->nohp = $pasien->nohp;
+        }
         $api = new VclaimController();
         $res =  $api->peserta_nik($request);
         if ($res->metadata->code == 200) {
@@ -158,8 +158,6 @@ class ModalPasienRajal extends Component
             $this->jenispeserta = $peserta->jenisPeserta->keterangan;
             $this->hakkelas = $peserta->hakKelas->kode;
             $this->gender = $peserta->sex;
-            // $this->norm = $pasien->norm;
-            // $this->nohp = $pasien->nohp;
             flash($res->metadata->message, 'success');
         } else {
             flash($res->metadata->message, 'danger');

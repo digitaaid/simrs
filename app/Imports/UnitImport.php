@@ -15,10 +15,10 @@ class UnitImport implements ToCollection, WithHeadingRow
             if ($row['nama']) {
                 Unit::updateOrCreate(
                     [
-                        'nama' => $row['nama'],
+                        'kode' => $row['kode'],
                     ],
                     [
-                        'kode' => $row['kode'],
+                        'nama' => $row['nama'],
                         'kodejkn' => $row['kodejkn'],
                         'idorganization' => $row['idorganization'],
                         'idlocation' => $row['idlocation'],

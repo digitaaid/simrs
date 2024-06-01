@@ -17,6 +17,7 @@ class ModalAntrianRajal extends Component
 {
     public $antrian, $polikliniks, $dokters;
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien, $keterangan, $perujuk, $jeniskunjungan, $jeniskunjunjgan;
+    public $gender, $tgl_lahir, $fktp, $jenispeserta, $hakkelas;
     public $pasienbaru = 0, $estimasidilayani, $sisakuotajkn, $kuotajkn, $sisakuotanonjkn, $kuotanonjkn;
     public $asalRujukan, $nomorreferensi, $noRujukan, $noSurat;
     public $rujukans = [], $suratkontrols = [];
@@ -201,24 +202,58 @@ class ModalAntrianRajal extends Component
     }
     public function cariNomorKartu()
     {
+        $request = new Request([
+            'nomorkartu' => $this->nomorkartu,
+            'tanggal' => now()->format('Y-m-d'),
+        ]);
         $pasien = Pasien::where('nomorkartu', $this->nomorkartu)->first();
         if ($pasien) {
-            $this->nik = $pasien->nik;
-            $this->nomorkartu = $pasien->nomorkartu;
             $this->norm = $pasien->norm;
-            $this->nama = $pasien->nama;
             $this->nohp = $pasien->nohp;
+        }
+        $api = new VclaimController();
+        $res =  $api->peserta_nomorkartu($request);
+        if ($res->metadata->code == 200) {
+            $peserta = $res->response->peserta;
+            $this->nama = $peserta->nama;
+            $this->nomorkartu = $peserta->noKartu;
+            $this->nik = $peserta->nik;
+            $this->tgl_lahir = $peserta->tglLahir;
+            $this->fktp = $peserta->provUmum->nmProvider;
+            $this->jenispeserta = $peserta->jenisPeserta->keterangan;
+            $this->hakkelas = $peserta->hakKelas->kode;
+            $this->gender = $peserta->sex;
+            flash($res->metadata->message, 'success');
+        } else {
+            flash($res->metadata->message, 'danger');
         }
     }
     public function cariNIK()
     {
+        $request = new Request([
+            'nik' => $this->nik,
+            'tanggal' => now()->format('Y-m-d'),
+        ]);
         $pasien = Pasien::where('nik', $this->nik)->first();
         if ($pasien) {
-            $this->nomorkartu = $pasien->nomorkartu;
-            $this->nik = $pasien->nik;
             $this->norm = $pasien->norm;
-            $this->nama = $pasien->nama;
             $this->nohp = $pasien->nohp;
+        }
+        $api = new VclaimController();
+        $res =  $api->peserta_nik($request);
+        if ($res->metadata->code == 200) {
+            $peserta = $res->response->peserta;
+            $this->nama = $peserta->nama;
+            $this->nomorkartu = $peserta->noKartu;
+            $this->nik = $peserta->nik;
+            $this->tgl_lahir = $peserta->tglLahir;
+            $this->fktp = $peserta->provUmum->nmProvider;
+            $this->jenispeserta = $peserta->jenisPeserta->keterangan;
+            $this->hakkelas = $peserta->hakKelas->kode;
+            $this->gender = $peserta->sex;
+            flash($res->metadata->message, 'success');
+        } else {
+            flash($res->metadata->message, 'danger');
         }
     }
     public function cariNoRM()

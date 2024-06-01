@@ -12,7 +12,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="row">
-                                        <img src="{{ asset('medicio/assets/img/lmc-b.png') }}" width="100"
+                                        <img src="{{ asset('kitasehat/logokitasehat-lingkar.png') }}" width="100"
                                             alt="">
                                         <div class="col">
                                             <h1>{{ env('APP_NAME') }}</h1>
@@ -33,7 +33,7 @@
                 <div class="card">
                     <div class="card-header bg-blue">
                         <div class="text-center">
-                            <h4>Panggil Pendaftaran</h4>
+                            <h4>Antrian Pendaftaran</h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -74,7 +74,7 @@
                 <div class="card">
                     <div class="card-header bg-blue">
                         <div class="text-center">
-                            <h4>Antrian Dokter</h4>
+                            <h4>Klinik Penyakit Dalam</h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -85,7 +85,89 @@
                 </div>
                 <div class="card">
                     <div class="card-header bg-primary">
-                        <h3 class="card-title">Antrian Pendaftaran</h3>
+                        <h3 class="card-title">Antrian Klinik Penyakit Dalam</h3>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table" id="tabledokter">
+                            <tbody>
+                                <tr>
+                                    <th>-</th>
+                                    <th>-</th>
+                                </tr>
+                                <tr>
+                                    <th>-</th>
+                                    <th>-</th>
+                                </tr>
+                                <tr>
+                                    <th>-</th>
+                                    <th>-</th>
+                                </tr>
+                                <tr>
+                                    <th>-</th>
+                                    <th>-</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-header bg-blue">
+                        <div class="text-center">
+                            <h4>Klinik Jantung</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h1><span id="poliklinik">-</span></h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h3 class="card-title">Antrian Klinik Jantung</h3>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table" id="tabledokter">
+                            <tbody>
+                                <tr>
+                                    <th>-</th>
+                                    <th>-</th>
+                                </tr>
+                                <tr>
+                                    <th>-</th>
+                                    <th>-</th>
+                                </tr>
+                                <tr>
+                                    <th>-</th>
+                                    <th>-</th>
+                                </tr>
+                                <tr>
+                                    <th>-</th>
+                                    <th>-</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-header bg-blue">
+                        <div class="text-center">
+                            <h4>Antrian Farmasi</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h1><span id="poliklinik">-</span></h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h3 class="card-title">Antrian Farmasi</h3>
                     </div>
                     <div class="card-body p-0">
                         <table class="table" id="tabledokter">
@@ -112,6 +194,18 @@
                 </div>
             </div>
             <div class="col-md-4">
+                <x-adminlte-card body-class="p-1">
+                    <iframe
+                        src="https://www.youtube-nocookie.com/embed/55DpUJWSjik?si=YhTDaLjH22Z3H-OH?rel=0&modestbranding=1&autohide=1&mute=1&showinfo=0&controls=1&autoplay=1&loop=1"
+                        title="YouTube video player" frameborder="0" width="100%" height="450"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen onload='playVideo();'></iframe>
+                </x-adminlte-card>
+                {{-- <x-adminlte-card body-class="p-1">
+                    <iframe
+                        src="https://www.youtube.com/embed/rLInKEMHykE?si=sWG-1mT9ydRzXGhS?rel=0&modestbranding=1&autohide=1&mute=1&showinfo=0&controls=1&autoplay=1&loop=1"
+                        width="100%" height="450" frameborder="0" allowfullscreen onload='playVideo();'> ></iframe>
+                </x-adminlte-card> --}}
                 <x-adminlte-card body-class="p-1 m-0">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
@@ -121,54 +215,49 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img class="d-block w-100" height="450" width="100%" src="{{ asset('img/3.jpg') }}"
-                                    alt="First slide">
+                                <img class="d-block w-100" height="450" width="100%"
+                                    src="{{ asset('kitasehat/depan.jpg') }}" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>...</h5>
                                     <p>...</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100" height="450" width="100%" src="{{ asset('img/4.jpg') }}"
-                                    alt="First slide">
+                                <img class="d-block w-100" height="450" width="100%"
+                                    src="{{ asset('kitasehat/ranap1.jpg') }}" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>...</h5>
                                     <p>...</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100" height="450" width="100%" src="{{ asset('img/5.jpg') }}"
-                                    alt="First slide">
+                                <img class="d-block w-100" height="450" width="100%"
+                                    src="{{ asset('kitasehat/ruangdokter.jpg') }}" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>...</h5>
                                     <p>...</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100" height="450" width="100%" src="{{ asset('img/6.jpg') }}"
-                                    alt="First slide">
+                                <img class="d-block w-100" height="450" width="100%"
+                                    src="{{ asset('kitasehat/pendaftaran.jpg') }}" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>...</h5>
                                     <p>...</p>
                                 </div>
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                            data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                         </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                            data-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
-                </x-adminlte-card>
-            </div>
-            <div class="col-md-4">
-                <x-adminlte-card body-class="p-1">
-                    <iframe
-                        src="https://www.youtube.com/embed/rLInKEMHykE?si=sWG-1mT9ydRzXGhS?rel=0&modestbranding=1&autohide=1&mute=1&showinfo=0&controls=1&autoplay=1&loop=1"
-                        width="100%" height="450" frameborder="0" allowfullscreen onload='playVideo();'> ></iframe>
                 </x-adminlte-card>
             </div>
         </div>
@@ -263,7 +352,6 @@
             });
         }, 3000);
     </script>
-
     <script>
         function panggilpendaftaran(angkaantrian) {
             document.getElementById('suarabel').pause();

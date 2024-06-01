@@ -6,8 +6,7 @@
 <div class="col-md-4">
     <div class="float-right">
         <div wire:loading>
-            <div class="spinner-border text-primary" role="status">
-                <span class="sr-only">Loading...</span>
+            <div class="spinner-border text-primary">
             </div>
         </div>
     </div>

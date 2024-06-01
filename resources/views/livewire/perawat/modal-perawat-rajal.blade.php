@@ -171,6 +171,21 @@
         <x-adminlte-textarea igroup-size="sm" rows=3 label="Evaluasi Keperawatan" name="evaluasi_keperawatan"
             wire:model="evaluasi_keperawatan">
         </x-adminlte-textarea>
+        <h6>Tanda Tangan Perawat Yang Memeriksa</h6>
+        <div class="row">
+            <div class="col-md-6">
+                <x-adminlte-select name="user_perawat" label="Perawat" fgroup-class="row"
+                    label-class="text-left col-3" igroup-size="sm" igroup-class="col-9" wire:model="user_perawat">
+                    <option value=null disabled>Pilih Perawat</option>
+                    @foreach ($perawats as $id => $item)
+                        <option value="{{ $id }}">{{ $item }}</option>
+                    @endforeach
+                </x-adminlte-select>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
                 wire:click="simpanAsesmen" wire:confirm='Apakah anda ingin menyimpan asesmen ini ?' />
