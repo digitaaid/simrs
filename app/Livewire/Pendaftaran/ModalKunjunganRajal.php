@@ -50,7 +50,7 @@ class ModalKunjunganRajal extends Component
             'kodebooking' => 'required',
             'nomorkartu' => 'required',
             'nik' => 'required|digits:16',
-            'norm' => 'required|digits:9',
+            'norm' => 'required',
             'nama' => 'required',
             'tgl_lahir' => 'required|date',
             'gender' => 'required',
@@ -64,7 +64,6 @@ class ModalKunjunganRajal extends Component
             'jeniskunjungan' => 'required',
         ]);
         try {
-            //code...
             $antrian = Antrian::find($this->antrianId);
             $counter = Kunjungan::where('norm', $antrian->norm)->first()?->counter ?? 1;
             // update pasien
