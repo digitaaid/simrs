@@ -82,7 +82,7 @@ Route::get('updatenomorantrean', [AntrianController::class, 'updatenomorantrean'
 Route::get('displaynomor', [AntrianController::class, 'displaynomor'])->name('displaynomor');
 Route::get('getdisplayantrian', [AntrianController::class, 'getdisplayantrian'])->name('getdisplayantrian');
 
-Route::middleware(['auth','verified'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('profil', ProfilIndex::class)->name('profil')->lazy();
     Route::middleware(['can:admin'])->group(function () {

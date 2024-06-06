@@ -69,8 +69,8 @@
                     'Jenis Pasien',
                     'Layanan',
                     'Unit',
-                    'PIC',
                     'Dokter',
+                    'PIC',
                     'Kartu BPJS',
                     'NIK',
                     'Method',
@@ -148,8 +148,8 @@
                             <td>{{ $item->jenispasien }} </td>
                             <td class="text-right">{{ money($item->layanans->sum('harga'), 'IDR') }} </td>
                             <td>{{ $item->kunjungan->units->nama ?? $item->namapoli }} </td>
-                            <td>{{ $item->pic2->name ?? 'Belum Diperiksa' }} </td>
                             <td>{{ $item->kunjungan->dokters->namadokter ?? $item->namadokter }}</td>
+                            <td>{{ $item->pic2->name ?? 'Belum Diperiksa' }} </td>
                             <td>{{ $item->nomorkartu }}</td>
                             <td>{{ $item->nik }} </td>
                             <td>{{ $item->method }} </td>

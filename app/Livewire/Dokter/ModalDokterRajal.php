@@ -16,7 +16,8 @@ class ModalDokterRajal extends Component
 {
     public $antrian, $kodebooking, $antrian_id, $kodekunjungan, $kunjungan_id;
     public $obats = [], $frekuensiObats = [], $waktuObats = [];
-    public $sumber_data, $keluhan_utama, $riwayat_pengobatan, $riwayat_penyakit, $riwayat_alergi, $pernah_berobat, $denyut_jantung, $pernapasan, $sistole, $distole, $suhu, $berat_badan, $tinggi_badan, $bsa, $pemeriksaan_fisik_perawat, $pemeriksaan_fisik_dokter, $pemeriksaan_lab, $pemeriksaan_rad, $pemeriksaan_penunjang, $diagnosa, $icd1, $icd2, $diagnosa_dokter, $diagnosa_keperawatan, $rencana_medis, $rencana_keperawatan, $tindakan_medis, $instruksi_medis;
+    public $diagnosa = [];
+    public $sumber_data, $keluhan_utama, $riwayat_pengobatan, $riwayat_penyakit, $riwayat_alergi, $pernah_berobat, $denyut_jantung, $pernapasan, $sistole, $distole, $suhu, $berat_badan, $tinggi_badan, $bsa, $pemeriksaan_fisik_perawat, $pemeriksaan_fisik_dokter, $pemeriksaan_lab, $pemeriksaan_rad, $pemeriksaan_penunjang,  $icd1, $icd2, $diagnosa_dokter, $diagnosa_keperawatan, $rencana_medis, $rencana_keperawatan, $tindakan_medis, $instruksi_medis;
     public $resepObat = [
         [
             'obat' => '',
@@ -26,6 +27,15 @@ class ModalDokterRajal extends Component
             'keterangan' => '',
         ]
     ];
+    public function addDiagnosa()
+    {
+        $this->diagnosa[] = '';
+    }
+    public function removeDiagnosa($index)
+    {
+        unset($this->diagnosa[$index]);
+        $this->diagnosa = array_values($this->diagnosa);
+    }
     public function addObat()
     {
         $this->resepObat[] = ['obat' => '', 'jumlahobat' => '', 'frekuensiobat' => '', 'waktuobat' => '', 'keterangan' => ''];
@@ -59,7 +69,6 @@ class ModalDokterRajal extends Component
             'bsa' => 'required',
             'pemeriksaan_fisik_perawat' => 'required',
             'pemeriksaan_fisik_dokter' => 'required',
-            'diagnosa' => 'required',
             // resep obat
             'resepObat.*.obat' => 'required',
             'resepObat.*.jumlahobat' => 'required|numeric',
@@ -92,7 +101,7 @@ class ModalDokterRajal extends Component
                 'pemeriksaan_lab' => $this->pemeriksaan_lab,
                 'pemeriksaan_rad' => $this->pemeriksaan_rad,
                 'pemeriksaan_penunjang' => $this->pemeriksaan_penunjang,
-                'diagnosa' => $this->diagnosa,
+                'diagnosa' => implode(',', $this->diagnosa),
                 'icd1' => $this->icd1,
                 'icd2' => $this->icd2,
                 'diagnosa_dokter' => $this->diagnosa_dokter,
@@ -209,7 +218,8 @@ class ModalDokterRajal extends Component
         $this->pemeriksaan_lab = $antrian->asesmenrajal?->pemeriksaan_lab ?? $antrianlast?->asesmenrajal?->pemeriksaan_lab;
         $this->pemeriksaan_rad = $antrian->asesmenrajal?->pemeriksaan_rad ?? $antrianlast?->asesmenrajal?->pemeriksaan_rad;
         $this->pemeriksaan_penunjang = $antrian->asesmenrajal?->pemeriksaan_penunjang ?? $antrianlast?->asesmenrajal?->pemeriksaan_penunjang;
-        $this->diagnosa = $antrian->asesmenrajal?->diagnosa ?? $antrianlast?->asesmenrajal?->diagnosa;
+        $this->diagnosa[] = explode(',', $antrian->asesmenrajal?->diagnosa) ?? explode(',', $antrianlast?->asesmenrajal?->diagnosa);
+        // dd($this->diagnosa);
         $this->icd1 = $antrian->asesmenrajal?->icd1 ?? $antrianlast?->asesmenrajal?->icd1;
         $this->icd2 = $antrian->asesmenrajal?->icd2 ?? $antrianlast?->asesmenrajal?->icd2;
         $this->diagnosa_dokter = $antrian->asesmenrajal?->diagnosa_dokter ?? $antrianlast?->asesmenrajal?->diagnosa_dokter;

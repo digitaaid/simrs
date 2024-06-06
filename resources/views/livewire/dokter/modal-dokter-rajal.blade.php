@@ -154,8 +154,19 @@
             </div>
         </div>
         <h6>Assessment (A)</h6>
-        <x-adminlte-input wire:model="diagnosa" list="diagnosalist" name="diagnosa" label="Diagnosa"
-            igroup-size="sm" />
+        <label>Diagnosa</label>
+        @foreach ($diagnosa as $index => $item)
+            <div class="row">
+            <div class="col-md-6">
+                <x-adminlte-input wire:model="diagnosa.{{ $index }}" list="diagnosalist" name="diagnosa[]"
+                placeholder="Diagnosa" igroup-size="sm" />
+            </div>
+            <div class="col-md-6">
+                <button wire:click.prevent="removeDiagnosa({{ $index }})" class="btn btn-danger btn-sm">Remove</button>
+            </div>
+            </div>
+        @endforeach
+        <button wire:click.prevent="addDiagnosa" class="btn btn-success btn-sm">Add Diagnosa</button>
         <datalist id="diagnosalist">
             <option value="Diagnonsa Database"></option>
         </datalist>
