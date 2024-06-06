@@ -34,35 +34,33 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img class="d-block w-100" src="{{ asset('medicio/assets/img/about.jpg') }}"
-                                    alt="First slide">
+                                <img class="d-block w-100" src="{{ asset('kitasehat/depan.jpg') }}" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5>...</h5>
-                                    <p>...</p>
+                                    {{-- <h5>...</h5>
+                                    <p>...</p> --}}
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100" src="{{ asset('medicio/assets/img/slide/slide-2.jpg') }}"
-                                    alt="First slide">
+                                <img class="d-block w-100" src="{{ asset('kitasehat/igd.jpg') }}" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5>...</h5>
-                                    <p>...</p>
+                                    {{-- <h5>...</h5>
+                                    <p>...</p> --}}
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100" src="{{ asset('medicio/assets/img/slide/slide-3.jpg') }}"
+                                <img class="d-block w-100" src="{{ asset('kitasehat/pendaftaran.jpg') }}"
                                     alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5>...</h5>
-                                    <p>...</p>
+                                    {{-- <h5>...</h5>
+                                    <p>...</p> --}}
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100" src="{{ asset('medicio/assets/img/slide/slide-1.jpg') }}"
+                                <img class="d-block w-100" src="{{ asset('kitasehat/ranap1.jpg') }}"
                                     alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5>...</h5>
-                                    <p>...</p>
+                                    {{-- <h5>...</h5>
+                                    <p>...</p> --}}
                                 </div>
                             </div>
                         </div>
@@ -92,11 +90,6 @@
                         <x-adminlte-datatable id="table1" class="nowrap text-xs" :heads="$heads" striped bordered
                             compressed>
                             @foreach ($jadwals as $jadwal)
-                                {{-- @if ($jadwal->libur || $antrians->where('jadwal_id', $jadwal->id)->count() >= $jadwal->kapasitaspasien)
-                                    <tr class="table-danger">
-                                    @else
-                                    <tr>
-                                @endif --}}
                                 <tr>
                                     <td>{{ $jadwal->namasubspesialis }}</td>
                                     <td>{{ $jadwal->namadokter }}</td>
@@ -121,6 +114,9 @@
                             <x-adminlte-button icon="fas fa-user-plus" class="btn-lg w-100" theme="success"
                                 label="Ambil Antrian Umum" />
                         </a>
+                    </div>
+                    <div wire:loading class="col-md-12">
+                        <h3>Loading...</h3>
                     </div>
                 </div>
             </x-adminlte-card>
