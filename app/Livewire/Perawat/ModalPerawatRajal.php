@@ -5,12 +5,15 @@ namespace App\Livewire\Perawat;
 use App\Models\Antrian;
 use App\Models\AsesmenRajal;
 use App\Models\Kunjungan;
+use App\Models\User;
 use Livewire\Component;
 
 class ModalPerawatRajal extends Component
 {
     public $antrian, $kodebooking, $antrian_id, $kodekunjungan, $kunjungan_id;
     public $sumber_data, $pernah_berobat, $keluhan_utama, $riwayat_pengobatan, $riwayat_penyakit, $riwayat_alergi, $denyut_jantung, $pernapasan, $sistole, $distole, $suhu, $berat_badan, $tinggi_badan, $bsa, $tingkat_kesadaran, $pemeriksaan_fisik_perawat, $pemeriksaan_lab, $pemeriksaan_rad, $pemeriksaan_penunjang, $diagnosa_keperawatan, $rencana_keperawatan, $tindakan_keperawatan, $evaluasi_keperawatan;
+    public $user_perawat;
+    public $perawats = [];
     public function simpanAsesmen()
     {
         $this->validate([
@@ -75,8 +78,8 @@ class ModalPerawatRajal extends Component
                 // asesmen perawat
                 'waktu_asesmen_perawat' => now(),
                 'status_asesmen_perawat' => '1',
-                'user_perawat' => auth()->user()->id,
-                'pic_perawat' => auth()->user()->name,
+                'user_perawat' => $this->user_perawat,
+                'pic_perawat' => User::find($this->user_perawat)->name,
             ]);
             flash('Asesmen perawat saved successfully.', 'success');
             $this->dispatch('refreshPage');
@@ -127,6 +130,8 @@ class ModalPerawatRajal extends Component
         $this->rencana_keperawatan = $antrian->asesmenrajal?->rencana_keperawatan ?? $antrianlast?->asesmenrajal?->rencana_keperawatan;
         $this->tindakan_keperawatan = $antrian->asesmenrajal?->tindakan_keperawatan ?? $antrianlast?->asesmenrajal?->tindakan_keperawatan;
         $this->evaluasi_keperawatan = $antrian->asesmenrajal?->evaluasi_keperawatan ?? $antrianlast?->asesmenrajal?->evaluasi_keperawatan;
+        $this->user_perawat = auth()->user()->id;
+        $this->perawats = User::pluck('name', 'id');
     }
     public function modalPemeriksaanPerawat()
     {

@@ -10,22 +10,18 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 2)->first()->nomorantrean ?? '-' }}"
-                        text="Antrian Dilayani" theme="primary" icon="fas fa-user-injured"
-                        url="{{ route('pendaftaran.rajal.proses', $antrians->where('taskid', 1)->first()->kodebooking ?? '00') }}"
-                        url-text="Proses Antrian Selanjutnya" />
+                    <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}" text="Total Antrian"
+                        theme="success" icon="fas fa-user-injured" />
                 </div>
                 <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 1)->count() }}" text="Sisa Antrian"
-                        theme="warning" icon="fas fa-user-injured" />
+                    <x-adminlte-small-box
+                        title="{{ $antrians->where('asesmenrajal.status_asesmen_perawat', 1)->count() }}"
+                        text="Sudah Asesmen Perawat" theme="warning" icon="fas fa-user-injured" />
                 </div>
                 <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}"
-                        text="Total Antrian" theme="success" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 99)->count() }}" text="Batal Antrian"
-                        theme="danger" icon="fas fa-user-injured" />
+                    <x-adminlte-small-box
+                        title="{{ $antrians->where('taskid', '!=', 99)->where('asesmenrajal.status_asesmen_perawat', 0)->count() }}"
+                        text="Belum Asesmen Perawat" theme="danger" icon="fas fa-user-injured" />
                 </div>
             </div>
         </div>
@@ -73,8 +69,8 @@
                     'Jenis Pasien',
                     'Layanan',
                     'Unit',
-                    'PIC',
                     'Dokter',
+                    'PIC',
                     'Kartu BPJS',
                     'NIK',
                     'Method',
@@ -152,8 +148,8 @@
                             <td>{{ $item->jenispasien }} </td>
                             <td class="text-right">{{ money($item->layanans->sum('harga'), 'IDR') }} </td>
                             <td>{{ $item->kunjungan->units->nama ?? $item->namapoli }} </td>
-                            <td>{{ $item->pic2->name ?? 'Belum Diperiksa' }} </td>
                             <td>{{ $item->kunjungan->dokters->namadokter ?? $item->namadokter }}</td>
+                            <td>{{ $item->pic2->name ?? 'Belum Diperiksa' }} </td>
                             <td>{{ $item->nomorkartu }}</td>
                             <td>{{ $item->nik }} </td>
                             <td>{{ $item->method }} </td>

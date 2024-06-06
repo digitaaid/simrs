@@ -1,5 +1,4 @@
 <div class="row">
-    @include('components.layouts.loading_indicator')
     @include('components.layouts.flash_message')
     <div class="col-md-12">
         @if ($formImport)
@@ -13,6 +12,9 @@
                         wire:confirm='Apakah anda yakin akan mengimport file pasien saat ini ?' />
                     <x-adminlte-button theme="danger" wire:click='closeFormImport' class="btn-sm" icon="fas fa-times"
                         label="Kembali" data-dismiss="modal" />
+                    <div wire:loading>
+                        Loading...
+                    </div>
                 </x-slot>
             </x-adminlte-card>
         @endif
@@ -57,6 +59,7 @@
                     'Tgl Lahir',
                     'Umur',
                     'Alamat',
+                    'Alamat',
                     'PIC',
                     'Updated',
                 ];
@@ -83,8 +86,10 @@
                         <td>{{ $item->idpatient }}</td>
                         <td>{{ $item->nohp }}</td>
                         <td>{{ $item->gender }}</td>
-                        <td>{{ $item->tgl_lahir }}</td>
-                        <td>{{ $item->tgl_lahir }}</td>
+                        <td>{{ $item->tgl_lahir }} ({{ \Carbon\Carbon::parse($item->tgl_lahir)->age }})</td>
+                        <td>{{ $item->jenispeserta }}</td>
+                        <td>{{ $item->desa_id }}, {{ $item->kecamatan_id }},
+                            {{ $item->kabupaten_id }}, {{ $item->provinsi_id }}</td>
                         <td>{{ $item->alamat }}</td>
                         <td>{{ $item->pic }}</td>
                         <td>{{ $item->updated_at }}</td>

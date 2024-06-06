@@ -17,7 +17,7 @@ class ModalKunjunganRajal extends Component
 {
     public $antrian, $jaminans, $polikliniks, $dokters;
     public $diagnosas = [];
-    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kode, $counter, $jaminan, $tgl_masuk, $unit, $dokter, $caramasuk, $diagnosa, $jeniskunjungan, $nomorreferensi, $sep;
+    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $tgl_lahir, $nohp, $fktp, $gender, $hakkelas, $jenispeserta, $kode, $counter, $jaminan, $tgl_masuk, $unit, $dokter, $caramasuk, $diagnosa, $jeniskunjungan, $nomorreferensi, $sep;
     public function updatedDiagnosa()
     {
         $this->validate([
@@ -116,47 +116,71 @@ class ModalKunjunganRajal extends Component
             flash($th->getMessage(), 'danger');
         }
     }
-    public function carNomorKartu()
+    public function cariNomorKartu()
     {
+        $request = new Request([
+            'nomorkartu' => $this->nomorkartu,
+            'tanggal' => now()->format('Y-m-d'),
+        ]);
         $pasien = Pasien::where('nomorkartu', $this->nomorkartu)->first();
         if ($pasien) {
-            $this->nik = $pasien->nik;
-            $this->nomorkartu = $pasien->nomorkartu;
             $this->norm = $pasien->norm;
-            $this->nama = $pasien->nama;
-            $this->tgl_lahir = $pasien->tgl_lahir;
-            $this->gender = $pasien->gender;
-            $this->hakkelas = $pasien->hakkelas;
-            $this->jenispeserta = $pasien->jenispeserta;
+            $this->nohp = $pasien->nohp;
+        }
+        $api = new VclaimController();
+        $res =  $api->peserta_nomorkartu($request);
+        if ($res->metadata->code == 200) {
+            $peserta = $res->response->peserta;
+            $this->nama = $peserta->nama;
+            $this->nomorkartu = $peserta->noKartu;
+            $this->nik = $peserta->nik;
+            $this->tgl_lahir = $peserta->tglLahir;
+            $this->fktp = $peserta->provUmum->nmProvider;
+            $this->jenispeserta = $peserta->jenisPeserta->keterangan;
+            $this->hakkelas = $peserta->hakKelas->kode;
+            $this->gender = $peserta->sex;
+            flash($res->metadata->message, 'success');
+        } else {
+            flash($res->metadata->message, 'danger');
         }
     }
     public function cariNIK()
     {
+        $request = new Request([
+            'nik' => $this->nik,
+            'tanggal' => now()->format('Y-m-d'),
+        ]);
         $pasien = Pasien::where('nik', $this->nik)->first();
         if ($pasien) {
-            $this->nomorkartu = $pasien->nomorkartu;
-            $this->nik = $pasien->nik;
             $this->norm = $pasien->norm;
-            $this->nama = $pasien->nama;
-            $this->tgl_lahir = $pasien->tgl_lahir;
-            $this->gender = $pasien->gender;
-            $this->hakkelas = $pasien->hakkelas;
-            $this->jenispeserta = $pasien->jenispeserta;
+            $this->nohp = $pasien->nohp;
+        }
+        $api = new VclaimController();
+        $res =  $api->peserta_nik($request);
+        if ($res->metadata->code == 200) {
+            $peserta = $res->response->peserta;
+            $this->nama = $peserta->nama;
+            $this->nomorkartu = $peserta->noKartu;
+            $this->nik = $peserta->nik;
+            $this->tgl_lahir = $peserta->tglLahir;
+            $this->fktp = $peserta->provUmum->nmProvider;
+            $this->jenispeserta = $peserta->jenisPeserta->keterangan;
+            $this->hakkelas = $peserta->hakKelas->kode;
+            $this->gender = $peserta->sex;
+            flash($res->metadata->message, 'success');
+        } else {
+            flash($res->metadata->message, 'danger');
         }
     }
     public function cariNoRM()
     {
         $pasien = Pasien::where('norm', $this->norm)->first();
-        dd($pasien);
         if ($pasien) {
             $this->nomorkartu = $pasien->nomorkartu;
             $this->nik = $pasien->nik;
             $this->norm = $pasien->norm;
             $this->nama = $pasien->nama;
-            $this->tgl_lahir = $pasien->tgl_lahir;
-            $this->gender = $pasien->gender;
-            $this->hakkelas = $pasien->hakkelas;
-            $this->jenispeserta = $pasien->jenispeserta;
+            $this->nohp = $pasien->nohp;
         }
     }
     public function formKunjungan()

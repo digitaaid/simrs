@@ -13,7 +13,7 @@
                     <x-adminlte-input wire:model='nomorkartu' name="nomorkartu" fgroup-class="row"
                         label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" label="Nomor Kartu">
                         <x-slot name="appendSlot">
-                            <div class="btn btn-primary" wire:click='carNomorKartu'>
+                            <div class="btn btn-primary" wire:click='cariNomorKartu'>
                                 <i class="fas fa-search"></i> Cari
                             </div>
                         </x-slot>
@@ -21,7 +21,7 @@
                     <x-adminlte-input wire:model='nik' name="nik" fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" label="NIK">
                         <x-slot name="appendSlot">
-                            <div class="btn btn-primary" wire:click='carNomorKartu'>
+                            <div class="btn btn-primary" wire:click='cariNIK'>
                                 <i class="fas fa-search"></i> Cari
                             </div>
                         </x-slot>
@@ -29,7 +29,7 @@
                     <x-adminlte-input wire:model='norm' name="norm" label="No RM" fgroup-class="row"
                         label-class="text-left col-4" igroup-class="col-8" igroup-size="sm">
                         <x-slot name="appendSlot">
-                            <div class="btn btn-primary" wire:click='carNomorKartu'>
+                            <div class="btn btn-primary" wire:click='cariNoRM'>
                                 <i class="fas fa-search"></i> Cari
                             </div>
                         </x-slot>
