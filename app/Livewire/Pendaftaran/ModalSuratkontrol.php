@@ -10,10 +10,9 @@ use Livewire\Component;
 
 class ModalSuratkontrol extends Component
 {
-    public $antrian;
-    public $tanggal, $formatfilter;
+    public $antrian, $tanggal, $formatfilter;
     public $nomorkartu, $noSEP, $tglRencanaKontrol, $poliKontrol, $kodeDokter;
-    public $seps = [], $polis = [], $dokters = [], $suratkontrols = [];
+    public $seps = [], $polis = [], $dokters = [], $suratkontrols = [], $form = false;
     public function buatSuratKontrol()
     {
         $this->validate([
@@ -121,9 +120,9 @@ class ModalSuratkontrol extends Component
             return flash($res->metadata->message, 'danger');
         }
     }
-    public function modalSK()
+    public function openForm()
     {
-        $this->dispatch('modalSK');
+        $this->form = $this->form ?  false : true;
     }
     public function cariDataSuratKontrol()
     {
@@ -147,7 +146,6 @@ class ModalSuratkontrol extends Component
             return flash($res->metadata->message, 'danger');
         }
     }
-
     public function mount(Antrian $antrian)
     {
         $this->antrian = $antrian;
