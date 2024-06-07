@@ -157,5 +157,5 @@ return [
     */
 
     'pagination_theme' => 'bootstrap',
-    'asset_url' =>  env('APP_ENV') === 'production' ?    'public/vendor/livewire/livewire.js' : null,
+    'asset_url' =>  env('APP_ENV') === 'production' ? 'https://klinikkitasehat.com/public/vendor/livewire/livewire.js' : null,
 ];
