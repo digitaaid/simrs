@@ -1,4 +1,4 @@
-<div>
+<div id="sep">
     <x-adminlte-card theme="primary" title="SEP Pasien">
         @if (flash()->message)
             <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
@@ -139,8 +139,6 @@
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
                 wire:click="editAntrian" wire:confirm='Apakah anda yakin akan menyimpan data antrian ?' />
-            <x-adminlte-button wire:click='modalSEP' theme="danger" class="btn-sm" icon="fas fa-times"
-                label="Tutup" />
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>

@@ -7,9 +7,6 @@
             </x-adminlte-alert>
         @endif
         <x-adminlte-card theme="primary" theme-mode="outline">
-            <a href="{{ route('pendaftaran.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
-                <x-adminlte-button class="btn-xs" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
-            </a>
             @include('livewire.pendaftaran.modal-profil-rajal')
         </x-adminlte-card>
     </div>
@@ -17,26 +14,16 @@
     @include('livewire.pendaftaran.navigasi-rajal')
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
-        @if ($openmodalCppt)
-            @livewire('dokter.modal-cppt', ['pasien' => $pasien])
-        @endif
-        @if ($openmodalLayanan)
-            @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
-        @endif
-        @if ($openformPasien)
-            @livewire('pendaftaran.modal-pasien-rajal')
-        @endif
-        @if ($openmodalSK)
+        @livewire('pendaftaran.modal-pasien-rajal')
+        @livewire('pendaftaran.modal-antrian-rajal', ['antrian' => $antrian])
+        @livewire('pendaftaran.modal-kunjungan-rajal', ['antrian' => $antrian])
+        @if ($antrian->pasien && $antrian->jenispasien == 'JKN')
+            @livewire('pendaftaran.modal-sep', ['antrian' => $antrian])
             @livewire('pendaftaran.modal-suratkontrol')
         @endif
-        @if ($openmodalSEP)
-            @livewire('pendaftaran.modal-sep', ['antrian' => $antrian])
-        @endif
-        @if ($openformAntrian)
-            @livewire('pendaftaran.modal-antrian-rajal', ['antrian' => $antrian])
-        @endif
-        @if ($openformKunjungan)
-            @livewire('pendaftaran.modal-kunjungan-rajal', ['antrian' => $antrian])
+        @if ($antrian->kunjungan)
+            @livewire('dokter.modal-cppt', ['pasien' => $pasien])
+            @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
         @endif
     </div>
 </div>

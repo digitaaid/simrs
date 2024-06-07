@@ -15,13 +15,6 @@ class PendaftaranRajalProses extends Component
     public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
     public $antrian, $pasien;
     public $polikliniks, $dokters, $jaminans;
-    public $openformAntrian = false;
-    public $openformKunjungan = false;
-    public $openmodalSK = false;
-    public $openmodalSEP = false;
-    public $openmodalCppt = false;
-    public $openmodalLayanan = false;
-    public $openformPasien = false;
     protected $listeners = ['modalCppt', 'modalSEP', 'modalSK', 'modalLayanan', 'formAntrian',  'formKunjungan', 'formPasien', 'refreshPage' => '$refresh'];
     public function batal()
     {
@@ -29,6 +22,13 @@ class PendaftaranRajalProses extends Component
         $antrian->taskid = 99;
         $antrian->user1 = auth()->user()->id;
         $antrian->update();
+        $kunjungan = $antrian->kunjungan;
+        if ($kunjungan) {
+            $kunjungan->update([
+                'status' => 0,
+                'user1' => auth()->user()->id,
+            ]);
+        }
         flash('Nomor antrian ' . $antrian->nomorantrean . ' telah dibatalakan pendaftaran.', 'success');
     }
     public function selesaiPendaftaran()
@@ -60,34 +60,6 @@ class PendaftaranRajalProses extends Component
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
         }
-    }
-    public function modalSEP()
-    {
-        $this->openmodalSEP = $this->openmodalSEP ? false : true;
-    }
-    public function modalSK()
-    {
-        $this->openmodalSK = $this->openmodalSK ? false : true;
-    }
-    public function modalCppt()
-    {
-        $this->openmodalCppt = $this->openmodalCppt ? false : true;
-    }
-    public function modalLayanan()
-    {
-        $this->openmodalLayanan = $this->openmodalLayanan ? false : true;
-    }
-    public function formPasien()
-    {
-        $this->openformPasien =  $this->openformPasien ? false : true;
-    }
-    public function formKunjungan()
-    {
-        $this->openformKunjungan = $this->openformKunjungan ? false : true;
-    }
-    public function formAntrian()
-    {
-        $this->openformAntrian = $this->openformAntrian ? false : true;
     }
     public function mount($kodebooking)
     {

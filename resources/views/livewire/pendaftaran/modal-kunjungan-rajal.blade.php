@@ -1,4 +1,4 @@
-<div>
+<div id="kunjungan">
     <x-adminlte-card theme="primary" title="Kunjungan Pasien">
         @if (flash()->message)
             <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
@@ -133,8 +133,6 @@
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
                 wire:click="editKunjungan" wire:confirm='Apakah anda yakin akan menyimpan data kunjungan ?' />
-            <x-adminlte-button wire:click='formKunjungan' theme="danger" class="btn-sm" icon="fas fa-times"
-                label="Tutup" />
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>
