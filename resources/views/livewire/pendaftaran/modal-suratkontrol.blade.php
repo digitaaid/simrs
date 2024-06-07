@@ -1,10 +1,5 @@
 <div id="suratkontrol">
     <x-adminlte-card theme="primary" title="Surat Kontrol Pasien">
-        @if (flash()->message)
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        @endif
         <div class="row">
             <div class="col-md-4">
                 <x-adminlte-select wire:model="formatfilter" fgroup-class="row" label-class="text-left col-4"
@@ -86,17 +81,12 @@
     </x-adminlte-card>
     @if ($form)
         <x-adminlte-card theme="primary" title="Surat Kontrol Pasien">
-            @if (flash()->message)
-                <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                    {{ flash()->message }}
-                </x-adminlte-alert>
-            @endif
             <div class="row">
                 <div class="col-md-6">
                     <x-adminlte-input fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
                         igroup-size="sm" wire:model='nomorkartu' name="nomorkartu" label="Nomor Kartu" />
                     <x-adminlte-select fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
-                        igroup-size="sm" name="noSEP" wire:model='noSEP' label="No SEP">
+                        igroup-size="sm" name="noSEP" wire:model='noSEP' wire:click='cariSEP' label="No SEP">
                         <option value=null>Pilih No SEP</option>
                         @foreach ($seps as $key => $item)
                             <option value="{{ $item['noSep'] }}">{{ $item['noSep'] }}
@@ -112,7 +102,8 @@
                         label="Tgl Rencana Kontrol" fgroup-class="row" label-class="text-left col-3"
                         igroup-class="col-9" igroup-size="sm" />
                     <x-adminlte-select fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
-                        igroup-size="sm" name="poliKontrol" wire:model='poliKontrol' label="Poli Kontrol">
+                        igroup-size="sm" name="poliKontrol" wire:model='poliKontrol' wire:click='cariPoli'
+                        label="Poli Kontrol">
                         <option value=null>Pilih Poli Kontrol</option>
                         @foreach ($polis as $key => $item)
                             <option value="{{ $item['kodePoli'] }}">{{ $item['namaPoli'] }}
@@ -126,7 +117,8 @@
                         </x-slot>
                     </x-adminlte-select>
                     <x-adminlte-select fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
-                        igroup-size="sm" name="kodeDokter" wire:model='kodeDokter' label="Dokter">
+                        igroup-size="sm" name="kodeDokter" wire:model='kodeDokter' wire:click='cariDokter'
+                        label="Dokter">
                         <option value=null>Pilih Poli Kontrol</option>
                         @foreach ($dokters as $key => $item)
                             <option value="{{ $item['kodeDokter'] }}">{{ $item['namaDokter'] }}
@@ -149,6 +141,11 @@
                     </div>
                     Loading ...
                 </div>
+                @if (flash()->message)
+                    <div class="text-{{ flash()->class }}" wire:loading.remove>
+                        Loading Result : {{ flash()->message }}
+                    </div>
+                @endif
             </x-slot>
         </x-adminlte-card>
     @endif
