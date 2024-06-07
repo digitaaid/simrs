@@ -73,16 +73,6 @@
             </li>
             @if ($antrian->jenispasien == 'JKN')
                 <li class="nav-item">
-                    <a href="#suratkontrol" class="nav-link">
-                        <i class="fas fa-file-medical"></i> Surat Kontrol
-                        {{-- @if ($antrian->suratkontrols->count())
-                            <span class="badge bg-success float-right">Sudah Ada SKontrol Berikutnya</span>
-                        @else
-                            <span class="badge bg-danger float-right">Belum Ada SKontrol Berikutnya</span>
-                        @endif --}}
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="#sep" class="nav-link">
                         <i class="fas fa-file-medical"></i> SEP
                         @if ($antrian->sep)
@@ -90,6 +80,16 @@
                         @else
                             <span class="badge bg-danger float-right">Belum Dibuatkan</span>
                         @endif
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#suratkontrol" class="nav-link">
+                        <i class="fas fa-file-medical"></i> Surat Kontrol
+                        {{-- @if ($antrian->suratkontrols->count())
+                            <span class="badge bg-success float-right">Sudah Ada SKontrol Berikutnya</span>
+                        @else
+                            <span class="badge bg-danger float-right">Belum Ada SKontrol Berikutnya</span>
+                        @endif --}}
                     </a>
                 </li>
                 <li class="nav-item">

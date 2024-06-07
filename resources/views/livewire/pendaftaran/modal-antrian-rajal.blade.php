@@ -84,7 +84,7 @@
                             </x-slot>
                         </x-adminlte-select>
                         <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                            igroup-size="sm" name="noSurat" wire:model='noSurat' label="No Rujukan">
+                            igroup-size="sm" name="noSurat" wire:model='noSurat' label="No Surat Kontrol">
                             <option value=null>Pilih Surat Kontrol</option>
                             @foreach ($suratkontrols as $key => $item)
                                 <option value="{{ $item['noSuratKontrol'] }}">{{ $item['noSuratKontrol'] }}

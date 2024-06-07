@@ -19,7 +19,7 @@
         @livewire('pendaftaran.modal-kunjungan-rajal', ['antrian' => $antrian])
         @if ($antrian->pasien && $antrian->jenispasien == 'JKN')
             @livewire('pendaftaran.modal-sep', ['antrian' => $antrian])
-            @livewire('pendaftaran.modal-suratkontrol')
+            @livewire('pendaftaran.modal-suratkontrol', ['antrian' => $antrian])
         @endif
         @if ($antrian->kunjungan)
             @livewire('dokter.modal-cppt', ['pasien' => $pasien])
