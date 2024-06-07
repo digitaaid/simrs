@@ -1,6 +1,6 @@
     <div id="datapasien">
         @if ($form)
-            <x-adminlte-card title="Tambah Identitas Pasien Baru" theme="primary" icon="fas fa-user-plus">
+            <x-adminlte-card title="Tambah Identitas Pasien Baru" theme="success" icon="fas fa-user-plus">
                 @if (flash()->message)
                     <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
                         {{ flash()->message }}

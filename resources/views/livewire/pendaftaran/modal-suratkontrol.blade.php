@@ -23,52 +23,55 @@
                 </x-adminlte-input>
             </div>
         </div>
-        <table class="table table-sm table-responsive table-bordered text-nowrap">
-            <thead>
-                <tr>
-                    <th>No Surat Kontrol</th>
-                    <th>Jenis Pelayanan</th>
-                    <th>Jenis Kontrol</th>
-                    <th>Nama Jenis Kontrol</th>
-                    <th>Tanggal Rencana Kontrol</th>
-                    <th>Tanggal Terbit Kontrol</th>
-                    <th>No SEP Asal Kontrol</th>
-                    <th>Poli Asal</th>
-                    <th>Nama Poli Asal</th>
-                    <th>Poli Tujuan</th>
-                    <th>Nama Poli Tujuan</th>
-                    <th>Tanggal SEP</th>
-                    <th>Kode Dokter</th>
-                    <th>Nama Dokter</th>
-                    <th>No Kartu</th>
-                    <th>Nama</th>
-                    <th>Terbit SEP</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($suratkontrols as $item)
+        @if ($suratkontrols)
+            <table class="table table-sm table-responsive table-bordered text-nowrap">
+                <thead>
                     <tr>
-                        <td>{{ $item->noSuratKontrol }}</td>
-                        <td>{{ $item->jnsPelayanan }}</td>
-                        <td>{{ $item->jnsKontrol }}</td>
-                        <td>{{ $item->namaJnsKontrol }}</td>
-                        <td>{{ $item->tglRencanaKontrol }}</td>
-                        <td>{{ $item->tglTerbitKontrol }}</td>
-                        <td>{{ $item->noSepAsalKontrol }}</td>
-                        <td>{{ $item->poliAsal }}</td>
-                        <td>{{ $item->namaPoliAsal }}</td>
-                        <td>{{ $item->poliTujuan }}</td>
-                        <td>{{ $item->namaPoliTujuan }}</td>
-                        <td>{{ $item->tglSEP }}</td>
-                        <td>{{ $item->kodeDokter }}</td>
-                        <td>{{ $item->namaDokter }}</td>
-                        <td>{{ $item->noKartu }}</td>
-                        <td>{{ $item->nama }}</td>
-                        <td>{{ $item->terbitSEP }}</td>
+                        <th>No Surat Kontrol</th>
+                        <th>Jenis Pelayanan</th>
+                        <th>Jenis Kontrol</th>
+                        <th>Nama Jenis Kontrol</th>
+                        <th>Tanggal Rencana Kontrol</th>
+                        <th>Tanggal Terbit Kontrol</th>
+                        <th>No SEP Asal Kontrol</th>
+                        <th>Poli Asal</th>
+                        <th>Nama Poli Asal</th>
+                        <th>Poli Tujuan</th>
+                        <th>Nama Poli Tujuan</th>
+                        <th>Tanggal SEP</th>
+                        <th>Kode Dokter</th>
+                        <th>Nama Dokter</th>
+                        <th>No Kartu</th>
+                        <th>Nama</th>
+                        <th>Terbit SEP</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($suratkontrols as $item)
+                        <tr>
+                            <td>{{ $item->noSuratKontrol }}</td>
+                            <td>{{ $item->jnsPelayanan }}</td>
+                            <td>{{ $item->jnsKontrol }}</td>
+                            <td>{{ $item->namaJnsKontrol }}</td>
+                            <td>{{ $item->tglRencanaKontrol }}</td>
+                            <td>{{ $item->tglTerbitKontrol }}</td>
+                            <td>{{ $item->noSepAsalKontrol }}</td>
+                            <td>{{ $item->poliAsal }}</td>
+                            <td>{{ $item->namaPoliAsal }}</td>
+                            <td>{{ $item->poliTujuan }}</td>
+                            <td>{{ $item->namaPoliTujuan }}</td>
+                            <td>{{ $item->tglSEP }}</td>
+                            <td>{{ $item->kodeDokter }}</td>
+                            <td>{{ $item->namaDokter }}</td>
+                            <td>{{ $item->noKartu }}</td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->terbitSEP }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-plus" class="btn-sm" label="Buat Surat Kontrol"
                 wire:click="openForm" />
@@ -80,7 +83,7 @@
         </x-slot>
     </x-adminlte-card>
     @if ($form)
-        <x-adminlte-card theme="primary" title="Surat Kontrol Pasien">
+        <x-adminlte-card theme="success" title="Pembuatan Surat Kontrol Pasien">
             <div class="row">
                 <div class="col-md-6">
                     <x-adminlte-input fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
@@ -136,6 +139,8 @@
             <x-slot name="footerSlot">
                 <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
                     wire:click="buatSuratKontrol" wire:confirm='Apakah anda yakin ingin membuat surat kontrol ?' />
+                <x-adminlte-button theme="danger" icon="fas fa-times" class="btn-sm" label="Tutup"
+                    wire:click="openForm" />
                 <div wire:loading>
                     <div class="spinner-border spinner-border-sm text-primary" role="status">
                     </div>

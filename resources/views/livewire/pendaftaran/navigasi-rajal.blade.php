@@ -73,7 +73,7 @@
             </li>
             @if ($antrian->jenispasien == 'JKN')
                 <li class="nav-item">
-                    <a href="#sep" class="nav-link">
+                    <a href="#modalsep" class="nav-link">
                         <i class="fas fa-file-medical"></i> SEP
                         @if ($antrian->sep)
                             <span class="badge bg-success float-right">Sudah Dibuatkan</span>
