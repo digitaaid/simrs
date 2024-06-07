@@ -1,16 +1,6 @@
 <div id="resumerajal">
     <x-adminlte-card theme="primary" title="Resume Rawat Jalan">
-        @if (flash()->message)
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        @endif
-        <x-slot name="footerSlot">
-            <div wire:loading>
-                <div class="spinner-border spinner-border-sm text-primary" role="status">
-                </div>
-                Loading ...
-            </div>
-        </x-slot>
+        <iframe src="http://simrs.test/bpjs/vclaim/sep_print?noSep=0125S0070624V000128" width="100%" height="300"
+            frameborder="0"></iframe>
     </x-adminlte-card>
 </div>

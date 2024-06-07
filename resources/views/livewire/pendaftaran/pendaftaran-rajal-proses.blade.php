@@ -24,6 +24,12 @@
         @if ($antrian->kunjungan)
             @livewire('dokter.modal-cppt', ['pasien' => $pasien])
             @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
+            <div id="invoice">
+                <x-adminlte-card theme="primary" title="Invoice Pelayanan Pasien">
+                    <iframe src="http://simrs.test/bpjs/vclaim/sep_print?noSep=0125S0070624V000128" width="100%"
+                        height="300" frameborder="0"></iframe>
+                </x-adminlte-card>
+            </div>
         @endif
     </div>
 </div>
