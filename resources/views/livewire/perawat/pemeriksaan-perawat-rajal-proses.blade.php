@@ -31,20 +31,10 @@
     </div>
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
-        @if ($openmodalCppt)
-            @livewire('dokter.modal-cppt', ['pasien' => $pasien])
-        @endif
-        @if ($openmodalLayanan)
-            @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
-        @endif
-        @if ($openmodalAsesmenRajal)
-            @livewire('dokter.modal-asesmen-rajal')
-        @endif
-        @if ($openmodalPerawat)
-            @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian])
-        @endif
-        @if ($openmodalDokter)
-            @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian])
-        @endif
+        @livewire('dokter.modal-cppt', ['pasien' => $pasien])
+        @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
+        @livewire('dokter.modal-asesmen-rajal')
+        @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian])
+        @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian])
     </div>
 </div>
