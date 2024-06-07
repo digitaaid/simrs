@@ -19,6 +19,37 @@ class ModalPasienRajal extends Component
     public $form = false;
     public $id, $norm, $nama, $nomorkartu, $nik, $idpatient, $nohp, $gender, $tempat_lahir, $tgl_lahir, $hakkelas, $jenispeserta, $fktp, $desa_id, $kecamatan_id, $kabupaten_id, $provinsi_id, $alamat, $status = 1, $keterangan;
     public $kabupatens = [], $provinsis = [], $kecamatans = [], $desas = [];
+
+    public function editPasien(Pasien $pasien)
+    {
+        $this->id = $pasien->id;
+        $this->norm = $pasien->norm;
+        $this->nama = $pasien->nama;
+        $this->nomorkartu = $pasien->nomorkartu;
+        $this->nik = $pasien->nik;
+        $this->idpatient = $pasien->idpatient;
+        $this->nohp = $pasien->nohp;
+        $this->gender = $pasien->gender;
+        $this->tempat_lahir = $pasien->tempat_lahir;
+        $this->tgl_lahir = $pasien->tgl_lahir;
+        $this->hakkelas = $pasien->hakkelas;
+        $this->jenispeserta = $pasien->jenispeserta;
+        $this->fktp = $pasien->fktp;
+        $this->desa_id = $pasien->desa_id;
+        $this->kecamatan_id = $pasien->kecamatan_id;
+        $this->kabupaten_id = $pasien->kabupaten_id;
+        $this->provinsi_id = $pasien->provinsi_id;
+        $this->alamat = $pasien->alamat;
+        $this->status = $pasien->status;
+        $this->keterangan = $pasien->keterangan;
+        $this->form = true;
+    }
+    public function nonaktifPasien(Pasien $pasien)
+    {
+        $pasien->status = 0;
+        $pasien->update();
+    }
+
     public function store()
     {
         $this->validate([
@@ -28,7 +59,6 @@ class ModalPasienRajal extends Component
             'gender' => 'required',
             'tempat_lahir' => 'required',
             'tgl_lahir' => 'required|date',
-
         ]);
         try {
             if ($this->id) {
@@ -74,10 +104,6 @@ class ModalPasienRajal extends Component
     public function tambahPasien()
     {
         $this->form = $this->form ? false : true;
-    }
-    public function formPasien()
-    {
-        $this->dispatch('formPasien');
     }
     public function updatedTempatLahir()
     {
@@ -177,12 +203,15 @@ class ModalPasienRajal extends Component
     public function render()
     {
         $search = '%' . $this->search . '%';
-        $pasiens = Pasien::where('nama', 'like', $search)
-            ->OrWhere('nik', 'like', $search)
-            ->OrWhere('norm', 'like', $search)
-            ->OrWhere('nomorkartu', 'like', $search)
-            ->orderBy('norm', 'desc')
-            ->paginate(10);
+        $pasiens = Pasien::where(function ($query) use ($search) {
+            $query->where('nama', 'like', $search)
+            ->orWhere('nik', 'like', $search)
+            ->orWhere('norm', 'like', $search)
+            ->orWhere('nomorkartu', 'like', $search);
+        })
+        ->where('status', 1)
+        ->orderBy('norm', 'desc')
+        ->paginate(10);
         return view('livewire.pendaftaran.modal-pasien-rajal', compact('pasiens'));
     }
 }

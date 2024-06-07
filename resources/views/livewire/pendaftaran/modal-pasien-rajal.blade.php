@@ -1,11 +1,6 @@
-    <div>
+    <div id="datapasien">
         @if ($form)
-            <x-adminlte-card title="Tambah Identitas Pasien Baru" theme="primary" icon="fas fa-user-plus">
-                @if (flash()->message)
-                    <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                        {{ flash()->message }}
-                    </x-adminlte-alert>
-                @endif
+            <x-adminlte-card title="Tambah Identitas Pasien Baru" theme="success" icon="fas fa-user-plus">
                 <div class="row">
                     <input hidden wire:model="id" name="id">
                     <div class="col-md-4">
@@ -109,7 +104,16 @@
                         form="formUpdate" theme="success" />
                     <x-adminlte-button wire:click='tambahPasien' class="btn-sm" label="Tutup" theme="danger"
                         icon="fas fa-times" />
-                    <div wire:loading>Loading...</div>
+                    <div wire:loading>
+                        <div class="spinner-border spinner-border-sm text-primary" role="status">
+                        </div>
+                        Loading ...
+                    </div>
+                    @if (flash()->message)
+                        <div class="text-{{ flash()->class }}" wire:loading.remove>
+                            Loading Result : {{ flash()->message }}
+                        </div>
+                    @endif
                 </x-slot>
             </x-adminlte-card>
         @endif
@@ -139,13 +143,16 @@
                         <th>#</th>
                         <th>No RM</th>
                         <th>Nama Pasien</th>
+                        <th>Sex</th>
                         <th>No BPJS</th>
                         <th>NIK</th>
-                        <th>Sex</th>
+                        <th>Action</th>
                         <th>Alamat</th>
                         <th>No HP</th>
                         <th>Tempat Lahir</th>
                         <th>Tgl Lahir</th>
+                        <th>PIC</th>
+                        <th>Updated</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -154,20 +161,26 @@
                             <td>{{ $loop->index + $pasiens->firstItem() }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
+                            <td>{{ $item->gender }}</td>
                             <td>{{ $item->nomorkartu }}</td>
                             <td>{{ $item->nik }}</td>
-                            <td>{{ $item->gender }}</td>
+                            <td>
+                                <x-adminlte-button wire:click='editPasien({{ $item }})' theme="warning"
+                                    class="btn-xs" icon="fas fa-edit" />
+                                <x-adminlte-button wire:click='nonaktifPasien({{ $item }})' theme="danger"
+                                    class="btn-xs" icon="fas fa-times" wire:confirm='Apakah anda yakin akan menonaktifkan pasien tersebut ?' />
+                            </td>
                             <td>{{ $item->alamat }}</td>
                             <td>{{ $item->nohp }}</td>
                             <td>{{ $item->tempat_lahir }}</td>
                             <td>{{ $item->tgl_lahir }}</td>
+                            <td>{{ $item->pic }}</td>
+                            <td>{{ $item->updated_at }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
             <x-slot name="footerSlot">
-                <x-adminlte-button wire:click='formPasien' theme="danger" class="btn-sm" icon="fas fa-times"
-                    label="Tutup" />
                 <div wire:loading>
                     <div class="spinner-border spinner-border-sm text-primary" role="status">
                     </div>

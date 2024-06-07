@@ -1,10 +1,5 @@
-<div>
+<div id="kunjungan">
     <x-adminlte-card theme="primary" title="Kunjungan Pasien">
-        @if (flash()->message)
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        @endif
         <form>
             <input type="hidden" name="kodebooking" value="{{ $antrian->kodebooking }}">
             <input type="hidden" name="antrian_id" value="{{ $antrian->id }}">
@@ -133,13 +128,16 @@
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
                 wire:click="editKunjungan" wire:confirm='Apakah anda yakin akan menyimpan data kunjungan ?' />
-            <x-adminlte-button wire:click='formKunjungan' theme="danger" class="btn-sm" icon="fas fa-times"
-                label="Tutup" />
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>
                 Loading ...
             </div>
+            @if (flash()->message)
+            <div class="text-{{ flash()->class }}" wire:loading.remove>
+                Loading Result : {{ flash()->message }}
+            </div>
+        @endif
         </x-slot>
     </x-adminlte-card>
 </div>

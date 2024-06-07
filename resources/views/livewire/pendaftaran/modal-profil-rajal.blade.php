@@ -1,42 +1,4 @@
-@switch($antrian->taskid)
-    @case(0)
-        <x-adminlte-button class="btn-xs" label="{{ $antrian->taskid }}. Belum Checkin" theme="danger" />
-    @break
 
-    @case(1)
-        <x-adminlte-button class="btn-xs" label="{{ $antrian->taskid }}. Tunggu Pendaftaran" theme="warning" />
-    @break
-
-    @case(2)
-        <x-adminlte-button class="btn-xs" label="{{ $antrian->taskid }}. Proses Pendaftaran" theme="primary" />
-    @break
-
-    @case(3)
-        <x-adminlte-button class="btn-xs" label="{{ $antrian->taskid }}. Tunggu Poliklinik" theme="warning" />
-    @break
-
-    @case(4)
-        <x-adminlte-button class="btn-xs" label="{{ $antrian->taskid }}. Pemeriksaan Dokter" theme="primary" />
-    @break
-
-    @case(5)
-        <x-adminlte-button class="btn-xs" label="{{ $antrian->taskid }}. Tunggu Farmasi" theme="warning" />
-    @break
-
-    @case(6)
-        <x-adminlte-button class="btn-xs" label="{{ $antrian->taskid }}. Proses Racik Obat" theme="primary" />
-    @break
-
-    @case(7)
-        <x-adminlte-button class="btn-xs" label="{{ $antrian->taskid }}. Selesai" theme="success" />
-    @break
-
-    @case(99)
-        <x-adminlte-button class="btn-xs" label="{{ $antrian->taskid }}. Batal" theme="danger" />
-    @break
-
-    @default
-@endswitch
 <div class="row">
     <div class="col-md-4">
         <dl class="row">

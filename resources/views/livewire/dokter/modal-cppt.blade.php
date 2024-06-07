@@ -1,4 +1,4 @@
-<div>
+<div id="cppt">
     <x-adminlte-card theme="primary" title="Catatan Perkembangan Pasien Terintegrasi">
         @if (flash()->message)
             <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
@@ -21,7 +21,8 @@
                         <td>
                             {{ $kunjungan->units->nama }} <br>
                             {{ $kunjungan->dokters->nama }} <br>
-                            Masuk : {{ \Carbon\Carbon::parse($kunjungan->tgl_masuk)->format('d/m/Y h:i') }}
+                            Masuk : {{ \Carbon\Carbon::parse($kunjungan->tgl_masuk)->format('d/m/Y h:i') }} <br>
+                            Antrian : {{ $kunjungan->antrian->nomorantrean }} / {{ $kunjungan->antrian->kodebooking }}
                         </td>
                         <td>
                             @if ($kunjungan->asesmenrajal?->keluhan_utama)
@@ -136,7 +137,6 @@
         </table>
         {{ $kunjungans->links() }}
         <x-slot name="footerSlot">
-            <x-adminlte-button wire:click='modalCppt' theme="danger" class="btn-sm" icon="fas fa-times" label="Tutup" />
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>

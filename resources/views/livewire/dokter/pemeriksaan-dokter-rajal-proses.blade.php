@@ -22,8 +22,8 @@
                     <x-adminlte-button class="btn-xs mb-2" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
                 </a>
                 @if ($antrian->taskid == 3 || $antrian->taskid == 4)
-                    <x-adminlte-button wire:click='panggilPemeriksaan' class="btn-xs mb-2" label="Panggil" theme="primary"
-                        icon="fas fa-microphone" />
+                    <x-adminlte-button wire:click='panggilPemeriksaan' class="btn-xs mb-2" label="Panggil"
+                        theme="primary" icon="fas fa-microphone" />
                 @endif
                 @if ($antrian->taskid == 4)
                     <x-adminlte-button wire:click='lanjutFarmasi'
@@ -43,20 +43,11 @@
     </div>
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
-        @if ($openmodalCppt)
-            @livewire('dokter.modal-cppt', ['pasien' => $pasien])
-        @endif
-        @if ($openmodalLayanan)
-            @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
-        @endif
-        @if ($openmodalAsesmenRajal)
-            @livewire('dokter.modal-asesmen-rajal')
-        @endif
-        @if ($openmodalPerawat)
-            @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian])
-        @endif
-        @if ($openmodalDokter)
-            @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian])
-        @endif
+        @livewire('dokter.modal-cppt', ['pasien' => $pasien])
+        @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
+        @livewire('dokter.modal-asesmen-rajal')
+        @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian])
+        @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian])
+        @livewire('dokter.modal-resume-rajal')
     </div>
 </div>

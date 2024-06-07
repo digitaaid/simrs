@@ -3,13 +3,16 @@
 namespace App\Livewire\Pendaftaran;
 
 use App\Http\Controllers\VclaimController;
+use App\Models\Antrian;
+use App\Models\Pasien;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
 class ModalSuratkontrol extends Component
 {
+    public $antrian, $tanggal, $formatfilter;
     public $nomorkartu, $noSEP, $tglRencanaKontrol, $poliKontrol, $kodeDokter;
-    public $seps = [], $polis = [], $dokters = [];
+    public $seps = [], $polis = [], $dokters = [], $suratkontrols = [], $form = false;
     public function buatSuratKontrol()
     {
         $this->validate([
@@ -117,9 +120,36 @@ class ModalSuratkontrol extends Component
             return flash($res->metadata->message, 'danger');
         }
     }
-    public function modalSK()
+    public function openForm()
     {
-        $this->dispatch('modalSK');
+        $this->form = $this->form ?  false : true;
+    }
+    public function cariDataSuratKontrol()
+    {
+        $this->validate([
+            'nomorkartu' => 'required',
+            "tanggal" => "required",
+            "formatfilter" => "required",
+        ]);
+        $api = new VclaimController();
+        $request = new Request([
+            'nomorkartu' => $this->nomorkartu,
+            'tanggal' => $this->tanggal,
+            'formatfilter' => $this->formatfilter,
+        ]);
+        $res = $api->suratkontrol_peserta($request);
+        if ($res->metadata->code == 200) {
+            $this->suratkontrols = [];
+            $this->suratkontrols = $res->response->list;
+            return flash($res->metadata->message, 'success');
+        } else {
+            return flash($res->metadata->message, 'danger');
+        }
+    }
+    public function mount(Antrian $antrian)
+    {
+        $this->antrian = $antrian;
+        $this->nomorkartu = $antrian->nomorkartu;
     }
     public function render()
     {
