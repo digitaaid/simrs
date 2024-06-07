@@ -1,10 +1,5 @@
 <div id="kunjungan">
     <x-adminlte-card theme="primary" title="Kunjungan Pasien">
-        @if (flash()->message)
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        @endif
         <form>
             <input type="hidden" name="kodebooking" value="{{ $antrian->kodebooking }}">
             <input type="hidden" name="antrian_id" value="{{ $antrian->id }}">
@@ -138,6 +133,11 @@
                 </div>
                 Loading ...
             </div>
+            @if (flash()->message)
+            <div class="text-{{ flash()->class }}" wire:loading.remove>
+                Loading Result : {{ flash()->message }}
+            </div>
+        @endif
         </x-slot>
     </x-adminlte-card>
 </div>

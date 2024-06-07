@@ -21,59 +21,6 @@ class ModalAntrianRajal extends Component
     public $pasienbaru = 0, $estimasidilayani, $sisakuotajkn, $kuotajkn, $sisakuotanonjkn, $kuotanonjkn;
     public $asalRujukan, $nomorreferensi, $noRujukan, $noSurat;
     public $rujukans = [], $suratkontrols = [];
-    public function cariRujukan()
-    {
-        $api  = new VclaimController();
-        $request = new Request([
-            "nomorkartu" => $this->nomorkartu,
-        ]);
-        if ($this->asalRujukan == 1) {
-            $res = $api->rujukan_peserta($request);
-        } else {
-            $res = $api->rujukan_rs_peserta($request);
-        }
-        if ($res->metadata->code == 200) {
-            $this->rujukans = [];
-            foreach ($res->response->rujukan as $key => $value) {
-                $this->rujukans[] = [
-                    'no' => $key + 1,
-                    'noKunjungan' => $value->noKunjungan,
-                    'tglKunjungan' => $value->tglKunjungan,
-                    'namaPoli' => $value->poliRujukan->nama,
-                    'jenisPelayanan' => $value->pelayanan->nama,
-                ];
-            }
-            return flash($res->metadata->message, 'success');
-        } else {
-            return flash($res->metadata->message, 'danger');
-        }
-    }
-    public function cariSuratKontrol()
-    {
-        $api  = new VclaimController();
-        $request = new Request([
-            "nomorkartu" => $this->nomorkartu,
-            "formatfilter" => 2,
-            "bulan" => Carbon::parse($this->tanggalperiksa)->format('m'),
-            "tahun" => Carbon::parse($this->tanggalperiksa)->format('Y'),
-        ]);
-        $res = $api->suratkontrol_peserta($request);
-        if ($res->metadata->code == 200) {
-            $this->suratkontrols = [];
-            foreach ($res->response->list as $key => $value) {
-                $this->suratkontrols[] = [
-                    'no' => $key + 1,
-                    'noSuratKontrol' => $value->noSuratKontrol,
-                    'tglRencanaKontrol' => $value->tglRencanaKontrol,
-                    'namaPoliTujuan' => $value->namaPoliTujuan,
-                    'terbitSEP' => $value->terbitSEP,
-                ];
-            }
-            return flash($res->metadata->message, 'success');
-        } else {
-            return flash($res->metadata->message, 'danger');
-        }
-    }
     public function editAntrian()
     {
         $this->validate([
@@ -122,7 +69,6 @@ class ModalAntrianRajal extends Component
         } else {
             $this->jeniskunjungan = 2;
         }
-
         $this->keterangan = "Antrian proses di pendaftaran";
         // simpan antrean
         $antrian = Antrian::find($this->antrianId);
@@ -144,6 +90,9 @@ class ModalAntrianRajal extends Component
             'keterangan' => $this->keterangan,
             'user1' => auth()->user()->id,
         ]);
+        $pasien = Pasien::where('norm', $this->norm)->first();
+        $pasien->nohp = $this->nohp;
+        $pasien->update();
         // status antrean
         $api = new AntrianController();
         $request = new Request([
@@ -199,6 +148,67 @@ class ModalAntrianRajal extends Component
             flash($res->metadata->message, 'danger');
         }
         $this->dispatch('refreshPage');
+    }
+    public function cariRujukan()
+    {
+        $this->validate([
+            'nomorkartu' => 'required',
+            'asalRujukan' => 'required',
+        ]);
+        $api  = new VclaimController();
+        $request = new Request([
+            "nomorkartu" => $this->nomorkartu,
+        ]);
+        if ($this->asalRujukan == 1) {
+            $res = $api->rujukan_peserta($request);
+        } else {
+            $res = $api->rujukan_rs_peserta($request);
+        }
+        if ($res->metadata->code == 200) {
+            $this->rujukans = [];
+            foreach ($res->response->rujukan as $key => $value) {
+                $this->rujukans[] = [
+                    'no' => $key + 1,
+                    'noKunjungan' => $value->noKunjungan,
+                    'tglKunjungan' => $value->tglKunjungan,
+                    'namaPoli' => $value->poliRujukan->nama,
+                    'jenisPelayanan' => $value->pelayanan->nama,
+                ];
+            }
+            return flash($res->metadata->message, 'success');
+        } else {
+            return flash($res->metadata->message, 'danger');
+        }
+    }
+    public function cariSuratKontrol()
+    {
+        $this->validate([
+            'nomorkartu' => 'required',
+            'tanggalperiksa' => 'required',
+        ]);
+        $api  = new VclaimController();
+        $request = new Request([
+            "nomorkartu" => $this->nomorkartu,
+            "formatfilter" => 2,
+            "bulan" => Carbon::parse($this->tanggalperiksa)->format('m'),
+            "tahun" => Carbon::parse($this->tanggalperiksa)->format('Y'),
+        ]);
+        $res = $api->suratkontrol_peserta($request);
+        if ($res->metadata->code == 200) {
+            $this->suratkontrols = [];
+            foreach ($res->response->list as $key => $value) {
+                $this->suratkontrols[] = [
+                    'no' => $key + 1,
+                    'noSuratKontrol' => $value->noSuratKontrol,
+                    'tglRencanaKontrol' => $value->tglRencanaKontrol,
+                    'namaPoliTujuan' => $value->namaPoliTujuan,
+                    'terbitSEP' => $value->terbitSEP,
+                ];
+            }
+            return flash($res->metadata->message, 'success');
+        } else {
+            return flash($res->metadata->message, 'danger');
+        }
     }
     public function cariNomorKartu()
     {

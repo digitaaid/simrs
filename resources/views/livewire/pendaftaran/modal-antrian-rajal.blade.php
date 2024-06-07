@@ -1,10 +1,5 @@
 <div id="antrian">
     <x-adminlte-card theme="primary" title="Antrian Pasien">
-        @if (flash()->message)
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        @endif
         <form wire:submit="editAntrian">
             <input type="hidden" wire:model='kodebooking' name="kodebooking">
             <input type="hidden" wire:model='antrianId' name="antrianId">
@@ -71,7 +66,8 @@
                             <option value="2">Rujukan Antar RS</option>
                         </x-adminlte-select>
                         <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                            igroup-size="sm" name="noRujukan" wire:model='noRujukan' label="No Rujukan">
+                            igroup-size="sm" name="noRujukan" wire:model='noRujukan' wire:click='cariRujukan'
+                            label="No Rujukan">
                             <option value=null>Pilih Nomor Rujukan</option>
                             @foreach ($rujukans as $key => $item)
                                 <option value="{{ $item['noKunjungan'] }}">{{ $item['noKunjungan'] }}
@@ -84,7 +80,8 @@
                             </x-slot>
                         </x-adminlte-select>
                         <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                            igroup-size="sm" name="noSurat" wire:model='noSurat' label="No Surat Kontrol">
+                            igroup-size="sm" name="noSurat" wire:model='noSurat' wire:click='cariSuratKontrol'
+                            label="No Surat Kontrol">
                             <option value=null>Pilih Surat Kontrol</option>
                             @foreach ($suratkontrols as $key => $item)
                                 <option value="{{ $item['noSuratKontrol'] }}">{{ $item['noSuratKontrol'] }}
@@ -109,6 +106,11 @@
                 </div>
                 Loading ...
             </div>
+            @if (flash()->message)
+                <div class="text-{{ flash()->class }}" wire:loading.remove>
+                    Loading Result : {{ flash()->message }}
+                </div>
+            @endif
         </x-slot>
     </x-adminlte-card>
 </div>
