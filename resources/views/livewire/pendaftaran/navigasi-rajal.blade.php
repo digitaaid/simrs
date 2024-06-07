@@ -121,14 +121,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#nav" class="nav-link">
-                        <i class="fas fa-file-medical"></i> Berkas File Upload
-                        <span class="badge bg-success float-right">
-                            {{-- {{ $antrian->pasien ? $antrian->pasien->fileuploads->count() : 0 }} Berkas File --}}
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="#invoice" class="nav-link">
                         <i class="fas fa-file-invoice-dollar"></i> Invoice Billing
                     </a>
