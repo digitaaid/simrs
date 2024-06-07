@@ -94,22 +94,27 @@
     </x-adminlte-card>
     @if ($form)
         <x-adminlte-card theme="success" title="Pembuatan SEP Pasien">
-            <input type="hidden" name="kodebooking" value="{{ $antrian->kodebooking }}">
-            <input type="hidden" name="antrian_id" value="{{ $antrian->id }}">
+            <input type="hidden" wire:model='kodebooking' name="kodebooking">
+            <input type="hidden" wire:model='antrian_id' name="antrian_id">
             <div class="row">
                 <div class="col-md-6">
-                    <x-adminlte-input name="noKartu" class="nomorkartu-sep" fgroup-class="row"
-                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" label="Nomor Kartu"
-                        placeholder="Nomor Kartu" value="{{ $antrian->nomorkartu }}" readonly />
-                    <x-adminlte-input name="noMR" class="norm-id" label="No RM" fgroup-class="row"
-                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" placeholder="No RM"
-                        value="{{ $antrian->norm }}" readonly />
-                    <x-adminlte-input name="nama" class="nama-id" label="Nama Pasien" fgroup-class="row"
-                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" placeholder="Nama Pasien"
-                        value="{{ $antrian->nama }}" readonly />
-                    <x-adminlte-input name="noTelp" class="nohp-id" label="Nomor HP" fgroup-class="row"
-                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" placeholder="Nomor HP"
-                        value="{{ $antrian->nohp }}" readonly />
+                    <x-adminlte-input wire:model='tglSep' name="tglSep" type='date' label="Tgl SEP"
+                        fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
+                    <x-adminlte-input wire:model='noKartu' name="noKartu" fgroup-class="row"
+                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" label="Nomor Kartu" />
+                    <x-adminlte-input wire:model='noMR' name="noMR" label="Nama Pasien" fgroup-class="row"
+                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
+                    <x-adminlte-input wire:model='nama' name="nama" label="Nama Pasien" fgroup-class="row"
+                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
+                    <x-adminlte-input wire:model='noTelp' name="noTelp" label="Nomor HP" fgroup-class="row"
+                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
+                    <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
+                        igroup-size="sm" name="klsRawatHak" label="Jenis Pelayanan">
+                        <option disabled>Pilih Kelas Pasien</option>
+                        <option value="1">Kelas 1</option>
+                        <option value="2">Kelas 2</option>
+                        <option value="3">Kelas 3</option>
+                    </x-adminlte-select>
                     <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
                         igroup-size="sm" name="asalRujukan" wire:model='asalRujukan' label="Jenis Rujukan">
                         <option value=null>Pilih Asal Rujukan</option>
@@ -131,7 +136,8 @@
                         </x-slot>
                     </x-adminlte-select>
                     <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                        igroup-size="sm" name="noSurat" wire:model='noSurat' label="No Surat Kontrol">
+                        igroup-size="sm" name="noSurat" wire:model='noSurat' wire:click='cariSuratKontrol'
+                        label="No Surat Kontrol">
                         <option value=null>Pilih Surat Kontrol</option>
                         @foreach ($suratkontrols as $key => $item)
                             <option value="{{ $item['noSuratKontrol'] }}">{{ $item['noSuratKontrol'] }}
@@ -144,53 +150,55 @@
                             </div>
                         </x-slot>
                     </x-adminlte-select>
-                    <input type="hidden" name="tglRujukan" id="tglrujukan" value="">
-                    <input type="hidden" name="ppkRujukan" id="ppkrujukan" value="">
                 </div>
                 <div class="col-md-6">
-                    <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                        igroup-size="sm" name="klsRawatHak" label="Jenis Pelayanan">
-                        <option disabled>Pilih Kelas Pasien</option>
-                        <option value="1">Kelas 1</option>
-                        <option value="2">Kelas 2</option>
-                        <option value="3">Kelas 3</option>
-                    </x-adminlte-select>
-                    <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
+                    <x-adminlte-select wire:model='jnsPelayanan' fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
                         igroup-size="sm" name="jnsPelayanan" label="Jenis Pelayanan">
-                        <option disabled>Pilih Jenis Pelayanan</option>
-                        <option value="2" selected>Rawat Jalan</option>
+                        <option value=null disabled>Pilih Jenis Pelayanan</option>
+                        <option value="2">Rawat Jalan</option>
                         <option value="1">Rawat Inap</option>
                     </x-adminlte-select>
-                    <x-adminlte-select2 fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                        igroup-size="sm" name="tujuan" label="Poliklinik" required>
-                        <option selected disabled>Pilih Poliklinik</option>
+                    <x-adminlte-select2 wire:model='tujuan' fgroup-class="row" label-class="text-left col-4"
+                        igroup-class="col-8" igroup-size="sm" name="tujuan" label="Poliklinik" required>
+                        <option value=null disabled>Pilih Poliklinik</option>
                         @foreach ($polikliniks as $key => $item)
                             <option value="{{ $key }}">{{ $item }}
                             </option>
                         @endforeach
                     </x-adminlte-select2>
-                    <x-adminlte-select2 fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                        igroup-size="sm" name="dpjpLayan" label="Dokter DPJP" required>
-                        <option selected disabled>Pilih Dokter DPJP</option>
+                    <x-adminlte-select2 wire:model='dpjpLayan' fgroup-class="row" label-class="text-left col-4"
+                        igroup-class="col-8" igroup-size="sm" name="dpjpLayan" label="Dokter DPJP" required>
+                        <option value=null disabled>Pilih Dokter DPJP</option>
                         @foreach ($dokters as $key => $item)
                             <option value="{{ $key }}">{{ $item }}
                             </option>
                         @endforeach
                     </x-adminlte-select2>
-                    <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                        igroup-size="sm" name="tujuanKunj" label="Tujuan Kunjungan">
+                    <x-adminlte-input wire:model.live="diagAwal" list="diagawallist" name="diagAwal"
+                        fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
+                        label="Diag Awal">
+                    </x-adminlte-input>
+                    <datalist id="diagawallist">
+                        @foreach ($diagnosas as $item)
+                            <option value="{{ $item['kode'] }}">{{ $item['nama'] }}</option>
+                        @endforeach
+                    </datalist>
+                    <x-adminlte-input wire:model='catatan' name="catatan" label="Catatan" fgroup-class="row"
+                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
+                    <x-adminlte-select wire:model='tujuanKunj' fgroup-class="row" label-class="text-left col-4"
+                        igroup-class="col-8" igroup-size="sm" name="tujuanKunj" label="Tujuan Kunjungan">
                         <option value="0">Normal</option>
                         <option value="1">Prosedur</option>
                         <option value="2">Konsul Dokter</option>
                     </x-adminlte-select>
-                    <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                        igroup-size="sm" name="flagProcedure" label="Flag Procedur">
+                    <x-adminlte-select wire:model='flagProcedure' fgroup-class="row" label-class="text-left col-4"
+                        igroup-class="col-8" igroup-size="sm" name="flagProcedure" label="Flag Procedur">
                         <option value="">Normal</option>
                         <option value="0">Prosedur Tidak Berkelanjutan</option>
                         <option value="1">Prosedur dan Terapi Berkelanjutan</option>
                     </x-adminlte-select>
-                    <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                        igroup-size="sm" name="kdPenunjang" label="Penunjang">
+                    <x-adminlte-select wire:model='kdPenunjang' fgroup-class="row" label-class="text-left col-4"
+                        igroup-class="col-8" igroup-size="sm" name="kdPenunjang" label="Penunjang">
                         <option value="">Normal</option>
                         <option value="1">Radioterapi</option>
                         <option value="2">Kemoterapi</option>
@@ -205,8 +213,8 @@
                         <option value="11">MRI</option>
                         <option value="12">HEMODIALISA</option>
                     </x-adminlte-select>
-                    <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                        igroup-size="sm" name="assesmentPel" label="Assesment Pelayanan">
+                    <x-adminlte-select wire:model='assesmentPel' fgroup-class="row" label-class="text-left col-4"
+                        igroup-class="col-8" igroup-size="sm" name="assesmentPel" label="Assesment Pelayanan">
                         <option value="">Normal</option>
                         <option value="0">Poli tujuan beda dengan poli rujukan dan
                             hari beda
@@ -224,18 +232,6 @@
                         <option value="5">Tujuan Kontrol</option>
                     </x-adminlte-select>
                 </div>
-            </div>
-            <hr>
-            <div class="col-md-12">
-                <x-adminlte-input wire:model.debounce.500ms="diagAwal" wire:input='cariDiagnosa' list="diagnosalist"
-                    name="diagAwal" label="Diagnosa Awal" igroup-size="sm" />
-                <datalist id="diagnosalist">
-                    @foreach ($diagnosas as $item)
-                        <option value="{{ $item['kode'] }}">{{ $item['nama'] }}</option>
-                    @endforeach
-                </datalist>
-                <x-adminlte-textarea igroup-size="sm" label="Catatan / Keluhan" name="catatan"
-                    placeholder="Catatan Pasien" />
             </div>
             <x-slot name="footerSlot">
                 <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"

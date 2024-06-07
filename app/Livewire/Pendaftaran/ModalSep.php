@@ -12,37 +12,70 @@ use Livewire\Component;
 
 class ModalSep extends Component
 {
-    public $diagAwal;
     public $antrian;
-    public $polikliniks = [], $dokters = [], $diagnosas = [];
+    public $polikliniks = [], $dokters = [], $diagnosas = [], $diagnosa;
     public $nomorkartu, $tanggal, $seps = [], $form = false;
     public $asalRujukan, $rujukans = [], $suratkontrols = [];
+    public $noKartu, $noMR, $nama, $tglSep, $ppkPelayanan, $jnsPelayanan, $klsRawatHak, $tglRujukan, $noRujukan, $ppkRujukan, $catatan, $diagAwal, $tujuan, $eksekutif, $tujuanKunj = 0, $flagProcedure = "", $kdPenunjang = "", $assesmentPel = "", $noSurat, $kodeDPJP, $dpjpLayan, $noTelp, $user;
     public function buatSEP()
     {
-        dd($this->all());
         $this->validate([
-            'asalRujukan' => 'required',
+            "tglSep" => "required",
+            "noKartu" => "required",
+            "nama" => "required",
+            "noMR" => "required",
+            "noTelp" => "required",
+            'noRujukan' => 'required_if:noSurat,null',
+            'noSurat' => 'required_if:noRujukan,null',
+            "jnsPelayanan" => "required",
+            "tujuan" => "required",
+            "dpjpLayan" => "required",
+            "diagAwal" => "required",
+            "catatan" => "required",
+            "tujuanKunj" => "required",
         ]);
         $api  = new VclaimController();
-        $request = new Request([
-            "nomorkartu" => $this->nomorkartu,
-        ]);
-        if ($this->asalRujukan == 1) {
-            $res = $api->rujukan_peserta($request);
-        } else {
-            $res = $api->rujukan_rs_peserta($request);
-        }
-        if ($res->metadata->code == 200) {
-            $this->rujukans = [];
-            foreach ($res->response->rujukan as $key => $value) {
-                $this->rujukans[] = [
-                    'no' => $key + 1,
-                    'noKunjungan' => $value->noKunjungan,
-                    'tglKunjungan' => $value->tglKunjungan,
-                    'namaPoli' => $value->poliRujukan->nama,
-                    'jenisPelayanan' => $value->pelayanan->nama,
-                ];
+        if ($this->noSurat) {
+            $request = new Request([
+                "noSuratKontrol" => $this->noSurat,
+            ]);
+            $res = $api->suratkontrol_nomor($request);
+            if ($res->metadata->code == 200) {
+                $rujukan = $res->response->sep->provPerujuk;
+                $this->asalRujukan = $rujukan->asalRujukan;
+                $this->noRujukan = $rujukan->noRujukan;
+                $this->tglRujukan = $rujukan->tglRujukan;
+                $this->ppkRujukan = $rujukan->kdProviderPerujuk;
+                flash($res->metadata->message, 'success');
+            } else {
+                return flash($res->metadata->message, 'danger');
             }
+        }
+        $request = new Request([
+            "noKartu" => $this->noKartu,
+            "tglSep" => $this->tglSep,
+            "noKartu" => $this->noKartu,
+            "nama" => $this->nama,
+            "noMR" => $this->noMR,
+            "noTelp" => $this->noTelp,
+            'noRujukan' => $this->noRujukan,
+            'asalRujukan' => $this->asalRujukan,
+            'tglRujukan' => $this->tglRujukan,
+            'ppkRujukan' => $this->ppkRujukan,
+            'noSurat' => $this->noSurat,
+            "jnsPelayanan" => $this->jnsPelayanan,
+            "tujuan" => $this->tujuan,
+            "dpjpLayan" => $this->dpjpLayan,
+            "diagAwal" => $this->diagAwal,
+            "catatan" => $this->catatan,
+            "tujuanKunj" => $this->tujuanKunj,
+            "eksekutif" => $this->eksekutif ?? 0,
+            "ppkPelayanan" => "0125S007",
+            "klsRawatHak" => "3",
+            "user" => auth()->user()->name,
+        ]);
+        $res = $api->sep_insert($request);
+        if ($res->metadata->code == 200) {
             return flash($res->metadata->message, 'success');
         } else {
             return flash($res->metadata->message, 'danger');
@@ -52,10 +85,11 @@ class ModalSep extends Component
     {
         $this->validate([
             'asalRujukan' => 'required',
+            'noKartu' => 'required',
         ]);
         $api  = new VclaimController();
         $request = new Request([
-            "nomorkartu" => $this->nomorkartu,
+            "nomorkartu" => $this->noKartu,
         ]);
         if ($this->asalRujukan == 1) {
             $res = $api->rujukan_peserta($request);
@@ -80,12 +114,16 @@ class ModalSep extends Component
     }
     public function cariSuratKontrol()
     {
+        $this->validate([
+            'tglSep' => 'required',
+            'noKartu' => 'required',
+        ]);
         $api  = new VclaimController();
         $request = new Request([
             "nomorkartu" => $this->nomorkartu,
             "formatfilter" => 2,
-            "bulan" => Carbon::parse($this->tanggalperiksa)->format('m'),
-            "tahun" => Carbon::parse($this->tanggalperiksa)->format('Y'),
+            "bulan" => Carbon::parse($this->tglSep)->format('m'),
+            "tahun" => Carbon::parse($this->tglSep)->format('Y'),
         ]);
         $res = $api->suratkontrol_peserta($request);
         if ($res->metadata->code == 200) {
@@ -124,41 +162,31 @@ class ModalSep extends Component
             return flash($res->metadata->message, 'danger');
         }
     }
-    public function cariDiagnosa()
+    public function updatedDiagAwal()
     {
+        $this->validate([
+            'diagAwal' => 'required|min:3',
+        ]);
         try {
-            $this->validate([
-                'diagAwal' => 'required',
+            $api = new VclaimController();
+            $request = new Request([
+                'diagnosa' => $this->diagAwal,
             ]);
-            if (strlen($this->diagAwal) >= 2) {
-                $api = new VclaimController();
-                $request = new Request([
-                    'diagnosa' => $this->diagAwal,
-                ]);
-                $res = $api->ref_diagnosa($request);
-                if ($res->metadata->code == 200) {
-                    $this->diagnosas = [];
-                    foreach ($res->response->diagnosa as $key => $value) {
-                        $this->diagnosas[] = [
-                            'no' => $key + 1,
-                            'kode' => $value->kode,
-                            'nama' => $value->nama,
-                        ];
-                    }
-                    return flash($res->metadata->message, 'success');
-                } else {
-                    return flash($res->metadata->message, 'danger');
+            $res = $api->ref_diagnosa($request);
+            if ($res->metadata->code == 200) {
+                $this->diagnosas = [];
+                foreach ($res->response->diagnosa as $key => $value) {
+                    $this->diagnosas[] = [
+                        'kode' => $value->kode,
+                        'nama' => $value->nama,
+                    ];
                 }
             } else {
-                return flash('Kode diagnosa minimal 3 karakter', 'danger');
+                return flash($res->metadata->message, 'danger');
             }
         } catch (\Throwable $th) {
             return flash($th->getMessage(), 'danger');
         }
-    }
-    public function modalSEP()
-    {
-        $this->dispatch('modalSEP');
     }
     public function openForm()
     {
@@ -168,6 +196,11 @@ class ModalSep extends Component
     {
         $this->antrian = $antrian;
         $this->nomorkartu = $antrian->nomorkartu;
+        $this->noKartu = $antrian->nomorkartu;
+        $this->noMR = $antrian->norm;
+        $this->nama = $antrian->nama;
+        $this->noTelp = $antrian->nohp;
+
         $this->polikliniks = Unit::pluck('nama', 'kode');
         $this->dokters = Dokter::pluck('nama', 'kodejkn');
     }

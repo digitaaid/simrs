@@ -21,7 +21,8 @@
                         <td>
                             {{ $kunjungan->units->nama }} <br>
                             {{ $kunjungan->dokters->nama }} <br>
-                            Masuk : {{ \Carbon\Carbon::parse($kunjungan->tgl_masuk)->format('d/m/Y h:i') }}
+                            Masuk : {{ \Carbon\Carbon::parse($kunjungan->tgl_masuk)->format('d/m/Y h:i') }} <br>
+                            Antrian : {{ $kunjungan->antrian->nomorantrean }} / {{ $kunjungan->antrian->kodebooking }}
                         </td>
                         <td>
                             @if ($kunjungan->asesmenrajal?->keluhan_utama)
