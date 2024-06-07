@@ -412,7 +412,9 @@
 
         function panggilangka(angkaantrian) {
             if (angkaantrian < 10) {
-                $("#nomor0").attr("src", "{{ route('landingpage') }}/rekaman/" + angkaantrian + ".mp3");
+                $("#nomor0").attr("src",
+                    "{{ route('landingpage') }}{{ env('APP_ENV') === 'production' ? '/public' : null }}/rekaman/" +
+                    angkaantrian + ".mp3");
                 setTimeout(function() {
                     document.getElementById('nomor0').pause();
                     document.getElementById('nomor0').currentTime = 0;
@@ -420,7 +422,9 @@
                 }, totalwaktu);
                 totalwaktu = totalwaktu + 1000;
             } else if (angkaantrian == 10) {
-                $("#nomor0").attr("src", "{{ route('landingpage') }}/rekaman/sepuluh.mp3");
+                $("#nomor0").attr("src",
+                    "{{ route('landingpage') }}{{ env('APP_ENV') === 'production' ? '/public' : null }}/rekaman/sepuluh.mp3"
+                    );
                 setTimeout(function() {
                     document.getElementById('nomor0').pause();
                     document.getElementById('nomor0').currentTime = 0;
@@ -428,7 +432,9 @@
                 }, totalwaktu);
                 totalwaktu = totalwaktu + 1000;
             } else if (angkaantrian == 11) {
-                $("#nomor0").attr("src", "{{ route('landingpage') }}/rekaman/sebelas.mp3");
+                $("#nomor0").attr("src",
+                    "{{ route('landingpage') }}{{ env('APP_ENV') === 'production' ? '/public' : null }}/rekaman/sebelas.mp3"
+                    );
                 setTimeout(function() {
                     document.getElementById('nomor0').pause();
                     document.getElementById('nomor0').currentTime = 0;
@@ -437,7 +443,9 @@
                 totalwaktu = totalwaktu + 1000;
             } else if (angkaantrian < 20) {
                 var nomor1 = angkaantrian.charAt(1);
-                $("#nomor0").attr("src", "{{ route('landingpage') }}/rekaman/" + nomor1 + ".mp3");
+                $("#nomor0").attr("src",
+                    "{{ route('landingpage') }}{{ env('APP_ENV') === 'production' ? '/public' : null }}/rekaman/" +
+                    nomor1 + ".mp3");
                 setTimeout(function() {
                     document.getElementById('nomor0').pause();
                     document.getElementById('nomor0').currentTime = 0;
@@ -453,7 +461,9 @@
             } else if (angkaantrian < 100) {
                 var angka = angkaantrian;
                 var angka1 = angka.charAt(0);
-                $("#nomor0").attr("src", "{{ route('landingpage') }}/rekaman/" + angka1 + ".mp3");
+                $("#nomor0").attr("src",
+                    "{{ route('landingpage') }}{{ env('APP_ENV') === 'production' ? '/public' : null }}/rekaman/" +
+                    angka1 + ".mp3");
                 setTimeout(function() {
                     document.getElementById('nomor0').pause();
                     document.getElementById('nomor0').currentTime = 0;
@@ -468,7 +478,9 @@
                 totalwaktu = totalwaktu + 1000;
                 var angka2 = angka.charAt(1);
                 if (angka2 != 0) {
-                    $("#nomor1").attr("src", "{{ route('landingpage') }}/rekaman/" + angka2 + ".mp3");
+                    $("#nomor1").attr("src",
+                        "{{ route('landingpage') }}{{ env('APP_ENV') === 'production' ? '/public' : null }}/rekaman/" +
+                        angka2 + ".mp3");
                     setTimeout(function() {
                         document.getElementById('nomor1').pause();
                         document.getElementById('nomor1').currentTime = 0;
