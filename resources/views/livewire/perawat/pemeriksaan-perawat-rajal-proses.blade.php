@@ -36,5 +36,6 @@
         @livewire('dokter.modal-asesmen-rajal')
         @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian])
         @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian])
+        @livewire('dokter.modal-resume-rajal')
     </div>
 </div>

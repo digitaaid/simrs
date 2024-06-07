@@ -189,8 +189,6 @@
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
                 wire:click="simpanAsesmen" wire:confirm='Apakah anda ingin menyimpan asesmen ini ?' />
-            <x-adminlte-button wire:click='modalPemeriksaanPerawat' theme="danger" class="btn-sm"
-                icon="fas fa-times" label="Tutup" />
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>

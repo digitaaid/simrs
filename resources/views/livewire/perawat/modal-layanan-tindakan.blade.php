@@ -94,9 +94,6 @@
             </tfoot>
         </table>
         <x-slot name="footerSlot">
-
-            <x-adminlte-button wire:click='modalLayanan' theme="danger" class="btn-sm" icon="fas fa-times"
-                label="Tutup" />
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>
