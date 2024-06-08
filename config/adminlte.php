@@ -344,7 +344,6 @@ return [
                     'icon' => 'fas fa-desktop',
                     'shift'   => 'ml-2',
                     'can' => 'pendaftaran',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
                     'text' => 'Display Antrian',
@@ -352,7 +351,6 @@ return [
                     'icon' => 'fas fa-desktop',
                     'shift'   => 'ml-2',
                     'can' => 'pendaftaran',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
                     'text' => 'Pendaftaran',
@@ -384,7 +382,6 @@ return [
                     'icon' => 'fas fa-pills',
                     'shift'   => 'ml-2',
                     'can' => 'farmasi',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
                     'text' => 'Kasir Pembayaran',
@@ -392,7 +389,6 @@ return [
                     'icon' => 'fas fa-cash-register',
                     'shift'   => 'ml-2',
                     'can' => 'kasir',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
                     'text' => 'Rekam Medis Rawat Jalan',
@@ -400,7 +396,6 @@ return [
                     'icon' => 'fas fa-laptop-medical',
                     'shift'   => 'ml-2',
                     'can' => 'rekam-medis',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
             ]
         ],
@@ -427,7 +422,7 @@ return [
                     'url' => 'aplication',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    'can' => 'admin',
+                    'can' => 'laboratorium',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
@@ -435,7 +430,7 @@ return [
                     'url' => 'aplication',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    'can' => 'admin',
+                    'can' => 'radiologi',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
@@ -443,7 +438,7 @@ return [
                     'url' => 'aplication',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    'can' => 'admin',
+                    'can' => 'kemoterapi',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
@@ -451,7 +446,7 @@ return [
                     'url' => 'aplication',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    'can' => 'admin',
+                    'can' => 'bank-darah',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
             ]
@@ -536,7 +531,7 @@ return [
                     'text' => 'Diagnosa',
                     'url' => 'diagnosa',
                     'icon' => 'fas fa-diagnoses',
-                    'can' => 'rekam-medis',
+                    'can' => ['rekam-medis', 'dokter', 'perawat'],
                     'active'  => ['diagnosa', 'diagnosa/create', 'diagnosa/edit/*'],
                     'shift'   => 'ml-2',
                 ],

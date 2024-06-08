@@ -31,7 +31,7 @@
     </div>
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
-        @livewire('dokter.modal-cppt', ['pasien' => $pasien])
+        @livewire('dokter.modal-cppt', ['antrian' => $antrian])
         @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
         @livewire('dokter.modal-asesmen-rajal')
         @can('perawat')

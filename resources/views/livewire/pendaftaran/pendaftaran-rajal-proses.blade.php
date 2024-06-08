@@ -22,7 +22,7 @@
             @livewire('pendaftaran.modal-suratkontrol', ['antrian' => $antrian])
         @endif
         @if ($antrian->kunjungan)
-            @livewire('dokter.modal-cppt', ['pasien' => $pasien])
+            @livewire('dokter.modal-cppt', ['antrian' => $antrian])
             @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
             <div id="invoice">
                 <x-adminlte-card theme="primary" title="Invoice Pelayanan Pasien">
