@@ -80,11 +80,11 @@ return new class extends Migration
             // s & a dokter
             $table->text('pemeriksaan_fisik_dokter')->nullable();
             $table->text('diagnosa_dokter')->nullable();
-            $table->string('diagnosa')->nullable();
-            $table->string('icd1')->nullable();
-            $table->string('idc1_text')->nullable();
-            $table->string('icd2')->nullable();
-            $table->string('icd2_text')->nullable();
+            $table->text('diagnosa')->nullable();
+            $table->text('icd1')->nullable();
+            $table->text('idc1_text')->nullable();
+            $table->text('icd2')->nullable();
+            $table->text('icd2_text')->nullable();
             // p dokter
             $table->text('rencana_medis')->nullable();
             $table->text('tindakan_medis')->nullable();

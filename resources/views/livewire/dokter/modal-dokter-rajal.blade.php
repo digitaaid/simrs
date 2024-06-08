@@ -181,15 +181,40 @@
                 <option value="{{ $item }}"></option>
             @endforeach
         </datalist>
-        <x-adminlte-input wire:model="icd1" list="icd1list" name="icd1" label="ICD-10 Primer"
+        <x-adminlte-input wire:model.live="icd1" list="icd1list" name="icd1" label="ICD-10 Primer"
             igroup-size="sm" />
         <datalist id="icd1list">
-            <option value="Diagnonsa ICD10 1"></option>
+            @foreach ($icd as $key => $item)
+                <option value="{{ $item['nama'] }}"></option>
+            @endforeach
         </datalist>
-        <x-adminlte-input wire:model="icd2" list="icd2list" name="icd2" label="ICD-10 Sekunder"
-            igroup-size="sm" />
+        <label>ICD-10 Sekunder</label>
+
+        @foreach ($icd2 as $index => $item)
+            <div class="row">
+                <div class="col-md-6">
+                    <x-adminlte-input wire:model.live="icd2.{{ $index }}" list="icd2list" name="icd2[]"
+                        igroup-size="sm" placeholder="ICD-10 Sekunder" />
+                </div>
+                <div class="col-md-6">
+                    <button wire:click.prevent="removeIcd2({{ $index }})"
+                        class="btn btn-danger btn-sm">Hapus</button>
+                </div>
+            </div>
+        @endforeach
+        <div class="row" wire:key="icd2-field-{{ count($icd2) }}">
+            <div class="col-md-6">
+                <x-adminlte-input wire:model.live="icd2.{{ count($icd2) }}" list="icd2list" name="icd2[]"
+                    igroup-size="sm" placeholder="ICD-10 Sekunder" />
+            </div>
+            <div class="col-md-6">
+                <button wire:click.prevent="addIcd2" class="btn btn-success btn-sm">Tambah</button>
+            </div>
+        </div>
         <datalist id="icd2list">
-            <option value="Diagnonsa ICD10 2"></option>
+            @foreach ($icd as $key => $item)
+                <option value="{{ $item['nama'] }}"></option>
+            @endforeach
         </datalist>
         <div class="row">
             <div class="col-md-6">

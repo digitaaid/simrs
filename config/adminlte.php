@@ -337,14 +337,13 @@ return [
         [
             'text'    => 'Pelayanan Rawat Jalan',
             'icon'    => 'fas fa-hand-holding-medical',
-            'can' => 'admin',
             'submenu' => [
                 [
                     'text' => 'Anjungan Antrian',
                     'url' => 'anjunganantrian',
                     'icon' => 'fas fa-desktop',
                     'shift'   => 'ml-2',
-                    'can' => 'admin',
+                    'can' => 'pendaftaran',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
@@ -352,7 +351,7 @@ return [
                     'url' => 'displayantrian',
                     'icon' => 'fas fa-desktop',
                     'shift'   => 'ml-2',
-                    'can' => 'admin',
+                    'can' => 'pendaftaran',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
@@ -360,7 +359,7 @@ return [
                     'url' => 'pendaftaran/rajal',
                     'icon' => 'fas fa-user-plus',
                     'shift'   => 'ml-2',
-                    // 'can' => 'pen',
+                    'can' => 'pendaftaran',
                     'active'  => ['pendaftaran/rajal', 'pendaftaran/rajal/*'],
                 ],
                 [
@@ -368,7 +367,7 @@ return [
                     'url' => 'pemeriksaan/perawat/rajal',
                     'icon' => 'fas fa-user-nurse',
                     'shift'   => 'ml-2',
-                    'can' => 'admin',
+                    'can' => 'perawat',
                     'active'  => ['pemeriksaan/perawat/rajal', 'pemeriksaan/perawat/rajal*'],
                 ],
                 [
@@ -376,16 +375,15 @@ return [
                     'url' => 'pemeriksaan/dokter/rajal',
                     'icon' => 'fas fa-user-md',
                     'shift'   => 'ml-2',
-                    'can' => 'admin',
+                    'can' => 'dokter',
                     'active'  => ['pemeriksaan/dokter/rajal', 'pemeriksaan/dokter/rajal*'],
-
                 ],
                 [
                     'text' => 'Pengambilan Resep Obat',
                     'url' => 'farmasi/pengambilan_resep',
                     'icon' => 'fas fa-pills',
                     'shift'   => 'ml-2',
-                    'can' => 'admin',
+                    'can' => 'farmasi',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
@@ -393,7 +391,7 @@ return [
                     'url' => 'aplication',
                     'icon' => 'fas fa-cash-register',
                     'shift'   => 'ml-2',
-                    'can' => 'admin',
+                    'can' => 'kasir',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
@@ -401,7 +399,7 @@ return [
                     'url' => 'rekammedis/rajal',
                     'icon' => 'fas fa-laptop-medical',
                     'shift'   => 'ml-2',
-                    'can' => 'admin',
+                    'can' => 'rekam-medis',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
             ]

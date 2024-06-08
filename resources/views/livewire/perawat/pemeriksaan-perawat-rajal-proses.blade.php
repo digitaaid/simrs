@@ -34,8 +34,12 @@
         @livewire('dokter.modal-cppt', ['pasien' => $pasien])
         @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
         @livewire('dokter.modal-asesmen-rajal')
-        @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian])
-        @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian])
+        @can('perawat')
+            @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian])
+        @endcan
+        @can('dokter')
+            @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian])
+        @endcan
         @livewire('dokter.modal-resume-rajal')
     </div>
 </div>
