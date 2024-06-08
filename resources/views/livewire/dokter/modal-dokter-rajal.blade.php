@@ -181,19 +181,13 @@
                 <option value="{{ $item }}"></option>
             @endforeach
         </datalist>
-        <x-adminlte-input wire:model.live="icd1" list="icd1list" name="icd1" label="ICD-10 Primer"
+        <x-adminlte-input wire:model.live="icd1" list="icdlist" name="icd1" label="ICD-10 Primer"
             igroup-size="sm" />
-        <datalist id="icd1list">
-            @foreach ($icd as $key => $item)
-                <option value="{{ $item['nama'] }}"></option>
-            @endforeach
-        </datalist>
         <label>ICD-10 Sekunder</label>
-
         @foreach ($icd2 as $index => $item)
             <div class="row">
                 <div class="col-md-6">
-                    <x-adminlte-input wire:model.live="icd2.{{ $index }}" list="icd2list" name="icd2[]"
+                    <x-adminlte-input wire:model.live="icd2.{{ $index }}" list="icdlist" name="icd2[]"
                         igroup-size="sm" placeholder="ICD-10 Sekunder" />
                 </div>
                 <div class="col-md-6">
@@ -204,15 +198,42 @@
         @endforeach
         <div class="row" wire:key="icd2-field-{{ count($icd2) }}">
             <div class="col-md-6">
-                <x-adminlte-input wire:model.live="icd2.{{ count($icd2) }}" list="icd2list" name="icd2[]"
+                <x-adminlte-input wire:model.live="icd2.{{ count($icd2) }}" list="icdlist" name="icd2[]"
                     igroup-size="sm" placeholder="ICD-10 Sekunder" />
             </div>
             <div class="col-md-6">
                 <button wire:click.prevent="addIcd2" class="btn btn-success btn-sm">Tambah</button>
             </div>
         </div>
-        <datalist id="icd2list">
+        <datalist id="icdlist">
             @foreach ($icd as $key => $item)
+                <option value="{{ $item['nama'] }}"></option>
+            @endforeach
+        </datalist>
+        <label>ICD-9 Procedure</label>
+        @foreach ($icd9 as $index => $item)
+            <div class="row" wire:key="icd9-field-{{ $index }}">
+                <div class="col-md-6">
+                    <x-adminlte-input wire:model.live="icd9.{{ $index }}" list="icd9list" name="icd9[]"
+                        placeholder="ICD-9 Procedure" igroup-size="sm" />
+                </div>
+                <div class="col-md-6">
+                    <button wire:click.prevent="removeIcd9({{ $index }})"
+                        class="btn btn-danger btn-sm">Hapus</button>
+                </div>
+            </div>
+        @endforeach
+        <div class="row" wire:key="icd9-field-{{ count($icd9) }}">
+            <div class="col-md-6">
+                <x-adminlte-input wire:model.live="icd9.{{ count($icd9) }}" list="icd9list" name="icd9[]"
+                    placeholder="ICD-9 Procedure" igroup-size="sm" />
+            </div>
+            <div class="col-md-6">
+                <button wire:click.prevent="addIcd9" class="btn btn-success btn-sm">Tambah</button>
+            </div>
+        </div>
+        <datalist id="icd9list">
+            @foreach ($icd9s as $key => $item)
                 <option value="{{ $item['nama'] }}"></option>
             @endforeach
         </datalist>

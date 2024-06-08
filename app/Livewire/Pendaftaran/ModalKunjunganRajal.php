@@ -208,7 +208,7 @@ class ModalKunjunganRajal extends Component
         $this->dokter = $antrian->kunjungan?->dokter;
         $this->caramasuk = $antrian->kunjungan?->cara_masuk;
         $this->diagnosa = $antrian->kunjungan?->diagnosa_awal;
-        $this->jeniskunjungan =  $antrian->kunjungan?->jeniskunjungan;
+        $this->jeniskunjungan =  $antrian->kunjungan?->jeniskunjungan ?? $antrian->jeniskunjungan;
         $this->polikliniks = Unit::pluck('nama', 'kode');
         $this->dokters = Dokter::pluck('nama', 'kode');
         $this->jaminans = Jaminan::pluck('nama', 'kode');
