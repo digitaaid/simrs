@@ -96,6 +96,9 @@
                             @if ($kunjungan->asesmenrajal?->icd2)
                                 <b>ICD10 Second :</b> {{ $kunjungan->asesmenrajal?->icd2 }} <br>
                             @endif
+                            @if ($kunjungan->asesmenrajal?->icd9)
+                                <b>ICD9 Procedure :</b> {{ $kunjungan->asesmenrajal?->icd9 }} <br>
+                            @endif
                             @if ($kunjungan->asesmenrajal?->diagnosa_dokter)
                                 <b>Catatan Diagnosa :</b> {{ $kunjungan->asesmenrajal?->diagnosa_dokter }} <br>
                             @endif
