@@ -19,8 +19,8 @@ class ModalDokterRajal extends Component
 {
     public $antrian, $kodebooking, $antrian_id, $kodekunjungan, $kunjungan_id;
     public $obats = [], $frekuensiObats = [], $waktuObats = [];
-    public $diagnosa = [], $diagnosas = [], $icd = [];
-    public $sumber_data, $keluhan_utama, $riwayat_pengobatan, $riwayat_penyakit, $riwayat_alergi, $pernah_berobat, $denyut_jantung, $pernapasan, $sistole, $distole, $suhu, $berat_badan, $tinggi_badan, $bsa, $pemeriksaan_fisik_perawat, $pemeriksaan_fisik_dokter, $pemeriksaan_lab, $pemeriksaan_rad, $pemeriksaan_penunjang, $icd1, $icd2 = [], $diagnosa_dokter, $diagnosa_keperawatan, $rencana_medis, $rencana_keperawatan, $tindakan_medis, $instruksi_medis;
+    public $diagnosa = [], $diagnosas = [], $icd = [], $icd9s = [];
+    public $sumber_data, $keluhan_utama, $riwayat_pengobatan, $riwayat_penyakit, $riwayat_alergi, $pernah_berobat, $denyut_jantung, $pernapasan, $sistole, $distole, $suhu, $berat_badan, $tinggi_badan, $bsa, $pemeriksaan_fisik_perawat, $pemeriksaan_fisik_dokter, $pemeriksaan_lab, $pemeriksaan_rad, $pemeriksaan_penunjang, $icd1, $icd2 = [], $icd9 = [], $diagnosa_dokter, $diagnosa_keperawatan, $rencana_medis, $rencana_keperawatan, $tindakan_medis, $instruksi_medis;
     public function simpanAsesmen()
     {
         $this->validate([
@@ -80,6 +80,7 @@ class ModalDokterRajal extends Component
                 'diagnosa' => implode(';', $this->diagnosa),
                 'icd1' => $this->icd1,
                 'icd2' => implode(';', $this->icd2),
+                'icd9' => implode(';', $this->icd9),
                 'diagnosa_dokter' => $this->diagnosa_dokter,
                 'diagnosa_keperawatan' => $this->diagnosa_keperawatan,
                 'rencana_medis' => $this->rencana_medis,
@@ -163,6 +164,33 @@ class ModalDokterRajal extends Component
             flash($th->getMessage(), 'danger');
         }
     }
+    public function updatedIcd9($input, $index)
+    {
+        $this->validate([
+            "icd9.{$index}" => 'required|min:3',
+
+        ]);
+        try {
+            $api = new VclaimController();
+            $request = new Request([
+                'procedure' => $input,
+            ]);
+            $res = $api->ref_procedure($request);
+            if ($res->metadata->code == 200) {
+                $this->icd9s = [];
+                foreach ($res->response->procedure as $key => $value) {
+                    $this->icd9s[] = [
+                        'kode' => $value->kode,
+                        'nama' => $value->nama,
+                    ];
+                }
+            } else {
+                return flash($res->metadata->message, 'danger');
+            }
+        } catch (\Throwable $th) {
+            return flash($th->getMessage(), 'danger');
+        }
+    }
     public function updatedIcd2($inputicd2, $index)
     {
         $this->validate([
@@ -214,6 +242,15 @@ class ModalDokterRajal extends Component
         } catch (\Throwable $th) {
             return flash($th->getMessage(), 'danger');
         }
+    }
+    public function addIcd9()
+    {
+        $this->icd9[] = '';
+    }
+    public function removeIcd9($index)
+    {
+        unset($this->icd9[$index]);
+        $this->icd2 = array_values($this->icd2);
     }
     public function addIcd2()
     {
@@ -292,6 +329,7 @@ class ModalDokterRajal extends Component
         $this->diagnosa = explode(';', $antrian->asesmenrajal?->diagnosa) ?? explode(';', $antrianlast?->asesmenrajal?->diagnosa);
         $this->icd1 = $antrian->asesmenrajal?->icd1 ?? $antrianlast?->asesmenrajal?->icd1;
         $this->icd2 = explode(';', $antrian->asesmenrajal?->icd2) ??  explode(';', $antrianlast?->asesmenrajal?->icd2);
+        $this->icd9 = explode(';', $antrian->asesmenrajal?->icd9) ??  explode(';', $antrianlast?->asesmenrajal?->icd9);
         $this->diagnosa_dokter = $antrian->asesmenrajal?->diagnosa_dokter ?? $antrianlast?->asesmenrajal?->diagnosa_dokter;
         $this->diagnosa_keperawatan = $antrian->asesmenrajal?->diagnosa_keperawatan ?? $antrianlast?->asesmenrajal?->diagnosa_keperawatan;
         $this->rencana_medis = $antrian->asesmenrajal?->rencana_medis ?? $antrianlast?->asesmenrajal?->rencana_medis;
