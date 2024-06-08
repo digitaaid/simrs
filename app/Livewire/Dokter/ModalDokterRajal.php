@@ -2,49 +2,25 @@
 
 namespace App\Livewire\Dokter;
 
+use App\Http\Controllers\VclaimController;
 use App\Models\Antrian;
 use App\Models\AsesmenRajal;
+use App\Models\DataDiagnosa;
 use App\Models\FrekuensiObat;
 use App\Models\Kunjungan;
 use App\Models\Obat;
 use App\Models\ResepObat;
 use App\Models\ResepObatDetail;
 use App\Models\WaktuObat;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class ModalDokterRajal extends Component
 {
     public $antrian, $kodebooking, $antrian_id, $kodekunjungan, $kunjungan_id;
     public $obats = [], $frekuensiObats = [], $waktuObats = [];
-    public $diagnosa = [];
-    public $sumber_data, $keluhan_utama, $riwayat_pengobatan, $riwayat_penyakit, $riwayat_alergi, $pernah_berobat, $denyut_jantung, $pernapasan, $sistole, $distole, $suhu, $berat_badan, $tinggi_badan, $bsa, $pemeriksaan_fisik_perawat, $pemeriksaan_fisik_dokter, $pemeriksaan_lab, $pemeriksaan_rad, $pemeriksaan_penunjang,  $icd1, $icd2, $diagnosa_dokter, $diagnosa_keperawatan, $rencana_medis, $rencana_keperawatan, $tindakan_medis, $instruksi_medis;
-    public $resepObat = [
-        [
-            'obat' => '',
-            'jumlahobat' => '',
-            'frekuensiobat' => '',
-            'waktuobat' => '',
-            'keterangan' => '',
-        ]
-    ];
-    public function addDiagnosa()
-    {
-        $this->diagnosa[] = '';
-    }
-    public function removeDiagnosa($index)
-    {
-        unset($this->diagnosa[$index]);
-        $this->diagnosa = array_values($this->diagnosa);
-    }
-    public function addObat()
-    {
-        $this->resepObat[] = ['obat' => '', 'jumlahobat' => '', 'frekuensiobat' => '', 'waktuobat' => '', 'keterangan' => ''];
-    }
-    public function removeObat($index)
-    {
-        unset($this->resepObat[$index]);
-        $this->resepObat = array_values($this->resepObat);
-    }
+    public $diagnosa = [], $diagnosas = [], $icd = [];
+    public $sumber_data, $keluhan_utama, $riwayat_pengobatan, $riwayat_penyakit, $riwayat_alergi, $pernah_berobat, $denyut_jantung, $pernapasan, $sistole, $distole, $suhu, $berat_badan, $tinggi_badan, $bsa, $pemeriksaan_fisik_perawat, $pemeriksaan_fisik_dokter, $pemeriksaan_lab, $pemeriksaan_rad, $pemeriksaan_penunjang, $icd1, $icd2 = [], $diagnosa_dokter, $diagnosa_keperawatan, $rencana_medis, $rencana_keperawatan, $tindakan_medis, $instruksi_medis;
     public function simpanAsesmen()
     {
         $this->validate([
@@ -101,9 +77,9 @@ class ModalDokterRajal extends Component
                 'pemeriksaan_lab' => $this->pemeriksaan_lab,
                 'pemeriksaan_rad' => $this->pemeriksaan_rad,
                 'pemeriksaan_penunjang' => $this->pemeriksaan_penunjang,
-                'diagnosa' => implode(',', $this->diagnosa),
+                'diagnosa' => implode(';', $this->diagnosa),
                 'icd1' => $this->icd1,
-                'icd2' => $this->icd2,
+                'icd2' => implode(';', $this->icd2),
                 'diagnosa_dokter' => $this->diagnosa_dokter,
                 'diagnosa_keperawatan' => $this->diagnosa_keperawatan,
                 'rencana_medis' => $this->rencana_medis,
@@ -122,6 +98,13 @@ class ModalDokterRajal extends Component
                 'user_dokter' => auth()->user()->id,
                 'pic_dokter' => auth()->user()->name,
             ]);
+            // diagnosa
+            foreach ($this->diagnosa as $key => $diag) {
+                DataDiagnosa::updateOrCreate([
+                    'nama' => $diag,
+                ]);
+            }
+            // resep obat
             if (count($this->resepObat)) {
                 $resep = ResepObat::updateOrCreate([
                     'kodebooking' => $this->kodebooking,
@@ -180,6 +163,94 @@ class ModalDokterRajal extends Component
             flash($th->getMessage(), 'danger');
         }
     }
+    public function updatedIcd2($inputicd2, $index)
+    {
+        $this->validate([
+            "icd2.{$index}" => 'required|min:3',
+        ]);
+        try {
+            $api = new VclaimController();
+            $request = new Request([
+                'diagnosa' => $inputicd2,
+            ]);
+            $res = $api->ref_diagnosa($request);
+            if ($res->metadata->code == 200) {
+                $this->icd = [];
+                foreach ($res->response->diagnosa as $key => $value) {
+                    $this->icd[] = [
+                        'kode' => $value->kode,
+                        'nama' => $value->nama,
+                    ];
+                }
+            } else {
+                return flash($res->metadata->message, 'danger');
+            }
+        } catch (\Throwable $th) {
+            return flash($th->getMessage(), 'danger');
+        }
+    }
+    public function updatedIcd1()
+    {
+        $this->validate([
+            'icd1' => 'required|min:3',
+        ]);
+        try {
+            $api = new VclaimController();
+            $request = new Request([
+                'diagnosa' => $this->icd1,
+            ]);
+            $res = $api->ref_diagnosa($request);
+            if ($res->metadata->code == 200) {
+                $this->icd = [];
+                foreach ($res->response->diagnosa as $key => $value) {
+                    $this->icd[] = [
+                        'kode' => $value->kode,
+                        'nama' => $value->nama,
+                    ];
+                }
+            } else {
+                return flash($res->metadata->message, 'danger');
+            }
+        } catch (\Throwable $th) {
+            return flash($th->getMessage(), 'danger');
+        }
+    }
+    public function addIcd2()
+    {
+        $this->icd2[] = '';
+    }
+    public function removeIcd2($index)
+    {
+        unset($this->icd2[$index]);
+        $this->icd2 = array_values($this->icd2);
+    }
+    public function addDiagnosa()
+    {
+        $this->diagnosa[] = '';
+    }
+    public function removeDiagnosa($index)
+    {
+        unset($this->diagnosa[$index]);
+        $this->diagnosa = array_values($this->diagnosa);
+    }
+    public $resepObat = [
+        [
+            'obat' => '',
+            'jumlahobat' => '',
+            'frekuensiobat' => '',
+            'waktuobat' => '',
+            'keterangan' => '',
+        ]
+    ];
+    public function addObat()
+    {
+        $this->resepObat[] = ['obat' => '', 'jumlahobat' => '', 'frekuensiobat' => '', 'waktuobat' => '', 'keterangan' => ''];
+    }
+    public function removeObat($index)
+    {
+        unset($this->resepObat[$index]);
+        $this->resepObat = array_values($this->resepObat);
+    }
     function calculateBsa()
     {
         $bb = $this->berat_badan ? $this->berat_badan : 0;
@@ -218,10 +289,9 @@ class ModalDokterRajal extends Component
         $this->pemeriksaan_lab = $antrian->asesmenrajal?->pemeriksaan_lab ?? $antrianlast?->asesmenrajal?->pemeriksaan_lab;
         $this->pemeriksaan_rad = $antrian->asesmenrajal?->pemeriksaan_rad ?? $antrianlast?->asesmenrajal?->pemeriksaan_rad;
         $this->pemeriksaan_penunjang = $antrian->asesmenrajal?->pemeriksaan_penunjang ?? $antrianlast?->asesmenrajal?->pemeriksaan_penunjang;
-        $this->diagnosa[] = explode(',', $antrian->asesmenrajal?->diagnosa) ?? explode(',', $antrianlast?->asesmenrajal?->diagnosa);
-        // dd($this->diagnosa);
+        $this->diagnosa = explode(';', $antrian->asesmenrajal?->diagnosa) ?? explode(';', $antrianlast?->asesmenrajal?->diagnosa);
         $this->icd1 = $antrian->asesmenrajal?->icd1 ?? $antrianlast?->asesmenrajal?->icd1;
-        $this->icd2 = $antrian->asesmenrajal?->icd2 ?? $antrianlast?->asesmenrajal?->icd2;
+        $this->icd2 = explode(';', $antrian->asesmenrajal?->icd2) ??  explode(';', $antrianlast?->asesmenrajal?->icd2);
         $this->diagnosa_dokter = $antrian->asesmenrajal?->diagnosa_dokter ?? $antrianlast?->asesmenrajal?->diagnosa_dokter;
         $this->diagnosa_keperawatan = $antrian->asesmenrajal?->diagnosa_keperawatan ?? $antrianlast?->asesmenrajal?->diagnosa_keperawatan;
         $this->rencana_medis = $antrian->asesmenrajal?->rencana_medis ?? $antrianlast?->asesmenrajal?->rencana_medis;
@@ -242,6 +312,7 @@ class ModalDokterRajal extends Component
         $this->obats = Obat::pluck('nama');
         $this->frekuensiObats = FrekuensiObat::pluck('nama');
         $this->waktuObats = WaktuObat::pluck('nama');
+        $this->diagnosas = DataDiagnosa::pluck('nama');
     }
     public function modalPemeriksaanDokter()
     {

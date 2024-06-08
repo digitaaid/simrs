@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dokter;
 
+use App\Models\Antrian;
 use App\Models\Kunjungan;
 use App\Models\Pasien;
 use Livewire\Component;
@@ -15,9 +16,9 @@ class ModalCppt extends Component
     {
         $this->dispatch('modalCppt');
     }
-    public function mount(Pasien $pasien)
+    public function mount(Antrian $antrian)
     {
-        $this->pasien = $pasien;
+        $this->pasien = $antrian->pasien;
     }
     public function render()
     {

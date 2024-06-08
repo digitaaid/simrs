@@ -2,17 +2,17 @@
     <x-adminlte-card theme="primary" title="Surat Kontrol Pasien">
         <div class="row">
             <div class="col-md-4">
+                <x-adminlte-input wire:model="nomorkartu" name="nomorkartu" fgroup-class="row" label-class="text-left col-4"
+                    igroup-class="col-8" igroup-size="sm" label="No BPJS">
+                </x-adminlte-input>
+            </div>
+            <div class="col-md-4">
                 <x-adminlte-select wire:model="formatfilter" fgroup-class="row" label-class="text-left col-4"
                     igroup-class="col-8" igroup-size="sm" name="formatfilter" label="Filter">
                     <option value=null disabled>Pilih Format Filter</option>
                     <option value="2">Tanggal Rencana Kontrol</option>
                     <option value="1">Tanggal Entri</option>
                 </x-adminlte-select>
-            </div>
-            <div class="col-md-4">
-                <x-adminlte-input wire:model="nomorkartu" name="nomorkartu" fgroup-class="row"
-                    label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" label="No BPJS">
-                </x-adminlte-input>
             </div>
             <div class="col-md-4">
                 <x-adminlte-input wire:model="tanggal" type="month" name="tanggal" fgroup-class="row"
@@ -27,51 +27,56 @@
             <table class="table table-sm table-responsive table-bordered text-nowrap">
                 <thead>
                     <tr>
-                        <th>No Surat Kontrol</th>
-                        <th>Jenis Pelayanan</th>
-                        <th>Jenis Kontrol</th>
-                        <th>Nama Jenis Kontrol</th>
-                        <th>Tanggal Rencana Kontrol</th>
-                        <th>Tanggal Terbit Kontrol</th>
-                        <th>No SEP Asal Kontrol</th>
+                        <th>No Surat</th>
+                        <th>Tgl Kontrol</th>
+                        <th>Tgl Terbit</th>
+                        <th>Action</th>
+                        <th>Pelayanan</th>
+                        <th>Jns Surat</th>
                         <th>Poli Asal</th>
-                        <th>Nama Poli Asal</th>
                         <th>Poli Tujuan</th>
-                        <th>Nama Poli Tujuan</th>
-                        <th>Tanggal SEP</th>
-                        <th>Kode Dokter</th>
-                        <th>Nama Dokter</th>
+                        <th>Dokter</th>
+                        <th>Terbit SEP</th>
+                        <th>No SEP Asal</th>
+                        <th>Tgl SEP Asal</th>
                         <th>No Kartu</th>
                         <th>Nama</th>
-                        <th>Terbit SEP</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($suratkontrols as $item)
                         <tr>
                             <td>{{ $item->noSuratKontrol }}</td>
-                            <td>{{ $item->jnsPelayanan }}</td>
-                            <td>{{ $item->jnsKontrol }}</td>
-                            <td>{{ $item->namaJnsKontrol }}</td>
                             <td>{{ $item->tglRencanaKontrol }}</td>
                             <td>{{ $item->tglTerbitKontrol }}</td>
-                            <td>{{ $item->noSepAsalKontrol }}</td>
-                            <td>{{ $item->poliAsal }}</td>
+                            <td>
+                                <a target="_blank"
+                                    href="{{ route('vclaim.suratkontrol_print') }}?noSuratKontrol={{ $item->noSuratKontrol }}">
+                                    <x-adminlte-button theme="success" class="btn-xs" icon="fas fa-print" />
+                                </a>
+                                <x-adminlte-button theme="warning" class="btn-xs"
+                                    wire:click="editSurat('{{ $item->noSuratKontrol }}','{{ $item->noSepAsalKontrol }}')"
+                                    icon="fas fa-edit" />
+                                <x-adminlte-button theme="danger" class="btn-xs"
+                                    wire:click="hapusSurat('{{ $item->noSuratKontrol }}')"
+                                    wire:confirm='Apakah anda yakin ingin menghapus surat teresebut ?'
+                                    icon="fas fa-trash" />
+                            </td>
+                            <td>{{ $item->jnsPelayanan }}</td>
+                            <td>{{ $item->namaJnsKontrol }}</td>
                             <td>{{ $item->namaPoliAsal }}</td>
-                            <td>{{ $item->poliTujuan }}</td>
                             <td>{{ $item->namaPoliTujuan }}</td>
+                            <td>{{ $item->namaDokter }} {{ $item->kodeDokter }}</td>
+                            <td>{{ $item->terbitSEP }}</td>
+                            <td>{{ $item->noSepAsalKontrol }}</td>
                             <td>{{ $item->tglSEP }}</td>
-                            <td>{{ $item->kodeDokter }}</td>
-                            <td>{{ $item->namaDokter }}</td>
                             <td>{{ $item->noKartu }}</td>
                             <td>{{ $item->nama }}</td>
-                            <td>{{ $item->terbitSEP }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         @endif
-
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-plus" class="btn-sm" label="Buat Surat Kontrol"
                 wire:click="openForm" />
@@ -80,12 +85,22 @@
                 </div>
                 Loading ...
             </div>
+            @if (flash()->message)
+            <div class="text-{{ flash()->class }}" wire:loading.remove>
+                Loading Result : {{ flash()->message }}
+            </div>
+        @endif
         </x-slot>
     </x-adminlte-card>
     @if ($form)
         <x-adminlte-card theme="success" title="Pembuatan Surat Kontrol Pasien">
             <div class="row">
                 <div class="col-md-6">
+                    @if ($noSuratKontrol)
+                        <x-adminlte-input fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
+                            igroup-size="sm" wire:model='noSuratKontrol' name="noSuratKontrol" label="noSuratKontrol"
+                            readonly />
+                    @endif
                     <x-adminlte-input fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
                         igroup-size="sm" wire:model='nomorkartu' name="nomorkartu" label="Nomor Kartu" />
                     <x-adminlte-select fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"

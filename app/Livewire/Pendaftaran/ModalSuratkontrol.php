@@ -11,8 +11,31 @@ use Livewire\Component;
 class ModalSuratkontrol extends Component
 {
     public $antrian, $tanggal, $formatfilter;
-    public $nomorkartu, $noSEP, $tglRencanaKontrol, $poliKontrol, $kodeDokter;
+    public $nomorkartu, $noSEP, $tglRencanaKontrol, $poliKontrol, $kodeDokter, $noSuratKontrol;
     public $seps = [], $polis = [], $dokters = [], $suratkontrols = [], $form = false;
+
+    public function hapusSurat($noSuratKontrol)
+    {
+        $this->noSuratKontrol = $noSuratKontrol;
+        $api = new VclaimController();
+        $request = new Request([
+            'noSuratKontrol' => $this->noSuratKontrol,
+            'user' => auth()->user()->name,
+        ]);
+        $res = $api->suratkontrol_delete($request);
+        dd($res);
+        if ($res->metadata->code == 200) {
+            return flash($res->metadata->message, 'success');
+        } else {
+            return flash($res->metadata->message, 'danger');
+        }
+    }
+    public function editSurat($noSuratKontrol, $noSepAsalKontrol)
+    {
+        $this->noSuratKontrol = $noSuratKontrol;
+        $this->noSEP = $noSepAsalKontrol;
+        $this->form = true;
+    }
     public function buatSuratKontrol()
     {
         $this->validate([
@@ -23,15 +46,31 @@ class ModalSuratkontrol extends Component
             'kodeDokter' => 'required',
         ]);
         $api = new VclaimController();
-        $request = new Request([
-            'user' => auth()->user()->name,
-            'noSEP' => $this->noSEP,
-            'poliKontrol' => $this->poliKontrol,
-            'tglRencanaKontrol' => $this->tglRencanaKontrol,
-            'kodeDokter' => $this->kodeDokter,
-        ]);
-        $res = $api->suratkontrol_insert($request);
+        if ($this->noSuratKontrol) {
+            $request = new Request([
+                'noSuratKontrol' => $this->noSuratKontrol,
+                'noSEP' => $this->noSEP,
+                'kodeDokter' => $this->kodeDokter,
+                'poliKontrol' => $this->poliKontrol,
+                'tglRencanaKontrol' => $this->tglRencanaKontrol,
+                'user' => auth()->user()->name,
+            ]);
+            $res = $api->suratkontrol_update($request);
+        } else {
+            $request = new Request([
+                'user' => auth()->user()->name,
+                'noSEP' => $this->noSEP,
+                'poliKontrol' => $this->poliKontrol,
+                'tglRencanaKontrol' => $this->tglRencanaKontrol,
+                'kodeDokter' => $this->kodeDokter,
+            ]);
+            $res = $api->suratkontrol_insert($request);
+        }
         if ($res->metadata->code == 200) {
+            $this->form = false;
+            $this->formatfilter = 2;
+            $this->tanggal = now()->format('Y-m');
+            $this->cariDataSuratKontrol();
             return flash($res->metadata->message, 'success');
         } else {
             return flash($res->metadata->message, 'danger');
@@ -122,6 +161,7 @@ class ModalSuratkontrol extends Component
     }
     public function openForm()
     {
+        $this->reset(['noSEP', 'seps', 'tglRencanaKontrol', 'poliKontrol', 'kodeDokter', 'noSuratKontrol']);
         $this->form = $this->form ?  false : true;
     }
     public function cariDataSuratKontrol()

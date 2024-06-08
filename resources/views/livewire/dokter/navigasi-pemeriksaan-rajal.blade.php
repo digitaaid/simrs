@@ -43,30 +43,34 @@
             <i class="fas fa-file-medical-alt"></i> Asesmen Rawat Jalan
         </a>
     </li>
-    <li class="nav-item">
-        <a href="#pemeriksaanperawat" class="nav-link">
-            <i class="fas fa-user-nurse"></i> Pemeriksaan Perawat
-            @if ($antrian->asesmenrajal?->status_asesmen_perawat)
-                <span class="badge bg-success float-right">
-                    {{ $antrian->asesmenrajal?->pic_perawat }}
-                </span>
-            @else
-                <span class="badge bg-danger float-right">Belum Asesmen</span>
-            @endif
-        </a>
-    </li>
-    <li class="nav-item">
-        <a href="#pemeriksaandokter" class="nav-link">
-            <i class="fas fa-user-md"></i> Pemeriksaan Dokter
-            @if ($antrian->asesmenrajal?->status_asesmen_dokter)
-                <span class="badge bg-success float-right">
-                    {{ $antrian->asesmenrajal?->pic_dokter }}
-                </span>
-            @else
-                <span class="badge bg-danger float-right">Belum Asesmen</span>
-            @endif
-        </a>
-    </li>
+    @can('perawat')
+        <li class="nav-item">
+            <a href="#pemeriksaanperawat" class="nav-link">
+                <i class="fas fa-user-nurse"></i> Pemeriksaan Perawat
+                @if ($antrian->asesmenrajal?->status_asesmen_perawat)
+                    <span class="badge bg-success float-right">
+                        {{ $antrian->asesmenrajal?->pic_perawat }}
+                    </span>
+                @else
+                    <span class="badge bg-danger float-right">Belum Asesmen</span>
+                @endif
+            </a>
+        </li>
+    @endcan
+    @can('dokter')
+        <li class="nav-item">
+            <a href="#pemeriksaandokter" class="nav-link">
+                <i class="fas fa-user-md"></i> Pemeriksaan Dokter
+                @if ($antrian->asesmenrajal?->status_asesmen_dokter)
+                    <span class="badge bg-success float-right">
+                        {{ $antrian->asesmenrajal?->pic_dokter }}
+                    </span>
+                @else
+                    <span class="badge bg-danger float-right">Belum Asesmen</span>
+                @endif
+            </a>
+        </li>
+    @endcan
     <li class="nav-item">
         <a href="#resumerajal" class="nav-link">
             <i class="fas fa-file-medical-alt"></i> Resume Rawat Jalan
