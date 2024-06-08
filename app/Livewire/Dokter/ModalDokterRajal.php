@@ -4,6 +4,7 @@ namespace App\Livewire\Dokter;
 
 use App\Models\Antrian;
 use App\Models\AsesmenRajal;
+use App\Models\DataDiagnosa;
 use App\Models\FrekuensiObat;
 use App\Models\Kunjungan;
 use App\Models\Obat;
@@ -16,7 +17,7 @@ class ModalDokterRajal extends Component
 {
     public $antrian, $kodebooking, $antrian_id, $kodekunjungan, $kunjungan_id;
     public $obats = [], $frekuensiObats = [], $waktuObats = [];
-    public $diagnosa = [];
+    public $diagnosa = [], $diagnosas = [];
     public $sumber_data, $keluhan_utama, $riwayat_pengobatan, $riwayat_penyakit, $riwayat_alergi, $pernah_berobat, $denyut_jantung, $pernapasan, $sistole, $distole, $suhu, $berat_badan, $tinggi_badan, $bsa, $pemeriksaan_fisik_perawat, $pemeriksaan_fisik_dokter, $pemeriksaan_lab, $pemeriksaan_rad, $pemeriksaan_penunjang,  $icd1, $icd2, $diagnosa_dokter, $diagnosa_keperawatan, $rencana_medis, $rencana_keperawatan, $tindakan_medis, $instruksi_medis;
     public $resepObat = [
         [
@@ -122,6 +123,13 @@ class ModalDokterRajal extends Component
                 'user_dokter' => auth()->user()->id,
                 'pic_dokter' => auth()->user()->name,
             ]);
+            // diagnosa
+            foreach ($this->diagnosa as $key => $diag) {
+                DataDiagnosa::updateOrCreate([
+                    'nama' => $diag,
+                ]);
+            }
+            // resep obat
             if (count($this->resepObat)) {
                 $resep = ResepObat::updateOrCreate([
                     'kodebooking' => $this->kodebooking,
@@ -218,8 +226,7 @@ class ModalDokterRajal extends Component
         $this->pemeriksaan_lab = $antrian->asesmenrajal?->pemeriksaan_lab ?? $antrianlast?->asesmenrajal?->pemeriksaan_lab;
         $this->pemeriksaan_rad = $antrian->asesmenrajal?->pemeriksaan_rad ?? $antrianlast?->asesmenrajal?->pemeriksaan_rad;
         $this->pemeriksaan_penunjang = $antrian->asesmenrajal?->pemeriksaan_penunjang ?? $antrianlast?->asesmenrajal?->pemeriksaan_penunjang;
-        $this->diagnosa[] = explode(',', $antrian->asesmenrajal?->diagnosa) ?? explode(',', $antrianlast?->asesmenrajal?->diagnosa);
-        // dd($this->diagnosa);
+        $this->diagnosa = explode(',', $antrian->asesmenrajal?->diagnosa) ?? explode(',', $antrianlast?->asesmenrajal?->diagnosa);
         $this->icd1 = $antrian->asesmenrajal?->icd1 ?? $antrianlast?->asesmenrajal?->icd1;
         $this->icd2 = $antrian->asesmenrajal?->icd2 ?? $antrianlast?->asesmenrajal?->icd2;
         $this->diagnosa_dokter = $antrian->asesmenrajal?->diagnosa_dokter ?? $antrianlast?->asesmenrajal?->diagnosa_dokter;
@@ -242,6 +249,7 @@ class ModalDokterRajal extends Component
         $this->obats = Obat::pluck('nama');
         $this->frekuensiObats = FrekuensiObat::pluck('nama');
         $this->waktuObats = WaktuObat::pluck('nama');
+        $this->diagnosas = DataDiagnosa::pluck('nama');
     }
     public function modalPemeriksaanDokter()
     {
