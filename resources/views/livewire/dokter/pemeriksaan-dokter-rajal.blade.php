@@ -10,8 +10,8 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}"
-                        text="Total Antrian" theme="success" icon="fas fa-user-injured" />
+                    <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}" text="Total Antrian"
+                        theme="success" icon="fas fa-user-injured" />
                 </div>
                 <div class="col-lg-3 col-6">
                     <x-adminlte-small-box
@@ -89,10 +89,17 @@
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
-                                <a href="{{ route('pemeriksaan.dokter.rajal.proses', $item->kodebooking) }}">
-                                    <x-adminlte-button class="btn-xs" label="Proses" theme="success"
-                                        icon="fas fa-user-nurse" />
-                                </a>
+                                @if ($item->taskid == 5)
+                                    <a href="{{ route('pemeriksaan.dokter.rajal.proses', $item->kodebooking) }}">
+                                        <x-adminlte-button class="btn-xs" label="Lihat" theme="secondary"
+                                            icon="fas fa-user-md" />
+                                    </a>
+                                @else
+                                    <a href="{{ route('pemeriksaan.dokter.rajal.proses', $item->kodebooking) }}">
+                                        <x-adminlte-button class="btn-xs" label="Proses" theme="success"
+                                            icon="fas fa-user-md" />
+                                    </a>
+                                @endif
                             </td>
                             <td>
                                 @switch($item->taskid)
