@@ -29,6 +29,7 @@ class PasienForm extends Component
         ]);
         if ($this->id) {
             $pasien = Pasien::find($this->id);
+            $pasien->norm = $this->norm;
         } else {
             $pasien = new Pasien();
             $pasiensebelumnya  = Pasien::latest()->first()?->norm;
