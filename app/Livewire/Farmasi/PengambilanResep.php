@@ -35,7 +35,7 @@ class PengambilanResep extends Component
     }
     public function refreshComponent()
     {
-        $this->antrianresep = Antrian::where('taskid', 5)->first();
+        $this->antrianresep = Antrian::where('taskid', 5)->where('status', 0)->first();
         if ($this->antrianresep) {
             $this->playAudio = true;
             $this->dispatch('play-audio');
