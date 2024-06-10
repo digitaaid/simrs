@@ -132,6 +132,15 @@
                         </div>
                     </x-slot>
                 </x-adminlte-input>
+                <x-adminlte-input name="bmi" label="Index BMI" fgroup-class="row"
+                    label-class="text-left col-5" igroup-size="sm" igroup-class="col-7" igroup-size="sm" readonly
+                    wire:model="bmi">
+                    <x-slot name="appendSlot">
+                        <div class="input-group-text bg-secondary">
+                            m/kg
+                        </div>
+                    </x-slot>
+                </x-adminlte-input>
             </div>
         </div>
         <x-adminlte-select name="tingkat_kesadaran" label="Tingkat Kesadaran" wire:model="tingkat_kesadaran">
@@ -197,6 +206,11 @@
             @if (flash()->message)
                 <div class="text-{{ flash()->class }}" wire:loading.remove>
                     Loading Result : {{ flash()->message }}
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="text-danger">
+                    Loading Result : {{ $errors->first() }}
                 </div>
             @endif
         </x-slot>

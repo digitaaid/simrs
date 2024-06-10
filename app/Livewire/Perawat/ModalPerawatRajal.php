@@ -11,7 +11,7 @@ use Livewire\Component;
 class ModalPerawatRajal extends Component
 {
     public $antrian, $kodebooking, $antrian_id, $kodekunjungan, $kunjungan_id;
-    public $sumber_data, $pernah_berobat, $keluhan_utama, $riwayat_pengobatan, $riwayat_penyakit, $riwayat_alergi, $denyut_jantung, $pernapasan, $sistole, $distole, $suhu, $berat_badan, $tinggi_badan, $bsa, $tingkat_kesadaran, $pemeriksaan_fisik_perawat, $pemeriksaan_lab, $pemeriksaan_rad, $pemeriksaan_penunjang, $diagnosa_keperawatan, $rencana_keperawatan, $tindakan_keperawatan, $evaluasi_keperawatan;
+    public $sumber_data, $pernah_berobat, $keluhan_utama, $riwayat_pengobatan, $riwayat_penyakit, $riwayat_alergi, $denyut_jantung, $pernapasan, $sistole, $distole, $suhu, $berat_badan, $tinggi_badan, $bsa, $bmi, $tingkat_kesadaran, $pemeriksaan_fisik_perawat, $pemeriksaan_lab, $pemeriksaan_rad, $pemeriksaan_penunjang, $diagnosa_keperawatan, $rencana_keperawatan, $tindakan_keperawatan, $evaluasi_keperawatan;
     public $user_perawat;
     public $perawats = [];
     public function simpanAsesmen()
@@ -60,6 +60,7 @@ class ModalPerawatRajal extends Component
                 'berat_badan' => $this->berat_badan,
                 'tinggi_badan' => $this->tinggi_badan,
                 'bsa' => $this->bsa,
+                'bmi' => $this->bmi,
                 'tingkat_kesadaran' => $this->tingkat_kesadaran,
                 'pemeriksaan_fisik_perawat' => $this->pemeriksaan_fisik_perawat,
                 'pemeriksaan_lab' => $this->pemeriksaan_lab,
@@ -93,7 +94,9 @@ class ModalPerawatRajal extends Component
         $bb = $this->berat_badan ? $this->berat_badan : 0;
         $tb = $this->tinggi_badan ? $this->tinggi_badan : 0;
         $bsa = ($bb * $tb / 3600);
+        $bmi =  $bb / (($tb / 100) * ($tb / 100));
         $this->bsa = number_format($bsa, 2);
+        $this->bmi = number_format($bmi, 2);
     }
     public function mount(Antrian $antrian)
     {
@@ -121,6 +124,7 @@ class ModalPerawatRajal extends Component
         $this->berat_badan = $antrian->asesmenrajal?->berat_badan ?? $antrianlast?->asesmenrajal?->berat_badan;
         $this->tinggi_badan = $antrian->asesmenrajal?->tinggi_badan ?? $antrianlast?->asesmenrajal?->tinggi_badan;
         $this->bsa = $antrian->asesmenrajal?->bsa ?? $antrianlast?->asesmenrajal?->bsa;
+        $this->bmi = $antrian->asesmenrajal?->bmi ?? $antrianlast?->asesmenrajal?->bmi;
         $this->tingkat_kesadaran = $antrian->asesmenrajal?->tingkat_kesadaran ?? $antrianlast?->asesmenrajal?->tingkat_kesadaran;
         $this->pemeriksaan_fisik_perawat = $antrian->asesmenrajal?->pemeriksaan_fisik_perawat ?? $antrianlast?->asesmenrajal?->pemeriksaan_fisik_perawat;
         $this->pemeriksaan_lab = $antrian->asesmenrajal?->pemeriksaan_lab ?? $antrianlast?->asesmenrajal?->pemeriksaan_lab;

@@ -148,7 +148,6 @@ class AntrianController extends ApiController
     }
     public function update_jadwal_dokter()
     {
-        dd('lakukan update di hafis');
         $url = $this->api()->base_url . "ref/poli/fp";
         $signature = $this->signature();
         $response = Http::withHeaders($signature)->get($url);

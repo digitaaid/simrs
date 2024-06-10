@@ -51,6 +51,7 @@ return new class extends Migration
             $table->string('berat_badan')->nullable();
             $table->string('tinggi_badan')->nullable();
             $table->string('bsa')->nullable();
+            $table->string('bmi')->nullable();
             $table->string('tingkat_kesadaran')->nullable();
             $table->text('pemeriksaan_fisik_perawat')->nullable();
             // expertise

@@ -27,12 +27,13 @@
             <x-adminlte-card class="m-2" title="Pilih Jadwal Dokter {{ $jenispasien }}" theme="green"
                 icon="fas fa-user-md">
                 <div class="row">
-                    @forelse ($jadwals as $item)
-                        <x-adminlte-info-box wire:click='ambilantrian({{ $item->id }})'
-                            title="{{ $item->namapoli }}" text="{{ $item->namadokter }}" theme="success"
-                            class="col-md-4 m-1" icon-theme="dark" />
-                    @empty
-                    @endforelse
+                    @foreach ($jadwals as $item)
+                        <div class="col-md-4 ">
+                            <x-adminlte-info-box wire:click='ambilantrian({{ $item->id }})'
+                                title="{{ $item->namapoli }}" text="{{ $item->namadokter }}" theme="success" class="m-1"
+                                icon-theme="dark" />
+                        </div>
+                    @endforeach
                 </div>
                 <x-slot name="footerSlot">
                     <a wire:navigate href="{{ route('anjunganantrian.index') }}">
