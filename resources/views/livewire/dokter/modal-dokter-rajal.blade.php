@@ -343,6 +343,11 @@
                     Loading Result : {{ flash()->message }}
                 </div>
             @endif
+            @if ($errors->any())
+                <div class="text-danger">
+                    Loading Result : {{ $errors->first() }}
+                </div>
+            @endif
         </x-slot>
     </x-adminlte-card>
 </div>
