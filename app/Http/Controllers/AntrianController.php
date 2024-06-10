@@ -16,7 +16,8 @@ class AntrianController extends ApiController
 {
     public function displayantrian()
     {
-        return view('livewire.antrian.display-antrian');
+        $jadwals = JadwalDokter::where('hari', now()->dayOfWeek)->get();
+        return view('livewire.antrian.display-antrian', compact('jadwals'));
     }
     public function displaynomor()
     {

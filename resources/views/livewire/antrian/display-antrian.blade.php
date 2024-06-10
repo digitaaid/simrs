@@ -29,11 +29,11 @@
                     </header>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-header bg-blue">
-                        <div class="text-center">
-                            <h4>Antrian Pendaftaran</h4>
+                        <div class="text-center ">
+                            <h1>Antrian Pendaftaran</h1>
                         </div>
                     </div>
                     <div class="card-body">
@@ -44,7 +44,9 @@
                 </div>
                 <div class="card">
                     <div class="card-header bg-primary">
-                        <h3 class="card-title">Antrian Pendaftaran</h3>
+                        <h3>ANTRIAN PENDAFTARAN</h3>
+                        <h3>KLINIK UTAMA KITA SEHAT</h3>
+                        <h3>08:00 - 21:00</h3>
                     </div>
                     <div class="card-body p-0">
                         <table class="table" id="tablependaftaran">
@@ -70,136 +72,160 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
-                <div class="card">
-                    <div class="card-header bg-blue">
-                        <div class="text-center">
-                            <h4>Klinik Penyakit Dalam</h4>
+            <div class="col-md-4">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="card">
+                                <div class="card-header bg-blue">
+                                    <div class="text-center">
+                                        <h1>Klinik Penyakit Dalam</h1>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <h1><span id="poliklinik">-</span></h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header bg-primary">
+                                    <h3 class="card-title">Antrian Klinik Penyakit Dalam</h3>
+                                </div>
+                                <div class="card-body p-0">
+                                    <table class="table" id="tabledokter">
+                                        <tbody>
+                                            <tr>
+                                                <th>-</th>
+                                                <th>-</th>
+                                            </tr>
+                                            <tr>
+                                                <th>-</th>
+                                                <th>-</th>
+                                            </tr>
+                                            <tr>
+                                                <th>-</th>
+                                                <th>-</th>
+                                            </tr>
+                                            <tr>
+                                                <th>-</th>
+                                                <th>-</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <h1><span id="poliklinik">-</span></h1>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <div class="card-header bg-blue">
+                                    <div class="text-center">
+                                        <h1>Antrian Farmasi</h1>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <h1><span id="poliklinik">-</span></h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header bg-primary">
+                                    <h3>ANTRIAN FARMASI</h3>
+                                    <h3>KLINIK UTAMA KITA SEHAT</h3>
+                                    <h3>08:00 - 21:00</h3>
+                                </div>
+                                <div class="card-body p-0">
+                                    <table class="table" id="tabledokter">
+                                        <tbody>
+                                            <tr>
+                                                <th>-</th>
+                                                <th>-</th>
+                                            </tr>
+                                            <tr>
+                                                <th>-</th>
+                                                <th>-</th>
+                                            </tr>
+                                            <tr>
+                                                <th>-</th>
+                                                <th>-</th>
+                                            </tr>
+                                            <tr>
+                                                <th>-</th>
+                                                <th>-</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
+                        @foreach ($jadwals as $item)
+                            <div class="carousel-item">
+                                <div class="card">
+                                    <div class="card-header bg-blue">
+                                        <div class="text-center">
+                                            <h1>KLINIK {{ $item->namapoli }}</h1>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-center">
+                                            <h1><span id="poliklinik">-</span></h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header bg-primary">
+                                        <h3>KLINIK {{ $item->namapoli }}</h3>
+                                        <h3>{{ $item->namadokter }}</h3>
+                                        <h3>{{ $item->jampraktek }}</h3>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <table class="table" id="tabledokter">
+                                            <tbody>
+                                                <tr>
+                                                    <th>-</th>
+                                                    <th>-</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>-</th>
+                                                    <th>-</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>-</th>
+                                                    <th>-</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>-</th>
+                                                    <th>-</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-primary">
-                        <h3 class="card-title">Antrian Klinik Penyakit Dalam</h3>
-                    </div>
-                    <div class="card-body p-0">
-                        <table class="table" id="tabledokter">
-                            <tbody>
-                                <tr>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                                <tr>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                                <tr>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                                <tr>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="card">
-                    <div class="card-header bg-blue">
-                        <div class="text-center">
-                            <h4>Klinik Jantung</h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <h1><span id="poliklinik">-</span></h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-primary">
-                        <h3 class="card-title">Antrian Klinik Jantung</h3>
-                    </div>
-                    <div class="card-body p-0">
-                        <table class="table" id="tabledokter">
-                            <tbody>
-                                <tr>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                                <tr>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                                <tr>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                                <tr>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="card">
-                    <div class="card-header bg-blue">
-                        <div class="text-center">
-                            <h4>Antrian Farmasi</h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <h1><span id="poliklinik">-</span></h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-primary">
-                        <h3 class="card-title">Antrian Farmasi</h3>
-                    </div>
-                    <div class="card-body p-0">
-                        <table class="table" id="tabledokter">
-                            <tbody>
-                                <tr>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                                <tr>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                                <tr>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                                <tr>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
             </div>
             <div class="col-md-4">
                 <x-adminlte-card body-class="p-1">
-                    <iframe
+                    <video width="100%" height="100%" controls autoplay muted loop>
+                        <source src="{{ asset('bpjs/Video Sosialisasi Program Rehab 30sec.mp4') }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    {{-- <iframe
                         src="https://www.youtube-nocookie.com/embed/55DpUJWSjik?si=YhTDaLjH22Z3H-OH?rel=0&modestbranding=1&autohide=1&mute=1&showinfo=0&controls=1&autoplay=1&loop=1"
                         title="YouTube video player" frameborder="0" width="100%" height="450"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen onload='playVideo();'></iframe>
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen onload='playVideo();'></iframe> --}}
                 </x-adminlte-card>
                 {{-- <x-adminlte-card body-class="p-1">
                     <iframe
@@ -424,7 +450,7 @@
             } else if (angkaantrian == 10) {
                 $("#nomor0").attr("src",
                     "{{ route('landingpage') }}{{ env('APP_ENV') === 'production' ? '/public' : null }}/rekaman/sepuluh.mp3"
-                    );
+                );
                 setTimeout(function() {
                     document.getElementById('nomor0').pause();
                     document.getElementById('nomor0').currentTime = 0;
@@ -434,7 +460,7 @@
             } else if (angkaantrian == 11) {
                 $("#nomor0").attr("src",
                     "{{ route('landingpage') }}{{ env('APP_ENV') === 'production' ? '/public' : null }}/rekaman/sebelas.mp3"
-                    );
+                );
                 setTimeout(function() {
                     document.getElementById('nomor0').pause();
                     document.getElementById('nomor0').currentTime = 0;
