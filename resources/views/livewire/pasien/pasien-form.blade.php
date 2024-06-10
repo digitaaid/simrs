@@ -10,7 +10,7 @@
                 <input hidden wire:model="id" name="id">
                 <div class="col-md-4">
                     <x-adminlte-input wire:model="norm" fgroup-class="row" label-class="text-left col-4"
-                        igroup-class="col-8" igroup-size="sm" name="norm" label="No RM" readonly />
+                        igroup-class="col-8" igroup-size="sm" name="norm" label="No RM" />
                     <x-adminlte-input wire:model="nama" fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" name="nama" label="Nama" />
                     <x-adminlte-input wire:model="nik" fgroup-class="row" label-class="text-left col-4"
