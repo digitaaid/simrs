@@ -33,20 +33,20 @@
                 <div class="card">
                     <div class="card-header bg-blue">
                         <div class="text-center ">
-                            <h1>Antrian Pendaftaran</h1>
+                            <h4>ANTRIAN PENDAFTARAN</h4>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="text-center">
-                            <h1><span id="pendaftaran">-</span></h1>
+                            <h1><span id="pendaftaranhuruf"></span><span id="pendaftaran">-</span></h1>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-header bg-primary">
-                        <h3>ANTRIAN PENDAFTARAN</h3>
-                        <h3>KLINIK UTAMA KITA SEHAT</h3>
-                        <h3>08:00 - 21:00</h3>
+                        <h4>ANTRIAN PENDAFTARAN</h4>
+                        <h4>KLINIK UTAMA KITA SEHAT</h4>
+                        <h4>08:00 - 21:00</h4>
                     </div>
                     <div class="card-body p-0">
                         <table class="table" id="tablependaftaran">
@@ -73,13 +73,61 @@
                 </div>
             </div>
             <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-blue">
+                        <div class="text-center">
+                            <h4>ANTRIAN DOKTER KLINIK</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h1><span id="poliklinikhuruf"></span><span id="poliklinik">-</span> </h1>
+                            <h2><span id="poliklinikdokter"></span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h4>DOKTER KLINIK</h4>
+                        <h4>KLINIK UTAMA KITA SEHAT</h4>
+                        <h4>08:00 - 21:00</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table" id="tabledokter">
+                            <tbody>
+                                <tr>
+                                    <th>-</th>
+                                    <th>-</th>
+                                    <th>-</th>
+                                </tr>
+                                <tr>
+                                    <th>-</th>
+                                    <th>-</th>
+                                    <th>-</th>
+                                </tr>
+                                <tr>
+                                    <th>-</th>
+                                    <th>-</th>
+                                    <th>-</th>
+                                </tr>
+                                <tr>
+                                    <th>-</th>
+                                    <th>-</th>
+                                    <th>-</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {{-- <div class="col-md-4">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="card">
                                 <div class="card-header bg-blue">
                                     <div class="text-center">
-                                        <h1>Klinik Penyakit Dalam</h1>
+                                        <h4>DOKTER KLINIK</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -90,7 +138,9 @@
                             </div>
                             <div class="card">
                                 <div class="card-header bg-primary">
-                                    <h3 class="card-title">Antrian Klinik Penyakit Dalam</h3>
+                                    <h4>DOKTER KLINIK</h4>
+                                    <h4>KLINIK UTAMA KITA SEHAT</h4>
+                                    <h4>08:00 - 21:00</h4>
                                 </div>
                                 <div class="card-body p-0">
                                     <table class="table" id="tabledokter">
@@ -120,7 +170,7 @@
                             <div class="card">
                                 <div class="card-header bg-blue">
                                     <div class="text-center">
-                                        <h1>Antrian Farmasi</h1>
+                                        <h4>Antrian Farmasi</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -131,9 +181,9 @@
                             </div>
                             <div class="card">
                                 <div class="card-header bg-primary">
-                                    <h3>ANTRIAN FARMASI</h3>
-                                    <h3>KLINIK UTAMA KITA SEHAT</h3>
-                                    <h3>08:00 - 21:00</h3>
+                                    <h4>ANTRIAN FARMASI</h4>
+                                    <h4>KLINIK UTAMA KITA SEHAT</h4>
+                                    <h4>08:00 - 21:00</h4>
                                 </div>
                                 <div class="card-body p-0">
                                     <table class="table" id="tabledokter">
@@ -164,7 +214,7 @@
                                 <div class="card">
                                     <div class="card-header bg-blue">
                                         <div class="text-center">
-                                            <h1>KLINIK {{ $item->namapoli }}</h1>
+                                            <h4>KLINIK {{ $item->namapoli }}</h4>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -175,9 +225,9 @@
                                 </div>
                                 <div class="card">
                                     <div class="card-header bg-primary">
-                                        <h3>KLINIK {{ $item->namapoli }}</h3>
-                                        <h3>{{ $item->namadokter }}</h3>
-                                        <h3>{{ $item->jampraktek }}</h3>
+                                        <h4>KLINIK {{ $item->namapoli }}</h4>
+                                        <h4>{{ $item->namadokter }}</h4>
+                                        <h4>{{ $item->jampraktek }}</h4>
                                     </div>
                                     <div class="card-body p-0">
                                         <table class="table" id="tabledokter">
@@ -214,7 +264,7 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
-            </div>
+            </div> --}}
             <div class="col-md-4">
                 <x-adminlte-card body-class="p-1">
                     <video width="100%" height="100%" controls autoplay muted loop>
@@ -273,13 +323,11 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                            data-slide="prev">
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                         </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                            data-slide="next">
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                         </a>
@@ -292,8 +340,9 @@
     <audio id="panggilannomorantrian" src="{{ asset('rekaman/panggilannomorantrian.mp3') }}"></audio>
     <audio id="diloketpendaftaran" src="{{ asset('rekaman/diloketpendaftaran.mp3') }}"></audio>
     <audio id="dipoliklinik" src="{{ asset('rekaman/dipoliklinik.mp3') }}"></audio>
-    <audio id="poliklinik" src="{{ asset('rekaman/poliklinik/008.mp3') }}"></audio>
     <audio id="difarmasi" src="{{ asset('rekaman/difarmasi.mp3') }}"></audio>
+    <audio id="suarapoli" src=""></audio>
+    <audio id="huruf" src=""></audio>
     <audio id="nomor0" src=""></audio>
     <audio id="nomor1" src=""></audio>
     <audio id="belas" src="{{ asset('rekaman/belas.mp3') }}"></audio>
@@ -322,18 +371,13 @@
                 dataType: 'json',
                 success: function(data) {
                     $('#pendaftaran').html(data.response.pendaftaran);
+                    $('#pendaftaranhuruf').html(data.response.pendaftaranhuruf);
                     $('#tablependaftaran').empty()
-                    var x = 0;
                     $.each(data.response.pendaftaranselanjutnya, function(i, val) {
-                        if (x < 5) {
-                            $('#tablependaftaran').append('<tr><th>' + i + '</th><th>  ' + val +
-                                ' </th></tr>');
-                            x++;
-                        }
+                        $('#tablependaftaran').append('<tr><th><h3>' + i +
+                            '</h3></th><th><h3>' + val +
+                            '</h3></th></tr>');
                     });
-                    for (let index = x; index < 5; index++) {
-                        $('#tablependaftaran').append('<tr><th>-</th><th>-</th></tr>');
-                    }
                     if (data.response.pendaftaranstatus == 0) {
                         var url = "{{ route('updatenomorantrean') }}?kodebooking=" + data.response
                             .pendaftarankodebooking;
@@ -342,23 +386,21 @@
                             type: "GET",
                             dataType: 'json',
                             success: function(res) {
-                                panggilpendaftaran(data.response.pendaftaran);
+                                panggilpendaftaran(data.response.pendaftaran, data.response
+                                    .pendaftaranhuruf);
                             },
                         });
                     }
                     $('#poliklinik').html(data.response.poliklinik);
+                    $('#poliklinikhuruf').html(data.response.poliklinikhuruf);
+                    $('#poliklinikdokter').html(data.response.polikliniknama);
                     $('#tabledokter').empty()
-                    var x = 0;
                     $.each(data.response.poliklinikselanjutnya, function(i, val) {
-                        if (x < 5) {
-                            $('#tabledokter').append('<tr><th>' + i + '</th><th>  ' + val +
-                                ' </th></tr>');
-                            x++;
-                        }
+                        $('#tabledokter').append('<tr><th><h3>' + val['nomorantrean'] +
+                            '</h3></th><th><h3>' +
+                            val['nama'] +
+                            '</h3></th><th><h3>' + val['namapoli'] + '</h3></th></tr>');
                     });
-                    for (let index = x; index < 5; index++) {
-                        $('#tabledokter').append('<tr><th>-</th><th>-</th></tr>');
-                    }
                     if (data.response.poliklinikstatus == 0) {
                         var url = "{{ route('updatenomorantrean') }}?kodebooking=" + data.response
                             .poliklinikkodebooking;
@@ -367,7 +409,8 @@
                             type: "GET",
                             dataType: 'json',
                             success: function(res) {
-                                panggilpoliklinik(data.response.poliklinik);
+                                panggilpoliklinik(data.response.poliklinik, data.response
+                                    .poliklinikhuruf, data.response.poliklinikkode);
                             },
                         });
                     }
@@ -379,7 +422,7 @@
         }, 3000);
     </script>
     <script>
-        function panggilpendaftaran(angkaantrian) {
+        function panggilpendaftaran(angkaantrian, hurufantrian) {
             document.getElementById('suarabel').pause();
             document.getElementById('suarabel').currentTime = 0;
             document.getElementById('suarabel').play();
@@ -390,6 +433,7 @@
                 document.getElementById('panggilannomorantrian').play();
             }, totalwaktu);
             totalwaktu = totalwaktu + 2500;
+            panggilhuruf(hurufantrian);
             panggilangka(angkaantrian);
             setTimeout(function() {
                 document.getElementById('diloketpendaftaran').pause();
@@ -398,7 +442,7 @@
             }, totalwaktu);
         }
 
-        function panggilpoliklinik(angkaantrian) {
+        function panggilpoliklinik(angkaantrian, hurufantrian, poliklinik) {
             document.getElementById('suarabel').pause();
             document.getElementById('suarabel').currentTime = 0;
             document.getElementById('suarabel').play();
@@ -409,12 +453,14 @@
                 document.getElementById('panggilannomorantrian').play();
             }, totalwaktu);
             totalwaktu = totalwaktu + 2500;
+            panggilhuruf(hurufantrian);
             panggilangka(angkaantrian);
-            setTimeout(function() {
-                document.getElementById('dipoliklinik').pause();
-                document.getElementById('dipoliklinik').currentTime = 0;
-                document.getElementById('dipoliklinik').play();
-            }, totalwaktu);
+            panggilklinik(poliklinik);
+            // setTimeout(function() {
+            //     document.getElementById('dipoliklinik').pause();
+            //     document.getElementById('dipoliklinik').currentTime = 0;
+            //     document.getElementById('dipoliklinik').play();
+            // }, totalwaktu);
         }
 
         function panggilfarmasi(angkaantrian) {
@@ -515,6 +561,30 @@
                     totalwaktu = totalwaktu + 1000;
                 }
             }
+        }
+
+        function panggilhuruf(hurufantrian) {
+            $("#huruf").attr("src",
+                "{{ route('landingpage') }}{{ env('APP_ENV') === 'production' ? '/public' : null }}/rekaman/huruf/" +
+                hurufantrian + ".mp3");
+            setTimeout(function() {
+                document.getElementById('huruf').pause();
+                document.getElementById('huruf').currentTime = 0;
+                document.getElementById('huruf').play();
+            }, totalwaktu);
+            totalwaktu = totalwaktu + 1000;
+        }
+
+        function panggilklinik(poliklinik) {
+            $("#suarapoli").attr("src",
+                "{{ route('landingpage') }}{{ env('APP_ENV') === 'production' ? '/public' : null }}/rekaman/poliklinik/" +
+                poliklinik + ".mp3");
+            setTimeout(function() {
+                document.getElementById('suarapoli').pause();
+                document.getElementById('suarapoli').currentTime = 0;
+                document.getElementById('suarapoli').play();
+            }, totalwaktu);
+            totalwaktu = totalwaktu + 1000;
         }
     </script>
 @stop

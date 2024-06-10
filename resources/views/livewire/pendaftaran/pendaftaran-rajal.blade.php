@@ -65,6 +65,7 @@
             @php
                 $heads = [
                     'No',
+                    'Nomor',
                     'Kodebooking',
                     'No RM',
                     'Nama Pasien',
@@ -89,6 +90,7 @@
                     @foreach ($antrians as $item)
                         <tr>
                             <td>{{ $item->angkaantrean }}</td>
+                            <td>{{ $item->nomorantrean }}</td>
                             <td>{{ $item->kodebooking }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>

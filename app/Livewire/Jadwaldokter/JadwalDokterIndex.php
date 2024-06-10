@@ -16,7 +16,7 @@ class JadwalDokterIndex extends Component
 {
     use WithPagination;
     use WithFileUploads;
-    public $id, $hari, $dokter, $unit, $jampraktek, $mulai, $selesai, $kapasitas;
+    public $id, $hari, $dokter, $unit, $jampraktek, $mulai, $selesai, $kapasitas, $huruf;
     public JadwalDokter $jadwal;
     public $form = false;
     public $formImport = false;
@@ -54,6 +54,7 @@ class JadwalDokterIndex extends Component
         $this->mulai = explode('-', $jadwal->jampraktek)[0];
         $this->selesai = explode('-', $jadwal->jampraktek)[1];
         $this->kapasitas = $jadwal->kapasitas;
+        $this->huruf = $jadwal->huruf;
         $this->form = true;
     }
     public function store()
@@ -80,6 +81,7 @@ class JadwalDokterIndex extends Component
                 'namasubspesialis' => $this->units[$this->unit],
                 'namadokter' => $this->dokters[$this->dokter],
                 'kapasitas' => $this->kapasitas,
+                'huruf' => $this->huruf,
                 'user' => auth()->user()->id,
                 'pic' => auth()->user()->name,
             ]
@@ -120,7 +122,7 @@ class JadwalDokterIndex extends Component
     public function formJadwal()
     {
         $this->form =  $this->form ? false : true;
-        $this->reset(['id', 'hari', 'dokter', 'unit', 'mulai', 'selesai', 'kapasitas']);
+        $this->reset(['id', 'hari', 'dokter', 'unit', 'mulai', 'selesai', 'kapasitas','huruf']);
     }
     public $search = '';
     public $sortBy = 'hari';

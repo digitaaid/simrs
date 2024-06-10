@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('namadokter');
             $table->string('jampraktek');
             $table->string('kapasitas');
+            $table->string('huruf');
             $table->boolean('libur')->default(0);
             $table->string('user');
             $table->string('pic');
