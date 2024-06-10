@@ -45,7 +45,7 @@
                 <div class="card">
                     <div class="card-header bg-primary">
                         <h4>ANTRIAN PENDAFTARAN</h4>
-                        <h4>KLINIK UTAMA KITA SEHAT</h4>
+                        <h4>{{ strtoupper(env('APP_NAME')) }}</h4>
                         <h4>08:00 - 21:00</h4>
                     </div>
                     <div class="card-body p-0">
@@ -89,7 +89,7 @@
                 <div class="card">
                     <div class="card-header bg-primary">
                         <h4>DOKTER KLINIK</h4>
-                        <h4>KLINIK UTAMA KITA SEHAT</h4>
+                        <h4>{{ strtoupper(env('APP_NAME')) }}</h4>
                         <h4>08:00 - 21:00</h4>
                     </div>
                     <div class="card-body p-0">
@@ -139,7 +139,7 @@
                             <div class="card">
                                 <div class="card-header bg-primary">
                                     <h4>DOKTER KLINIK</h4>
-                                    <h4>KLINIK UTAMA KITA SEHAT</h4>
+                                    <h4>{{ strtoupper(env('APP_NAME')) }}</h4>
                                     <h4>08:00 - 21:00</h4>
                                 </div>
                                 <div class="card-body p-0">
@@ -182,7 +182,7 @@
                             <div class="card">
                                 <div class="card-header bg-primary">
                                     <h4>ANTRIAN FARMASI</h4>
-                                    <h4>KLINIK UTAMA KITA SEHAT</h4>
+                                    <h4>{{ strtoupper(env('APP_NAME')) }}</h4>
                                     <h4>08:00 - 21:00</h4>
                                 </div>
                                 <div class="card-body p-0">
