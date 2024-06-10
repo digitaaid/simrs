@@ -101,6 +101,14 @@
         </div>
     @endif
     <div class="col-md-12">
+        <div wire:poll.4000ms="refreshComponent">
+            @if ($antrianresep)
+                <x-adminlte-alert theme="warning" title="Perhatian !" dismissable>
+                    Terdapat antrian resep atas nama pasien {{ $antrianresep->nama }} dengan nomor antrian
+                    {{ $antrianresep->nomorantrean }} tanggal {{ $antrianresep->tanggalperiksa }} yang belum diproses
+                </x-adminlte-alert>
+            @endif
+        </div>
         <x-adminlte-card title="Table Pengambilan Resep Obat" theme="secondary">
             <div class="row">
                 <div class="col-md-4">
@@ -245,4 +253,18 @@
             </x-adminlte-datatable>
         </x-adminlte-card>
     </div>
+    <audio id="myAudio" autoplay>
+        <source src="{{ asset('rekaman/Airport_Bell.mp3') }}" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    @push('js')
+        <script>
+            document.addEventListener('livewire:init', () => {
+                Livewire.on('play-audio', (event) => {
+                    $('#myAudio').trigger('play');
+                    console.log('Playing audio addEventListener');
+                });
+            });
+        </script>
+    @endpush
 </div>
