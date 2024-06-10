@@ -189,6 +189,6 @@ class PasienForm extends Component
     public function render()
     {
         $pasien = Pasien::firstWhere('norm', $this->norm);
-        return view('livewire.pasien.pasien-form')->title('Pasien ' . $pasien->nama);
+        return view('livewire.pasien.pasien-form')->title('Pasien ' . ($pasien ?  $pasien->nama : 'Baru'));
     }
 }
