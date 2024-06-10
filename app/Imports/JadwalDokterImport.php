@@ -27,6 +27,7 @@ class JadwalDokterImport implements ToCollection, WithHeadingRow
                         'namasubspesialis' => $row['namasubspesialis'],
                         'namadokter' => $row['namadokter'],
                         'kapasitas' => $row['kapasitas'],
+                        'huruf' => $row['huruf'] ?? "X",
                         'libur' => $row['libur'] ?? 0,
                         'user' => $row['user'] ?? auth()->user()->id,
                         'pic' => $row['pic'] ?? auth()->user()->name,

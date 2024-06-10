@@ -25,18 +25,18 @@ class AntrianController extends ApiController
         $antrianpendaftaran = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('taskid', 2)->orderBy('updated_at', 'desc')->first();
         $antriandokter = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('taskid', 4)->orderBy('updated_at', 'desc')->first();
         $data = [
-            "pendaftaran" => substr($antrianpendaftaran->nomorantrean, 1) ?? "-",
-            "pendaftaranhuruf" => substr($antrianpendaftaran->nomorantrean, 0, 1)  ?? "-",
-            "pendaftarankodebooking" => $antrianpendaftaran->kodebooking ?? "-",
-            "pendaftaranstatus" => $antrianpendaftaran->panggil ?? "-",
+            "pendaftaran" => $antrianpendaftaran ?  substr($antrianpendaftaran->nomorantrean, 1) : "-",
+            "pendaftaranhuruf" =>  $antrianpendaftaran ? substr($antrianpendaftaran->nomorantrean, 0, 1)  : "-",
+            "pendaftarankodebooking" =>  $antrianpendaftaran ? $antrianpendaftaran->kodebooking : "-",
+            "pendaftaranstatus" =>  $antrianpendaftaran ? $antrianpendaftaran->panggil : "-",
             "pendaftaranselanjutnya" => $antrian->where('taskid', 1)->pluck('kodebooking', 'nomorantrean'),
 
-            "poliklinik" =>  substr($antriandokter->nomorantrean, 1) ?? "-",
-            "poliklinikhuruf" => substr($antriandokter->nomorantrean, 0, 1) ?? "-",
-            "poliklinikkode" => $antriandokter->kodepoli ?? "-",
-            "polikliniknama" => $antriandokter->namapoli ?? "-",
-            "poliklinikkodebooking" => $antriandokter->kodebooking ?? "-",
-            "poliklinikstatus" => $antriandokter->panggil ?? "-",
+            "poliklinik" => $antriandokter ? substr($antriandokter->nomorantrean, 1) : "-",
+            "poliklinikhuruf" => $antriandokter ? substr($antriandokter->nomorantrean, 0, 1) : "-",
+            "poliklinikkode" => $antriandokter ?  $antriandokter->kodepoli : "-",
+            "polikliniknama" => $antriandokter ?  $antriandokter->namapoli : "-",
+            "poliklinikkodebooking" => $antriandokter ?  $antriandokter->kodebooking : "-",
+            "poliklinikstatus" => $antriandokter ?  $antriandokter->panggil : "-",
             "poliklinikselanjutnya" => $antrian->where('taskid', 3),
 
             // "farmasi" => $antrian->where('taskid', 7)->first()->angkaantrean ?? "-",
