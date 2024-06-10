@@ -54,6 +54,7 @@
                         <th>Dokter</th>
                         <th>Unit</th>
                         <th>Action</th>
+                        <th>Huruf</th>
                         <th>Jampraktek</th>
                         <th>Kapasitas</th>
                         <th>Libur</th>
@@ -78,6 +79,7 @@
                                     wire:click="libur({{ $item }})"
                                     wire:confirm="Apakah anda yakin ingin meliburkan jadwal ?" theme="danger" />
                             </td>
+                            <td>{{ $item->huruf }}</td>
                             <td>{{ $item->jampraktek }}</td>
                             <td>{{ $item->kapasitas }}</td>
                             <td>

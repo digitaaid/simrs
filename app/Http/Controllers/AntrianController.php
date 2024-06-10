@@ -16,20 +16,29 @@ class AntrianController extends ApiController
 {
     public function displayantrian()
     {
-        return view('livewire.antrian.display-antrian');
+        $jadwals = JadwalDokter::where('hari', now()->dayOfWeek)->get();
+        return view('livewire.antrian.display-antrian', compact('jadwals'));
     }
     public function displaynomor()
     {
-        $antrian = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('kodepoli', '!=', 'FAR')->orderBy('updated_at', 'desc')->get();
+        $antrian = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('kodepoli', '!=', 'FAR')->get(['kodebooking', 'nomorantrean', 'taskid', 'nama', 'namapoli', 'kodepoli']);
+        $antrianpendaftaran = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('taskid', 2)->orderBy('updated_at', 'desc')->first();
+        $antriandokter = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('taskid', 4)->orderBy('updated_at', 'desc')->first();
         $data = [
-            "pendaftaran" => $antrian->where('taskid', 2)->first()->angkaantrean ?? "-",
-            "pendaftarankodebooking" => $antrian->where('taskid', 2)->first()->kodebooking ?? "-",
-            "pendaftaranstatus" => $antrian->where('taskid', 2)->first()->panggil ?? "-",
+            "pendaftaran" => substr($antrianpendaftaran->nomorantrean, 1) ?? "-",
+            "pendaftaranhuruf" => substr($antrianpendaftaran->nomorantrean, 0, 1)  ?? "-",
+            "pendaftarankodebooking" => $antrianpendaftaran->kodebooking ?? "-",
+            "pendaftaranstatus" => $antrianpendaftaran->panggil ?? "-",
             "pendaftaranselanjutnya" => $antrian->where('taskid', 1)->pluck('kodebooking', 'nomorantrean'),
-            "poliklinik" => $antrian->where('taskid', 4)->first()->angkaantrean ?? "-",
-            "poliklinikkodebooking" => $antrian->where('taskid', 4)->first()->kodebooking ?? "-",
-            "poliklinikstatus" => $antrian->where('taskid', 4)->first()->panggil ?? "-",
-            "poliklinikselanjutnya" => $antrian->where('taskid', 3)->pluck('kodebooking', 'nomorantrean',),
+
+            "poliklinik" =>  substr($antriandokter->nomorantrean, 1) ?? "-",
+            "poliklinikhuruf" => substr($antriandokter->nomorantrean, 0, 1) ?? "-",
+            "poliklinikkode" => $antriandokter->kodepoli ?? "-",
+            "polikliniknama" => $antriandokter->namapoli ?? "-",
+            "poliklinikkodebooking" => $antriandokter->kodebooking ?? "-",
+            "poliklinikstatus" => $antriandokter->panggil ?? "-",
+            "poliklinikselanjutnya" => $antrian->where('taskid', 3),
+
             // "farmasi" => $antrian->where('taskid', 7)->first()->angkaantrean ?? "-",
             // "farmasistatus" => $antrian->where('taskid', 7)->first()->panggil ?? "-",
             // "farmasikodebooking" => $antrian->where('taskid', 7)->first()->kodebooking ?? "-",

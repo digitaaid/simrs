@@ -14,7 +14,7 @@ class PasienImport implements ToCollection, WithHeadingRow
     {
         foreach ($rows as $row) {
             if ($row['nama']) {
-                Pasien::updateOrCreate(
+                $pasien  = Pasien::updateOrCreate(
                     [
                         'norm' => strtoupper(sprintf("%06d", $row['norm'])),
                     ],
@@ -23,7 +23,7 @@ class PasienImport implements ToCollection, WithHeadingRow
                         'nomorkartu' => sprintf("%013d", $row['nomorkartu']),
                         'nik' => sprintf("%016d", $row['nik']),
                         'idpatient' => $row['idpatient'] ?? null,
-                        'nohp' => $row['nohp'],
+                        'nohp' => sprintf("%012d", $row['nohp']),
                         'gender' => $row['gender'],
                         'tempat_lahir' => $row['tempat_lahir'],
                         'tgl_lahir' => now()->format('Y-m-d'),

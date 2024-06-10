@@ -14,6 +14,8 @@ use Livewire\Component;
 class PengambilanResep extends Component
 {
     public $tanggalperiksa;
+    public $antrianresep;
+    public $playAudio = false;
     public $antrians;
     public $antrianedit;
     public $formEdit = false;
@@ -30,6 +32,16 @@ class PengambilanResep extends Component
     public function addObat()
     {
         $this->resepObat[] = ['obat' => '', 'jumlahobat' => '', 'frekuensiobat' => '', 'waktuobat' => '', 'keterangan' => ''];
+    }
+    public function refreshComponent()
+    {
+        $this->antrianresep = Antrian::where('taskid', 5)->first();
+        if ($this->antrianresep) {
+            $this->playAudio = true;
+            $this->dispatch('play-audio');
+        } else {
+            $this->playAudio = false;
+        }
     }
     public function removeObat($index)
     {
