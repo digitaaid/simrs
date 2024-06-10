@@ -164,6 +164,7 @@ class PasienForm extends Component
         $pasien = Pasien::firstWhere('norm', $this->norm);
         if ($pasien) {
             $this->id = $pasien->id;
+            $this->norm = $pasien->norm;
             $this->nama = $pasien->nama;
             $this->nomorkartu = $pasien->nomorkartu;
             $this->nik = $pasien->nik;
