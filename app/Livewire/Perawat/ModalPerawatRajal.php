@@ -94,9 +94,9 @@ class ModalPerawatRajal extends Component
         $bb = $this->berat_badan ? $this->berat_badan : 0;
         $tb = $this->tinggi_badan ? $this->tinggi_badan : 0;
         $bsa = ($bb * $tb / 3600);
-        $bmi =  $bb / (($tb / 100) * ($tb / 100));
-        $this->bsa = number_format($bsa, 2);
-        $this->bmi = number_format($bmi, 2);
+        $bmi =  $bb / (($tb / 100) * ($tb / 100)) ?? 0;
+        $this->bsa = number_format($bsa, 2) ?? 0;
+        $this->bmi = number_format($bmi, 2) ?? 0;
     }
     public function mount(Antrian $antrian)
     {
