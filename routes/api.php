@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AntrianController;
+use App\Http\Controllers\VclaimController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -63,3 +64,9 @@ Route::prefix('antrian')->group(function () {
     Route::post('statusantreanfarmasi', [AntrianController::class, 'status_antrian_farmasi'])->name('statusantreanfarmasi');
 });
 
+
+Route::prefix('vclaim')->group(function () {
+    Route::get('rujukan_nomor', [VclaimController::class, 'rujukan_nomor'])->name('rujukan_nomor');
+    Route::get('rujukan_peserta', [VclaimController::class, 'rujukan_peserta'])->name('rujukan_peserta');
+
+});

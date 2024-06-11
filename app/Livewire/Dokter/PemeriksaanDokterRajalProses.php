@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Dokter;
 
+use App\Http\Controllers\AntrianController;
 use App\Models\Antrian;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,6 +25,15 @@ class PemeriksaanDokterRajalProses extends Component
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 4) {
+            if (env('ANTRIAN_REALTIME')) {
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => now(),
+                    'taskid' => 4,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+            }
             $antrian->taskid = 4;
             $antrian->taskid4 = now();
             $antrian->panggil = 0;
@@ -38,6 +49,15 @@ class PemeriksaanDokterRajalProses extends Component
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 4) {
+            if (env('ANTRIAN_REALTIME')) {
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => now(),
+                    'taskid' => 5,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+            }
             $antrian->taskid = 5;
             $antrian->taskid5 = now();
             $antrian->panggil = 1;
@@ -55,6 +75,15 @@ class PemeriksaanDokterRajalProses extends Component
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 4) {
+            if (env('ANTRIAN_REALTIME')) {
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => now(),
+                    'taskid' => 5,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+            }
             $antrian->taskid = 5;
             $antrian->taskid5 = now();
             $antrian->panggil = 0;

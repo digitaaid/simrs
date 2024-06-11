@@ -61,7 +61,11 @@ class PasienForm extends Component
         $pasien->user = Auth::user()->id;
         $pasien->pic = Auth::user()->name;
         $pasien->updated_at = now();
-        $pasien->save();
+        if ($this->id) {
+            $pasien->save();
+        } else {
+            $pasien->update();
+        }
         flash('Pasien ' . $pasien->name . ' saved successfully', 'success');
         return redirect()->to('/pasien');
     }
