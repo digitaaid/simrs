@@ -4,6 +4,7 @@ use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\FarmasiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SepController;
 use App\Http\Controllers\SuratKontrolController;
 use App\Livewire\Antrian\AnjunganAntrian;
@@ -159,4 +160,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('farmasi/print_gelang', [FarmasiController::class, 'print_gelang'])->name('print.gelang');
     // rekam medis
     Route::get('rekammedis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
+    Route::get('resumerajal/{kodebooking}',  [RekamMedisController::class, 'resumerajal'])->name('resume.rajal');
 });
