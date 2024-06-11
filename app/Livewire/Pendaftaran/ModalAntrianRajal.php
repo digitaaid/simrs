@@ -92,6 +92,9 @@ class ModalAntrianRajal extends Component
         ]);
         $pasien = Pasien::where('norm', $this->norm)->first();
         $pasien->nohp = $this->nohp;
+        $pasien->nomorkartu = $this->nomorkartu;
+        $pasien->nik = $this->nik;
+        $pasien->nama = $this->nama;
         $pasien->update();
         // status antrean
         $api = new AntrianController();

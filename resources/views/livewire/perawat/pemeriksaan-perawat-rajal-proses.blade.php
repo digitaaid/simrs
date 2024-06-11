@@ -21,7 +21,7 @@
                     <x-adminlte-button class="btn-xs mb-2" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
                 </a>
                 <x-adminlte-button wire:click='selesaiPerawat'
-                    wire:confirm='Apakah anda yakin telah selesai pemeriksaan perawat ?' class="btn-xs"
+                    wire:confirm='Apakah anda yakin telah selesai pemeriksaan perawat ?' class="btn-xs mb-2"
                     label="Selesai & Kembali" theme="success" icon="fas fa-check" />
                 <div wire:loading>
                     <div class="spinner-border spinner-border-sm text-primary" role="status">
