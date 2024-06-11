@@ -22,7 +22,7 @@ class ModalCppt extends Component
     }
     public function render()
     {
-        $kunjungans  = [];
+        $kunjungans = null;
         if ($this->pasien) {
             $kunjungans = Kunjungan::where('norm', $this->pasien->norm)
                 ->where('status', 1)
