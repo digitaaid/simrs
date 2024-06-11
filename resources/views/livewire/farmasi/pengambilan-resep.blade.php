@@ -25,7 +25,7 @@
         </div>
     @endif
     @if ($formEdit)
-        <div class="col-md-12">
+        <div id="editresep" class="col-md-12">
             <x-adminlte-card title="Resep Obat {{ $antrianedit->nama }}" theme="primary">
                 <h6>Resep Obat</h6>
                 @foreach ($resepObat as $index => $obat)
@@ -143,6 +143,7 @@
             @php
                 $heads = [
                     'No',
+                    'Antrian',
                     'No RM',
                     'Nama Pasien',
                     'Action',
@@ -168,6 +169,7 @@
                     @foreach ($antrians as $item)
                         <tr wire:key='{{ $item->id }}'>
                             <td>{{ $item->angkaantrean }}</td>
+                            <td>{{ $item->nomorantrean }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
@@ -176,8 +178,10 @@
                                         label="Terima Resep" theme="success" icon="fas fa-user-nurse" />
                                 @endif
                                 @if ($item->taskid == 6)
-                                    <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
-                                        theme="warning" icon="fas fa-edit" label="Edit" />
+                                    <a href="#editresep">
+                                        <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
+                                            theme="warning" icon="fas fa-edit" label="Edit" />
+                                    </a>
                                     <x-adminlte-button wire:confirm='Apakah anda yakin pasien telah mendapatkan obat ?'
                                         wire:click='selesai({{ $item }})' class="btn-xs" label="Selesai"
                                         theme="success" icon="fas fa-check" />

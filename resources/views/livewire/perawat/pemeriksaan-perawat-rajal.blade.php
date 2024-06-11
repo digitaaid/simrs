@@ -105,7 +105,6 @@
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
-
                                 @if ($item->asesmenrajal?->status_asesmen_perawat)
                                     <a href="{{ route('pemeriksaan.perawat.rajal.proses', $item->kodebooking) }}">
                                         <x-adminlte-button class="btn-xs" label="Lihat" theme="secondary"
