@@ -16,7 +16,8 @@
         <x-adminlte-card theme="primary" title="Navigasi" body-class="p-0">
             @include('livewire.dokter.navigasi-pemeriksaan-rajal')
             <x-slot name="footerSlot">
-                <a href="{{ route('pemeriksaan.dokter.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}&jadwal={{ $antrian->jadwal_id }}">
+                <a
+                    href="{{ route('pemeriksaan.dokter.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}&jadwal={{ $antrian->jadwal_id }}">
                     <x-adminlte-button class="btn-xs mb-2" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
                 </a>
                 @if ($antrian->taskid == 3 || $antrian->taskid == 4)
@@ -50,6 +51,6 @@
         @can('dokter')
             @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian])
         @endcan
-        @livewire('dokter.modal-resume-rajal')
+        @livewire('dokter.modal-resume-rajal', ['antrian' => $antrian])
     </div>
 </div>
