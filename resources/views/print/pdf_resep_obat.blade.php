@@ -60,14 +60,34 @@
             <td colspan="2">
                 <table class="table-borderless">
                     <tr>
-                        <td>Berat Badan</td>
+                        <td>Alamat</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->asesmenrajal->berat_badan ?? '-' }} kg</b></td>
+                        <td><b>{{ $antrian->pasien->alamat ?? '-' }}</b>
+                            @if ($antrian->pasien)
+                                <b>{{ $antrian->pasien->kabupaten ?? '' }}</b>
+                                <b>{{ $antrian->pasien->kecamatan ?? '' }}</b>
+                                <b>{{ $antrian->pasien->desa ?? '' }}</b>
+                            @endif
+                        </td>
                     </tr>
                     <tr>
-                        <td>Tinggi Badan</td>
+                        <td>BB / TB</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->asesmenrajal->tinggi_badan ?? '-' }} cm</b></td>
+                        <td><b>{{ $antrian->asesmenrajal->berat_badan ?? '-' }} kg /
+                                {{ $antrian->asesmenrajal->tinggi_badan ?? '-' }} cm</b></td>
+                    </tr>
+                    <tr>
+                        <td>Penjamin</td>
+                        <td>:</td>
+                        <td>
+                            <b>
+                                @if ($antrian->jenispasien == 'JKN')
+                                    BPJS / JKN
+                                @else
+                                    UMUM / NON-JKN
+                                @endif
+                            </b>
+                        </td>
                     </tr>
                     <tr>
                         <td>Ruangan/Klinik</td>
