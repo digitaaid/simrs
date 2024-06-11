@@ -106,13 +106,13 @@
                     <x-adminlte-select wire:model="jeniskunjungan" fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" name="jeniskunjungan" label="Jenis Kunjungan">
                         <option value=null disabled>Pilih Jenis Rujukan</option>
-                        <option value="1" {{ $antrian->jeniskunjungan == '1' ? 'selected' : null }}>
+                        <option value="1">
                             Rujukan FKTP</option>
-                        <option value="2" {{ $antrian->jeniskunjungan == '2' ? 'selected' : null }}>
+                        <option value="2">
                             Umum</option>
-                        <option value="3" {{ $antrian->jeniskunjungan == '3' ? 'selected' : null }}>
+                        <option value="3">
                             Kontrol</option>
-                        <option value="4" {{ $antrian->jeniskunjungan == '4' ? 'selected' : null }}>
+                        <option value="4">
                             Rujukan Antar RS</option>
                     </x-adminlte-select>
                     @if ($antrian->jenispasien == 'JKN')
