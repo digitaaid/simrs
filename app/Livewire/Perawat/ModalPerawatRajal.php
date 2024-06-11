@@ -91,8 +91,8 @@ class ModalPerawatRajal extends Component
     }
     function calculateBsa()
     {
-        $bb = $this->berat_badan ? $this->berat_badan : 0;
-        $tb = $this->tinggi_badan ? $this->tinggi_badan : 0;
+        $bb = $this->berat_badan ? $this->berat_badan : 1;
+        $tb = $this->tinggi_badan ? $this->tinggi_badan : 1;
         $bsa = ($bb * $tb / 3600);
         $bmi =  $bb / (($tb / 100) * ($tb / 100)) ?? 0;
         $this->bsa = number_format($bsa, 2) ?? 0;

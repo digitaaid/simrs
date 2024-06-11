@@ -29,12 +29,9 @@
     <div class="col-md-12">
         <x-adminlte-card title="Table Antrian Pemeriksaan Perawat" theme="secondary">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <x-adminlte-input wire:model.change='tanggalperiksa' type="date" name="tanggalperiksa"
                         igroup-size="sm">
-                        <x-slot name="appendSlot">
-                            <x-adminlte-button wire:click='caritanggal' theme="primary" label="Pilih" />
-                        </x-slot>
                         <x-slot name="prependSlot">
                             <div class="input-group-text text-primary">
                                 <i class="fas fa-calendar-alt"></i>
@@ -42,7 +39,24 @@
                         </x-slot>
                     </x-adminlte-input>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <x-adminlte-select wire:model.change="jadwal" name="jadwal" fgroup-class="row" igroup-size="sm">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text text-primary">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                        </x-slot>
+                        <option value="">Semua Jadwal</option>
+                        @foreach ($jadwals as $item)
+                            <option value="{{ $item->id }}">{{ $item->namadokter }} {{ $item->namapoli }}
+                                {{ $item->jampraktek }}</option>
+                        @endforeach
+                        <x-slot name="appendSlot">
+                            <x-adminlte-button wire:click='cariantrian' theme="primary" label="Pilih" />
+                        </x-slot>
+                    </x-adminlte-select>
+                </div>
+                <div class="col-md-2">
                 </div>
                 <div class="col-md-4">
                     <x-adminlte-input name="search" placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
@@ -61,6 +75,7 @@
             @php
                 $heads = [
                     'No',
+                    'Antrian',
                     'No RM',
                     'Nama Pasien',
                     'Action',
@@ -86,6 +101,7 @@
                     @foreach ($antrians as $item)
                         <tr>
                             <td>{{ $item->angkaantrean }}</td>
+                            <td>{{ $item->nomorantrean }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>

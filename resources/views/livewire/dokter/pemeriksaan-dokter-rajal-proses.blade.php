@@ -7,9 +7,7 @@
             </x-adminlte-alert>
         @endif
         <x-adminlte-card theme="primary" theme-mode="outline">
-            <a href="{{ route('pemeriksaan.dokter.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
-                <x-adminlte-button class="btn-xs" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
-            </a>
+
             @include('livewire.pendaftaran.modal-profil-rajal')
         </x-adminlte-card>
     </div>
@@ -18,7 +16,7 @@
         <x-adminlte-card theme="primary" title="Navigasi" body-class="p-0">
             @include('livewire.dokter.navigasi-pemeriksaan-rajal')
             <x-slot name="footerSlot">
-                <a href="{{ route('pemeriksaan.dokter.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
+                <a href="{{ route('pemeriksaan.dokter.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}&jadwal={{ $antrian->jadwal_id }}">
                     <x-adminlte-button class="btn-xs mb-2" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
                 </a>
                 @if ($antrian->taskid == 3 || $antrian->taskid == 4)
