@@ -32,7 +32,6 @@ class PemeriksaanPerawatRajal extends Component
             $this->jadwals = JadwalDokter::where('hari', Carbon::parse($this->tanggalperiksa)->dayOfWeek)
                 ->with(['dokter', 'unit'])
                 ->get();
-            // dd($this->jadwal);
             $this->antrians = Antrian::where('tanggalperiksa', $this->tanggalperiksa)
                 ->where('jadwal_id', "like", "%" . $this->jadwal . "%")
                 ->where('taskid', '>=', 3)
