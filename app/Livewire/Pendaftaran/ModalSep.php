@@ -13,7 +13,7 @@ use Spatie\FlareClient\Api;
 
 class ModalSep extends Component
 {
-    public $antrian;
+    public $antrian, $kodebooking, $antrian_id;
     public $polikliniks = [], $dokters = [], $diagnosas = [], $diagnosa;
     public $nomorkartu, $tanggal, $seps = [], $form = false;
     public $asalRujukan, $rujukans = [], $suratkontrols = [];
@@ -97,8 +97,10 @@ class ModalSep extends Component
             "klsRawatHak" => "3",
             "user" => auth()->user()->name,
         ]);
+        $antrian = Antrian::find($this->antrian_id);
         $res = $api->sep_insert($request);
         if ($res->metadata->code == 200) {
+            dd($res);
             return flash($res->metadata->message, 'success');
         } else {
             return flash($res->metadata->message, 'danger');
@@ -219,6 +221,8 @@ class ModalSep extends Component
     {
         $this->antrian = $antrian;
         $this->nomorkartu = $antrian->nomorkartu;
+        $this->kodebooking = $antrian->kodebooking;
+        $this->antrian_id = $antrian->id;
         $this->noKartu = $antrian->nomorkartu;
         $this->noMR = $antrian->norm;
         $this->nama = $antrian->nama;
