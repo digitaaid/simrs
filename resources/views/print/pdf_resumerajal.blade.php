@@ -9,7 +9,6 @@
                 {{-- <img src="{{ asset('kitasehat/logokitasehat.png') }}" style="height: 30px;"> --}}
             </td>
             <td width="50%" style="vertical-align: top;">
-                <b>RESUME RAWAT JALAN NO. {{ $antrian->kodebooking }}</b><br>
                 <b>{{ strtoupper(env('APP_NAME_LONG')) }}</b><br>
                 Jl. Raya Merdeka Utama Ciledug Desa Ciledug Kulon, <br>
                 Kec. Ciledug, Kabupaten Cirebon, Jawa Barat 45682 <br>
@@ -54,6 +53,73 @@
                     </tr>
                 </table>
             </td>
+        </tr>
+        <tr class="text-center" style="background-color: yellow">
+            <td colspan="3">
+                <b>RESUME RAWAT JALAN NO. {{ $antrian->kodebooking }}</b>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+
+                <table class="table-borderless">
+                    <tr>
+                        <td>Keluhan Utama</td>
+                        <td>:</td>
+                        <td>{{ $antrian->asesmenrajal->keluhan_utama ?? '-' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Pemeriksaan Fisik</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->pemeriksaan_fisik_perawat ?? '-' }} <br>
+                            {{ $antrian->asesmenrajal->pemeriksaan_fisik_dokter ?? '-' }} <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Diagnosa</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->diagnosa ?? '' }} <br>
+                            {{ $antrian->asesmenrajal->diagnosa_keperawatan ?? '' }} <br>
+                            {{ $antrian->asesmenrajal->diagnosa_dokter ?? '' }} <br>
+
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ICD-10 Primer</td>
+                        <td>:</td>
+                        <td>{{ $antrian->asesmenrajal->icd1 ?? '-' }}</td>
+                    </tr>
+                    <tr>
+                        <td>ICD-10 Sekunder</td>
+                        <td>:</td>
+                        <td>{{ $antrian->asesmenrajal->icd2 ?? '-' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tindakan</td>
+                        <td>:</td>
+                        <td>{{ $antrian->asesmenrajal->tindakan ?? '-' }}</td>
+                    </tr>
+                    <tr>
+                        <td>ICD-9 Procedure</td>
+                        <td>:</td>
+                        <td>{{ $antrian->asesmenrajal->icd9 ?? '-' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Pengobatan</td>
+                        <td>:</td>
+                        <td>
+                            @foreach ($antrian->resepobatdetails as $item)
+                                {{ $item->nama }} ({{ $item->jumlah }}) {{ $item->frekuensi }} {{ $item->waktu }} {{ $item->keterangan }} <br>
+                            @endforeach
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+            <td></td>
         </tr>
 
     </table>
