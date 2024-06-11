@@ -61,7 +61,6 @@
         </tr>
         <tr>
             <td colspan="2">
-
                 <table class="table-borderless">
                     <tr>
                         <td>Keluhan Utama</td>
@@ -72,30 +71,29 @@
                         <td>Pemeriksaan Fisik</td>
                         <td>:</td>
                         <td>
-                            {{ $antrian->asesmenrajal->pemeriksaan_fisik_perawat ?? '-' }} <br>
-                            {{ $antrian->asesmenrajal->pemeriksaan_fisik_dokter ?? '-' }} <br>
+                            {{ $antrian->asesmenrajal->pemeriksaan_fisik_perawat ?? '' }}
+                            {{ $antrian->asesmenrajal->pemeriksaan_fisik_dokter ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <td>Diagnosa</td>
                         <td>:</td>
                         <td>
-                            {{ $antrian->asesmenrajal->diagnosa ?? '' }} <br>
-                            {{ $antrian->asesmenrajal->diagnosa_keperawatan ?? '' }} <br>
-                            {{ $antrian->asesmenrajal->diagnosa_dokter ?? '' }} <br>
-
-
+                            {{ $antrian->asesmenrajal->diagnosa ?? '' }}
+                            {{ $antrian->asesmenrajal->diagnosa_keperawatan ?? '' }}
+                            {{ $antrian->asesmenrajal->diagnosa_dokter ?? '' }}
                         </td>
                     </tr>
                     <tr>
-                        <td>ICD-10 Primer</td>
+                        <td class="text-nowarp">ICD-10 Primer</td>
                         <td>:</td>
                         <td>{{ $antrian->asesmenrajal->icd1 ?? '-' }}</td>
                     </tr>
                     <tr>
                         <td>ICD-10 Sekunder</td>
                         <td>:</td>
-                        <td>{{ $antrian->asesmenrajal->icd2 ?? '-' }}</td>
+                        <td>{{ $antrian->asesmenrajal->icd2 ?? '-' }}
+                        </td>
                     </tr>
                     <tr>
                         <td>Tindakan</td>
@@ -112,14 +110,51 @@
                         <td>:</td>
                         <td>
                             @foreach ($antrian->resepobatdetails as $item)
-                                {{ $item->nama }} ({{ $item->jumlah }}) {{ $item->frekuensi }} {{ $item->waktu }} {{ $item->keterangan }} <br>
+                                {{ $item->nama }} ({{ $item->jumlah }}) {{ $item->frekuensi }} {{ $item->waktu }}
+                                {{ $item->keterangan }} <br>
                             @endforeach
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="table-borderless">
+                    <tr>
+                        <td>Cat. Laboratorium</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->pemeriksaan_lab ?? '-' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Cat. Radiologi</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->pemeriksaan_rad ?? '-' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Cat. Radiologi</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->pemeriksaan_penunjang ?? '-' }}
                         </td>
                     </tr>
 
                 </table>
             </td>
-            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <img src="{{ $url }}"><br>
+                Data didalam file ini telah ditanda tanganni secara elektronik dan sah <br>
+                Waktu cetak {{ now() }}
+            </td>
+            <td class="text-center">
+                Dokter DPJP, <br>
+                <img src="{{ $ttddokter }}"><br>
+                <b><u>{{ $antrian->kunjungan->dokters->nama }}</u></b>
+            </td>
         </tr>
 
     </table>
