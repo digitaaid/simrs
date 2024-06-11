@@ -42,6 +42,6 @@
         @can('dokter')
             @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian])
         @endcan
-        @livewire('dokter.modal-resume-rajal')
+        @livewire('dokter.modal-resume-rajal', ['antrian' => $antrian])
     </div>
 </div>
