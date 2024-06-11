@@ -16,18 +16,18 @@
                 <div class="col-lg-3 col-6">
                     <x-adminlte-small-box
                         title="{{ $antrians->where('asesmenrajal.status_asesmen_dokter', 1)->count() }}"
-                        text="Sudah Asesmen Perawat" theme="warning" icon="fas fa-user-injured" />
+                        text="Sudah Asesmen" theme="warning" icon="fas fa-user-injured" />
                 </div>
                 <div class="col-lg-3 col-6">
                     <x-adminlte-small-box
                         title="{{ $antrians->where('taskid', '!=', 99)->where('asesmenrajal.status_asesmen_dokter', 0)->count() }}"
-                        text="Belum Asesmen Perawat" theme="danger" icon="fas fa-user-injured" />
+                        text="Belum Asesmen" theme="danger" icon="fas fa-user-injured" />
                 </div>
             </div>
         </div>
     @endif
     <div class="col-md-12">
-        <x-adminlte-card title="Table Antrian Pemeriksaan Perawat" theme="secondary">
+        <x-adminlte-card title="Table Antrian Pemeriksaan Dokter" theme="secondary">
             <div class="row">
                 <div class="col-md-3">
                     <x-adminlte-input wire:model.change='tanggalperiksa' type="date" name="tanggalperiksa"
@@ -105,14 +105,14 @@
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
-                                @if ($item->taskid == 5)
+                                @if ($item->taskid <= 5)
                                     <a href="{{ route('pemeriksaan.dokter.rajal.proses', $item->kodebooking) }}">
-                                        <x-adminlte-button class="btn-xs" label="Lihat" theme="secondary"
+                                        <x-adminlte-button class="btn-xs" label="Proses" theme="success"
                                             icon="fas fa-user-md" />
                                     </a>
                                 @else
                                     <a href="{{ route('pemeriksaan.dokter.rajal.proses', $item->kodebooking) }}">
-                                        <x-adminlte-button class="btn-xs" label="Proses" theme="success"
+                                        <x-adminlte-button class="btn-xs" label="Lihat" theme="secondary"
                                             icon="fas fa-user-md" />
                                     </a>
                                 @endif
