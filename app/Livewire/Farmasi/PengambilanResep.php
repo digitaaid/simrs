@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Farmasi;
 
+use App\Http\Controllers\AntrianController;
 use App\Models\Antrian;
 use App\Models\FrekuensiObat;
 use App\Models\Obat;
@@ -50,6 +51,15 @@ class PengambilanResep extends Component
     }
     public function terimaResep(Antrian $antrian)
     {
+        if (env('ANTRIAN_REALTIME')) {
+            $request = new Request([
+                'kodebooking' => $antrian->kodebooking,
+                'waktu' => now(),
+                'taskid' => 6,
+            ]);
+            $api = new AntrianController();
+            $res = $api->update_antrean($request);
+        }
         $antrian->taskid = 6;
         $antrian->taskid6 = now();
         $antrian->panggil = 0;
@@ -139,6 +149,15 @@ class PengambilanResep extends Component
     }
     public function selesai(Antrian $antrian)
     {
+        if (env('ANTRIAN_REALTIME')) {
+            $request = new Request([
+                'kodebooking' => $antrian->kodebooking,
+                'waktu' => now(),
+                'taskid' => 7,
+            ]);
+            $api = new AntrianController();
+            $res = $api->update_antrean($request);
+        }
         $antrian->taskid = 7;
         $antrian->taskid7 = now();
         $antrian->status = 1;

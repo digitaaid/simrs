@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Pendaftaran;
 
+use App\Http\Controllers\AntrianController;
 use App\Models\Antrian;
 use App\Models\Dokter;
 use App\Models\Jaminan;
 use App\Models\Pasien;
 use App\Models\Unit;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class PendaftaranRajalProses extends Component
@@ -35,6 +37,15 @@ class PendaftaranRajalProses extends Component
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
+            if (env('ANTRIAN_REALTIME')) {
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => now(),
+                    'taskid' => 3,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+            }
             $antrian->taskid = 3;
             $antrian->taskid3 = now();
             $antrian->panggil = 0;
@@ -50,6 +61,15 @@ class PendaftaranRajalProses extends Component
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
+            if (env('ANTRIAN_REALTIME')) {
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => now(),
+                    'taskid' => 2,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+            }
             $antrian->taskid2 = now();
             $antrian->panggil = 0;
             $antrian->taskid = 2;
