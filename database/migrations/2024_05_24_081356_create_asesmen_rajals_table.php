@@ -86,8 +86,8 @@ return new class extends Migration
             $table->text('idc1_text')->nullable();
             $table->text('icd2')->nullable();
             $table->text('icd2_text')->nullable();
-            $table->text('icd29')->nullable();
-            $table->text('icd29_text')->nullable();
+            $table->text('icd9')->nullable();
+            $table->text('icd9_text')->nullable();
             // p dokter
             $table->text('rencana_medis')->nullable();
             $table->text('tindakan_medis')->nullable();

@@ -28,7 +28,6 @@
                         <td><b>{{ $antrian->nama ?? '-' }}</b></td>
                     </tr>
                     <tr>
-                        {{ \Carbon\Carbon::parse($antrian->kunjungan->tgl_lahir)->format('d F Y') }}
                         <td>Tgl Lahir</td>
                         <td>:</td>
                         <td>

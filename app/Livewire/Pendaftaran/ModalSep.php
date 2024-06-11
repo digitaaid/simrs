@@ -9,6 +9,7 @@ use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use Spatie\FlareClient\Api;
 
 class ModalSep extends Component
 {
@@ -46,6 +47,25 @@ class ModalSep extends Component
                 $this->noRujukan = $rujukan->noRujukan;
                 $this->tglRujukan = $rujukan->tglRujukan;
                 $this->ppkRujukan = $rujukan->kdProviderPerujuk;
+                flash($res->metadata->message, 'success');
+            } else {
+                return flash($res->metadata->message, 'danger');
+            }
+        } else {
+            $request = new Request([
+                "nomorrujukan" => $this->noRujukan,
+            ]);
+            if ($this->asalRujukan == 1) {
+                $res = $api->rujukan_nomor($request);
+            } else {
+                $res = $api->rujukan_rs_nomor($request);
+            }
+            if ($res->metadata->code == 200) {
+                $rujukan = $res->response->rujukan;
+                $this->asalRujukan = $this->asalRujukan;
+                $this->noRujukan = $rujukan->noKunjungan;
+                $this->tglRujukan = $rujukan->tglKunjungan;
+                $this->ppkRujukan = $rujukan->peserta->provUmum->kdProvider;
                 flash($res->metadata->message, 'success');
             } else {
                 return flash($res->metadata->message, 'danger');
