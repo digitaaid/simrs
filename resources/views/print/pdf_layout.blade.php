@@ -54,7 +54,7 @@
 
         .table-xs th,
         .table-xs td {
-            padding: 2px;
+            padding: 1px;
         }
 
         .table-bordered {

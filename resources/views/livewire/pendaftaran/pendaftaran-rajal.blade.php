@@ -95,10 +95,18 @@
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
-                                <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
-                                    <x-adminlte-button class="btn-xs" label="Proses" theme="success"
-                                        icon="fas fa-user-plus" />
-                                </a>
+                                @if ($item->taskid <= 2)
+                                    <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
+                                        <x-adminlte-button class="btn-xs" label="Proses" theme="success"
+                                            icon="fas fa-user-plus" />
+                                    </a>
+                                @else
+                                    <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
+                                        <x-adminlte-button class="btn-xs" label="Lihat" theme="secondary"
+                                            icon="fas fa-user-plus" />
+                                    </a>
+                                @endif
+
                                 {{-- @switch($item->taskid)
                                     @case(1)
                                         <a href="{{ route('prosespendaftaran') }}?kodebooking={{ $item->kodebooking }}"

@@ -327,9 +327,6 @@
     </div>
 @stop
 
-@section('plugins.Datatables', true)
-@section('plugins.DateRangePicker', true)
-@section('plugins.Select2', true)
 @section('css')
     <style type="text/css" media="print">
         hr {

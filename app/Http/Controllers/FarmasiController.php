@@ -13,7 +13,10 @@ class FarmasiController extends Controller
         $antrian = Antrian::where('kodebooking', $kodebooking)->first();
         $resepobat = $antrian->resepobat;
         $resepobatdetails = $antrian->resepobatdetails;
-        return view('livewire.farmasi.print_resep_obat', compact('antrian', 'resepobat', 'resepobatdetails'));
+        // return view('print.pdf_resep_obat', compact('resepobatdetails', 'resepobat', 'antrian'));
+        $pdf = Pdf::loadView('print.pdf_resep_obat', compact('resepobatdetails', 'resepobat', 'antrian'));
+        return $pdf->stream('etiket.pdf');
+        // return view('livewire.farmasi.print_resep_obat', compact('antrian', 'resepobat', 'resepobatdetails'));
     }
     public function print_etiket(Request $request)
     {
