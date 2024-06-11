@@ -72,7 +72,7 @@
                         <td>:</td>
                         <td>
                             {{ $antrian->asesmenrajal->pemeriksaan_fisik_perawat ?? '' }}
-                            {{ $antrian->asesmenrajal->pemeriksaan_fisik_dokter ?? '' }}
+                            {{ $antrian->asesmenrajal->pemeriksaan_fisik_dokter ?? '-' }}
                         </td>
                     </tr>
                     <tr>

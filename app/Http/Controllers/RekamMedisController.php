@@ -12,7 +12,11 @@ class RekamMedisController extends Controller
     public function resumerajal($kodebooking)
     {
         $antrian = Antrian::where('kodebooking', $kodebooking)->first();
-        $qrttddokter = QrCode::format('png')->size(70)->generate('E-Sign ' . $antrian->kunjungan->dokters->nama . ' waktu ' . $antrian->asesmenrajal->waktu_asesmen_dokter);
+        if ($antrian->asesmenrajal->waktu_asesmen_dokter) {
+            $qrttddokter = QrCode::format('png')->size(70)->generate('E-Sign ' . $antrian->kunjungan->dokters->nama . ' waktu ' . $antrian->asesmenrajal->waktu_asesmen_dokter);
+        } else {
+            $qrttddokter = QrCode::format('png')->size(70)->generate($antrian->kunjungan->dokters->nama . ' belum melakukan E-Sign pada resume rawat jalan ini');
+        }
         $ttddokter = "data:image/png;base64," . base64_encode($qrttddokter);
         $qrurl = QrCode::format('png')->size(70)->generate(route('resume.rajal', $antrian->kodebooking));
         $url = "data:image/png;base64," . base64_encode($qrurl);
