@@ -9,13 +9,37 @@ class Antrian extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    public function pasien()
+    {
+        return $this->hasOne(Pasien::class, 'norm', 'norm');
+    }
     public function kunjungan()
     {
         return $this->belongsTo(Kunjungan::class, 'kodebooking', 'kode');
     }
+    public function dokters()
+    {
+        return $this->hasOne(Dokter::class, 'kode', 'kodedokter');
+    }
+    public function units()
+    {
+        return $this->hasOne(Unit::class,  'kode', 'kodepoli');
+    }
     public function layanans()
     {
         return $this->hasMany(Layanan::class);
+    }
+    public function resepobat()
+    {
+        return $this->hasOne(ResepObat::class);
+    }
+    public function resepobatdetails()
+    {
+        return $this->hasMany(ResepObatDetail::class);
+    }
+    public function asesmenrajal()
+    {
+        return $this->hasOne(AsesmenRajal::class);
     }
     public function pic1()
     {

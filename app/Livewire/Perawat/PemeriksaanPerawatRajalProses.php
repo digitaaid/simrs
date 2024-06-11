@@ -10,12 +10,34 @@ class PemeriksaanPerawatRajalProses extends Component
 {
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien;
     public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
-    public $antrian;
+    public $antrian, $pasien;
     public $polikliniks, $dokters, $jaminans;
+    public $openmodalCppt = false;
+    public $openmodalLayanan = false;
     public $openmodalAsesmenRajal = false;
     public $openmodalPerawat = false;
     public $openmodalDokter = false;
-    protected $listeners = ['modalAsesmenRajal',  'modalPemeriksaanPerawat', 'modalPemeriksaanDokter'];
+    protected $listeners = ['modalAsesmenRajal', 'modalCppt', 'modalPemeriksaanPerawat', 'modalPemeriksaanDokter', 'refreshPage' => '$refresh'];
+    public function selesaiPerawat()
+    {
+        $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
+        if ($antrian->taskid <= 4) {
+            $antrian->user2 = auth()->user()->id;
+            $antrian->update();
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pemeriksaan perawat.', 'success');
+            return redirect()->to(route('pemeriksaan.perawat.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
+        } else {
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan obat.', 'danger');
+        }
+    }
+    public function modalCppt()
+    {
+        $this->openmodalCppt = $this->openmodalCppt ? false : true;
+    }
+    public function modalLayanan()
+    {
+        $this->openmodalLayanan = $this->openmodalLayanan ? false : true;
+    }
     public function modalAsesmenRajal()
     {
         $this->openmodalAsesmenRajal = $this->openmodalAsesmenRajal ? false : true;
@@ -33,6 +55,7 @@ class PemeriksaanPerawatRajalProses extends Component
         $antrian = Antrian::firstWhere('kodebooking', $kodebooking);
         if ($antrian) {
             $this->antrian = $antrian;
+            $this->pasien = $antrian->pasien;
             $this->kodebooking = $kodebooking;
             $this->antrianId = $antrian->id;
             $this->nomorkartu = $antrian->nomorkartu;
@@ -51,7 +74,6 @@ class PemeriksaanPerawatRajalProses extends Component
     }
     public function render()
     {
-        $pasiencount = Pasien::count();
-        return view('livewire.perawat.pemeriksaan-perawat-rajal-proses', compact('pasiencount'))->title('Pemeriksaan Perawat ' . $this->antrian->nama);
+        return view('livewire.perawat.pemeriksaan-perawat-rajal-proses')->title('Pemeriksaan Perawat ' . $this->antrian->nama);
     }
 }

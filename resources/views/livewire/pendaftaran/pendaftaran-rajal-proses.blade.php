@@ -7,13 +7,6 @@
             </x-adminlte-alert>
         @endif
         <x-adminlte-card theme="primary" theme-mode="outline">
-            <a href="{{ route('pendaftaran.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
-                <x-adminlte-button class="btn-xs" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
-            </a>
-            @if ($antrian->taskid <= 2)
-                <x-adminlte-button wire:click='panggilPendaftaran' class="btn-xs" label="Panggil Pendaftaran"
-                    theme="primary" icon="fas fa-microphone" />
-            @endif
             @include('livewire.pendaftaran.modal-profil-rajal')
         </x-adminlte-card>
     </div>
@@ -21,14 +14,22 @@
     @include('livewire.pendaftaran.navigasi-rajal')
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
-        @if ($openformPasien)
-            @livewire('pendaftaran.modal-pasien-rajal')
+        @livewire('pendaftaran.modal-pasien-rajal')
+        @livewire('pendaftaran.modal-antrian-rajal', ['antrian' => $antrian])
+        @livewire('pendaftaran.modal-kunjungan-rajal', ['antrian' => $antrian])
+        @if ($antrian->pasien && $antrian->jenispasien == 'JKN')
+            @livewire('pendaftaran.modal-sep', ['antrian' => $antrian])
+            @livewire('pendaftaran.modal-suratkontrol', ['antrian' => $antrian])
         @endif
-        @if ($openformAntrian)
-            @livewire('pendaftaran.modal-antrian-rajal', ['antrian' => $antrian])
-        @endif
-        @if ($openformKunjungan)
-            @livewire('pendaftaran.modal-kunjungan-rajal', ['antrian' => $antrian])
+        @if ($antrian->kunjungan)
+            @livewire('dokter.modal-cppt', ['antrian' => $antrian])
+            @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
+            <div id="invoice">
+                <x-adminlte-card theme="primary" title="Invoice Pelayanan Pasien">
+                    <iframe src="http://simrs.test/bpjs/vclaim/sep_print?noSep=0125S0070624V000128" width="100%"
+                        height="300" frameborder="0"></iframe>
+                </x-adminlte-card>
+            </div>
         @endif
     </div>
 </div>

@@ -9,4 +9,12 @@ class Pasien extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    public function antrians()
+    {
+        return $this->hasMany(Antrian::class, 'norm', 'norm');
+    }
+    public function kunjungans()
+    {
+        return $this->hasMany(Kunjungan::class, 'norm', 'norm');
+    }
 }

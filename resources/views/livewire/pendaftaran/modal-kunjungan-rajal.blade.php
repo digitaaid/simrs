@@ -1,10 +1,5 @@
-<div>
+<div id="kunjungan">
     <x-adminlte-card theme="primary" title="Kunjungan Pasien">
-        @if (flash()->message)
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        @endif
         <form>
             <input type="hidden" name="kodebooking" value="{{ $antrian->kodebooking }}">
             <input type="hidden" name="antrian_id" value="{{ $antrian->id }}">
@@ -13,7 +8,7 @@
                     <x-adminlte-input wire:model='nomorkartu' name="nomorkartu" fgroup-class="row"
                         label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" label="Nomor Kartu">
                         <x-slot name="appendSlot">
-                            <div class="btn btn-primary" wire:click='carNomorKartu'>
+                            <div class="btn btn-primary" wire:click='cariNomorKartu'>
                                 <i class="fas fa-search"></i> Cari
                             </div>
                         </x-slot>
@@ -21,7 +16,7 @@
                     <x-adminlte-input wire:model='nik' name="nik" fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" label="NIK">
                         <x-slot name="appendSlot">
-                            <div class="btn btn-primary" wire:click='carNomorKartu'>
+                            <div class="btn btn-primary" wire:click='cariNIK'>
                                 <i class="fas fa-search"></i> Cari
                             </div>
                         </x-slot>
@@ -29,7 +24,7 @@
                     <x-adminlte-input wire:model='norm' name="norm" label="No RM" fgroup-class="row"
                         label-class="text-left col-4" igroup-class="col-8" igroup-size="sm">
                         <x-slot name="appendSlot">
-                            <div class="btn btn-primary" wire:click='carNomorKartu'>
+                            <div class="btn btn-primary" wire:click='cariNoRM'>
                                 <i class="fas fa-search"></i> Cari
                             </div>
                         </x-slot>
@@ -46,9 +41,8 @@
                         fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
                 </div>
                 <div class="col-md-6">
-                    <x-adminlte-input wire:model='kode' name="kode" fgroup-class="row"
-                        label-class="text-left col-4" igroup-class="col-8" label="Kode Kunjungan" igroup-size="sm"
-                        readonly />
+                    <x-adminlte-input wire:model='kode' name="kode" fgroup-class="row" label-class="text-left col-4"
+                        igroup-class="col-8" label="Kode Kunjungan" igroup-size="sm" readonly />
                     <x-adminlte-input wire:model='counter' name="counter" fgroup-class="row"
                         label-class="text-left col-4" igroup-class="col-8" label="Counter" igroup-size="sm" readonly />
                     <x-adminlte-input wire:model='tgl_masuk' name="tgl_masuk" type='datetime-local'
@@ -100,24 +94,25 @@
                         <option value="other">
                             Lain-lain</option>
                     </x-adminlte-select>
-                    <x-adminlte-select wire:model="diag_awal" name="diag_awal" fgroup-class="row"
-                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" class="diagnosaid2"
-                        label="Diagnosa Awal">
-                        @if ($antrian->kunjungan)
-                            <option value="{{ $antrian->kunjungan->diagnosa_awal }}">
-                                {{ $antrian->kunjungan->diagnosa_awal }}</option>
-                        @endif
-                    </x-adminlte-select>
+                    <x-adminlte-input wire:model.live="diagnosa" list="diagnosalist" name="diagnosa"
+                        fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
+                        label="Diagnosa">
+                    </x-adminlte-input>
+                    <datalist id="diagnosalist">
+                        @foreach ($diagnosas as $item)
+                            <option value="{{ $item['kode'] }}">{{ $item['nama'] }}</option>
+                        @endforeach
+                    </datalist>
                     <x-adminlte-select wire:model="jeniskunjungan" fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" name="jeniskunjungan" label="Jenis Kunjungan">
                         <option value=null disabled>Pilih Jenis Rujukan</option>
-                        <option value="1" {{ $antrian->jeniskunjungan == '1' ? 'selected' : null }}>
+                        <option value="1">
                             Rujukan FKTP</option>
-                        <option value="2" {{ $antrian->jeniskunjungan == '2' ? 'selected' : null }}>
+                        <option value="2">
                             Umum</option>
-                        <option value="3" {{ $antrian->jeniskunjungan == '3' ? 'selected' : null }}>
+                        <option value="3">
                             Kontrol</option>
-                        <option value="4" {{ $antrian->jeniskunjungan == '4' ? 'selected' : null }}>
+                        <option value="4">
                             Rujukan Antar RS</option>
                     </x-adminlte-select>
                     @if ($antrian->jenispasien == 'JKN')
@@ -133,13 +128,16 @@
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
                 wire:click="editKunjungan" wire:confirm='Apakah anda yakin akan menyimpan data kunjungan ?' />
-            <x-adminlte-button wire:click='closeformKunjungan' theme="danger" class="btn-sm" icon="fas fa-times"
-                label="Tutup" />
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>
                 Loading ...
             </div>
+            @if (flash()->message)
+                <div class="text-{{ flash()->class }}" wire:loading.remove>
+                    Loading Result : {{ flash()->message }}
+                </div>
+            @endif
         </x-slot>
     </x-adminlte-card>
 </div>

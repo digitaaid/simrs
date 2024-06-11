@@ -15,7 +15,3 @@
 @section('content')
     {{ $slot }}
 @stop
-@section('plugins.TempusDominusBs4', true)
-@section('plugins.Select2', true)
-@section('plugins.BsCustomFileInput', true)
-@section('plugins.Datatables', true)

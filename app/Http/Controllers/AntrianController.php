@@ -16,20 +16,29 @@ class AntrianController extends ApiController
 {
     public function displayantrian()
     {
-        return view('livewire.antrian.display-antrian');
+        $jadwals = JadwalDokter::where('hari', now()->dayOfWeek)->get();
+        return view('livewire.antrian.display-antrian', compact('jadwals'));
     }
     public function displaynomor()
     {
-        $antrian = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('kodepoli', '!=', 'FAR')->orderBy('angkaantrean', 'ASC')->get();
+        $antrian = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('kodepoli', '!=', 'FAR')->get(['kodebooking', 'nomorantrean', 'taskid', 'nama', 'namapoli', 'kodepoli']);
+        $antrianpendaftaran = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('taskid', 2)->orderBy('updated_at', 'desc')->first();
+        $antriandokter = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('taskid', 4)->orderBy('updated_at', 'desc')->first();
         $data = [
-            "pendaftaran" => $antrian->where('taskid', 2)->first()->angkaantrean ?? "-",
-            "pendaftarankodebooking" => $antrian->where('taskid', 2)->first()->kodebooking ?? "-",
-            "pendaftaranstatus" => $antrian->where('taskid', 2)->first()->panggil ?? "-",
+            "pendaftaran" => $antrianpendaftaran ?  substr($antrianpendaftaran->nomorantrean, 1) : "-",
+            "pendaftaranhuruf" =>  $antrianpendaftaran ? substr($antrianpendaftaran->nomorantrean, 0, 1)  : "-",
+            "pendaftarankodebooking" =>  $antrianpendaftaran ? $antrianpendaftaran->kodebooking : "-",
+            "pendaftaranstatus" =>  $antrianpendaftaran ? $antrianpendaftaran->panggil : "-",
             "pendaftaranselanjutnya" => $antrian->where('taskid', 1)->pluck('kodebooking', 'nomorantrean'),
-            "poliklinik" => $antrian->where('taskid', 4)->first()->angkaantrean ?? "-",
-            "poliklinikkodebooking" => $antrian->where('taskid', 4)->first()->kodebooking ?? "-",
-            "poliklinikstatus" => $antrian->where('taskid', 4)->first()->panggil ?? "-",
-            "poliklinikselanjutnya" => $antrian->where('taskid', 3)->pluck('kodebooking', 'nomorantrean',),
+
+            "poliklinik" => $antriandokter ? substr($antriandokter->nomorantrean, 1) : "-",
+            "poliklinikhuruf" => $antriandokter ? substr($antriandokter->nomorantrean, 0, 1) : "-",
+            "poliklinikkode" => $antriandokter ?  $antriandokter->kodepoli : "-",
+            "polikliniknama" => $antriandokter ?  $antriandokter->namapoli : "-",
+            "poliklinikkodebooking" => $antriandokter ?  $antriandokter->kodebooking : "-",
+            "poliklinikstatus" => $antriandokter ?  $antriandokter->panggil : "-",
+            "poliklinikselanjutnya" => $antrian->where('taskid', 3),
+
             // "farmasi" => $antrian->where('taskid', 7)->first()->angkaantrean ?? "-",
             // "farmasistatus" => $antrian->where('taskid', 7)->first()->panggil ?? "-",
             // "farmasikodebooking" => $antrian->where('taskid', 7)->first()->kodebooking ?? "-",
@@ -148,7 +157,6 @@ class AntrianController extends ApiController
     }
     public function update_jadwal_dokter()
     {
-        dd('lakukan update di hafis');
         $url = $this->api()->base_url . "ref/poli/fp";
         $signature = $this->signature();
         $response = Http::withHeaders($signature)->get($url);
@@ -366,12 +374,12 @@ class AntrianController extends ApiController
     public function antrian_kodebooking(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "kodeBooking" =>  "required",
+            "kodebooking" =>  "required",
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first(),  201);
         }
-        $url = $this->api()->base_url . "antrean/pendaftaran/kodebooking/" . $request->kodeBooking;
+        $url = $this->api()->base_url . "antrean/pendaftaran/kodebooking/" . $request->kodebooking;
         $signature = $this->signature();
         $response = Http::withHeaders($signature)->get($url);
         return $this->response_decrypt($response, $signature);
@@ -386,15 +394,15 @@ class AntrianController extends ApiController
     public function antrian_poliklinik(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "kodePoli" =>  "required",
-            "kodeDokter" =>  "required",
+            "kodepoli" =>  "required",
+            "kodedokter" =>  "required",
             "hari" =>  "required",
-            "jamPraktek" =>  "required",
+            "jampraktek" =>  "required",
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first(),  201);
         }
-        $url = $this->api()->base_url . "antrean/pendaftaran/kodepoli/" . $request->kodePoli . "/kodedokter/" . $request->kodeDokter . "/hari/" . $request->hari . "/jampraktek/" . $request->jamPraktek;
+        $url = $this->api()->base_url . "antrean/pendaftaran/kodepoli/" . $request->kodepoli . "/kodedokter/" . $request->kodedokter . "/hari/" . $request->hari . "/jampraktek/" . $request->jampraktek;
         $signature = $this->signature();
         $response = Http::withHeaders($signature)->get($url);
         return $this->response_decrypt($response, $signature);

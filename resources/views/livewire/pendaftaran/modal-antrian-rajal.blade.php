@@ -1,10 +1,5 @@
-<div>
+<div id="antrian">
     <x-adminlte-card theme="primary" title="Antrian Pasien">
-        @if (flash()->message)
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        @endif
         <form wire:submit="editAntrian">
             <input type="hidden" wire:model='kodebooking' name="kodebooking">
             <input type="hidden" wire:model='antrianId' name="antrianId">
@@ -65,33 +60,40 @@
                     </x-adminlte-select>
                     @if ($antrian->jenispasien == 'JKN')
                         <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                            igroup-size="sm" name="asalRujukan" class="asalRujukan-antrian" label="Jenis Rujukan">
-                            <option value="1" {{ $antrian->jeniskunjungan == '1' ? 'selected' : null }}>
-                                Rujukan
-                                FKTP</option>
-                            <option value="2" {{ $antrian->jeniskunjungan == '4' ? 'selected' : null }}>
-                                Rujukan
-                                Antar RS</option>
+                            igroup-size="sm" name="asalRujukan" wire:model='asalRujukan' label="Jenis Rujukan">
+                            <option value=null>Pilih Asal Rujukan</option>
+                            <option value="1">Rujukan FKTP</option>
+                            <option value="2">Rujukan Antar RS</option>
                         </x-adminlte-select>
-                        <x-adminlte-input name="noRujukan" class="noRujukan-id" fgroup-class="row"
-                            label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" label="No Rujukan"
-                            placeholder="No Rujukan" readonly value="{{ $antrian->nomorrujukan }}">
+                        <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
+                            igroup-size="sm" name="noRujukan" wire:model='noRujukan' wire:click='cariRujukan'
+                            label="No Rujukan">
+                            <option value=null>Pilih Nomor Rujukan</option>
+                            @foreach ($rujukans as $key => $item)
+                                <option value="{{ $item['noKunjungan'] }}">{{ $item['noKunjungan'] }}
+                                    {{ $item['tglKunjungan'] }} {{ $item['namaPoli'] }}</option>
+                            @endforeach
                             <x-slot name="appendSlot">
-                                <div class="btn btn-primary" onclick="cariRujukanAntrian()">
+                                <div class="btn btn-primary" wire:click='cariRujukan'>
                                     <i class="fas fa-search"></i> Cari
                                 </div>
                             </x-slot>
-                        </x-adminlte-input>
-                        <x-adminlte-input name="noSurat" class="noSurat-id" fgroup-class="row"
-                            label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
-                            label="No Surat Kontrol" placeholder="No Surat Kontrol"
-                            value="{{ $antrian->nomorsuratkontrol }}" readonly>
+                        </x-adminlte-select>
+                        <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
+                            igroup-size="sm" name="noSurat" wire:model='noSurat' wire:click='cariSuratKontrol'
+                            label="No Surat Kontrol">
+                            <option value=null>Pilih Surat Kontrol</option>
+                            @foreach ($suratkontrols as $key => $item)
+                                <option value="{{ $item['noSuratKontrol'] }}">{{ $item['noSuratKontrol'] }}
+                                    {{ $item['tglRencanaKontrol'] }} {{ $item['namaPoliTujuan'] }}
+                                    {{ $item['terbitSEP'] }}</option>
+                            @endforeach
                             <x-slot name="appendSlot">
-                                <div class="btn btn-primary" onclick="cariSuratKontrol()">
+                                <div class="btn btn-primary" wire:click='cariSuratKontrol'>
                                     <i class="fas fa-search"></i> Cari
                                 </div>
                             </x-slot>
-                        </x-adminlte-input>
+                        </x-adminlte-select>
                     @endif
                 </div>
             </div>
@@ -99,13 +101,16 @@
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
                 wire:click="editAntrian" wire:confirm='Apakah anda yakin akan menyimpan data antrian ?' />
-            <x-adminlte-button wire:click='closeformAntrian' theme="danger" class="btn-sm" icon="fas fa-times"
-                label="Tutup" />
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>
                 Loading ...
             </div>
+            @if (flash()->message)
+                <div class="text-{{ flash()->class }}" wire:loading.remove>
+                    Loading Result : {{ flash()->message }}
+                </div>
+            @endif
         </x-slot>
     </x-adminlte-card>
 </div>

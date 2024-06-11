@@ -7,8 +7,7 @@
                 </a>
             </div>
             <div class="col-md-4">
-                <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian USer"
-                    igroup-size="sm">
+                <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian USer" igroup-size="sm">
                     <x-slot name="appendSlot">
                         <x-adminlte-button theme="primary" label="Cari" />
                     </x-slot>
@@ -53,6 +52,15 @@
                             <a href="{{ route('user.edit', $user->id) }}" wire:navigate>
                                 <x-adminlte-button class="btn-xs" label="Edit" theme="warning" icon="fas fa-edit" />
                             </a>
+                            <x-adminlte-button wire:click="verifikasi('{{ $user->id }}')"
+                                wire:confirm="Apakah anda yakin ingin memverifikasi user {{ $user->name }} ?"
+                                class="btn-xs" title="Verifikasi Email"
+                                theme="{{ $user->email_verified_at ? 'danger' : 'success' }}"
+                                icon="fas fa-{{ $user->email_verified_at ? 'times' : 'check' }}" />
+                            <x-adminlte-button wire:click='hapus({{ $user->id }})'
+                                wire:confirm="Apakah anda yakin ingin menghapus user {{ $user->name }} ?"
+                                class="btn-xs" title="Hapus User" theme="danger" icon="fas fa-trash" />
+
                         </td>
                     </tr>
                 @endforeach

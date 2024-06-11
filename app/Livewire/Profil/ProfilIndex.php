@@ -28,7 +28,7 @@ class ProfilIndex extends Component
         $this->phone = null;
         $this->username = null;
     }
-    public function render()
+    public function mount()
     {
         $user = Auth::user();
         $this->user = $user;
@@ -37,6 +37,14 @@ class ProfilIndex extends Component
         $this->email = $user->email;
         $this->phone = $user->phone;
         $this->username = $user->username;
+    }
+    public function placeholder()
+    {
+        return view('components.placeholder.placeholder-text');
+    }
+    public function render()
+    {
+
         return view('livewire.profil.profil-index')
             ->title('Profil');
     }

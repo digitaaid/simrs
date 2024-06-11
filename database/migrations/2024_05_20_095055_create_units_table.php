@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
             $table->string('kode')->unique();
             $table->string('kodejkn')->nullable();
             $table->string('idorganization')->nullable();
             $table->string('idlocation')->nullable();
-            $table->string('nama');
             $table->string('jenis')->nullable();
             $table->string('lokasi')->nullable();
             $table->string('status')->default(1);

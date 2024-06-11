@@ -2,18 +2,25 @@
 
 namespace App\Livewire\Jadwaldokter;
 
+use App\Exports\JadwalDokterExport;
+use App\Imports\JadwalDokterImport;
 use App\Models\Dokter;
 use App\Models\JadwalDokter;
 use App\Models\Unit;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class JadwalDokterIndex extends Component
 {
     use WithPagination;
-    public $id, $hari, $dokter, $unit, $jampraktek, $mulai, $selesai, $kapasitas;
+    use WithFileUploads;
+    public $id, $hari, $dokter, $unit, $jampraktek, $mulai, $selesai, $kapasitas, $huruf;
     public JadwalDokter $jadwal;
     public $form = false;
+    public $formImport = false;
+    public $fileImport;
     public $dokters = [];
     public $units = [];
     public $haris = [
@@ -36,6 +43,7 @@ class JadwalDokterIndex extends Component
     {
         $jadwal->delete();
         flash('Jadwal Hari ' . $jadwal->namahari . ' ' . $jadwal->namadokter . ' deleted successfully.', 'success');
+        $this->form = false;
     }
     public function edit(JadwalDokter $jadwal)
     {
@@ -46,6 +54,7 @@ class JadwalDokterIndex extends Component
         $this->mulai = explode('-', $jadwal->jampraktek)[0];
         $this->selesai = explode('-', $jadwal->jampraktek)[1];
         $this->kapasitas = $jadwal->kapasitas;
+        $this->huruf = $jadwal->huruf;
         $this->form = true;
     }
     public function store()
@@ -60,33 +69,60 @@ class JadwalDokterIndex extends Component
         ]);
         $jadwal = JadwalDokter::updateOrCreate(
             [
-                'id' => $this->id,
-            ],
-            [
                 'hari' => $this->hari,
                 'kodedokter' => $this->dokter,
+                'jampraktek' => $this->mulai . '-' . $this->selesai,
+            ],
+            [
                 'kodepoli' => $this->unit,
                 'kodesubspesialis' => $this->unit,
-                'jampraktek' => $this->mulai . '-' . $this->selesai,
                 'namahari' => $this->haris[$this->hari],
                 'namapoli' => $this->units[$this->unit],
                 'namasubspesialis' => $this->units[$this->unit],
                 'namadokter' => $this->dokters[$this->dokter],
                 'kapasitas' => $this->kapasitas,
+                'huruf' => $this->huruf,
                 'user' => auth()->user()->id,
                 'pic' => auth()->user()->name,
             ]
         );
         flash('Jadwal Hari ' . $jadwal->namahari . ' ' . $jadwal->namadokter . ' saved successfully.', 'success');
-        $this->closeForm();
-    }
-    public function openForm()
-    {
-        $this->form = true;
-    }
-    public function closeForm()
-    {
+        $this->formJadwal();
         $this->form = false;
+    }
+    public function import()
+    {
+        try {
+            $this->validate([
+                'fileImport' => 'required|mimes:xlsx'
+            ]);
+            Excel::import(new JadwalDokterImport, $this->fileImport->getRealPath());
+            flash('Import Jadwal Dokter successfully', 'success');
+            $this->formImport = false;
+            $this->fileImport = null;
+            return redirect()->route('jadwaldokter.index');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
+    }
+    public function export()
+    {
+        try {
+            $time = now()->format('Y-m-d');
+            return Excel::download(new JadwalDokterExport, 'jadwaldokter_backup_' . $time . '.xlsx');
+            flash('Export Jadwal Dokter successfully', 'success');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
+    }
+    public function openFormImport()
+    {
+        $this->formImport =  $this->formImport ? false : true;
+    }
+    public function formJadwal()
+    {
+        $this->form =  $this->form ? false : true;
+        $this->reset(['id', 'hari', 'dokter', 'unit', 'mulai', 'selesai', 'kapasitas','huruf']);
     }
     public $search = '';
     public $sortBy = 'hari';

@@ -7,8 +7,8 @@
                 </a>
             </div>
             <div class="d-flex align-items-center">
-                <a href="https://wa.me/089529909036" style="color: white" target="_blank">
-                    <i class="bi bi-phone"></i> Whtastapp 089529909036
+                <a href="https://wa.me/6281220877566" style="color: white" target="_blank">
+                    <i class="bi bi-phone"></i> Whtastapp 0812-2087-7566
                 </a>
             </div>
         </div>

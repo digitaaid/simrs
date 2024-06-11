@@ -9,21 +9,25 @@ use App\Models\Dokter;
 use App\Models\JadwalDokter;
 use App\Models\Pasien;
 use App\Models\Unit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
 class ModalAntrianRajal extends Component
 {
     public $antrian, $polikliniks, $dokters;
-    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien, $keterangan, $perujuk, $jeniskunjungan, $jeniskunjunjgan, $nomorreferensi, $noRujukan, $noSurat;
+    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien, $keterangan, $perujuk, $jeniskunjungan, $jeniskunjunjgan;
+    public $gender, $tgl_lahir, $fktp, $jenispeserta, $hakkelas;
     public $pasienbaru = 0, $estimasidilayani, $sisakuotajkn, $kuotajkn, $sisakuotanonjkn, $kuotanonjkn;
+    public $asalRujukan, $nomorreferensi, $noRujukan, $noSurat;
+    public $rujukans = [], $suratkontrols = [];
     public function editAntrian()
     {
         $this->validate([
             'kodebooking' => 'required',
             'nomorkartu' => 'required',
             'nik' => 'required|digits:16',
-            'norm' => 'required|digits:9',
+            'norm' => 'required',
             'nama' => 'required',
             'nohp' => 'required|numeric',
             'tanggalperiksa' => 'required|date',
@@ -65,7 +69,6 @@ class ModalAntrianRajal extends Component
         } else {
             $this->jeniskunjungan = 2;
         }
-
         $this->keterangan = "Antrian proses di pendaftaran";
         // simpan antrean
         $antrian = Antrian::find($this->antrianId);
@@ -87,6 +90,12 @@ class ModalAntrianRajal extends Component
             'keterangan' => $this->keterangan,
             'user1' => auth()->user()->id,
         ]);
+        $pasien = Pasien::where('norm', $this->norm)->first();
+        $pasien->nohp = $this->nohp;
+        $pasien->nomorkartu = $this->nomorkartu;
+        $pasien->nik = $this->nik;
+        $pasien->nama = $this->nama;
+        $pasien->update();
         // status antrean
         $api = new AntrianController();
         $request = new Request([
@@ -97,7 +106,7 @@ class ModalAntrianRajal extends Component
         ]);
         $res = $api->status_antrian($request);
         if ($res->metadata->code == 200) {
-            $this->estimasidilayani = 300 + $res->response->totalantrean * 300;
+            $this->estimasidilayani = Carbon::parse($this->tanggalperiksa . ' ' . explode('-', $antrian->jampraktek)[0])->addSeconds(300 + $res->response->totalantrean * 300);
             $this->sisakuotajkn = $res->response->sisakuotajkn;
             $this->kuotajkn = $res->response->kuotajkn;
             $this->sisakuotanonjkn = $res->response->sisakuotanonjkn;
@@ -136,31 +145,128 @@ class ModalAntrianRajal extends Component
         if ($res->metadata->code == 200) {
             $antrian->status = 1;
             $antrian->update();
-            return flash('Antrian atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
+            flash('Antrian atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
+            $this->dispatch('formAntrian');
+        } else {
+            flash($res->metadata->message, 'danger');
+        }
+        $this->dispatch('refreshPage');
+    }
+    public function cariRujukan()
+    {
+        $this->validate([
+            'nomorkartu' => 'required',
+            'asalRujukan' => 'required',
+        ]);
+        $api  = new VclaimController();
+        $request = new Request([
+            "nomorkartu" => $this->nomorkartu,
+        ]);
+        if ($this->asalRujukan == 1) {
+            $res = $api->rujukan_peserta($request);
+        } else {
+            $res = $api->rujukan_rs_peserta($request);
+        }
+        if ($res->metadata->code == 200) {
+            $this->rujukans = [];
+            foreach ($res->response->rujukan as $key => $value) {
+                $this->rujukans[] = [
+                    'no' => $key + 1,
+                    'noKunjungan' => $value->noKunjungan,
+                    'tglKunjungan' => $value->tglKunjungan,
+                    'namaPoli' => $value->poliRujukan->nama,
+                    'jenisPelayanan' => $value->pelayanan->nama,
+                ];
+            }
+            return flash($res->metadata->message, 'success');
+        } else {
+            return flash($res->metadata->message, 'danger');
+        }
+    }
+    public function cariSuratKontrol()
+    {
+        $this->validate([
+            'nomorkartu' => 'required',
+            'tanggalperiksa' => 'required',
+        ]);
+        $api  = new VclaimController();
+        $request = new Request([
+            "nomorkartu" => $this->nomorkartu,
+            "formatfilter" => 2,
+            "bulan" => Carbon::parse($this->tanggalperiksa)->format('m'),
+            "tahun" => Carbon::parse($this->tanggalperiksa)->format('Y'),
+        ]);
+        $res = $api->suratkontrol_peserta($request);
+        if ($res->metadata->code == 200) {
+            $this->suratkontrols = [];
+            foreach ($res->response->list as $key => $value) {
+                $this->suratkontrols[] = [
+                    'no' => $key + 1,
+                    'noSuratKontrol' => $value->noSuratKontrol,
+                    'tglRencanaKontrol' => $value->tglRencanaKontrol,
+                    'namaPoliTujuan' => $value->namaPoliTujuan,
+                    'terbitSEP' => $value->terbitSEP,
+                ];
+            }
+            return flash($res->metadata->message, 'success');
         } else {
             return flash($res->metadata->message, 'danger');
         }
     }
     public function cariNomorKartu()
     {
+        $request = new Request([
+            'nomorkartu' => $this->nomorkartu,
+            'tanggal' => now()->format('Y-m-d'),
+        ]);
         $pasien = Pasien::where('nomorkartu', $this->nomorkartu)->first();
         if ($pasien) {
-            $this->nik = $pasien->nik;
-            $this->nomorkartu = $pasien->nomorkartu;
             $this->norm = $pasien->norm;
-            $this->nama = $pasien->nama;
             $this->nohp = $pasien->nohp;
+        }
+        $api = new VclaimController();
+        $res =  $api->peserta_nomorkartu($request);
+        if ($res->metadata->code == 200) {
+            $peserta = $res->response->peserta;
+            $this->nama = $peserta->nama;
+            $this->nomorkartu = $peserta->noKartu;
+            $this->nik = $peserta->nik;
+            $this->tgl_lahir = $peserta->tglLahir;
+            $this->fktp = $peserta->provUmum->nmProvider;
+            $this->jenispeserta = $peserta->jenisPeserta->keterangan;
+            $this->hakkelas = $peserta->hakKelas->kode;
+            $this->gender = $peserta->sex;
+            flash($res->metadata->message, 'success');
+        } else {
+            flash($res->metadata->message, 'danger');
         }
     }
     public function cariNIK()
     {
+        $request = new Request([
+            'nik' => $this->nik,
+            'tanggal' => now()->format('Y-m-d'),
+        ]);
         $pasien = Pasien::where('nik', $this->nik)->first();
         if ($pasien) {
-            $this->nomorkartu = $pasien->nomorkartu;
-            $this->nik = $pasien->nik;
             $this->norm = $pasien->norm;
-            $this->nama = $pasien->nama;
             $this->nohp = $pasien->nohp;
+        }
+        $api = new VclaimController();
+        $res =  $api->peserta_nik($request);
+        if ($res->metadata->code == 200) {
+            $peserta = $res->response->peserta;
+            $this->nama = $peserta->nama;
+            $this->nomorkartu = $peserta->noKartu;
+            $this->nik = $peserta->nik;
+            $this->tgl_lahir = $peserta->tglLahir;
+            $this->fktp = $peserta->provUmum->nmProvider;
+            $this->jenispeserta = $peserta->jenisPeserta->keterangan;
+            $this->hakkelas = $peserta->hakKelas->kode;
+            $this->gender = $peserta->sex;
+            flash($res->metadata->message, 'success');
+        } else {
+            flash($res->metadata->message, 'danger');
         }
     }
     public function cariNoRM()
@@ -174,9 +280,9 @@ class ModalAntrianRajal extends Component
             $this->nohp = $pasien->nohp;
         }
     }
-    public function closeformAntrian()
+    public function formAntrian()
     {
-        $this->dispatch('closeformAntrian');
+        $this->dispatch('formAntrian');
     }
     public function mount(Antrian $antrian)
     {

@@ -687,7 +687,7 @@ return [
             'name'                => 'Rupiah',
             'code'                => 360,
             'precision'           => 0,
-            'subunit'             => 100,
+            'subunit'             => 1,
             'symbol'              => 'Rp ',
             'symbol_first'        => true,
             'decimal_mark'        => ',',
