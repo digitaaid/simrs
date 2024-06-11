@@ -18,7 +18,7 @@
             <x-slot name="footerSlot">
                 <a
                     href="{{ route('pemeriksaan.perawat.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}&jadwal={{ $antrian->jadwal_id }}">
-                    <x-adminlte-button class="btn-xs" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
+                    <x-adminlte-button class="btn-xs mb-2" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
                 </a>
                 <x-adminlte-button wire:click='selesaiPerawat'
                     wire:confirm='Apakah anda yakin telah selesai pemeriksaan perawat ?' class="btn-xs"
