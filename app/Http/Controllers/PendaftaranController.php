@@ -14,4 +14,12 @@ class PendaftaranController extends Controller
             'antrian'
         ]));
     }
+    public  function antrianonline($kodebooking)
+    {
+        $antrian = Antrian::firstWhere('kodebooking', $kodebooking);
+        return view('antrianonline', compact([
+            'antrian'
+        ]));
+    }
+
 }

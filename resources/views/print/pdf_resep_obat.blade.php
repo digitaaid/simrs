@@ -13,29 +13,45 @@
                 <b>{{ strtoupper(env('APP_NAME_LONG')) }}</b><br>
                 Jl. Raya Merdeka Utama Ciledug Desa Ciledug Kulon, <br>
                 Kec. Ciledug, Kabupaten Cirebon, Jawa Barat 45682 <br>
-                www.klinikkitasehat.com
+                www.klinikkitasehat.com - 0812-2087-7566 (Whatsapp)
             </td>
             <td width="40%" style="vertical-align: top;">
                 <table class="table-borderless">
                     <tr>
                         <td>No RM</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->norm }}</b></td>
+                        <td><b>{{ $antrian->norm ?? '-' }}</b></td>
                     </tr>
                     <tr>
                         <td>Nama</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->nama }}</b></td>
+                        <td><b>{{ $antrian->nama ?? '-' }}</b></td>
                     </tr>
                     <tr>
+                        {{ \Carbon\Carbon::parse($antrian->kunjungan->tgl_lahir)->format('d F Y') }}
                         <td>Tgl Lahir</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->kunjungan->tgl_lahir }}</b></td>
+                        <td>
+                            <b>
+                                {{ \Carbon\Carbon::parse($antrian->kunjungan->tgl_lahir)->format('d F Y') }}
+                                ({{ \Carbon\Carbon::parse($antrian->kunjungan->tgl_lahir)->age }} tahun)
+                            </b>
+                        </td>
                     </tr>
                     <tr>
                         <td>Sex</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->kunjungan->gender }}</b></td>
+                        <td>
+                            <b>
+                                @if ($antrian->kunjungan)
+                                    @if ($antrian->kunjungan->gender == 'P')
+                                        Perempuan
+                                    @else
+                                        Laki-laki
+                                    @endif
+                                @endif
+                            </b>
+                        </td>
                     </tr>
                 </table>
             </td>
@@ -76,11 +92,12 @@
                 </table>
                 <br>
                 <b>RESEP OBAT NO. {{ $resepobat->kode }}</b><br>
-                @foreach ($resepobatdetails as $item)
-                    <b>R/ {{ $item->nama }}</b> ({{ $item->jumlah }}) {{ $item->frekuensi }} {{ $item->waktu }}
-                    {{ $item->keterangan }}<br>
-                @endforeach
-                <br><br>
+                <div style="font-size: 13px">
+                    @foreach ($resepobatdetails as $item)
+                        <b>R/ {{ $item->nama }}</b> ({{ $item->jumlah }}) {{ $item->frekuensi }} {{ $item->waktu }}
+                        {{ $item->keterangan }}<br>
+                    @endforeach
+                </div>
             </td>
             <td>
                 <table class="table table-xs table-bordered" style="font-size: 8px">

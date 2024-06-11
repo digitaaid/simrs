@@ -8,6 +8,7 @@ use App\Http\Controllers\SepController;
 use App\Http\Controllers\SuratKontrolController;
 use App\Livewire\Antrian\AnjunganAntrian;
 use App\Livewire\Antrian\AnjunganAntrianCreate;
+use App\Livewire\Antrian\DaftarAntrian;
 use App\Livewire\Bpjs\Antrian\AntreanBelumLayani;
 use App\Livewire\Bpjs\Antrian\AntreanDokter;
 use App\Livewire\Bpjs\Antrian\AntreanKodebooking;
@@ -81,6 +82,8 @@ Route::get('displayantrian', [AntrianController::class, 'displayAntrian'])->name
 Route::get('updatenomorantrean', [AntrianController::class, 'updatenomorantrean'])->name('updatenomorantrean');
 Route::get('displaynomor', [AntrianController::class, 'displaynomor'])->name('displaynomor');
 Route::get('getdisplayantrian', [AntrianController::class, 'getdisplayantrian'])->name('getdisplayantrian');
+Route::get('daftarantrian', DaftarAntrian::class)->name('daftarantrian');
+Route::get('antrianonline/{kodebooking}', [PendaftaranController::class, 'antrianonline'])->name('antrianonline');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
