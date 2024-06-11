@@ -316,6 +316,11 @@ return [
             'can' => 'manage-blog',
         ],
         [
+            'text'        => 'Landing Page',
+            'url'         => '',
+            'icon'        => 'fas fa-globe',
+        ],
+        [
             'text' => 'Dashboard',
             'url' => 'home',
             'icon' => 'fas fa-home',

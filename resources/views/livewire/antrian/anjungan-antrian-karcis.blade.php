@@ -16,8 +16,9 @@
         {!! QrCode::size(80)->generate($antrian->kodebooking) !!} <br>
         {{ $antrian->kodebooking }} / {{ $antrian->angkaantrean }}
         </p>
-        {{ $antrian->jenispasien === "JKN" ? "PASIEN BPJS / JKN" : "PASIEN UMUM"   }}
+        {{ $antrian->jenispasien === 'JKN' ? 'PASIEN BPJS / JKN' : 'PASIEN UMUM' }}
         @if ($antrian->method != 'Offline')
+            <br>
             <b>{{ $antrian->nama }}</b> <br>
             No RM {{ $antrian->norm }} <br>
             No BPJS {{ $antrian->nomorkartu }} <br>
