@@ -16,12 +16,12 @@
                 <div class="col-lg-3 col-6">
                     <x-adminlte-small-box
                         title="{{ $antrians->where('asesmenrajal.status_asesmen_perawat', 1)->count() }}"
-                        text="Sudah Asesmen Perawat" theme="warning" icon="fas fa-user-injured" />
+                        text="Sudah Asesmen" theme="warning" icon="fas fa-user-injured" />
                 </div>
                 <div class="col-lg-3 col-6">
                     <x-adminlte-small-box
                         title="{{ $antrians->where('taskid', '!=', 99)->where('asesmenrajal.status_asesmen_perawat', 0)->count() }}"
-                        text="Belum Asesmen Perawat" theme="danger" icon="fas fa-user-injured" />
+                        text="Belum Asesmen" theme="danger" icon="fas fa-user-injured" />
                 </div>
             </div>
         </div>
