@@ -30,6 +30,3 @@ jobs:
         git checkout devkitasehat
         git merge origin/dev --strategy-option=ours --allow-unrelated-histories
         git push origin devkitasehat
-      env:
-        GITHUB_TOKEN: $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
-
