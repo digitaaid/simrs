@@ -15,6 +15,10 @@ jobs:
       with:
         ref: dev
 
+    - name: Custom Action Using PAT
+      run: |
+          curl -H "Authorization: token ${{ secrets.ORG_PAT }}" https://github.com/digitaaid/simrs/
+
     - name: Configure Git
       run: |
         git config user.name 'marwandhiaurrahman'
