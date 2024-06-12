@@ -1,5 +1,5 @@
 <div class="row">
-    {{-- profile --}}
+    {{-- profiles --}}
     <div class="col-md-12">
         @if (flash()->message)
             <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
@@ -7,11 +7,10 @@
             </x-adminlte-alert>
         @endif
         <x-adminlte-card theme="primary" theme-mode="outline">
-
             @include('livewire.pendaftaran.modal-profil-rajal')
         </x-adminlte-card>
     </div>
-    {{-- navigasi --}}
+    {{-- navigasis --}}
     <div class="col-md-3">
         <x-adminlte-card theme="primary" title="Navigasi" body-class="p-0">
             @include('livewire.dokter.navigasi-pemeriksaan-rajal')
