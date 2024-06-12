@@ -8,7 +8,7 @@
         <x-adminlte-card title="Table item" theme="secondary">
             <div class="row ">
                 <div class="col-md-8">
-                    <x-adminlte-button class="btn-sm" label="Tambah item" theme="success" icon="fas fa-user-plus" />
+                    <x-adminlte-button class="btn-sm" label="Tambah ssitem" theme="success" icon="fas fa-user-plus" />
                 </div>
                 <div class="col-md-4">
                     <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Dokter"
