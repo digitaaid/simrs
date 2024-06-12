@@ -76,7 +76,7 @@
                 $heads = [
                     'No',
                     'Antrian',
-                    'No RM',
+                    'Nomor RM',
                     'Nama Pasien',
                     'Action',
                     'Taskid',
