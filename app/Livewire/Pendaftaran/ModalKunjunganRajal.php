@@ -112,7 +112,6 @@ class ModalKunjunganRajal extends Component
             // masukan tarif
             flash('Kunjungan atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
             $this->dispatch('refreshPage');
-            $this->dispatch('formKunjungan');
         } catch (\Throwable $th) {
             flash($th->getMessage(), 'danger');
         }

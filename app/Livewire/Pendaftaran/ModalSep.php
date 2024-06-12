@@ -123,19 +123,22 @@ class ModalSep extends Component
             "klsRawatHak" => "3",
             "user" => auth()->user()->name,
         ]);
-        $antrian = Antrian::find($this->antrian_id);
         $res = $api->sep_insert($request);
         if ($res->metadata->code == 200) {
-            $antrian->update([
-                'sep' =>  $res->response->sep->noSep,
-                'nomorreferensi' =>  $this->nomorreferensi,
-                'nomorsuratkontrol' =>  $this->noSurat,
-                'nomorrujukan' =>  $this->noRujukan,
-            ]);
-            $antrian->kunjungan->update([
-                'sep' =>  $res->response->sep->noSep,
-                'nomorreferensi' =>  $this->nomorreferensi,
-            ]);
+            $antrian = Antrian::find($this->antrian_id);
+            if ($antrian) {
+                $antrian->update([
+                    'sep' =>  $res->response->sep->noSep,
+                    'nomorreferensi' =>  $this->nomorreferensi,
+                    'nomorsuratkontrol' =>  $this->noSurat,
+                    'nomorrujukan' =>  $this->noRujukan,
+                ]);
+                $antrian->kunjungan->update([
+                    'sep' =>  $res->response->sep->noSep,
+                    'nomorreferensi' =>  $this->nomorreferensi,
+                ]);
+            }
+            $this->dispatch('refreshPage');
             return flash($res->metadata->message, 'success');
         } else {
             return flash($res->metadata->message, 'danger');
