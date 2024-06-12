@@ -29,7 +29,6 @@ jobs:
         git fetch origin
         git checkout devkitasehat
         git merge origin/dev --strategy-option=ours --allow-unrelated-histories
-        git remote set-url origin https://${{ secrets.ORG_PAT }}@github.com/digitaaid/simrs.git
         git push origin devkitasehat
       env:
         GITHUB_TOKEN: ${{ secrets.ORG_PAT }}
