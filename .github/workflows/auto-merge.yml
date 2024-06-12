@@ -3,7 +3,8 @@ name: Auto Merge Branches
 on:
   push:
     branches:
-      - dev
+      - dev  # Ganti dengan nama cabang target Anda
+
 jobs:
   merge:
     runs-on: ubuntu-latest
@@ -23,9 +24,14 @@ jobs:
       run: git fetch --all
 
     - name: Checkout target branch
-      run: git checkout devkitasehat
+      run: git checkout devkitasehat  # Ganti dengan nama cabang tujuan
 
     - name: Merge changes from source branch
       run: |
-        git merge --no-ff dev
-        git push origin devkitasehat
+        git merge --no-ff dev  # Ganti dengan nama cabang target
+
+    - name: Push changes
+      env:
+        PAT_TOKEN: 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
+      run: |
+        git push https://x-access-token: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@github.com/digitaaid/simrs.git HEAD:devkitasehat  # Ganti USERNAME dan REPOSITORY sesuai dengan repositori Anda
