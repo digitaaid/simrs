@@ -17,7 +17,7 @@ jobs:
 
     - name: Custom Action Using PAT
       run: |
-        curl -H "Authorization: token ${{ secrets.ORG_PAT }}" https://github.com/digitaaid/simrs/
+        curl -H "Authorization: token ${{ secrets.TOKEN_PAT }}" https://github.com/digitaaid/simrs/
 
     - name: Configure Git
       run: |
@@ -31,5 +31,5 @@ jobs:
         git merge origin/dev --strategy-option=ours --allow-unrelated-histories
         git push origin devkitasehat
       env:
-        GITHUB_TOKEN: ${{ secrets.ORG_PAT }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN_PAT }}
 
