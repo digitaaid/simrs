@@ -24,7 +24,6 @@ jobs:
       run: |
           git fetch origin
           git checkout devkitasehat
-          git fetch origin dev
           git merge origin/dev --no-edit --allow-unrelated-histories
           git push origin devkitasehat
       env:
