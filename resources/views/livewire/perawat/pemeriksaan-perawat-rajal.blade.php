@@ -75,7 +75,7 @@
             @php
                 $heads = [
                     'No',
-                    'Antrians',
+                    'Antrian',
                     'No RM',
                     'Nama Pasien',
                     'Action',
