@@ -1,0 +1,25 @@
+name: Auto Merge Branches
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Configure git
+      run: |
+        git config --global user.name 'marwanhdiaurrahman'
+        git config --global user.email 'marwanhdiaurrahman@github.com'
+
+    - name: Merge changes into devkitasehat
+      run: |
+        git checkout devkitasehat
+        git merge --no-ff dev
+        git push origin devkitasehat
