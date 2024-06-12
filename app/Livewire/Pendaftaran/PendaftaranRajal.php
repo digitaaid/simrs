@@ -10,6 +10,7 @@ class PendaftaranRajal extends Component
 {
     public $tanggalperiksa;
     public $antrians;
+    public $search = '';
     public function mount(Request $request)
     {
         $this->tanggalperiksa = $request->tanggalperiksa;
@@ -24,7 +25,9 @@ class PendaftaranRajal extends Component
     public function render()
     {
         if ($this->tanggalperiksa) {
+            $search = '%' . $this->search . '%';
             $this->antrians = Antrian::where('tanggalperiksa', $this->tanggalperiksa)
+                ->where('nama', 'like', $search)
                 ->orderBy('taskid', 'asc')
                 ->get();
         }

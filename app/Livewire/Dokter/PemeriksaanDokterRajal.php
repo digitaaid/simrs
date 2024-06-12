@@ -11,6 +11,7 @@ use Livewire\Component;
 class PemeriksaanDokterRajal extends Component
 {
     public $tanggalperiksa, $jadwal;
+    public $search = '';
     public $antrians, $jadwals = [];
     public function mount(Request $request)
     {
@@ -30,6 +31,7 @@ class PemeriksaanDokterRajal extends Component
     public function render()
     {
         if ($this->tanggalperiksa) {
+            $search = '%' . $this->search . '%';
             $this->jadwals = JadwalDokter::where('hari', Carbon::parse($this->tanggalperiksa)->dayOfWeek)
                 ->with(['dokter', 'unit'])
                 ->get();
@@ -41,6 +43,7 @@ class PemeriksaanDokterRajal extends Component
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
                 ->orderBy('asesmen_rajals.status_asesmen_dokter', 'asc')
                 ->select('antrians.*')
+                ->where('antrians.nama', 'like', $search)
                 ->get();
         }
         return view('livewire.dokter.pemeriksaan-dokter-rajal')->title('Pemeriksaan Dokter Rajal');
