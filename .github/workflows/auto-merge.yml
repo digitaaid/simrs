@@ -1,37 +1,29 @@
-name: Auto Merge Branches
+name: Auto Merge dev to devkitasehat
 
 on:
   push:
     branches:
-      - dev  # Ganti dengan nama cabang target Anda
+      - dev
 
 jobs:
   merge:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
+    - name: Checkout dev branch
       uses: actions/checkout@v2
       with:
-        fetch-depth: 0  # Ambil semua riwayat dan semua cabang
+        ref: dev
 
-    - name: Configure git
+    - name: Configure Git
       run: |
-        git config --global user.name 'marwandhiaurrahman'
-        git config --global user.email 'marwandhiaurrahman@github.com'
+        git config user.name 'marwandhiaurrahman'
+        git config user.email 'marwandhiaurrahman@github.com'
 
-    - name: Fetch all branches
-      run: git fetch --all
-
-    - name: Checkout target branch
-      run: git checkout devkitasehat  # Ganti dengan nama cabang tujuan
-
-    - name: Merge changes from source branch
+    - name: Merge dev into devkitasehat
       run: |
-        git merge --no-ff dev  # Ganti dengan nama cabang target
-
-    - name: Push changes
+        git checkout devkitasehat
+        git merge dev
+        git push origin devkitasehat
       env:
-        PAT_TOKEN: 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
-      run: |
-        git push https://x-access-token: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@github.com/digitaaid/simrs.git HEAD:devkitasehat  # Ganti USERNAME dan REPOSITORY sesuai dengan repositori Anda
+        GITHUB_TOKEN: ${{ secrets.ORG_PAT }}
