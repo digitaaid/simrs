@@ -29,7 +29,6 @@
                         <th>Diagnosa</th>
                         <th>Flag</th>
                         <th>Asuransi</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -81,6 +80,11 @@
                     @endforeach
                 </tbody>
             </table>
+            <br>
+        @endif
+        @if ($antrian->sep)
+            <iframe src="{{ route('vclaim.sep_print') }}?noSep={{ $antrian->sep }}" width="100%" height="300"
+                frameborder="0"></iframe>
         @endif
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-plus" class="btn-sm" label="Buat SEP"
@@ -152,8 +156,8 @@
                     </x-adminlte-select>
                 </div>
                 <div class="col-md-6">
-                    <x-adminlte-select wire:model='jnsPelayanan' fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                        igroup-size="sm" name="jnsPelayanan" label="Jenis Pelayanan">
+                    <x-adminlte-select wire:model='jnsPelayanan' fgroup-class="row" label-class="text-left col-4"
+                        igroup-class="col-8" igroup-size="sm" name="jnsPelayanan" label="Jenis Pelayanan">
                         <option value=null disabled>Pilih Jenis Pelayanan</option>
                         <option value="2">Rawat Jalan</option>
                         <option value="1">Rawat Inap</option>
