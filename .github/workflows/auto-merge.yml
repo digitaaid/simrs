@@ -22,9 +22,9 @@ jobs:
 
     - name: Merge dev into devkitasehat
       run: |
-        git fetch --all
-        git checkout devkitasehat
-        git merge dev --allow-unrelated-histories -m "Merging dev into devkitasehat with unrelated histories"
-        git push origin devkitasehat
+          git fetch origin
+          git checkout devkitasehat
+          git merge origin/dev --no-edit --allow-unrelated-histories
+          git push origin devkitasehat
       env:
         GITHUB_TOKEN: ${{ secrets.ORG_PAT }}
