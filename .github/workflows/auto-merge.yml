@@ -1,0 +1,30 @@
+name: Auto Merge dev to devkitasehat
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout dev branch
+      uses: actions/checkout@v2
+      with:
+        ref: dev
+
+    - name: Configure Git
+      run: |
+        git config user.name 'marwandhiaurrahman'
+        git config user.email 'marwandhiaurrahman@github.com'
+
+    - name: Merge dev into devkitasehat
+      run: |
+        git fetch --all
+        git checkout devkitasehat
+        git merge dev --allow-unrelated-histories -m "Merging dev into devkitasehat with unrelated histories"
+        git push origin devkitasehat
+      env:
+        GITHUB_TOKEN: ${{ secrets.ORG_PAT }}
