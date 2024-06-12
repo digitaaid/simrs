@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - dev
-
 jobs:
   merge:
     runs-on: ubuntu-latest
@@ -12,14 +11,21 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Ambil semua riwayat dan semua cabang
 
     - name: Configure git
       run: |
-        git config --global user.name 'marwanhdiaurrahman'
-        git config --global user.email 'marwanhdiaurrahman@github.com'
+        git config --global user.name 'marwandhiaurrahman'
+        git config --global user.email 'marwandhiaurrahman@github.com'
 
-    - name: Merge changes into devkitasehat
+    - name: Fetch all branches
+      run: git fetch --all
+
+    - name: Checkout target branch
+      run: git checkout devkitasehat
+
+    - name: Merge changes from source branch
       run: |
-        git checkout devkitasehat
         git merge --no-ff dev
         git push origin devkitasehat
