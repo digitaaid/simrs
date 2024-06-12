@@ -13,11 +13,35 @@ use Spatie\FlareClient\Api;
 
 class ModalSep extends Component
 {
-    public $antrian, $kodebooking, $antrian_id;
+    public $antrian, $kodebooking, $antrian_id, $nomorreferensi;
     public $polikliniks = [], $dokters = [], $diagnosas = [], $diagnosa;
     public $nomorkartu, $tanggal, $seps = [], $form = false;
     public $asalRujukan, $rujukans = [], $suratkontrols = [];
     public $noKartu, $noMR, $nama, $tglSep, $ppkPelayanan, $jnsPelayanan, $klsRawatHak, $tglRujukan, $noRujukan, $ppkRujukan, $catatan, $diagAwal, $tujuan, $eksekutif, $tujuanKunj = 0, $flagProcedure = "", $kdPenunjang = "", $assesmentPel = "", $noSurat, $kodeDPJP, $dpjpLayan, $noTelp, $user;
+
+    public function hapusSurat($noSep)
+    {
+        $request = new Request([
+            "noSep" => $noSep,
+            "user" => auth()->user()->name,
+        ]);
+        $api = new VclaimController();
+        $res = $api->sep_delete($request);
+        if ($res->metadata->code == 200) {
+            $antrian = Antrian::firstWhere('sep', $noSep);
+            if ($antrian) {
+                $antrian->update([
+                    'sep' =>  null,
+                ]);
+                $antrian->kunjungan->update([
+                    'sep' =>  null,
+                ]);
+            }
+            return flash($res->metadata->message, 'success');
+        } else {
+            return flash($res->metadata->message, 'danger');
+        }
+    }
     public function buatSEP()
     {
         $this->validate([
@@ -51,7 +75,9 @@ class ModalSep extends Component
             } else {
                 return flash($res->metadata->message, 'danger');
             }
+            $this->nomorreferensi = $this->noSurat;
         } else {
+            $this->nomorreferensi = $this->noRujukan;
             $request = new Request([
                 "nomorrujukan" => $this->noRujukan,
             ]);
@@ -100,7 +126,16 @@ class ModalSep extends Component
         $antrian = Antrian::find($this->antrian_id);
         $res = $api->sep_insert($request);
         if ($res->metadata->code == 200) {
-            dd($res);
+            $antrian->update([
+                'sep' =>  $res->response->sep->noSep,
+                'nomorreferensi' =>  $this->nomorreferensi,
+                'nomorsuratkontrol' =>  $this->noSurat,
+                'nomorrujukan' =>  $this->noRujukan,
+            ]);
+            $antrian->kunjungan->update([
+                'sep' =>  $res->response->sep->noSep,
+                'nomorreferensi' =>  $this->nomorreferensi,
+            ]);
             return flash($res->metadata->message, 'success');
         } else {
             return flash($res->metadata->message, 'danger');
