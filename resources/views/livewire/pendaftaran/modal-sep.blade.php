@@ -33,49 +33,46 @@
                 </thead>
                 <tbody>
                     @foreach ($seps as $item)
-                        @foreach ($seps as $item)
-                            <tr>
-                                <td>{{ $item->noSep }}</td>
-                                <td>{{ $item->tglSep }}</td>
-                                <td>{{ $item->tglPlgSep }}</td>
-                                <th>
-                                    <a target="_blank" href="{{ route('vclaim.sep_print') }}?noSep={{ $item->noSep }}">
-                                        <x-adminlte-button theme="success" class="btn-xs" icon="fas fa-print" />
-                                    </a>
-                                    {{-- <x-adminlte-button theme="warning" class="btn-xs"
+                        <tr>
+                            <td>{{ $item->noSep }}</td>
+                            <td>{{ $item->tglSep }}</td>
+                            <td>{{ $item->tglPlgSep }}</td>
+                            <th>
+                                <a target="_blank" href="{{ route('vclaim.sep_print') }}?noSep={{ $item->noSep }}">
+                                    <x-adminlte-button theme="success" class="btn-xs" icon="fas fa-print" />
+                                </a>
+                                {{-- <x-adminlte-button theme="warning" class="btn-xs"
                                         wire:click="editSurat('{{ $item->noSep }}')" icon="fas fa-edit" /> --}}
-                                    <x-adminlte-button theme="danger" class="btn-xs"
-                                        wire:click="hapusSurat('{{ $item->noSep }}')"
-                                        wire:confirm='Apakah anda yakin ingin menghapus surat teresebut ?'
-                                        icon="fas fa-trash" />
-                                </th>
-                                <td>{{ $item->noKartu }}</td>
-                                <td>{{ $item->namaPeserta }}</td>
-                                <td>
-                                    @switch($item->jnsPelayanan)
-                                        @case(1)
-                                            Rawat Inap
-                                        @break
+                                <x-adminlte-button theme="danger" class="btn-xs"
+                                    wire:click="hapusSurat('{{ $item->noSep }}')"
+                                    wire:confirm='Apakah anda yakin ingin menghapus surat teresebut ?'
+                                    icon="fas fa-trash" />
+                            </th>
+                            <td>{{ $item->noKartu }}</td>
+                            <td>{{ $item->namaPeserta }}</td>
+                            <td>
+                                @switch($item->jnsPelayanan)
+                                    @case(1)
+                                        Rawat Inap
+                                    @break
 
-                                        @case(2)
-                                            Rawat Jalan
-                                        @break
+                                    @case(2)
+                                        Rawat Jalan
+                                    @break
 
-                                        @default
-                                            -
-                                    @endswitch
+                                    @default
+                                        -
+                                @endswitch
 
-                                </td>
-                                <td>{{ $item->kelasRawat }}</td>
-                                <td>{{ $item->poli }}</td>
-                                <td>{{ $item->ppkPelayanan }}</td>
-                                <td>{{ $item->noRujukan }}</td>
-                                <td>{{ $item->poliTujSep }}</td>
-                                <td>{{ $item->diagnosa }}</td>
-                                <td>{{ $item->flag }}</td>
-                                <td>{{ $item->asuransi }}</td>
-                            </tr>
-                        @endforeach
+                            </td>
+                            <td>{{ $item->kelasRawat }}</td>
+                            <td>{{ $item->poli }}</td>
+                            <td>{{ $item->ppkPelayanan }}</td>
+                            <td>{{ $item->noRujukan }}</td>
+                            <td>{{ $item->poliTujSep }}</td>
+                            <td>{{ $item->diagnosa }}</td>
+                            <td>{{ $item->flag }}</td>
+                            <td>{{ $item->asuransi }}</td>
                         </tr>
                     @endforeach
                 </tbody>
