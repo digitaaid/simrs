@@ -9,7 +9,6 @@
                 {{-- <img src="{{ asset('kitasehat/logokitasehat.png') }}" style="height: 30px;"> --}}
             </td>
             <td width="50%" style="vertical-align: top;">
-                <b>RESEP OBAT NO. {{ $resepobat->kode }}</b><br>
                 <b>{{ strtoupper(env('APP_NAME_LONG')) }}</b><br>
                 Jl. Raya Merdeka Utama Ciledug Desa Ciledug Kulon, <br>
                 Kec. Ciledug, Kabupaten Cirebon, Jawa Barat 45682 <br>
@@ -53,6 +52,11 @@
                         </td>
                     </tr>
                 </table>
+            </td>
+        </tr>
+        <tr class="text-center" style="background-color: yellow">
+            <td colspan="3">
+                <b>RESEP OBAT NO. {{ $resepobat->kode }}</b>
             </td>
         </tr>
         <tr>

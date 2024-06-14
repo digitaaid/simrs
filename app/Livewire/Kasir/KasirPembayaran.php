@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire\Pendaftaran;
+namespace App\Livewire\Kasir;
 
 use App\Models\Antrian;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
-class PendaftaranRajal extends Component
+class KasirPembayaran extends Component
 {
     public $tanggalperiksa;
     public $antrians = [];
@@ -42,6 +42,6 @@ class PendaftaranRajal extends Component
                 ->where('antrians.nama', 'like', $search)
                 ->get();
         }
-        return view('livewire.pendaftaran.pendaftaran-rajal')->title('Pendaftaran Rawat Jalan');
+        return view('livewire.kasir.kasir-pembayaran')->title('Kasir Pembayaran');
     }
 }
