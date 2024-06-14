@@ -15,6 +15,7 @@ use Livewire\Component;
 
 class ModalAntrianRajal extends Component
 {
+    protected $listeners = ['refreshPage' => '$refresh'];
     public $antrian, $polikliniks, $dokters;
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien, $keterangan, $perujuk, $jeniskunjungan, $jeniskunjunjgan;
     public $gender, $tgl_lahir, $fktp, $jenispeserta, $hakkelas;

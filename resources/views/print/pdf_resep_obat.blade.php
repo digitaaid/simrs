@@ -59,21 +59,13 @@
             <td colspan="2">
                 <table class="table-borderless">
                     <tr>
-                        <td>Alamat</td>
+                        <td>Tanggal Masuk</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->pasien->alamat ?? '-' }}</b>
-                            @if ($antrian->pasien)
-                                <b>{{ $antrian->pasien->kabupaten ?? '' }}</b>
-                                <b>{{ $antrian->pasien->kecamatan ?? '' }}</b>
-                                <b>{{ $antrian->pasien->desa ?? '' }}</b>
-                            @endif
+                        <td>
+                            <b>
+                                {{ $antrian->kunjungan->tgl_masuk ? \Carbon\Carbon::parse($antrian->kunjungan->tgl_masuk)->format('d F Y H:i') : '-' }}
+                            </b>
                         </td>
-                    </tr>
-                    <tr>
-                        <td>BB / TB</td>
-                        <td>:</td>
-                        <td><b>{{ $antrian->asesmenrajal->berat_badan ?? '-' }} kg /
-                                {{ $antrian->asesmenrajal->tinggi_badan ?? '-' }} cm</b></td>
                     </tr>
                     <tr>
                         <td>Penjamin</td>
@@ -99,6 +91,17 @@
                         <td><b>{{ $antrian->kunjungan->dokters->nama ?? '-' }}</b></td>
                     </tr>
                     <tr>
+                        <td>Alamat</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->pasien->alamat ?? '-' }}</b>
+                            @if ($antrian->pasien)
+                                <b>{{ $antrian->pasien->kabupaten ?? '' }}</b>
+                                <b>{{ $antrian->pasien->kecamatan ?? '' }}</b>
+                                <b>{{ $antrian->pasien->desa ?? '' }}</b>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
                         <td>Riwayat Alergi</td>
                         <td>:</td>
                         <td><b>{{ $antrian->asesmenrajal->riwayat_alergi ?? '-' }}</b></td>
@@ -107,6 +110,13 @@
                         <td>Riwayat Penyakit</td>
                         <td>:</td>
                         <td><b>{{ $antrian->asesmenrajal->riwayat_penyakit ?? '-' }}</b></td>
+                    </tr>
+
+                    <tr>
+                        <td>BB / TB</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->asesmenrajal->berat_badan ?? '-' }} kg /
+                                {{ $antrian->asesmenrajal->tinggi_badan ?? '-' }} cm</b></td>
                     </tr>
                 </table>
                 <br>

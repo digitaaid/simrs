@@ -4,7 +4,6 @@ namespace App\Livewire\Pendaftaran;
 
 use App\Http\Controllers\VclaimController;
 use App\Models\Antrian;
-use App\Models\Pasien;
 use Illuminate\Http\Request;
 use Livewire\Component;
 

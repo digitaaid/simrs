@@ -390,7 +390,7 @@ return [
                 ],
                 [
                     'text' => 'Kasir Pembayaran',
-                    'url' => 'aplication',
+                    'url' => 'kasir',
                     'icon' => 'fas fa-cash-register',
                     'shift'   => 'ml-2',
                     'can' => 'kasir',

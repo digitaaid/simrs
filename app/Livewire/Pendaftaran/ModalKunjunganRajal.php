@@ -15,6 +15,7 @@ use Livewire\Component;
 
 class ModalKunjunganRajal extends Component
 {
+    protected $listeners = ['refreshPage' => '$refresh'];
     public $antrian, $jaminans, $polikliniks, $dokters;
     public $diagnosas = [];
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $tgl_lahir, $nohp, $fktp, $gender, $hakkelas, $jenispeserta, $kode, $counter, $jaminan, $tgl_masuk, $unit, $dokter, $caramasuk, $diagnosa, $jeniskunjungan, $nomorreferensi, $sep;
