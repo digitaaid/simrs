@@ -14,6 +14,6 @@ class HomeController extends Controller
     public function  landingpage()
     {
         $dokters = Dokter::where('status', 1)->get();
-        return view('kitasehat', compact('dokters'));
+        return view('landingpage', compact('dokters'));
     }
 }

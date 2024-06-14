@@ -1,5 +1,5 @@
     <!-- ======= Top Bar ======= -->
-    <div id="topbar" class="d-flex align-items-center fixed-top">
+    <div id="topbar" class="d-flex align-items-center fixed-top" style="background: purple">
         <div class="container d-flex align-items-center justify-content-center justify-content-md-between">
             <div class="align-items-center d-none d-md-flex">
                 <a class="scrollto" href="{{ route('landingpage') }}#jadwal" style="color: white">
@@ -17,7 +17,7 @@
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
             <a href="{{ route('landingpage') }}" class="logo me-auto">
-                <img src="{{ asset('kitasehat/logokitasehat.png') }}" alt="">
+                <img src="{{ asset('lmc/lmc-l.png') }}" alt="">
             </a>
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <h1 class="logo me-auto"><a hrefp="index.html">Medicio</a></h1> -->
@@ -58,7 +58,8 @@
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
-            <a href="{{ route('daftarantrian') }}" class="appointment-btn scrollto"><span class="d-none d-md-inline"></span>
+            <a href="{{ route('daftarantrian') }}" class="appointment-btn scrollto" style="background: purple">
+                <span class="d-none d-md-inline"></span>
                 Daftar</a>
         </div>
     </header><!-- End Header -->
