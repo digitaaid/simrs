@@ -91,35 +91,11 @@
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
-                                @if ($item->taskid <= 2)
-                                    <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
-                                        <x-adminlte-button class="btn-xs" label="Proses" theme="success"
-                                            icon="fas fa-user-plus" />
-                                    </a>
-                                @else
-                                    <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
-                                        <x-adminlte-button class="btn-xs" label="Lihat" theme="secondary"
-                                            icon="fas fa-user-plus" />
-                                    </a>
-                                @endif
-
-                                {{-- @switch($item->taskid)
-                                    @case(1)
-                                        <a href="{{ route('prosespendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-warning withLoad">Proses</a>
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-secondary withLoad">Lihat</a>
-                                    @break
-
-                                    @case(2)
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-primary withLoad">Proses</a>
-                                    @break
-
-                                    @default
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-secondary withLoad">Lihat</a>
-                                @endswitch --}}
+                                <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs" theme="warning"
+                                    icon="fas fa-edit" />
+                                <a href="{{ route('print.notarajal', $item->kodebooking) }}" target="_blank">
+                                    <x-adminlte-button class="btn-xs" title="Print Nota Rawat Jalan" theme="primary" icon="fas fa-print" />
+                                </a>
                             </td>
                             <td>
                                 @switch($item->taskid)
