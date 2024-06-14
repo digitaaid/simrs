@@ -1,5 +1,5 @@
     <!-- ======= Top Bar ======= -->
-    <div id="topbar" class="d-flex align-items-center fixed-top" style="background: purple">
+    <div id="topbar" class="d-flex align-items-center fixed-top">
         <div class="container d-flex align-items-center justify-content-center justify-content-md-between">
             <div class="align-items-center d-none d-md-flex">
                 <a class="scrollto" href="{{ route('landingpage') }}#jadwal" style="color: white">
@@ -58,7 +58,7 @@
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
-            <a href="{{ route('daftarantrian') }}" class="appointment-btn scrollto" style="background: purple">
+            <a href="{{ route('daftarantrian') }}" class="appointment-btn scrollto">
                 <span class="d-none d-md-inline"></span>
                 Daftar</a>
         </div>
