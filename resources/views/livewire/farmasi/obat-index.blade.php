@@ -139,10 +139,11 @@
                             <td>{{ $item->nama }}</td>
                             <td></td>
                             <td>{{ $item->stok_minimum }}</td>
-                            <td>{{ money($item->harga_beli, 'IDR') }}</td>
+                            <td>{{ is_numeric($item->harga_beli) ? money($item->harga_beli, 'IDR') : 'Tidak Valid' }}</td>
                             <td>{{ $item->konversi_satuan }} {{ $item->satuan }} / {{ $item->kemasan }}</td>
-                            <td>{{ money($item->harga_jual, 'IDR') }}</td>
-                            <td>{{ money($item->harga_bpjs, 'IDR') }}</td>
+                            <td>{{ is_numeric($item->harga_jual) ? money($item->harga_jual, 'IDR') : 'Tidak Valid' }}
+                            </td>
+                            <td>{{ is_numeric($item->harga_bpjs) ? money($item->harga_bpjs, 'IDR') : 'Tidak Valid' }}</td>
                             <td>
                                 <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
                                     label="Edit" theme="warning" icon="fas fa-edit" />
