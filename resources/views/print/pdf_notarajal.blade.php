@@ -1,5 +1,5 @@
 @extends('print.pdf_layout')
-@section('title', 'Print SEP BPJS')
+@section('title', 'Print Nota Pembayaran')
 
 @section('content')
     <table class="table table-sm table-bordered" style="font-size: 9px;">
@@ -56,7 +56,7 @@
         </tr>
         <tr class="text-center" style="background: yellow">
             <td colspan="3">
-                <b>NOTA PEMBAYARAN RAWAT JALAN
+                <b>NOTA PEMBAYARAN RAWAT JALAN</b>
             </td>
         </tr>
         <tr>

@@ -1,5 +1,5 @@
 @extends('print.pdf_layout')
-@section('title', 'Print SEP BPJS')
+@section('title', 'Resume Rawat Jalan')
 
 @section('content')
     <table class="table table-sm table-bordered" style="font-size: 10px;">
@@ -54,9 +54,62 @@
                 </table>
             </td>
         </tr>
-        <tr class="text-center" style="background-color: yellow">
+        <tr class="text-center" style="background: yellow">
             <td colspan="3">
-                <b>RESUME RAWAT JALAN NO. {{ $antrian->kodebooking }}</b>
+                <b>RESUME RAWAT JALAN</b>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <img src="{{ $url }}" width="40px">
+            </td>
+            <td>
+                <table class="table-borderless">
+                    <tr>
+                        <td>Tanggal Masuk</td>
+                        <td>:</td>
+                        <td><b>
+                                {{ $antrian->kunjungan->tgl_masuk ? \Carbon\Carbon::parse($antrian->kunjungan->tgl_masuk)->format('d F Y H:i') : '-' }}
+                            </b></td>
+                    </tr>
+                    <tr>
+                        <td>Unit / Ruangan</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->kunjungan->units->nama ?? '-' }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Dokter</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->kunjungan->dokters->nama ?? '-' }}</b></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="table-borderless">
+                    <tr>
+                        <td>Penjamin</td>
+                        <td>:</td>
+                        <td>
+                            <b>
+                                @if ($antrian->jenispasien == 'JKN')
+                                    BPJS / JKN
+                                @else
+                                    UMUM / NON-JKN
+                                @endif
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Jenis Pelayanan</td>
+                        <td>:</td>
+                        <td><b>Rawat Jalan</b></td>
+                    </tr>
+                    <tr>
+                        <td>Kode Kunjungan</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->kunjungan->kode ?? '-' }}</b></td>
+                    </tr>
+                </table>
             </td>
         </tr>
         <tr>
@@ -119,6 +172,44 @@
             </td>
             <td>
                 <table class="table-borderless">
+                    <tr>
+                        <td>Tekanan Darah</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->sistole ?? '-' }}/{{ $antrian->asesmenrajal->distole ?? '-' }} mmHg
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Denyut Nadi</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->denyut_jantung ?? '-' }} x/menit
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Pernapasan</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->pernapasan ?? '-' }} x/menit
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Suhu</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->suhu ?? '-' }} Celcius
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>BB / TB</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->berat_badan ?? '-' }} kg / {{ $antrian->asesmenrajal->tinggi_badan ?? '-' }} cm
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"> <br></td>
+                    </tr>
                     <tr>
                         <td>Cat. Laboratorium</td>
                         <td>:</td>
