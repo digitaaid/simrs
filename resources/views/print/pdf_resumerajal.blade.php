@@ -252,7 +252,7 @@
             </td>
             <td class="text-center">
                 Dokter DPJP, <br>
-                <img src="{{ $ttddokter }}"><br>
+                <img src="{{ $ttddokter }}" width="70px"> <br>
                 <b><u>{{ $antrian->kunjungan->dokters->nama }}</u></b>
             </td>
         </tr>

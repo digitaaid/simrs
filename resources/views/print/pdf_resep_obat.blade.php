@@ -2,7 +2,7 @@
 @section('title', 'Print SEP BPJS')
 
 @section('content')
-    <table class="table table-sm table-bordered" style="font-size: 10px;">
+    <table class="table table-sm table-bordered" style="font-size: 9px;">
         <tr>
             <td width="10%" class="text-center" style="vertical-align: top;">
                 <img src="{{ public_path('kitasehat/logokitasehat.png') }}" style="height: 30px;">
@@ -54,23 +54,38 @@
                 </table>
             </td>
         </tr>
-        <tr class="text-center" style="background-color: yellow">
+        <tr class="text-center" style="background: yellow">
             <td colspan="3">
-                <b>RESEP OBAT NO. {{ $resepobat->kode }}</b>
+                <b>RESEP OBAT RAWAT JALAN</b>
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td class="text-center">
+                <img src="{{ $url }}" width="40px">
+            </td>
+            <td>
                 <table class="table-borderless">
                     <tr>
                         <td>Tanggal Masuk</td>
                         <td>:</td>
-                        <td>
-                            <b>
+                        <td><b>
                                 {{ $antrian->kunjungan->tgl_masuk ? \Carbon\Carbon::parse($antrian->kunjungan->tgl_masuk)->format('d F Y H:i') : '-' }}
-                            </b>
-                        </td>
+                            </b></td>
                     </tr>
+                    <tr>
+                        <td>Unit / Ruangan</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->kunjungan->units->nama ?? '-' }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Dokter</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->kunjungan->dokters->nama ?? '-' }}</b></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="table-borderless">
                     <tr>
                         <td>Penjamin</td>
                         <td>:</td>
@@ -85,17 +100,23 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Ruangan/Klinik</td>
+                        <td>Jenis Pelayanan</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->kunjungan->units->nama ?? '-' }}</b></td>
+                        <td><b>Rawat Jalan</b></td>
                     </tr>
                     <tr>
-                        <td>Dokter</td>
+                        <td>Kode Kunjungan</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->kunjungan->dokters->nama ?? '-' }}</b></td>
+                        <td><b>{{ $antrian->kunjungan->kode ?? '-' }}</b></td>
                     </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table class="table-borderless">
                     <tr>
-                        <td>Alamat</td>
+                        <td>Alamat Pasien</td>
                         <td>:</td>
                         <td><b>{{ $antrian->pasien->alamat ?? '-' }}</b>
                             @if ($antrian->pasien)
@@ -124,8 +145,8 @@
                     </tr>
                 </table>
                 <br>
-                <b>RESEP OBAT NO. {{ $resepobat->kode }}</b><br>
-                <div style="font-size: 13px">
+                RESEP OBAT NO. {{ $resepobat->kode }}<br>
+                <div style="font-size: 10px">
                     @foreach ($resepobatdetails as $item)
                         <b>R/ {{ $item->nama }}</b> ({{ $item->jumlah }}) {{ $item->frekuensi }} {{ $item->waktu }}
                         {{ $item->keterangan }}<br>

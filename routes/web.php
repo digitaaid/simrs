@@ -56,6 +56,7 @@ use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Perawat\TindakanIndex;
 use App\Livewire\Profil\ProfilIndex;
 use App\Livewire\Rekammedis\RekamMedisRajal;
+use App\Livewire\Rekammedis\RekamMedisRajalEdit;
 use App\Livewire\Unit\UnitIndex;
 use App\Livewire\User\PermissionIndex;
 use App\Livewire\User\RoleIndex;
@@ -159,6 +160,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('farmasi/pengambilan_resep', PengambilanResep::class)->name('pengambilan.resep');
     // rekam medis
     Route::get('rekammedis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
+    Route::get('rekammedis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
     // kasir
     Route::get('kasir-pembayaran', KasirPembayaran::class)->name('kasir.pembayran');
 });
@@ -167,4 +169,5 @@ Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class, 'prin
 Route::get('farmasi/print_etiket', [FarmasiController::class, 'print_etiket'])->name('print.etiket');
 Route::get('farmasi/print_gelang', [FarmasiController::class, 'print_gelang'])->name('print.gelang');
 Route::get('resumerajal/{kodebooking}',  [RekamMedisController::class, 'resumerajal'])->name('resume.rajal');
+Route::get('rekammedis/rajal_print/{kodebooking}',  [RekamMedisController::class, 'rajal_print'])->name('rekammedis.rajal.print');
 Route::get('kasir/print_notarajal/{kodebooking}', [KasirController::class, 'print_notarajal'])->name('print.notarajal');

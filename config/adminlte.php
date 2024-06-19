@@ -398,6 +398,7 @@ return [
                 [
                     'text' => 'Rekam Medis Rawat Jalan',
                     'url' => 'rekammedis/rajal',
+                    'active' => ['rekammedis/rajal', 'rekammedis/rajal/edit/*'],
                     'icon' => 'fas fa-laptop-medical',
                     'shift'   => 'ml-2',
                     'can' => 'rekam-medis',

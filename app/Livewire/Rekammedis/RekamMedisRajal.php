@@ -11,7 +11,7 @@ use Livewire\Component;
 class RekamMedisRajal extends Component
 {
     public $tanggalperiksa;
-    public $antrians;
+    public $antrians = [];
     public function syncantrian($kodebooking)
     {
         $antrian = Antrian::where('kodebooking', $kodebooking)->first();

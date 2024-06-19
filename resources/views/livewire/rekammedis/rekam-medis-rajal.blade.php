@@ -6,24 +6,25 @@
             </x-adminlte-alert>
         </div>
     @endif
-    @if (isset($antrians))
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}" text="Total Antrian"
-                        theme="success" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('jenispasien', 'JKN')->count() }}"
-                        text="Pasien JKN" theme="primary" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('jenispasien', 'NON-JKN')->count() }}"
-                        text="Pasien NON-JKN" theme="primary" icon="fas fa-user-injured" />
-                </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box
+                    title="{{ count($antrians) ? $antrians->where('taskid', '!=', 99)->count() : '-' }}"
+                    text="Total Antrian" theme="success" icon="fas fa-user-injured" />
+            </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box
+                    title="{{ count($antrians) ? $antrians->where('jenispasien', 'JKN')->count() : '-' }}"
+                    text="Pasien JKN" theme="primary" icon="fas fa-user-injured" />
+            </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box
+                    title="{{ count($antrians) ? $antrians->where('jenispasien', 'NON-JKN')->count() : '-' }}"
+                    text="Pasien NON-JKN" theme="primary" icon="fas fa-user-injured" />
             </div>
         </div>
-    @endif
+    </div>
     <div class="col-md-12">
         <x-adminlte-card title="Table Antrian Pendaftaran" theme="secondary">
             <div class="row">
@@ -62,8 +63,8 @@
                     'Kodebooking',
                     'No RM',
                     'Nama Pasien',
-                    'Action',
                     'Taskid',
+                    'Rekam Medis',
                     'Sync Antrian',
                     'Jenis Pasien',
                     'SEP',
@@ -88,29 +89,6 @@
                             <td>{{ $item->kodebooking }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
-                            <td>
-                                <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
-                                    <x-adminlte-button class="btn-xs" label="Proses" theme="success"
-                                        icon="fas fa-user-plus" />
-                                </a>
-                                {{-- @switch($item->taskid)
-                                    @case(1)
-                                        <a href="{{ route('prosespendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-warning withLoad">Proses</a>
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-secondary withLoad">Lihat</a>
-                                    @break
-
-                                    @case(2)
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-primary withLoad">Proses</a>
-                                    @break
-
-                                    @default
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-secondary withLoad">Lihat</a>
-                                @endswitch --}}
-                            </td>
                             <td>
                                 @switch($item->taskid)
                                     @case(0)
@@ -154,6 +132,15 @@
                                     @default
                                         {{ $item->taskid }}
                                 @endswitch
+                            </td>
+                            <td>
+                                <a href="{{ route('rekammedis.rajal.edit', $item->kodebooking) }}">
+                                    <x-adminlte-button class="btn-xs" label="Edit" theme="warning"
+                                        icon="fas fa-edit" />
+                                </a>
+                                <a href="{{ route('rekammedis.rajal.print', $item->kodebooking) }}" target="_blank">
+                                    <x-adminlte-button class="btn-xs" theme="warning" icon="fas fa-print" />
+                                </a>
                             </td>
                             <td>
                                 <x-adminlte-button class="btn-xs" wire:click="syncantrian('{{ $item->kodebooking }}')"
