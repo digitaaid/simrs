@@ -76,9 +76,9 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->jumlah }}</td>
-                            <td class="text-right">{{ money($item->harga, 'IDR') }}</td>
+                            <td class="text-right">{{ money($item->harga ? $item->harga : 0, 'IDR') }}</td>
                             <td>{{ $item->diskon }}%</td>
-                            <td class="text-right">{{ money($item->subtotal, 'IDR') }}</td>
+                            <td class="text-right">{{ money($item->subtotal ? $item->subtotal : 0, 'IDR') }}</td>
                         </tr>
                     @endforeach
                     <tr>
@@ -104,9 +104,9 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->jumlah }}</td>
-                            <td class="text-right">{{ money($item->harga, 'IDR') }}</td>
+                            <td class="text-right">{{ money($item->harga ? $item->harga : 0, 'IDR') }}</td>
                             <td></td>
-                            <td class="text-right">{{ money($item->subtotal, 'IDR') }}</td>
+                            <td class="text-right">{{ money($item->subtotal ? $item->subtotal : 0, 'IDR') }}</td>
                         </tr>
                     @endforeach
                     <tr>
