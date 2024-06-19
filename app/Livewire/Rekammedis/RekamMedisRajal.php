@@ -69,6 +69,7 @@ class RekamMedisRajal extends Component
     {
         if ($this->tanggalperiksa) {
             $this->antrians = Antrian::where('tanggalperiksa', $this->tanggalperiksa)
+                ->where('taskid', '>=', 5)
                 ->orderBy('taskid', 'asc')
                 ->get();
         }

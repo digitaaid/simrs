@@ -1,8 +1,8 @@
 @extends('print.pdf_layout')
-@section('title', 'Print SEP BPJS')
+@section('title', 'Resume Rawat Jalan')
 
 @section('content')
-    <table class="table table-sm table-bordered" style="font-size: 10px;">
+    <table class="table table-sm table-bordered" style="font-size: 9px;">
         <tr>
             <td width="10%" class="text-center" style="vertical-align: top;">
                 <img src="{{ public_path('kitasehat/logokitasehat.png') }}" style="height: 30px;">
@@ -54,9 +54,62 @@
                 </table>
             </td>
         </tr>
-        <tr class="text-center" style="background-color: yellow">
+        <tr class="text-center" style="background: yellow">
             <td colspan="3">
-                <b>RESUME RAWAT JALAN NO. {{ $antrian->kodebooking }}</b>
+                <b>RESUME RAWAT JALAN</b>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <img src="{{ $url }}" width="40px">
+            </td>
+            <td>
+                <table class="table-borderless">
+                    <tr>
+                        <td>Tanggal Masuk</td>
+                        <td>:</td>
+                        <td><b>
+                                {{ $antrian->kunjungan->tgl_masuk ? \Carbon\Carbon::parse($antrian->kunjungan->tgl_masuk)->format('d F Y H:i') : '-' }}
+                            </b></td>
+                    </tr>
+                    <tr>
+                        <td>Unit / Ruangan</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->kunjungan->units->nama ?? '-' }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Dokter</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->kunjungan->dokters->nama ?? '-' }}</b></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="table-borderless">
+                    <tr>
+                        <td>Penjamin</td>
+                        <td>:</td>
+                        <td>
+                            <b>
+                                @if ($antrian->jenispasien == 'JKN')
+                                    BPJS / JKN
+                                @else
+                                    UMUM / NON-JKN
+                                @endif
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Jenis Pelayanan</td>
+                        <td>:</td>
+                        <td><b>Rawat Jalan</b></td>
+                    </tr>
+                    <tr>
+                        <td>Kode Kunjungan</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->kunjungan->kode ?? '-' }}</b></td>
+                    </tr>
+                </table>
             </td>
         </tr>
         <tr>
@@ -68,7 +121,7 @@
                         <td>{{ $antrian->asesmenrajal->keluhan_utama ?? '-' }}</td>
                     </tr>
                     <tr>
-                        <td>Pemeriksaan Fisik</td>
+                        <td style="white-space:nowrap;">Pemeriksaan Fisik</td>
                         <td>:</td>
                         <td>
                             {{ $antrian->asesmenrajal->pemeriksaan_fisik_perawat ?? '' }}
@@ -79,8 +132,7 @@
                         <td>Diagnosa</td>
                         <td>:</td>
                         <td>
-                            {{ $antrian->asesmenrajal->diagnosa ?? '' }}
-                            {{ $antrian->asesmenrajal->diagnosa_keperawatan ?? '' }}
+                            {{ $antrian->asesmenrajal->diagnosa ?? '' }} <br>
                             {{ $antrian->asesmenrajal->diagnosa_dokter ?? '' }}
                         </td>
                     </tr>
@@ -92,7 +144,12 @@
                     <tr>
                         <td>ICD-10 Sekunder</td>
                         <td>:</td>
-                        <td>{{ $antrian->asesmenrajal->icd2 ?? '-' }}
+                        <td>
+                            @if ($antrian->asesmenrajal?->icd2)
+                                @foreach (explode(';', $antrian->asesmenrajal?->icd2) as $item)
+                                    {{ $item }} <br>
+                                @endforeach
+                            @endif
                         </td>
                     </tr>
                     <tr>
@@ -103,14 +160,21 @@
                     <tr>
                         <td>ICD-9 Procedure</td>
                         <td>:</td>
-                        <td>{{ $antrian->asesmenrajal->icd9 ?? '-' }}</td>
+                        <td>
+                            @if ($antrian->asesmenrajal?->icd9)
+                                @foreach (explode(';', $antrian->asesmenrajal?->icd9) as $item)
+                                    {{ $item }} <br>
+                                @endforeach
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td>Pengobatan</td>
                         <td>:</td>
                         <td>
                             @foreach ($antrian->resepobatdetails as $item)
-                                {{ $item->nama }} ({{ $item->jumlah }}) {{ $item->frekuensi }} {{ $item->waktu }}
+                                <b>R/ {{ $item->nama }}</b> ({{ $item->jumlah }}) {{ $item->frekuensi }}
+                                {{ $item->waktu }}
                                 {{ $item->keterangan }} <br>
                             @endforeach
                         </td>
@@ -120,21 +184,63 @@
             <td>
                 <table class="table-borderless">
                     <tr>
-                        <td>Cat. Laboratorium</td>
+                        <td>Tekanan Darah</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->sistole ?? '-' }}/{{ $antrian->asesmenrajal->distole ?? '-' }} mmHg
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Denyut Nadi</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->denyut_jantung ?? '-' }} x/menit
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Pernapasan</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->pernapasan ?? '-' }} x/menit
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Suhu</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->suhu ?? '-' }} Celcius
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>BB / TB</td>
+                        <td>:</td>
+                        <td>
+                            {{ $antrian->asesmenrajal->berat_badan ?? '-' }} kg /
+                            {{ $antrian->asesmenrajal->tinggi_badan ?? '-' }} cm
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table class="table-borderless">
+                    <tr>
+                        <td>Catatan Laboratorium</td>
                         <td>:</td>
                         <td>
                             {{ $antrian->asesmenrajal->pemeriksaan_lab ?? '-' }}
                         </td>
                     </tr>
                     <tr>
-                        <td>Cat. Radiologi</td>
+                        <td>Catatan Radiologi</td>
                         <td>:</td>
                         <td>
                             {{ $antrian->asesmenrajal->pemeriksaan_rad ?? '-' }}
                         </td>
                     </tr>
                     <tr>
-                        <td>Cat. Radiologi</td>
+                        <td>Catatan Penunjang</td>
                         <td>:</td>
                         <td>
                             {{ $antrian->asesmenrajal->pemeriksaan_penunjang ?? '-' }}
@@ -142,22 +248,17 @@
                     </tr>
 
                 </table>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <img src="{{ $url }}"><br>
-                Data didalam file ini telah ditanda tanganni secara elektronik dan sah <br>
-                Waktu cetak {{ now() }}
+                <br>
             </td>
             <td class="text-center">
                 Dokter DPJP, <br>
-                <img src="{{ $ttddokter }}"><br>
+                <img src="{{ $ttddokter }}" width="70px"> <br>
                 <b><u>{{ $antrian->kunjungan->dokters->nama }}</u></b>
             </td>
         </tr>
 
     </table>
+
     <style>
         @page {
             size: "A4";
