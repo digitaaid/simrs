@@ -2,7 +2,7 @@
 @section('title', 'Print SEP BPJS')
 
 @section('content')
-    <table class="table table-sm table-bordered" style="font-size: 10px;">
+    <table class="table table-sm table-bordered" style="font-size: 9px;">
         <tr>
             <td width="10%" class="text-center" style="vertical-align: top;">
                 <img src="{{ public_path('kitasehat/logokitasehat.png') }}" style="height: 30px;">
@@ -54,9 +54,62 @@
                 </table>
             </td>
         </tr>
-        <tr class="text-center" style="background-color: yellow">
+        <tr class="text-center" style="background: yellow">
             <td colspan="3">
-                <b>NOTA PEMBAYARAN RAWAT JALAN NO. {{ $resepobat->kode }}</b>
+                <b>NOTA PEMBAYARAN RAWAT JALAN
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <img src="{{ $url }}" width="40px">
+            </td>
+            <td>
+                <table class="table-borderless">
+                    <tr>
+                        <td>Tanggal Masuk</td>
+                        <td>:</td>
+                        <td><b>
+                                {{ $antrian->kunjungan->tgl_masuk ? \Carbon\Carbon::parse($antrian->kunjungan->tgl_masuk)->format('d F Y H:i') : '-' }}
+                            </b></td>
+                    </tr>
+                    <tr>
+                        <td>Unit / Ruangan</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->kunjungan->units->nama ?? '-' }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Dokter</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->kunjungan->dokters->nama ?? '-' }}</b></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="table-borderless">
+                    <tr>
+                        <td>Penjamin</td>
+                        <td>:</td>
+                        <td>
+                            <b>
+                                @if ($antrian->jenispasien == 'JKN')
+                                    BPJS / JKN
+                                @else
+                                    UMUM / NON-JKN
+                                @endif
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Jenis Pelayanan</td>
+                        <td>:</td>
+                        <td><b>Rawat Jalan</b></td>
+                    </tr>
+                    <tr>
+                        <td>Kode Kunjungan</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->kunjungan->kode ?? '-' }}</b></td>
+                    </tr>
+                </table>
             </td>
         </tr>
         <tr>
