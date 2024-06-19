@@ -56,6 +56,7 @@ use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Perawat\TindakanIndex;
 use App\Livewire\Profil\ProfilIndex;
 use App\Livewire\Rekammedis\RekamMedisRajal;
+use App\Livewire\Rekammedis\RekamMedisRajalEdit;
 use App\Livewire\Unit\UnitIndex;
 use App\Livewire\User\PermissionIndex;
 use App\Livewire\User\RoleIndex;
@@ -159,6 +160,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('farmasi/pengambilan_resep', PengambilanResep::class)->name('pengambilan.resep');
     // rekam medis
     Route::get('rekammedis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
+    Route::get('rekammedis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
     // kasir
     Route::get('kasir-pembayaran', KasirPembayaran::class)->name('kasir.pembayran');
 });
