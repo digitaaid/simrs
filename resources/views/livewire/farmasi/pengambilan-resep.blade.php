@@ -153,6 +153,7 @@
                     'Jenis Pasien',
                     'Layanan',
                     'Obat',
+                    'Invoice',
                     'Unit',
                     'PIC',
                     'Dokter',
@@ -245,6 +246,12 @@
                             <td>{{ $item->jenispasien }} </td>
                             <td class="text-right">{{ money($item->layanans->sum('harga'), 'IDR') }} </td>
                             <td class="text-right">{{ money($item->resepobatdetails->sum('subtotal'), 'IDR') }} </td>
+                            <td>
+                                <a href="{{ route('print.notarajal', $item->kodebooking) }}" target="_blank">
+                                    <x-adminlte-button class="btn-xs" label="Invoice" title="Print Nota Rawat Jalan"
+                                        theme="warning" icon="fas fa-print" />
+                                </a>
+                            </td>
                             <td>{{ $item->kunjungan->units->nama ?? $item->namapoli }} </td>
                             <td>{{ $item->pic4->name ?? '-' }} </td>
                             <td>{{ $item->kunjungan->dokters->namadokter ?? $item->namadokter }}</td>
