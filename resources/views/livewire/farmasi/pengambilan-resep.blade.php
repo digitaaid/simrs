@@ -190,8 +190,10 @@
                                         theme="success" icon="fas fa-check" />
                                 @endif
                                 @if ($item->taskid == 7)
-                                    <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
-                                        theme="warning" icon="fas fa-edit" />
+                                    <a href="#editresep">
+                                        <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
+                                            theme="warning" icon="fas fa-edit" label="Edit" />
+                                    </a>
                                     <a href="{{ route('print.resep', $item->kodebooking) }}" target="_blank">
                                         <x-adminlte-button class="btn-xs" theme="primary" icon="fas fa-print" />
                                     </a>
