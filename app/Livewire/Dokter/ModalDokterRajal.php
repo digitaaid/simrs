@@ -290,6 +290,7 @@ class ModalDokterRajal extends Component
         $this->kodekunjungan = $antrian->kunjungan->kode;
         $this->kunjungan_id = $antrian->kunjungan->id;
         $antrianlast = Antrian::where('norm', $this->antrian->norm)
+            ->where('kodedokter', $this->antrian->kunjungan->dokter)
             ->has('asesmenrajal')
             ->where('id', '<', $this->antrian->id)
             ->orderBy('id', 'desc')
