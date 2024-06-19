@@ -61,15 +61,6 @@ class PendaftaranRajalProses extends Component
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
-            if (env('ANTRIAN_REALTIME')) {
-                $request = new Request([
-                    'kodebooking' => $this->kodebooking,
-                    'waktu' => now(),
-                    'taskid' => 2,
-                ]);
-                $api = new AntrianController();
-                $res = $api->update_antrean($request);
-            }
             $antrian->taskid2 = now();
             $antrian->panggil = 0;
             $antrian->taskid = 2;
