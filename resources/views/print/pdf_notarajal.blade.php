@@ -56,7 +56,7 @@
         </tr>
         <tr class="text-center" style="background-color: yellow">
             <td colspan="3">
-                <b>NORA PEMBAYARAN RAWAT JALAN NO. {{ $resepobat->kode }}</b>
+                <b>NOTA PEMBAYARAN RAWAT JALAN NO. {{ $resepobat->kode }}</b>
             </td>
         </tr>
         <tr>
@@ -105,7 +105,7 @@
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->jumlah }}</td>
                             <td class="text-right">{{ money($item->harga ? $item->harga : 0, 'IDR') }}</td>
-                            <td></td>
+                            <td>{{ $item->diskon }}%</td>
                             <td class="text-right">{{ money($item->subtotal ? $item->subtotal : 0, 'IDR') }}</td>
                         </tr>
                     @endforeach
