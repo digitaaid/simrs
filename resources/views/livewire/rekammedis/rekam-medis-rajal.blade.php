@@ -10,22 +10,16 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 2)->first()->nomorantrean ?? '-' }}"
-                        text="Antrian Dilayani" theme="primary" icon="fas fa-user-injured"
-                        url="{{ route('pendaftaran.rajal.proses', $antrians->where('taskid', 1)->first()->kodebooking ?? '00') }}"
-                        url-text="Proses Antrian Selanjutnya" />
+                    <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}" text="Total Antrian"
+                        theme="success" icon="fas fa-user-injured" />
                 </div>
                 <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 1)->count() }}" text="Sisa Antrian"
-                        theme="warning" icon="fas fa-user-injured" />
+                    <x-adminlte-small-box title="{{ $antrians->where('jenispasien', 'JKN')->count() }}"
+                        text="Pasien JKN" theme="primary" icon="fas fa-user-injured" />
                 </div>
                 <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}"
-                        text="Total Antrian" theme="success" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 99)->count() }}" text="Batal Antrian"
-                        theme="danger" icon="fas fa-user-injured" />
+                    <x-adminlte-small-box title="{{ $antrians->where('jenispasien', 'NON-JKN')->count() }}"
+                        text="Pasien NON-JKN" theme="primary" icon="fas fa-user-injured" />
                 </div>
             </div>
         </div>
@@ -165,8 +159,7 @@
                                 <x-adminlte-button class="btn-xs" wire:click="syncantrian('{{ $item->kodebooking }}')"
                                     label="{{ $item->sync_antrian ? 'Sudah' : 'Belum' }}  Sync"
                                     theme="{{ $item->sync_antrian ? 'success' : 'warning' }}" icon="fas fa-user-clock" />
-                                <x-adminlte-button class="btn-xs"
-                                    theme="warning" icon="fas fa-edit" />
+                                <x-adminlte-button class="btn-xs" theme="warning" icon="fas fa-edit" />
                             </td>
                             <td>{{ $item->jenispasien }} </td>
                             <td>{{ $item->kunjungan->sep ?? '-' }} </td>
