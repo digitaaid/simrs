@@ -405,20 +405,20 @@ return [
                 ],
             ]
         ],
-        // [
-        //     'text'    => 'Pelayanan Rawat Inap',
-        //     'icon'    => 'fas fa-hand-holding-medical',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Pendaftaran',
-        //             'url' => 'aplication',
-        //             'icon' => 'fas fa-users',
-        //             'shift'   => 'ml-2',
-        // 'can' => 'admin',
-        //             // 'active'  => ['user', 'user/create', 'user/edit/*'],
-        //         ],
-        //     ]
-        // ],
+        [
+            'text'    => 'Pelayanan Rawat Inap',
+            'icon'    => 'fas fa-hand-holding-medical',
+            'submenu' => [
+                [
+                    'text' => 'Pendaftaran Ranap',
+                    'url' => 'pendaftaran/ranap',
+                    'icon' => 'fas fa-users',
+                    'shift'   => 'ml-2',
+                    'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
+                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                ],
+            ]
+        ],
         [
             'text'    => 'Pelayanan Penunjang',
             'icon'    => 'fas fa-hand-holding-medical',

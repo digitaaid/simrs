@@ -20,6 +20,7 @@ class PengambilanResep extends Component
     public $antrians;
     public $antrianedit;
     public $formEdit = false;
+    public $search = '';
     public $obats = [], $frekuensiObats = [], $waktuObats = [];
     public $resepObat = [
         [
@@ -77,7 +78,7 @@ class PengambilanResep extends Component
                 $this->resepObat[] = ['obat' => $value->nama, 'jumlahobat' => $value->jumlah, 'frekuensiobat' => $value->frekuensi, 'waktuobat' => $value->waktu, 'keterangan' =>  $value->keterangan,];
             }
         }
-        $this->obats = Obat::pluck('nama');
+        $this->obats = Obat::pluck('harga_jual', 'nama');
         $this->frekuensiObats = FrekuensiObat::pluck('nama');
         $this->waktuObats = WaktuObat::pluck('nama');
     }
@@ -178,6 +179,7 @@ class PengambilanResep extends Component
     public function render()
     {
         if ($this->tanggalperiksa) {
+            $search = '%' . $this->search . '%';
             $this->antrians = Antrian::where('tanggalperiksa', $this->tanggalperiksa)
                 ->where('taskid', '>=', 5)
                 ->where('taskid', '!=', 99)
@@ -185,6 +187,7 @@ class PengambilanResep extends Component
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
                 ->orderBy('asesmen_rajals.status_asesmen_dokter', 'asc')
                 ->select('antrians.*')
+                ->where('antrians.nama', 'like', $search)
                 ->get();
         }
         return view('livewire.farmasi.pengambilan-resep')->title('Pengambilan Resep Obat');

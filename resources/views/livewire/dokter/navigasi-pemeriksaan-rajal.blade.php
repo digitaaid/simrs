@@ -38,11 +38,11 @@
             </span>
         </a>
     </li>
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a href="#asesmenrajal" class="nav-link">
             <i class="fas fa-file-medical-alt"></i> Asesmen Rawat Jalan
         </a>
-    </li>
+    </li> --}}
     @can('perawat')
         <li class="nav-item">
             <a href="#pemeriksaanperawat" class="nav-link">

@@ -37,8 +37,10 @@
                             <x-adminlte-input wire:model="resepObat.{{ $index }}.obat" list="obatlist"
                                 name="obat[]" igroup-size="sm" placeholder="Nama Obat" />
                             <datalist id="obatlist">
-                                @foreach ($obats as $key => $item)
-                                    <option value="{{ $item }}"></option>
+                                @foreach ($obats as $nama => $harga)
+                                    <option value="{{ $nama }}">
+                                        Rp. {{ $harga }}
+                                    </option>
                                 @endforeach
                             </datalist>
                         </div>
@@ -127,8 +129,8 @@
                 <div class="col-md-4">
                 </div>
                 <div class="col-md-4">
-                    <x-adminlte-input name="search" placeholder="Pencarian Berdasarkan Nama / No RM"
-                        igroup-size="sm">
+                    <x-adminlte-input wire:model.live='search' name="search"
+                        placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
                         <x-slot name="appendSlot">
                             <x-adminlte-button wire:click='caritanggal' theme="primary" label="Cari" />
                         </x-slot>
