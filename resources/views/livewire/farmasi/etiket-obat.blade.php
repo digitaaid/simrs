@@ -104,9 +104,10 @@
 
 <body style="font-size: 8px; font-family: Calibri;">
     @foreach ($resepobatdetails as $key => $item)
+        <br>
         <b>Farimasi {{ env('APP_NAME_LONG') }}</b>
         <hr style="margin: 0">
-        <table class="table table-borderless" style="font-size: 7px" >
+        <table class="table table-borderless" style="font-size: 7px">
             <tr>
                 <td>No RM</td>
                 <td>:</td>
