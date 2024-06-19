@@ -37,8 +37,10 @@
                             <x-adminlte-input wire:model="resepObat.{{ $index }}.obat" list="obatlist"
                                 name="obat[]" igroup-size="sm" placeholder="Nama Obat" />
                             <datalist id="obatlist">
-                                @foreach ($obats as $key => $item)
-                                    <option value="{{ $item }}"></option>
+                                @foreach ($obats as $nama => $harga)
+                                    <option value="{{ $nama }}">
+                                        Rp. {{ $harga }}
+                                    </option>
                                 @endforeach
                             </datalist>
                         </div>

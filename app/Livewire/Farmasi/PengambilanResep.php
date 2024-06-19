@@ -78,7 +78,7 @@ class PengambilanResep extends Component
                 $this->resepObat[] = ['obat' => $value->nama, 'jumlahobat' => $value->jumlah, 'frekuensiobat' => $value->frekuensi, 'waktuobat' => $value->waktu, 'keterangan' =>  $value->keterangan,];
             }
         }
-        $this->obats = Obat::pluck('nama');
+        $this->obats = Obat::pluck('harga_jual', 'nama');
         $this->frekuensiObats = FrekuensiObat::pluck('nama');
         $this->waktuObats = WaktuObat::pluck('nama');
     }

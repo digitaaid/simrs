@@ -121,8 +121,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#invoice" class="nav-link">
-                        <i class="fas fa-file-invoice-dollar"></i> Invoice Billing
+                    <a href="#notaPembayaran" class="nav-link">
+                        <i class="fas fa-file-invoice-dollar"></i> Nota Pembayaran
                     </a>
                 </li>
             @endif
