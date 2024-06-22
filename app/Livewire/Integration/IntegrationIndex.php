@@ -73,14 +73,18 @@ class IntegrationIndex extends Component
         $this->user_key = '';
         $this->secret_key = '';
     }
-    public function placeholder()
-    {
-        return view('components.placeholder.placeholder-text');
-    }
     public function render()
     {
-        $this->integrations = Integration::get();
         return view('livewire.integration.integration-index')
             ->title('Aplikasi Integrasi');
+    }
+    public function placeholder()
+    {
+        return view('components.placeholder.placeholder-text')
+            ->title('Aplikasi Integrasi');
+    }
+    public function mount()
+    {
+        $this->integrations = Integration::get();
     }
 }

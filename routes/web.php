@@ -34,7 +34,6 @@ use App\Livewire\Bpjs\Vclaim\Sep;
 use App\Livewire\Bpjs\Vclaim\SuratKontrol;
 use App\Livewire\Counter;
 use App\Livewire\Dokter\DokterIndex;
-use App\Livewire\Integration\IntegrationForm;
 use App\Livewire\Integration\IntegrationIndex;
 use App\Livewire\Jadwaldokter\JadwalDokterIndex;
 use App\Livewire\Pasien\PasienForm;
@@ -94,7 +93,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('profil', ProfilIndex::class)->name('profil')->lazy();
     Route::middleware(['can:admin'])->group(function () {
         Route::get('role-permission', RolePermission::class)->name('role-permission')->lazy();
-        Route::get('integration', IntegrationIndex::class)->name('integration.index');
+        Route::get('integration', IntegrationIndex::class)->name('integration.index')->lazy();
         Route::get('user', UserIndex::class)->name('user.index');
         Route::get('user/create', UserForm::class)->name('user.create');
         Route::get('user/edit/{id}', UserForm::class)->name('user.edit');
