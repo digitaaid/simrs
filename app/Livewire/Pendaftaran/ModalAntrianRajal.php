@@ -15,9 +15,8 @@ use Livewire\Component;
 
 class ModalAntrianRajal extends Component
 {
-    protected $listeners = ['refreshPage' => '$refresh'];
     public $antrian, $polikliniks, $dokters;
-    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien, $keterangan, $perujuk, $jeniskunjungan, $jeniskunjunjgan;
+    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $namadokter, $jenispasien, $keterangan, $perujuk, $jeniskunjungan, $jeniskunjunjgan;
     public $gender, $tgl_lahir, $fktp, $jenispeserta, $hakkelas;
     public $pasienbaru = 0, $estimasidilayani, $sisakuotajkn, $kuotajkn, $sisakuotanonjkn, $kuotanonjkn;
     public $asalRujukan, $nomorreferensi, $noRujukan, $noSurat;
@@ -73,6 +72,7 @@ class ModalAntrianRajal extends Component
         $this->keterangan = "Antrian proses di pendaftaran";
         // simpan antrean
         $antrian = Antrian::find($this->antrianId);
+        $dokter = Dokter::where('kodejkn', $this->kodedokter)->first();
         $antrian->update([
             'nomorkartu' => $this->nomorkartu,
             'nik' => $this->nik,
@@ -82,6 +82,7 @@ class ModalAntrianRajal extends Component
             'tanggalperiksa' => $this->tanggalperiksa,
             'kodepoli' => $this->kodepoli,
             'kodedokter' => $this->kodedokter,
+            'namadokter' => $dokter->nama,
             'jenispasien' => $this->jenispasien,
             'jeniskunjungan' => $this->jeniskunjungan,
             'perujuk' => $this->perujuk,
