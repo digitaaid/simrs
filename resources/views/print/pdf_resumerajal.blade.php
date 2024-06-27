@@ -155,7 +155,7 @@
                     <tr>
                         <td>Tindakan</td>
                         <td>:</td>
-                        <td>{{ $antrian->asesmenrajal->tindakan ?? '-' }}</td>
+                        <td>{{ $antrian->asesmenrajal->tindakan_medis ?? '-' }}</td>
                     </tr>
                     <tr>
                         <td>ICD-9 Procedure</td>
