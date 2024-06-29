@@ -15,9 +15,9 @@
                                 </a>
                             </p>
                             <div class="social-links mt-3">
-                                <a href="https://www.instagram.com/klinikutamalmc/" class="instagram"><i
+                                <a href="https://www.instagram.com/klinikutama_kitasehat/" class="instagram"><i
                                         class="bx bxl-instagram"></i></a>
-                                <a href="https://www.youtube.com/@KLINIKLMC" class="youtube"><i
+                                <a href="https://www.youtube.com/@kitasehat3335" class="youtube"><i
                                         class="bx bxl-youtube"></i></a>
                                 {{-- <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a> --}}
                             </div>
