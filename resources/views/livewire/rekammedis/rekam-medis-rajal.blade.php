@@ -44,7 +44,7 @@
                 <div class="col-md-4">
                 </div>
                 <div class="col-md-4">
-                    <x-adminlte-input name="search" placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
+                    <x-adminlte-input wire:model.live='search' name="search" placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
                         <x-slot name="appendSlot">
                             <x-adminlte-button wire:click='caritanggal' theme="primary" label="Cari" />
                         </x-slot>
@@ -60,7 +60,7 @@
             @php
                 $heads = [
                     'No',
-                    'Kodebooking',
+                    'Tanggal',
                     'No RM',
                     'Nama Pasien',
                     'Taskid',
@@ -86,7 +86,7 @@
                     @foreach ($antrians as $item)
                         <tr>
                             <td>{{ $item->angkaantrean }}</td>
-                            <td>{{ $item->kodebooking }}</td>
+                            <td>{{ $item->tanggalperiksa }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>

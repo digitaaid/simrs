@@ -11,6 +11,7 @@ use Livewire\Component;
 class RekamMedisRajal extends Component
 {
     public $tanggalperiksa;
+    public $search = '';
     public $antrians = [];
     public function syncantrian($kodebooking)
     {
@@ -68,9 +69,26 @@ class RekamMedisRajal extends Component
     public function render()
     {
         if ($this->tanggalperiksa) {
+            $search = '%' . $this->search . '%';
             $this->antrians = Antrian::where('tanggalperiksa', $this->tanggalperiksa)
-                ->where('taskid', '>=', 5)
-                ->orderBy('taskid', 'asc')
+                ->where('taskid', '>=', 3)
+                ->where('taskid', '!=', 99)
+                ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')
+                ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
+                ->orderBy('asesmen_rajals.status_asesmen_perawat', 'asc')
+                ->select('antrians.*')
+                ->get();
+        }
+        if ($this->search && $this->tanggalperiksa == null) {
+            $search = '%' . $this->search . '%';
+            $this->antrians = Antrian::where('taskid', '>=', 3)
+                ->where('taskid', '!=', 99)
+                ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')
+                ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
+                ->orderBy('asesmen_rajals.status_asesmen_perawat', 'asc')
+                ->select('antrians.*')
+                ->where('antrians.nama', 'like', $search)
+                ->OrWhere('antrians.norm', 'like', $search)
                 ->get();
         }
         return view('livewire.rekammedis.rekam-medis-rajal')->title('Rekam Medis Rajal');
