@@ -8,7 +8,7 @@
             @endif
             <iframe src="{{ $url }}" width="100%" height="400px" frameborder="0"></iframe>
         @else
-            icare tidak aktif
+            ICare JKN Tidak Aktif / Pasien NON-JKN
         @endif
     </x-adminlte-card>
 </div>
