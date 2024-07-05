@@ -43,7 +43,10 @@ class PemeriksaanDokterRajal extends Component
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
                 ->orderBy('asesmen_rajals.status_asesmen_dokter', 'asc')
                 ->select('antrians.*')
-                ->where('antrians.nama', 'like', $search)
+                ->where(function ($query) use ($search) {
+                    $query->where('antrians.nama', 'like', "%{$search}%")
+                        ->orWhere('antrians.norm', 'like', "%{$search}%");
+                })
                 ->get();
         }
         if ($this->search && $this->tanggalperiksa == null) {
@@ -54,7 +57,10 @@ class PemeriksaanDokterRajal extends Component
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
                 ->orderBy('asesmen_rajals.status_asesmen_perawat', 'asc')
                 ->select('antrians.*')
-                ->where('antrians.nama', 'like', $search)
+                ->where(function ($query) use ($search) {
+                    $query->where('antrians.nama', 'like', "%{$search}%")
+                        ->orWhere('antrians.norm', 'like', "%{$search}%");
+                })
                 ->get();
         }
         return view('livewire.dokter.pemeriksaan-dokter-rajal')->title('Pemeriksaan Dokter Rajal');

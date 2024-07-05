@@ -77,8 +77,10 @@ class RekamMedisRajal extends Component
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
                 ->orderBy('asesmen_rajals.status_asesmen_perawat', 'asc')
                 ->select('antrians.*')
-                ->where('antrians.nama', 'like', $search)
-                // ->OrWhere('antrians.norm', 'like', $search)
+                ->where(function ($query) use ($search) {
+                    $query->where('antrians.nama', 'like', "%{$search}%")
+                        ->orWhere('antrians.norm', 'like', "%{$search}%");
+                })
                 ->get();
         }
         if ($this->search && $this->tanggalperiksa == null) {
@@ -89,8 +91,10 @@ class RekamMedisRajal extends Component
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
                 ->orderBy('asesmen_rajals.status_asesmen_perawat', 'asc')
                 ->select('antrians.*')
-                ->where('antrians.nama', 'like', $search)
-                ->OrWhere('antrians.norm', 'like', $search)
+                ->where(function ($query) use ($search) {
+                    $query->where('antrians.nama', 'like', "%{$search}%")
+                        ->orWhere('antrians.norm', 'like', "%{$search}%");
+                })
                 ->get();
         }
         return view('livewire.rekammedis.rekam-medis-rajal')->title('Rekam Medis Rajal');
