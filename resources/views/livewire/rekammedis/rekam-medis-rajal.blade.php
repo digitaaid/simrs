@@ -63,6 +63,8 @@
                     'Tanggal',
                     'No RM',
                     'Nama Pasien',
+                    'Kartu BPJS',
+                    'NIK',
                     'Taskid',
                     'Rekam Medis',
                     'Sync Antrian',
@@ -72,8 +74,7 @@
                     'Unit',
                     'PIC',
                     'Dokter',
-                    'Kartu BPJS',
-                    'NIK',
+
                     'Method',
                     'Status',
                 ];
@@ -89,6 +90,8 @@
                             <td>{{ $item->tanggalperiksa }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
+                            <td>{{ $item->nomorkartu }}</td>
+                            <td>{{ $item->nik }} </td>
                             <td>
                                 @switch($item->taskid)
                                     @case(0)
@@ -154,8 +157,7 @@
                             <td>{{ $item->kunjungan->units->nama ?? $item->namapoli }} </td>
                             <td>{{ $item->pic1->name ?? 'Belum Didaftarkan' }} </td>
                             <td>{{ $item->kunjungan->dokters->namadokter ?? $item->namadokter }}</td>
-                            <td>{{ $item->nomorkartu }}</td>
-                            <td>{{ $item->nik }} </td>
+
                             <td>{{ $item->method }} </td>
                             <td>{{ $item->status }} </td>
                         </tr>
