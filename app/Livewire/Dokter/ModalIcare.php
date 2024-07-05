@@ -15,7 +15,7 @@ class ModalIcare extends Component
     public $icare = false;
     public function mount(Antrian $antrian)
     {
-        if (env('ICARE_JKN')) {
+        if (env('ICARE_JKN') && $antrian->jenispasien == "JKN") {
             $this->icare = true;
             // $this->nomorkartu = '0001007012981';
             // $this->kodedokter = '431997';
