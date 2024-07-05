@@ -24,7 +24,6 @@ class PatientIndex extends Component
     }
     public function render()
     {
-
         return view('livewire.satusehat.patient-index')->title('Patient');
     }
 }
