@@ -178,8 +178,8 @@ class PengambilanResep extends Component
     }
     public function render()
     {
+        $search = '%' . $this->search . '%';
         if ($this->tanggalperiksa) {
-            $search = '%' . $this->search . '%';
             $this->antrians = Antrian::where('tanggalperiksa', $this->tanggalperiksa)
                 ->where('taskid', '>=', 5)
                 ->where('taskid', '!=', 99)
@@ -187,7 +187,23 @@ class PengambilanResep extends Component
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
                 ->orderBy('asesmen_rajals.status_asesmen_dokter', 'asc')
                 ->select('antrians.*')
-                ->where('antrians.nama', 'like', $search)
+                ->where(function ($query) use ($search) {
+                    $query->where('antrians.nama', 'like', "%{$search}%")
+                        ->orWhere('antrians.norm', 'like', "%{$search}%");
+                })
+                ->get();
+        }
+        if ($this->search && $this->tanggalperiksa == null) {
+            $this->antrians = Antrian::where('taskid', '>=', 5)
+                ->where('taskid', '!=', 99)
+                ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')
+                ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
+                ->orderBy('asesmen_rajals.status_asesmen_dokter', 'asc')
+                ->select('antrians.*')
+                ->where(function ($query) use ($search) {
+                    $query->where('antrians.nama', 'like', "%{$search}%")
+                        ->orWhere('antrians.norm', 'like', "%{$search}%");
+                })
                 ->get();
         }
         return view('livewire.farmasi.pengambilan-resep')->title('Pengambilan Resep Obat');
