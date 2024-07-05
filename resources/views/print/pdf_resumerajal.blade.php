@@ -132,8 +132,7 @@
                         <td>Diagnosa</td>
                         <td>:</td>
                         <td>
-                            {{ $antrian->asesmenrajal->diagnosa ?? '' }} <br>
-                            {{ $antrian->asesmenrajal->diagnosa_dokter ?? '' }}
+                            {{ $antrian->asesmenrajal->diagnosa ?? '' }}
                         </td>
                     </tr>
                     <tr>
