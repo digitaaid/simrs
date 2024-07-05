@@ -1,3 +1,3 @@
 <div>
-    {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
+    {{-- If your happiness depends on money, you will never be happy with yourself. --}}
 </div>

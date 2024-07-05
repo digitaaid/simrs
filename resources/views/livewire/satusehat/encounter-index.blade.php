@@ -1,3 +1,3 @@
 <div>
-    {{-- Success is as dangerous as failure. --}}
+    {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
 </div>
