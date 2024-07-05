@@ -237,7 +237,7 @@
                 <option value="{{ $item['nama'] }}"></option>
             @endforeach
         </datalist>
-        {{-- <div class="row">
+        <div class="row">
             <div class="col-md-6">
                 <x-adminlte-textarea igroup-size="sm" rows=3 label="Diagnosa Dokter" name="diagnosa_dokter"
                     wire:model="diagnosa_dokter"></x-adminlte-textarea>
@@ -246,7 +246,7 @@
                 <x-adminlte-textarea igroup-size="sm" rows=3 label="Diagnosa Keperawatan" name="diagnosa_keperawatan"
                     wire:model="diagnosa_keperawatan"></x-adminlte-textarea>
             </div>
-        </div> --}}
+        </div>
         <h6>Planning (P)</h6>
         <div class="row">
             <div class="col-md-6">
