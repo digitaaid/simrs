@@ -210,7 +210,7 @@
                 </li>
             </ul>
             <x-slot name="footerSlot">
-                <a href="{{ route('pendaftaran.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
+                <a href="{{ route('rekammedis.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
                     <x-adminlte-button class="btn-xs mb-1" label="Kembali" theme="danger"
                         icon="fas fa-arrow-left" />
                 </a>
