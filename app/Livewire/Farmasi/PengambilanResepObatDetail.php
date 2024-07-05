@@ -40,7 +40,6 @@ class PengambilanResepObatDetail extends Component
             }
         }
         $this->obats = Obat::pluck('nama','harga_jual');
-        dd($this->obats);
         $this->frekuensiObats = FrekuensiObat::pluck('nama');
         $this->waktuObats = WaktuObat::pluck('nama');
     }

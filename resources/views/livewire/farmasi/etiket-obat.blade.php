@@ -83,6 +83,7 @@
 
         @page {
             margin: 10px;
+            margin-left: 20px;
             size: 6cm 4cm;
             transform: rotate(90deg);
         }
@@ -107,7 +108,7 @@
         <br>
         <b>Farimasi {{ env('APP_NAME_LONG') }}</b>
         <hr style="margin: 0">
-        <table class="table table-borderless" style="font-size: 7px">
+        <table class="table table-borderless" style="font-size: 8px">
             <tr>
                 <td>No RM</td>
                 <td>:</td>
