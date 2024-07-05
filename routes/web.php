@@ -56,6 +56,13 @@ use App\Livewire\Perawat\TindakanIndex;
 use App\Livewire\Profil\ProfilIndex;
 use App\Livewire\Rekammedis\RekamMedisRajal;
 use App\Livewire\Rekammedis\RekamMedisRajalEdit;
+use App\Livewire\Satusehat\CondititionIndex;
+use App\Livewire\Satusehat\EncounterIndex;
+use App\Livewire\Satusehat\LocationIndex;
+use App\Livewire\Satusehat\OrganizationIndex;
+use App\Livewire\Satusehat\PatientIndex;
+use App\Livewire\Satusehat\PractitionerIndex;
+use App\Livewire\Satusehat\TokenIndex;
 use App\Livewire\Unit\UnitIndex;
 use App\Livewire\User\PermissionIndex;
 use App\Livewire\User\RoleIndex;
@@ -160,6 +167,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // rekam medis
     Route::get('rekammedis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
     Route::get('rekammedis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
+    // satusehat
+    Route::get('satusehat/token', TokenIndex::class)->name('satusehat.token');
+    Route::get('satusehat/patient', PatientIndex::class)->name('satusehat.patient');
+    Route::get('satusehat/practitioner', PractitionerIndex::class)->name('satusehat.practitioner');
+    Route::get('satusehat/organization', OrganizationIndex::class)->name('satusehat.organization');
+    Route::get('satusehat/location', LocationIndex::class)->name('satusehat.location');
+    Route::get('satusehat/encounter', EncounterIndex::class)->name('satusehat.encounter');
+    Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
     // kasir
     Route::get('kasir-pembayaran', KasirPembayaran::class)->name('kasir.pembayran');
 });
