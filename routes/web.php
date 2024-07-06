@@ -169,8 +169,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('rekammedis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
     // satusehat
     Route::get('satusehat/token', TokenIndex::class)->name('satusehat.token');
-    Route::get('satusehat/patient', PatientIndex::class)->name('satusehat.patient');
-    Route::get('satusehat/practitioner', PractitionerIndex::class)->name('satusehat.practitioner');
+    Route::get('satusehat/patient', PasienIndex::class)->name('satusehat.patient');
+    Route::get('satusehat/practitioner', DokterIndex::class)->name('satusehat.practitioner');
     Route::get('satusehat/organization', OrganizationIndex::class)->name('satusehat.organization');
     Route::get('satusehat/location', LocationIndex::class)->name('satusehat.location');
     Route::get('satusehat/encounter', EncounterIndex::class)->name('satusehat.encounter');
