@@ -12,10 +12,6 @@ class ModalCppt extends Component
 {
     use WithPagination;
     public  $pasien;
-    public function modalCppt()
-    {
-        $this->dispatch('modalCppt');
-    }
     public function mount(Antrian $antrian)
     {
         $this->pasien = $antrian->pasien;

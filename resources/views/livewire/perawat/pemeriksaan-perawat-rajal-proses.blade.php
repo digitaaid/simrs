@@ -34,6 +34,7 @@
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
         @livewire('dokter.modal-icare', ['antrian' => $antrian])
         @livewire('dokter.modal-cppt', ['antrian' => $antrian])
+        @livewire('laboratorium.modal-laboratorium', ['antrian' => $antrian])
         @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
         {{-- @livewire('dokter.modal-asesmen-rajal') --}}
         @can('perawat')

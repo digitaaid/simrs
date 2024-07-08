@@ -1,6 +1,6 @@
 <div id="datapasien">
-    @if ($form)
-        <div id="editPasien">
+    <div id="editPasien">
+        @if ($form)
             <x-adminlte-card title="Tambah Identitas Pasien Baru" theme="success" icon="fas fa-user-plus">
                 <div class="row">
                     <input hidden wire:model="id" name="id">
@@ -117,8 +117,8 @@
                     @endif
                 </x-slot>
             </x-adminlte-card>
-        </div>
-    @endif
+        @endif
+    </div>
     <x-adminlte-card theme="primary" title="Data Pasien" icon="fas fa-user-injured">
         <div class="row">
             <div class="col-md-8">

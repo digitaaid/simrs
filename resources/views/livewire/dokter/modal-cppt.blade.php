@@ -6,7 +6,7 @@
             </x-adminlte-alert>
         @endif
         @if ($kunjungans)
-            <table class="table table-bordered table-responsive-sm table-xl mb-2">
+            <table class="table table-sm table-bordered table-responsive-sm table-xl mb-2">
                 <thead>
                     <tr>
                         <th>Kunjungan</th>

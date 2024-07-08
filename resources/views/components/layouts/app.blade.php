@@ -15,3 +15,4 @@
 @section('content')
     {{ $slot }}
 @stop
+@section('plugins.BsCustomFileInput', true)
