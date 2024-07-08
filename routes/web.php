@@ -11,6 +11,7 @@ use App\Http\Controllers\SuratKontrolController;
 use App\Livewire\Antrian\AnjunganAntrian;
 use App\Livewire\Antrian\AnjunganAntrianCreate;
 use App\Livewire\Antrian\DaftarAntrian;
+use App\Livewire\Aplikasi\PengaturanIndex;
 use App\Livewire\Bpjs\Antrian\AntreanBelumLayani;
 use App\Livewire\Bpjs\Antrian\AntreanDokter;
 use App\Livewire\Bpjs\Antrian\AntreanKodebooking;
@@ -101,6 +102,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:admin'])->group(function () {
         Route::get('role-permission', RolePermission::class)->name('role-permission')->lazy();
         Route::get('integration', IntegrationIndex::class)->name('integration.index')->lazy();
+        Route::get('aplikasi', PengaturanIndex::class)->name('aplikasi.index')->lazy();
         Route::get('user', UserIndex::class)->name('user.index');
         Route::get('user/create', UserForm::class)->name('user.create');
         Route::get('user/edit/{id}', UserForm::class)->name('user.edit');
@@ -171,8 +173,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('satusehat/token', TokenIndex::class)->name('satusehat.token');
     Route::get('satusehat/patient', PasienIndex::class)->name('satusehat.patient');
     Route::get('satusehat/practitioner', DokterIndex::class)->name('satusehat.practitioner');
-    Route::get('satusehat/organization', OrganizationIndex::class)->name('satusehat.organization');
-    Route::get('satusehat/location', LocationIndex::class)->name('satusehat.location');
+    Route::get('satusehat/organization', UnitIndex::class)->name('satusehat.organization');
+    Route::get('satusehat/location', UnitIndex::class)->name('satusehat.location');
     Route::get('satusehat/encounter', EncounterIndex::class)->name('satusehat.encounter');
     Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
     // kasir
