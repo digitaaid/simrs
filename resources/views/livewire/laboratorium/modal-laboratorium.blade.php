@@ -95,6 +95,7 @@
                     @if ($lihat && $idLihat == $item->id)
                         <tr>
                             <td colspan="5">
+                                {{ route('landingpage') . '/public' . $item->filename }}
                                 <iframe src="{{ route('landingpage') . '/public' . $item->filename }}" width="100%"
                                     height="500px" frameborder="0"></iframe>
                             </td>
