@@ -32,7 +32,7 @@
                     <x-adminlte-input wire:model="idpatient" fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" name="idpatient" label="IdPatient">
                         <x-slot name="appendSlot">
-                            <div class="btn btn-primary" wire:click='cariNomorKartu'>
+                            <div class="btn btn-primary" wire:click="cariIdPatient('{{ $nik }}')">
                                 <i class="fas fa-search"></i> Cari
                             </div>
                         </x-slot>

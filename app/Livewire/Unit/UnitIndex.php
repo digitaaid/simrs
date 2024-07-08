@@ -3,8 +3,15 @@
 namespace App\Livewire\Unit;
 
 use App\Exports\UnitExport;
+use App\Http\Controllers\SatuSehatController;
 use App\Imports\UnitImport;
+use App\Models\Integration;
+use App\Models\Pengaturan;
 use App\Models\Unit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -20,6 +27,136 @@ class UnitIndex extends Component
     public $fileImport;
     public $id, $nama, $kode, $kodejkn,  $idorganization, $idlocation, $jenis, $lokasi, $status, $user, $pic;
     public $unit;
+
+    public function cariIdOrganization($kode)
+    {
+        $unit = Unit::where('kode', $kode)->first();
+        $pengaturan = Pengaturan::firstOrFail();
+        $request = new Request([
+            'organization_id' => $pengaturan->idorganization,
+            'identifier' => $unit->nama,
+            'name' => $unit->nama,
+            'phone' => $pengaturan->phone,
+            'email' => $pengaturan->email,
+            'url' => $pengaturan->website,
+            'address' => $pengaturan->address,
+            'postalCode' => $pengaturan->postalCode,
+            'province' => $pengaturan->province,
+            'city' => $pengaturan->city,
+            'district' => $pengaturan->district,
+            'village' => $pengaturan->village,
+        ]);
+        $res = $this->organization_store($request);
+        $json = $res->response;
+        dd($json);
+        if ($json->resourceType == "Organization") {
+            $unit->update(['idorganization' => $json->id]);
+        } else {
+        }
+        return redirect()->back();
+    }
+    public function organization_store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "organization_id" => "required",
+            "identifier" => "required",
+            "name" => "required",
+            "phone" => "required",
+            "email" => "required|email",
+            "url" => "required",
+            "address" => "required",
+            "postalCode" => "required",
+            "province" => "required",
+            "city" => "required",
+            "district" => "required",
+            "village" => "required",
+        ]);
+        $token = Cache::get('satusehat_access_token');
+        $api = Integration::where('name', 'Satu Sehat')->first();
+        $url =  $api->base_url . "/Organization";
+        $data = [
+            "resourceType" => "Organization",
+            "active" => true,
+            "identifier" => [
+                [
+                    "use" => "official",
+                    "system" => "http://sys-ids.kemkes.go.id/organization/" . $request->organization_id,
+                    "value" => $request->identifier
+                ]
+            ],
+            "type" => [
+                [
+                    "coding" => [
+                        [
+                            "system" => "http://terminology.hl7.org/CodeSystem/organization-type",
+                            "code" => "dept",
+                            "display" => "Hospital Department"
+                        ]
+                    ]
+                ]
+            ],
+            "name" => $request->name,
+            "telecom" => [
+                [
+                    "system" => "phone",
+                    "value" => $request->phone,
+                    "use" => "work"
+                ],
+                [
+                    "system" => "email",
+                    "value" => $request->email,
+                    "use" => "work"
+                ],
+                [
+                    "system" => "url",
+                    "value" => $request->url,
+                    "use" => "work"
+                ]
+            ],
+            "address" => [
+                [
+                    "use" => "work",
+                    "type" => "both",
+                    "line" => [
+                        $request->address
+                    ],
+                    "city" => $request->city,
+                    "postalCode" => $request->postalCode,
+                    "country" => "ID",
+                    "extension" => [
+                        [
+                            "url" => "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode",
+                            "extension" => [
+                                [
+                                    "url" => "province",
+                                    "valueCode" => $request->province,
+                                ],
+                                [
+                                    "url" => "city",
+                                    "valueCode" =>  $request->city,
+                                ],
+                                [
+                                    "url" => "district",
+                                    "valueCode" =>  $request->district,
+                                ],
+                                [
+                                    "url" => "village",
+                                    "valueCode" =>  $request->village,
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+            "partOf" => [
+                "reference" => "Organization/" . $request->organization_id,
+            ]
+        ];
+        $response = Http::withToken($token)->post($url, $data);
+        $res = $response->json();
+        $api = new SatuSehatController();
+        return $api->responseSatuSehat($data);
+    }
     public function store()
     {
         $this->validate([

@@ -19,7 +19,13 @@
                                 igroup-class="col-8" igroup-size="sm" name="kodejkn" label="Kode JKN" />
                             <x-adminlte-input wire:model="idorganization" fgroup-class="row"
                                 label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
-                                name="idorganization" label="idorganization" />
+                                name="idorganization" label="idorganization">
+                                <x-slot name="appendSlot">
+                                    <div class="btn btn-primary" wire:click="cariIdOrganization('{{ $kode }}')">
+                                        <i class="fas fa-search"></i> Cari
+                                    </div>
+                                </x-slot>
+                            </x-adminlte-input>
                             <x-adminlte-input wire:model="idlocation" fgroup-class="row" label-class="text-left col-4"
                                 igroup-class="col-8" igroup-size="sm" name="idlocation" label="idlocation" />
                         </div>

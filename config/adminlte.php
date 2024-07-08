@@ -801,7 +801,7 @@ return [
         ['header' => 'PENGATURAN'],
         [
             'text' => 'Aplikasi',
-            'url' => 'aplication',
+            'url' => 'aplikasi',
             'icon' => 'fas fa-users',
             'can' => 'admin',
             // 'active'  => ['user', 'user/create', 'user/edit/*'],
