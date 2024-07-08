@@ -83,18 +83,20 @@
                         <td>
                             <x-adminlte-button wire:click="lihatFile('{{ $item->id }}')" class="btn-xs"
                                 label="Lihat" theme="success" icon="fas fa-eye" />
-                            <x-adminlte-button wire:click="edit('{{ $item->id }}')" class="btn-xs"
-                                theme="warning" icon="fas fa-edit" />
+                            <x-adminlte-button wire:click="edit('{{ $item->id }}')" class="btn-xs" theme="warning"
+                                icon="fas fa-edit" />
                             <x-adminlte-button wire:click="hapus('{{ $item->id }}')" class="btn-xs"
-                                theme="danger" wire:confirm='Apakah anda yakin akan menghapus hasil Laboratorium tersebut ?' icon="fas fa-trash" />
+                                theme="danger"
+                                wire:confirm='Apakah anda yakin akan menghapus hasil Laboratorium tersebut ?'
+                                icon="fas fa-trash" />
                         </td>
                         <td>{{ $item->pic }}</td>
                     </tr>
                     @if ($lihat && $idLihat == $item->id)
                         <tr>
                             <td colspan="5">
-                                <iframe src="{{ $item->fileurl }}" width="100%" height="500px"
-                                    frameborder="0"></iframe>
+                                <iframe src="{{ route('landingpage') . '/public' . $item->filename }}" width="100%"
+                                    height="500px" frameborder="0"></iframe>
                             </td>
                         </tr>
                     @endif
