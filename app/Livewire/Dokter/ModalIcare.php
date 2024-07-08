@@ -13,6 +13,7 @@ class ModalIcare extends Component
 {
     public $nomorkartu, $kodedokter, $url;
     public $icare = false;
+    public $message;
     public function mount(Antrian $antrian)
     {
         if (env('ICARE_JKN') && $antrian->jenispasien == "JKN") {
@@ -29,7 +30,7 @@ class ModalIcare extends Component
                 $this->url = $res->response->url;
                 // flash($res->metadata->message, 'success');
             } else {
-                flash($res->metadata->message, 'danger');
+                $this->message = $res->metadata->message;
             }
         } else {
             $this->icare = false;
