@@ -358,6 +358,13 @@ return [
                     'can' => 'pendaftaran',
                 ],
                 [
+                    'text' => 'Display Antrian Farmasi',
+                    'url' => 'displayantrianfarmasi',
+                    'icon' => 'fas fa-desktop',
+                    'shift'   => 'ml-2',
+                    'can' => ['pendaftaran', 'farmasi', 'apoteker'],
+                ],
+                [
                     'text' => 'Pendaftaran',
                     'url' => 'pendaftaran/rajal',
                     'icon' => 'fas fa-user-plus',

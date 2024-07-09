@@ -93,6 +93,10 @@ Route::get('displayantrian', [AntrianController::class, 'displayAntrian'])->name
 Route::get('updatenomorantrean', [AntrianController::class, 'updatenomorantrean'])->name('updatenomorantrean');
 Route::get('displaynomor', [AntrianController::class, 'displaynomor'])->name('displaynomor');
 Route::get('getdisplayantrian', [AntrianController::class, 'getdisplayantrian'])->name('getdisplayantrian');
+Route::get('displayantrianfarmasi', [AntrianController::class, 'displayantrianfarmasi'])->name('displayantrianfarmasi');
+Route::get('displaynomorfarmasi', [AntrianController::class, 'displaynomorfarmasi'])->name('displaynomorfarmasi');
+
+
 Route::get('daftarantrian', DaftarAntrian::class)->name('daftarantrian');
 Route::get('antrianonline/{kodebooking}', [PendaftaranController::class, 'antrianonline'])->name('antrianonline');
 
