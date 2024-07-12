@@ -28,9 +28,9 @@
                     <x-adminlte-button wire:click='lanjutFarmasi'
                         wire:confirm='Apakah anda yakin pasien ini dilanjukan ke farmasi untuk pengambilan obat ?'
                         class="btn-xs mb-2" label="Lanjutkan Farmasi" theme="success" icon="fas fa-pills" />
-                    <x-adminlte-button wire:click='selesaiPelayanan'
+                    {{-- <x-adminlte-button wire:click='selesaiPelayanan'
                         wire:confirm='Apakah anda yakin pasien ini telah selesai pelayanan ?' class="btn-xs mb-2"
-                        label="Selesai Pelayanan" theme="success" icon="fas fa-check" />
+                        label="Selesai Pelayanan" theme="success" icon="fas fa-check" /> --}}
                 @endif
                 <div wire:loading>
                     <div class="spinner-border spinner-border-sm text-primary" role="status">

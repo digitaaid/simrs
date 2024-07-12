@@ -255,9 +255,7 @@
                 <b><u>{{ $antrian->kunjungan->dokters->nama }}</u></b>
             </td>
         </tr>
-
     </table>
-
     <style>
         @page {
             size: "A4";

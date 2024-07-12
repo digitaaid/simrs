@@ -18,6 +18,7 @@ class RekamMedisController extends Controller
             $qrttddokter = QrCode::format('png')->size(150)->generate($antrian->kunjungan->dokters->nama . ' belum melakukan E-Sign pada resume rawat jalan ini');
         }
         $ttddokter = "data:image/png;base64," . base64_encode($qrttddokter);
+
         $qrurl = QrCode::format('png')->size(150)->generate(route('resume.rajal', $antrian->kodebooking));
         $url = "data:image/png;base64," . base64_encode($qrurl);
         // return view('print.pdf_resumerajal',  compact('antrian','ttddokter','url'));
