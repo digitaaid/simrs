@@ -193,7 +193,7 @@ class ModalKunjunganRajal extends Component
         $this->antrianId = $antrian->id;
         $this->kodebooking = $antrian->kodebooking;
         $this->nomorkartu = $antrian->kunjungan?->nomorkartu;
-        $this->nik = $antrian->kunjungan?->nik;
+        $this->nik = $antrian->nik;
         $this->norm = $antrian->kunjungan?->norm;
         $this->nama = $antrian->kunjungan?->nama;
         $this->tgl_lahir = $antrian->kunjungan?->tgl_lahir;
