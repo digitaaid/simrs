@@ -61,7 +61,7 @@
         </tr>
         <tr>
             <td class="text-center">
-                <img src="{{ $url }}" width="40px">
+                <img src="{{ $url }}" width="50px">
             </td>
             <td>
                 <table class="table-borderless">
@@ -114,8 +114,10 @@
         </tr>
         <tr>
             <td colspan="3">
-                <b>PELAYANAN RAWAT JALAN</b>
                 <table class="table table-xs table-bordered" style="font-size: 8px">
+                    <tr>
+                        <th class="text-left" colspan="6">PELAYANAN RAWAT JALAN</th>
+                    </tr>
                     <tr>
                         <th>No</th>
                         <th>Tindakan Pelayanan</th>
@@ -139,18 +141,8 @@
                         <th class="text-right">{{ money($antrian->layanans->sum('subtotal'), 'IDR') }}</th>
                         </th>
                     </tr>
-
-                </table>
-                <br>
-                <b>FARMASI RAWAT JALAN</b>
-                <table class="table table-xs table-bordered" style="font-size: 8px">
                     <tr>
-                        <th>No</th>
-                        <th>Tindakan Pelayanan</th>
-                        <th>Jumlah</th>
-                        <th>Harga</th>
-                        <th>Diskon</th>
-                        <th>Total</th>
+                        <th class="text-left" colspan="6">FARMASI RAWAT JALAN</th>
                     </tr>
                     @foreach ($resepobatdetails as $item)
                         <tr>
@@ -158,7 +150,7 @@
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->jumlah }}</td>
                             <td class="text-right">{{ money($item->harga ? $item->harga : 0, 'IDR') }}</td>
-                            <td>{{ $item->diskon }}%</td>
+                            <td class="text-right">{{ $item->diskon }}%</td>
                             <td class="text-right">{{ money($item->subtotal ? $item->subtotal : 0, 'IDR') }}</td>
                         </tr>
                     @endforeach
@@ -167,9 +159,25 @@
                         <th class="text-right">{{ money($resepobatdetails->sum('subtotal'), 'IDR') }}</th>
                         </th>
                     </tr>
-
+                    <th class="text-left" colspan="6">TOTAL PEMBAYARAN PASIEN</th>
+                    <tr>
+                        <th colspan="5" class="text-right">Biaya Tindakan / Layanan</th>
+                        <th class="text-right">{{ money($antrian->layanans->sum('subtotal'), 'IDR') }}</th>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="5" class="text-right">Biaya Farmasi</th>
+                        <th class="text-right">{{ money($resepobatdetails->sum('subtotal'), 'IDR') }}</th>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="5" class="text-right">Total Biaya Pasien</th>
+                        <th class="text-right">
+                            {{ money($resepobatdetails->sum('subtotal') + $antrian->layanans->sum('subtotal'), 'IDR') }}
+                        </th>
+                        </th>
+                    </tr>
                 </table>
-
             </td>
         </tr>
         <tr>
@@ -179,21 +187,16 @@
                         <td>
                             <b>Petugas Kasir</b>
                             <br>
+                            <img src="{{ $ttdpetugas }}" width="50px">
                             <br>
-                            <br>
-                            .........................
+                            ({{ $antrian->pic4->name ?? auth()->user()->name }})
                         </td>
                         <td>
-                            <b>Disetujui</b>
-                            <br>
-                            <br>
-                            <br>
-                            .........................
                         </td>
                         <td>
                             <b>Menerima Obat Beserta Informasi</b>
                             <br>
-                            <br>
+                            <img src="{{ $ttdpasien }}" width="50px">
                             <br>
                             (Pasien/Keluarga)
                         </td>
