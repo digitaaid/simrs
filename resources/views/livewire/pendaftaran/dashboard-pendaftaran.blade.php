@@ -20,6 +20,14 @@
             </div>
         </div>
         <div class="col-md-6">
+            <x-adminlte-card theme="success" title="Daftar Pasien Bulan Ini">
+                <div class="chart">
+                    <canvas id="chartBulanIni"
+                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+            </x-adminlte-card>
+        </div>
+        <div class="col-md-6">
             <x-adminlte-card theme="success" title="Daftar Pasien Perbulan">
                 <div class="chart">
                     <canvas id="stackedBarChart"
@@ -68,6 +76,61 @@
             barChartData.datasets[0] = temp1
             barChartData.datasets[1] = temp0
             var stackedBarChartCanvas = $('#stackedBarChart').get(0).getContext('2d')
+            var stackedBarChartData = $.extend(true, {}, barChartData)
+            var stackedBarChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                    }],
+                    yAxes: [{
+                        stacked: true
+                    }]
+                }
+            }
+            new Chart(stackedBarChartCanvas, {
+                type: 'bar',
+                data: stackedBarChartData,
+                options: stackedBarChartOptions
+            })
+        })
+        $(function() {
+            var arrayHariBulanIni = {{ json_encode($arrayHariBulanIni) }};
+            var dataPasienUmum = {{ json_encode($jumlahAntrianPerTanggalumum) }};
+            var dataPasienBPJS = {{ json_encode($jumlahAntrianPerTanggaljkn) }};
+            var areaChartData = {
+                labels: arrayHariBulanIni,
+                datasets: [{
+                        label: 'Pasien Umum',
+                        backgroundColor: 'rgba(210, 214, 222, 1)',
+                        borderColor: 'rgba(210, 214, 222, 1)',
+                        pointRadius: false,
+                        pointColor: 'rgba(210, 214, 222, 1)',
+                        pointStrokeColor: '#c1c7d1',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: dataPasienUmum
+                    },
+                    {
+                        label: 'Pasien BPJS',
+                        backgroundColor: 'rgba(60,141,188,0.9)',
+                        borderColor: 'rgba(60,141,188,0.8)',
+                        pointRadius: false,
+                        pointColor: '#3b8bba',
+                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        data: dataPasienBPJS
+                    },
+                ]
+            }
+            var barChartData = $.extend(true, {}, areaChartData)
+            var temp0 = areaChartData.datasets[0]
+            var temp1 = areaChartData.datasets[1]
+            barChartData.datasets[0] = temp1
+            barChartData.datasets[1] = temp0
+            var stackedBarChartCanvas = $('#chartBulanIni').get(0).getContext('2d')
             var stackedBarChartData = $.extend(true, {}, barChartData)
             var stackedBarChartOptions = {
                 responsive: true,
