@@ -140,18 +140,18 @@
                         <tr>
                             <td class="text-nowarp">ICD-10 Primer</td>
                             <td>:</td>
-                            <td>{{ $antrian->asesmenrajal->icd1 ?? '-' }}</td>
+                            <th>{{ $antrian->asesmenrajal->icd1 ?? '-' }}</th>
                         </tr>
                         <tr>
                             <td>ICD-10 Sekunder</td>
                             <td>:</td>
-                            <td>
+                            <th>
                                 @if ($antrian->asesmenrajal?->icd2)
                                     @foreach (explode(';', $antrian->asesmenrajal?->icd2) as $item)
                                         {{ $item }} <br>
                                     @endforeach
                                 @endif
-                            </td>
+                            </th>
                         </tr>
                         <tr>
                             <td>Tindakan</td>
@@ -161,13 +161,13 @@
                         <tr>
                             <td>ICD-9 Procedure</td>
                             <td>:</td>
-                            <td>
+                            <th>
                                 @if ($antrian->asesmenrajal?->icd9)
                                     @foreach (explode(';', $antrian->asesmenrajal?->icd9) as $item)
                                         {{ $item }} <br>
                                     @endforeach
                                 @endif
-                            </td>
+                            </th>
                         </tr>
                         <tr>
                             <td>Pengobatan</td>
