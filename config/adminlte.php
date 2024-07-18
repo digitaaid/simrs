@@ -321,9 +321,14 @@ return [
             'icon'        => 'fas fa-globe',
         ],
         [
-            'text' => 'Dashboard',
+            'text' => 'Home',
             'url' => 'home',
             'icon' => 'fas fa-home',
+        ],
+        [
+            'text' => 'Dashboard',
+            'url' => 'dashboard',
+            'icon' => 'fas fa-chart-line',
         ],
         // [
         //     'text'    => 'Pelayanan IGD',
@@ -356,6 +361,13 @@ return [
                     'icon' => 'fas fa-desktop',
                     'shift'   => 'ml-2',
                     'can' => 'pendaftaran',
+                ],
+                [
+                    'text' => 'Display Antrian Farmasi',
+                    'url' => 'displayantrianfarmasi',
+                    'icon' => 'fas fa-desktop',
+                    'shift'   => 'ml-2',
+                    'can' => ['pendaftaran', 'farmasi', 'apoteker'],
                 ],
                 [
                     'text' => 'Pendaftaran',
