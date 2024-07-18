@@ -140,18 +140,20 @@
                         <tr>
                             <td class="text-nowarp">ICD-10 Primer</td>
                             <td>:</td>
-                            <th>{{ $antrian->asesmenrajal->icd1 ?? '-' }}</th>
+                            <td><b>{{ $antrian->asesmenrajal->icd1 ?? '-' }}</b></td>
                         </tr>
                         <tr>
                             <td>ICD-10 Sekunder</td>
                             <td>:</td>
-                            <th>
-                                @if ($antrian->asesmenrajal?->icd2)
-                                    @foreach (explode(';', $antrian->asesmenrajal?->icd2) as $item)
-                                        {{ $item }} <br>
-                                    @endforeach
-                                @endif
-                            </th>
+                            <td>
+                                <b>
+                                    @if ($antrian->asesmenrajal?->icd2)
+                                        @foreach (explode(';', $antrian->asesmenrajal?->icd2) as $item)
+                                            {{ $item }} <br>
+                                        @endforeach
+                                    @endif
+                                </b>
+                            </td>
                         </tr>
                         <tr>
                             <td>Tindakan</td>
@@ -161,13 +163,15 @@
                         <tr>
                             <td>ICD-9 Procedure</td>
                             <td>:</td>
-                            <th>
-                                @if ($antrian->asesmenrajal?->icd9)
-                                    @foreach (explode(';', $antrian->asesmenrajal?->icd9) as $item)
-                                        {{ $item }} <br>
-                                    @endforeach
-                                @endif
-                            </th>
+                            <td>
+                                <b>
+                                    @if ($antrian->asesmenrajal?->icd9)
+                                        @foreach (explode(';', $antrian->asesmenrajal?->icd9) as $item)
+                                            {{ $item }} <br>
+                                        @endforeach
+                                    @endif
+                                </b>
+                            </td>
                         </tr>
                         <tr>
                             <td>Pengobatan</td>
