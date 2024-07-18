@@ -49,6 +49,7 @@ use App\Livewire\Dokter\PemeriksaanDokterRajalProses;
 use App\Livewire\Farmasi\ObatIndex;
 use App\Livewire\Farmasi\PengambilanResep;
 use App\Livewire\Kasir\KasirPembayaran;
+use App\Livewire\Pendaftaran\DashboardPendaftaran;
 use App\Livewire\Perawat\LayananIndex;
 use App\Livewire\Perawat\PemeriksaanPerawatRajal;
 use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
@@ -102,6 +103,7 @@ Route::get('antrianonline/{kodebooking}', [PendaftaranController::class, 'antria
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('dashboard', DashboardPendaftaran::class)->name('dashboard');
     Route::get('profil', ProfilIndex::class)->name('profil')->lazy();
     Route::middleware(['can:admin'])->group(function () {
         Route::get('role-permission', RolePermission::class)->name('role-permission')->lazy();
