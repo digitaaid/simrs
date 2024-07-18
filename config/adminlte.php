@@ -321,9 +321,14 @@ return [
             'icon'        => 'fas fa-globe',
         ],
         [
-            'text' => 'Dashboard',
+            'text' => 'Home',
             'url' => 'home',
             'icon' => 'fas fa-home',
+        ],
+        [
+            'text' => 'Dashboard',
+            'url' => 'dashboard',
+            'icon' => 'fas fa-chart-line',
         ],
         // [
         //     'text'    => 'Pelayanan IGD',
