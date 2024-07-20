@@ -87,6 +87,11 @@
             <td>
                 <table class="table-borderless">
                     <tr>
+                        <td>Jenis Pelayanan</td>
+                        <td>:</td>
+                        <td><b>Rawat Jalan</b></td>
+                    </tr>
+                    <tr>
                         <td>Penjamin</td>
                         <td>:</td>
                         <td>
@@ -100,14 +105,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Jenis Pelayanan</td>
+                        <td>No. SEP</td>
                         <td>:</td>
-                        <td><b>Rawat Jalan</b></td>
-                    </tr>
-                    <tr>
-                        <td>Kode Kunjungan</td>
-                        <td>:</td>
-                        <td><b>{{ $antrian->kunjungan->kode ?? '-' }}</b></td>
+                        <td><b>{{ $antrian->kunjungan->sep ?? '-' }}</b></td>
                     </tr>
                 </table>
             </td>
@@ -257,14 +257,7 @@
                             <br>
                             <br>
                             <br>
-                            .........................
-                        </td>
-                        <td>
-                            <b>Disetujui</b>
-                            <br>
-                            <br>
-                            <br>
-                            .........................
+                            {{ $antrian->pic4->name ?? '-' }}
                         </td>
                         <td>
                             <b>Menerima Obat Beserta Informasi</b>
