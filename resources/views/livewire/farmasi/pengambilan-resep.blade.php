@@ -148,10 +148,10 @@
                     'Antrian',
                     'No RM',
                     'Nama Pasien',
+                    'Jenis',
                     'SEP',
                     'Action',
                     'Taskid',
-                    'Jenis Pasien',
                     'Layanan',
                     'Obat',
                     'Invoice',
@@ -177,7 +177,7 @@
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->jenispasien }} </td>
-                            <td>{{ $item->sep }}</td>
+                            <td>{{ $item->jenispasien == 'JKN' ? $item->sep ?? 'Belum Diinput' : '-' }}</td>
                             <td>
                                 @if ($item->taskid == 5 && $item->status == 0)
                                     <x-adminlte-button wire:click='terimaResep({{ $item }})' class="btn-xs"
