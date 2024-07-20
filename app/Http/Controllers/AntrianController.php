@@ -46,6 +46,40 @@ class AntrianController extends ApiController
         ];
         return $this->sendResponse($data, 200);
     }
+    public function displayantrianfarmasi()
+    {
+        $jadwals = JadwalDokter::where('hari', now()->dayOfWeek)->get();
+        return view('livewire.antrian.display-antrian-farmasi', compact('jadwals'));
+    }
+    public function displaynomorfarmasi()
+    {
+        $antrian = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('kodepoli', '!=', 'FAR')->get(['kodebooking', 'nomorantrean', 'taskid', 'nama', 'namapoli', 'kodepoli']);
+        $antrianpendaftaran = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('taskid', 2)->orderBy('updated_at', 'desc')->first();
+        $antriandokter = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('taskid', 4)->orderBy('updated_at', 'desc')->first();
+        $antrianfarmasi = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('taskid', 7)->orderBy('updated_at', 'desc')->first();
+        $data = [
+            "pendaftaran" => $antrianpendaftaran ? substr($antrianpendaftaran->nomorantrean, 1) : "-",
+            "pendaftaranhuruf" => $antrianpendaftaran ? substr($antrianpendaftaran->nomorantrean, 0, 1) : "-",
+            "pendaftarankodebooking" => $antrianpendaftaran ? $antrianpendaftaran->kodebooking : "-",
+            "pendaftaranstatus" => $antrianpendaftaran ? $antrianpendaftaran->panggil : "-",
+            "pendaftaranselanjutnya" => $antrian->where('taskid', 1)->pluck('kodebooking', 'nomorantrean'),
+
+            "poliklinik" => $antriandokter ? substr($antriandokter->nomorantrean, 1) : "-",
+            "poliklinikhuruf" => $antriandokter ? substr($antriandokter->nomorantrean, 0, 1) : "-",
+            "poliklinikkode" => $antriandokter ? $antriandokter->kodepoli : "-",
+            "polikliniknama" => $antriandokter ? $antriandokter->namapoli : "-",
+            "poliklinikkodebooking" => $antriandokter ? $antriandokter->kodebooking : "-",
+            "poliklinikstatus" => $antriandokter ? $antriandokter->panggil : "-",
+            "poliklinikselanjutnya" => $antrian->where('taskid', 3),
+
+            "farmasi" => $antrianfarmasi ? substr($antrianfarmasi->nomorantrean, 1) : "-",
+            "farmasihuruf" => $antrianfarmasi ? substr($antrianfarmasi->nomorantrean, 0, 1) : "-",
+            "farmasistatus" => $antrianfarmasi ? $antrianfarmasi->panggil : "-",
+            "farmasikodebooking" => $antrianfarmasi ? $antrianfarmasi->kodebooking : "-",
+            "farmasiselanjutnya" => $antrian->where('taskid', '>=', 5),
+        ];
+        return $this->sendResponse($data, 200);
+    }
     public function updatenomorantrean(Request $request)
     {
         $antrian = Antrian::where('kodebooking', $request->kodebooking)->first();
