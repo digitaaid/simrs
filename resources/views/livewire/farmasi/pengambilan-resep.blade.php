@@ -148,12 +148,13 @@
                     'Antrian',
                     'No RM',
                     'Nama Pasien',
+                    'Jenis',
                     'SEP',
                     'Action',
                     'Taskid',
-                    'Jenis Pasien',
                     'Layanan',
                     'Obat',
+                    'Invoice',
                     'Unit',
                     'PIC',
                     'Dokter',
@@ -176,7 +177,7 @@
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->jenispasien }} </td>
-                            <td>{{ $item->sep }}</td>
+                            <td>{{ $item->jenispasien == 'JKN' ? $item->sep ?? 'Belum Diinput' : '-' }}</td>
                             <td>
                                 @if ($item->taskid == 5 && $item->status == 0)
                                     <x-adminlte-button wire:click='terimaResep({{ $item }})' class="btn-xs"
@@ -192,8 +193,10 @@
                                         theme="success" icon="fas fa-check" />
                                 @endif
                                 @if ($item->taskid == 7)
-                                    <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
-                                        theme="warning" icon="fas fa-edit" />
+                                    <a href="#editresep">
+                                        <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
+                                            theme="warning" icon="fas fa-edit" label="Edit" />
+                                    </a>
                                     <a href="{{ route('print.resep', $item->kodebooking) }}" target="_blank">
                                         <x-adminlte-button class="btn-xs" theme="primary" icon="fas fa-print" />
                                     </a>
@@ -247,6 +250,12 @@
                             </td>
                             <td class="text-right">{{ money($item->layanans->sum('harga'), 'IDR') }} </td>
                             <td class="text-right">{{ money($item->resepobatdetails->sum('subtotal'), 'IDR') }} </td>
+                            <td>
+                                <a href="{{ route('print.notarajal', $item->kodebooking) }}" target="_blank">
+                                    <x-adminlte-button class="btn-xs" label="Invoice" title="Print Nota Rawat Jalan"
+                                        theme="warning" icon="fas fa-print" />
+                                </a>
+                            </td>
                             <td>{{ $item->kunjungan->units->nama ?? $item->namapoli }} </td>
                             <td>{{ $item->pic4->name ?? '-' }} </td>
                             <td>{{ $item->kunjungan->dokters->namadokter ?? $item->namadokter }}</td>
