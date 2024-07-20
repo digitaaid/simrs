@@ -95,11 +95,11 @@
                     @if ($lihat && $idLihat == $item->id)
                         <tr>
                             <td colspan="5">
-                                <a href="{{ route('landingpage') . 'public/storage/laboratorium/' . $item->filename }}"
+                                <a href="{{ route('landingpage') . '/public/storage/laboratorium/' . $item->filename }}"
                                     target="_blank">{{ route('landingpage') . '/storage/laboratorium/' . $item->filename }}</a>
                                     <br>
-                                <a href="{{ $item->fileurl }}" target="_blank">{{ $item->fileurl }}</a>
-                                <iframe src="{{ route('landingpage') . 'public/storage/laboratorium/' . $item->filename }}"
+                                <a href="{{ route('landingpage') . '/public/storage/laboratorium/' . $item->filename }}" target="_blank">{{ $item->fileurl }}</a>
+                                <iframe src="{{ route('landingpage') . '/public/storage/laboratorium/' . $item->filename }}"
                                     width="100%" height="500px" frameborder="0"></iframe>
                             </td>
                         </tr>
