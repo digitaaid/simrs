@@ -65,7 +65,7 @@
         <table class="table table-bordered table-sm table-responsive-sm table-xl mb-2">
             <thead>
                 <tr>
-                    <th>Tangsgal</th>
+                    <th>Tanggal</th>
                     <th>Pemeriksaan</th>
                     <th>Hasil/Expertise</th>
                     <th>Action</th>
