@@ -356,6 +356,13 @@ return [
                     'can' => 'pendaftaran',
                 ],
                 [
+                    'text' => 'Anjungan Pelayanan Mandiri',
+                    'url' => 'anjunganantrian',
+                    'icon' => 'fas fa-desktop',
+                    'shift'   => 'ml-2',
+                    'can' => 'pendaftaran',
+                ],
+                [
                     'text' => 'Display Antrian',
                     'url' => 'displayantrian',
                     'icon' => 'fas fa-desktop',
