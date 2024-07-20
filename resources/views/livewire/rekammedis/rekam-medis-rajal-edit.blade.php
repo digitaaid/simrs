@@ -254,6 +254,8 @@
         @if ($antrian->kunjungan)
             @livewire('dokter.modal-cppt', ['antrian' => $antrian])
             @livewire('laboratorium.modal-laboratorium', ['antrian' => $antrian])
+            @livewire('radiologi.modal-radiologi', ['antrian' => $antrian])
+            @livewire('penunjang.modal-penunjang', ['antrian' => $antrian])
             @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
             <div id="notaPembayaran">
                 <x-adminlte-card theme="primary" title="Nota Pembayaran Pasien">

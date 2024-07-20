@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Livewire\Radiologi;
+namespace App\Livewire\Penunjang;
 
 use App\Models\Antrian;
-use App\Models\HasilRadiologi;
+use App\Models\HasilPenunjang;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
 
-class ModalRadiologi extends Component
+class ModalPenunjang extends Component
 {
     use WithPagination;
     use WithFileUploads;
@@ -24,14 +24,14 @@ class ModalRadiologi extends Component
     }
     public function hapus($id)
     {
-        $rad = HasilRadiologi::find($id);
+        $rad = HasilPenunjang::find($id);
         $rad->delete();
         flash('Data Berhasil Dihapus', 'success');
     }
     public function edit($id)
     {
         $this->form = $this->form ? false : true;
-        $rad = HasilRadiologi::find($id);
+        $rad = HasilPenunjang::find($id);
         $this->id = $rad->id;
         $this->nik = $rad->nik;
         $this->nama = $rad->nama;
@@ -56,13 +56,13 @@ class ModalRadiologi extends Component
         try {
             if ($this->file) {
                 $filename = $this->norm . '_' . $this->nama . '_LAB_' . $this->tanggal . now()->format('dmY_His') . '.' . $this->file->getClientOriginalExtension();
-                $path =  $this->file->storeAs('public/radiologi',  $filename);
-                $fileurl = route('landingpage') .  '/storage/radiologi/' . $filename;
-                $this->fileurl = route('landingpage') .  '/storage/radiologi/' . $filename;
+                $path =  $this->file->storeAs('public/penunjang',  $filename);
+                $fileurl = route('landingpage') .  '/storage/penunjang/' . $filename;
+                $this->fileurl = route('landingpage') .  '/storage/penunjang/' . $filename;
                 $this->filename =  $filename;
             }
             if (!$this->id) {
-                $hasil = HasilRadiologi::create([
+                $hasil = HasilPenunjang::create([
                     'nama' => $this->nama,
                     'norm' => $this->norm,
                     'nik' => $this->nik,
@@ -76,7 +76,7 @@ class ModalRadiologi extends Component
                     'pic' => auth()->user()->name,
                 ]);
             } else {
-                $rad = HasilRadiologi::find($this->id);
+                $rad = HasilPenunjang::find($this->id);
                 $rad->update([
                     'nama' => $this->nama,
                     'norm' => $this->norm,
@@ -113,9 +113,9 @@ class ModalRadiologi extends Component
     {
         $rad = null;
         if ($this->pasien) {
-            $rads = HasilRadiologi::where('norm', $this->pasien->norm)
+            $rads = HasilPenunjang::where('norm', $this->pasien->norm)
                 ->paginate(10);
         }
-        return view('livewire.radiologi.modal-radiologi',compact('rads'));
+        return view('livewire.penunjang.modal-penunjang', compact('rads'));
     }
 }
