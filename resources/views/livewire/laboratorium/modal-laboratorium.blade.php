@@ -65,7 +65,7 @@
         <table class="table table-bordered table-sm table-responsive-sm table-xl mb-2">
             <thead>
                 <tr>
-                    <th>Tanggal</th>
+                    <th>Tangsgal</th>
                     <th>Pemeriksaan</th>
                     <th>Hasil/Expertise</th>
                     <th>Action</th>
@@ -95,9 +95,11 @@
                     @if ($lihat && $idLihat == $item->id)
                         <tr>
                             <td colspan="5">
-                                {{ route('landingpage') . '/public/storage/laboratorium/' . $item->filename }}
-                                <iframe src="{{ route('landingpage') . '/public/storage/laboratorium/' . $item->filename }}" width="100%"
-                                    height="500px" frameborder="0"></iframe>
+                                <a href="{{ route('landingpage') . 'public/storage/laboratorium/' . $item->filename }}"
+                                    target="_blank">{{ route('landingpage') . '/storage/laboratorium/' . $item->filename }}</a>
+                                <a href="{{ $item->fileurl }}" target="_blank">{{ $item->fileurl }}</a>
+                                <iframe src="{{ route('landingpage') . 'public/storage/laboratorium/' . $item->filename }}"
+                                    width="100%" height="500px" frameborder="0"></iframe>
                             </td>
                         </tr>
                     @endif

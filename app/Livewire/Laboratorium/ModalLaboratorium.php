@@ -76,6 +76,7 @@ class ModalLaboratorium extends Component
                     'user' => auth()->user()->id,
                     'pic' => auth()->user()->name,
                 ]);
+
             } else {
                 $lab = HasilLaboratorium::find($this->id);
                 $lab->update([

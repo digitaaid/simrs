@@ -8,15 +8,15 @@
 </head>
 
 <body>
-    <div class="ticket">
-        <img src="{{ asset('kitasehat/logokitasehat.png') }}" height="50px" alt="">
+    <div class="ticket" style="text-align: center; font-family: sans-serif">
+        <img src="{{ asset('kitasehat/logokitasehat.png') }}" height="40px" alt="">
         <hr style="margin: 0">
         <b>Nomor Karcis Antrian</b><br>
-        <b style="font-size: 30px">{{ $antrian->nomorantrean }}</b> <br>
-        {!! QrCode::size(80)->generate($antrian->kodebooking) !!} <br>
-        {{ $antrian->kodebooking }} / {{ $antrian->angkaantrean }}
-        </p>
-        {{ $antrian->jenispasien === 'JKN' ? 'PASIEN BPJS / JKN' : 'PASIEN UMUM' }}
+        <b style="font-size: 50px">{{ $antrian->nomorantrean }}</b><br>
+        {!! QrCode::size(60)->generate($antrian->kodebooking) !!}<br>
+        <span style="font-size: 10px">{{ $antrian->kodebooking }} / {{ $antrian->angkaantrean }}</span> <br>
+        <br>
+        <b>{{ $antrian->jenispasien === 'JKN' ? 'PASIEN BPJS / JKN' : 'PASIEN UMUM' }}</b>
         @if ($antrian->method != 'Offline')
             <br>
             <b>{{ $antrian->nama }}</b> <br>
@@ -29,10 +29,9 @@
             {{ $antrian->jampraktek }} <br>
         </p>
         <hr style="margin: 0">
-        <p style="line-height:13px;font-size: 10px;">
-            Simpan lembar karcis antrian ini sampai pelayanan berakhir. Terimakasih. <br>
-            Semoga selalu diberikan kesembuhan dan kesehatan.
-        </p>
+        <span style="font-size: 8px;">
+          Semoga selalu diberikan kesembuhan dan kesehatan. Terimakasih.
+        </span>
     </div>
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script>
