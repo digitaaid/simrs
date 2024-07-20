@@ -148,6 +148,7 @@
                     'Antrian',
                     'No RM',
                     'Nama Pasien',
+                    'SEP',
                     'Action',
                     'Taskid',
                     'Jenis Pasien',
@@ -175,6 +176,8 @@
                             <td>{{ $item->nomorantrean }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
+                            <td>{{ $item->jenispasien }} </td>
+                            <td>{{ $item->sep }}</td>
                             <td>
                                 @if ($item->taskid == 5 && $item->status == 0)
                                     <x-adminlte-button wire:click='terimaResep({{ $item }})' class="btn-xs"
@@ -245,7 +248,6 @@
                                         {{ $item->taskid }}
                                 @endswitch
                             </td>
-                            <td>{{ $item->jenispasien }} </td>
                             <td class="text-right">{{ money($item->layanans->sum('harga'), 'IDR') }} </td>
                             <td class="text-right">{{ money($item->resepobatdetails->sum('subtotal'), 'IDR') }} </td>
                             <td>

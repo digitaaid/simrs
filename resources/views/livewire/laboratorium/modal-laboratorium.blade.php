@@ -65,7 +65,7 @@
         <table class="table table-bordered table-sm table-responsive-sm table-xl mb-2">
             <thead>
                 <tr>
-                    <th>Tangsgal</th>
+                    <th>Tanggal</th>
                     <th>Pemeriksaan</th>
                     <th>Hasil/Expertise</th>
                     <th>Action</th>
@@ -102,7 +102,6 @@
                                 <iframe src="{{ route('landingpage') . '/public/storage/laboratorium/' . $item->filename }}"
                                     width="100%" height="500px" frameborder="0"></iframe>
                             </td>
-                        </tr>
                     @endif
                 @endforeach
             </tbody>
