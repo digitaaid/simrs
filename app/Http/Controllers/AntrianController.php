@@ -16,8 +16,14 @@ class AntrianController extends ApiController
 {
     public function displayantrian()
     {
-        $jadwals = JadwalDokter::where('hari', now()->dayOfWeek)->get();
-        return view('livewire.antrian.display-antrian', compact('jadwals'));
+        try {
+            $jadwals = JadwalDokter::where('hari', now()->dayOfWeek)->get();
+            return view('livewire.antrian.display-antrian', compact('jadwals'));
+        } catch (\Throwable $th) {
+            //throw $th;
+            $jadwals = JadwalDokter::where('hari', now()->dayOfWeek)->get();
+            return view('livewire.antrian.display-antrian', compact('jadwals'));
+        }
     }
     public function displaynomor()
     {
@@ -48,8 +54,16 @@ class AntrianController extends ApiController
     }
     public function displayantrianfarmasi()
     {
-        $jadwals = JadwalDokter::where('hari', now()->dayOfWeek)->get();
-        return view('livewire.antrian.display-antrian-farmasi', compact('jadwals'));
+        try {
+            //code...
+            $jadwals = JadwalDokter::where('hari', now()->dayOfWeek)->get();
+            return view('livewire.antrian.display-antrian-farmasi', compact('jadwals'));
+        } catch (\Throwable $th) {
+            //throw $th;
+            $jadwals = JadwalDokter::where('hari', now()->dayOfWeek)->get();
+            return view('livewire.antrian.display-antrian-farmasi', compact('jadwals'));
+        }
+
     }
     public function displaynomorfarmasi()
     {
