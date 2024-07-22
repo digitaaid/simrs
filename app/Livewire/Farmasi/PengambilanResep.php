@@ -193,6 +193,7 @@ class PengambilanResep extends Component
                 ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
                 ->orderBy('panggil', 'asc')
+                ->orderBy('taskid', 'desc')
                 ->select('antrians.*')
                 ->where(function ($query) use ($search) {
                     $query->where('antrians.nama', 'like', "%{$search}%")
@@ -206,6 +207,7 @@ class PengambilanResep extends Component
                 ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
                 ->orderBy('panggil', 'asc')
+                ->orderBy('taskid', 'desc')
                 ->select('antrians.*')
                 ->where(function ($query) use ($search) {
                     $query->where('antrians.nama', 'like', "%{$search}%")
