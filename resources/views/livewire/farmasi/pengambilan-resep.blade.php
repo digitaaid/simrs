@@ -197,6 +197,9 @@
                                         <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
                                             theme="warning" icon="fas fa-edit" label="Edit" />
                                     </a>
+                                    <x-adminlte-button wire:confirm='Apakah anda yakin panggil ulang pasien ?'
+                                        wire:click='panggilfarmasi({{ $item }})' class="btn-xs" label="Panggil"
+                                        theme="primary" icon="fas fa-check" />
                                     <a href="{{ route('print.resep', $item->kodebooking) }}" target="_blank">
                                         <x-adminlte-button class="btn-xs" theme="primary" icon="fas fa-print" />
                                     </a>

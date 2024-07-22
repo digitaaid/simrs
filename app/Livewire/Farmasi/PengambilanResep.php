@@ -148,6 +148,13 @@ class PengambilanResep extends Component
         flash('Resep obat atas nama pasien ' . $kunjungan->nama . ' saved successfully.', 'success');
         $this->openformEdit();
     }
+    public function panggilfarmasi(Antrian $antrian)
+    {
+        $antrian->taskid = 7;
+        $antrian->panggil = 0;
+        $antrian->update();
+        flash('Panggilan farmasi atas nama pasien ' . $antrian->nama . ' saved successfully.', 'success');
+    }
     public function selesai(Antrian $antrian)
     {
         if (env('ANTRIAN_REALTIME')) {

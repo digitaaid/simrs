@@ -48,8 +48,6 @@
                 <div class="card">
                     <div class="card-header bg-primary">
                         <h4>ANTRIAN FARMASI</h4>
-                        <h4>{{ strtoupper(env('APP_NAME')) }}</h4>
-                        <h4>08:00 - 21:00</h4>
                     </div>
                     <div class="card-body p-0">
                         <table class="table" id="tablependaftaran">
@@ -92,8 +90,6 @@
                 <div class="card">
                     <div class="card-header bg-primary">
                         <h4>DOKTER KLINIK</h4>
-                        <h4>{{ strtoupper(env('APP_NAME')) }}</h4>
-                        <h4>08:00 - 21:00</h4>
                     </div>
                     <div class="card-body p-0">
                         <table class="table" id="tabledokter">
@@ -363,24 +359,24 @@
                 type: "GET",
                 dataType: 'json',
                 success: function(data) {
-                    $('#pendaftaran').html(data.response.pendaftaran);
-                    $('#pendaftaranhuruf').html(data.response.pendaftaranhuruf);
+                    $('#pendaftaran').html(data.response.farmasi);
+                    $('#pendaftaranhuruf').html(data.response.farmasihuruf);
                     $('#tablependaftaran').empty()
                     $.each(data.response.farmasiselanjutnya, function(i, val) {
                         $('#tablependaftaran').append('<tr><th><h3>' + val['nomorantrean'] +
                             '</h3></th><th><h3>' + val['nama'] +
                             '</h3></th></tr>');
                     });
-                    if (data.response.pendaftaranstatus == 0) {
+                    if (data.response.farmasistatus == 0) {
                         var url = "{{ route('updatenomorantrean') }}?kodebooking=" + data.response
-                            .pendaftarankodebooking;
+                            .farmasikodebooking;
                         $.ajax({
                             url: url,
                             type: "GET",
                             dataType: 'json',
                             success: function(res) {
-                                // panggilpendaftaran(data.response.pendaftaran, data.response
-                                //     .pendaftaranhuruf);
+                                panggilfarmasi(data.response.farmasi, data.response
+                                    .farmasihuruf);
                             },
                         });
                     }
@@ -456,7 +452,7 @@
             // }, totalwaktu);
         }
 
-        function panggilfarmasi(angkaantrian) {
+        function panggilfarmasi(angkaantrian, hurufantrian) {
             document.getElementById('suarabel').pause();
             document.getElementById('suarabel').currentTime = 0;
             document.getElementById('suarabel').play();
@@ -467,6 +463,7 @@
                 document.getElementById('panggilannomorantrian').play();
             }, totalwaktu);
             totalwaktu = totalwaktu + 2500;
+            panggilhuruf(hurufantrian);
             panggilangka(angkaantrian);
             setTimeout(function() {
                 document.getElementById('difarmasi').pause();

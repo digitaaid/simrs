@@ -57,12 +57,13 @@ class AntrianController extends ApiController
         $antrianpendaftaran = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('taskid', 2)->orderBy('updated_at', 'desc')->first();
         $antriandokter = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('taskid', 4)->orderBy('updated_at', 'desc')->first();
         $antrianfarmasi = Antrian::where('tanggalperiksa', now()->format('Y-m-d'))->where('taskid', 7)->orderBy('updated_at', 'desc')->first();
+        // dd($antrianfarmasi);
         $data = [
-            "pendaftaran" => $antrianpendaftaran ? substr($antrianpendaftaran->nomorantrean, 1) : "-",
-            "pendaftaranhuruf" => $antrianpendaftaran ? substr($antrianpendaftaran->nomorantrean, 0, 1) : "-",
-            "pendaftarankodebooking" => $antrianpendaftaran ? $antrianpendaftaran->kodebooking : "-",
-            "pendaftaranstatus" => $antrianpendaftaran ? $antrianpendaftaran->panggil : "-",
-            "pendaftaranselanjutnya" => $antrian->where('taskid', 1)->pluck('kodebooking', 'nomorantrean'),
+            // "pendaftaran" => $antrianpendaftaran ? substr($antrianpendaftaran->nomorantrean, 1) : "-",
+            // "pendaftaranhuruf" => $antrianpendaftaran ? substr($antrianpendaftaran->nomorantrean, 0, 1) : "-",
+            // "pendaftarankodebooking" => $antrianpendaftaran ? $antrianpendaftaran->kodebooking : "-",
+            // "pendaftaranstatus" => $antrianpendaftaran ? $antrianpendaftaran->panggil : "-",
+            // "pendaftaranselanjutnya" => $antrian->where('taskid', 1)->pluck('kodebooking', 'nomorantrean'),
 
             "poliklinik" => $antriandokter ? substr($antriandokter->nomorantrean, 1) : "-",
             "poliklinikhuruf" => $antriandokter ? substr($antriandokter->nomorantrean, 0, 1) : "-",
@@ -76,7 +77,7 @@ class AntrianController extends ApiController
             "farmasihuruf" => $antrianfarmasi ? substr($antrianfarmasi->nomorantrean, 0, 1) : "-",
             "farmasistatus" => $antrianfarmasi ? $antrianfarmasi->panggil : "-",
             "farmasikodebooking" => $antrianfarmasi ? $antrianfarmasi->kodebooking : "-",
-            "farmasiselanjutnya" => $antrian->where('taskid', '>=', 5),
+            "farmasiselanjutnya" => $antrian->where('taskid', '>=', 5)->where('taskid', '<=', 6),
         ];
         return $this->sendResponse($data, 200);
     }
