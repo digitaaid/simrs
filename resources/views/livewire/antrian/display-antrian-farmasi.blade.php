@@ -378,8 +378,8 @@
                             type: "GET",
                             dataType: 'json',
                             success: function(res) {
-                                panggilpendaftaran(data.response.pendaftaran, data.response
-                                    .pendaftaranhuruf);
+                                // panggilpendaftaran(data.response.pendaftaran, data.response
+                                //     .pendaftaranhuruf);
                             },
                         });
                     }
@@ -401,8 +401,8 @@
                             type: "GET",
                             dataType: 'json',
                             success: function(res) {
-                                panggilpoliklinik(data.response.poliklinik, data.response
-                                    .poliklinikhuruf, data.response.poliklinikkode);
+                                // panggilpoliklinik(data.response.poliklinik, data.response
+                                //     .poliklinikhuruf, data.response.poliklinikkode);
                             },
                         });
                     }
