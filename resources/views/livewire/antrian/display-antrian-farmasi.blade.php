@@ -12,17 +12,20 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="row">
-                                        <img src="{{ asset('kitasehat/logokitasehat-lingkar.png') }}" width="100"
+                                        <img src="{{ asset('kitasehat/logokitasehat-lingkar.png') }}" width="50"
                                             alt="">
                                         <div class="col">
                                             <h1>{{ env('APP_NAME') }}</h1>
-                                            <h4>{{ env('APP_NAME_LONG') }}</h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 text-md-end">
-                                    <p>Whatsapp : 0823 1169 6919</p>
-                                    <p>Telepon : (0231) 8850943</p>
+                                    <h5>
+                                        Antrian Farmasi dan Poliklinik
+                                        <br>
+                                        {{ env('APP_NAME_LONG') }}
+                                    </h5>
+
                                 </div>
                             </div>
                         </div>
@@ -313,13 +316,11 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                            data-slide="prev">
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                         </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                            data-slide="next">
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                         </a>
