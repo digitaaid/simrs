@@ -115,6 +115,14 @@
                                 @if ($kunjungan->asesmenrajal?->instruksi_medis)
                                     <b>Instruksi :</b> {{ $kunjungan->asesmenrajal?->instruksi_medis }} <br>
                                 @endif
+                                @if (count($kunjungan->resepobatdetails))
+                                    <br>
+                                    <b>Resep Obat :</b> {{ $kunjungan->resepobat?->kode }} <br>
+                                    @foreach ($kunjungan->resepobatdetails as $item)
+                                        <b>Rx {{ $item->nama }}</b> ({{ $item->jumlah }}) {{ $item->frekuensi }}
+                                        {{ $item->waktu }} {{ $item->keterangan }}<br>
+                                    @endforeach
+                                @endif
                                 {{ $kunjungan->asesmenrajal?->pic_dokter }} <br>
                                 {{ $kunjungan->asesmenrajal?->waktu_asesmen_dokter }}
                             </td>
@@ -130,12 +138,12 @@
                                 @endif
                             </td>
                             <td>
-                                @if (count($kunjungan->resepobatdetails))
-                                    @foreach ($kunjungan->resepobatdetails as $item)
+                                @if (count($kunjungan->resepfarmasidetails))
+                                    <b>Resep Obat :</b> {{ $kunjungan->resepobat?->kode }} <br>
+                                    @foreach ($kunjungan->resepfarmasidetails as $item)
                                         <b>Rx {{ $item->nama }}</b> ({{ $item->jumlah }}) {{ $item->frekuensi }}
                                         {{ $item->waktu }} {{ $item->keterangan }}<br>
                                     @endforeach
-                                    <b>Kode :</b> {{ $kunjungan->resepobat?->kode }}
                                 @endif
                             </td>
                         </tr>

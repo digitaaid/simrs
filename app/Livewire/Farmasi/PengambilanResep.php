@@ -6,6 +6,8 @@ use App\Http\Controllers\AntrianController;
 use App\Models\Antrian;
 use App\Models\FrekuensiObat;
 use App\Models\Obat;
+use App\Models\ResepFarmasi;
+use App\Models\ResepFarmasiDetail;
 use App\Models\ResepObat;
 use App\Models\ResepObatDetail;
 use App\Models\WaktuObat;
@@ -23,6 +25,15 @@ class PengambilanResep extends Component
     public $search = '';
     public $obats = [], $frekuensiObats = [], $waktuObats = [];
     public $resepObat = [
+        [
+            'obat' => '',
+            'jumlahobat' => '',
+            'frekuensiobat' => '',
+            'waktuobat' => '',
+            'keterangan' => '',
+        ]
+    ];
+     public $resepObatDokter = [
         [
             'obat' => '',
             'jumlahobat' => '',
@@ -73,8 +84,12 @@ class PengambilanResep extends Component
         $this->antrianedit = $antrianedit;
         $this->formEdit = true;
         if (count($this->antrianedit->resepobatdetails)) {
-            $this->resepObat = [];
+            $this->resepObatDokter = [];
             foreach ($this->antrianedit->resepobatdetails as $key => $value) {
+                $this->resepObatDokter[] = ['obat' => $value->nama, 'jumlahobat' => $value->jumlah, 'frekuensiobat' => $value->frekuensi, 'waktuobat' => $value->waktu, 'keterangan' =>  $value->keterangan,];
+            }
+            $this->resepObat = [];
+            foreach ($this->antrianedit->resepfarmasidetails as $key => $value) {
                 $this->resepObat[] = ['obat' => $value->nama, 'jumlahobat' => $value->jumlah, 'frekuensiobat' => $value->frekuensi, 'waktuobat' => $value->waktu, 'keterangan' =>  $value->keterangan,];
             }
         }
@@ -93,8 +108,9 @@ class PengambilanResep extends Component
             'resepObat.*.jumlahobat' => 'required',
         ]);
         $kunjungan = $this->antrianedit->kunjungan;
+        // dd($kunjungan);
         if (count($this->resepObat)) {
-            $resep = ResepObat::updateOrCreate([
+            $resep = ResepFarmasi::updateOrCreate([
                 'kodebooking' => $this->antrianedit->kodebooking,
                 'antrian_id' => $this->antrianedit->id,
                 'kodekunjungan' => $kunjungan->kode,
@@ -111,15 +127,15 @@ class PengambilanResep extends Component
                 'pic' => auth()->user()->name,
                 'status' => '1',
             ]);
-            $resep->resepobatdetails()->each(function ($resepobatdetail) {
-                $resepobatdetail->delete();
+            $resep->resepfarmasidetails()->each(function ($resepfarmasidetails) {
+                $resepfarmasidetails->delete();
             });
             foreach ($this->resepObat as $key => $value) {
                 $obat = Obat::where('nama', $this->resepObat[$key]['obat'])->first();
                 if (!$obat) {
                     return flash('Obat ' . $this->resepObat[$key]['obat'] . ' tidak ditemukan.', 'danger');
                 }
-                $obatdetails = ResepObatDetail::updateOrCreate([
+                $obatdetails = ResepFarmasiDetail::updateOrCreate([
                     'kunjungan_id' => $kunjungan->id,
                     'antrian_id' =>  $this->antrianedit->id,
                     'resep_id' => $resep->id,

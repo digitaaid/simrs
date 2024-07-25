@@ -65,9 +65,10 @@
                     'Kodebooking',
                     'No RM',
                     'Nama Pasien',
+                    'Jenis Pasien',
+                    'SEP',
                     'Action',
                     'Taskid',
-                    'Jenis Pasien',
                     'Layanan',
                     'Unit',
                     'Dokter',
@@ -84,12 +85,17 @@
                 hoverable compressed>
                 @isset($antrians)
                     @foreach ($antrians as $item)
-                        <tr>
+                        <tr
+                            class="{{ $item->nomorkartu ? ($item->jenispasien == 'JKN' ? $item->sep ?? 'table-danger' : null) : null }}">
                             <td>{{ $item->angkaantrean }}</td>
                             <td>{{ $item->nomorantrean }}</td>
                             <td>{{ $item->kodebooking }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
+                            <td>{{ $item->jenispasien }}</td>
+                            <td>
+                                {{ $item->nomorkartu ? ($item->jenispasien == 'JKN' ? $item->sep ?? 'Belum Input' : null) : null }}
+                            </td>
                             <td>
                                 @if ($item->taskid <= 2)
                                     <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
@@ -165,7 +171,6 @@
                                         {{ $item->taskid }}
                                 @endswitch
                             </td>
-                            <td>{{ $item->jenispasien }} </td>
                             <td class="text-right">{{ money($item->layanans->sum('harga'), 'IDR') }} </td>
                             <td>{{ $item->kunjungan->units->nama ?? $item->namapoli }} </td>
                             <td>{{ $item->kunjungan->dokters->namadokter ?? $item->namadokter }}</td>

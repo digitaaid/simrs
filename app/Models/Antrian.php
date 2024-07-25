@@ -37,6 +37,14 @@ class Antrian extends Model
     {
         return $this->hasMany(ResepObatDetail::class);
     }
+    public function resepfarmasi()
+    {
+        return $this->hasOne(ResepFarmasi::class);
+    }
+    public function resepfarmasidetails()
+    {
+        return $this->hasMany(ResepFarmasiDetail::class);
+    }
     public function asesmenrajal()
     {
         return $this->hasOne(AsesmenRajal::class);

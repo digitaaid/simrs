@@ -27,61 +27,103 @@
     @if ($formEdit)
         <div id="editresep" class="col-md-12">
             <x-adminlte-card title="Resep Obat {{ $antrianedit->nama }}" theme="primary">
-                <h6>Resep Obat</h6>
-                @foreach ($resepObat as $index => $obat)
-                    <div class="row">
-                        <div class="col-md-2">
-                            @error('resepObat.' . $index . '.obat')
-                                <span class="invalid-feedback d-block">{{ $message }}</span>
-                            @enderror
-                            <x-adminlte-input wire:model="resepObat.{{ $index }}.obat" list="obatlist"
-                                name="obat[]" igroup-size="sm" placeholder="Nama Obat" />
-                            <datalist id="obatlist">
-                                @foreach ($obats as $nama => $harga)
-                                    <option value="{{ $nama }}">
-                                        Rp. {{ $harga }}
-                                    </option>
-                                @endforeach
-                            </datalist>
-                        </div>
-                        <div class="col-md-1">
-                            @error('resepObat.' . $index . '.jumlahobat')
-                                <span class="invalid-feedback d-block">{{ $message }}</span>
-                            @enderror
-                            <x-adminlte-input wire:model="resepObat.{{ $index }}.jumlahobat" name="jumlahobat[]"
-                                igroup-size="sm" type="number" placeholder="Jumlah Obat" />
-                        </div>
-                        <div class="col-md-1">
-                            <x-adminlte-input wire:model="resepObat.{{ $index }}.frekuensiobat"
-                                list="frekuensiobatlist" name="frekuensiobat[]" igroup-size="sm"
-                                placeholder="Frekuensi Obat" />
-                            <datalist id="frekuensiobatlist">
-                                @foreach ($frekuensiObats as $key => $item)
-                                    <option value="{{ $item }}"></option>
-                                @endforeach
-                            </datalist>
-                        </div>
-                        <div class="col-md-2">
-                            <x-adminlte-input wire:model="resepObat.{{ $index }}.waktuobat" list="waktuobatlist"
-                                name="waktuobat[]" igroup-size="sm" placeholder="Waktu Obat" />
-                            <datalist id="waktuobatlist">
-                                @foreach ($waktuObats as $key => $item)
-                                    <option value="{{ $item }}"></option>
-                                @endforeach
-                            </datalist>
-                        </div>
-                        <div class="col-md-2">
-                            <x-adminlte-input wire:model="resepObat.{{ $index }}.keterangan" name="keterangan[]"
-                                igroup-size="sm" placeholder="Keterangan" />
-                        </div>
-                        <div class="col-md-2">
-                            <button wire:click="removeObat({{ $index }})" class="btn btn-danger btn-sm">Hapus
-                                Obat</button>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6>Resep Obat Dokter</h6>
+                        <table>
+                            <tr>
+                                <td>No RM</td>
+                                <td>:</td>
+                                <td>{{ $antrianedit->norm }}</td>
+                            </tr>
+                            <tr>
+                                <td>Nama Pasien</td>
+                                <td>:</td>
+                                <td>
+                                    <b>{{ $antrianedit->nama }}</b>
+                                </td>
 
-                        </div>
+                            </tr>
+                            <tr>
+                                <td>Nama Dokter</td>
+                                <td>:</td>
+                                <td>{{ $antrianedit->namadokter }}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Resep Obat</td>
+                                <td>:</td>
+                                <td>
+                                    @foreach ($resepObatDokter as $index => $obat)
+                                        <b>{{ $loop->iteration }}. {{ $obat['obat'] }}</b>
+                                        ({{ $obat['jumlahobat'] }})
+                                        {{ $obat['frekuensiobat'] }} {{ $obat['waktuobat'] }}
+                                        {{ $obat['keterangan'] }}<br>
+                                    @endforeach
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-                @endforeach
-                <button wire:click.prevent="addObat" class="btn btn-success btn-sm">Tambah Obat</button>
+                    <div class="col-md-8">
+                        <h6>Resep Obat Farmasi</h6>
+                        @foreach ($resepObat as $index => $obat)
+                            <div class="row">
+                                <div class="col-md-3">
+                                    @error('resepObat.' . $index . '.obat')
+                                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                                    @enderror
+                                    <x-adminlte-input wire:model="resepObat.{{ $index }}.obat" list="obatlist"
+                                        name="obat[]" igroup-size="sm" placeholder="Nama Obat" />
+                                    <datalist id="obatlist">
+                                        @foreach ($obats as $nama => $harga)
+                                            <option value="{{ $nama }}">
+                                                Rp. {{ $harga }}
+                                            </option>
+                                        @endforeach
+                                    </datalist>
+                                </div>
+                                <div class="col-md-1">
+                                    @error('resepObat.' . $index . '.jumlahobat')
+                                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                                    @enderror
+                                    <x-adminlte-input wire:model="resepObat.{{ $index }}.jumlahobat"
+                                        name="jumlahobat[]" igroup-size="sm" type="number" placeholder="Jumlah Obat" />
+                                </div>
+                                <div class="col-md-2">
+                                    <x-adminlte-input wire:model="resepObat.{{ $index }}.frekuensiobat"
+                                        list="frekuensiobatlist" name="frekuensiobat[]" igroup-size="sm"
+                                        placeholder="Frekuensi Obat" />
+                                    <datalist id="frekuensiobatlist">
+                                        @foreach ($frekuensiObats as $key => $item)
+                                            <option value="{{ $item }}"></option>
+                                        @endforeach
+                                    </datalist>
+                                </div>
+                                <div class="col-md-2">
+                                    <x-adminlte-input wire:model="resepObat.{{ $index }}.waktuobat"
+                                        list="waktuobatlist" name="waktuobat[]" igroup-size="sm"
+                                        placeholder="Waktu Obat" />
+                                    <datalist id="waktuobatlist">
+                                        @foreach ($waktuObats as $key => $item)
+                                            <option value="{{ $item }}"></option>
+                                        @endforeach
+                                    </datalist>
+                                </div>
+                                <div class="col-md-2">
+                                    <x-adminlte-input wire:model="resepObat.{{ $index }}.keterangan"
+                                        name="keterangan[]" igroup-size="sm" placeholder="Keterangan" />
+                                </div>
+                                <div class="col-md-2">
+                                    <button wire:click="removeObat({{ $index }})"
+                                        class="btn btn-danger btn-sm">Hapus
+                                        Obat</button>
+
+                                </div>
+                            </div>
+                        @endforeach
+                        <button wire:click.prevent="addObat" class="btn btn-success btn-sm">Tambah Obat</button>
+                    </div>
+                </div>
                 <x-slot name="footerSlot">
                     <x-adminlte-button wire:confirm='Apakah anda yakin akan menyimpan resep obat terbaru ini ?'
                         wire:click='simpanResep' class="btn-sm" label="Simpan" theme="success" icon="fas fa-save" />
@@ -171,7 +213,8 @@
                 hoverable compressed>
                 @isset($antrians)
                     @foreach ($antrians as $item)
-                        <tr wire:key='{{ $item->id }}'>
+                        <tr wire:key='{{ $item->id }}'
+                            class="{{ $item->jenispasien == 'JKN' ? $item->sep ?? 'table-danger' : null }}">
                             <td>{{ $item->angkaantrean }}</td>
                             <td>{{ $item->nomorantrean }}</td>
                             <td>{{ $item->norm }}</td>
