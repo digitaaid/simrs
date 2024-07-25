@@ -12,6 +12,7 @@ use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ModalKunjunganRajal extends Component
 {
@@ -111,10 +112,13 @@ class ModalKunjunganRajal extends Component
             ]);
             // masukan tarif
             flash('Kunjungan atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
+            Alert::success('Success', 'Kunjungan atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
         } catch (\Throwable $th) {
             flash($th->getMessage(), 'danger');
+            Alert::error('Mohon Maaf', $th->getMessage());
         }
         $this->dispatch('refreshPage');
+        return redirect()->back();
     }
     public function cariNomorKartu()
     {

@@ -14,20 +14,20 @@
     @include('livewire.pendaftaran.navigasi-rajal')
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
-        @livewire('pendaftaran.modal-pasien-rajal')
-        @livewire('pendaftaran.modal-antrian-rajal', ['antrian' => $antrian])
-        @livewire('pendaftaran.modal-kunjungan-rajal', ['antrian' => $antrian])
+        @livewire('pendaftaran.modal-pasien-rajal', ['lazy' => true])
+        @livewire('pendaftaran.modal-antrian-rajal', ['antrian' => $antrian, 'lazy' => true])
+        @livewire('pendaftaran.modal-kunjungan-rajal', ['antrian' => $antrian, 'lazy' => true])
         @if ($antrian->pasien && $antrian->jenispasien == 'JKN')
-            @livewire('pendaftaran.modal-sep', ['antrian' => $antrian])
-            @livewire('pendaftaran.modal-suratkontrol', ['antrian' => $antrian])
+            @livewire('pendaftaran.modal-sep', ['antrian' => $antrian, 'lazy' => true])
+            @livewire('pendaftaran.modal-suratkontrol', ['antrian' => $antrian, 'lazy' => true])
         @endif
         @if ($antrian->kunjungan)
-            @livewire('dokter.modal-cppt', ['antrian' => $antrian])
-            @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
+            @livewire('dokter.modal-cppt', ['antrian' => $antrian, 'lazy' => true])
+            @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian, 'lazy' => true])
             <div id="notaPembayaran">
                 <x-adminlte-card theme="primary" title="Nota Pembayaran Pasien">
-                    <iframe src="{{ route('print.notarajal', $antrian->kodebooking) }}" width="100%" height="500"
-                        frameborder="0"></iframe>
+                    {{-- <iframe src="{{ route('print.notarajal', $antrian->kodebooking) }}" width="100%" height="500"
+                        frameborder="0"></iframe> --}}
                 </x-adminlte-card>
             </div>
         @endif

@@ -32,19 +32,19 @@
     </div>
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
-        @livewire('dokter.modal-icare', ['antrian' => $antrian])
-        @livewire('dokter.modal-cppt', ['antrian' => $antrian])
-        @livewire('laboratorium.modal-laboratorium', ['antrian' => $antrian])
-        @livewire('radiologi.modal-radiologi', ['antrian' => $antrian])
-        @livewire('penunjang.modal-penunjang', ['antrian' => $antrian])
-        @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
+        @livewire('dokter.modal-icare', ['antrian' => $antrian, 'lazy' => true])
+        @livewire('dokter.modal-cppt', ['antrian' => $antrian, 'lazy' => true])
+        @livewire('laboratorium.modal-laboratorium', ['antrian' => $antrian, 'lazy' => true])
+        @livewire('radiologi.modal-radiologi', ['antrian' => $antrian, 'lazy' => true])
+        @livewire('penunjang.modal-penunjang', ['antrian' => $antrian, 'lazy' => true])
+        @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian, 'lazy' => true])
         {{-- @livewire('dokter.modal-asesmen-rajal') --}}
         @can('perawat')
-            @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian])
+            @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian, 'lazy' => true])
         @endcan
         @can('dokter')
-            @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian])
+            @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian, 'lazy' => true])
         @endcan
-        @livewire('dokter.modal-resume-rajal', ['antrian' => $antrian])
+        @livewire('dokter.modal-resume-rajal', ['antrian' => $antrian, 'lazy' => true])
     </div>
 </div>

@@ -12,6 +12,7 @@ use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ModalAntrianRajal extends Component
 {
@@ -148,11 +149,13 @@ class ModalAntrianRajal extends Component
             $antrian->status = 1;
             $antrian->update();
             flash('Antrian atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
-            $this->dispatch('formAntrian');
+            Alert::success('Success', $res->metadata->message);
         } else {
             flash($res->metadata->message, 'danger');
+            Alert::error('Mohon Maaf', $res->metadata->message);
         }
         $this->dispatch('refreshPage');
+        return redirect()->back();
     }
     public function cariRujukan()
     {
