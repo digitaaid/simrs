@@ -92,8 +92,8 @@ class PengambilanResep extends Component
             foreach ($this->antrianedit->resepfarmasidetails as $key => $value) {
                 $this->resepObat[] = ['obat' => $value->nama, 'jumlahobat' => $value->jumlah, 'frekuensiobat' => $value->frekuensi, 'waktuobat' => $value->waktu, 'keterangan' =>  $value->keterangan,];
             }
-            if (count($this->resepObat[]) == 0) {
-                $this->resepObat[] = $this->resepObatDokter;
+            if (count($this->resepObat) == 0) {
+                $this->resepObat = $this->resepObatDokter;
             }
         }
         $this->obats = Obat::pluck('harga_jual', 'nama');
@@ -111,25 +111,25 @@ class PengambilanResep extends Component
             'resepObat.*.jumlahobat' => 'required',
         ]);
         $kunjungan = $this->antrianedit->kunjungan;
+        $resep = ResepFarmasi::updateOrCreate([
+            'kodebooking' => $this->antrianedit->kodebooking,
+            'antrian_id' => $this->antrianedit->id,
+            'kodekunjungan' => $kunjungan->kode,
+            'kunjungan_id' => $kunjungan->id,
+            'kode' => $kunjungan->kode,
+        ], [
+            'counter' => $kunjungan->counter,
+            'norm' => $kunjungan->norm,
+            'nama' => $kunjungan->nama,
+            'gender' => $kunjungan->gender,
+            'waktu' =>  now(),
+            'tgl_lahir' => $kunjungan->tgl_lahir,
+            'user' => auth()->user()->id,
+            'pic' => auth()->user()->name,
+            'status' => '1',
+        ]);
         // dd($kunjungan);
         if (count($this->resepObat)) {
-            $resep = ResepFarmasi::updateOrCreate([
-                'kodebooking' => $this->antrianedit->kodebooking,
-                'antrian_id' => $this->antrianedit->id,
-                'kodekunjungan' => $kunjungan->kode,
-                'kunjungan_id' => $kunjungan->id,
-                'kode' => $kunjungan->kode,
-            ], [
-                'counter' => $kunjungan->counter,
-                'norm' => $kunjungan->norm,
-                'nama' => $kunjungan->nama,
-                'gender' => $kunjungan->gender,
-                'waktu' =>  now(),
-                'tgl_lahir' => $kunjungan->tgl_lahir,
-                'user' => auth()->user()->id,
-                'pic' => auth()->user()->name,
-                'status' => '1',
-            ]);
             $resep->resepfarmasidetails()->each(function ($resepfarmasidetails) {
                 $resepfarmasidetails->delete();
             });
@@ -163,6 +163,10 @@ class PengambilanResep extends Component
                     'nama' => $this->resepObat[$key]['waktuobat'],
                 ]);
             }
+        } else {
+            $resep->resepfarmasidetails()->each(function ($resepfarmasidetails) {
+                $resepfarmasidetails->delete();
+            });
         }
         flash('Resep obat atas nama pasien ' . $kunjungan->nama . ' saved successfully.', 'success');
         $this->openformEdit();
