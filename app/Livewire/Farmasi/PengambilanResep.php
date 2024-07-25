@@ -33,7 +33,7 @@ class PengambilanResep extends Component
             'keterangan' => '',
         ]
     ];
-     public $resepObatDokter = [
+    public $resepObatDokter = [
         [
             'obat' => '',
             'jumlahobat' => '',
@@ -91,6 +91,9 @@ class PengambilanResep extends Component
             $this->resepObat = [];
             foreach ($this->antrianedit->resepfarmasidetails as $key => $value) {
                 $this->resepObat[] = ['obat' => $value->nama, 'jumlahobat' => $value->jumlah, 'frekuensiobat' => $value->frekuensi, 'waktuobat' => $value->waktu, 'keterangan' =>  $value->keterangan,];
+            }
+            if (count($this->resepObat[]) == 0) {
+                $this->resepObat[] = $this->resepObatDokter;
             }
         }
         $this->obats = Obat::pluck('harga_jual', 'nama');
