@@ -63,9 +63,8 @@
                     </div>
                 </form>
                 <x-slot name="footerSlot">
-                    <x-adminlte-button label="Simpan" class="btn-sm" icon="fas fa-save"
-                        wire:click="store" wire:confirm="Apakah anda ingi menyimpan data obat ?" form="formUpdate"
-                        theme="success" />
+                    <x-adminlte-button label="Simpan" class="btn-sm" icon="fas fa-save" wire:click="store"
+                        wire:confirm="Apakah anda ingi menyimpan data obat ?" form="formUpdate" theme="success" />
                     <x-adminlte-button wire:click='openForm' class="btn-sm" label="Tutup" theme="danger"
                         icon="fas fa-times" />
                 </x-slot>
@@ -140,14 +139,14 @@
                             <td></td>
                             <td>{{ $item->stok_minimum }}</td>
                             <td class="text-right">
-                                {{ is_numeric($item->harga_beli) ? money($item->harga_beli, 'IDR') : 'Tidak Valid' }}
+                                {{ is_numeric($item->harga_beli) ? money(floatval($item->harga_beli), 'IDR') : 'Tidak Valid' }}
                             </td>
                             <td>{{ $item->konversi_satuan }} {{ $item->satuan }} / {{ $item->kemasan }}</td>
                             <td class="text-right">
-                                {{ money(2327.5, 'IDR') }} {{ is_numeric($item->harga_jual) ? money(floatval($item->harga_jual), 'IDR') : 'Tidak Valid' }}
+                                {{ is_numeric($item->harga_jual) ? money(floatval($item->harga_jual), 'IDR') : 'Tidak Valid' }}
                             </td>
                             <td class="text-right">
-                                {{ is_numeric($item->harga_bpjs) ? money($item->harga_bpjs, 'IDR') : 'Tidak Valid' }}
+                                {{ is_numeric($item->harga_bpjs) ? money(floatval($item->harga_bpjs), 'IDR') : 'Tidak Valid' }}
                             </td>
                             <td>
                                 <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
