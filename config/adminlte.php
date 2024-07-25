@@ -418,8 +418,22 @@ return [
             ]
         ],
         [
+            'text'    => 'Pelayanan IGD',
+            'icon'    => 'fas fa-ambulance',
+            'submenu' => [
+                [
+                    'text' => 'Pendaftaran IGD',
+                    'url' => 'pendaftaran/igd',
+                    'icon' => 'fas fa-users',
+                    'shift'   => 'ml-2',
+                    'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
+                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                ],
+            ]
+        ],
+        [
             'text'    => 'Pelayanan Rawat Inap',
-            'icon'    => 'fas fa-hand-holding-medical',
+            'icon'    => 'fas fa-procedures',
             'submenu' => [
                 [
                     'text' => 'Pendaftaran Ranap',
@@ -511,6 +525,13 @@ return [
                     'icon' => 'fas fa-clinic-medical',
                     'can' => ['manajemen-pelayanan', 'pendaftaran'],
                     'active'  => ['unit', 'unit/create', 'unit/edit/*'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Kamar & Bed',
+                    'url' => 'kamar-bed',
+                    'icon' => 'fas fa-bed',
+                    'active'  => ['kamar-bed', 'kamar-bed/create', 'kamar-bed/edit/*'],
                     'shift'   => 'ml-2',
                 ],
                 [

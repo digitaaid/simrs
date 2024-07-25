@@ -48,6 +48,7 @@ use App\Livewire\Dokter\PemeriksaanDokterRajal;
 use App\Livewire\Dokter\PemeriksaanDokterRajalProses;
 use App\Livewire\Farmasi\ObatIndex;
 use App\Livewire\Farmasi\PengambilanResep;
+use App\Livewire\Igd\PendaftaranIgd;
 use App\Livewire\Kasir\KasirPembayaran;
 use App\Livewire\Pendaftaran\DashboardPendaftaran;
 use App\Livewire\Perawat\LayananIndex;
@@ -56,6 +57,7 @@ use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
 use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Perawat\TindakanIndex;
 use App\Livewire\Profil\ProfilIndex;
+use App\Livewire\Ranap\PendaftaranRanap;
 use App\Livewire\Rekammedis\RekamMedisRajal;
 use App\Livewire\Rekammedis\RekamMedisRajalEdit;
 use App\Livewire\Satusehat\CondititionIndex;
@@ -185,6 +187,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
     // kasir
     Route::get('kasir-pembayaran', KasirPembayaran::class)->name('kasir.pembayran');
+
+    // rawat igd
+    Route::get('pendaftaran/igd', PendaftaranIgd::class)->name('pendaftaran.igd');
+
+    // rawat inap
+    Route::get('pendaftaran/ranap', PendaftaranRanap::class)->name('pendaftaran.ranap');
+
 });
 
 Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class, 'print_resep'])->name('print.resep');
