@@ -144,7 +144,7 @@
                             </td>
                             <td>{{ $item->konversi_satuan }} {{ $item->satuan }} / {{ $item->kemasan }}</td>
                             <td class="text-right">
-                                {{ $item->harga_jual }} {{ is_numeric($item->harga_jual) ? money($item->harga_jual, 'IDR') : 'Tidak Valid' }}
+                                {{ money(2327.5, 'IDR') }} {{ is_numeric($item->harga_jual) ? money($item->harga_jual, 'IDR') : 'Tidak Valid' }}
                             </td>
                             <td class="text-right">
                                 {{ is_numeric($item->harga_bpjs) ? money($item->harga_bpjs, 'IDR') : 'Tidak Valid' }}
