@@ -15,7 +15,7 @@ class ObatIndex extends Component
     use WithPagination;
     use WithFileUploads;
     public $obat;
-    public $nama, $kemasan, $konversi_satuan, $satuan, $stok_minimum, $jenisobat, $tipeobat, $harga_beli, $diskon_beli, $harga_jual, $harga_klinik, $harga_bpjs, $merk, $distributor, $bpom, $barcode;
+    public $id,$nama, $kemasan, $konversi_satuan, $satuan, $stok_minimum, $jenisobat, $tipeobat, $harga_beli, $diskon_beli, $harga_jual, $harga_klinik, $harga_bpjs, $merk, $distributor, $bpom, $barcode;
     public $search = '';
     public $form = false;
     public $formImport = false;
