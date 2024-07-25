@@ -197,8 +197,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class, 'print_resep'])->name('print.resep');
+Route::get('farmasi/print_resepfarmasi/{kodebooking}', [FarmasiController::class, 'print_resepfarmasi'])->name('print.resepfarmasi');
+
 Route::get('farmasi/print_etiket', [FarmasiController::class, 'print_etiket'])->name('print.etiket');
 Route::get('farmasi/print_gelang', [FarmasiController::class, 'print_gelang'])->name('print.gelang');
 Route::get('resumerajal/{kodebooking}',  [RekamMedisController::class, 'resumerajal'])->name('resume.rajal');
 Route::get('rekammedis/rajal_print/{kodebooking}',  [RekamMedisController::class, 'rajal_print'])->name('rekammedis.rajal.print');
 Route::get('kasir/print_notarajal/{kodebooking}', [KasirController::class, 'print_notarajal'])->name('print.notarajal');
+Route::get('kasir/print_notarajalf/{kodebooking}', [KasirController::class, 'print_notarajalf'])->name('print.notarajalf');

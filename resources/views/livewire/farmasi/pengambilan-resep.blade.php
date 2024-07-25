@@ -63,6 +63,13 @@
                                 </td>
                             </tr>
                         </table>
+                        <hr>
+                        <a target="_blank" href="{{ route('print.etiket') }}?kode={{ $antrianedit->kodebooking }}">
+                            <x-adminlte-button class="btn-sm" theme="success" icon="fas fa-print" label="Etiket Obat" />
+                        </a>
+                        <a href="{{ route('print.resep', $antrianedit->kodebooking) }}" target="_blank">
+                            <x-adminlte-button class="btn-sm" theme="primary" icon="fas fa-print" label="Cetak Resep" />
+                        </a>
                     </div>
                     <div class="col-md-8">
                         <h6>Resep Obat Farmasi</h6>
@@ -121,20 +128,15 @@
                                 </div>
                             </div>
                         @endforeach
-                        <button wire:click.prevent="addObat" class="btn btn-success btn-sm">Tambah Obat</button>
+                        <button wire:click.prevent="addObat" class="btn btn-success btn-sm"><i class="fas fa-plus"></i>
+                            Tambah Obat</button>
+                        <x-adminlte-button wire:confirm='Apakah anda yakin akan menyimpan resep obat terbaru ini ?'
+                            wire:click='simpanResep' class="btn-sm" label="Simpan" theme="success" icon="fas fa-save" />
+                        <x-adminlte-button wire:click='openformEdit' class="btn-sm" label="Tutup" theme="danger"
+                            icon="fas fa-times" />
                     </div>
                 </div>
                 <x-slot name="footerSlot">
-                    <x-adminlte-button wire:confirm='Apakah anda yakin akan menyimpan resep obat terbaru ini ?'
-                        wire:click='simpanResep' class="btn-sm" label="Simpan" theme="success" icon="fas fa-save" />
-                    <a target="_blank" href="{{ route('print.etiket') }}?kode={{ $antrianedit->kodebooking }}">
-                        <x-adminlte-button class="btn-sm" theme="success" icon="fas fa-print" label="Etiket Obat" />
-                    </a>
-                    <a href="{{ route('print.resep', $antrianedit->kodebooking) }}" target="_blank">
-                        <x-adminlte-button class="btn-sm" theme="primary" icon="fas fa-print" label="Cetak Resep" />
-                    </a>
-                    <x-adminlte-button wire:click='openformEdit' class="btn-sm" label="Tutup" theme="danger"
-                        icon="fas fa-times" />
                     <div wire:loading>
                         <div class="spinner-border spinner-border-sm text-primary" role="status">
                         </div>
@@ -197,6 +199,8 @@
                     'Layanan',
                     'Obat',
                     'Invoice',
+                    'Resep Dokter',
+                    'Resep Farmasi',
                     'Unit',
                     'PIC',
                     'Dokter',
@@ -298,8 +302,24 @@
                             <td class="text-right">{{ money($item->resepobatdetails->sum('subtotal'), 'IDR') }} </td>
                             <td>
                                 <a href="{{ route('print.notarajal', $item->kodebooking) }}" target="_blank">
-                                    <x-adminlte-button class="btn-xs" label="Invoice" title="Print Nota Rawat Jalan"
+                                    <x-adminlte-button class="btn-xs" title="Print Nota Rawat Jalan"
                                         theme="warning" icon="fas fa-print" />
+                                </a>
+                                <a href="{{ route('print.notarajalf', $item->kodebooking) }}" target="_blank">
+                                    <x-adminlte-button class="btn-xs" label="Invoice+" title="Print Nota Rawat Jalan"
+                                        theme="warning" icon="fas fa-print" />
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('print.resep', $item->kodebooking) }}" target="_blank">
+                                    <x-adminlte-button class="btn-xs" label="Resep Dokter" title="Resep Dokter"
+                                        theme="primary" icon="fas fa-print" />
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('print.resepfarmasi', $item->kodebooking) }}" target="_blank">
+                                    <x-adminlte-button class="btn-xs" label="Resep Farmasi" title="Resep Farmasi"
+                                        theme="primary" icon="fas fa-print" />
                                 </a>
                             </td>
                             <td>{{ $item->kunjungan->units->nama ?? $item->namapoli }} </td>
