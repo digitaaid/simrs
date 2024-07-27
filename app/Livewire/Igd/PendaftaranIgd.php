@@ -12,6 +12,9 @@ class PendaftaranIgd extends Component
     public $search = '';
     public function render()
     {
+        if ($this->tanggalperiksa == null) {
+            $this->tanggalperiksa = now()->format('Y-m-d');
+        }
         if ($this->tanggalperiksa) {
             $search = '%' . $this->search . '%';
             $this->antrians = Antrian::where('tanggalperiksa', $this->tanggalperiksa)

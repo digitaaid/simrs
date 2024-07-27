@@ -28,7 +28,7 @@
     <div class="col-md-12">
         <x-adminlte-card title="Table Antrian Pendaftaran" theme="secondary">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <x-adminlte-input wire:model.change='tanggalperiksa' type="date" name="tanggalperiksa"
                         igroup-size="sm">
                         <x-slot name="appendSlot">
@@ -41,7 +41,12 @@
                         </x-slot>
                     </x-adminlte-input>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
+                    <a href="{{ route('pendaftaran.igd.proses') }}">
+                        <x-adminlte-button class="btn-sm" theme="success" icon="fas fa-user-plus" label="Daftar IGD" />
+                    </a>
+                </div>
+                <div class="col-md-3">
                 </div>
                 <div class="col-md-4">
                     <x-adminlte-input wire:model.live="search" name="search"
@@ -55,6 +60,7 @@
                             </div>
                         </x-slot>
                     </x-adminlte-input>
+
                 </div>
             </div>
 

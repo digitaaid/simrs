@@ -330,20 +330,6 @@ return [
             'url' => 'dashboard',
             'icon' => 'fas fa-chart-line',
         ],
-        // [
-        //     'text'    => 'Pelayanan IGD',
-        //     'icon'    => 'fas fa-hand-holding-medical',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Pendaftaran',
-        //             'url' => 'pendaftaran/igd',
-        //             'icon' => 'fas fa-user-plus',
-        //             'shift'   => 'ml-2',
-        // 'can' => 'admin',
-        //             // 'active'  => ['user', 'user/create', 'user/edit/*'],
-        //         ],
-        //     ]
-        // ],
         [
             'text'    => 'Pelayanan Rawat Jalan',
             'icon'    => 'fas fa-hand-holding-medical',
@@ -427,7 +413,7 @@ return [
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
                     'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                    'active'  => ['pendaftaran/igd', 'pendaftaran/igd/proses'],
                 ],
             ]
         ],
