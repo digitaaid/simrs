@@ -97,7 +97,7 @@
                                     <x-adminlte-button class="btn-xs" title="Print Nota Rawat Jalan" theme="primary" icon="fas fa-print" />
                                 </a>
                                 <a href="{{ route('print.notarajalf', $item->kodebooking) }}" target="_blank">
-                                    <x-adminlte-button class="btn-xs" title="Print Nota Rawat Jalan" theme="primary" icon="fas fa-print" />++
+                                    <x-adminlte-button class="btn-xs" title="Print Nota Rawat Jalan" theme="primary" icon="fas fa-print" label="++" />
                                 </a>
                             </td>
                             <td>
