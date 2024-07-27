@@ -96,6 +96,9 @@
                                 <a href="{{ route('print.notarajal', $item->kodebooking) }}" target="_blank">
                                     <x-adminlte-button class="btn-xs" title="Print Nota Rawat Jalan" theme="primary" icon="fas fa-print" />
                                 </a>
+                                <a href="{{ route('print.notarajalf', $item->kodebooking) }}" target="_blank">
+                                    <x-adminlte-button class="btn-xs" title="Print Nota Rawat Jalan" theme="primary" icon="fas fa-print" />++
+                                </a>
                             </td>
                             <td>
                                 @switch($item->taskid)
