@@ -44,7 +44,8 @@
                 <div class="col-md-4">
                 </div>
                 <div class="col-md-4">
-                    <x-adminlte-input wire:model.live='search' name="search" placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
+                    <x-adminlte-input wire:model.live='search' name="search"
+                        placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
                         <x-slot name="appendSlot">
                             <x-adminlte-button wire:click='caritanggal' theme="primary" label="Cari" />
                         </x-slot>
@@ -138,11 +139,13 @@
                             </td>
                             <td>
                                 <a href="{{ route('rekammedis.rajal.edit', $item->kodebooking) }}">
-                                    <x-adminlte-button class="btn-xs" label="Edit" theme="warning"
-                                        icon="fas fa-edit" />
+                                    <x-adminlte-button class="btn-xs" label="Edit" theme="warning" icon="fas fa-edit" />
                                 </a>
                                 <a href="{{ route('rekammedis.rajal.print', $item->kodebooking) }}" target="_blank">
                                     <x-adminlte-button class="btn-xs" theme="warning" icon="fas fa-print" />
+                                </a>
+                                <a href="{{ route('rekammedis.rajal.printf', $item->kodebooking) }}" target="_blank">
+                                    <x-adminlte-button class="btn-xs" theme="warning" icon="fas fa-print" label="++" />
                                 </a>
                             </td>
                             <td>
