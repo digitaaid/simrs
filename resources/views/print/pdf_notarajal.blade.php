@@ -131,14 +131,14 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->jumlah }}</td>
-                            <td class="text-right">{{ money($item->harga ? $item->harga : 0, 'IDR') }}</td>
+                            <td class="text-right">{{ money($item->harga ? floatval($item->harga) : 0, 'IDR') }}</td>
                             <td>{{ $item->diskon }}%</td>
-                            <td class="text-right">{{ money($item->subtotal ? $item->subtotal : 0, 'IDR') }}</td>
+                            <td class="text-right">{{ money($item->subtotal ? floatval($item->subtotal) : 0, 'IDR') }}</td>
                         </tr>
                     @endforeach
                     <tr>
                         <th colspan="5" class="text-right">Total</th>
-                        <th class="text-right">{{ money($antrian->layanans->sum('subtotal'), 'IDR') }}</th>
+                        <th class="text-right">{{ money(floatval($antrian->layanans->sum('subtotal')), 'IDR') }}</th>
                         </th>
                     </tr>
                     <tr>
@@ -149,31 +149,31 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->jumlah }}</td>
-                            <td class="text-right">{{ money($item->harga ? $item->harga : 0, 'IDR') }}</td>
+                            <td class="text-right">{{ money($item->harga ? floatval($item->harga) : 0, 'IDR') }}</td>
                             <td class="text-right">{{ $item->diskon }}%</td>
-                            <td class="text-right">{{ money($item->subtotal ? $item->subtotal : 0, 'IDR') }}</td>
+                            <td class="text-right">{{ money($item->subtotal ? floatval($item->subtotal) : 0, 'IDR') }}</td>
                         </tr>
                     @endforeach
                     <tr>
                         <th colspan="5" class="text-right">Total</th>
-                        <th class="text-right">{{ money($resepobatdetails->sum('subtotal'), 'IDR') }}</th>
+                        <th class="text-right">{{ money(floatval($resepobatdetails->sum('subtotal')), 'IDR') }}</th>
                         </th>
                     </tr>
                     <th class="text-left" colspan="6">TOTAL PEMBAYARAN PASIEN</th>
                     <tr>
                         <th colspan="5" class="text-right">Biaya Tindakan / Layanan</th>
-                        <th class="text-right">{{ money($antrian->layanans->sum('subtotal'), 'IDR') }}</th>
+                        <th class="text-right">{{ money(floatval($antrian->layanans->sum('subtotal')), 'IDR') }}</th>
                         </th>
                     </tr>
                     <tr>
                         <th colspan="5" class="text-right">Biaya Farmasi</th>
-                        <th class="text-right">{{ money($resepobatdetails->sum('subtotal'), 'IDR') }}</th>
+                        <th class="text-right">{{ money(floatval($resepobatdetails->sum('subtotal')), 'IDR') }}</th>
                         </th>
                     </tr>
                     <tr>
                         <th colspan="5" class="text-right">Total Biaya Pasien</th>
                         <th class="text-right">
-                            {{ money($resepobatdetails->sum('subtotal') + $antrian->layanans->sum('subtotal'), 'IDR') }}
+                            {{ money(floatval($resepobatdetails->sum('subtotal') + $antrian->layanans->sum('subtotal')), 'IDR') }}
                         </th>
                         </th>
                     </tr>

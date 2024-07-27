@@ -49,6 +49,7 @@ use App\Livewire\Dokter\PemeriksaanDokterRajalProses;
 use App\Livewire\Farmasi\ObatIndex;
 use App\Livewire\Farmasi\PengambilanResep;
 use App\Livewire\Igd\PendaftaranIgd;
+use App\Livewire\Igd\PendaftaranIgdProses;
 use App\Livewire\Kasir\KasirPembayaran;
 use App\Livewire\Pendaftaran\DashboardPendaftaran;
 use App\Livewire\Perawat\LayananIndex;
@@ -190,6 +191,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // rawat igd
     Route::get('pendaftaran/igd', PendaftaranIgd::class)->name('pendaftaran.igd');
+    Route::get('pendaftaran/igd/proses', PendaftaranIgdProses::class)->name('pendaftaran.igd.proses');
 
     // rawat inap
     Route::get('pendaftaran/ranap', PendaftaranRanap::class)->name('pendaftaran.ranap');
