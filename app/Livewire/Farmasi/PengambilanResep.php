@@ -71,13 +71,25 @@ class PengambilanResep extends Component
             ]);
             $api = new AntrianController();
             $res = $api->update_antrean($request);
+            if ($res->metadata->code != 200) {
+                return flash($res->metadata->message, 'danger');
+            } else {
+                $antrian->taskid = 6;
+                $antrian->taskid6 = now();
+                $antrian->panggil = 0;
+                $antrian->status = 1;
+                $antrian->user4 = auth()->user()->id;
+                $antrian->update();
+            }
+        } else {
+            $antrian->taskid = 6;
+            $antrian->taskid6 = now();
+            $antrian->panggil = 0;
+            $antrian->status = 1;
+            $antrian->user4 = auth()->user()->id;
+            $antrian->update();
         }
-        $antrian->taskid = 6;
-        $antrian->taskid6 = now();
-        $antrian->panggil = 0;
-        $antrian->status = 1;
-        $antrian->user4 = auth()->user()->id;
-        $antrian->update();
+        flash('Resep obat atas nama pasien ' . $antrian->nama . ' telah diterima farmasi.', 'success');
     }
     public function edit(Antrian $antrianedit)
     {
@@ -188,12 +200,16 @@ class PengambilanResep extends Component
             ]);
             $api = new AntrianController();
             $res = $api->update_antrean($request);
+            if ($res->metadata->code != 200) {
+                return flash($res->metadata->message, 'danger');
+            }
         }
         $antrian->taskid = 7;
         $antrian->taskid7 = now();
         $antrian->status = 1;
         $antrian->user4 = auth()->user()->id;
         $antrian->update();
+        flash('Pelayanan farmasi atas nama pasien ' . $antrian->nama . ' telah selesai.', 'success');
     }
     public function mount(Request $request)
     {

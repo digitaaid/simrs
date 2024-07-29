@@ -589,6 +589,13 @@ return [
                     'shift'   => 'ml-2',
                     'can' => 'antrian-bpjs',
                 ],
+                // [
+                //     'text' => 'Update Jadwal Dokter',
+                //     'icon'    => 'fas fa-calendar-alt',
+                //     'url'  => 'bpjs/antrian/updatejadwaldokter',
+                //     'shift'   => 'ml-2',
+                //     'can' => 'antrian-bpjs',
+                // ],
                 [
                     'text' => 'Poliklinik Fingerprint',
                     'icon'    => 'fas fa-clinic-medical',

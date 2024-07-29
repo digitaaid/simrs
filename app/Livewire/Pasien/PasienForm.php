@@ -29,7 +29,6 @@ class PasienForm extends Component
             'gender' => 'required',
             'tempat_lahir' => 'required',
             'tgl_lahir' => 'required|date',
-
         ]);
         if ($this->id) {
             $pasien = Pasien::find($this->id);

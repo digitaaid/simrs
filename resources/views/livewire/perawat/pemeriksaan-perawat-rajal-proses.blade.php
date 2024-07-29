@@ -33,7 +33,9 @@
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
         @livewire('dokter.modal-icare', ['antrian' => $antrian, 'lazy' => true])
-        @livewire('dokter.modal-cppt', ['antrian' => $antrian, 'lazy' => true])
+        <div id="cppt">
+            @livewire('dokter.modal-cppt', ['antrian' => $antrian, 'lazy' => true])
+        </div>
         @livewire('laboratorium.modal-laboratorium', ['antrian' => $antrian, 'lazy' => true])
         @livewire('radiologi.modal-radiologi', ['antrian' => $antrian, 'lazy' => true])
         @livewire('penunjang.modal-penunjang', ['antrian' => $antrian, 'lazy' => true])
@@ -45,6 +47,8 @@
         @can('dokter')
             @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian, 'lazy' => true])
         @endcan
-        @livewire('dokter.modal-resume-rajal', ['antrian' => $antrian, 'lazy' => true])
+        <div id="resumerajal">
+            @livewire('dokter.modal-resume-rajal', ['antrian' => $antrian, 'lazy' => true])
+        </div>
     </div>
 </div>

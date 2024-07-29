@@ -1,4 +1,3 @@
-<div id="cppt">
     <x-adminlte-card theme="primary" title="Catatan Perkembangan Pasien Terintegrasi">
         @if (flash()->message)
             <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
@@ -160,4 +159,3 @@
             </div>
         </x-slot>
     </x-adminlte-card>
-</div>

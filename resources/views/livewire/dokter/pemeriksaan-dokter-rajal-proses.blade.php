@@ -7,7 +7,6 @@
             </x-adminlte-alert>
         @endif
         <x-adminlte-card theme="primary" theme-mode="outline">
-
             @include('livewire.pendaftaran.modal-profil-rajal')
         </x-adminlte-card>
     </div>
@@ -23,16 +22,17 @@
                 @if ($antrian->taskid == 3 || $antrian->taskid == 4)
                     <x-adminlte-button wire:click='panggilPemeriksaan' class="btn-xs mb-2" label="Panggil"
                         theme="primary" icon="fas fa-microphone" />
-                    <x-adminlte-button wire:click='panggilPemeriksaanMute' class="btn-xs mb-2" label="Panggil Tanpa Suara"
-                        theme="warning" icon="fas fa-microphone-slash" />
+                    <x-adminlte-button wire:click='panggilPemeriksaanMute' class="btn-xs mb-2"
+                        label="Panggil Tanpa Suara" theme="warning" icon="fas fa-microphone-slash" />
                 @endif
                 @if ($antrian->taskid == 4)
+                    <br>
                     <x-adminlte-button wire:click='lanjutFarmasi'
                         wire:confirm='Apakah anda yakin pasien ini dilanjukan ke farmasi untuk pengambilan obat ?'
                         class="btn-xs mb-2" label="Lanjutkan Farmasi" theme="success" icon="fas fa-pills" />
-                    {{-- <x-adminlte-button wire:click='selesaiPelayanan'
+                    <x-adminlte-button wire:click='selesaiPelayanan'
                         wire:confirm='Apakah anda yakin pasien ini telah selesai pelayanan ?' class="btn-xs mb-2"
-                        label="Selesai Pelayanan" theme="success" icon="fas fa-check" /> --}}
+                        label="Selesai Pelayanan" theme="success" icon="fas fa-check" />
                 @endif
                 <div wire:loading>
                     <div class="spinner-border spinner-border-sm text-primary" role="status">
@@ -44,7 +44,10 @@
     </div>
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
-        @livewire('dokter.modal-cppt', ['antrian' => $antrian, 'lazy' => true])
+        @livewire('dokter.modal-icare', ['antrian' => $antrian, 'lazy' => true])
+        <div id="cppt">
+            @livewire('dokter.modal-cppt', ['antrian' => $antrian, 'lazy' => true])
+        </div>
         @livewire('laboratorium.modal-laboratorium', ['antrian' => $antrian, 'lazy' => true])
         @livewire('radiologi.modal-radiologi', ['antrian' => $antrian, 'lazy' => true])
         @livewire('penunjang.modal-penunjang', ['antrian' => $antrian, 'lazy' => true])
@@ -56,6 +59,8 @@
         @can('dokter')
             @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian, 'lazy' => true])
         @endcan
-        @livewire('dokter.modal-resume-rajal', ['antrian' => $antrian, 'lazy' => true])
+        <div id="resumerajal">
+            @livewire('dokter.modal-resume-rajal', ['antrian' => $antrian, 'lazy' => true])
+        </div>
     </div>
 </div>

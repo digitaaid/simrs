@@ -37,6 +37,11 @@ class PendaftaranRajalProses extends Component
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
+            $antrian->taskid = 3;
+            $antrian->taskid3 = now();
+            $antrian->panggil = 0;
+            $antrian->user1 = auth()->user()->id;
+
             if (env('ANTRIAN_REALTIME')) {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
@@ -45,14 +50,41 @@ class PendaftaranRajalProses extends Component
                 ]);
                 $api = new AntrianController();
                 $res = $api->update_antrean($request);
+                if ($res->metadata->code != 200) {
+                    return flash($res->metadata->message, 'danger');
+                }
             }
-            $antrian->taskid = 3;
-            $antrian->taskid3 = now();
-            $antrian->panggil = 0;
-            $antrian->user1 = auth()->user()->id;
             $antrian->update();
             flash('Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pendaftaran.', 'success');
             return redirect()->to(route('pendaftaran.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
+        } else {
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
+        }
+    }
+
+    public function checkinHadir()
+    {
+        $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
+        if ($antrian->taskid <= 2) {
+            if (env('ANTRIAN_REALTIME')) {
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => now(),
+                    'taskid' => 1,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+                if ($res->metadata->code != 200) {
+                    return flash($res->metadata->message, 'danger');
+                }
+            }
+            $antrian->taskid2 = now();
+            $antrian->panggil = 0;
+            $antrian->taskid = 1;
+            $antrian->user1 = auth()->user()->id;
+            $antrian->update();
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' dipanggil.', 'success');
+            $this->dispatch('refreshPage');
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
         }
@@ -61,6 +93,15 @@ class PendaftaranRajalProses extends Component
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
+            if (env('ANTRIAN_REALTIME')) {
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => now(),
+                    'taskid' => 2,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+            }
             $antrian->taskid2 = now();
             $antrian->panggil = 0;
             $antrian->taskid = 2;

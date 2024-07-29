@@ -177,8 +177,8 @@ class ModalSuratkontrol extends Component
             'formatfilter' => $this->formatfilter,
         ]);
         $res = $api->suratkontrol_peserta($request);
+        $this->suratkontrols = [];
         if ($res->metadata->code == 200) {
-            $this->suratkontrols = [];
             $this->suratkontrols = $res->response->list;
             return flash($res->metadata->message, 'success');
         } else {
