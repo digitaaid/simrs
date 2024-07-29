@@ -299,7 +299,7 @@
                                 @endswitch
                             </td>
                             <td class="text-right">{{ money($item->layanans->sum('harga'), 'IDR') }} </td>
-                            <td class="text-right">{{ money($item->resepobatdetails->sum('subtotal'), 'IDR') }} </td>
+                            <td class="text-right">{{ money($item->resepfarmasidetails->sum('subtotal'), 'IDR') }} </td>
                             <td>
                                 <a href="{{ route('print.notarajal', $item->kodebooking) }}" target="_blank">
                                     <x-adminlte-button class="btn-xs" title="Print Nota Rawat Jalan"
