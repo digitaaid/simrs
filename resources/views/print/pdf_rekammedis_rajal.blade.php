@@ -133,7 +133,6 @@
                             <td>Diagnosa</td>
                             <td>:</td>
                             <td>
-                                {{ $antrian->asesmenrajal->diagnosa ?? '' }} <br>
                                 {{ $antrian->asesmenrajal->diagnosa_dokter ?? '' }}
                             </td>
                         </tr>
@@ -177,7 +176,7 @@
                             <td>Pengobatan</td>
                             <td>:</td>
                             <td>
-                                @foreach ($antrian->resepobatdetails as $item)
+                                @foreach ($resepobatdetails as $item)
                                     <b>R/ {{ $item->nama }}</b> ({{ $item->jumlah }}) {{ $item->frekuensi }}
                                     {{ $item->waktu }}
                                     {{ $item->keterangan }} <br>
