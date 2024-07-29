@@ -23,6 +23,8 @@
                 @if ($antrian->taskid == 3 || $antrian->taskid == 4)
                     <x-adminlte-button wire:click='panggilPemeriksaan' class="btn-xs mb-2" label="Panggil"
                         theme="primary" icon="fas fa-microphone" />
+                    <x-adminlte-button wire:click='panggilPemeriksaanMute' class="btn-xs mb-2" label="Panggil Tanpa Suara"
+                        theme="warning" icon="fas fa-microphone-slash" />
                 @endif
                 @if ($antrian->taskid == 4)
                     <x-adminlte-button wire:click='lanjutFarmasi'
