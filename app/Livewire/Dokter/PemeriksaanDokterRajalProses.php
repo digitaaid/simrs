@@ -21,6 +21,30 @@ class PemeriksaanDokterRajalProses extends Component
     public $openmodalPerawat = false;
     public $openmodalDokter = false;
     protected $listeners = ['modalCppt', 'modalAsesmenRajal',  'modalPemeriksaanPerawat', 'modalPemeriksaanDokter', 'refreshPage' => '$refresh'];
+    public function panggilPemeriksaanMute()
+    {
+        $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
+        if ($antrian->taskid <= 4) {
+            if (env('ANTRIAN_REALTIME')) {
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => now(),
+                    'taskid' => 4,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+            }
+            $antrian->taskid = 4;
+            $antrian->taskid4 = now();
+            $antrian->panggil = 1;
+            $antrian->user3 = auth()->user()->id;
+            $antrian->update();
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' dipanggil.', 'success');
+        } else {
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
+        }
+        $this->dispatch('refreshPage');
+    }
     public function panggilPemeriksaan()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
