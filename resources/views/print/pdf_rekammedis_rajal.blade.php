@@ -133,7 +133,11 @@
                             <td>Diagnosa</td>
                             <td>:</td>
                             <td>
-                                {{ $antrian->asesmenrajal->diagnosa_dokter ?? '' }}
+                                @if ($antrian->asesmenrajal?->diagnosa)
+                                    @foreach (explode(';', $antrian->asesmenrajal?->diagnosa) as $item)
+                                        {{ $item }} <br>
+                                    @endforeach
+                                @endif
                             </td>
                         </tr>
                         <tr>

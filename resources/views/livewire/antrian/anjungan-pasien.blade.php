@@ -22,18 +22,29 @@
                 </header>
             </div>
         </div>
-        <div class="col-md-6 text-center text-white">
+        <div class="col-md-6">
             <x-adminlte-card title="Pilih Jenis Pasien" theme="green" icon="fas fa-user-plus">
-                <a wire:navigate href="{{ route('anjunganantrian.pasien') }}?pasienbaru=1">
-                    <x-adminlte-card class="mb-2 withLoad" body-class="bg-success">
-                        <h1>PASIEN BARU</h1>
-                    </x-adminlte-card>
-                </a>
-                <a wire:navigate href="{{ route('anjunganantrian.pasien') }}?pasienbaru=0">
-                    <x-adminlte-card class="mb-2 withLoad" body-class="bg-success">
-                        <h1>PASIEN LAMA</h1>
-                    </x-adminlte-card>
-                </a>
+                <h1>Pasien {{ $pasienbaru ? 'Baru' : 'Lama' }}</h1>
+                <h3>Silahkan pilih jenis jaminan...</h3>
+                <div class="text-center text-white">
+                    <a wire:navigate
+                        href="{{ route('anjunganantrian.create') }}?pasienbaru={{ $pasienbaru }}&jenispasien=JKN&tanggalperiksa={{ now()->format('Y-m-d') }}">
+                        <x-adminlte-card class="mb-2 withLoad" body-class="bg-success">
+                            <h1>PASIEN BPJS</h1>
+                        </x-adminlte-card>
+                    </a>
+                    <a wire:navigate
+                        href="{{ route('anjunganantrian.create') }}?pasienbaru={{ $pasienbaru }}&jenispasien=NON-JKN&tanggalperiksa={{ now()->format('Y-m-d') }}">
+                        <x-adminlte-card class="mb-2 withLoad" body-class="bg-success">
+                            <h1>PASIEN UMUM</h1>
+                        </x-adminlte-card>
+                    </a>
+                </div>
+                <x-slot name="footerSlot">
+                    <a href="{{ route('anjunganantrian.index') }}">
+                        <x-adminlte-button icon="fas fa-arrow-left" class="withLoad" theme="danger" label="Kembali" />
+                    </a>
+                </x-slot>
             </x-adminlte-card>
         </div>
         <div class="col-md-6">
@@ -50,20 +61,10 @@
                             </div>
                         </x-slot>
                     </x-adminlte-input> --}}
-                    <img src="{{ asset('bpjs/qrantrian.png') }}" width="48%" alt="">
-                    <img src="{{ asset('bpjs/bpjs2.jpg') }}" width="45%" alt="">
+                    <img src="{{ asset('bpjs/qrantrian.png') }}" width="32%" alt="">
+                    <img src="{{ asset('bpjs/bpjs2.jpg') }}" width="30%" alt="">
                     <br>
                 </div>
-                <x-slot name="footerSlot">
-                    <x-adminlte-button icon="fas fa-sync" class="withLoad reload" theme="warning" label="Reload" />
-                    <a href="{{ route('anjunganantrian.test') }}" class="btn btn-warning withLoad"><i
-                            class="fas fa-print"></i>
-                        Test
-                        Printer</a>
-                    <a href="{{ route('anjunganantrian.checkin') }}" class="btn btn-warning withLoad"><i
-                            class="fas fa-print"></i> Checkin
-                        Antrian</a>
-                </x-slot>
             </x-adminlte-card>
         </div>
         {{-- <div class="col-md-6">

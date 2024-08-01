@@ -55,7 +55,7 @@ class ModalPenunjang extends Component
         ]);
         try {
             if ($this->file) {
-                $filename = $this->norm . '_' . $this->nama . '_LAB_' . $this->tanggal . now()->format('dmY_His') . '.' . $this->file->getClientOriginalExtension();
+                $filename = $this->norm . '_' . $this->nama . '_FILE_' . $this->tanggal . now()->format('dmY_His') . '.' . $this->file->getClientOriginalExtension();
                 $path =  $this->file->storeAs('public/penunjang',  $filename);
                 $fileurl = route('landingpage') .  '/storage/penunjang/' . $filename;
                 $this->fileurl = route('landingpage') .  '/storage/penunjang/' . $filename;

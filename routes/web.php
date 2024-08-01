@@ -10,6 +10,7 @@ use App\Http\Controllers\SepController;
 use App\Http\Controllers\SuratKontrolController;
 use App\Livewire\Antrian\AnjunganAntrian;
 use App\Livewire\Antrian\AnjunganAntrianCreate;
+use App\Livewire\Antrian\AnjunganPasien;
 use App\Livewire\Antrian\DaftarAntrian;
 use App\Livewire\Aplikasi\PengaturanIndex;
 use App\Livewire\Bpjs\Antrian\AntreanBelumLayani;
@@ -161,7 +162,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
     // anjungan antrian
     Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
-    Route::get('anjunganantrian/create/{jenispasien}/{tanggalperiksa}', AnjunganAntrianCreate::class)->name('anjunganantrian.create');
+    Route::get('anjunganantrian/pasien', AnjunganPasien::class)->name('anjunganantrian.pasien');
+    Route::get('anjunganantrian/create', AnjunganAntrianCreate::class)->name('anjunganantrian.create');
     Route::get('anjunganantrian/checkin/', AnjunganAntrian::class)->name('anjunganantrian.checkin');
     Route::get('anjunganantrian/print/{kodebooking}', [PendaftaranController::class, 'printkarcis'])->name('anjunganantrian.print');
     Route::get('anjunganantrian/test/', AnjunganAntrian::class)->name('anjunganantrian.test');
