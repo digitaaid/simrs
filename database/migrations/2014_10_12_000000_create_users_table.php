@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('pic')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

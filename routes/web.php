@@ -113,8 +113,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('integration', IntegrationIndex::class)->name('integration.index')->lazy();
         Route::get('aplikasi', PengaturanIndex::class)->name('aplikasi.index')->lazy();
         Route::get('user', UserIndex::class)->name('user.index');
-        Route::get('user/create', UserForm::class)->name('user.create');
-        Route::get('user/edit/{id}', UserForm::class)->name('user.edit');
     });
     Route::middleware(['can:pegawai'])->group(function () {
         Route::get('pegawai', PegawaiIndex::class)->name('pegawai.index');
