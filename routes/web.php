@@ -71,7 +71,6 @@ use App\Livewire\Satusehat\PractitionerIndex;
 use App\Livewire\Satusehat\TokenIndex;
 use App\Livewire\Unit\UnitIndex;
 use App\Livewire\User\PermissionIndex;
-use App\Livewire\User\RoleIndex;
 use App\Livewire\User\RolePermission;
 use App\Livewire\User\UserCreate;
 use App\Livewire\User\UserForm;
