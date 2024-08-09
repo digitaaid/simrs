@@ -13,7 +13,7 @@ class PendaftaranRajal extends Component
     public $search = '';
     public function mount(Request $request)
     {
-        $this->tanggalperiksa = $request->tanggalperiksa;
+        $this->tanggalperiksa = $request->tanggalperiksa ?? now()->format('Y-m-d');
     }
     public function caritanggal()
     {

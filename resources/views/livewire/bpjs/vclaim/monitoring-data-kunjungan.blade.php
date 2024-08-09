@@ -7,6 +7,14 @@
         </div>
     @endif
     <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box title="{{ count($kunjungans) ?? '-' }}" text="Total Kunjungan" theme="success"
+                    icon="fas fa-user-injured" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
         <x-adminlte-card title="Table Referensi Dokter" theme="secondary">
             <div class="row">
                 <div class="col-md-3">
