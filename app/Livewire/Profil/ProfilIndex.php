@@ -10,7 +10,7 @@ use Livewire\Component;
 class ProfilIndex extends Component
 {
     public $user;
-    public $id, $name, $email, $phone, $username;
+    public $id, $name, $email, $phone, $username, $password;
     public function save()
     {
         $user = Auth::user();
@@ -18,15 +18,11 @@ class ProfilIndex extends Component
         $user->username = $this->username;
         $user->phone = $this->phone;
         $user->email = $this->email;
+        if ($this->password) {
+            $user->password = bcrypt($this->password);
+        }
         $user->save();
         flash('User updated successfully!', 'success');
-    }
-    public function resetForm()
-    {
-        $this->name = null;
-        $this->email = null;
-        $this->phone = null;
-        $this->username = null;
     }
     public function mount()
     {
@@ -44,7 +40,6 @@ class ProfilIndex extends Component
     }
     public function render()
     {
-
         return view('livewire.profil.profil-index')
             ->title('Profil');
     }
