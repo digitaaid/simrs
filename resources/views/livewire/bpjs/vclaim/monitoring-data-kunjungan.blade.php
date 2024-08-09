@@ -49,40 +49,42 @@
                 @include('components.placeholder.placeholder-text')
             </div>
             <div wire:loading.remove>
-                <table class="table text-nowrap table-sm table-hover table-bordered table-responsive-xl mb-3">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>No SEP</th>
-                            <th>Tanggal SEP</th>
-                            <th>Tanggal Pulang</th>
-                            <th>Pelayanan</th>
-                            <th>Kelas Rawat</th>
-                            <th>No Kartu</th>
-                            <th>Nama</th>
-                            <th>Poli</th>
-                            <th>Diagnosa</th>
-                            <th>No Rujukan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($kunjungans as $item)
+                @if ($kunjungans)
+                    <table class="table text-nowrap table-sm table-hover table-bordered table-responsive-xl mb-3">
+                        <thead>
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->noSep }}</td>
-                                <td>{{ $item->tglSep }}</td>
-                                <td>{{ $item->tglPlgSep }}</td>
-                                <td>{{ $item->jnsPelayanan }}</td>
-                                <td>{{ $item->kelasRawat }}</td>
-                                <td>{{ $item->noKartu }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->poli }}</td>
-                                <td>{{ $item->diagnosa }}</td>
-                                <td>{{ $item->noRujukan }}</td>
+                                <th>#</th>
+                                <th>No SEP</th>
+                                <th>Tanggal SEP</th>
+                                <th>Tanggal Pulang</th>
+                                <th>Pelayanan</th>
+                                <th>Kelas Rawat</th>
+                                <th>No Kartu</th>
+                                <th>Nama</th>
+                                <th>Poli</th>
+                                <th>Diagnosa</th>
+                                <th>No Rujukan</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($kunjungans as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->noSep }}</td>
+                                    <td>{{ $item->tglSep }}</td>
+                                    <td>{{ $item->tglPlgSep }}</td>
+                                    <td>{{ $item->jnsPelayanan }}</td>
+                                    <td>{{ $item->kelasRawat }}</td>
+                                    <td>{{ $item->noKartu }}</td>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->poli }}</td>
+                                    <td>{{ $item->diagnosa }}</td>
+                                    <td>{{ $item->noRujukan }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
             </div>
         </x-adminlte-card>
     </div>

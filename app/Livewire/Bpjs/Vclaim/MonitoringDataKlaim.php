@@ -23,6 +23,7 @@ class MonitoringDataKlaim extends Component
             'tanggalPulang' => $this->tanggal,
             'statusKlaim' => $this->statusklaim,
         ]);
+        $this->kunjungans = [];
         $api = new VclaimController();
         $res  = $api->monitoring_data_klaim($request);
         if ($res->metadata->code == 200) {
