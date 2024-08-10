@@ -46,9 +46,9 @@
                     icon="fas fa-download" />
             </div>
             <div class="col-md-6">
-                <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Role" igroup-size="sm">
+                <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian" igroup-size="sm">
                     <x-slot name="appendSlot">
-                        <x-adminlte-button wire:click="test" theme="primary" label="Cari" />
+                        <x-adminlte-button wire:click="cari" theme="primary" label="Cari" />
                     </x-slot>
                     <x-slot name="prependSlot">
                         <div class="input-group-text text-primary">

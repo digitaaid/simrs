@@ -60,9 +60,11 @@ class RoleIndex extends Component
     {
         return view('components.placeholder.placeholder-text');
     }
+    public function cari()
+    {
+    }
     public function mount()
     {
-
     }
     public function render()
     {

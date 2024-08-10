@@ -91,6 +91,8 @@ class PermissionIndex extends Component
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
     }
+    public function cari() {}
+    public function mount() {}
     public function render()
     {
         $search = '%' . $this->search . '%';
