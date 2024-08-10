@@ -2,17 +2,25 @@
 
 namespace App\Livewire\User;
 
+use App\Exports\RoleExport;
+use App\Imports\RoleImport;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleIndex extends Component
 {
+    use WithFileUploads;
     public $id, $name, $roles;
     public $permissions = [];
     public $selectedPermissions = [];
     public $form = false;
     public $search = '';
+    public $formImport = 0;
+    public $fileImport;
     public function store()
     {
         $this->validate([
@@ -60,12 +68,35 @@ class RoleIndex extends Component
     {
         return view('components.placeholder.placeholder-text');
     }
-    public function cari()
+    public function export()
     {
+        try {
+            $time = now()->format('Y-m-d');
+            flash('Export successfully', 'success');
+            return Excel::download(new RoleExport, 'role_backup_' . $time . '.xlsx');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
     }
-    public function mount()
+    public function openFormImport()
     {
+        $this->formImport = $this->formImport ?  0 : 1;
     }
+    public function import()
+    {
+        try {
+            $this->validate([
+                'fileImport' => 'required|mimes:xlsx'
+            ]);
+            Excel::import(new RoleImport, $this->fileImport->getRealPath());
+            Alert::success('Success', 'Imported successfully');
+            return redirect()->route('role-permission');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
+    }
+    public function cari() {}
+    public function mount() {}
     public function render()
     {
         $search = '%' . $this->search . '%';

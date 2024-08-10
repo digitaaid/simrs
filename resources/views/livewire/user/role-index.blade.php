@@ -4,6 +4,23 @@
             {{ flash()->message }}
         </x-adminlte-alert>
     @endif
+    @if ($formImport)
+        <x-adminlte-card title="Import File" theme="secondary">
+            <x-adminlte-input-file wire:model='fileImport' name="fileImport"
+                placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File' }}" igroup-size="sm"
+                label="File Import" />
+            <x-slot name="footerSlot">
+                <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
+                    theme="success" label="Import"
+                    wire:confirm='Apakah anda yakin akan mengimport file pasien saat ini ?' />
+                <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
+                    label="Kembali" data-dismiss="modal" />
+                <div wire:loading>
+                    Loading...
+                </div>
+            </x-slot>
+        </x-adminlte-card>
+    @endif
     <div id="editRole">
         @if ($form)
             <x-adminlte-card title="Role" theme="secondary">
@@ -40,7 +57,7 @@
                 <x-adminlte-button wire:click='openForm' class="btn-sm mb-2" label="Add Role" theme="success"
                     icon="fas fa-user-plus" />
                 <x-adminlte-button wire:click='export'
-                    wire:confirm='Apakah anda yakin akan mendownload file user saat ini ? ' class="btn-sm mb-2"
+                    wire:confirm='Apakah anda yakin akan mendownload file saat ini ? ' class="btn-sm mb-2"
                     label="Export" theme="primary" icon="fas fa-upload" />
                 <x-adminlte-button wire:click='openFormImport' class="btn-sm mb-2" label="Import" theme="primary"
                     icon="fas fa-download" />
