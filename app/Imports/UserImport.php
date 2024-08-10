@@ -12,7 +12,7 @@ class UserImport implements ToCollection, WithHeadingRow
     public function collection(Collection $collection)
     {
         foreach ($collection as $row) {
-            User::updateOrCreate(
+            $user = User::updateOrCreate(
                 [
                     'username' => $row['username'],
                 ],
@@ -32,6 +32,9 @@ class UserImport implements ToCollection, WithHeadingRow
                     'deleted_at' => $row['deleted_at'],
                 ]
             );
+            if (isset($row['roles'])) {
+                $user->syncRoles([$row['roles']]);
+            }
         }
     }
 }
