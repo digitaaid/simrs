@@ -37,8 +37,13 @@
     <x-adminlte-card title="Table Role" theme="secondary">
         <div class="row">
             <div class="col-md-6">
-                <x-adminlte-button wire:click='openForm' class="btn-sm mb-3" label="Add Role" theme="success"
+                <x-adminlte-button wire:click='openForm' class="btn-sm mb-2" label="Add Role" theme="success"
                     icon="fas fa-user-plus" />
+                <x-adminlte-button wire:click='export'
+                    wire:confirm='Apakah anda yakin akan mendownload file user saat ini ? ' class="btn-sm mb-2"
+                    label="Export" theme="primary" icon="fas fa-upload" />
+                <x-adminlte-button wire:click='openFormImport' class="btn-sm mb-2" label="Import" theme="primary"
+                    icon="fas fa-download" />
             </div>
             <div class="col-md-6">
                 <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Role" igroup-size="sm">

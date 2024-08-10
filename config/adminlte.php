@@ -828,7 +828,7 @@ return [
         [
             'text' => 'Aplikasi',
             'url' => 'aplikasi',
-            'icon' => 'fas fa-users',
+            'icon' => 'fas fa-cogs',
             'can' => 'admin',
             // 'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
