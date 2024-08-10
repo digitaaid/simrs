@@ -36,7 +36,8 @@ class ProfilIndex extends Component
     }
     public function placeholder()
     {
-        return view('components.placeholder.placeholder-text');
+        return view('components.placeholder.placeholder-text')
+            ->title('Profil');
     }
     public function render()
     {

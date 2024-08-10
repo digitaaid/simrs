@@ -5,6 +5,23 @@
                 {{ flash()->message }}
             </x-adminlte-alert>
         @endif
+        @if ($formImport)
+            <x-adminlte-card title="Import File" theme="secondary">
+                <x-adminlte-input-file wire:model='fileImport' name="fileImport"
+                    placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File' }}" igroup-size="sm"
+                    label="File Import" />
+                <x-slot name="footerSlot">
+                    <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
+                        theme="success" label="Import"
+                        wire:confirm='Apakah anda yakin akan mengimport file pasien saat ini ?' />
+                    <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
+                        label="Kembali" data-dismiss="modal" />
+                    <div wire:loading>
+                        Loading...
+                    </div>
+                </x-slot>
+            </x-adminlte-card>
+        @endif
         @if ($formUser)
             <x-adminlte-card title="Identitas User" theme="secondary">
                 <form>
@@ -31,7 +48,8 @@
                 <x-slot name="footerSlot">
                     <x-adminlte-button label="Simpan" class="btn-sm" icon="fas fa-save" wire:click="save"
                         wire:confirm="Apakah anda yakin ingin menambahkan user ?" form="formUpdate" theme="success" />
-                    <x-adminlte-button class="btn-sm" wire:click="batal" label="Batal" theme="danger" icon="fas fa-times" />
+                    <x-adminlte-button class="btn-sm" wire:click="batal" label="Batal" theme="danger"
+                        icon="fas fa-times" />
                 </x-slot>
             </x-adminlte-card>
         @endif
@@ -41,6 +59,11 @@
                     <div class="col-md-8">
                         <x-adminlte-button class="btn-sm mb-2" wire:click='tambah' label="Tambah User" theme="success"
                             icon="fas fa-user-plus" />
+                        <x-adminlte-button wire:click='export'
+                            wire:confirm='Apakah anda yakin akan mendownload file user saat ini ? ' class="btn-sm mb-2"
+                            label="Export" theme="primary" icon="fas fa-upload" />
+                        <x-adminlte-button wire:click='openFormImport' class="btn-sm mb-2" label="Import"
+                            theme="primary" icon="fas fa-download" />
                     </div>
                     <div class="col-md-4">
                         <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian"
