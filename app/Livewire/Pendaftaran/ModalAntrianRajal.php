@@ -154,8 +154,8 @@ class ModalAntrianRajal extends Component
             flash($res->metadata->message, 'danger');
             Alert::error('Mohon Maaf', $res->metadata->message);
         }
-        $this->dispatch('refreshPage');
-        return redirect()->back();
+        $url = route('pendaftaran.rajal.proses', $this->kodebooking);
+        return redirect()->to($url);
     }
     public function cariRujukan()
     {
@@ -303,6 +303,23 @@ class ModalAntrianRajal extends Component
         $this->kodepoli = $antrian->kodepoli;
         $this->kodedokter = $antrian->kodedokter;
         $this->jenispasien = $antrian->jenispasien;
+        if ($antrian->jeniskunjungan == 3) {
+            $this->noSurat = $antrian->nomorsuratkontrol;
+        } else {
+            $this->noRujukan = $antrian->nomorrujukan;
+            switch ($antrian->jeniskunjungan) {
+                case 1:
+                    $this->asalRujukan = 1;
+                    break;
+
+                case 4:
+                    $this->asalRujukan = 2;
+                    break;
+
+                default:
+                    break;
+            }
+        }
         $this->polikliniks = Unit::pluck('nama', 'kode');
         $this->dokters = Dokter::pluck('nama', 'kode');
     }

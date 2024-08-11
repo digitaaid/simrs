@@ -83,6 +83,10 @@
                             igroup-size="sm" name="noSurat" wire:model='noSurat' wire:click='cariSuratKontrol'
                             label="No Surat Kontrol">
                             <option value=null>Pilih Surat Kontrol</option>
+                            @if ($antrian->nomorsuratkontrol)
+                                <option value={{ $antrian->nomorsuratkontrol }}>{{ $antrian->nomorsuratkontrol }}
+                                </option>
+                            @endif
                             @foreach ($suratkontrols as $key => $item)
                                 <option value="{{ $item['noSuratKontrol'] }}">{{ $item['noSuratKontrol'] }}
                                     {{ $item['tglRencanaKontrol'] }} {{ $item['namaPoliTujuan'] }}

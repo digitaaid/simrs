@@ -175,6 +175,9 @@
                         <a wire:navigate href="{{ route('anjunganantrian.index') }}">
                             <x-adminlte-button icon="fas fa-arrow-left" theme="danger" label="Kembali" />
                         </a>
+                        <div wire:loading>
+                            Loading...
+                        </div>
                         @if ($jadwaldokter)
                             <x-adminlte-button wire:click='daftar' icon="fas fa-user-plus" theme="success"
                                 label="Daftar" />

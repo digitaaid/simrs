@@ -61,7 +61,6 @@ class PendaftaranRajalProses extends Component
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
         }
     }
-
     public function checkinHadir()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
@@ -94,13 +93,16 @@ class PendaftaranRajalProses extends Component
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
             if (env('ANTRIAN_REALTIME')) {
-                $request = new Request([
-                    'kodebooking' => $this->kodebooking,
-                    'waktu' => now(),
-                    'taskid' => 2,
-                ]);
-                $api = new AntrianController();
-                $res = $api->update_antrean($request);
+                if ($antrian->pasienbaru) {
+                    $request = new Request([
+                        'kodebooking' => $this->kodebooking,
+                        'waktu' => now(),
+                        'taskid' => 2,
+                    ]);
+                    dd($request->all());
+                    $api = new AntrianController();
+                    $res = $api->update_antrean($request);
+                }
             }
             $antrian->taskid2 = now();
             $antrian->panggil = 0;
