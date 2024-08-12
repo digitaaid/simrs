@@ -8,6 +8,7 @@ use App\Models\Dokter;
 use App\Models\Jaminan;
 use App\Models\Pasien;
 use App\Models\Unit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
@@ -41,8 +42,23 @@ class PendaftaranRajalProses extends Component
             $antrian->taskid3 = now();
             $antrian->panggil = 0;
             $antrian->user1 = auth()->user()->id;
-
             if (env('ANTRIAN_REALTIME')) {
+                if ($antrian->pasienbaru) {
+                    $request = new Request([
+                        'kodebooking' => $this->kodebooking,
+                        'waktu' => Carbon::parse($antrian->taskid1),
+                        'taskid' => 1,
+                    ]);
+                    $api = new AntrianController();
+                    $res = $api->update_antrean($request);
+                    $request = new Request([
+                        'kodebooking' => $this->kodebooking,
+                        'waktu' => Carbon::parse($antrian->taskid2),
+                        'taskid' => 2,
+                    ]);
+                    $api = new AntrianController();
+                    $res = $api->update_antrean($request);
+                }
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
                     'waktu' => now(),
@@ -51,7 +67,9 @@ class PendaftaranRajalProses extends Component
                 $api = new AntrianController();
                 $res = $api->update_antrean($request);
                 if ($res->metadata->code != 200) {
-                    return flash($res->metadata->message, 'danger');
+                    if ($res->metadata->message  != 'TaskId=3 sudah ada') {
+                        return flash($res->metadata->message, 'danger');
+                    }
                 }
             }
             $antrian->update();
@@ -99,7 +117,6 @@ class PendaftaranRajalProses extends Component
                         'waktu' => now(),
                         'taskid' => 2,
                     ]);
-                    dd($request->all());
                     $api = new AntrianController();
                     $res = $api->update_antrean($request);
                 }

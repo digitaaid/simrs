@@ -148,10 +148,8 @@ class ModalAntrianRajal extends Component
         if ($res->metadata->code == 200) {
             $antrian->status = 1;
             $antrian->update();
-            flash('Antrian atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
             Alert::success('Success', $res->metadata->message);
         } else {
-            flash($res->metadata->message, 'danger');
             Alert::error('Mohon Maaf', $res->metadata->message);
         }
         $url = route('pendaftaran.rajal.proses', $this->kodebooking);

@@ -39,6 +39,9 @@ class PemeriksaanDokterRajalProses extends Component
                 $api = new AntrianController();
                 $res = $api->update_antrean($request);
                 if ($res->metadata->code != 200) {
+                    // if (condition) {
+                    //     # code...
+                    // }
                     return flash($res->metadata->message, 'danger');
                 }
             }
