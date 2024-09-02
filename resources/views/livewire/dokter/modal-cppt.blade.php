@@ -1,3 +1,4 @@
+<div>
     <x-adminlte-card theme="primary" title="Catatan Perkembangan Pasien Terintegrasi">
         @if (flash()->message)
             <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
@@ -30,7 +31,8 @@
                                     <b>Keluhan :</b> {{ $kunjungan->asesmenrajal?->keluhan_utama }} <br>
                                 @endif
                                 @if ($kunjungan->asesmenrajal?->riwayat_pengobatan)
-                                    <b>Rwyat Pengobatan :</b> {{ $kunjungan->asesmenrajal?->riwayat_pengobatan }} <br>
+                                    <b>Rwyat Pengobatan :</b> {{ $kunjungan->asesmenrajal?->riwayat_pengobatan }}
+                                    <br>
                                 @endif
                                 @if ($kunjungan->asesmenrajal?->riwayat_penyakit)
                                     <b>Rwyat Penyakit :</b> {{ $kunjungan->asesmenrajal?->riwayat_penyakit }} <br>
@@ -159,3 +161,4 @@
             </div>
         </x-slot>
     </x-adminlte-card>
+</div>

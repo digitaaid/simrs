@@ -1,4 +1,4 @@
-<div id="layanan">
+<div>
     <x-adminlte-card theme="primary" title="Layanan & Tindakan">
         <input type="hidden" name="kodebooking" wire:model="kodebooking">
         <input type="hidden" name="antrian_id" wire:model="antrian_id">

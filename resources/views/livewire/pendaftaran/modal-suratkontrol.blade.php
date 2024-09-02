@@ -1,4 +1,4 @@
-<div id="suratkontrol">
+<div>
     <x-adminlte-card theme="primary" title="Surat Kontrol Pasien">
         <div class="row">
             <div class="col-md-4">

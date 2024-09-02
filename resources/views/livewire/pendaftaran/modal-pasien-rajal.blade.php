@@ -1,4 +1,4 @@
-<div id="datapasien">
+<div>
     <div id="editPasien">
         @if ($form)
             <x-adminlte-card title="Tambah Identitas Pasien Baru" theme="success" icon="fas fa-user-plus">

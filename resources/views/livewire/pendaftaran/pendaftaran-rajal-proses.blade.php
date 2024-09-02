@@ -14,16 +14,30 @@
     @include('livewire.pendaftaran.navigasi-rajal')
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
-        @livewire('pendaftaran.modal-pasien-rajal', ['lazy' => true])
-        @livewire('pendaftaran.modal-antrian-rajal', ['antrian' => $antrian, 'lazy' => true])
-        @livewire('pendaftaran.modal-kunjungan-rajal', ['antrian' => $antrian, 'lazy' => true])
+        <div id="datapasien">
+            @livewire('pendaftaran.modal-pasien-rajal', ['lazy' => true])
+        </div>
+        <div id="antrian">
+            @livewire('pendaftaran.modal-antrian-rajal', ['antrian' => $antrian, 'lazy' => true])
+        </div>
+        <div id="kunjungan">
+            @livewire('pendaftaran.modal-kunjungan-rajal', ['antrian' => $antrian, 'lazy' => true])
+        </div>
         @if ($antrian->pasien && $antrian->jenispasien == 'JKN')
-            @livewire('pendaftaran.modal-sep', ['antrian' => $antrian, 'lazy' => true])
-            @livewire('pendaftaran.modal-suratkontrol', ['antrian' => $antrian, 'lazy' => true])
+            <div id="modalsep">
+                @livewire('pendaftaran.modal-sep', ['antrian' => $antrian, 'lazy' => true])
+            </div>
+            <div id="suratkontrol">
+                @livewire('pendaftaran.modal-suratkontrol', ['antrian' => $antrian, 'lazy' => true])
+            </div>
         @endif
         @if ($antrian->kunjungan)
-            @livewire('dokter.modal-cppt', ['antrian' => $antrian, 'lazy' => true])
-            @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian, 'lazy' => true])
+            <div id="cppt">
+                @livewire('dokter.modal-cppt', ['antrian' => $antrian, 'lazy' => true])
+            </div>
+            <div id="layanan">
+                @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian, 'lazy' => true])
+            </div>
             <div id="notaPembayaran">
                 <x-adminlte-card theme="primary" title="Nota Pembayaran Pasien">
                     {{-- <iframe src="{{ route('print.notarajal', $antrian->kodebooking) }}" width="100%" height="500"
