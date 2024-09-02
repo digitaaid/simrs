@@ -25,7 +25,12 @@
         <div class="col-md-6 text-white">
             <x-adminlte-card title="Pilih Jenis Pasien" theme="green" icon="fas fa-user-plus">
                 <div class="text-center">
-                    <a wire:navigate href="{{ route('anjunganantrian.mandiri') }}">
+                    {{-- <a wire:navigate href="{{ route('anjunganantrian.mandiri') }}">
+                        <x-adminlte-card class="mb-2 withLoad" body-class="bg-success">
+                            <h1>ANTRIAN PASIEN BPJS</h1>
+                        </x-adminlte-card>
+                    </a> --}}
+                    <a wire:navigate href="{{ route('anjunganantrian.bpjs') }}">
                         <x-adminlte-card class="mb-2 withLoad" body-class="bg-success">
                             <h1>ANTRIAN PASIEN BPJS</h1>
                         </x-adminlte-card>

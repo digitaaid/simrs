@@ -398,6 +398,11 @@ class AnjunganAntrianMandiri extends Component
         $antrian->kunjungan_id = $kunjungan->id;
         $antrian->kodekunjungan = $kunjungan->kode;
         $antrian->save();
+        // jika pasien lama
+        $antrian->taskid = 3;
+        $antrian->taskid3 = now();
+        $antrian->user1 = 1;
+        $antrian->save();
         return redirect()->route('anjunganantrian.print', $antrian->kodebooking);
     }
     public function render()

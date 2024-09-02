@@ -47,5 +47,14 @@
                 </x-slot>
             </x-adminlte-card>
         </div>
+        <div class="col-md-6">
+            <x-adminlte-card title="Anjungan Checkin Antrian" theme="green" icon="fas fa-qrcode">
+                <div class="text-center">
+                    <img src="{{ asset('bpjs/wajibmjkn.jpg') }}" width="45%" alt="">
+                    <img src="{{ asset('bpjs/caramjkn.jpg') }}" width="45%" alt="">
+                    <br>
+                </div>
+            </x-adminlte-card>
+        </div>
     </div>
 </div>
