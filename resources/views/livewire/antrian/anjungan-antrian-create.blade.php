@@ -27,12 +27,20 @@
                 icon="fas fa-user-md">
                 <div class="row">
                     @foreach ($jadwals as $item)
-                        <div class="col-md-4 ">
-                            <x-adminlte-info-box wire:click='ambilantrian({{ $item->id }})'
-                                title="{{ $item->namapoli }}" text="{{ $item->namadokter }}"
-                                description="{{ $item->jampraktek }}" theme="success" class="m-1"
-                                icon-theme="dark" />
-                        </div>
+                        @if ($item->libur)
+                            <div class="col-md-4 ">
+                                <x-adminlte-info-box title="{{ $item->namapoli }}" text="{{ $item->namadokter }}"
+                                    description="{{ $item->jampraktek }}" theme="danger" class="m-1"
+                                    icon-theme="dark" />
+                            </div>
+                        @else
+                            <div class="col-md-4 ">
+                                <x-adminlte-info-box wire:click='ambilantrian({{ $item->id }})'
+                                    title="{{ $item->namapoli }}" text="{{ $item->namadokter }}"
+                                    description="{{ $item->jampraktek }}" theme="success" class="m-1"
+                                    icon-theme="dark" />
+                            </div>
+                        @endif
                     @endforeach
                 </div>
                 <x-slot name="footerSlot">
