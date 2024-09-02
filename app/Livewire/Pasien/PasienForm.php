@@ -15,6 +15,7 @@ use Laravolt\Indonesia\Models\Kecamatan;
 use Laravolt\Indonesia\Models\Kelurahan;
 use Laravolt\Indonesia\Models\Provinsi;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PasienForm extends Component
 {
@@ -69,8 +70,8 @@ class PasienForm extends Component
         } else {
             $pasien->update();
         }
-        flash('Pasien ' . $pasien->name . ' saved successfully', 'success');
-        return redirect()->to('/pasien');
+        Alert::success('Success', 'Pasien ' . $pasien->name . ' saved successfully');
+        return redirect()->route('pasien.index');
     }
     public function updatedTempatLahir()
     {

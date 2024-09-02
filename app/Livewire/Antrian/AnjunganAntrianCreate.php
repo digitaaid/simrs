@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Antrian;
 
+use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\VclaimController;
 use App\Models\Antrian;
 use App\Models\JadwalDokter;
@@ -16,14 +17,27 @@ class AnjunganAntrianCreate extends Component
     public $tanggalperiksa;
     public $hari;
     public $inputidentitas = 'nik';
-    public $jenispasien, $nik, $nomorkartu, $norm, $nohp, $nama, $nomorreferensi, $poliklinik, $kodepoli, $jadwaldokter, $jeniskunjungan;
+    public $jenispasien, $nik, $nomorkartu, $norm, $nohp, $nama, $nomorreferensi, $poliklinik, $kodepoli, $jadwaldokter, $jeniskunjungan, $estimasidilayani;
     public $polikliniks = [], $jadwals = [];
     public $rujukans = [], $suratkontrols = [], $rujukanrs = [];
-
     protected $queryString = ['pasienbaru', 'jenispasien', 'tanggalperiksa', 'jeniskunjungan', 'nomorreferensi'];
     public function ambilantrian($jadwal)
     {
         $jadwal = JadwalDokter::find($jadwal);
+        $api = new AntrianController();
+        $request = new Request([
+            "kodepoli" => $jadwal->kodepoli,
+            "kodedokter" => $jadwal->kodedokter,
+            "tanggalperiksa" => $this->tanggalperiksa,
+            "jampraktek" => $jadwal->jampraktek
+
+        ]);
+        $res = $api->status_antrian($request);
+        if ($res->metadata->code == 200) {
+            $timestamp = $this->tanggalperiksa . ' ' . explode('-', $jadwal->jampraktek)[0] . ':00';
+            $jadwal_estimasi = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'Asia/Jakarta')->addMinutes(6 * ($res->response->totalantrean + 1));
+            $this->estimasidilayani = $jadwal_estimasi->timestamp * 1000;
+        }
         $antrian = new Antrian();
         $antrian->jadwal_id = $jadwal->id;
         $antrian->jenispasien = $this->jenispasien;
@@ -43,6 +57,7 @@ class AnjunganAntrianCreate extends Component
         $antrian->kodedokter = $jadwal->kodedokter;
         $antrian->namadokter = $jadwal->namadokter;
         $antrian->jampraktek = $jadwal->jampraktek;
+        $antrian->estimasidilayani = $this->estimasidilayani;
         $antiranhari = Antrian::where('tanggalperiksa', $this->tanggalperiksa)->count();
         $antrianpoli = Antrian::where('tanggalperiksa', $this->tanggalperiksa)->where('jadwal_id', $jadwal->id)->count();
         $antrian->kodebooking = strtoupper(uniqid());
@@ -123,7 +138,7 @@ class AnjunganAntrianCreate extends Component
     }
     public function updatedInputidentitas()
     {
-        $this->reset(['rujukanrs', 'rujukans', 'suratkontrols', 'nik', 'nomorkartu', 'norm', 'nohp', 'nama','nomorreferensi']);
+        $this->reset(['rujukanrs', 'rujukans', 'suratkontrols', 'nik', 'nomorkartu', 'norm', 'nohp', 'nama', 'nomorreferensi']);
     }
     public function updatedKodepoli()
     {
@@ -170,10 +185,7 @@ class AnjunganAntrianCreate extends Component
     }
     public function render()
     {
-        if (!$this->pasienbaru && $this->jenispasien == 'NON-JKN' || $this->pasienbaru) {
-            $this->jadwals = JadwalDokter::where('hari', $this->hari)->get();
-        }
-        $this->polikliniks = JadwalDokter::where('hari', now()->dayOfWeek)->select('kodesubspesialis', 'namasubspesialis')->groupBy('kodesubspesialis', 'namasubspesialis')->get();
+        $this->jadwals = JadwalDokter::where('hari', $this->hari)->get();
         return view('livewire.antrian.anjungan-antrian-create')->layout('components.layouts.layout_anjungan');
     }
 }

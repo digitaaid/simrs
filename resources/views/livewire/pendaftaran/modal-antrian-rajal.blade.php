@@ -33,6 +33,12 @@
                         label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
                     <x-adminlte-input wire:model='nohp' name="nohp" class="nohp-id" label="Nomor HP"
                         fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" wire:model='pasienbaru' id="pasienbaru1" value="1">
+                            <label for="pasienbaru1" class="custom-control-label">Pasien Baru</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <x-adminlte-input wire:model='tanggalperiksa' name="tanggalperiksa" type='date'

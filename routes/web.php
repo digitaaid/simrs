@@ -9,7 +9,10 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SepController;
 use App\Http\Controllers\SuratKontrolController;
 use App\Livewire\Antrian\AnjunganAntrian;
+use App\Livewire\Antrian\AnjunganAntrianBpjs;
 use App\Livewire\Antrian\AnjunganAntrianCreate;
+use App\Livewire\Antrian\AnjunganAntrianMandiri;
+use App\Livewire\Antrian\AnjunganAntrianUmum;
 use App\Livewire\Antrian\AnjunganPasien;
 use App\Livewire\Antrian\DaftarAntrian;
 use App\Livewire\Aplikasi\PengaturanIndex;
@@ -159,11 +162,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
     // anjungan antrian
     Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
+    Route::get('anjunganantrian/mandiri', AnjunganAntrianMandiri::class)->name('anjunganantrian.mandiri');
+    Route::get('anjunganantrian/umum', AnjunganAntrianUmum::class)->name('anjunganantrian.umum');
+    Route::get('anjunganantrian/bpjs', AnjunganAntrianBpjs::class)->name('anjunganantrian.bpjs');
     Route::get('anjunganantrian/pasien', AnjunganPasien::class)->name('anjunganantrian.pasien');
     Route::get('anjunganantrian/create', AnjunganAntrianCreate::class)->name('anjunganantrian.create');
     Route::get('anjunganantrian/checkin/', AnjunganAntrian::class)->name('anjunganantrian.checkin');
     Route::get('anjunganantrian/print/{kodebooking}', [PendaftaranController::class, 'printkarcis'])->name('anjunganantrian.print');
-    Route::get('anjunganantrian/test/', AnjunganAntrian::class)->name('anjunganantrian.test');
+    Route::get('anjunganantrian/test/', [AnjunganAntrian::class, 'test'])->name('anjunganantrian.test');
     // pendaftaran
     Route::get('pendaftaran/rajal', PendaftaranRajal::class)->name('pendaftaran.rajal');
     Route::get('pendaftaran/rajal/{kodebooking}', PendaftaranRajalProses::class)->name('pendaftaran.rajal.proses');
@@ -194,7 +200,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // rawat inap
     Route::get('pendaftaran/ranap', PendaftaranRanap::class)->name('pendaftaran.ranap');
-
 });
 
 Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class, 'print_resep'])->name('print.resep');

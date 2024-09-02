@@ -19,7 +19,7 @@ class ModalAntrianRajal extends Component
     public $antrian, $polikliniks, $dokters;
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $namadokter, $jenispasien, $keterangan, $perujuk, $jeniskunjungan, $jeniskunjunjgan;
     public $gender, $tgl_lahir, $fktp, $jenispeserta, $hakkelas;
-    public $pasienbaru = 0, $estimasidilayani, $sisakuotajkn, $kuotajkn, $sisakuotanonjkn, $kuotanonjkn;
+    public $pasienbaru, $estimasidilayani, $sisakuotajkn, $kuotajkn, $sisakuotanonjkn, $kuotanonjkn;
     public $asalRujukan, $nomorreferensi, $noRujukan, $noSurat;
     public $rujukans = [], $suratkontrols = [];
     public function editAntrian()
@@ -36,6 +36,7 @@ class ModalAntrianRajal extends Component
             'kodepoli' => 'required',
             'kodedokter' => 'required',
         ]);
+        $this->pasienbaru = $this->pasienbaru ? 1 : 0;
         // proses data antrian
         if ($this->jenispasien == "JKN") {
             $this->validate([
@@ -91,6 +92,7 @@ class ModalAntrianRajal extends Component
             'nomorrujukan' => $this->noRujukan,
             'nomorsuratkontrol' => $this->noSurat,
             'keterangan' => $this->keterangan,
+            'pasienbaru' => $this->pasienbaru,
             'user1' => auth()->user()->id,
         ]);
         $pasien = Pasien::where('norm', $this->norm)->first();
@@ -301,6 +303,7 @@ class ModalAntrianRajal extends Component
         $this->kodepoli = $antrian->kodepoli;
         $this->kodedokter = $antrian->kodedokter;
         $this->jenispasien = $antrian->jenispasien;
+        $this->pasienbaru = $antrian->pasienbaru ? true : false;
         if ($antrian->jeniskunjungan == 3) {
             $this->noSurat = $antrian->nomorsuratkontrol;
         } else {

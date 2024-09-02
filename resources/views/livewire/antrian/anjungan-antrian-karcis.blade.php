@@ -15,40 +15,47 @@
         <b style="font-size: 50px">{{ $antrian->nomorantrean }}</b><br>
         {{-- {!! QrCode::size(60)->generate($antrian->kodebooking) !!}<br> --}}
         <b>PASIEN {{ $antrian->pasienbaru ? 'BARU' : 'LAMA' }}
-            {{ $antrian->jenispasien === 'JKN' ? 'BPJS' : 'UMUM' }}</b><br>
-        @switch($antrian->jeniskunjungan)
-            @case(1)
-                RUJUKAN FKTP<br>
-            @break
+            {{ $antrian->jenispasien == 'JKN' ? 'BPJS' : 'UMUM' }}</b><br>
+        @if ($antrian->jeniskunjungan)
+            <p style="line-height:13px;font-size: 10px;">
+                @switch($antrian->jeniskunjungan)
+                    @case(1)
+                        RUJUKAN FKTP<br>{{ $antrian->nomorreferensi ?? '-' }}<br>
+                    @break
 
-            @case(2)
-                RUJUKAN INTERNAL<br>
-            @break
+                    @case(2)
+                        RUJUKAN INTERNAL<br>
+                    @break
 
-            @case(3)
-                SURAT KONTROL<br>
-            @break
+                    @case(3)
+                        SURAT KONTROL<br>{{ $antrian->nomorreferensi ?? '-' }}<br>
+                    @break
 
-            @case(4)
-                RUJUKAN ANTAR RS<br>
-            @break
+                    @case(4)
+                        RUJUKAN ANTAR RS<br>{{ $antrian->nomorreferensi ?? '-' }}<br>
+                    @break
 
-            @default
-        @endswitch
-        {{ $antrian->nomorreferensi }}
+                    @default
+                @endswitch
+                SEP<br>{{ $antrian->sep ?? 'Belum Cetak SEP' }}<br>
+            </p>
+        @endif
         <p style="line-height:13px;font-size: 10px;">
-            @if (!$antrian->pasienbaru && $antrian->jenispasien === 'JKN')
+            @if ($antrian->nama)
                 <b>{{ $antrian->nama }}</b> <br>
-                {{-- No RM {{ $antrian->norm }} <br> --}}
+            @endif
+            @if ($antrian->nomorkartu)
                 {{ $antrian->nomorkartu }} <br>
             @endif
             {{ $antrian->namapoli }} <br>
             {{ $antrian->namadokter }} <br>
-            {{ $antrian->jampraktek }} <br>
+            Jam Praktek {{ $antrian->jampraktek }} <br>
+            Estimasi Dilayani<br>
+            {{ date('j F Y H:i:s', $antrian->estimasidilayani / 1000) }} <br>
         </p>
         <hr style="margin: 0">
         <p style="line-height:13px;font-size: 8px;">
-           {{ \Carbon\Carbon::now() }} <br>
+            {{ \Carbon\Carbon::now() }} <br>
             Semoga selalu diberikan kesembuhan dan kesehatan. Terimakasih.
         </p>
     </div>
