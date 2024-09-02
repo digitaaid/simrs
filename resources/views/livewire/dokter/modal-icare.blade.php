@@ -1,4 +1,4 @@
-<div id="icare">
+<div>
     <x-adminlte-card theme="primary" title="I-Care JKN">
         @if ($icare)
             @if ($message)

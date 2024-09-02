@@ -1,4 +1,4 @@
-<div id="laboratorium">
+<div>
     <x-adminlte-card theme="primary" title="Riwayat Laboratoirum">
         @if (flash()->message)
             <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
