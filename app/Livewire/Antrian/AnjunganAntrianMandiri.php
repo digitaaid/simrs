@@ -115,7 +115,7 @@ class AnjunganAntrianMandiri extends Component
                     $res = $api->rujukan_rs_peserta($request);
                     if ($res->metadata->code == 200) {
                         $threeMonthsAgo = Carbon::now()->subMonths(3);
-                        $this->rujukans = collect($res->response->rujukan)->filter(function ($rujukan) use ($threeMonthsAgo) {
+                        $this->rujukanrs = collect($res->response->rujukan)->filter(function ($rujukan) use ($threeMonthsAgo) {
                             return Carbon::parse($rujukan->tglKunjungan)->greaterThanOrEqualTo($threeMonthsAgo);
                         });
                     }
@@ -160,7 +160,7 @@ class AnjunganAntrianMandiri extends Component
                     $res = $api->rujukan_rs_peserta($request);
                     if ($res->metadata->code == 200) {
                         $threeMonthsAgo = Carbon::now()->subMonths(3);
-                        $this->rujukans = collect($res->response->rujukan)->filter(function ($rujukan) use ($threeMonthsAgo) {
+                        $this->rujukanrs = collect($res->response->rujukan)->filter(function ($rujukan) use ($threeMonthsAgo) {
                             return Carbon::parse($rujukan->tglKunjungan)->greaterThanOrEqualTo($threeMonthsAgo);
                         });
                     }
@@ -327,7 +327,7 @@ class AnjunganAntrianMandiri extends Component
                 $this->asalRujukan = $this->asalRujukan;
                 $this->noRujukan = $rujukan->noKunjungan;
                 $this->tglRujukan = $rujukan->tglKunjungan;
-                $this->ppkRujukan = $rujukan->peserta->provUmum->kdProvider;
+                $this->ppkRujukan = $rujukan->provPerujuk->kode;
                 flash($res->metadata->message, 'success');
             } else {
                 return flash($res->metadata->message, 'danger');

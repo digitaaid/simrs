@@ -41,6 +41,7 @@ class PemeriksaanDokterRajal extends Component
                 ->where('taskid', '!=', 99)
                 ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
+                ->orderBy('taskid', 'asc')
                 ->orderBy('asesmen_rajals.status_asesmen_dokter', 'asc')
                 ->select('antrians.*')
                 ->where(function ($query) use ($search) {
@@ -55,6 +56,7 @@ class PemeriksaanDokterRajal extends Component
                 ->where('taskid', '!=', 99)
                 ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
+                ->orderBy('taskid', 'asc')
                 ->orderBy('asesmen_rajals.status_asesmen_perawat', 'asc')
                 ->select('antrians.*')
                 ->where(function ($query) use ($search) {
