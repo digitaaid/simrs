@@ -77,7 +77,6 @@ class AnjunganAntrianMandiri extends Component
             $this->nomorkartu = $pasien->nomorkartu;
             $this->nik = $pasien->nik;
             $this->norm = $pasien->norm;
-            $this->nohp = $pasien->nohp;
             $this->nama = $pasien->nama;
             $api = new VclaimController();
             $request = new Request([
@@ -89,6 +88,7 @@ class AnjunganAntrianMandiri extends Component
                 $peserta = $res->response->peserta;
                 $status = $peserta->statusPeserta->kode;
                 if ($status == 0) {
+                    $this->nohp = $peserta->mr->noTelepon ?? "0895299099036";
                     $this->tgl_lahir = $peserta->tglLahir;
                     $this->gender = $peserta->sex;
                     $this->hakkelas = $peserta->hakKelas->kode;
@@ -133,7 +133,7 @@ class AnjunganAntrianMandiri extends Component
                 $this->nomorkartu = $peserta->noKartu;
                 $this->nik = $peserta->nik;
                 $this->norm = "000000000";
-                $this->nohp = $peserta->mr->noTelepon;
+                $this->nohp = $peserta->mr->noTelepon ?? "0895299099036";
                 $this->nama = $peserta->nama;
                 $this->keyInput = 0;
                 $status = $peserta->statusPeserta->kode;
@@ -229,7 +229,8 @@ class AnjunganAntrianMandiri extends Component
         $this->angkaantrean = $antiranhari + 1;
         $request = new Request([
             'kodebooking' => $this->kodebooking,
-            'jenispasien' => "JKN",
+            // 'jenispasien' => "JKN",
+            'jenispasien' => "NON-JKN",
             'nomorkartu' => $this->nomorkartu,
             'nik' => $this->nik,
             'nohp' => $this->nohp ?? '0895299099036',
@@ -239,13 +240,13 @@ class AnjunganAntrianMandiri extends Component
             'norm' => $this->norm,
             'tanggalperiksa' => now()->format('Y-m-d'),
             // 'kodedokter' => $jadwal->kodedokter,
-            // 'namadokter' => $jadwal->namadokter,
             'kodedokter' => "35875",
-            'namadokter' => "Tenaga Medis 35875",
+            'namadokter' => $jadwal->namadokter,
             'jampraktek' => $jadwal->jampraktek,
             'jeniskunjungan' => $this->jeniskunjungan,
             'method' => "Anjungan Pelayanan Mandiri",
-            'nomorreferensi' => $this->nomorreferensi,
+            // 'nomorreferensi' => $this->nomorreferensi,
+            'nomorreferensi' => "",
             'nomorantrean' => $this->nomorantrean,
             'angkaantrean' => $this->angkaantrean,
             'estimasidilayani' => $this->estimasidilayani,
@@ -258,9 +259,9 @@ class AnjunganAntrianMandiri extends Component
         ]);
         $api = new AntrianController();
         $res = $api->tambah_antrean($request);
-        // if ($res->metadata->code != 200) {
-        //     return flash($res->metadata->message, 'danger');
-        // }
+        if ($res->metadata->code != 200) {
+            return flash($res->metadata->message, 'danger');
+        }
         $antrian = new Antrian();
         $antrian->jadwal_id = $jadwal->id;
         $antrian->taskid = 1;
@@ -331,10 +332,10 @@ class AnjunganAntrianMandiri extends Component
             } else {
                 return flash($res->metadata->message, 'danger');
             }
-            $this->tujuanKunj = "2";
+            $this->tujuanKunj = "0";
             $this->flagProcedure = "";
             $this->kdPenunjang = "";
-            $this->assesmentPel = "2";
+            $this->assesmentPel = "";
             $this->diagAwal =  $res->response->rujukan->diagnosa->kode;
         }
         $this->tujuan = $antrian->kodepoli;
@@ -365,9 +366,9 @@ class AnjunganAntrianMandiri extends Component
             "user" => auth()->user()->name,
         ]);
         $res = $api->sep_insert($request);
-        // if ($res->metadata->code != 200) {
-        //     return flash($res->metadata->message, 'danger');
-        // }
+        if ($res->metadata->code != 200) {
+            return flash($res->metadata->message, 'danger');
+        }
         $this->sep = $res->response->sep->noSep ?? null;
         $antrian->sep = $this->sep;
         // create kunjungan
