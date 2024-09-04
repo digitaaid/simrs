@@ -37,14 +37,7 @@ class ModalAntrianRajal extends Component
             'kodedokter' => 'required',
         ]);
         // cek antrian sebelumnya
-        $antrianx = Antrian::where('norm', $this->norm)
-            ->whereDate('tanggalperiksa', $this->tanggalperiksa)
-            ->first();
-        if ($antrianx) {
-            if ($antrianx->taskid <= 5) {
-                return flash('Pasien sudah mendapatkan pelayanan. Silahkan batalkan terlebih dahulu.', 'danger');
-            }
-        }
+
         $this->pasienbaru = $this->pasienbaru ? 1 : 0;
         // proses data antrian
         if ($this->jenispasien == "JKN") {
@@ -83,6 +76,14 @@ class ModalAntrianRajal extends Component
         $this->keterangan = "Antrian proses di pendaftaran";
         // simpan antrean
         $antrian = Antrian::find($this->antrianId);
+        $antrianx = Antrian::where('norm', $this->norm)
+            ->whereDate('tanggalperiksa', $this->tanggalperiksa)
+            ->first();
+        if ($antrianx) {
+            if ($antrianx->taskid <= 5 && $antrianx->id != $antrian->id) {
+                return flash('Pasien sudah mendapatkan pelayanan. Silahkan batalkan terlebih dahulu.', 'danger');
+            }
+        }
         $dokter = Dokter::where('kodejkn', $this->kodedokter)->first();
         $antrian->update([
             'nomorkartu' => $this->nomorkartu,

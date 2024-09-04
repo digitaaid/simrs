@@ -262,6 +262,23 @@ class AnjunganAntrianMandiri extends Component
         if ($res->metadata->code != 200) {
             return flash($res->metadata->message, 'danger');
         }
+        if ($this->pasienbaru) {
+            $request = new Request([
+                'kodebooking' => $this->kodebooking,
+                "taskid" =>  1,
+                "waktu" =>  now(),
+            ]);
+        } else {
+            $request = new Request([
+                'kodebooking' => $this->kodebooking,
+                "taskid" =>  3,
+                "waktu" =>  now(),
+            ]);
+        }
+        $res = $api->update_antrean($request);
+        if ($res->metadata->code != 200) {
+            return flash($res->metadata->message, 'danger');
+        }
         $antrian = new Antrian();
         $antrian->jadwal_id = $jadwal->id;
         $antrian->taskid = 1;
@@ -400,10 +417,12 @@ class AnjunganAntrianMandiri extends Component
         $antrian->kodekunjungan = $kunjungan->kode;
         $antrian->save();
         // jika pasien lama
-        $antrian->taskid = 3;
-        $antrian->taskid3 = now();
-        $antrian->user1 = 1;
-        $antrian->save();
+        if (!$this->pasienbaru) {
+            $antrian->taskid = 3;
+            $antrian->taskid3 = now();
+            $antrian->user1 = 1;
+            $antrian->save();
+        }
         return redirect()->route('anjunganantrian.print', $antrian->kodebooking);
     }
     public function render()
