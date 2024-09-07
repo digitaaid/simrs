@@ -265,9 +265,9 @@ class ModalSep extends Component
         $this->noMR = $antrian->norm;
         $this->nama = $antrian->nama;
         $this->noTelp = $antrian->nohp;
-
         $this->polikliniks = Unit::pluck('nama', 'kode');
         $this->dokters = Dokter::pluck('nama', 'kodejkn');
+        $this->cariSEP();
     }
     public function render()
     {
