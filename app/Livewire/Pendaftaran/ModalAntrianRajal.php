@@ -58,7 +58,7 @@ class ModalAntrianRajal extends Component
                 $this->nomorreferensi = $this->noSurat;
             } else {
                 $request['nomorrujukan'] = $this->noRujukan;
-                if ($request->asalRujukan == 2) {
+                if ($this->asalRujukan == 2) {
                     $this->jeniskunjungan = 4;
                     $res =  $vclaim->rujukan_rs_nomor($request);
                 } else {
