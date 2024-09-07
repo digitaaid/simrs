@@ -2,21 +2,20 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <header class="bg-green text-white p-3">
+                <header class="bg-green text-white p-2">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
-                                    <img src="{{ asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}" width="100">
+                                    <img src="{{ asset('kitasehat/logokitasehat-lingkar.png') }}" width="80">
                                     <div class="col">
-                                        <h1>{{ env('APP_NAME') }}</h1>
-                                        <h4>{{ env('APP_NAME') }}</h4>
+                                        <h2>Anjungan Antrian</h2>
+                                        <h4>{{ env('APP_NAME_LONG') }}</h4>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 text-md-end">
-                                <p>Whatsapp : 0823 1169 6919</p>
-                                <p>Telepon : (0231) 8850943</p>
+                            <div class="col-md-6">
+                                <h1>{{ env('APP_NAME') }}</h1>
                             </div>
                         </div>
                     </div>
@@ -28,11 +27,20 @@
                 icon="fas fa-user-md">
                 <div class="row">
                     @foreach ($jadwals as $item)
-                        <div class="col-md-4 ">
-                            <x-adminlte-info-box wire:click='ambilantrian({{ $item->id }})'
-                                title="{{ $item->namapoli }}" text="{{ $item->namadokter }}" description="{{ $item->jampraktek }}" theme="success" class="m-1"
-                                icon-theme="dark" />
-                        </div>
+                        @if ($item->libur)
+                            <div class="col-md-4 ">
+                                <x-adminlte-info-box title="{{ $item->namapoli }}" text="{{ $item->namadokter }}"
+                                    description="{{ $item->jampraktek }}" theme="danger" class="m-1"
+                                    icon-theme="dark" />
+                            </div>
+                        @else
+                            <div class="col-md-4 ">
+                                <x-adminlte-info-box wire:click='ambilantrian({{ $item->id }})'
+                                    title="{{ $item->namapoli }}" text="{{ $item->namadokter }}"
+                                    description="{{ $item->jampraktek }}" theme="success" class="m-1"
+                                    icon-theme="dark" />
+                            </div>
+                        @endif
                     @endforeach
                 </div>
                 <x-slot name="footerSlot">

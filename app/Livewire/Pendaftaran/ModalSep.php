@@ -9,14 +9,39 @@ use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use Spatie\FlareClient\Api;
 
 class ModalSep extends Component
 {
-    public $antrian;
+    public $antrian, $kodebooking, $antrian_id, $nomorreferensi;
     public $polikliniks = [], $dokters = [], $diagnosas = [], $diagnosa;
     public $nomorkartu, $tanggal, $seps = [], $form = false;
     public $asalRujukan, $rujukans = [], $suratkontrols = [];
     public $noKartu, $noMR, $nama, $tglSep, $ppkPelayanan, $jnsPelayanan, $klsRawatHak, $tglRujukan, $noRujukan, $ppkRujukan, $catatan, $diagAwal, $tujuan, $eksekutif, $tujuanKunj = 0, $flagProcedure = "", $kdPenunjang = "", $assesmentPel = "", $noSurat, $kodeDPJP, $dpjpLayan, $noTelp, $user;
+
+    public function hapusSurat($noSep)
+    {
+        $request = new Request([
+            "noSep" => $noSep,
+            "user" => auth()->user()->name,
+        ]);
+        $api = new VclaimController();
+        $res = $api->sep_delete($request);
+        if ($res->metadata->code == 200) {
+            $antrian = Antrian::firstWhere('sep', $noSep);
+            if ($antrian) {
+                $antrian->update([
+                    'sep' =>  null,
+                ]);
+                $antrian->kunjungan->update([
+                    'sep' =>  null,
+                ]);
+            }
+            return flash($res->metadata->message, 'success');
+        } else {
+            return flash($res->metadata->message, 'danger');
+        }
+    }
     public function buatSEP()
     {
         $this->validate([
@@ -50,6 +75,27 @@ class ModalSep extends Component
             } else {
                 return flash($res->metadata->message, 'danger');
             }
+            $this->nomorreferensi = $this->noSurat;
+        } else {
+            $this->nomorreferensi = $this->noRujukan;
+            $request = new Request([
+                "nomorrujukan" => $this->noRujukan,
+            ]);
+            if ($this->asalRujukan == 1) {
+                $res = $api->rujukan_nomor($request);
+            } else {
+                $res = $api->rujukan_rs_nomor($request);
+            }
+            if ($res->metadata->code == 200) {
+                $rujukan = $res->response->rujukan;
+                $this->asalRujukan = $this->asalRujukan;
+                $this->noRujukan = $rujukan->noKunjungan;
+                $this->tglRujukan = $rujukan->tglKunjungan;
+                $this->ppkRujukan = $rujukan->peserta->provUmum->kdProvider;
+                flash($res->metadata->message, 'success');
+            } else {
+                return flash($res->metadata->message, 'danger');
+            }
         }
         $request = new Request([
             "noKartu" => $this->noKartu,
@@ -69,6 +115,9 @@ class ModalSep extends Component
             "diagAwal" => $this->diagAwal,
             "catatan" => $this->catatan,
             "tujuanKunj" => $this->tujuanKunj,
+            "flagProcedure" => $this->flagProcedure,
+            "kdPenunjang" => $this->kdPenunjang,
+            "assesmentPel" => $this->assesmentPel,
             "eksekutif" => $this->eksekutif ?? 0,
             "ppkPelayanan" => "0125S007",
             "klsRawatHak" => "3",
@@ -76,6 +125,20 @@ class ModalSep extends Component
         ]);
         $res = $api->sep_insert($request);
         if ($res->metadata->code == 200) {
+            $antrian = Antrian::find($this->antrian_id);
+            if ($antrian) {
+                $antrian->update([
+                    'sep' =>  $res->response->sep->noSep,
+                    'nomorreferensi' =>  $this->nomorreferensi,
+                    'nomorsuratkontrol' =>  $this->noSurat,
+                    'nomorrujukan' =>  $this->noRujukan,
+                ]);
+                $antrian->kunjungan->update([
+                    'sep' =>  $res->response->sep->noSep,
+                    'nomorreferensi' =>  $this->nomorreferensi,
+                ]);
+            }
+            $this->dispatch('refreshPage');
             return flash($res->metadata->message, 'success');
         } else {
             return flash($res->metadata->message, 'danger');
@@ -196,13 +259,15 @@ class ModalSep extends Component
     {
         $this->antrian = $antrian;
         $this->nomorkartu = $antrian->nomorkartu;
+        $this->kodebooking = $antrian->kodebooking;
+        $this->antrian_id = $antrian->id;
         $this->noKartu = $antrian->nomorkartu;
         $this->noMR = $antrian->norm;
         $this->nama = $antrian->nama;
         $this->noTelp = $antrian->nohp;
-
         $this->polikliniks = Unit::pluck('nama', 'kode');
         $this->dokters = Dokter::pluck('nama', 'kodejkn');
+        $this->cariSEP();
     }
     public function render()
     {

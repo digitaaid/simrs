@@ -16,12 +16,12 @@
                 <div class="col-lg-3 col-6">
                     <x-adminlte-small-box
                         title="{{ $antrians->where('asesmenrajal.status_asesmen_perawat', 1)->count() }}"
-                        text="Sudah Asesmen Perawat" theme="warning" icon="fas fa-user-injured" />
+                        text="Sudah Asesmen" theme="warning" icon="fas fa-user-injured" />
                 </div>
                 <div class="col-lg-3 col-6">
                     <x-adminlte-small-box
                         title="{{ $antrians->where('taskid', '!=', 99)->where('asesmenrajal.status_asesmen_perawat', 0)->count() }}"
-                        text="Belum Asesmen Perawat" theme="danger" icon="fas fa-user-injured" />
+                        text="Belum Asesmen" theme="danger" icon="fas fa-user-injured" />
                 </div>
             </div>
         </div>
@@ -59,7 +59,8 @@
                 <div class="col-md-2">
                 </div>
                 <div class="col-md-4">
-                    <x-adminlte-input name="search" placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
+                    <x-adminlte-input wire:model.live="search" name="search"
+                        placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
                         <x-slot name="appendSlot">
                             <x-adminlte-button wire:click='caritanggal' theme="primary" label="Cari" />
                         </x-slot>
@@ -71,7 +72,6 @@
                     </x-adminlte-input>
                 </div>
             </div>
-
             @php
                 $heads = [
                     'No',
@@ -105,7 +105,6 @@
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
-
                                 @if ($item->asesmenrajal?->status_asesmen_perawat)
                                     <a href="{{ route('pemeriksaan.perawat.rajal.proses', $item->kodebooking) }}">
                                         <x-adminlte-button class="btn-xs" label="Lihat" theme="secondary"

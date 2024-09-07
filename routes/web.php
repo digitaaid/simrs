@@ -3,11 +3,19 @@
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\FarmasiController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KasirController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SepController;
 use App\Http\Controllers\SuratKontrolController;
 use App\Livewire\Antrian\AnjunganAntrian;
+use App\Livewire\Antrian\AnjunganAntrianBpjs;
 use App\Livewire\Antrian\AnjunganAntrianCreate;
+use App\Livewire\Antrian\AnjunganAntrianMandiri;
+use App\Livewire\Antrian\AnjunganAntrianUmum;
+use App\Livewire\Antrian\AnjunganPasien;
+use App\Livewire\Antrian\DaftarAntrian;
+use App\Livewire\Aplikasi\PengaturanIndex;
 use App\Livewire\Bpjs\Antrian\AntreanBelumLayani;
 use App\Livewire\Bpjs\Antrian\AntreanDokter;
 use App\Livewire\Bpjs\Antrian\AntreanKodebooking;
@@ -31,7 +39,6 @@ use App\Livewire\Bpjs\Vclaim\Sep;
 use App\Livewire\Bpjs\Vclaim\SuratKontrol;
 use App\Livewire\Counter;
 use App\Livewire\Dokter\DokterIndex;
-use App\Livewire\Integration\IntegrationForm;
 use App\Livewire\Integration\IntegrationIndex;
 use App\Livewire\Jadwaldokter\JadwalDokterIndex;
 use App\Livewire\Pasien\PasienForm;
@@ -45,16 +52,28 @@ use App\Livewire\Dokter\PemeriksaanDokterRajal;
 use App\Livewire\Dokter\PemeriksaanDokterRajalProses;
 use App\Livewire\Farmasi\ObatIndex;
 use App\Livewire\Farmasi\PengambilanResep;
+use App\Livewire\Igd\PendaftaranIgd;
+use App\Livewire\Igd\PendaftaranIgdProses;
+use App\Livewire\Kasir\KasirPembayaran;
+use App\Livewire\Pendaftaran\DashboardPendaftaran;
 use App\Livewire\Perawat\LayananIndex;
 use App\Livewire\Perawat\PemeriksaanPerawatRajal;
 use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
 use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Perawat\TindakanIndex;
 use App\Livewire\Profil\ProfilIndex;
+use App\Livewire\Ranap\PendaftaranRanap;
 use App\Livewire\Rekammedis\RekamMedisRajal;
+use App\Livewire\Rekammedis\RekamMedisRajalEdit;
+use App\Livewire\Satusehat\CondititionIndex;
+use App\Livewire\Satusehat\EncounterIndex;
+use App\Livewire\Satusehat\LocationIndex;
+use App\Livewire\Satusehat\OrganizationIndex;
+use App\Livewire\Satusehat\PatientIndex;
+use App\Livewire\Satusehat\PractitionerIndex;
+use App\Livewire\Satusehat\TokenIndex;
 use App\Livewire\Unit\UnitIndex;
 use App\Livewire\User\PermissionIndex;
-use App\Livewire\User\RoleIndex;
 use App\Livewire\User\RolePermission;
 use App\Livewire\User\UserCreate;
 use App\Livewire\User\UserForm;
@@ -81,16 +100,22 @@ Route::get('displayantrian', [AntrianController::class, 'displayAntrian'])->name
 Route::get('updatenomorantrean', [AntrianController::class, 'updatenomorantrean'])->name('updatenomorantrean');
 Route::get('displaynomor', [AntrianController::class, 'displaynomor'])->name('displaynomor');
 Route::get('getdisplayantrian', [AntrianController::class, 'getdisplayantrian'])->name('getdisplayantrian');
+Route::get('displayantrianfarmasi', [AntrianController::class, 'displayantrianfarmasi'])->name('displayantrianfarmasi');
+Route::get('displaynomorfarmasi', [AntrianController::class, 'displaynomorfarmasi'])->name('displaynomorfarmasi');
+
+
+Route::get('daftarantrian', DaftarAntrian::class)->name('daftarantrian');
+Route::get('antrianonline/{kodebooking}', [PendaftaranController::class, 'antrianonline'])->name('antrianonline');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('dashboard', DashboardPendaftaran::class)->name('dashboard');
     Route::get('profil', ProfilIndex::class)->name('profil')->lazy();
     Route::middleware(['can:admin'])->group(function () {
         Route::get('role-permission', RolePermission::class)->name('role-permission')->lazy();
-        Route::get('integration', IntegrationIndex::class)->name('integration.index');
+        Route::get('integration', IntegrationIndex::class)->name('integration.index')->lazy();
+        Route::get('aplikasi', PengaturanIndex::class)->name('aplikasi.index')->lazy();
         Route::get('user', UserIndex::class)->name('user.index');
-        Route::get('user/create', UserForm::class)->name('user.create');
-        Route::get('user/edit/{id}', UserForm::class)->name('user.edit');
     });
     Route::middleware(['can:pegawai'])->group(function () {
         Route::get('pegawai', PegawaiIndex::class)->name('pegawai.index');
@@ -137,10 +162,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
     // anjungan antrian
     Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
-    Route::get('anjunganantrian/create/{jenispasien}/{tanggalperiksa}', AnjunganAntrianCreate::class)->name('anjunganantrian.create');
+    Route::get('anjunganantrian/mandiri', AnjunganAntrianMandiri::class)->name('anjunganantrian.mandiri');
+    Route::get('anjunganantrian/umum', AnjunganAntrianUmum::class)->name('anjunganantrian.umum');
+    Route::get('anjunganantrian/bpjs', AnjunganAntrianBpjs::class)->name('anjunganantrian.bpjs');
+    Route::get('anjunganantrian/pasien', AnjunganPasien::class)->name('anjunganantrian.pasien');
+    Route::get('anjunganantrian/create', AnjunganAntrianCreate::class)->name('anjunganantrian.create');
     Route::get('anjunganantrian/checkin/', AnjunganAntrian::class)->name('anjunganantrian.checkin');
     Route::get('anjunganantrian/print/{kodebooking}', [PendaftaranController::class, 'printkarcis'])->name('anjunganantrian.print');
-    Route::get('anjunganantrian/test/', AnjunganAntrian::class)->name('anjunganantrian.test');
+    Route::get('anjunganantrian/test/', [AnjunganAntrian::class, 'test'])->name('anjunganantrian.test');
     // pendaftaran
     Route::get('pendaftaran/rajal', PendaftaranRajal::class)->name('pendaftaran.rajal');
     Route::get('pendaftaran/rajal/{kodebooking}', PendaftaranRajalProses::class)->name('pendaftaran.rajal.proses');
@@ -151,9 +180,36 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('pemeriksaan/dokter/rajal/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('pemeriksaan.dokter.rajal.proses');
     // farmasi
     Route::get('farmasi/pengambilan_resep', PengambilanResep::class)->name('pengambilan.resep');
-    Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class, 'print_resep'])->name('print.resep');
-    Route::get('farmasi/print_etiket', [FarmasiController::class, 'print_etiket'])->name('print.etiket');
-    Route::get('farmasi/print_gelang', [FarmasiController::class, 'print_gelang'])->name('print.gelang');
     // rekam medis
     Route::get('rekammedis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
+    Route::get('rekammedis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
+    // satusehat
+    Route::get('satusehat/token', TokenIndex::class)->name('satusehat.token');
+    Route::get('satusehat/patient', PasienIndex::class)->name('satusehat.patient');
+    Route::get('satusehat/practitioner', DokterIndex::class)->name('satusehat.practitioner');
+    Route::get('satusehat/organization', UnitIndex::class)->name('satusehat.organization');
+    Route::get('satusehat/location', UnitIndex::class)->name('satusehat.location');
+    Route::get('satusehat/encounter', EncounterIndex::class)->name('satusehat.encounter');
+    Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
+    // kasir
+    Route::get('kasir-pembayaran', KasirPembayaran::class)->name('kasir.pembayran');
+
+    // rawat igd
+    Route::get('pendaftaran/igd', PendaftaranIgd::class)->name('pendaftaran.igd');
+    Route::get('pendaftaran/igd/proses', PendaftaranIgdProses::class)->name('pendaftaran.igd.proses');
+
+    // rawat inap
+    Route::get('pendaftaran/ranap', PendaftaranRanap::class)->name('pendaftaran.ranap');
 });
+
+Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class, 'print_resep'])->name('print.resep');
+Route::get('farmasi/print_resepfarmasi/{kodebooking}', [FarmasiController::class, 'print_resepfarmasi'])->name('print.resepfarmasi');
+
+Route::get('farmasi/print_etiket', [FarmasiController::class, 'print_etiket'])->name('print.etiket');
+Route::get('farmasi/print_gelang', [FarmasiController::class, 'print_gelang'])->name('print.gelang');
+Route::get('resumerajal/{kodebooking}',  [RekamMedisController::class, 'resumerajal'])->name('resume.rajal');
+Route::get('resumerajalf/{kodebooking}',  [RekamMedisController::class, 'resumerajalf'])->name('resume.rajalf');
+Route::get('rekammedis/rajal_print/{kodebooking}',  [RekamMedisController::class, 'rajal_print'])->name('rekammedis.rajal.print');
+Route::get('rekammedis/rajal_printf/{kodebooking}',  [RekamMedisController::class, 'rajal_printf'])->name('rekammedis.rajal.printf');
+Route::get('kasir/print_notarajal/{kodebooking}', [KasirController::class, 'print_notarajal'])->name('print.notarajal');
+Route::get('kasir/print_notarajalf/{kodebooking}', [KasirController::class, 'print_notarajalf'])->name('print.notarajalf');

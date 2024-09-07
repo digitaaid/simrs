@@ -16,7 +16,7 @@ class ModalLayananTindakan extends Component
     public function hapusLayanan(Layanan $layanan)
     {
         $user =  auth()->user()->id;
-        if ($layanan->user == $user) {
+        if ($layanan->user == $user || auth()->user()->hasPermissionTo('rekam-medis')) {
             $layanan->delete();
             $this->dispatch('refreshPage');
             flash('Layanan berhasil dihapus.', 'success');

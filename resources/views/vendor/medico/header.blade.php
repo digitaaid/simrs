@@ -58,7 +58,7 @@
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
-            {{-- <a href="{{ route('daftar') }}" class="appointment-btn scrollto"><span class="d-none d-md-inline"></span>
-                Daftar</a> --}}
+            <a href="{{ route('daftarantrian') }}" class="appointment-btn scrollto"><span class="d-none d-md-inline"></span>
+                Daftar</a>
         </div>
     </header><!-- End Header -->

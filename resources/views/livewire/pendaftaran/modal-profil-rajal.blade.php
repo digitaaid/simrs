@@ -1,4 +1,3 @@
-
 <div class="row">
     <div class="col-md-4">
         <dl class="row">
@@ -137,7 +136,7 @@
             </dd>
             <dt class="col-sm-3 m-0">Dokter</dt>
             <dd class="col-sm-9 m-0">
-                {{ $antrian->pic3 ? $antrian->pic3->name : 'Belum Asesmen' }}
+                {{ $antrian->namadokter ?? 'Belum Asesmen' }}
             </dd>
             <dt class="col-sm-3 m-0">Farmasi</dt>
             <dd class="col-sm-9 m-0">

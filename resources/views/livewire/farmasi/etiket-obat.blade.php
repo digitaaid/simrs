@@ -83,6 +83,7 @@
 
         @page {
             margin: 10px;
+            margin-left: 20px;
             size: 6cm 4cm;
             transform: rotate(90deg);
         }
@@ -104,9 +105,10 @@
 
 <body style="font-size: 8px; font-family: Calibri;">
     @foreach ($resepobatdetails as $key => $item)
-        <b>Farimasi {{ env('APP_NAME_LONG') }}</b>
+        <br>
+        <b>Farmasi {{ env('APP_NAME_LONG') }}</b>
         <hr style="margin: 0">
-        <table class="table table-borderless" style="font-size: 7px" >
+        <table class="table table-borderless" style="font-size: 8px">
             <tr>
                 <td>No RM</td>
                 <td>:</td>

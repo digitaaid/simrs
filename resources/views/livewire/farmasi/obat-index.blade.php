@@ -8,7 +8,7 @@
         @if ($form)
             <x-adminlte-card title="Detail Informasi Dokter" theme="secondary">
                 <form>
-                    <input hidden wire:model="id" name="id">
+                    {{-- <input hidden wire:model="id" name="id"> --}}
                     <div class="row">
                         <div class="col-md-6">
                             <x-adminlte-input wire:model="nama" fgroup-class="row" label-class="text-left col-4"
@@ -63,9 +63,8 @@
                     </div>
                 </form>
                 <x-slot name="footerSlot">
-                    <x-adminlte-button label="Simpan" class="btn-sm" onclick="store()" icon="fas fa-save"
-                        wire:click="store" wire:confirm="Apakah anda ingi menyimpan data obat ?" form="formUpdate"
-                        theme="success" />
+                    <x-adminlte-button label="Simpan" class="btn-sm" icon="fas fa-save" wire:click="store"
+                        wire:confirm="Apakah anda ingi menyimpan data obat ?" form="formUpdate" theme="success" />
                     <x-adminlte-button wire:click='openForm' class="btn-sm" label="Tutup" theme="danger"
                         icon="fas fa-times" />
                 </x-slot>
@@ -139,10 +138,16 @@
                             <td>{{ $item->nama }}</td>
                             <td></td>
                             <td>{{ $item->stok_minimum }}</td>
-                            <td>{{ money($item->harga_beli, 'IDR') }}</td>
+                            <td class="text-right">
+                                {{ is_numeric($item->harga_beli) ? money(floatval($item->harga_beli), 'IDR') : 'Tidak Valid' }}
+                            </td>
                             <td>{{ $item->konversi_satuan }} {{ $item->satuan }} / {{ $item->kemasan }}</td>
-                            <td>{{ money($item->harga_jual, 'IDR') }}</td>
-                            <td>{{ money($item->harga_bpjs, 'IDR') }}</td>
+                            <td class="text-right">
+                                {{ is_numeric($item->harga_jual) ? money(floatval($item->harga_jual), 'IDR') : 'Tidak Valid' }}
+                            </td>
+                            <td class="text-right">
+                                {{ is_numeric($item->harga_bpjs) ? money(floatval($item->harga_bpjs), 'IDR') : 'Tidak Valid' }}
+                            </td>
                             <td>
                                 <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
                                     label="Edit" theme="warning" icon="fas fa-edit" />

@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Dokter;
 
+use App\Http\Controllers\AntrianController;
 use App\Models\Antrian;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,6 +21,33 @@ class PemeriksaanDokterRajalProses extends Component
     public $openmodalPerawat = false;
     public $openmodalDokter = false;
     protected $listeners = ['modalCppt', 'modalAsesmenRajal',  'modalPemeriksaanPerawat', 'modalPemeriksaanDokter', 'refreshPage' => '$refresh'];
+    public function panggilPemeriksaanMute()
+    {
+        $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
+        if ($antrian->taskid <= 4) {
+            $antrian->taskid = 4;
+            $antrian->taskid4 = now();
+            $antrian->panggil = 1;
+            $antrian->user3 = auth()->user()->id;
+            $antrian->update();
+            if (env('ANTRIAN_REALTIME')) {
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => now(),
+                    'taskid' => 4,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+                if ($res->metadata->code != 200) {
+                    return flash($res->metadata->message, 'danger');
+                }
+            }
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' dipanggil.', 'success');
+        } else {
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
+        }
+        $this->dispatch('refreshPage');
+    }
     public function panggilPemeriksaan()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
@@ -28,6 +57,18 @@ class PemeriksaanDokterRajalProses extends Component
             $antrian->panggil = 0;
             $antrian->user3 = auth()->user()->id;
             $antrian->update();
+            if (env('ANTRIAN_REALTIME')) {
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => now(),
+                    'taskid' => 4,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+                if ($res->metadata->code != 200) {
+                    return flash($res->metadata->message, 'danger');
+                }
+            }
             flash('Nomor antrian ' . $antrian->nomorantrean . ' dipanggil.', 'success');
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
@@ -43,18 +84,41 @@ class PemeriksaanDokterRajalProses extends Component
             $antrian->panggil = 1;
             $antrian->status = 1;
             $antrian->user3 = auth()->user()->id;
+            if (env('ANTRIAN_REALTIME')) {
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => now(),
+                    'taskid' => 5,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+                if ($res->metadata->code != 200) {
+                    return flash($res->metadata->message, 'danger');
+                }
+            }
             $antrian->update();
             flash('Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pelayanan.', 'success');
             return redirect()->to(route('pemeriksaan.dokter.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan obat.', 'danger');
         }
-        $this->dispatch('refreshPage');
     }
     public function lanjutFarmasi()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 4) {
+            if (env('ANTRIAN_REALTIME')) {
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => now(),
+                    'taskid' => 5,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+                if ($res->metadata->code != 200) {
+                    return flash($res->metadata->message, 'danger');
+                }
+            }
             $antrian->taskid = 5;
             $antrian->taskid5 = now();
             $antrian->panggil = 0;

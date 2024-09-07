@@ -1,4 +1,4 @@
-<div id="pemeriksaanperawat">
+<div>
     <x-adminlte-card theme="primary" title="Pemeriksaan Perawat">
         @if (flash()->message)
             <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
@@ -9,7 +9,7 @@
         <input type="hidden" name="antrian_id" wire:model="antrian_id">
         <input type="hidden" name="kodekunjungan" wire:model="kodekunjungan">
         <input type="hidden" name="kunjungan_id" wire:model="kunjungan_id">
-        <h6>Subjective (S) - Keluhan Utama & Riwayat Penyakit</h6>
+        <h6>Subjective (S) - Keluhan Utama & Riwayat Penyakits</h6>
         <div class="row">
             <div class="col-md-6">
                 <x-adminlte-select name="sumber_data" label="Sumber Data" fgroup-class="row"

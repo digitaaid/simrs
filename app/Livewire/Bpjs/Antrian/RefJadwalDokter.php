@@ -23,6 +23,7 @@ class RefJadwalDokter extends Component
         ]);
         $api = new AntrianController();
         $res  = $api->ref_jadwal_dokter($request);
+        $this->jadwals = [];
         if ($res->metadata->code == 200) {
             $this->jadwals = $res->response;
             flash($res->metadata->message, 'success');

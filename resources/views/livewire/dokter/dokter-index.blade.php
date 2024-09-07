@@ -21,7 +21,13 @@
                                 igroup-class="col-8" igroup-size="sm" name="nik" label="NIK" />
                             <x-adminlte-input wire:model="idpractitioner" fgroup-class="row"
                                 label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
-                                name="idpractitioner" label="IdPractitioner" />
+                                name="idpractitioner" label="IdPractitioner">
+                                <x-slot name="appendSlot">
+                                    <div class="btn btn-primary" wire:click="cariIdPractitioner('{{ $nik }}')">
+                                        <i class="fas fa-search"></i> Cari
+                                    </div>
+                                </x-slot>
+                            </x-adminlte-input>
                         </div>
                         <div class="col-md-6">
                             <x-adminlte-select wire:model="gender" fgroup-class="row" label-class="text-left col-4"
@@ -60,7 +66,8 @@
                     igroup-size="sm" label="File Import" />
                 <x-slot name="footerSlot">
                     <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
-                        theme="success" label="Import" wire:confirm='Apakah anda yakin akan mengimport data dokter ?' />
+                        theme="success" label="Import"
+                        wire:confirm='Apakah anda yakin akan mengimport data dokter ?' />
                     <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
                         label="Tutup" data-dismiss="modal" />
                 </x-slot>

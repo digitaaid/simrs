@@ -1,4 +1,4 @@
-<div id="modalsep">
+<div>
     <x-adminlte-card theme="primary" title="SEP Pasien">
         <div class="row">
             <div class="col-md-4">
@@ -29,58 +29,59 @@
                         <th>Diagnosa</th>
                         <th>Flag</th>
                         <th>Asuransi</th>
-
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($seps as $item)
-                        @foreach ($seps as $item)
-                            <tr>
-                                <td>{{ $item->noSep }}</td>
-                                <td>{{ $item->tglSep }}</td>
-                                <td>{{ $item->tglPlgSep }}</td>
-                                <th>
-                                    <a target="_blank" href="{{ route('vclaim.sep_print') }}?noSep={{ $item->noSep }}">
-                                        <x-adminlte-button theme="success" class="btn-xs" icon="fas fa-print" />
-                                    </a>
-                                    {{-- <x-adminlte-button theme="warning" class="btn-xs"
+                        <tr>
+                            <td>{{ $item->noSep }}</td>
+                            <td>{{ $item->tglSep }}</td>
+                            <td>{{ $item->tglPlgSep }}</td>
+                            <th>
+                                <a target="_blank" href="{{ route('vclaim.sep_print') }}?noSep={{ $item->noSep }}">
+                                    <x-adminlte-button theme="success" class="btn-xs" icon="fas fa-print" />
+                                </a>
+                                {{-- <x-adminlte-button theme="warning" class="btn-xs"
                                         wire:click="editSurat('{{ $item->noSep }}')" icon="fas fa-edit" /> --}}
-                                    <x-adminlte-button theme="danger" class="btn-xs"
-                                        wire:click="hapusSurat('{{ $item->noSep }}')"
-                                        wire:confirm='Apakah anda yakin ingin menghapus surat teresebut ?'
-                                        icon="fas fa-trash" />
-                                </th>
-                                <td>{{ $item->noKartu }}</td>
-                                <td>{{ $item->namaPeserta }}</td>
-                                <td>
-                                    @switch($item->jnsPelayanan)
-                                        @case(1)
-                                            Rawat Inap
-                                        @break
+                                <x-adminlte-button theme="danger" class="btn-xs"
+                                    wire:click="hapusSurat('{{ $item->noSep }}')"
+                                    wire:confirm='Apakah anda yakin ingin menghapus surat teresebut ?'
+                                    icon="fas fa-trash" />
+                            </th>
+                            <td>{{ $item->noKartu }}</td>
+                            <td>{{ $item->namaPeserta }}</td>
+                            <td>
+                                @switch($item->jnsPelayanan)
+                                    @case(1)
+                                        Rawat Inap
+                                    @break
 
-                                        @case(2)
-                                            Rawat Jalan
-                                        @break
+                                    @case(2)
+                                        Rawat Jalan
+                                    @break
 
-                                        @default
-                                            -
-                                    @endswitch
+                                    @default
+                                        -
+                                @endswitch
 
-                                </td>
-                                <td>{{ $item->kelasRawat }}</td>
-                                <td>{{ $item->poli }}</td>
-                                <td>{{ $item->ppkPelayanan }}</td>
-                                <td>{{ $item->noRujukan }}</td>
-                                <td>{{ $item->poliTujSep }}</td>
-                                <td>{{ $item->diagnosa }}</td>
-                                <td>{{ $item->flag }}</td>
-                                <td>{{ $item->asuransi }}</td>
-                            </tr>
-                        @endforeach
+                            </td>
+                            <td>{{ $item->kelasRawat }}</td>
+                            <td>{{ $item->poli }}</td>
+                            <td>{{ $item->ppkPelayanan }}</td>
+                            <td>{{ $item->noRujukan }}</td>
+                            <td>{{ $item->poliTujSep }}</td>
+                            <td>{{ $item->diagnosa }}</td>
+                            <td>{{ $item->flag }}</td>
+                            <td>{{ $item->asuransi }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            <br>
+        @endif
+        @if ($antrian->sep)
+            <iframe src="{{ route('vclaim.sep_print') }}?noSep={{ $antrian->sep }}" width="100%" height="300"
+                frameborder="0"></iframe>
         @endif
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-plus" class="btn-sm" label="Buat SEP"
@@ -152,8 +153,8 @@
                     </x-adminlte-select>
                 </div>
                 <div class="col-md-6">
-                    <x-adminlte-select wire:model='jnsPelayanan' fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                        igroup-size="sm" name="jnsPelayanan" label="Jenis Pelayanan">
+                    <x-adminlte-select wire:model='jnsPelayanan' fgroup-class="row" label-class="text-left col-4"
+                        igroup-class="col-8" igroup-size="sm" name="jnsPelayanan" label="Jenis Pelayanan">
                         <option value=null disabled>Pilih Jenis Pelayanan</option>
                         <option value="2">Rawat Jalan</option>
                         <option value="1">Rawat Inap</option>
@@ -252,5 +253,4 @@
             </x-slot>
         </x-adminlte-card>
     @endif
-
 </div>

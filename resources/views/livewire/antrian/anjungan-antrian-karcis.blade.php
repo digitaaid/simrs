@@ -8,29 +8,55 @@
 </head>
 
 <body>
-    <div class="ticket">
-        <img src="{{ asset('kitasehat/logokitasehat.png') }}" height="50px" alt="">
+    <div class="ticket" style="text-align: center; font-family: sans-serif">
+        <img src="{{ asset('kitasehat/logokitasehat.png') }}" height="40px" alt="">
         <hr style="margin: 0">
         <b>Nomor Karcis Antrian</b><br>
-        <b style="font-size: 30px">{{ $antrian->nomorantrean }}</b> <br>
-        {!! QrCode::size(80)->generate($antrian->kodebooking) !!} <br>
-        {{ $antrian->kodebooking }} / {{ $antrian->angkaantrean }}
-        </p>
-        {{ $antrian->jenispasien === "JKN" ? "PASIEN BPJS / JKN" : "PASIEN UMUM"   }}
-        @if ($antrian->method != 'Offline')
-            <b>{{ $antrian->nama }}</b> <br>
-            No RM {{ $antrian->norm }} <br>
-            No BPJS {{ $antrian->nomorkartu }} <br>
+        <b style="font-size: 50px">{{ $antrian->nomorantrean }}</b><br>
+        {{-- {!! QrCode::size(60)->generate($antrian->kodebooking) !!}<br> --}}
+        <b>PASIEN {{ $antrian->pasienbaru ? 'BARU' : 'LAMA' }}
+            {{ $antrian->jenispasien == 'JKN' ? 'BPJS' : 'UMUM' }}</b><br>
+        @if ($antrian->jeniskunjungan)
+            <p style="line-height:13px;font-size: 10px;">
+                @switch($antrian->jeniskunjungan)
+                    @case(1)
+                        RUJUKAN FKTP<br>{{ $antrian->nomorreferensi ?? '-' }}<br>
+                    @break
+
+                    @case(2)
+                        RUJUKAN INTERNAL<br>
+                    @break
+
+                    @case(3)
+                        SURAT KONTROL<br>{{ $antrian->nomorreferensi ?? '-' }}<br>
+                    @break
+
+                    @case(4)
+                        RUJUKAN ANTAR RS<br>{{ $antrian->nomorreferensi ?? '-' }}<br>
+                    @break
+
+                    @default
+                @endswitch
+                SEP<br>{{ $antrian->sep ?? 'Belum Cetak SEP' }}<br>
+            </p>
         @endif
         <p style="line-height:13px;font-size: 10px;">
+            @if ($antrian->nama)
+                <b>{{ $antrian->nama }}</b> <br>
+            @endif
+            @if ($antrian->nomorkartu)
+                {{ $antrian->nomorkartu }} <br>
+            @endif
             {{ $antrian->namapoli }} <br>
             {{ $antrian->namadokter }} <br>
-            {{ $antrian->jampraktek }} <br>
+            Jam Praktek {{ $antrian->jampraktek }} <br>
+            Estimasi Dilayani<br>
+            {{ date('j F Y H:i:s', $antrian->estimasidilayani / 1000) }} <br>
         </p>
         <hr style="margin: 0">
-        <p style="line-height:13px;font-size: 10px;">
-            Simpan lembar karcis antrian ini sampai pelayanan berakhir. Terimakasih. <br>
-            Semoga selalu diberikan kesembuhan dan kesehatan.
+        <p style="line-height:13px;font-size: 8px;">
+            {{ \Carbon\Carbon::now() }} <br>
+            Semoga selalu diberikan kesembuhan dan kesehatan. Terimakasih.
         </p>
     </div>
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>

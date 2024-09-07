@@ -18,6 +18,7 @@ class ObatImport implements ToCollection, WithHeadingRow
                         'nama' => $row['nama'],
                     ],
                     [
+                        'nama' => strtoupper($row['nama']),
                         'kemasan' => $row['kemasan'] ?? 'BOX',
                         'konversi_satuan' => $row['konversi_satuan'] ?? 1,
                         'satuan' => $row['satuan'] ?? 'BOX',

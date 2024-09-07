@@ -12,24 +12,27 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="row">
-                                        <img src="{{ asset('kitasehat/logokitasehat-lingkar.png') }}" width="100"
+                                        <img src="{{ asset('kitasehat/logokitasehat-lingkar.png') }}" width="50"
                                             alt="">
                                         <div class="col">
                                             <h1>{{ env('APP_NAME') }}</h1>
-                                            <h4>{{ env('APP_NAME_LONG') }}</h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 text-md-end">
-                                    <p>Whatsapp : 0823 1169 6919</p>
-                                    <p>Telepon : (0231) 8850943</p>
+                                    <h5>
+                                        Antrian Pendaftaran dan Poliklinik
+                                        <br>
+                                        {{ env('APP_NAME_LONG') }}
+                                    </h5>
+
                                 </div>
                             </div>
                         </div>
                     </header>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card">
                     <div class="card-header bg-blue">
                         <div class="text-center ">
@@ -44,9 +47,7 @@
                 </div>
                 <div class="card">
                     <div class="card-header bg-primary">
-                        <h4>ANTRIAN PENDAFTARAN</h4>
-                        <h4>{{ strtoupper(env('APP_NAME')) }}</h4>
-                        <h4>08:00 - 21:00</h4>
+                        <h4>DAFTAR ANTRIAN PENDAFTARAN</h4>
                     </div>
                     <div class="card-body p-0">
                         <table class="table" id="tablependaftaran">
@@ -72,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="card">
                     <div class="card-header bg-blue">
                         <div class="text-center">
@@ -88,12 +89,10 @@
                 </div>
                 <div class="card">
                     <div class="card-header bg-primary">
-                        <h4>DOKTER KLINIK</h4>
-                        <h4>{{ strtoupper(env('APP_NAME')) }}</h4>
-                        <h4>08:00 - 21:00</h4>
+                        <h4>DAFTAR ANTRIAN POLIKLINIK</h4>
                     </div>
                     <div class="card-body p-0">
-                        <table class="table" id="tabledokter">
+                        <table class="table text-nowrap" id="tabledokter">
                             <tbody>
                                 <tr>
                                     <th>-</th>
@@ -266,17 +265,12 @@
                 </div>
             </div> --}}
             <div class="col-md-4">
-                <x-adminlte-card body-class="p-1">
+                {{-- <x-adminlte-card body-class="p-1">
                     <video width="100%" height="100%" controls autoplay muted loop>
                         <source src="{{ asset('bpjs/Video Sosialisasi Program Rehab 30sec.mp4') }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-                    {{-- <iframe
-                        src="https://www.youtube-nocookie.com/embed/55DpUJWSjik?si=YhTDaLjH22Z3H-OH?rel=0&modestbranding=1&autohide=1&mute=1&showinfo=0&controls=1&autoplay=1&loop=1"
-                        title="YouTube video player" frameborder="0" width="100%" height="450"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen onload='playVideo();'></iframe> --}}
-                </x-adminlte-card>
+                </x-adminlte-card> --}}
                 {{-- <x-adminlte-card body-class="p-1">
                     <iframe
                         src="https://www.youtube.com/embed/rLInKEMHykE?si=sWG-1mT9ydRzXGhS?rel=0&modestbranding=1&autohide=1&mute=1&showinfo=0&controls=1&autoplay=1&loop=1"
@@ -291,22 +285,22 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img class="d-block w-100" height="450" width="100%"
-                                    src="{{ asset('kitasehat/depan.jpg') }}" alt="First slide">
+                                <img class="d-block w-100" height="100%" width="100%"
+                                    src="{{ asset('bpjs/wajibmjkn.jpg') }}" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>...</h5>
                                     <p>...</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100" height="450" width="100%"
-                                    src="{{ asset('kitasehat/ranap1.jpg') }}" alt="First slide">
+                                <img class="d-block w-100" height="100%" width="100%"
+                                    src="{{ asset('bpjs/caramjkn.jpg') }}" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>...</h5>
                                     <p>...</p>
                                 </div>
                             </div>
-                            <div class="carousel-item">
+                            {{-- <div class="carousel-item">
                                 <img class="d-block w-100" height="450" width="100%"
                                     src="{{ asset('kitasehat/ruangdokter.jpg') }}" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
@@ -321,7 +315,7 @@
                                     <h5>...</h5>
                                     <p>...</p>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

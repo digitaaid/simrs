@@ -316,24 +316,20 @@ return [
             'can' => 'manage-blog',
         ],
         [
-            'text' => 'Dashboard',
+            'text'        => 'Landing Page',
+            'url'         => '',
+            'icon'        => 'fas fa-globe',
+        ],
+        [
+            'text' => 'Home',
             'url' => 'home',
             'icon' => 'fas fa-home',
         ],
-        // [
-        //     'text'    => 'Pelayanan IGD',
-        //     'icon'    => 'fas fa-hand-holding-medical',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Pendaftaran',
-        //             'url' => 'pendaftaran/igd',
-        //             'icon' => 'fas fa-user-plus',
-        //             'shift'   => 'ml-2',
-        // 'can' => 'admin',
-        //             // 'active'  => ['user', 'user/create', 'user/edit/*'],
-        //         ],
-        //     ]
-        // ],
+        [
+            'text' => 'Dashboard',
+            'url' => 'dashboard',
+            'icon' => 'fas fa-chart-line',
+        ],
         [
             'text'    => 'Pelayanan Rawat Jalan',
             'icon'    => 'fas fa-hand-holding-medical',
@@ -351,6 +347,13 @@ return [
                     'icon' => 'fas fa-desktop',
                     'shift'   => 'ml-2',
                     'can' => 'pendaftaran',
+                ],
+                [
+                    'text' => 'Display Antrian Farmasi',
+                    'url' => 'displayantrianfarmasi',
+                    'icon' => 'fas fa-desktop',
+                    'shift'   => 'ml-2',
+                    'can' => ['pendaftaran', 'farmasi', 'apoteker'],
                 ],
                 [
                     'text' => 'Pendaftaran',
@@ -385,7 +388,7 @@ return [
                 ],
                 [
                     'text' => 'Kasir Pembayaran',
-                    'url' => 'aplication',
+                    'url' => 'kasir-pembayaran',
                     'icon' => 'fas fa-cash-register',
                     'shift'   => 'ml-2',
                     'can' => 'kasir',
@@ -393,26 +396,41 @@ return [
                 [
                     'text' => 'Rekam Medis Rawat Jalan',
                     'url' => 'rekammedis/rajal',
+                    'active' => ['rekammedis/rajal', 'rekammedis/rajal/edit/*'],
                     'icon' => 'fas fa-laptop-medical',
                     'shift'   => 'ml-2',
                     'can' => 'rekam-medis',
                 ],
             ]
         ],
-        // [
-        //     'text'    => 'Pelayanan Rawat Inap',
-        //     'icon'    => 'fas fa-hand-holding-medical',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Pendaftaran',
-        //             'url' => 'aplication',
-        //             'icon' => 'fas fa-users',
-        //             'shift'   => 'ml-2',
-        // 'can' => 'admin',
-        //             // 'active'  => ['user', 'user/create', 'user/edit/*'],
-        //         ],
-        //     ]
-        // ],
+        [
+            'text'    => 'Pelayanan IGD',
+            'icon'    => 'fas fa-ambulance',
+            'submenu' => [
+                [
+                    'text' => 'Pendaftaran IGD',
+                    'url' => 'pendaftaran/igd',
+                    'icon' => 'fas fa-users',
+                    'shift'   => 'ml-2',
+                    'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
+                    'active'  => ['pendaftaran/igd', 'pendaftaran/igd/proses'],
+                ],
+            ]
+        ],
+        [
+            'text'    => 'Pelayanan Rawat Inap',
+            'icon'    => 'fas fa-procedures',
+            'submenu' => [
+                [
+                    'text' => 'Pendaftaran Ranap',
+                    'url' => 'pendaftaran/ranap',
+                    'icon' => 'fas fa-users',
+                    'shift'   => 'ml-2',
+                    'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
+                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                ],
+            ]
+        ],
         [
             'text'    => 'Pelayanan Penunjang',
             'icon'    => 'fas fa-hand-holding-medical',
@@ -459,7 +477,7 @@ return [
                     'text' => 'Pasien',
                     'url' => 'pasien',
                     'icon' => 'fas fa-user-injured',
-                    'can' => 'manajemen-pelayanan',
+                    'can' => ['manajemen-pelayanan', 'pendaftaran'],
                     'active'  => ['pasien', 'pasien/create', 'pasien/edit/*'],
                     'shift'   => 'ml-2',
                 ],
@@ -475,7 +493,7 @@ return [
                     'text' => 'Dokter',
                     'url' => 'dokter',
                     'icon' => 'fas fa-user-md',
-                    'can' => 'manajemen-pelayanan',
+                    'can' => ['manajemen-pelayanan', 'pendaftaran'],
                     'active'  => ['dokter', 'dokter/create', 'dokter/edit/*'],
                     'shift'   => 'ml-2',
                 ],
@@ -491,15 +509,22 @@ return [
                     'text' => 'Unit',
                     'url' => 'unit',
                     'icon' => 'fas fa-clinic-medical',
-                    'can' => 'manajemen-pelayanan',
+                    'can' => ['manajemen-pelayanan', 'pendaftaran'],
                     'active'  => ['unit', 'unit/create', 'unit/edit/*'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Kamar & Bed',
+                    'url' => 'kamar-bed',
+                    'icon' => 'fas fa-bed',
+                    'active'  => ['kamar-bed', 'kamar-bed/create', 'kamar-bed/edit/*'],
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Jadwal Dokter Rajal',
                     'url' => 'jadwaldokter',
                     'icon' => 'fas fa-calendar-alt',
-                    'can' => 'manajemen-pelayanan',
+                    'can' => ['manajemen-pelayanan', 'pendaftaran'],
                     'active'  => ['jadwaldokter', 'jadwaldokter/create', 'jadwaldokter/edit/*'],
                     'shift'   => 'ml-2',
                 ],
@@ -564,6 +589,13 @@ return [
                     'shift'   => 'ml-2',
                     'can' => 'antrian-bpjs',
                 ],
+                // [
+                //     'text' => 'Update Jadwal Dokter',
+                //     'icon'    => 'fas fa-calendar-alt',
+                //     'url'  => 'bpjs/antrian/updatejadwaldokter',
+                //     'shift'   => 'ml-2',
+                //     'can' => 'antrian-bpjs',
+                // ],
                 [
                     'text' => 'Poliklinik Fingerprint',
                     'icon'    => 'fas fa-clinic-medical',
@@ -795,8 +827,8 @@ return [
         ['header' => 'PENGATURAN'],
         [
             'text' => 'Aplikasi',
-            'url' => 'aplication',
-            'icon' => 'fas fa-users',
+            'url' => 'aplikasi',
+            'icon' => 'fas fa-cogs',
             'can' => 'admin',
             // 'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
@@ -1105,6 +1137,21 @@ return [
                     'type' => 'js',
                     'asset' => true,
                     'location' => 'vendor/bs-custom-file-input/bs-custom-file-input.min.js',
+                ],
+            ],
+        ],
+        'Chartjs' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/chart.js/Chart.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/chart.js/Chart.min.css',
                 ],
             ],
         ],

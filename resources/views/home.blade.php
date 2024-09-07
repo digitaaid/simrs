@@ -11,7 +11,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <p class="mb-0">You are logged in!</p>
+                    <h5>Selamat Datang {{ auth()->user()->name }},</h5>
+                    <p class="mb-0">Anda Login sebagai {{ auth()->user()->roles?->first()?->name }}</p>
                 </div>
             </div>
         </div>

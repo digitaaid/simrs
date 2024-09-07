@@ -67,13 +67,13 @@ class JadwalDokterIndex extends Component
             'selesai' => 'required',
             'kapasitas' => 'required',
         ]);
-        $jadwal = JadwalDokter::updateOrCreate(
-            [
+        if ($this->id) {
+            # code...
+            $jadwal = JadwalDokter::find($this->id);
+            $jadwal->update([
                 'hari' => $this->hari,
                 'kodedokter' => $this->dokter,
                 'jampraktek' => $this->mulai . '-' . $this->selesai,
-            ],
-            [
                 'kodepoli' => $this->unit,
                 'kodesubspesialis' => $this->unit,
                 'namahari' => $this->haris[$this->hari],
@@ -84,8 +84,28 @@ class JadwalDokterIndex extends Component
                 'huruf' => $this->huruf,
                 'user' => auth()->user()->id,
                 'pic' => auth()->user()->name,
-            ]
-        );
+            ]);
+        } else {
+            $jadwal = JadwalDokter::updateOrCreate(
+                [
+                    'hari' => $this->hari,
+                    'kodedokter' => $this->dokter,
+                    'jampraktek' => $this->mulai . '-' . $this->selesai,
+                ],
+                [
+                    'kodepoli' => $this->unit,
+                    'kodesubspesialis' => $this->unit,
+                    'namahari' => $this->haris[$this->hari],
+                    'namapoli' => $this->units[$this->unit],
+                    'namasubspesialis' => $this->units[$this->unit],
+                    'namadokter' => $this->dokters[$this->dokter],
+                    'kapasitas' => $this->kapasitas,
+                    'huruf' => $this->huruf,
+                    'user' => auth()->user()->id,
+                    'pic' => auth()->user()->name,
+                ]
+            );
+        }
         flash('Jadwal Hari ' . $jadwal->namahari . ' ' . $jadwal->namadokter . ' saved successfully.', 'success');
         $this->formJadwal();
         $this->form = false;
@@ -122,7 +142,7 @@ class JadwalDokterIndex extends Component
     public function formJadwal()
     {
         $this->form =  $this->form ? false : true;
-        $this->reset(['id', 'hari', 'dokter', 'unit', 'mulai', 'selesai', 'kapasitas','huruf']);
+        $this->reset(['id', 'hari', 'dokter', 'unit', 'mulai', 'selesai', 'kapasitas', 'huruf']);
     }
     public $search = '';
     public $sortBy = 'hari';

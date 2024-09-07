@@ -2,9 +2,12 @@
 
 namespace App\Livewire\Farmasi;
 
+use App\Http\Controllers\AntrianController;
 use App\Models\Antrian;
 use App\Models\FrekuensiObat;
 use App\Models\Obat;
+use App\Models\ResepFarmasi;
+use App\Models\ResepFarmasiDetail;
 use App\Models\ResepObat;
 use App\Models\ResepObatDetail;
 use App\Models\WaktuObat;
@@ -19,8 +22,18 @@ class PengambilanResep extends Component
     public $antrians;
     public $antrianedit;
     public $formEdit = false;
+    public $search = '';
     public $obats = [], $frekuensiObats = [], $waktuObats = [];
     public $resepObat = [
+        [
+            'obat' => '',
+            'jumlahobat' => '',
+            'frekuensiobat' => '',
+            'waktuobat' => '',
+            'keterangan' => '',
+        ]
+    ];
+    public $resepObatDokter = [
         [
             'obat' => '',
             'jumlahobat' => '',
@@ -50,24 +63,52 @@ class PengambilanResep extends Component
     }
     public function terimaResep(Antrian $antrian)
     {
-        $antrian->taskid = 6;
-        $antrian->taskid6 = now();
-        $antrian->panggil = 0;
-        $antrian->status = 1;
-        $antrian->user4 = auth()->user()->id;
-        $antrian->update();
+        if (env('ANTRIAN_REALTIME')) {
+            $request = new Request([
+                'kodebooking' => $antrian->kodebooking,
+                'waktu' => now(),
+                'taskid' => 6,
+            ]);
+            $api = new AntrianController();
+            $res = $api->update_antrean($request);
+            if ($res->metadata->code != 200) {
+                return flash($res->metadata->message, 'danger');
+            } else {
+                $antrian->taskid = 6;
+                $antrian->taskid6 = now();
+                $antrian->panggil = 0;
+                $antrian->status = 1;
+                $antrian->user4 = auth()->user()->id;
+                $antrian->update();
+            }
+        } else {
+            $antrian->taskid = 6;
+            $antrian->taskid6 = now();
+            $antrian->panggil = 0;
+            $antrian->status = 1;
+            $antrian->user4 = auth()->user()->id;
+            $antrian->update();
+        }
+        flash('Resep obat atas nama pasien ' . $antrian->nama . ' telah diterima farmasi.', 'success');
     }
     public function edit(Antrian $antrianedit)
     {
         $this->antrianedit = $antrianedit;
         $this->formEdit = true;
         if (count($this->antrianedit->resepobatdetails)) {
-            $this->resepObat = [];
+            $this->resepObatDokter = [];
             foreach ($this->antrianedit->resepobatdetails as $key => $value) {
+                $this->resepObatDokter[] = ['obat' => $value->nama, 'jumlahobat' => $value->jumlah, 'frekuensiobat' => $value->frekuensi, 'waktuobat' => $value->waktu, 'keterangan' =>  $value->keterangan,];
+            }
+            $this->resepObat = [];
+            foreach ($this->antrianedit->resepfarmasidetails as $key => $value) {
                 $this->resepObat[] = ['obat' => $value->nama, 'jumlahobat' => $value->jumlah, 'frekuensiobat' => $value->frekuensi, 'waktuobat' => $value->waktu, 'keterangan' =>  $value->keterangan,];
             }
+            if (count($this->resepObat) == 0) {
+                $this->resepObat = $this->resepObatDokter;
+            }
         }
-        $this->obats = Obat::pluck('nama');
+        $this->obats = Obat::pluck('harga_jual', 'nama');
         $this->frekuensiObats = FrekuensiObat::pluck('nama');
         $this->waktuObats = WaktuObat::pluck('nama');
     }
@@ -82,33 +123,34 @@ class PengambilanResep extends Component
             'resepObat.*.jumlahobat' => 'required',
         ]);
         $kunjungan = $this->antrianedit->kunjungan;
+        $resep = ResepFarmasi::updateOrCreate([
+            'kodebooking' => $this->antrianedit->kodebooking,
+            'antrian_id' => $this->antrianedit->id,
+            'kodekunjungan' => $kunjungan->kode,
+            'kunjungan_id' => $kunjungan->id,
+            'kode' => $kunjungan->kode,
+        ], [
+            'counter' => $kunjungan->counter,
+            'norm' => $kunjungan->norm,
+            'nama' => $kunjungan->nama,
+            'gender' => $kunjungan->gender,
+            'waktu' =>  now(),
+            'tgl_lahir' => $kunjungan->tgl_lahir,
+            'user' => auth()->user()->id,
+            'pic' => auth()->user()->name,
+            'status' => '1',
+        ]);
+        // dd($kunjungan);
         if (count($this->resepObat)) {
-            $resep = ResepObat::updateOrCreate([
-                'kodebooking' => $this->antrianedit->kodebooking,
-                'antrian_id' => $this->antrianedit->id,
-                'kodekunjungan' => $kunjungan->kode,
-                'kunjungan_id' => $kunjungan->id,
-                'kode' => $kunjungan->kode,
-            ], [
-                'counter' => $kunjungan->counter,
-                'norm' => $kunjungan->norm,
-                'nama' => $kunjungan->nama,
-                'gender' => $kunjungan->gender,
-                'waktu' =>  now(),
-                'tgl_lahir' => $kunjungan->tgl_lahir,
-                'user' => auth()->user()->id,
-                'pic' => auth()->user()->name,
-                'status' => '1',
-            ]);
-            $resep->resepobatdetails()->each(function ($resepobatdetail) {
-                $resepobatdetail->delete();
+            $resep->resepfarmasidetails()->each(function ($resepfarmasidetails) {
+                $resepfarmasidetails->delete();
             });
             foreach ($this->resepObat as $key => $value) {
                 $obat = Obat::where('nama', $this->resepObat[$key]['obat'])->first();
                 if (!$obat) {
                     return flash('Obat ' . $this->resepObat[$key]['obat'] . ' tidak ditemukan.', 'danger');
                 }
-                $obatdetails = ResepObatDetail::updateOrCreate([
+                $obatdetails = ResepFarmasiDetail::updateOrCreate([
                     'kunjungan_id' => $kunjungan->id,
                     'antrian_id' =>  $this->antrianedit->id,
                     'resep_id' => $resep->id,
@@ -133,17 +175,41 @@ class PengambilanResep extends Component
                     'nama' => $this->resepObat[$key]['waktuobat'],
                 ]);
             }
+        } else {
+            $resep->resepfarmasidetails()->each(function ($resepfarmasidetails) {
+                $resepfarmasidetails->delete();
+            });
         }
         flash('Resep obat atas nama pasien ' . $kunjungan->nama . ' saved successfully.', 'success');
         $this->openformEdit();
     }
+    public function panggilfarmasi(Antrian $antrian)
+    {
+        $antrian->taskid = 7;
+        $antrian->panggil = 0;
+        $antrian->update();
+        flash('Panggilan farmasi atas nama pasien ' . $antrian->nama . ' saved successfully.', 'success');
+    }
     public function selesai(Antrian $antrian)
     {
+        if (env('ANTRIAN_REALTIME')) {
+            $request = new Request([
+                'kodebooking' => $antrian->kodebooking,
+                'waktu' => now(),
+                'taskid' => 7,
+            ]);
+            $api = new AntrianController();
+            $res = $api->update_antrean($request);
+            if ($res->metadata->code != 200) {
+                return flash($res->metadata->message, 'danger');
+            }
+        }
         $antrian->taskid = 7;
         $antrian->taskid7 = now();
         $antrian->status = 1;
         $antrian->user4 = auth()->user()->id;
         $antrian->update();
+        flash('Pelayanan farmasi atas nama pasien ' . $antrian->nama . ' telah selesai.', 'success');
     }
     public function mount(Request $request)
     {
@@ -158,14 +224,34 @@ class PengambilanResep extends Component
     }
     public function render()
     {
+        $search = '%' . $this->search . '%';
         if ($this->tanggalperiksa) {
             $this->antrians = Antrian::where('tanggalperiksa', $this->tanggalperiksa)
                 ->where('taskid', '>=', 5)
                 ->where('taskid', '!=', 99)
                 ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
-                ->orderBy('asesmen_rajals.status_asesmen_dokter', 'asc')
+                ->orderBy('panggil', 'asc')
+                ->orderBy('taskid', 'asc')
                 ->select('antrians.*')
+                ->where(function ($query) use ($search) {
+                    $query->where('antrians.nama', 'like', "%{$search}%")
+                        ->orWhere('antrians.norm', 'like', "%{$search}%");
+                })
+                ->get();
+        }
+        if ($this->search && $this->tanggalperiksa == null) {
+            $this->antrians = Antrian::where('taskid', '>=', 5)
+                ->where('taskid', '!=', 99)
+                ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')
+                ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
+                ->orderBy('panggil', 'asc')
+                ->orderBy('taskid', 'asc')
+                ->select('antrians.*')
+                ->where(function ($query) use ($search) {
+                    $query->where('antrians.nama', 'like', "%{$search}%")
+                        ->orWhere('antrians.norm', 'like', "%{$search}%");
+                })
                 ->get();
         }
         return view('livewire.farmasi.pengambilan-resep')->title('Pengambilan Resep Obat');

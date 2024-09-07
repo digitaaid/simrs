@@ -11,10 +11,11 @@ use Livewire\Component;
 class PemeriksaanPerawatRajal extends Component
 {
     public $tanggalperiksa, $jadwal;
+    public $search = '';
     public $antrians, $jadwals = [];
     public function mount(Request $request)
     {
-        $this->tanggalperiksa = $request->tanggalperiksa;
+        $this->tanggalperiksa = $request->tanggalperiksa ?? now()->format('Y-m-d');
         $this->jadwal = $request->jadwal;
     }
     public function cariantrian()
@@ -29,6 +30,7 @@ class PemeriksaanPerawatRajal extends Component
     public function render()
     {
         if ($this->tanggalperiksa) {
+            $search = '%' . $this->search . '%';
             $this->jadwals = JadwalDokter::where('hari', Carbon::parse($this->tanggalperiksa)->dayOfWeek)
                 ->with(['dokter', 'unit'])
                 ->get();
@@ -40,6 +42,24 @@ class PemeriksaanPerawatRajal extends Component
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
                 ->orderBy('asesmen_rajals.status_asesmen_perawat', 'asc')
                 ->select('antrians.*')
+                ->where(function($query) use ($search) {
+                    $query->where('antrians.nama', 'like', "%{$search}%")
+                          ->orWhere('antrians.norm', 'like', "%{$search}%");
+                })
+                ->get();
+        }
+        if ($this->search && $this->tanggalperiksa == null) {
+            $search = '%' . $this->search . '%';
+            $this->antrians = Antrian::where('taskid', '>=', 3)
+                ->where('taskid', '!=', 99)
+                ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')
+                ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
+                ->orderBy('asesmen_rajals.status_asesmen_perawat', 'asc')
+                ->select('antrians.*')
+                ->where(function($query) use ($search) {
+                    $query->where('antrians.nama', 'like', "%{$search}%")
+                          ->orWhere('antrians.norm', 'like', "%{$search}%");
+                })
                 ->get();
         }
         return view('livewire.perawat.pemeriksaan-perawat-rajal')->title('Pemeriksaan Perawat Rajal');

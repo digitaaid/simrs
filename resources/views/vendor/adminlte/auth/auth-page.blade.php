@@ -11,6 +11,25 @@
 @section('adminlte_css')
     @stack('css')
     @yield('css')
+    <style>
+        .login-page {
+            background-image: url('{{ asset('kitasehat/depan.jpg') }}');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-blend-mode: overlay;
+            background-size: 100% 100%
+
+        }
+        .register-page {
+            background-image: url('{{ asset('kitasehat/depan.jpg')  }}');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-blend-mode: overlay;
+            background-size: 100% 100%
+        }
+    </style>
 @stop
 
 @section('classes_body'){{ ($auth_type ?? 'login') . '-page' }}@stop

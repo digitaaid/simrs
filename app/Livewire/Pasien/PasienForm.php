@@ -2,15 +2,20 @@
 
 namespace App\Livewire\Pasien;
 
+use App\Http\Controllers\SatuSehatController;
 use App\Http\Controllers\VclaimController;
+use App\Models\Integration;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Laravolt\Indonesia\Models\Kabupaten;
 use Laravolt\Indonesia\Models\Kecamatan;
 use Laravolt\Indonesia\Models\Kelurahan;
 use Laravolt\Indonesia\Models\Provinsi;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PasienForm extends Component
 {
@@ -25,7 +30,6 @@ class PasienForm extends Component
             'gender' => 'required',
             'tempat_lahir' => 'required',
             'tgl_lahir' => 'required|date',
-
         ]);
         if ($this->id) {
             $pasien = Pasien::find($this->id);
@@ -61,9 +65,13 @@ class PasienForm extends Component
         $pasien->user = Auth::user()->id;
         $pasien->pic = Auth::user()->name;
         $pasien->updated_at = now();
-        $pasien->save();
-        flash('Pasien ' . $pasien->name . ' saved successfully', 'success');
-        return redirect()->to('/pasien');
+        if ($this->id) {
+            $pasien->save();
+        } else {
+            $pasien->update();
+        }
+        Alert::success('Success', 'Pasien ' . $pasien->name . ' saved successfully');
+        return redirect()->route('pasien.index');
     }
     public function updatedTempatLahir()
     {
@@ -148,6 +156,33 @@ class PasienForm extends Component
         } else {
             flash($res->metadata->message, 'danger');
         }
+    }
+    public function cariIdPatient($nik)
+    {
+        $pasien = Pasien::where('nik', $nik)->first();
+        $res = $this->patient_by_nik($nik);
+        if ($res->metadata->code == 200) {
+            if ($res->response->entry) {
+                $id = $res->response->entry[0]->resource->id;
+                $pasien->update([
+                    'idpatient' => $id
+                ]);
+                flash('Data Pasien sudah disinkronkan satusehat', 'success');
+            } else {
+                flash('Data Pasien tidak ditemukan', 'danger');
+            }
+        }
+    }
+    public function patient_by_nik($nik)
+    {
+        $token = Cache::get('satusehat_access_token');
+        $api = Integration::where('name', 'Satu Sehat')->first();
+        $url = $api->base_url . "/Patient?identifier=https://fhir.kemkes.go.id/id/nik|" . $nik;
+        $response = Http::withToken($token)->get($url);
+        $data =  $response->json();
+        // satusehat
+        $api = new SatuSehatController();
+        return $api->responseSatuSehat($data);
     }
     public function cariNoRM()
     {

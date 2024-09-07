@@ -6,30 +6,25 @@
             </x-adminlte-alert>
         </div>
     @endif
-    @if (isset($antrians))
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 2)->first()->nomorantrean ?? '-' }}"
-                        text="Antrian Dilayani" theme="primary" icon="fas fa-user-injured"
-                        url="{{ route('pendaftaran.rajal.proses', $antrians->where('taskid', 1)->first()->kodebooking ?? '00') }}"
-                        url-text="Proses Antrian Selanjutnya" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 1)->count() }}" text="Sisa Antrian"
-                        theme="warning" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}"
-                        text="Total Antrian" theme="success" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 99)->count() }}" text="Batal Antrian"
-                        theme="danger" icon="fas fa-user-injured" />
-                </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box
+                    title="{{ count($antrians) ? $antrians->where('taskid', '!=', 99)->count() : '-' }}"
+                    text="Total Pasien" theme="success" icon="fas fa-user-injured" />
+            </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box
+                    title="{{ count($antrians) ? $antrians->where('jenispasien', 'JKN')->count() : '-' }}"
+                    text="Pasien JKN" theme="warning" icon="fas fa-user-injured" />
+            </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box
+                    title="{{ count($antrians) ? $antrians->where('jenispasien', 'NON-JKN')->count() : '-' }}"
+                    text="Pasien NON-JKN" theme="warning" icon="fas fa-user-injured" />
             </div>
         </div>
-    @endif
+    </div>
     <div class="col-md-12">
         <x-adminlte-card title="Table Antrian Pendaftaran" theme="secondary">
             <div class="row">
@@ -49,7 +44,8 @@
                 <div class="col-md-4">
                 </div>
                 <div class="col-md-4">
-                    <x-adminlte-input name="search" placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
+                    <x-adminlte-input wire:model.live="search" name="search"
+                        placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
                         <x-slot name="appendSlot">
                             <x-adminlte-button wire:click='caritanggal' theme="primary" label="Cari" />
                         </x-slot>
@@ -69,9 +65,10 @@
                     'Kodebooking',
                     'No RM',
                     'Nama Pasien',
+                    'Jenis Pasien',
+                    'SEP',
                     'Action',
                     'Taskid',
-                    'Jenis Pasien',
                     'Layanan',
                     'Unit',
                     'Dokter',
@@ -88,17 +85,30 @@
                 hoverable compressed>
                 @isset($antrians)
                     @foreach ($antrians as $item)
-                        <tr>
+                        <tr
+                            class="{{ $item->nomorkartu ? ($item->jenispasien == 'JKN' ? $item->sep ?? 'table-danger' : null) : null }}">
                             <td>{{ $item->angkaantrean }}</td>
                             <td>{{ $item->nomorantrean }}</td>
                             <td>{{ $item->kodebooking }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
+                            <td>{{ $item->jenispasien }}</td>
                             <td>
-                                <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
-                                    <x-adminlte-button class="btn-xs" label="Proses" theme="success"
-                                        icon="fas fa-user-plus" />
-                                </a>
+                                {{ $item->nomorkartu ? ($item->jenispasien == 'JKN' ? $item->sep ?? 'Belum Input' : null) : null }}
+                            </td>
+                            <td>
+                                @if ($item->taskid <= 2)
+                                    <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
+                                        <x-adminlte-button class="btn-xs" label="Proses" theme="success"
+                                            icon="fas fa-user-plus" />
+                                    </a>
+                                @else
+                                    <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
+                                        <x-adminlte-button class="btn-xs" label="Lihat" theme="secondary"
+                                            icon="fas fa-user-plus" />
+                                    </a>
+                                @endif
+
                                 {{-- @switch($item->taskid)
                                     @case(1)
                                         <a href="{{ route('prosespendaftaran') }}?kodebooking={{ $item->kodebooking }}"
@@ -161,7 +171,6 @@
                                         {{ $item->taskid }}
                                 @endswitch
                             </td>
-                            <td>{{ $item->jenispasien }} </td>
                             <td class="text-right">{{ money($item->layanans->sum('harga'), 'IDR') }} </td>
                             <td>{{ $item->kunjungan->units->nama ?? $item->namapoli }} </td>
                             <td>{{ $item->kunjungan->dokters->namadokter ?? $item->namadokter }}</td>
