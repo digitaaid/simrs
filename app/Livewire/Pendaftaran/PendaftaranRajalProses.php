@@ -11,6 +11,7 @@ use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PendaftaranRajalProses extends Component
 {
@@ -32,7 +33,8 @@ class PendaftaranRajalProses extends Component
                 'user1' => auth()->user()->id,
             ]);
         }
-        flash('Nomor antrian ' . $antrian->nomorantrean . ' telah dibatalakan pendaftaran.', 'success');
+        Alert::success('Success', 'Nomor antrian ' . $antrian->nomorantrean . ' telah dibatalakan pendaftaran.');
+        return redirect()->to(route('pendaftaran.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
     }
     public function selesaiPendaftaran()
     {
@@ -73,7 +75,7 @@ class PendaftaranRajalProses extends Component
                 }
             }
             $antrian->update();
-            flash('Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pendaftaran.', 'success');
+            Alert::success('Success', 'Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pendaftaran.');
             return redirect()->to(route('pendaftaran.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');

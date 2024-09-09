@@ -18,6 +18,7 @@ class AnjunganAntrianMandiri extends Component
     public $keyInput = 1;
     public $jenispasien, $nik, $estimasidilayani, $nomorkartu, $norm, $nohp, $nama, $nomorreferensi, $pasienbaru, $poliklinik, $kodepoli, $jadwaldokter, $jeniskunjungan, $tanggalperiksa;
     public $kodebooking, $nomorantrean, $angkaantrean;
+    public $nomorsuratkontrol, $nomorrujukan;
     public $tgl_lahir, $gender, $hakkelas, $jenispeserta, $unit, $dokter, $caramasuk, $diagnosa, $sep;
     public $sisakuotajkn, $kuotajkn, $sisakuotanonjkn, $kuotanonjkn;
     public $polikliniks = [], $jadwals = [];
@@ -178,6 +179,11 @@ class AnjunganAntrianMandiri extends Component
         $this->jadwals = [];
         $this->kodepoli = $kodepoli;
         $this->nomorreferensi = $nomorreferensi;
+        if ($jeniskunjungan == 3) {
+            $this->nomorsuratkontrol = $nomorreferensi;
+        } else {
+            $this->nomorrujukan = $nomorreferensi;
+        }
         $this->jeniskunjungan = $jeniskunjungan;
         $this->jadwals = JadwalDokter::where('hari', now()->dayOfWeek)->where('kodesubspesialis', $this->kodepoli)->get();
     }
@@ -201,7 +207,17 @@ class AnjunganAntrianMandiri extends Component
     public $assesmentPel;
     public function daftar()
     {
+        // cek antrian sebelumnya
         $this->tanggalperiksa = now()->format('Y-m-d');
+        $antrianx = Antrian::where('nomorkartu', $this->nomorkartu)
+            ->whereDate('tanggalperiksa', $this->tanggalperiksa)
+            ->where('taskid', '<=', 5)
+            ->first();
+        if ($antrianx) {
+            if ($antrianx->taskid <= 5) {
+                return flash('Pasien sudah mendapatkan pelayanan. Silahkan batalkan/selesaikan terlebih dahulu.', 'danger');
+            }
+        }
         $jadwal = JadwalDokter::find($this->jadwaldokter);
         $api = new AntrianController();
         $request = new Request([
@@ -299,11 +315,14 @@ class AnjunganAntrianMandiri extends Component
         $antrian->jeniskunjungan = $this->jeniskunjungan;
         $antrian->method = "Anjungan Pelayanan Mandiri";
         $antrian->nomorreferensi = $this->nomorreferensi;
+        $antrian->nomorsuratkontrol = $this->nomorsuratkontrol;
+        $antrian->nomorrujukan = $this->nomorrujukan;
         $antrian->nomorantrean = $this->nomorantrean;
         $antrian->angkaantrean = $this->angkaantrean;
         $antrian->estimasidilayani = $this->estimasidilayani;
         $antrian->keterangan = "Silahkan ke loket pendaftaran";
         $antrian->nama = $this->nama;
+        $antrian->status = 1;
         // periksa rujukan dan surat kontrol
         $api = new VclaimController();
         if ($antrian->jeniskunjungan == 3) {
@@ -394,7 +413,7 @@ class AnjunganAntrianMandiri extends Component
         $kunjungan->kode = $antrian->kodebooking;
         $kunjungan->counter = $counter;
         $kunjungan->tgl_masuk = now();
-        $kunjungan->jaminan = "00001";
+        $kunjungan->jaminan = "00003";
         $kunjungan->nomorkartu = $this->nomorkartu;
         $kunjungan->norm = $this->norm;
         $kunjungan->nama = $this->nama;
