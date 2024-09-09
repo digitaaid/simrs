@@ -73,7 +73,7 @@
             <tr>
                 <td>Alamat</td>
                 <td>:</td>
-                <td>{{ $antrian->nama ? $antrian->pasien->alamat : 'Belum Didaftarkan' }}
+                <td>{{ $antrian->pasien ? $antrian->pasien?->alamat : 'Belum Didaftarkan' }}
                 </td>
             </tr>
         </table>
