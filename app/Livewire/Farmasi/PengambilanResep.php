@@ -203,13 +203,20 @@ class PengambilanResep extends Component
             if ($res->metadata->code != 200) {
                 return flash($res->metadata->message, 'danger');
             }
+            $antrian->taskid = 7;
+            $antrian->taskid7 = now();
+            $antrian->status = 1;
+            $antrian->user4 = auth()->user()->id;
+            $antrian->update();
+            return flash('Pelayanan farmasi atas nama pasien ' . $antrian->nama . ' telah selesai.', 'success');
+        } else {
+            $antrian->taskid = 7;
+            $antrian->taskid7 = now();
+            $antrian->status = 1;
+            $antrian->user4 = auth()->user()->id;
+            $antrian->update();
+            flash('Pelayanan farmasi atas nama pasien ' . $antrian->nama . ' telah selesai.', 'success');
         }
-        $antrian->taskid = 7;
-        $antrian->taskid7 = now();
-        $antrian->status = 1;
-        $antrian->user4 = auth()->user()->id;
-        $antrian->update();
-        flash('Pelayanan farmasi atas nama pasien ' . $antrian->nama . ' telah selesai.', 'success');
     }
     public function mount(Request $request)
     {

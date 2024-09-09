@@ -42,9 +42,9 @@ class PemeriksaanPerawatRajal extends Component
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
                 ->orderBy('asesmen_rajals.status_asesmen_perawat', 'asc')
                 ->select('antrians.*')
-                ->where(function($query) use ($search) {
+                ->where(function ($query) use ($search) {
                     $query->where('antrians.nama', 'like', "%{$search}%")
-                          ->orWhere('antrians.norm', 'like', "%{$search}%");
+                        ->orWhere('antrians.norm', 'like', "%{$search}%");
                 })
                 ->get();
         }
@@ -56,9 +56,9 @@ class PemeriksaanPerawatRajal extends Component
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
                 ->orderBy('asesmen_rajals.status_asesmen_perawat', 'asc')
                 ->select('antrians.*')
-                ->where(function($query) use ($search) {
+                ->where(function ($query) use ($search) {
                     $query->where('antrians.nama', 'like', "%{$search}%")
-                          ->orWhere('antrians.norm', 'like', "%{$search}%");
+                        ->orWhere('antrians.norm', 'like', "%{$search}%");
                 })
                 ->get();
         }

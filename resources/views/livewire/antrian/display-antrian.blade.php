@@ -82,8 +82,8 @@
                     </div>
                     <div class="card-body">
                         <div class="text-center">
-                            <h1><span id="poliklinikhuruf"></span><span id="poliklinik">-</span> </h1>
-                            <h2><span id="poliklinikdokter"></span></h2>
+                            <h2></span><span id="poliklinikhuruf">-</span></span><span id="poliklinik">-</span> <span id="polikliniknama"></h2>
+                            <h2><span id="poliklinikpoli"></span></h2>
                         </div>
                     </div>
                 </div>
@@ -364,6 +364,7 @@
                 type: "GET",
                 dataType: 'json',
                 success: function(data) {
+                    console.log(data);
                     $('#pendaftaran').html(data.response.pendaftaran);
                     $('#pendaftaranhuruf').html(data.response.pendaftaranhuruf);
                     $('#tablependaftaran').empty()
@@ -387,7 +388,9 @@
                     }
                     $('#poliklinik').html(data.response.poliklinik);
                     $('#poliklinikhuruf').html(data.response.poliklinikhuruf);
-                    $('#poliklinikdokter').html(data.response.polikliniknama);
+                    $('#polikliniknama').html(data.response.polikliniknama);
+                    $('#poliklinikpoli').html(data.response.poliklinikpoli);
+
                     $('#tabledokter').empty()
                     $.each(data.response.poliklinikselanjutnya, function(i, val) {
                         $('#tabledokter').append('<tr><th><h3>' + val['nomorantrean'] +

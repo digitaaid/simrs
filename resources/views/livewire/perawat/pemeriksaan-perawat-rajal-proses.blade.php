@@ -19,9 +19,11 @@
                     href="{{ route('pemeriksaan.perawat.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}&jadwal={{ $antrian->jadwal_id }}">
                     <x-adminlte-button class="btn-xs mb-2" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
                 </a>
-                <x-adminlte-button wire:click='selesaiPerawat'
-                    wire:confirm='Apakah anda yakin telah selesai pemeriksaan perawat ?' class="btn-xs mb-2"
-                    label="Selesai & Kembali" theme="success" icon="fas fa-check" />
+                @if ($this->antrian->asesmenrajal)
+                    <x-adminlte-button wire:click='selesaiPerawat'
+                        wire:confirm='Apakah anda yakin telah selesai pemeriksaan perawat ?' class="btn-xs mb-2"
+                        label="Selesai & Kembali" theme="success" icon="fas fa-check" />
+                @endif
                 <div wire:loading>
                     <div class="spinner-border spinner-border-sm text-primary" role="status">
                     </div>

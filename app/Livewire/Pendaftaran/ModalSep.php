@@ -18,7 +18,6 @@ class ModalSep extends Component
     public $nomorkartu, $tanggal, $seps = [], $form = false;
     public $asalRujukan, $rujukans = [], $suratkontrols = [];
     public $noKartu, $noMR, $nama, $tglSep, $ppkPelayanan, $jnsPelayanan, $klsRawatHak, $tglRujukan, $noRujukan, $ppkRujukan, $catatan, $diagAwal, $tujuan, $eksekutif, $tujuanKunj = 0, $flagProcedure = "", $kdPenunjang = "", $assesmentPel = "", $noSurat, $kodeDPJP, $dpjpLayan, $noTelp, $user;
-
     public function hapusSurat($noSep)
     {
         $request = new Request([
@@ -37,6 +36,7 @@ class ModalSep extends Component
                     'sep' =>  null,
                 ]);
             }
+            $this->cariSEP();
             return flash($res->metadata->message, 'success');
         } else {
             return flash($res->metadata->message, 'danger');
