@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AntrianController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FarmasiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KasirController;
@@ -94,7 +95,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes(['verify' => true]);
-Route::get('/', [HomeController::class, 'landingpage'])->name('landingpage');
+Route::get('/', [LoginController::class, 'login'])->name('landingpage');
 // display antrian
 Route::get('displayantrian', [AntrianController::class, 'displayAntrian'])->name('displayantrian');
 Route::get('updatenomorantrean', [AntrianController::class, 'updatenomorantrean'])->name('updatenomorantrean');
