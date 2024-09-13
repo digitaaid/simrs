@@ -54,6 +54,7 @@ use App\Livewire\Farmasi\ObatIndex;
 use App\Livewire\Farmasi\PengambilanResep;
 use App\Livewire\Igd\PendaftaranIgd;
 use App\Livewire\Igd\PendaftaranIgdProses;
+use App\Livewire\Kamarbed\KamarBedIndex;
 use App\Livewire\Kasir\KasirPembayaran;
 use App\Livewire\Pendaftaran\DashboardPendaftaran;
 use App\Livewire\Perawat\LayananIndex;
@@ -159,6 +160,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('jadwaldokter', JadwalDokterIndex::class)->name('jadwaldokter.index');
         Route::get('obat', ObatIndex::class)->name('obat.index');
         Route::get('tindakan', TindakanIndex::class)->name('tindakan.index');
+        Route::get('kamar-bed', KamarBedIndex::class)->name('kamar.bed.index');
     });
     // anjungan antrian
     Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
