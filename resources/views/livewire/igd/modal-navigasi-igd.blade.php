@@ -6,53 +6,28 @@
                     <i class="fas fa-users"></i> Data Pasien
                     <span class="badge bg-success float-right">Pasien</span>
                 </a>
-                <a href="#identitaspasien" class="nav-link">
-                    <i class="fas fa-users"></i> Identitas Pasien
+                <a href="#triaseigd" class="nav-link">
+                    <i class="fas fa-ambulance"></i> Triase & Anamnesis
+                    {{-- <span class="badge bg-success float-right"></span> --}}
+                </a>
+                <a href="#anamnesis" class="nav-link">
+                    <i class="fas fa-user-md"></i> Asesmen Awal
                     {{-- <span class="badge bg-success float-right"></span> --}}
                 </a>
                 <a href="#identitaspasien" class="nav-link">
-                    <i class="fas fa-users"></i> Cara Pembayaran
+                    <i class="fas fa-users"></i> Diagnosis Klinis
                     {{-- <span class="badge bg-success float-right"></span> --}}
                 </a>
                 <a href="#identitaspasien" class="nav-link">
-                    <i class="fas fa-users"></i> General Consent
-                    {{-- <span class="badge bg-success float-right"></span> --}}
-                </a>
-                <a href="#identitaspasien" class="nav-link">
-                    <i class="fas fa-users"></i> Triase & Gawat Darurat
-                    {{-- <span class="badge bg-success float-right"></span> --}}
-                </a>
-                <a href="#identitaspasien" class="nav-link">
-                    <i class="fas fa-users"></i> Asesmen Awal IGD
-                    {{-- <span class="badge bg-success float-right"></span> --}}
-                </a>
-                <a href="#identitaspasien" class="nav-link">
-                    <i class="fas fa-users"></i> Screening IGD
-                    {{-- <span class="badge bg-success float-right"></span> --}}
-                </a>
-                <a href="#identitaspasien" class="nav-link">
-                    <i class="fas fa-users"></i> Laboratorium
-                    {{-- <span class="badge bg-success float-right"></span> --}}
-                </a>
-                <a href="#identitaspasien" class="nav-link">
-                    <i class="fas fa-users"></i> Radiologi
-                    {{-- <span class="badge bg-success float-right"></span> --}}
-                </a>
-                <a href="#identitaspasien" class="nav-link">
-                    <i class="fas fa-users"></i> Penunjang Lainnya
-                    {{-- <span class="badge bg-success float-right"></span> --}}
-                </a>
-                <a href="#identitaspasien" class="nav-link">
-                    <i class="fas fa-users"></i> Tindakan & Layanan
-                    {{-- <span class="badge bg-success float-right"></span> --}}
-                </a>
-                <a href="#identitaspasien" class="nav-link">
-                    <i class="fas fa-users"></i> Resep Obat Farmasi
+                    <i class="fas fa-users"></i> Instruksi Tindak Lanjut
                     {{-- <span class="badge bg-success float-right"></span> --}}
                 </a>
             </li>
         </ul>
         <x-slot name="footerSlot">
+            <a href="{{ route('pendaftaran.igd') }}?tanggalperiksa={{ $antrian->tanggalperiksa ?? now()->format('Y-m-d') }}">
+                <x-adminlte-button class="btn-xs mb-1" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
+            </a>
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>

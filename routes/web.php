@@ -8,6 +8,10 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SepController;
 use App\Http\Controllers\SuratKontrolController;
+use App\Livewire\Absensi\AbsensiProses;
+use App\Livewire\Absensi\LokasiAbsensi;
+use App\Livewire\Absensi\LokasiSaya;
+use App\Livewire\Absensi\ShiftAbsensi;
 use App\Livewire\Antrian\AnjunganAntrian;
 use App\Livewire\Antrian\AnjunganAntrianBpjs;
 use App\Livewire\Antrian\AnjunganAntrianCreate;
@@ -123,6 +127,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('pegawai/create', PegawaiForm::class)->name('pegawai.create');
         Route::get('pegawai/edit/{id}', PegawaiForm::class)->name('pegawai.edit');
     });
+    Route::get('absensi-proses', AbsensiProses::class)->name('absensi.proses');
+    Route::get('lokasi-saya', LokasiSaya::class)->name('lokasi.saya');
+    Route::get('lokasi-absensi', LokasiAbsensi::class)->name('lokasi.absensi');
+    Route::get('shift-absensi', ShiftAbsensi::class)->name('shift.absensi');
+
     Route::middleware(['can:antrian-bpjs'])->group(function () {
         Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->name('antrian.refpoliklinik')->lazy();
         Route::get('bpjs/antrian/refdokter', RefDokter::class)->name('antrian.refdokter')->lazy();
