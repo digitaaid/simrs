@@ -824,6 +824,68 @@ return [
                 ],
             ],
         ],
+        // SATU SEHAT
+        [
+            'text'    => 'Absensi',
+            'icon'    => 'fas fa-user-plus',
+            'submenu' => [
+                [
+                    'text' => 'Proses Absensi',
+                    'icon'    => 'fas fa-street-view',
+                    'url'  => 'absensi-proses',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Lokasi Saya',
+                    'icon'    => 'fas fa-map-marked-alt',
+                    'url'  => 'lokasi-saya',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Lokasi Absensi',
+                    'icon'    => 'fas fa-map-marked-alt',
+                    'url'  => 'lokasi-absensi',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Shift Absensi',
+                    'icon'    => 'fas fa-map-marked-alt',
+                    'url'  => 'shift-absensi',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Shift Pegawai',
+                    'icon'    => 'fas fa-map-marked-alt',
+                    'url'  => 'shift-pegawai',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Lembur',
+                    'icon'    => 'fas fa-map-marked-alt',
+                    'url'  => 'lembur-index',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Lembur Pegawai',
+                    'icon'    => 'fas fa-map-marked-alt',
+                    'url'  => 'lokasi-pegawai',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Cuti',
+                    'icon'    => 'fas fa-map-marked-alt',
+                    'url'  => 'lokasi-index',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Cuti Pegawai',
+                    'icon'    => 'fas fa-map-marked-alt',
+                    'url'  => 'lokasi-pegawai',
+                    'shift'   => 'ml-2',
+                ],
+
+            ],
+        ],
         ['header' => 'PENGATURAN'],
         [
             'text' => 'Aplikasi',

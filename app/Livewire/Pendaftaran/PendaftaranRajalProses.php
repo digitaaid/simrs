@@ -4,10 +4,7 @@ namespace App\Livewire\Pendaftaran;
 
 use App\Http\Controllers\AntrianController;
 use App\Models\Antrian;
-use App\Models\Dokter;
-use App\Models\Jaminan;
 use App\Models\Pasien;
-use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;

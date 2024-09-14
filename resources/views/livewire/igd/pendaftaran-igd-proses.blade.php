@@ -12,4 +12,17 @@
     </div>
     {{-- navigasi --}}
     @include('livewire.igd.modal-navigasi-igd')
+    {{-- form --}}
+    <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
+        <div id="datapasien">
+            @livewire('pendaftaran.modal-pasien-rajal', ['lazy' => true])
+        </div>
+        <div id="triaseigd">
+            @livewire('igd.modal-triase-igd', ['lazy' => true])
+        </div>
+        <div id="asesmenigd">
+            @livewire('igd.modal-asesmen-igd', ['lazy' => true])
+        </div>
+
+    </div>
 </div>

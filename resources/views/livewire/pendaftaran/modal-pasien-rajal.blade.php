@@ -4,7 +4,7 @@
             <x-adminlte-card title="Tambah Identitas Pasien Baru" theme="success" icon="fas fa-user-plus">
                 <div class="row">
                     <input hidden wire:model="id" name="id">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <x-adminlte-input wire:model="norm" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="norm" label="No RM" readonly />
                         <x-adminlte-input wire:model="nama" fgroup-class="row" label-class="text-left col-4"
@@ -36,7 +36,7 @@
                         <x-adminlte-input wire:model="nohp" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="nohp" label="No HP" />
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <x-adminlte-select wire:model="gender" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="gender" label="Sex">
                             <option value=null disabled>Pilih Jenis Kelamin</option>
@@ -60,7 +60,10 @@
                         <x-adminlte-input wire:model="fktp" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="fktp" label="FKTP" />
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div class="col-md-6">
                         <x-adminlte-input wire:model="alamat" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="alamat" label="Alamat" />
                         <x-adminlte-input wire:model.live="provinsi_id" list="provinsi_id_list" fgroup-class="row"
@@ -97,6 +100,14 @@
                         </datalist>
                         <x-adminlte-input wire:model="keterangan" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="keterangan" label="Keterangan" />
+                    </div>
+                    <div class="col-md-6">
+                        <x-adminlte-input wire:model="nama_ibu" fgroup-class="row" label-class="text-left col-4"
+                            igroup-class="col-8" igroup-size="sm" name="nama_ibu" label="Ibu Kandung" />
+                        <x-adminlte-input wire:model="bahasa" fgroup-class="row" label-class="text-left col-4"
+                            igroup-class="col-8" igroup-size="sm" name="bahasa" label="Bahasa Digunakan" />
+                        <x-adminlte-input wire:model="status_nikah" fgroup-class="row" label-class="text-left col-4"
+                            igroup-class="col-8" igroup-size="sm" name="status_nikah" label="Status Nikah" />
                     </div>
                 </div>
                 <x-slot name="footerSlot">
