@@ -14,6 +14,7 @@ class StokObatIndex extends Component
     {
         $this->obat = Obat::find($request->kode);
         $this->resepfarmasidetails = ResepFarmasiDetail::where('obat_id')->get();
+        dd($this->resepfarmasidetails);
     }
     public function render()
     {
