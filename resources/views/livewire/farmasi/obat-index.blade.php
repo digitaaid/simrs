@@ -151,6 +151,11 @@
                             <td>
                                 <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
                                     label="Edit" theme="warning" icon="fas fa-edit" />
+                                <a href="{{ route('stokobat.index') }}?kode={{ $item->id }}">
+                                    <x-adminlte-button class="btn-xs" label="Stok" theme="primary"
+                                        icon="fas fa-box" />
+                                </a>
+
                             </td>
                             <td>{{ $item->jenisobat }}</td>
                             <td>

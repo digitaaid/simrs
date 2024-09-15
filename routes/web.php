@@ -58,6 +58,7 @@ use App\Livewire\Dokter\PemeriksaanDokterRajal;
 use App\Livewire\Dokter\PemeriksaanDokterRajalProses;
 use App\Livewire\Farmasi\ObatIndex;
 use App\Livewire\Farmasi\PengambilanResep;
+use App\Livewire\Farmasi\StokObatIndex;
 use App\Livewire\Igd\PendaftaranIgd;
 use App\Livewire\Igd\PendaftaranIgdProses;
 use App\Livewire\Kamarbed\KamarBedIndex;
@@ -172,6 +173,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('unit', UnitIndex::class)->name('unit.index');
         Route::get('jadwaldokter', JadwalDokterIndex::class)->name('jadwaldokter.index');
         Route::get('obat', ObatIndex::class)->name('obat.index');
+        Route::get('stokobat', StokObatIndex::class)->name('stokobat.index');
         Route::get('tindakan', TindakanIndex::class)->name('tindakan.index');
         Route::get('kamar-bed', KamarBedIndex::class)->name('kamar.bed.index');
     });
