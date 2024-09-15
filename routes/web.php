@@ -12,6 +12,8 @@ use App\Livewire\Absensi\AbsensiProses;
 use App\Livewire\Absensi\LokasiAbsensi;
 use App\Livewire\Absensi\LokasiSaya;
 use App\Livewire\Absensi\ShiftAbsensi;
+use App\Livewire\Absensi\ShiftPegawai;
+use App\Livewire\Absensi\ShiftPegawaiEdit;
 use App\Livewire\Antrian\AnjunganAntrian;
 use App\Livewire\Antrian\AnjunganAntrianBpjs;
 use App\Livewire\Antrian\AnjunganAntrianCreate;
@@ -131,6 +133,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('lokasi-saya', LokasiSaya::class)->name('lokasi.saya');
     Route::get('lokasi-absensi', LokasiAbsensi::class)->name('lokasi.absensi');
     Route::get('shift-absensi', ShiftAbsensi::class)->name('shift.absensi');
+    Route::get('shift-pegawai', ShiftPegawai::class)->name('shift.pegawai');
+    Route::get('shift-pegawai-edit', ShiftPegawaiEdit::class)->name('shift.pegawai.edit');
 
     Route::middleware(['can:antrian-bpjs'])->group(function () {
         Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->name('antrian.refpoliklinik')->lazy();

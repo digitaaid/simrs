@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Livewire\Absensi\ShiftPegawai;
+use App\Models\ShiftPegawai as ModelsShiftPegawai;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -35,5 +37,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function pegawai()
     {
         return $this->hasOne(Pegawai::class);
+    }
+    public function shift_pegawai()
+    {
+        return $this->hasMany(ModelsShiftPegawai::class);
     }
 }

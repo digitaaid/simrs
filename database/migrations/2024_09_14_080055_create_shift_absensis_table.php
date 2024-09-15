@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('shift_absensis', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_shift');
+            $table->string('nama');
             $table->string('jam_masuk');
-            $table->string('jam_keluar');
+            $table->string('jam_pulang');
             $table->timestamps();
         });
     }
