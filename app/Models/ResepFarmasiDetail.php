@@ -11,6 +11,10 @@ class ResepFarmasiDetail extends Model
     protected $guarded = ['id'];
     public function kunjungan()
     {
-        return $this->hasOne(Kunjungan::class);
+        return $this->belongsTo(Kunjungan::class);
+    }
+    public function antrian()
+    {
+        return $this->belongsTo(Antrian::class);
     }
 }
