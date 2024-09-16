@@ -30,11 +30,11 @@ class AbsensiProses extends Component
             Storage::put($fileName, $image_base64);
             $request["foto_absensi_masuk"] = $fileName;
             $request["status_absen"] = "Masuk";
-            $request["absensi_masuk"] = now();
+            $request["absensi_pulang"] = now()->format("Y-m-d H:i");
             $shiftpegawai = ShiftPegawai::where('id', $id)->first();
             $tgl_skrg = date("Y-m-d");
-            $awal  = strtotime($shiftpegawai->tanggal . $shiftpegawai->jam_masuk);
-            $akhir = strtotime($tgl_skrg . $request["absensi_masuk"]);
+            $awal  = strtotime($shiftpegawai->tanggal . ' ' . $shiftpegawai->jam_masuk);
+            $akhir = strtotime($request["absensi_masuk"]);
             $diff  = $akhir - $awal;
             if ($diff <= 0) {
                 $request["telat"] = 0;

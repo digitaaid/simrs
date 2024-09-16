@@ -50,7 +50,7 @@
                     </div>
                     <div class="col-md-6">
                         Foto Masuk : {{ $shift->foto_absensi_masuk }}<br>
-                        <img src="" alt="">
+                        <img src="{{ asset('storage/app/' . $shift->foto_absensi_masuk) }}" alt="Foto Absensi Masuk">
                     </div>
                 </div>
 
@@ -67,7 +67,7 @@
                     </div>
                     <div class="col-md-6">
                         Foto Pulang : {{ $shift->foto_absensi_pulang }}<br>
-                        <img src="" alt="">
+                        <img src="{{ asset('storage/app/' . $shift->foto_absensi_pulang)  }}" alt="Foto Absensi Pulang">
                     </div>
                 </div>
             </x-adminlte-card>
