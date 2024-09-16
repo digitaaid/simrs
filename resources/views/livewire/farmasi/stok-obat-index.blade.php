@@ -16,8 +16,8 @@
 
             </div>
         </div>
-        @if ($form)
-            <div class="col-md-12">
+        <div class="col-md-12" id="formstok">
+            @if ($form)
                 <x-adminlte-card title="Stok Obat Masuk" theme="primary">
                     <div class="row">
                         <div class="col-md-6">
@@ -41,27 +41,27 @@
                                 label="Tanggal Expired" />
                         </div>
                         <div class="col-md-6">
-                            <x-adminlte-input wire:model="jumlah_kemasan" type="number" min=0 fgroup-class="row"
+                            {{-- <x-adminlte-input wire:model="jumlah_kemasan" type="number" min=0 fgroup-class="row"
                                 label-class="text-right col-4" igroup-class="col-8" igroup-size="sm"
                                 name="jumlah_kemasan" label="Jumlah Kemasan" />
                             <x-adminlte-input wire:model="konversi_satuan" type="number" fgroup-class="row"
                                 label-class="text-right col-4" igroup-class="col-8" igroup-size="sm"
-                                name="konversi_satuan" label="Konversi Satuan" min=1 />
+                                name="konversi_satuan" label="Konversi Satuan" min=1 /> --}}
                             <x-adminlte-input wire:model="jumlah_satuan" type="number" min=0 fgroup-class="row"
                                 label-class="text-right col-4" igroup-class="col-8" igroup-size="sm"
                                 name="jumlah_satuan" label="Jumlah Satuan" />
                         </div>
                     </div>
                     <x-slot name="footerSlot">
-                        <x-adminlte-button class="btn-sm" wire:click='store' class="mr-auto btn-sm"
-                            icon="fas fa-save" theme="success" label="Simpan"
+                        <x-adminlte-button class="btn-sm" wire:click='store' class="mr-auto btn-sm" icon="fas fa-save"
+                            theme="success" label="Simpan"
                             wire:confirm='Apakah anda yakin akan menambahkan stok obat ?' />
                         <x-adminlte-button theme="danger" wire:click='tambah' class="btn-sm" icon="fas fa-times"
                             label="Tutup" data-dismiss="modal" />
                     </x-slot>
                 </x-adminlte-card>
-            </div>
-        @endif
+            @endif
+        </div>
         <div class="col-md-12">
             <x-adminlte-card title="Informasi Obat Masuk" theme="secondary">
                 <div class="row ">
@@ -102,12 +102,14 @@
                                 <td>{{ money($stok->harga_beli, 'IDR') }}</td>
                                 <td>{{ money($stok->harga_beli + ($stok->harga_beli * 11) / 100, 'IDR') }} (11%)</td>
                                 <td>{{ $stok->diskon_beli }}</td>
-                                <td>{{ $stok->jumlah_kemasan }}</td>
+                                <td>{{ round($stok->jumlah_satuan / $obat->konversi_satuan) }}</td>
                                 <td>{{ $stok->jumlah_satuan }}</td>
                                 <td>{{ money($stok->total_harga, 'IDR') }}</td>
                                 <td>
-                                    <x-adminlte-button wire:click='edit({{ $stok->id }})' class="btn-xs"
-                                        theme="warning" icon="fas fa-edit" />
+                                    <a href="#formstok">
+                                        <x-adminlte-button wire:click='edit({{ $stok->id }})' class="btn-xs"
+                                            theme="warning" icon="fas fa-edit" />
+                                    </a>
                                     <x-adminlte-button wire:click='hapus({{ $stok->id }})' class="btn-xs"
                                         wire:confirm="Apakah anda yakin akan menghapus catatan obat masuk {{ $stok->kode }} ?"
                                         theme="danger" icon="fas fa-trash" />

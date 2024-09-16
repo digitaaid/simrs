@@ -14,7 +14,7 @@ class StokObatIndex extends Component
 {
     public $obat, $resepfarmasidetails, $stoks;
     public $id, $kode, $obat_id, $nama_obat, $harga_beli, $konversi_satuan;
-    public $diskon_beli = 0, $pajak_ppn = 11, $jumlah_satuan = 0, $jumlah_kemasan = 0, $tgl_input, $tgl_expire;
+    public $diskon_beli = 0, $pajak_ppn = 11, $jumlah_satuan = 0, $jumlah_kemasan = 0, $tgl_input , $tgl_expire;
     public $form = 0, $formedit = 0;
     public function store(Request $request)
     {
@@ -65,6 +65,7 @@ class StokObatIndex extends Component
     public function tambah()
     {
         $this->form = $this->form ? 0 : 1;
+        $this->tgl_input = now()->format('Y-m-d');
     }
     public function edit($id)
     {
@@ -88,10 +89,6 @@ class StokObatIndex extends Component
         $url = route('stokobat.index') . "?kode=" . $obat->id;
         return redirect()->to($url);
     }
-
-
-
-
     public function mount(Request $request)
     {
         $this->obat = Obat::find($request->kode);
