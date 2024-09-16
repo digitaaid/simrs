@@ -2,14 +2,18 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $obat->real_stok }}" text="Stok Obat" theme="success" icon="fas fa-pills" />
+                    <x-adminlte-small-box title="{{ $obat->real_stok }}" text="Stok Obat" theme="success"
+                        icon="fas fa-pills" />
                 </div>
                 <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="0" text="Pemakaian" theme="warning" icon="fas fa-pills" />
+                    <x-adminlte-small-box title="{{ $stoks->sum('jumlah_satuan') }}" text="Obat Masuk" theme="warning"
+                        icon="fas fa-pills" />
                 </div>
                 <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="0" text="Obat Masuk" theme="warning" icon="fas fa-pills" />
+                    <x-adminlte-small-box title="{{ $resepfarmasidetails->sum('jumlah') }}" text="Pemakaian"
+                        theme="warning" icon="fas fa-pills" />
                 </div>
+
             </div>
         </div>
         @if ($form)
