@@ -147,7 +147,7 @@
 
         </x-adminlte-card>
     </div>
-    <script type="text/javascript" src="{{ url('webcamjs/webcam.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('webcamjs/webcam.min.js') }}"></script>
     <script language="JavaScript">
         Webcam.set({
             width: 400,
