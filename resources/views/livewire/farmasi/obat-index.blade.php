@@ -136,7 +136,7 @@
                         <tr wire:key="{{ $item->id }}">
                             <td>{{ $loop->index + $obats->firstItem() }}</td>
                             <td>{{ $item->nama }}</td>
-                            <td></td>
+                            <td>{{ $item->real_stok }}</td>
                             <td>{{ $item->stok_minimum }}</td>
                             <td class="text-right">
                                 {{ is_numeric($item->harga_beli) ? money(floatval($item->harga_beli), 'IDR') : 'Tidak Valid' }}

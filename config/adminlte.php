@@ -533,7 +533,7 @@ return [
                     'url' => 'obat',
                     'icon' => 'fas fa-pills',
                     'can' => 'manajemen-farmasi',
-                    'active'  => ['obat', 'obat/create', 'obat/edit/*'],
+                    'active'  => ['obat', 'obat/create', 'obat/edit/*','stokobat'],
                     'shift'   => 'ml-2',
                 ],
                 [
