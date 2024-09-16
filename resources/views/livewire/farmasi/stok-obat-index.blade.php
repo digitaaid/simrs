@@ -1,4 +1,17 @@
     <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <x-adminlte-small-box title="0" text="Stok Obat" theme="success" icon="fas fa-pills" />
+                </div>
+                <div class="col-lg-3 col-6">
+                    <x-adminlte-small-box title="0" text="Pemakaian" theme="warning" icon="fas fa-pills" />
+                </div>
+                <div class="col-lg-3 col-6">
+                    <x-adminlte-small-box title="0" text="Obat Masuk" theme="warning" icon="fas fa-pills" />
+                </div>
+            </div>
+        </div>
         @if ($form)
             <div class="col-md-12">
                 <x-adminlte-card title="Stok Obat Masuk" theme="primary">
@@ -29,7 +42,6 @@
                 </x-adminlte-card>
             </div>
         @endif
-
         <div class="col-md-12">
             <x-adminlte-card title="Informasi Obat Masuk" theme="secondary">
                 <div class="row ">
@@ -56,16 +68,16 @@
                     </thead>
                     <tbody>
                         @foreach ($stoks as $stok)
-                        <tr>
-                            <th>{{ $stok->created_at }}</th>
-                            <th>{{ $stok->kode }}</th>
-                            <th>{{ $stok->tgl_expire }}</th>
-                            <th>{{ $stok->harga_beli }}</th>
-                            <th>{{ $stok->diskon_pembelian }}</th>
-                            <th>{{ $stok->jumlah_kemasan }}</th>
-                            <th>{{ $stok->jumlah_satuan }}</th>
-                            <th>{{ $stok->total_harga }}</th>
-                        </tr>
+                            <tr>
+                                <th>{{ $stok->created_at }}</th>
+                                <th>{{ $stok->kode }}</th>
+                                <th>{{ $stok->tgl_expire }}</th>
+                                <th>{{ $stok->harga_beli }}</th>
+                                <th>{{ $stok->diskon_pembelian }}</th>
+                                <th>{{ $stok->jumlah_kemasan }}</th>
+                                <th>{{ $stok->jumlah_satuan }}</th>
+                                <th>{{ $stok->total_harga }}</th>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
