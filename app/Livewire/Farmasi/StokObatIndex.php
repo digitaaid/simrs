@@ -22,7 +22,7 @@ class StokObatIndex extends Component
             $stok = StokObat::find($this->id);
             $obat = Obat::find($stok->obat_id);
             $stok->jumlah_kemasan = $this->jumlah_kemasan;
-            $stok->jumlah_satuan = $this->jumlah_satuan + ($obat->konversi_satuan * $this->jumlah_kemasan);
+            $stok->jumlah_satuan = $this->jumlah_satuan;
             $stok->harga_beli = $this->harga_beli;
             // $stok->pajak_ppn = $this->pajak_ppn;
             $stok->diskon_beli = $this->diskon_beli;
