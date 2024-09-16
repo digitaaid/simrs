@@ -21,7 +21,10 @@
                 <x-adminlte-card title="Stok Obat Masuk" theme="primary">
                     <div class="row">
                         <div class="col-md-6">
+                            <input type="hidden" wire:model="id" name="id">
                             <input type="hidden" wire:model="obat_id" name="obat_id">
+                            <x-adminlte-input wire:model="kode" fgroup-class="row" label-class="text-right col-4"
+                                igroup-class="col-8" igroup-size="sm" name="kode" label="Kode Stok Obat" readonly />
                             <x-adminlte-input wire:model="nama_obat" fgroup-class="row" label-class="text-right col-4"
                                 igroup-class="col-8" igroup-size="sm" name="nama_obat" label="Nama Obat" />
                             <x-adminlte-input wire:model="harga_beli" fgroup-class="row" label-class="text-right col-4"
@@ -50,8 +53,8 @@
                         </div>
                     </div>
                     <x-slot name="footerSlot">
-                        <x-adminlte-button class="btn-sm" wire:click='store' class="mr-auto btn-sm" icon="fas fa-save"
-                            theme="success" label="Simpan"
+                        <x-adminlte-button class="btn-sm" wire:click='store' class="mr-auto btn-sm"
+                            icon="fas fa-save" theme="success" label="Simpan"
                             wire:confirm='Apakah anda yakin akan menambahkan stok obat ?' />
                         <x-adminlte-button theme="danger" wire:click='tambah' class="btn-sm" icon="fas fa-times"
                             label="Tutup" data-dismiss="modal" />
@@ -86,6 +89,7 @@
                             <th>Jumlah/Kemasan</th>
                             <th>Jumlah/Satuan</th>
                             <th>Harga Total</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -101,6 +105,13 @@
                                 <td>{{ $stok->jumlah_kemasan }}</td>
                                 <td>{{ $stok->jumlah_satuan }}</td>
                                 <td>{{ money($stok->total_harga, 'IDR') }}</td>
+                                <td>
+                                    <x-adminlte-button wire:click='edit({{ $stok->id }})' class="btn-xs"
+                                        theme="warning" icon="fas fa-edit" />
+                                    <x-adminlte-button wire:click='hapus({{ $stok->id }})' class="btn-xs"
+                                        wire:confirm="Apakah anda yakin akan menghapus catatan obat masuk {{ $stok->kode }} ?"
+                                        theme="danger" icon="fas fa-trash" />
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
