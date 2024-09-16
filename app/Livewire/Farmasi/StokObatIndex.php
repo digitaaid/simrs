@@ -14,14 +14,14 @@ class StokObatIndex extends Component
 {
     public $obat, $resepfarmasidetails, $stoks;
     public $id, $kode, $obat_id, $nama_obat, $harga_beli, $konversi_satuan;
-    public $diskon_beli = 0, $pajak_ppn = 11, $jumlah_satuan = 0, $jumlah_kemasan = 0, $tgl_input , $tgl_expire;
+    public $diskon_beli = 0, $pajak_ppn = 11, $jumlah_satuan = 0, $jumlah_kemasan = 0, $tgl_input, $tgl_expire;
     public $form = 0, $formedit = 0;
     public function store(Request $request)
     {
         if ($this->id) {
             $stok = StokObat::find($this->id);
             $obat = Obat::find($stok->obat_id);
-            $stok->jumlah_kemasan = $this->jumlah_kemasan;
+            $stok->jumlah_kemasan = round($this->jumlah_satuan / $obat->konversi_satuan);
             $stok->jumlah_satuan = $this->jumlah_satuan;
             $stok->harga_beli = $this->harga_beli;
             // $stok->pajak_ppn = $this->pajak_ppn;
@@ -49,8 +49,8 @@ class StokObatIndex extends Component
             $request['tgl_expire'] = $this->tgl_expire;
             $request['user'] = Auth::user()->id;
             $request['pic'] = Auth::user()->name;
-            $request['jumlah_kemasan'] = $this->jumlah_kemasan;
-            $request['jumlah_satuan'] = $this->jumlah_satuan + ($obat->konversi_satuan * $this->jumlah_kemasan);
+            $request['jumlah_kemasan'] = round($this->jumlah_satuan / $obat->konversi_satuan);
+            $request['jumlah_satuan'] = $this->jumlah_satuan;
             $hargasatuan = $this->harga_beli / $obat->konversi_satuan;
             $hargatotal = $hargasatuan * $request->jumlah_satuan;
             $hargapppn = $hargatotal + ($hargatotal * 11 / 100);
