@@ -529,11 +529,25 @@ return [
                     'shift'   => 'ml-2',
                 ],
                 [
+                    'text' => 'Pemesanan Obat',
+                    'url' => 'pemesanan-obat',
+                    'icon' => 'fas fa-box',
+                    'can' => 'manajemen-farmasi',
+                    'shift'   => 'ml-2',
+                ],
+                [
                     'text' => 'Obat',
                     'url' => 'obat',
                     'icon' => 'fas fa-pills',
                     'can' => 'manajemen-farmasi',
                     'active'  => ['obat', 'obat/create', 'obat/edit/*','stokobat'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Stok Opname Obat',
+                    'url' => 'stok-opname',
+                    'icon' => 'fas fa-pills',
+                    'can' => 'manajemen-farmasi',
                     'shift'   => 'ml-2',
                 ],
                 [
