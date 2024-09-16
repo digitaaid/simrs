@@ -2,7 +2,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="0" text="Stok Obat" theme="success" icon="fas fa-pills" />
+                    <x-adminlte-small-box title="{{ $obat->real_stok }}" text="Stok Obat" theme="success" icon="fas fa-pills" />
                 </div>
                 <div class="col-lg-3 col-6">
                     <x-adminlte-small-box title="0" text="Pemakaian" theme="warning" icon="fas fa-pills" />
