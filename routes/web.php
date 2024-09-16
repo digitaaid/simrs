@@ -131,6 +131,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('pegawai/edit/{id}', PegawaiForm::class)->name('pegawai.edit');
     });
     Route::get('absensi-proses', AbsensiProses::class)->name('absensi.proses');
+    Route::put('absensi-masuk/{id}', [AbsensiProses::class, 'masuk'])->name('absensi.masuk');
+    Route::put('absensi-pulang/{id}', [AbsensiProses::class, 'pulang'])->name('absensi.pulang');
     Route::get('lokasi-saya', LokasiSaya::class)->name('lokasi.saya');
     Route::get('lokasi-absensi', LokasiAbsensi::class)->name('lokasi.absensi');
     Route::get('shift-absensi', ShiftAbsensi::class)->name('shift.absensi');

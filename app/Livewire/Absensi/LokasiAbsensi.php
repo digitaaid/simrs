@@ -4,6 +4,7 @@ namespace App\Livewire\Absensi;
 
 use App\Models\LokasiAbsensi as ModelsLokasiAbsensi;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LokasiAbsensi extends Component
 {
@@ -23,6 +24,9 @@ class LokasiAbsensi extends Component
                 'radius' => $this->radius,
             ]);
         }
+        Alert::success('Success','Berhasil Simpan Lokasi Absensi');
+        $url = route('lokasi.absensi');
+        redirect()->to($url);
     }
     public function mount()
     {

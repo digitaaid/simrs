@@ -40,7 +40,6 @@
         function showPosition(position) {
             $('#latitude').val(position.coords.latitude);
             $('#longitude').val(position.coords.longitude);
-            alert(position.coords.latitude, position.coords.longitude);
         }
 
         function showError(error) {
