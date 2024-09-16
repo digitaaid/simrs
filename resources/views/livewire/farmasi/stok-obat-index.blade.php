@@ -76,8 +76,9 @@
                                 <th>{{ $stok->created_at }}</th>
                                 <th>{{ $stok->kode }}</th>
                                 <th>{{ $stok->tgl_expire }}</th>
-                                <th>{{ $stok->harga_beli }}</th>
+                                <th>{{ $stok->nama }}</th>
                                 <th>{{ $stok->diskon_pembelian }}</th>
+                                <th>{{ $stok->harga_beli }}</th>
                                 <th>{{ $stok->jumlah_kemasan }}</th>
                                 <th>{{ $stok->jumlah_satuan }}</th>
                                 <th>{{ $stok->total_harga }}</th>
