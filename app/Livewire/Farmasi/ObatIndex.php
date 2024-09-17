@@ -5,6 +5,7 @@ namespace App\Livewire\Farmasi;
 use App\Exports\ObatExport;
 use App\Imports\ObatImport;
 use App\Models\Obat;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -14,7 +15,7 @@ class ObatIndex extends Component
 {
     use WithPagination;
     use WithFileUploads;
-    public $obat;
+    public $obat, $stokminus, $obataktif, $stokterbatas, $filter, $paginate = 1;
     public $id, $nama, $kemasan, $konversi_satuan, $satuan, $stok_minimum, $jenisobat, $tipeobat, $harga_beli, $diskon_beli, $harga_jual, $harga_klinik, $harga_bpjs, $merk, $distributor, $bpom, $barcode;
     public $search = '';
     public $form = false;
@@ -50,6 +51,14 @@ class ObatIndex extends Component
         $this->reset(['nama', 'kemasan', 'konversi_satuan', 'satuan', 'stok_minimum', 'jenisobat', 'tipeobat', 'harga_beli', 'diskon_beli', 'harga_jual', 'harga_klinik', 'harga_bpjs', 'merk', 'distributor', 'bpom', 'barcode']);
         $this->openForm();
         flash('Obat ' . $obat->nama . ' saved successfully', 'success');
+    }
+    public function nonaktif(Obat $obat)
+    {
+        $obat->status = $obat->status ? 0 : 1;
+        $obat->update();
+        flash('Obat ' . $obat->nama . ' dinonaktifkan successfully', 'success');
+        $this->reset(['nama', 'kemasan', 'konversi_satuan', 'satuan', 'stok_minimum', 'jenisobat', 'tipeobat', 'harga_beli', 'diskon_beli', 'harga_jual', 'harga_klinik', 'harga_bpjs', 'merk', 'distributor', 'bpom', 'barcode']);
+        $this->openForm();
     }
     public function edit(Obat $obat)
     {
@@ -105,13 +114,44 @@ class ObatIndex extends Component
     {
         $this->form = $this->form ? false : true;
     }
-    public function mount()
+    public function mount(Request $request)
     {
+        $this->filter = $request->filter;
+        $this->stokminus = Obat::all()->filter(function ($obat) {
+            return $obat->real_stok < 0;
+        })->count();
+        $this->stokterbatas = Obat::all()->filter(function ($obat) {
+            $stokmin = $obat->stok_minimum ?? 0;
+            return $obat->real_stok < $stokmin;
+        })->count();
+        $this->obataktif = Obat::where('status', 1)->count();
     }
     public function render()
     {
         $search = '%' . $this->search . '%';
-        $obats = Obat::where('nama', 'like', $search)->paginate();
+        if ($this->filter) {
+            $this->paginate = 0;
+            if ($this->filter == "minus") {
+                $obats = Obat::orderBy('nama', 'asc')
+                    ->orderBy('status', 'desc')
+                    ->all()->filter(function ($obat) {
+                        return $obat->real_stok < 0;
+                    });
+            }
+            if ($this->filter == "minimum") {
+                $obats = Obat::orderBy('nama', 'asc')
+                    ->orderBy('status', 'desc')
+                    ->all()->filter(function ($obat) {
+                        $stokmin = $obat->stok_minimum ?? 0;
+                        return $obat->real_stok < $stokmin;
+                    });
+            }
+        } else {
+            $obats = Obat::where('nama', 'like', $search)
+                ->orderBy('nama', 'asc')
+                ->orderBy('status', 'desc')
+                ->paginate();
+        }
         return view('livewire.farmasi.obat-index', compact('obats'))->title('Obat');
     }
 }
