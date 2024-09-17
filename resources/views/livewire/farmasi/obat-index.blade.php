@@ -223,7 +223,7 @@
                     <tbody>
                         @foreach ($obats as $item)
                             <tr wire:key="{{ $item->id }}">
-                                <td>{{ $loop->index }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->real_stok }}</td>
                                 <td>{{ $item->stok_minimum }}</td>
