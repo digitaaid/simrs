@@ -62,7 +62,7 @@
                             </td>
                             <td>
                                 @if ($item->foto_absensi_masuk)
-                                    <img width="10px" src="{{ url('storage/app/' . $item->foto_absensi_masuk) }}"
+                                    <img height="30px" src="{{ url('storage/app/' . $item->foto_absensi_masuk) }}"
                                         alt="Foto Absensi Pulang">
                                 @endif
                             </td>
@@ -79,7 +79,7 @@
                             </td>
                             <td>
                                 @if ($item->foto_absensi_pulang)
-                                    <img width="10px" src="{{ url('storage/app/' . $item->foto_absensi_pulang) }}"
+                                    <img width="30px" src="{{ url('storage/app/' . $item->foto_absensi_pulang) }}"
                                         alt="Foto Absensi Pulang">
                                 @endif
                             </td>
