@@ -28,6 +28,8 @@
                 </x-adminlte-input>
                 <x-adminlte-input wire:model='nama' name="nama" label="Nama Pasien" fgroup-class="row"
                     label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
+                <x-adminlte-input wire:model='nohp' name="nohp" label="No HP" fgroup-class="row"
+                    label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
                 <x-adminlte-input wire:model='tgl_lahir' name="tgl_lahir" type='date' label="Tanggal Lahir"
                     fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
                 <x-adminlte-input wire:model='gender' name="gender" label="Jenis Kelamin" fgroup-class="row"

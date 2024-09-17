@@ -47,6 +47,7 @@ class ModalKunjunganIgd extends Component
             'nomorkartu' => $this->nomorkartu,
             'nik' => $this->nik,
             'nama' => $this->nama,
+            'nohp' => $this->nohp,
             'tgl_lahir' => $this->tgl_lahir,
             'gender' => $this->gender,
             'hakkelas' => $this->hakkelas,
@@ -155,6 +156,7 @@ class ModalKunjunganIgd extends Component
         if ($kunjungan) {
             $this->nomorkartu = $kunjungan->nomorkartu;
             $this->nik = $kunjungan->pasien?->nik;
+            $this->nohp = $kunjungan->pasien?->nohp;
             $this->norm = $kunjungan->norm;
             $this->nama = $kunjungan->nama;
             $this->tgl_lahir = $kunjungan->tgl_lahir;
