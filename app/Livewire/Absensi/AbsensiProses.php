@@ -4,6 +4,7 @@ namespace App\Livewire\Absensi;
 
 use App\Models\LokasiAbsensi;
 use App\Models\ShiftPegawai;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -81,6 +82,7 @@ class AbsensiProses extends Component
     }
     public function distance($lat1, $lon1, $lat2, $lon2, $unit)
     {
+
         $theta = $lon1 - $lon2;
         $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
         $dist = acos($dist);

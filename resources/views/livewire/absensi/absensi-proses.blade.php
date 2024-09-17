@@ -91,9 +91,10 @@
                 <div class="row">
                     <div class="col-md-6">
                         Absensi Masuk : {{ $shift->absensi_masuk }}<br>
-                        Telat Masuk : {{ $shift->telat }}<br>
+                        Telat Masuk : {{ floor($shift->telat / 3600) }} jam {{ floor($shift->telat % 3600) / 60 }}
+                        menit<br>
                         Lokasi Masuk : {{ $shift->lat_masuk }} , {{ $shift->long_masuk }}<br>
-                        Jarak Masuk : {{ $shift->jarak_masuk }} m<br>
+                        Jarak Masuk : {{ round($shift->jarak_masuk) }} meter<br>
                     </div>
                     <div class="col-md-6">
                         Foto Masuk : {{ $shift->foto_absensi_masuk }}<br>
@@ -108,9 +109,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         Absensi Pulang : {{ $shift->absensi_pulang }}<br>
-                        Cepat Pulang : {{ $shift->pulang_cepat }}<br>
+                        Cepat Pulang : {{ floor($shift->pulang_cepat / 3600) }} jam
+                        {{ floor($shift->pulang_cepat % 3600) / 60 }}
+                        menit<br>
                         Lokasi Pulang : {{ $shift->lat_pulang }} , {{ $shift->long_pulang }}<br>
-                        Jarak Pulang : {{ $shift->jarak_pulang }} m<br>
+                        Jarak Pulang : {{ round($shift->jarak_pulang) }} meter<br>
                     </div>
                     <div class="col-md-6">
                         Foto Pulang : {{ $shift->foto_absensi_pulang }}<br>
