@@ -11,7 +11,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class AbsensiProses extends Component
 {
-    public $user, $shift;
+    public $user, $shift, $lat_kantor, $long_kantor, $rad_kantor;
 
     public function masuk($id, Request $request)
     {
@@ -102,6 +102,11 @@ class AbsensiProses extends Component
         $this->shift = ShiftPegawai::where('user_id', $this->user->id)
             ->where('tanggal', now()->format('Y-m-d'))
             ->first();
+
+        $lokasikantor = LokasiAbsensi::first();
+        $this->lat_kantor = $lokasikantor->latitude;
+        $this->long_kantor = $lokasikantor->longitude;
+        $this->rad_kantor = $lokasikantor->radius;
     }
     public function render()
     {
