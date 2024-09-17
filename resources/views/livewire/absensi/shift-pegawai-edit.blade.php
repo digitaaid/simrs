@@ -32,7 +32,11 @@
                         <th>Tanggal</th>
                         <th>Jam Kerja</th>
                         <th>Absensi Masuk</th>
+                        <th>Jarak Masuk</th>
+                        <th>Foto Masuk</th>
                         <th>Absensi Pulang</th>
+                        <th>Jarak Pulang</th>
+                        <th>Foto Pulang</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -46,8 +50,20 @@
                             <td>{{ $item->absensi_masuk ? \Carbon\Carbon::parse($item->absensi_masuk)->format('H:i:s') : '-' }}
                                 @if (!$item->absensi_pulang)
                                     @if ($item->absensi_masuk)
-                                        <x-adminlte-button wire:click="resetmasuk({{ $item->id }})" class="btn-xs" theme="warning" icon="fas fa-sync" />
+                                        <x-adminlte-button wire:click="resetmasuk({{ $item->id }})" class="btn-xs"
+                                            theme="warning" icon="fas fa-sync" />
                                     @endif
+                                @endif
+                            </td>
+                            <td>
+                                @if ($item->jarak_masuk)
+                                    {{ round($item->jarak_masuk) }} meter
+                                @endif
+                            </td>
+                            <td>
+                                @if ($item->foto_absensi_masuk)
+                                    <img width="10px" src="{{ url('storage/app/' . $item->foto_absensi_masuk) }}"
+                                        alt="Foto Absensi Pulang">
                                 @endif
                             </td>
                             <td>{{ $item->absensi_pulang ? \Carbon\Carbon::parse($item->absensi_pulang)->format('H:i:s') : '-' }}
@@ -56,6 +72,18 @@
                                         theme="warning" icon="fas fa-sync" />
                                 @endif
                             </td>
+                            <td>
+                                @if ($item->jarak_pulang)
+                                    {{ round($item->jarak_pulang) }} meter
+                                @endif
+                            </td>
+                            <td>
+                                @if ($item->foto_absensi_pulang)
+                                    <img width="10px" src="{{ url('storage/app/' . $item->foto_absensi_pulang) }}"
+                                        alt="Foto Absensi Pulang">
+                                @endif
+                            </td>
+
                             <td>
 
                             </td>
