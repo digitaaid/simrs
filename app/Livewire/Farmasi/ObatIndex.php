@@ -134,14 +134,14 @@ class ObatIndex extends Component
             if ($this->filter == "minus") {
                 $obats = Obat::orderBy('nama', 'asc')
                     ->orderBy('status', 'desc')
-                    ->all()->filter(function ($obat) {
+                    ->get()->filter(function ($obat) {
                         return $obat->real_stok < 0;
                     });
             }
             if ($this->filter == "minimum") {
                 $obats = Obat::orderBy('nama', 'asc')
                     ->orderBy('status', 'desc')
-                    ->all()->filter(function ($obat) {
+                    ->get()->filter(function ($obat) {
                         $stokmin = $obat->stok_minimum ?? 0;
                         return $obat->real_stok < $stokmin;
                     });
