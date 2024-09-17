@@ -27,6 +27,10 @@
                         <i class="fas fa-users"></i> Diagnosis Klinis
                         {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
+                    <a href="#resepdokterigd" class="nav-link">
+                        <i class="fas fa-pills"></i> Resep Obat
+                        {{-- <span class="badge bg-success float-right"></span> --}}
+                    </a>
                     <a href="#identitaspasien" class="nav-link">
                         <i class="fas fa-users"></i> Instruksi Tindak Lanjut
                         {{-- <span class="badge bg-success float-right"></span> --}}
