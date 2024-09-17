@@ -199,6 +199,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('pemeriksaan/dokter/rajal/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('pemeriksaan.dokter.rajal.proses');
     // farmasi
     Route::get('farmasi/pengambilan_resep', PengambilanResep::class)->name('pengambilan.resep');
+    Route::get('farmasi/pengambilan-obat-igd', PengambilanResep::class)->name('pengambilan.obat.igd');
+    Route::get('farmasi/pengambilan-obat-ranap', PengambilanResep::class)->name('pengambilan.obat.ranap');
     // rekam medis
     Route::get('rekammedis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
     Route::get('rekammedis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');

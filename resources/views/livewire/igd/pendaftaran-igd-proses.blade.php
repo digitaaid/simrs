@@ -29,6 +29,10 @@
         <div id="asesmenigd">
             @livewire('igd.modal-asesmen-igd', ['lazy' => true])
         </div>
+        <div id="tranferrawatinap">
+            @livewire('igd.modal-transfer-ranap', ['lazy' => true, 'kunjungan' => $kunjungan])
+        </div>
+
 
     </div>
 </div>

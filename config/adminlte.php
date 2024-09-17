@@ -415,6 +415,13 @@ return [
                     'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
                     'active'  => ['pendaftaran/igd', 'pendaftaran/igd/proses'],
                 ],
+                [
+                    'text' => 'Pengambilan Obat IGD',
+                    'url' => 'farmasi/pengambilan-obat-igd',
+                    'icon' => 'fas fa-pills',
+                    'shift'   => 'ml-2',
+                    'can' => ['farmasi', 'igd'],
+                ],
             ]
         ],
         [
@@ -428,6 +435,13 @@ return [
                     'shift'   => 'ml-2',
                     'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                ],
+                [
+                    'text' => 'Pengambilan Obat Ranap',
+                    'url' => 'farmasi/pengambilan-obat-ranap',
+                    'icon' => 'fas fa-pills',
+                    'shift'   => 'ml-2',
+                    'can' => ['farmasi', 'igd'],
                 ],
             ]
         ],
@@ -540,7 +554,7 @@ return [
                     'url' => 'obat',
                     'icon' => 'fas fa-pills',
                     'can' => 'manajemen-farmasi',
-                    'active'  => ['obat', 'obat/create', 'obat/edit/*','stokobat'],
+                    'active'  => ['obat', 'obat/create', 'obat/edit/*', 'stokobat'],
                     'shift'   => 'ml-2',
                 ],
                 [

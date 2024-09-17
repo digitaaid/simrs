@@ -27,12 +27,24 @@
                         <i class="fas fa-users"></i> Diagnosis Klinis
                         {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
+                    <a href="#layanan" class="nav-link">
+                        <i class="fas fa-hand-holding-medical"></i> Layanan & Tindakan
+                        {{-- <span class="badge bg-success float-right"></span> --}}
+                    </a>
                     <a href="#resepdokterigd" class="nav-link">
                         <i class="fas fa-pills"></i> Resep Obat
                         {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
-                    <a href="#identitaspasien" class="nav-link">
+                    <a href="#instruksitindaklanjut" class="nav-link">
                         <i class="fas fa-users"></i> Instruksi Tindak Lanjut
+                        {{-- <span class="badge bg-success float-right"></span> --}}
+                    </a>
+                    <a href="#tranferrawatinap" class="nav-link">
+                        <i class="fas fa-bed"></i> Transfer Rawat Inap
+                        {{-- <span class="badge bg-success float-right"></span> --}}
+                    </a>
+                    <a href="#resumeigd" class="nav-link">
+                        <i class="fas fa-file-medical"></i> Resume IGD
                         {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
                 @endif
