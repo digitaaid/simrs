@@ -9,7 +9,80 @@
                     Lokasi Saya : (<span class="latitude">0</span>, <span class="longitude">0</span>) <br>
                 </div>
                 <div class="col-md-6">
-                    <div id="map" style="width:100%;height:200px;"></div>
+                    <script>
+                        // Fungsi untuk menginisialisasi peta
+                        function initMap(lat, long) {
+                            var map = L.map('map').setView([lat, long], 18);
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                maxZoom: 19,
+                                attribution: '© OpenStreetMap'
+                            }).addTo(map);
+                            var marker = L.marker([lat, long]).addTo(map);
+                            marker.bindPopup("<b>Lokasi Saya</b>").openPopup();
+                            var circle = L.circle([{{ $lat_kantor }}, {{ $long_kantor }}], {
+                                color: 'red',
+                                fillColor: '#f03',
+                                fillOpacity: 0.5,
+                                radius: {{ $rad_kantor }}
+                            }).addTo(map);
+                            circle.bindPopup("<b>Radius Absensi</b>");
+                        }
+
+                        // Cek apakah geolocation tersedia
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(function(position) {
+                                var lat = position.coords.latitude;
+                                var long = position.coords.longitude;
+                                // Inisialisasi peta dengan latitude dan longitude yang didapat
+                            }, function() {
+                                // Jika pengguna menolak izin geolocation
+                                alert("Geolocation tidak diizinkan. Silakan masukkan latitude dan longitude secara manual.");
+                                // Anda bisa menginisialisasi dengan nilai default atau meminta pengguna memasukkan lokasi
+                                initMap('{{ $lat_kantor }}', '{{ $long_kantor }}'); // Misalnya menggunakan nilai default
+                            });
+                        } else {
+                            // Jika browser tidak mendukung geolocation
+                            alert("Geolocation tidak didukung oleh browser ini.");
+                            initMap("{{ $lat_kantor }}", "{{ $long_kantor }}"); // Menggunakan nilai default
+                        }
+                    </script>
+                    <script>
+                        function getLocation() {
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(showPosition, showError);
+                            } else {
+                                alert("Geolocation is not supported by this browser.");
+                            }
+                        }
+
+                        function showPosition(position) {
+                            var lat = position.coords.latitude;
+                            var long = position.coords.longitude;
+                            $('.latitude').html(position.coords.latitude);
+                            $('.longitude').html(position.coords.longitude);
+                            $('#lat').val(position.coords.latitude);
+                            $('#long').val(position.coords.longitude);
+                            console.log(lat, long);
+                            initMap(lat, long);
+                        }
+
+                        function showError(error) {
+                            switch (error.code) {
+                                case error.PERMISSION_DENIED:
+                                    alert("User denied the request for Geolocation.");
+                                    break;
+                                case error.POSITION_UNAVAILABLE:
+                                    alert("Location information is unavailable.");
+                                    break;
+                                case error.TIMEOUT:
+                                    alert("The request to get user location timed out.");
+                                    break;
+                                case error.UNKNOWN_ERROR:
+                                    alert("An unknown error occurred.");
+                                    break;
+                            }
+                        }
+                    </script>
                 </div>
             </div>
         </x-adminlte-card>
@@ -63,6 +136,7 @@
                                     <h2>Absensi Masuk : </h2>
                                     <h6>Lokasi Saat Ini : <span class="latitude">0</span>, <span
                                             class="longitude">0</span></h6>
+                                    <div id="map" style="width:100%;height:200px;"></div>
                                     <div class="webcam" id="results"></div>
                                 </center>
                             </div>
@@ -94,6 +168,7 @@
                                     <h2>Absensi Pulang : </h2>
                                     <h6>Lokasi Saat Ini : <span class="latitude">0</span>, <span
                                             class="longitude">0</span></h6>
+                                    <div id="map" style="width:100%;height:200px;"></div>
                                     <div class="webcam" id="results"></div>
                                 </center>
                             </div>
@@ -147,89 +222,7 @@
     </script>
     @section('js')
         <script>
-            $(function() {
-                initMap();
-            });
-        </script>
-        <script>
-            // Fungsi untuk menginisialisasi peta
-            function initMap(lat, long) {
-                var map = L.map('map').setView([lat, long], 18);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '© OpenStreetMap'
-                }).addTo(map);
-                var marker = L.marker([lat, long]).addTo(map);
-                marker.bindPopup("<b>Lokasi Saya</b>").openPopup();
-                var circle = L.circle([{{ $lat_kantor }}, {{ $long_kantor }}], {
-                    color: 'red',
-                    fillColor: '#f03',
-                    fillOpacity: 0.5,
-                    radius: {{ $rad_kantor }}
-                }).addTo(map);
-                circle.bindPopup("<b>Radius Absensi</b>");
-            }
-
-            // Cek apakah geolocation tersedia
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var lat = position.coords.latitude;
-                    var long = position.coords.longitude;
-                    $('.longitude').html(position.coords.longitude);
-                    $('.latitude').html(position.coords.latitude);
-                    $('#lat').val(position.coords.latitude);
-                    $('#long').val(position.coords.longitude);
-                    // Inisialisasi peta dengan latitude dan longitude yang didapat
-                    initMap(lat, long);
-                }, function() {
-                    // Jika pengguna menolak izin geolocation
-                    alert("Geolocation tidak diizinkan. Silakan masukkan latitude dan longitude secara manual.");
-                    // Anda bisa menginisialisasi dengan nilai default atau meminta pengguna memasukkan lokasi
-                    initMap(0, 0); // Misalnya menggunakan nilai default
-                });
-            } else {
-                // Jika browser tidak mendukung geolocation
-                alert("Geolocation tidak didukung oleh browser ini.");
-                initMap(0, 0); // Menggunakan nilai default
-            }
-        </script>
-        <script>
-            function getLocation() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(showPosition, showError);
-                } else {
-                    alert("Geolocation is not supported by this browser.");
-                }
-            }
-
-            function showPosition(position) {
-                var lat = position.coords.latitude;
-                var long = position.coords.longitude;
-                $('.latitude').html(position.coords.latitude);
-                $('.longitude').html(position.coords.longitude);
-                $('#lat').val(position.coords.latitude);
-                $('#long').val(position.coords.longitude);
-                console.log(lat, long);
-                initMap(lat, long);
-
-            }
-
-            function showError(error) {
-                switch (error.code) {
-                    case error.PERMISSION_DENIED:
-                        alert("User denied the request for Geolocation.");
-                        break;
-                    case error.POSITION_UNAVAILABLE:
-                        alert("Location information is unavailable.");
-                        break;
-                    case error.TIMEOUT:
-                        alert("The request to get user location timed out.");
-                        break;
-                    case error.UNKNOWN_ERROR:
-                        alert("An unknown error occurred.");
-                        break;
-                }
-            }
+            $(function() {});
         </script>
     @endsection
 </div>
