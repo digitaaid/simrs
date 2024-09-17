@@ -85,7 +85,10 @@
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
-
+                                <a href="{{ route('pendaftaran.igd.proses') }}?kode={{ $item->kode }}">
+                                    <x-adminlte-button class="btn-xs" label="Proses" theme="success"
+                                        icon="fas fa-hand-holding-medical" />
+                                </a>
                             </td>
                             <td>{{ $item->jeniskunjungan }}</td>
                             <td>{{ $item->units->nama }}</td>

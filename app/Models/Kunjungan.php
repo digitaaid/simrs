@@ -13,6 +13,10 @@ class Kunjungan extends Model
     {
         return $this->belongsTo(Antrian::class,  'kode', 'kodebooking');
     }
+    public function pasien()
+    {
+        return $this->hasOne(Pasien::class, 'norm', 'norm');
+    }
     public function dokters()
     {
         return $this->hasOne(Dokter::class, 'kode', 'dokter');
@@ -57,5 +61,4 @@ class Kunjungan extends Model
     {
         return $this->hasOne(User::class,  'id', 'user4');
     }
-
 }

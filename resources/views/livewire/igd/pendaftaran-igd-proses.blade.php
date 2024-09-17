@@ -18,7 +18,7 @@
             @livewire('pendaftaran.modal-pasien-rajal', ['lazy' => true])
         </div>
         <div id="kunjunganigd">
-            @livewire('igd.modal-kunjungan-igd', ['lazy' => true])
+            @livewire('igd.modal-kunjungan-igd', ['lazy' => true, 'kunjungan' => $kunjungan])
         </div>
         <div id="triaseigd">
             @livewire('igd.modal-triase-igd', ['lazy' => true])

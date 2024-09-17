@@ -11,19 +11,18 @@ use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ModalKunjunganIgd extends Component
 {
+    public $kunjungan;
     public $jaminans, $units, $dokters;
     public $norm, $nohp, $nomorkartu, $nama, $nik, $tgl_lahir, $jenispeserta, $fktp, $hakkelas, $gender;
     public $kode, $counter, $tgl_masuk, $unit, $dokter, $cara_masuk, $jeniskunjungan, $penjamin, $nomorreferensi, $sep;
-
-
     public function editKunjungan()
     {
         $this->validate([
             'norm' => 'required',
-            'nohp' => 'required',
             'nomorkartu' => 'required',
             'nik' => 'required|digits:16',
             'nama' => 'required',
@@ -39,7 +38,6 @@ class ModalKunjunganIgd extends Component
             'jeniskunjungan' => 'required',
         ]);
         if (!$this->kode && !$this->counter) {
-            # code...
             $this->counter = Kunjungan::where('norm', $this->norm)->first()?->counter ?? 1;
             $this->kode = strtoupper(uniqid());
         }
@@ -77,7 +75,10 @@ class ModalKunjunganIgd extends Component
             'status' => 1,
             'user1' => auth()->user()->id,
         ]);
-        dd($this->all(), $kunjungan);
+        Alert::success('Success', 'Kunjungan berhasil disimpan');
+        // flash('Kunjungan berhasil disimpan', 'success');
+        $url = route('pendaftaran.igd.proses') . "?kode=" . $kunjungan->kode;
+        redirect()->to($url);
     }
     public function cariNomorKartu()
     {
@@ -148,8 +149,29 @@ class ModalKunjunganIgd extends Component
             $this->jenispeserta = $pasien->jenispeserta;
         }
     }
-    public function mount()
+    public function mount($kunjungan)
     {
+        $this->kunjungan = $kunjungan;
+        if ($kunjungan) {
+            $this->nomorkartu = $kunjungan->nomorkartu;
+            $this->nik = $kunjungan->pasien?->nik;
+            $this->norm = $kunjungan->norm;
+            $this->nama = $kunjungan->nama;
+            $this->tgl_lahir = $kunjungan->tgl_lahir;
+            $this->gender = $kunjungan->gender;
+            $this->hakkelas = $kunjungan->kelas;
+            $this->jenispeserta = $kunjungan->penjamin;
+            $this->kode = $kunjungan->kode;
+            $this->counter = $kunjungan->counter;
+            $this->tgl_masuk = $kunjungan->tgl_masuk;
+            $this->unit = $kunjungan->unit;
+            $this->dokter = $kunjungan->dokter;
+            $this->cara_masuk = $kunjungan->cara_masuk;
+            $this->jeniskunjungan = $kunjungan->jeniskunjungan;
+            $this->penjamin = $kunjungan->jaminan;
+            $this->nomorreferensi = $kunjungan->nomorreferensi;
+            $this->sep = $kunjungan->sep;
+        }
         $this->jaminans = Jaminan::pluck('nama', 'kode');
         $this->units = Unit::where("jenis", "Pelayanan IGD")->pluck('nama', 'kode');
         $this->dokters = Dokter::pluck('nama', 'kode');

@@ -14,22 +14,24 @@
                         <span class="badge bg-danger float-right">Belum Daftar</span>
                     @endif
                 </a>
-                <a href="#triaseigd" class="nav-link">
-                    <i class="fas fa-ambulance"></i> Triase & Anamnesis
-                    {{-- <span class="badge bg-success float-right"></span> --}}
-                </a>
-                <a href="#anamnesis" class="nav-link">
-                    <i class="fas fa-user-md"></i> Asesmen Awal
-                    {{-- <span class="badge bg-success float-right"></span> --}}
-                </a>
-                <a href="#identitaspasien" class="nav-link">
-                    <i class="fas fa-users"></i> Diagnosis Klinis
-                    {{-- <span class="badge bg-success float-right"></span> --}}
-                </a>
-                <a href="#identitaspasien" class="nav-link">
-                    <i class="fas fa-users"></i> Instruksi Tindak Lanjut
-                    {{-- <span class="badge bg-success float-right"></span> --}}
-                </a>
+                @if ($kunjungan)
+                    <a href="#triaseigd" class="nav-link">
+                        <i class="fas fa-ambulance"></i> Triase & Anamnesis
+                        {{-- <span class="badge bg-success float-right"></span> --}}
+                    </a>
+                    <a href="#anamnesis" class="nav-link">
+                        <i class="fas fa-user-md"></i> Asesmen Awal
+                        {{-- <span class="badge bg-success float-right"></span> --}}
+                    </a>
+                    <a href="#identitaspasien" class="nav-link">
+                        <i class="fas fa-users"></i> Diagnosis Klinis
+                        {{-- <span class="badge bg-success float-right"></span> --}}
+                    </a>
+                    <a href="#identitaspasien" class="nav-link">
+                        <i class="fas fa-users"></i> Instruksi Tindak Lanjut
+                        {{-- <span class="badge bg-success float-right"></span> --}}
+                    </a>
+                @endif
             </li>
         </ul>
         <x-slot name="footerSlot">
