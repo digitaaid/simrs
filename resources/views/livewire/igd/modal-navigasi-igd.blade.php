@@ -6,6 +6,14 @@
                     <i class="fas fa-users"></i> Data Pasien
                     <span class="badge bg-success float-right">Pasien</span>
                 </a>
+                <a href="#kunjunganigd" class="nav-link">
+                    <i class="fas fa-ambulance"></i> Kunjungan
+                    @if ($kunjungan)
+                        <span class="badge bg-success float-right">Sudah</span>
+                    @else
+                        <span class="badge bg-danger float-right">Belum Daftar</span>
+                    @endif
+                </a>
                 <a href="#triaseigd" class="nav-link">
                     <i class="fas fa-ambulance"></i> Triase & Anamnesis
                     {{-- <span class="badge bg-success float-right"></span> --}}
@@ -25,7 +33,8 @@
             </li>
         </ul>
         <x-slot name="footerSlot">
-            <a href="{{ route('pendaftaran.igd') }}?tanggalperiksa={{ $antrian->tanggalperiksa ?? now()->format('Y-m-d') }}">
+            <a
+                href="{{ route('pendaftaran.igd') }}?tanggalperiksa={{ $antrian->tanggalperiksa ?? now()->format('Y-m-d') }}">
                 <x-adminlte-button class="btn-xs mb-1" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
             </a>
             <div wire:loading>

@@ -8,20 +8,11 @@
     @endif
     <div class="col-md-12">
         <div class="row">
+
             <div class="col-lg-3 col-6">
                 <x-adminlte-small-box
-                    title="{{ count($antrians) ? $antrians->where('taskid', '!=', 99)->count() : '-' }}"
-                    text="Total Pasien" theme="success" icon="fas fa-user-injured" />
-            </div>
-            <div class="col-lg-3 col-6">
-                <x-adminlte-small-box
-                    title="{{ count($antrians) ? $antrians->where('jenispasien', 'JKN')->count() : '-' }}"
-                    text="Pasien JKN" theme="warning" icon="fas fa-user-injured" />
-            </div>
-            <div class="col-lg-3 col-6">
-                <x-adminlte-small-box
-                    title="{{ count($antrians) ? $antrians->where('jenispasien', 'NON-JKN')->count() : '-' }}"
-                    text="Pasien NON-JKN" theme="warning" icon="fas fa-user-injured" />
+                    title="{{ count($kunjungans) ? $kunjungans->where('jeniskunjungan', '5')->count() : '-' }}"
+                    text="Pasien IGD" theme="success" icon="fas fa-user-injured" />
             </div>
         </div>
     </div>
@@ -67,20 +58,17 @@
             @php
                 $heads = [
                     'No',
-                    'Antrian',
-                    'Kodebooking',
+                    'Tgl Masuk',
+                    'Counter',
                     'No RM',
                     'Nama Pasien',
                     'Action',
-                    'Taskid',
-                    'Jenis Pasien',
                     'Layanan',
                     'Unit',
                     'Dokter',
                     'PIC',
                     'Kartu BPJS',
                     'NIK',
-                    'Method',
                     'Status',
                 ];
                 $config['order'] = [5, 'asc'];
@@ -88,97 +76,23 @@
             @endphp
             <x-adminlte-datatable id="table1" class="text-nowrap" :heads="$heads" :config="$config" bordered
                 hoverable compressed>
-                @isset($antrians)
-                    @foreach ($antrians as $item)
+                @isset($kunjungans)
+                    @foreach ($kunjungans as $item)
                         <tr>
-                            <td>{{ $item->angkaantrean }}</td>
-                            <td>{{ $item->nomorantrean }}</td>
-                            <td>{{ $item->kodebooking }}</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->tgl_masuk }}</td>
+                            <td>{{ $item->counter }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
-                                @if ($item->taskid <= 2)
-                                    <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
-                                        <x-adminlte-button class="btn-xs" label="Proses" theme="success"
-                                            icon="fas fa-user-plus" />
-                                    </a>
-                                @else
-                                    <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
-                                        <x-adminlte-button class="btn-xs" label="Lihat" theme="secondary"
-                                            icon="fas fa-user-plus" />
-                                    </a>
-                                @endif
 
-                                {{-- @switch($item->taskid)
-                                    @case(1)
-                                        <a href="{{ route('prosespendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-warning withLoad">Proses</a>
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-secondary withLoad">Lihat</a>
-                                    @break
-
-                                    @case(2)
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-primary withLoad">Proses</a>
-                                    @break
-
-                                    @default
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-secondary withLoad">Lihat</a>
-                                @endswitch --}}
                             </td>
-                            <td>
-                                @switch($item->taskid)
-                                    @case(0)
-                                        <span class="badge badge-secondary">98. Belum Checkin</span>
-                                    @break
-
-                                    @case(1)
-                                        <span class="badge badge-warning">1. Menunggu Pendaftaran</span>
-                                    @break
-
-                                    @case(2)
-                                        <span class="badge badge-primary">0. Proses Pendaftaran</span>
-                                    @break
-
-                                    @case(3)
-                                        <span class="badge badge-warning">3. Menunggu Poliklinik</span>
-                                    @break
-
-                                    @case(4)
-                                        <span class="badge badge-primary">4. Pelayanan Poliklinik</span>
-                                    @break
-
-                                    @case(5)
-                                        <span class="badge badge-warning">5. Tunggu Farmasi</span>
-                                    @break
-
-                                    @case(6)
-                                        <span class="badge badge-primary">6. Racik Obat</span>
-                                    @break
-
-                                    @case(7)
-                                        <span class="badge badge-success">7. Selesai</span>
-                                    @break
-
-                                    @case(99)
-                                        <span class="badge badge-danger">99. Batal</span>
-                                        {{-- <a href="{{ route('tidakjadibatal') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-primary withLoad"><i class="fas fa-sync"></i> </a> --}}
-                                    @break
-
-                                    @default
-                                        {{ $item->taskid }}
-                                @endswitch
-                            </td>
-                            <td>{{ $item->jenispasien }} </td>
-                            <td class="text-right">{{ money($item->layanans->sum('harga'), 'IDR') }} </td>
-                            <td>{{ $item->kunjungan->units->nama ?? $item->namapoli }} </td>
-                            <td>{{ $item->kunjungan->dokters->namadokter ?? $item->namadokter }}</td>
-                            <td>{{ $item->pic1->name ?? 'Belum Didaftarkan' }} </td>
+                            <td>{{ $item->jeniskunjungan }}</td>
+                            <td>{{ $item->units->nama }}</td>
+                            <td>{{ $item->dokters->nama }}</td>
+                            <td>{{ $item->pic1->name }}</td>
                             <td>{{ $item->nomorkartu }}</td>
                             <td>{{ $item->nik }} </td>
-                            <td>{{ $item->method }} </td>
                             <td>{{ $item->status }} </td>
                         </tr>
                     @endforeach

@@ -41,5 +41,21 @@ class Kunjungan extends Model
     {
         return $this->hasMany(ResepFarmasiDetail::class);
     }
+    public function pic1()
+    {
+        return $this->hasOne(User::class,  'id', 'user1');
+    }
+    public function pic2()
+    {
+        return $this->hasOne(User::class,  'id', 'user2');
+    }
+    public function pic3()
+    {
+        return $this->hasOne(User::class,  'id', 'user3');
+    }
+    public function pic4()
+    {
+        return $this->hasOne(User::class,  'id', 'user4');
+    }
 
 }

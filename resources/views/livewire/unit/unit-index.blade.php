@@ -35,7 +35,7 @@
                                 <option value=null disabled>Pilih Jenis</option>
                                 <option>Pelayanan Rawat Jalan</option>
                                 <option>Pelayanan Rawat Inap</option>
-                                <option>Pelayanan Rawat IGD</option>
+                                <option>Pelayanan IGD</option>
                                 <option>Pelayanan Farmasi</option>
                             </x-adminlte-select>
                             <x-adminlte-input wire:model="lokasi" fgroup-class="row" label-class="text-left col-4"

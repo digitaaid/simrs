@@ -2,8 +2,6 @@
     <x-adminlte-card theme="primary" title="Triase IGD" icon="fas fa-ambulance">
         <div class="row">
             <div class="col-md-6">
-                <x-adminlte-input wire:model="tgl_masuk" fgroup-class="row" label-class="text-left col-4"
-                    igroup-class="col-8" igroup-size="sm" name="tgl_masuk" label="Tanggal Masuk" />
                 <x-adminlte-input wire:model="sarana_transportasi" fgroup-class="row" label-class="text-left col-4"
                     igroup-class="col-8" igroup-size="sm" name="sarana_transportasi" label="Sarana Transportasi" />
                 <x-adminlte-input wire:model="surat_rujukan" fgroup-class="row" label-class="text-left col-4"

@@ -3,12 +3,13 @@
 namespace App\Livewire\Igd;
 
 use App\Models\Antrian;
+use App\Models\Kunjungan;
 use Livewire\Component;
 
 class PendaftaranIgd extends Component
 {
     public $tanggalperiksa;
-    public $antrians = [];
+    public $kunjungans = [];
     public $search = '';
     public function render()
     {
@@ -17,27 +18,11 @@ class PendaftaranIgd extends Component
         }
         if ($this->tanggalperiksa) {
             $search = '%' . $this->search . '%';
-            $this->antrians = Antrian::where('tanggalperiksa', $this->tanggalperiksa)
-                ->where(function ($query) use ($search) {
-                    $query->where('nama', 'like', "%{$search}%")
-                        ->orWhere('norm', 'like', "%{$search}%");
-                })
-                ->orderBy('taskid', 'asc')
-                ->get();
+            $this->kunjungans = Kunjungan::where('jeniskunjungan',5)->get();
         }
         if ($this->search && $this->tanggalperiksa == null) {
             $search = '%' . $this->search . '%';
-            $this->antrians = Antrian::where('taskid', '>=', 3)
-                ->where('taskid', '!=', 99)
-                ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')
-                ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
-                ->orderBy('asesmen_rajals.status_asesmen_perawat', 'asc')
-                ->select('antrians.*')
-                ->where(function ($query) use ($search) {
-                    $query->where('antrians.nama', 'like', "%{$search}%")
-                        ->orWhere('antrians.norm', 'like', "%{$search}%");
-                })
-                ->get();
+            $this->kunjungans = Kunjungan::where('jeniskunjungan',5)->get();
         }
         return view('livewire.igd.pendaftaran-igd')->title('Pendaftaran IGD');
     }
