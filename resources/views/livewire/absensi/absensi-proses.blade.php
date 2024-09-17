@@ -101,11 +101,10 @@
                             alt="Foto Absensi Masuk">
                     </div>
                 </div>
-
             </x-adminlte-card>
         @endif
         @if ($shift->absensi_pulang)
-            <x-adminlte-card title="Absensi Masuk" theme="primary">
+            <x-adminlte-card title="Absensi Pulang" theme="primary">
                 <div class="row">
                     <div class="col-md-6">
                         Absensi Pulang : {{ $shift->absensi_pulang }}<br>
@@ -125,7 +124,7 @@
     <div class="col-md-6">
         <x-adminlte-card title="Proses Absensi" theme="primary">
             @if ($shift)
-                @if (!$shift->absensi_masuk)
+                @if ($shift->status_absen == null)
                     <form method="post" action="{{ route('absensi.masuk', $shift->id) }}">
                         @method('put')
                         @csrf

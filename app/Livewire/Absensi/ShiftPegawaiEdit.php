@@ -8,6 +8,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ShiftPegawaiEdit extends Component
 {
@@ -18,7 +19,6 @@ class ShiftPegawaiEdit extends Component
         $this->user = User::find($request->kode);
         $this->shifts = ShiftAbsensi::get();
     }
-
     public function store()
     {
         $this->user_id = $this->user->id;
@@ -44,6 +44,36 @@ class ShiftPegawaiEdit extends Component
                 ]
             );
         }
+    }
+    public function resetpulang($id)
+    {
+        $shift = ShiftPegawai::find($id);
+        $shift->absensi_pulang = null;
+        $shift->pulang_cepat = null;
+        $shift->lat_pulang = null;
+        $shift->long_pulang = null;
+        $shift->jarak_pulang = null;
+        $shift->foto_absensi_pulang = null;
+        $shift->status_absen = null;
+        $shift->update();
+        Alert::success('Success', 'Absensi Pulang Berhasil Direset');
+        $url = route('shift.pegawai.edit') . "?kode=" . $shift->user_id;
+        return redirect()->to($url);
+    }
+    public function resetmasuk($id)
+    {
+        $shift = ShiftPegawai::find($id);
+        $shift->absensi_masuk = null;
+        $shift->telat = null;
+        $shift->lat_masuk = null;
+        $shift->long_masuk = null;
+        $shift->jarak_masuk = null;
+        $shift->foto_absensi_masuk = null;
+        $shift->status_absen = "Masuk";
+        $shift->update();
+        Alert::success('Success', 'Absensi Masuk Berhasil Direset');
+        $url = route('shift.pegawai.edit') . "?kode=" . $shift->user_id;
+        return redirect()->to($url);
     }
     public function render()
     {

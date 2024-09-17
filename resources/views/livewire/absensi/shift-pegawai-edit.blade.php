@@ -27,24 +27,39 @@
             <table class="table text-nowrap table-sm table-hover table-bordered mb-3">
                 <thead>
                     <tr>
-                        <th>Tanggal</th>
                         <th>Nama Pegawai</th>
                         <th>Shift Kerja</th>
-                        <th>Jam Masuk</th>
-                        <th>Jam Pulang</th>
+                        <th>Tanggal</th>
+                        <th>Jam Kerja</th>
+                        <th>Absensi Masuk</th>
+                        <th>Absensi Pulang</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($user->shift_pegawai as $item)
-                    <tr>
-                        <td>{{ $item->tanggal }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $item->nama_shift }}</td>
-                        <td>{{ $item->jam_masuk }}</td>
-                        <td>{{ $item->jam_pulang }}</td>
-                    </tr>
+                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $item->nama_shift }}</td>
+                            <td>{{ $item->tanggal }}</td>
+                            <td>{{ $item->jam_masuk }}-{{ $item->jam_pulang }}</td>
+                            <td>{{ $item->absensi_masuk ? \Carbon\Carbon::parse($item->absensi_masuk)->format('H:i:s') : '-' }}
+                                @if (!$item->absensi_pulang)
+                                    @if ($item->absensi_masuk)
+                                        <x-adminlte-button wire:click="resetmasuk({{ $item->id }})" class="btn-xs" theme="warning" icon="fas fa-sync" />
+                                    @endif
+                                @endif
+                            </td>
+                            <td>{{ $item->absensi_pulang ? \Carbon\Carbon::parse($item->absensi_pulang)->format('H:i:s') : '-' }}
+                                @if ($item->absensi_pulang)
+                                    <x-adminlte-button wire:click="resetpulang({{ $item->id }})" class="btn-xs"
+                                        theme="warning" icon="fas fa-sync" />
+                                @endif
+                            </td>
+                            <td>
 
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
