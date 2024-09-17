@@ -132,15 +132,15 @@ class ObatIndex extends Component
         if ($this->filter) {
             $this->paginate = 0;
             if ($this->filter == "minus") {
-                $obats = Obat::orderBy('nama', 'asc')
-                    ->orderBy('status', 'desc')
+                $obats = Obat::orderBy('status', 'asc')
+                    ->orderBy('nama', 'desc')
                     ->get()->filter(function ($obat) {
                         return $obat->real_stok < 0;
                     });
             }
             if ($this->filter == "minimum") {
-                $obats = Obat::orderBy('nama', 'asc')
-                    ->orderBy('status', 'desc')
+                $obats = Obat::orderBy('status', 'asc')
+                    ->orderBy('nama', 'desc')
                     ->get()->filter(function ($obat) {
                         $stokmin = $obat->stok_minimum ?? 0;
                         return $obat->real_stok < $stokmin;
@@ -148,8 +148,8 @@ class ObatIndex extends Component
             }
         } else {
             $obats = Obat::where('nama', 'like', $search)
+            ->orderBy('status', 'desc')
                 ->orderBy('nama', 'asc')
-                ->orderBy('status', 'desc')
                 ->paginate();
         }
         return view('livewire.farmasi.obat-index', compact('obats'))->title('Obat');
