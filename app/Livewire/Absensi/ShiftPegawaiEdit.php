@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Absensi;
 
+use App\Models\ActivityLog;
 use App\Models\ShiftAbsensi;
 use App\Models\ShiftPegawai;
 use App\Models\User;
@@ -43,6 +44,11 @@ class ShiftPegawaiEdit extends Component
         $shift->jam_pulang = $jadwal->jam_pulang;
         $shift->update();
         $this->formEdit =  0;
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Update/Create Jadwal Shift Kerja',
+            'description' => auth()->user()->name . ' telah menyimpan jadwal ' . $shift->user?->name . ' shift kerja ' . $shift->nama,
+        ]);
     }
     public function store()
     {
@@ -56,7 +62,7 @@ class ShiftPegawaiEdit extends Component
             $tglawal->addDay();
         }
         foreach ($jadwals as $tanggal) {
-            ShiftPegawai::updateOrCreate(
+            $jadwal = ShiftPegawai::updateOrCreate(
                 [
                     'tanggal' => $tanggal,
                     'user_id' => $this->user_id,
@@ -69,12 +75,23 @@ class ShiftPegawaiEdit extends Component
                 ]
             );
         }
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Create Jadwal Shift Kerja',
+            'description' => auth()->user()->name . ' telah menyimpan jadwal shift kerja ' . $jadwal->user?->name,
+        ]);
+        $this->formTambah = 0;
     }
     public function hapus($id)
     {
         $shift =  ShiftPegawai::find($id);
         if (!$shift->absensi_masuk) {
             $shift->delete();
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Delete Absensi',
+                'description' => auth()->user()->name . ' telah menghapus absensi ' . $shift->user?->name . ' tanggal ' . $shift->tanggal,
+            ]);
             flash('Jadwal shift kerja berhasil dihapus', 'success');
         } else {
             flash('Tidak bisa dihapus karena telah absesni', 'danger');
@@ -91,6 +108,11 @@ class ShiftPegawaiEdit extends Component
         $shift->foto_absensi_pulang = null;
         $shift->status_absen = "Masuk";
         $shift->update();
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Reset Absensi',
+            'description' => auth()->user()->name . ' telah mereset absensi ' . $shift->user?->name . ' tanggal ' . $shift->tanggal,
+        ]);
         Alert::success('Success', 'Absensi Pulang Berhasil Direset');
         $url = route('shift.pegawai.edit') . "?kode=" . $shift->user_id;
         return redirect()->to($url);
@@ -106,6 +128,11 @@ class ShiftPegawaiEdit extends Component
         $shift->foto_absensi_masuk = null;
         $shift->status_absen = null;
         $shift->update();
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Reset Absensi',
+            'description' => auth()->user()->name . ' telah mereset absensi ' . $shift->user?->name . ' tanggal ' . $shift->tanggal,
+        ]);
         Alert::success('Success', 'Absensi Masuk Berhasil Direset');
         $url = route('shift.pegawai.edit') . "?kode=" . $shift->user_id;
         return redirect()->to($url);

@@ -4,7 +4,6 @@ namespace App\Livewire\Absensi;
 
 use App\Models\ActivityLog;
 use App\Models\ShiftAbsensi as ModelsShiftAbsensi;
-use App\Models\ShiftPegawai;
 use Livewire\Component;
 
 class ShiftAbsensi extends Component

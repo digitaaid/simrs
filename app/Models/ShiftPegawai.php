@@ -13,4 +13,8 @@ class ShiftPegawai extends Model
     {
         return $this->hasOne(ShiftAbsensi::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

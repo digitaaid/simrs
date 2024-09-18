@@ -10,7 +10,7 @@ class LogAktifitas extends Component
     public $logs;
     public function render()
     {
-        $this->logs = ActivityLog::get();
+        $this->logs = ActivityLog::orderBy('created_at', 'desc')->get();
         return view('livewire.user.log-aktifitas')->title('Log Aktifitas');
     }
 }
