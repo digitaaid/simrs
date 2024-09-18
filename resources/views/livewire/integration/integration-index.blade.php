@@ -54,14 +54,9 @@
             </div>
         @endif
         <x-adminlte-card title="Table Aplikasi Integrasi" theme="secondary">
-            @if (flash()->message)
-                <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                    {{ flash()->message }}
-                </x-adminlte-alert>
-            @endif
             <div class="row">
                 <div class="col-md-8">
-                    <x-adminlte-button wire:click='openForm' class="btn-sm mb-3" label="Add Permission" theme="success"
+                    <x-adminlte-button wire:click='openForm' class="btn-sm mb-3" label="Tambah Integrasi" theme="success"
                         icon="fas fa-user-plus" />
                 </div>
                 <div class="col-md-6">

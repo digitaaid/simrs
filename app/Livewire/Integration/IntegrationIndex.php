@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Integration;
 
+use App\Models\ActivityLog;
 use App\Models\Integration;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -30,6 +31,11 @@ class IntegrationIndex extends Component
                 'secret_key' => $this->secret_key,
             ],
         );
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Update/Create Intergation',
+            'description' => auth()->user()->name . ' Update/Create Intergation ' . $integrasi->name,
+        ]);
         flash('Aplikasi Integrasi ' . $integrasi->name . ' saved successfully.', 'success');
         $this->closeForm();
     }
