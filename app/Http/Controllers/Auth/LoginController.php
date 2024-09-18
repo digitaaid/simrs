@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\ActivityLog;
 use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -53,11 +54,26 @@ class LoginController extends Controller
             //     return redirect()->route('login')->withErrors('Mohon maaf, akun anda belum diverifikasi');
             // }
         } else {
+            ActivityLog::create([
+                'user_id' => '0',
+                'activity' => 'Login',
+                'description' => 'Username/Email Tidak Ditemukan (' . $request->email . ')',
+            ]);
             return redirect()->route('login')->withErrors('Username / Email Tidak Ditemukan');
         }
         if (auth()->attempt(array($fieldType => $input['email'], 'password' => $input['password']))) {
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Login',
+                'description' => auth()->user()->name . ' login pada waktu ' . now(),
+            ]);
             return redirect()->route('home');
         } else {
+            ActivityLog::create([
+                'user_id' => '0',
+                'activity' => 'Login',
+                'description' => 'Username/Email & Password Salah (' . $request->email . ', ' . $request->password . ')',
+            ]);
             return redirect()->route('login')->withErrors('Username / Email dan Password Salah');
         }
     }

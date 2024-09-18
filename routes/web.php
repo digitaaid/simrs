@@ -83,6 +83,7 @@ use App\Livewire\Satusehat\PatientIndex;
 use App\Livewire\Satusehat\PractitionerIndex;
 use App\Livewire\Satusehat\TokenIndex;
 use App\Livewire\Unit\UnitIndex;
+use App\Livewire\User\LogAktifitas;
 use App\Livewire\User\PermissionIndex;
 use App\Livewire\User\RolePermission;
 use App\Livewire\User\UserCreate;
@@ -121,6 +122,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('dashboard', DashboardPendaftaran::class)->name('dashboard');
     Route::get('profil', ProfilIndex::class)->name('profil')->lazy();
+    Route::get('log-aktifitas', LogAktifitas::class)->name('log-aktifitas')->lazy();
     Route::middleware(['can:admin'])->group(function () {
         Route::get('role-permission', RolePermission::class)->name('role-permission')->lazy();
         Route::get('integration', IntegrationIndex::class)->name('integration.index')->lazy();

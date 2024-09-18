@@ -945,6 +945,11 @@ return [
             'active'  => ['role-permission', 'permission/create', 'role/create', 'permission/edit/*'],
         ],
         [
+            'text' => 'Log Aktifitas',
+            'url' => 'log-aktifitas',
+            'icon' => 'fas fa-history',
+        ],
+        [
             'text' => 'Profil',
             'url' => 'profil',
             'icon' => 'fas fa-user',
