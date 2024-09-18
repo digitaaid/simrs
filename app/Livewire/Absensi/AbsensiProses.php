@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Absensi;
 
+use App\Models\ActivityLog;
 use App\Models\LokasiAbsensi;
 use App\Models\ShiftPegawai;
 use DateTime;
@@ -44,6 +45,11 @@ class AbsensiProses extends Component
             }
             $shiftpegawai->update($request->all());
             Alert::success('Success', 'Berhasil Absen Masuk');
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Absensi Masuk',
+                'description' => auth()->user()->name . ' telah melakukan absensi masuk',
+            ]);
             return redirect()->route('absensi.proses');
         }
     }
@@ -77,6 +83,11 @@ class AbsensiProses extends Component
             }
             $shiftpegawai->update($request->all());
             Alert::success('Success', 'Berhasil Absensi Pulang');
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Absensi Masuk',
+                'description' => auth()->user()->name . ' telah melakukan absensi pulang',
+            ]);
             return redirect()->route('absensi.proses');
         }
     }
@@ -105,9 +116,9 @@ class AbsensiProses extends Component
             ->where('tanggal', now()->format('Y-m-d'))
             ->first();
         $lokasikantor = LokasiAbsensi::first();
-        $this->lat_kantor = $lokasikantor->latitude;
-        $this->long_kantor = $lokasikantor->longitude;
-        $this->rad_kantor = $lokasikantor->radius;
+        $this->lat_kantor = $lokasikantor->latitude ?? 0;
+        $this->long_kantor = $lokasikantor->longitude ?? 0;
+        $this->rad_kantor = $lokasikantor->radius ?? 10;
     }
     public function render()
     {

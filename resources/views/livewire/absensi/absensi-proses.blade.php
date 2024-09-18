@@ -4,9 +4,13 @@
             <div class="row">
                 <div class="col-md-6">
                     Tanggal Shift : {{ now()->format('Y-m-d') }}<br>
-                    Nama Shhif : {{ $shift->nama_shift }}<br>
-                    Jadwal Shhif : {{ $shift->jam_masuk }}-{{ $shift->jam_pulang }}<br>
                     Lokasi Saya : (<span class="latitude">0</span>, <span class="longitude">0</span>) <br>
+                    @if ($shift)
+                        Nama Shhif : {{ $shift->nama_shift ?? 'Anda Tidak Memiliki Jadwal' }}<br>
+                        Jadwal Shhif : {{ $shift->jam_masuk }}-{{ $shift->jam_pulang }}<br>
+                    @else
+                        <h4>Anda Tidak Memiliki Jadwal Hari Ini</h4>
+                    @endif
                 </div>
                 <div class="col-md-6">
                     <script>
@@ -86,42 +90,44 @@
                 </div>
             </div>
         </x-adminlte-card>
-        @if ($shift->absensi_masuk)
-            <x-adminlte-card title="Absensi Masuk" theme="primary">
-                <div class="row">
-                    <div class="col-md-6">
-                        Absensi Masuk : {{ $shift->absensi_masuk }}<br>
-                        Telat Masuk : {{ floor($shift->telat / 3600) }} jam {{ floor($shift->telat % 3600) / 60 }}
-                        menit<br>
-                        Lokasi Masuk : {{ $shift->lat_masuk }} , {{ $shift->long_masuk }}<br>
-                        Jarak Masuk : {{ round($shift->jarak_masuk) }} meter<br>
+        @if ($shift)
+            @if ($shift->absensi_masuk)
+                <x-adminlte-card title="Absensi Masuk" theme="primary">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Absensi Masuk : {{ $shift->absensi_masuk }}<br>
+                            Telat Masuk : {{ floor($shift->telat / 3600) }} jam {{ floor($shift->telat % 3600) / 60 }}
+                            menit<br>
+                            Lokasi Masuk : {{ $shift->lat_masuk }} , {{ $shift->long_masuk }}<br>
+                            Jarak Masuk : {{ round($shift->jarak_masuk) }} meter<br>
+                        </div>
+                        <div class="col-md-6">
+                            Foto Masuk : {{ $shift->foto_absensi_masuk }}<br>
+                            <img width="100%" src="{{ url('storage/app/' . $shift->foto_absensi_masuk) }}"
+                                alt="Foto Absensi Masuk">
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        Foto Masuk : {{ $shift->foto_absensi_masuk }}<br>
-                        <img width="100%" src="{{ url('storage/app/' . $shift->foto_absensi_masuk) }}"
-                            alt="Foto Absensi Masuk">
+                </x-adminlte-card>
+            @endif
+            @if ($shift->absensi_pulang)
+                <x-adminlte-card title="Absensi Pulang" theme="primary">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Absensi Pulang : {{ $shift->absensi_pulang }}<br>
+                            Cepat Pulang : {{ floor($shift->pulang_cepat / 3600) }} jam
+                            {{ floor($shift->pulang_cepat % 3600) / 60 }}
+                            menit<br>
+                            Lokasi Pulang : {{ $shift->lat_pulang }} , {{ $shift->long_pulang }}<br>
+                            Jarak Pulang : {{ round($shift->jarak_pulang) }} meter<br>
+                        </div>
+                        <div class="col-md-6">
+                            Foto Pulang : {{ $shift->foto_absensi_pulang }}<br>
+                            <img width="100%" src="{{ url('storage/app/' . $shift->foto_absensi_pulang) }}"
+                                alt="Foto Absensi Pulang">
+                        </div>
                     </div>
-                </div>
-            </x-adminlte-card>
-        @endif
-        @if ($shift->absensi_pulang)
-            <x-adminlte-card title="Absensi Pulang" theme="primary">
-                <div class="row">
-                    <div class="col-md-6">
-                        Absensi Pulang : {{ $shift->absensi_pulang }}<br>
-                        Cepat Pulang : {{ floor($shift->pulang_cepat / 3600) }} jam
-                        {{ floor($shift->pulang_cepat % 3600) / 60 }}
-                        menit<br>
-                        Lokasi Pulang : {{ $shift->lat_pulang }} , {{ $shift->long_pulang }}<br>
-                        Jarak Pulang : {{ round($shift->jarak_pulang) }} meter<br>
-                    </div>
-                    <div class="col-md-6">
-                        Foto Pulang : {{ $shift->foto_absensi_pulang }}<br>
-                        <img width="100%" src="{{ url('storage/app/' . $shift->foto_absensi_pulang) }}"
-                            alt="Foto Absensi Pulang">
-                    </div>
-                </div>
-            </x-adminlte-card>
+                </x-adminlte-card>
+            @endif
         @endif
     </div>
     <div class="col-md-6">
@@ -194,7 +200,10 @@
                 @endif
             @else
                 <center>
-                    <h2>Anda Tidak Memiliki Jadwal Hari Ini</h2>
+                    <h4>Anda Tidak Memiliki Jadwal Hari Ini</h4>
+                    <div id="map" style="width:100%;height:200px;"></div>
+                    <div class="webcam" id="results"></div>
+                    <div onclick="getLocation()" class="btn btn-primary">Get Lokasi</div>
                 </center>
             @endif
 

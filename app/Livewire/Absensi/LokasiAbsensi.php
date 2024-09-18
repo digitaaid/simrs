@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Absensi;
 
+use App\Models\ActivityLog;
 use App\Models\LokasiAbsensi as ModelsLokasiAbsensi;
 use Livewire\Component;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -24,7 +25,12 @@ class LokasiAbsensi extends Component
                 'radius' => $this->radius,
             ]);
         }
-        Alert::success('Success','Berhasil Simpan Lokasi Absensi');
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Update/Create Lokasi Kantor',
+            'description' => auth()->user()->name . ' telah menyimpan lokasi kantor',
+        ]);
+        Alert::success('Success', 'Berhasil Simpan Lokasi Absensi');
         $url = route('lokasi.absensi');
         redirect()->to($url);
     }
