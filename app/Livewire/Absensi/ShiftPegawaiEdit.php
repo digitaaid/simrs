@@ -13,11 +13,36 @@ use RealRashid\SweetAlert\Facades\Alert;
 class ShiftPegawaiEdit extends Component
 {
     public $kode, $user, $shifts;
-    public $shift_id, $user_id, $tgl_awal, $tgl_akhir;
-    public function mount(Request $request)
+    public $tanggal, $nama;
+    public $shift, $id, $shift_id, $user_id, $tgl_awal, $tgl_akhir;
+    public $formTambah = 0, $formEdit = 0;
+    public function tambah()
     {
-        $this->user = User::find($request->kode);
-        $this->shifts = ShiftAbsensi::get();
+        $this->formTambah = $this->formTambah ? 0 : 1;
+    }
+    public function edit($id)
+    {
+        $shift =  ShiftPegawai::find($id);
+        $this->shift = $shift;
+        $this->id = $shift->id;
+        $this->shift_id = $shift->shift_id;
+        $this->user_id = $shift->user_id;
+        $user = User::find($shift->user_id);
+        $this->nama = $user->name;
+        $this->tanggal = $shift->tanggal;
+        $this->formEdit =  1;
+    }
+    public function update()
+    {
+        $shift =  ShiftPegawai::find($this->id);
+        $jadwal = ShiftAbsensi::find($this->shift_id);
+        $shift->shift_id = $this->shift_id;
+        $shift->tanggal = $this->tanggal;
+        $shift->nama_shift = $jadwal->nama;
+        $shift->jam_masuk = $jadwal->jam_masuk;
+        $shift->jam_pulang = $jadwal->jam_pulang;
+        $shift->update();
+        $this->formEdit =  0;
     }
     public function store()
     {
@@ -43,6 +68,16 @@ class ShiftPegawaiEdit extends Component
                     'jam_pulang' => $shift->jam_pulang,
                 ]
             );
+        }
+    }
+    public function hapus($id)
+    {
+        $shift =  ShiftPegawai::find($id);
+        if (!$shift->absensi_masuk) {
+            $shift->delete();
+            flash('Jadwal shift kerja berhasil dihapus', 'success');
+        } else {
+            flash('Tidak bisa dihapus karena telah absesni', 'danger');
         }
     }
     public function resetpulang($id)
@@ -74,6 +109,11 @@ class ShiftPegawaiEdit extends Component
         Alert::success('Success', 'Absensi Masuk Berhasil Direset');
         $url = route('shift.pegawai.edit') . "?kode=" . $shift->user_id;
         return redirect()->to($url);
+    }
+    public function mount(Request $request)
+    {
+        $this->user = User::with(['shift_pegawai'])->find($request->kode);
+        $this->shifts = ShiftAbsensi::get();
     }
     public function render()
     {
