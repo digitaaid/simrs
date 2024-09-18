@@ -43,6 +43,10 @@
                         <i class="fas fa-bed"></i> Transfer Rawat Inap
                         {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
+                    <a href="#tranferrawatinap" class="nav-link">
+                        <i class="fas fa-ambulance"></i> Pemulangan Pasien IGD
+                        {{-- <span class="badge bg-success float-right"></span> --}}
+                    </a>
                     <a href="#resumeigd" class="nav-link">
                         <i class="fas fa-file-medical"></i> Resume IGD
                         {{-- <span class="badge bg-success float-right"></span> --}}

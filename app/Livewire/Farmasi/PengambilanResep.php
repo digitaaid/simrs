@@ -46,6 +46,11 @@ class PengambilanResep extends Component
     {
         $this->resepObat[] = ['obat' => '', 'jumlahobat' => '', 'frekuensiobat' => '', 'waktuobat' => '', 'keterangan' => ''];
     }
+    public function removeObat($index)
+    {
+        unset($this->resepObat[$index]);
+        $this->resepObat = array_values($this->resepObat);
+    }
     public function refreshComponent()
     {
         $this->antrianresep = Antrian::where('taskid', 5)->where('status', 0)->first();
@@ -55,11 +60,6 @@ class PengambilanResep extends Component
         } else {
             $this->playAudio = false;
         }
-    }
-    public function removeObat($index)
-    {
-        unset($this->resepObat[$index]);
-        $this->resepObat = array_values($this->resepObat);
     }
     public function terimaResep(Antrian $antrian)
     {

@@ -24,8 +24,8 @@
             </div>
         </div>
     @endif
-    @if ($formEdit)
-        <div id="editresep" class="col-md-12">
+    <div id="editresep" class="col-md-12">
+        @if ($formEdit)
             <x-adminlte-card title="Resep Obat {{ $antrianedit->nama }}" theme="primary">
                 <div class="row">
                     <div class="col-md-4">
@@ -144,8 +144,8 @@
                     </div>
                 </x-slot>
             </x-adminlte-card>
-        </div>
-    @endif
+        @endif
+    </div>
     <div class="col-md-12">
         <div wire:poll.4000ms="refreshComponent">
             @if ($antrianresep)
@@ -302,8 +302,8 @@
                             <td class="text-right">{{ money($item->resepfarmasidetails->sum('subtotal'), 'IDR') }} </td>
                             <td>
                                 <a href="{{ route('print.notarajal', $item->kodebooking) }}" target="_blank">
-                                    <x-adminlte-button class="btn-xs" title="Print Nota Rawat Jalan"
-                                        theme="warning" icon="fas fa-print" />
+                                    <x-adminlte-button class="btn-xs" title="Print Nota Rawat Jalan" theme="warning"
+                                        icon="fas fa-print" />
                                 </a>
                                 <a href="{{ route('print.notarajalf', $item->kodebooking) }}" target="_blank">
                                     <x-adminlte-button class="btn-xs" label="Invoice+" title="Print Nota Rawat Jalan"

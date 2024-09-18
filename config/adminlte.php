@@ -408,7 +408,7 @@ return [
             'icon'    => 'fas fa-ambulance',
             'submenu' => [
                 [
-                    'text' => 'Pendaftaran IGD',
+                    'text' => 'Pasien IGD',
                     'url' => 'pendaftaran/igd',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',

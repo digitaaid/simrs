@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        Print Etiket Obat {{ $antrian->nama }}
+        Print Etiket Obat {{ $kunjungan->nama }}
     </title>
     <style>
         .unicode {
@@ -112,27 +112,27 @@
             <tr>
                 <td>No RM</td>
                 <td>:</td>
-                <td>{{ $antrian->norm }}</td>
+                <td>{{ $kunjungan->norm }}</td>
             </tr>
             <tr>
                 <td>Nama</td>
                 <td>:</td>
-                <td>{{ $antrian->nama }}</td>
+                <td>{{ $kunjungan->nama }}</td>
             </tr>
             <tr>
                 <td>Tgl Lahir</td>
                 <td>:</td>
-                <td>{{ $antrian->kunjungan->tgl_lahir }} </td>
+                <td>{{ $kunjungan->tgl_lahir }} </td>
             </tr>
             <tr>
                 <td>Poliklinik</td>
                 <td>:</td>
-                <td>{{ $antrian->kunjungan->units->nama }}</td>
+                <td>{{ $kunjungan->units->nama }}</td>
             </tr>
             <tr>
                 <td>Dokter</td>
                 <td>:</td>
-                <td>{{ $antrian->kunjungan->dokters->nama }}</td>
+                <td>{{ $kunjungan->dokters->nama }}</td>
             </tr>
         </table>
         <br>
