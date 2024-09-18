@@ -8,6 +8,7 @@
                         <th>User</th>
                         <th>Activity</th>
                         <th>Description</th>
+                        <th>Craeted_at</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -17,6 +18,7 @@
                             <td>{{ $item->user?->name ?? 'Anonim' }}</td>
                             <td>{{ $item->activity }}</td>
                             <td>{{ $item->description }}</td>
+                            <td>{{ $item->created_at }}</td>
                         </tr>
                     @endforeach
                 </tbody>

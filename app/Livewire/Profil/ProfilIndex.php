@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Profil;
 
+use App\Models\ActivityLog;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -22,6 +23,11 @@ class ProfilIndex extends Component
             $user->password = bcrypt($this->password);
         }
         $user->save();
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Update Profile',
+            'description' => 'User ' . auth()->user()->name . ' telah memperbaharui profile',
+        ]);
         flash('User updated successfully!', 'success');
     }
     public function mount()

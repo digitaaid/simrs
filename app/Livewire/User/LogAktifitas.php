@@ -8,12 +8,9 @@ use Livewire\Component;
 class LogAktifitas extends Component
 {
     public $logs;
-    public function mount()
-    {
-        $this->logs = ActivityLog::get();
-    }
     public function render()
     {
+        $this->logs = ActivityLog::get();
         return view('livewire.user.log-aktifitas')->title('Log Aktifitas');
     }
 }

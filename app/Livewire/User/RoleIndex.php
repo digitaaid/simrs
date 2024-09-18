@@ -4,6 +4,7 @@ namespace App\Livewire\User;
 
 use App\Exports\RoleExport;
 use App\Imports\RoleImport;
+use App\Models\ActivityLog;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
@@ -32,6 +33,11 @@ class RoleIndex extends Component
         );
         $role->syncPermissions();
         $role->syncPermissions($this->selectedPermissions);
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Update/Create Role',
+            'description' => auth()->user()->name . ' menyimpan data role ' . $role->name,
+        ]);
         flash('Role ' . $role->name . ' saved successfully.', 'success');
         $this->closeForm();
     }
@@ -39,6 +45,11 @@ class RoleIndex extends Component
     {
         $role = Role::find($id);
         $role->delete();
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Delete Role',
+            'description' => auth()->user()->name . ' megnhapus data role ' . $role->name,
+        ]);
         flash('Role ' . $role->name . ' deleted successfully.', 'success');
     }
     public function edit($id)
@@ -73,6 +84,11 @@ class RoleIndex extends Component
         try {
             $time = now()->format('Y-m-d');
             flash('Export successfully', 'success');
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Export Role',
+                'description' => auth()->user()->name . ' export data role',
+            ]);
             return Excel::download(new RoleExport, 'role_backup_' . $time . '.xlsx');
         } catch (\Throwable $th) {
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
@@ -89,6 +105,11 @@ class RoleIndex extends Component
                 'fileImport' => 'required|mimes:xlsx'
             ]);
             Excel::import(new RoleImport, $this->fileImport->getRealPath());
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Import Role',
+                'description' => auth()->user()->name . ' import data role',
+            ]);
             Alert::success('Success', 'Imported successfully');
             return redirect()->route('role-permission');
         } catch (\Throwable $th) {

@@ -4,6 +4,7 @@ namespace App\Livewire\User;
 
 use App\Exports\PermissionExport;
 use App\Imports\PermissionImport;
+use App\Models\ActivityLog;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
@@ -28,6 +29,11 @@ class PermissionIndex extends Component
             ['id' => $this->id],
             ['name' => Str::slug($this->name)],
         );
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Update/Create Permission',
+            'description' => auth()->user()->name . ' telah menyimpan data permission ' . $permission->name,
+        ]);
         flash('Permission ' . $permission->name . ' saved successfully.', 'success');
         $this->closeForm();
     }
@@ -35,9 +41,19 @@ class PermissionIndex extends Component
     {
         $permission = Permission::find($id);
         if ($permission->roles->count()) {
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Delete Permission',
+                'description' => auth()->user()->name . ' telah gagal menghapus data permission ' . $permission->name,
+            ]);
             flash('Permission tidak bisa dihapus karena sedang dipakai', 'danger');
         } else {
             $permission->delete();
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Delete Permission',
+                'description' => auth()->user()->name . ' telah menghapus data permission ' . $permission->name,
+            ]);
             flash('Permission ' . $permission->name . ' deleted successfully.', 'success');
         }
     }
@@ -68,6 +84,11 @@ class PermissionIndex extends Component
     {
         try {
             $time = now()->format('Y-m-d');
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Export Permission',
+                'description' => auth()->user()->name . ' telah export data permission',
+            ]);
             flash('Export successfully', 'success');
             return Excel::download(new PermissionExport, 'permission_backup_' . $time . '.xlsx');
         } catch (\Throwable $th) {
@@ -85,6 +106,11 @@ class PermissionIndex extends Component
                 'fileImport' => 'required|mimes:xlsx'
             ]);
             Excel::import(new PermissionImport, $this->fileImport->getRealPath());
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Import Permission',
+                'description' => auth()->user()->name . ' telah import data permission',
+            ]);
             Alert::success('Success', 'User imported successfully');
             return redirect()->route('role-permission');
         } catch (\Throwable $th) {

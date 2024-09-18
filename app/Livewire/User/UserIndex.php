@@ -4,6 +4,7 @@ namespace App\Livewire\User;
 
 use App\Exports\UserExport;
 use App\Imports\UserImport;
+use App\Models\ActivityLog;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -78,6 +79,11 @@ class UserIndex extends Component
         $user->syncRoles([]);
         $user->assignRole($this->role);
         Alert::success('Success', 'User ' . $user->name . ' saved successfully');
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Update User',
+            'description' => auth()->user()->name . ' menyimpan user ' . $user->name,
+        ]);
         return redirect()->route('user.index');
     }
     public function verifikasi($id)
@@ -87,6 +93,11 @@ class UserIndex extends Component
         $user->pic = auth()->user()->name;
         $user->user_verify = auth()->user()->name;
         $user->save();
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Verify User',
+            'description' => auth()->user()->name . ' verifikasi user ' . $user->name,
+        ]);
         Alert::success('Success', 'User ' . $user->name . ' verified successfully');
         return redirect()->route('user.index');
     }
@@ -94,6 +105,11 @@ class UserIndex extends Component
     {
         $user = User::find($id);
         $user->delete();
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Delete User',
+            'description' => auth()->user()->name . ' Delete User ' . $user->name,
+        ]);
         Alert::success('Success', 'User ' . $user->name . ' deleted successfully');
         return redirect()->route('user.index');
     }
@@ -101,8 +117,13 @@ class UserIndex extends Component
     {
         try {
             $time = now()->format('Y-m-d');
-            return Excel::download(new UserExport, 'user_backup_' . $time . '.xlsx');
             flash('Export Pasien successfully', 'success');
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Export User',
+                'description' => auth()->user()->name . ' Export User',
+            ]);
+            return Excel::download(new UserExport, 'user_backup_' . $time . '.xlsx');
         } catch (\Throwable $th) {
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
@@ -119,6 +140,11 @@ class UserIndex extends Component
             ]);
             Excel::import(new UserImport, $this->fileImport->getRealPath());
             Alert::success('Success', 'User imported successfully');
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Import User',
+                'description' => auth()->user()->name . ' Import User',
+            ]);
             return redirect()->route('user.index');
         } catch (\Throwable $th) {
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
