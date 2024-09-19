@@ -19,20 +19,20 @@
                     <tr>
                         <td>No RM</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->norm ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->norm ?? '-' }}</b></td>
                     </tr>
                     <tr>
                         <td>Nama</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->nama ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->nama ?? '-' }}</b></td>
                     </tr>
                     <tr>
                         <td>Tgl Lahir</td>
                         <td>:</td>
                         <td>
                             <b>
-                                {{ \Carbon\Carbon::parse($antrian->kunjungan->tgl_lahir)->format('d F Y') }}
-                                ({{ \Carbon\Carbon::parse($antrian->kunjungan->tgl_lahir)->age }} tahun)
+                                {{ \Carbon\Carbon::parse($kunjungan->tgl_lahir)->format('d F Y') }}
+                                ({{ \Carbon\Carbon::parse($kunjungan->tgl_lahir)->age }} tahun)
                             </b>
                         </td>
                     </tr>
@@ -41,8 +41,8 @@
                         <td>:</td>
                         <td>
                             <b>
-                                @if ($antrian->kunjungan)
-                                    @if ($antrian->kunjungan->gender == 'P')
+                                @if ($kunjungan)
+                                    @if ($kunjungan->gender == 'P')
                                         Perempuan
                                     @else
                                         Laki-laki
@@ -56,7 +56,36 @@
         </tr>
         <tr class="text-center" style="background: yellow">
             <td colspan="3">
-                <b>NOTA PEMBAYARAN RAWAT JALAN</b>
+                <b>NOTA PEMBAYARAN
+                    @switch($kunjungan->jeniskunjungan)
+                    @case(1)
+                        RAWAT JALAN (FKTP)
+                    @break
+
+                    @case(2)
+                        RAWAT JALAN (Umum)
+                    @break
+
+                    @case(3)
+                        RAWAT JALAN (Kontrol)
+                    @break
+
+                    @case(4)
+                        RAWAT JALAN (RS)
+                    @break
+
+                    @case(5)
+                        IGD
+                    @break
+
+                    @case(6)
+                        RAWAT INAP
+                    @break
+
+                    @default
+                @endswitch
+
+                </b>
             </td>
         </tr>
         <tr>
@@ -69,18 +98,18 @@
                         <td>Tanggal Masuk</td>
                         <td>:</td>
                         <td><b>
-                                {{ $antrian->kunjungan->tgl_masuk ? \Carbon\Carbon::parse($antrian->kunjungan->tgl_masuk)->format('d F Y H:i') : '-' }}
+                                {{ $kunjungan->tgl_masuk ? \Carbon\Carbon::parse($kunjungan->tgl_masuk)->format('d F Y H:i') : '-' }}
                             </b></td>
                     </tr>
                     <tr>
                         <td>Unit / Ruangan</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->kunjungan->units->nama ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->units->nama ?? '-' }}</b></td>
                     </tr>
                     <tr>
                         <td>Dokter</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->kunjungan->dokters->nama ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->dokters->nama ?? '-' }}</b></td>
                     </tr>
                 </table>
             </td>
@@ -91,23 +120,47 @@
                         <td>:</td>
                         <td>
                             <b>
-                                @if ($antrian->jenispasien == 'JKN')
-                                    BPJS / JKN
-                                @else
-                                    UMUM / NON-JKN
-                                @endif
+                                {{ $kunjungan->jaminans?->nama }}
                             </b>
                         </td>
                     </tr>
                     <tr>
                         <td>Jenis Pelayanan</td>
                         <td>:</td>
-                        <td><b>Rawat Jalan</b></td>
+                        <td><b>
+                                @switch($kunjungan->jeniskunjungan)
+                                    @case(1)
+                                        Rawat Jalan (FKTP)
+                                    @break
+
+                                    @case(2)
+                                        Rawat Jalan (Umum)
+                                    @break
+
+                                    @case(3)
+                                        Rawat Jalan (Kontrol)
+                                    @break
+
+                                    @case(4)
+                                        Rawat Jalan (RS)
+                                    @break
+
+                                    @case(5)
+                                        IGD
+                                    @break
+
+                                    @case(6)
+                                        Rawat Inap
+                                    @break
+
+                                    @default
+                                @endswitch
+                            </b></td>
                     </tr>
                     <tr>
                         <td>Kode Kunjungan</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->kunjungan->kode ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->kode ?? '-' }}</b></td>
                     </tr>
                 </table>
             </td>
@@ -126,7 +179,7 @@
                         <th>Diskon</th>
                         <th>Total</th>
                     </tr>
-                    @foreach ($antrian->layanans as $item)
+                    @foreach ($kunjungan->layanans as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->nama }}</td>
@@ -138,7 +191,7 @@
                     @endforeach
                     <tr>
                         <th colspan="5" class="text-right">Total</th>
-                        <th class="text-right">{{ money(floatval($antrian->layanans->sum('subtotal')), 'IDR') }}</th>
+                        <th class="text-right">{{ money(floatval($kunjungan->layanans->sum('subtotal')), 'IDR') }}</th>
                         </th>
                     </tr>
                     <tr>
@@ -162,7 +215,7 @@
                     <th class="text-left" colspan="6">TOTAL PEMBAYARAN PASIEN</th>
                     <tr>
                         <th colspan="5" class="text-right">Biaya Tindakan / Layanan</th>
-                        <th class="text-right">{{ money(floatval($antrian->layanans->sum('subtotal')), 'IDR') }}</th>
+                        <th class="text-right">{{ money(floatval($kunjungan->layanans->sum('subtotal')), 'IDR') }}</th>
                         </th>
                     </tr>
                     <tr>
@@ -173,7 +226,7 @@
                     <tr>
                         <th colspan="5" class="text-right">Total Biaya Pasien</th>
                         <th class="text-right">
-                            {{ money(floatval($resepobatdetails->sum('subtotal') + $antrian->layanans->sum('subtotal')), 'IDR') }}
+                            {{ money(floatval($resepobatdetails->sum('subtotal') + $kunjungan->layanans->sum('subtotal')), 'IDR') }}
                         </th>
                         </th>
                     </tr>
@@ -189,7 +242,7 @@
                             <br>
                             <img src="{{ $ttdpetugas }}" width="50px">
                             <br>
-                            ({{ $antrian->pic4->name ?? auth()->user()->name }})
+                            ({{ $kunjungan->pic4->name ?? auth()->user()->name }})
                         </td>
                         <td>
                         </td>

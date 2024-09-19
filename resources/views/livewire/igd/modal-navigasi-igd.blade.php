@@ -41,14 +41,16 @@
                             <span class="badge bg-success float-right">{{ money(0, 'IDR') }}
                             </span>
                         @endif
-                        {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
                     <a href="#resepdokterigd" class="nav-link">
                         <i class="fas fa-pills"></i> Resep Obat
-                        {{-- <span class="badge bg-success float-right"></span> --}}
-                        @if ($kunjungan->resepobatdetails)
-                            <span class="badge bg-success float-right">{{ count($kunjungan->resepobatdetails) }}
-                                Obat</span>
+                        @if ($kunjungan->resepfarmasidetails)
+                            <span
+                                class="badge bg-success float-right">{{ money($kunjungan->resepfarmasidetails->sum('subtotal'), 'IDR') }}
+                            </span>
+                        @else
+                            <span class="badge bg-success float-right">{{ money(0, 'IDR') }}
+                            </span>
                         @endif
                     </a>
                     <a href="#instruksitindaklanjut" class="nav-link">
@@ -73,7 +75,14 @@
                     </a>
                     <a href="#invoiceigd" class="nav-link">
                         <i class="fas fa-file-medical"></i> Invoice IGD
-                        {{-- <span class="badge bg-success float-right"></span> --}}
+                        @if ($kunjungan->resepfarmasidetails || $kunjungan->layanans)
+                            <span
+                                class="badge bg-success float-right">{{ money($kunjungan->layanans?->sum('subtotal') + $kunjungan->resepfarmasidetails?->sum('subtotal'), 'IDR') }}
+                            </span>
+                        @else
+                            <span class="badge bg-success float-right">{{ money(0, 'IDR') }}
+                            </span>
+                        @endif
                     </a>
                 @endif
             </li>

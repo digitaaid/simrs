@@ -151,7 +151,8 @@ class PengambilanObatIgd extends Component
         flash('Resep obat atas nama pasien ' . $kunjungan->nama . ' saved successfully.', 'success');
         $this->formedit = 0;
     }
-    public function selesai(ResepObat $resep){
+    public function selesai(ResepObat $resep)
+    {
         $resep->status = 3;
         $resep->user = auth()->user()->id;
         $resep->pic = auth()->user()->name;
@@ -168,7 +169,8 @@ class PengambilanObatIgd extends Component
     public function render()
     {
         if ($this->tanggal) {
-            $this->reseps = ResepObat::orderBy('status', 'asc')->get();
+            $this->reseps = ResepObat::with(['kunjungan', 'kunjungan.layanans', 'kunjungan.resepfarmasidetails'])
+                ->orderBy('status', 'asc')->get();
         }
         return view('livewire.farmasi.pengambilan-obat-igd')->title('Pengambilan Obat IGD');
     }

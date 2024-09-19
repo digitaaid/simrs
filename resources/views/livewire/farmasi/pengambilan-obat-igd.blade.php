@@ -185,6 +185,9 @@
                         <th>Pasien</th>
                         <th>Status</th>
                         <th>Action</th>
+                        <th>Rp. Obat</th>
+                        <th>Rp. Layanan</th>
+                        <th>Rp. Total</th>
                         <th>Unit</th>
                         <th>Dokter</th>
                         <th>PIC</th>
@@ -235,10 +238,21 @@
                                         wire:click='panggil({{ $resep }})' class="btn-xs" label="Panggil"
                                         theme="primary" icon="fas fa-check" />
                                     <a href="{{ route('print.resepfarmasi', $resep->kode) }}" target="_blank">
-                                        <x-adminlte-button class="btn-xs" theme="primary" title="Cetak Resep Farmasi"
+                                        <x-adminlte-button class="btn-xs" theme="success" title="Cetak Resep Farmasi"
                                             icon="fas fa-print" />
                                     </a>
                                 @endif
+                            </td>
+                            <td class="text-right">
+                                {{ money($resep->kunjungan->resepfarmasidetails->sum('subtotal'), 'IDR') }}</td>
+                            <td class="text-right">{{ money($resep->kunjungan->layanans->sum('subtotal'), 'IDR') }}
+                            </td>
+                            <td class="text-right">
+                                {{ money($resep->kunjungan->resepfarmasidetails->sum('subtotal') + $resep->kunjungan->layanans->sum('subtotal'), 'IDR') }}
+                                <a href="{{ route('print.notarajalf', $resep->kunjungan->kode) }}" target="_blank">
+                                    <x-adminlte-button class="btn-xs" title="Print Invoice Pelayanan" theme="success"
+                                        icon="fas fa-print" />
+                                </a>
                             </td>
                             <td>{{ $resep->namaunit }}</td>
                             <td>{{ $resep->namadokter }}</td>

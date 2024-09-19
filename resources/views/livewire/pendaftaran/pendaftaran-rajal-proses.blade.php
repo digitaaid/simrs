@@ -40,8 +40,8 @@
             </div>
             <div id="notaPembayaran">
                 <x-adminlte-card theme="primary" title="Nota Pembayaran Pasien">
-                    {{-- <iframe src="{{ route('print.notarajal', $antrian->kodebooking) }}" width="100%" height="500"
-                        frameborder="0"></iframe> --}}
+                    <iframe src="{{ route('print.notarajalf', $antrian->kunjungan->kode) }}" width="100%"
+                        height="500" frameborder="0"></iframe>
                 </x-adminlte-card>
             </div>
         @endif
