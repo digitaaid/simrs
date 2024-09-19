@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nomorbed');
             $table->string('koderuang');
             $table->string('namaruang');
+            $table->string('kamar_id');
             $table->string('unit_id');
             $table->string('bedpria')->default(1);
             $table->string('bedwanita')->default(1);

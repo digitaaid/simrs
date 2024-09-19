@@ -11,8 +11,6 @@ class KamarIndex extends Component
     public $form = 0;
     public $units, $kamars;
     public $id, $unit_id, $koderuang, $nama, $kodekelas, $kapasitastotal, $kapasitaspria, $kapasitaswanita, $kapasitaspriawanita;
-
-
     public function store()
     {
         $unit = Unit::find($this->unit_id);
@@ -47,8 +45,6 @@ class KamarIndex extends Component
         $this->kapasitaswanita = $kamar->kapasitaswanita;
         $this->kapasitaspriawanita = $kamar->kapasitaspriawanita;
     }
-
-
     public function tambah()
     {
         $this->form = $this->form ? 0 : 1;
