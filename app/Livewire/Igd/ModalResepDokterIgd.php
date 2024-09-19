@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Igd;
 
+use App\Models\DataDiagnosa;
 use App\Models\FrekuensiObat;
 use App\Models\Obat;
 use App\Models\ResepObat;
@@ -96,6 +97,8 @@ class ModalResepDokterIgd extends Component
     public function mount($kunjungan)
     {
         $this->obats = Obat::pluck('nama');
+        $this->frekuensiObats = FrekuensiObat::pluck('nama');
+        $this->waktuObats = WaktuObat::pluck('nama');
         $this->kunjungan = $kunjungan;
         $this->kunjungan = $kunjungan;
         if ($this->kunjungan->resepobatdetails) {
