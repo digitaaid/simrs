@@ -25,6 +25,10 @@ class Kunjungan extends Model
     {
         return $this->hasOne(Unit::class,  'kode', 'unit');
     }
+    public function layanans()
+    {
+        return $this->hasMany(Layanan::class);
+    }
     public function beds()
     {
         return $this->hasOne(Bed::class,  'id', 'bed_id');

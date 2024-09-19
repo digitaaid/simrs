@@ -8,8 +8,8 @@
                 </a>
                 <a href="#kunjunganigd" class="nav-link">
                     <i class="fas fa-ambulance"></i> Kunjungan
-                    @if ($kunjungan)
-                        <span class="badge bg-success float-right">Sudah</span>
+                    @if ($kunjungan->tgl_masuk)
+                        <span class="badge bg-success float-right">{{ $kunjungan->tgl_masuk }}</span>
                     @else
                         <span class="badge bg-danger float-right">Belum Daftar</span>
                     @endif

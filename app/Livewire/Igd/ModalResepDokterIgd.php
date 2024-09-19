@@ -108,7 +108,6 @@ class ModalResepDokterIgd extends Component
             }
         }
     }
-
     public function render()
     {
         return view('livewire.igd.modal-resep-dokter-igd');
