@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('beds', function (Blueprint $table) {
             $table->id();
+            $table->string('nomorbed');
+            $table->string('koderuang');
+            $table->string('namaruang');
+            $table->string('unit_id');
+            $table->string('bedpria')->default(1);
+            $table->string('bedwanita')->default(1);
+            $table->string('status')->default(0);
+            $table->string('user');
+            $table->string('pic');
             $table->timestamps();
         });
     }

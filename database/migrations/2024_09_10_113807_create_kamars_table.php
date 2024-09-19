@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('kamars', function (Blueprint $table) {
             $table->id();
+            $table->string('unit_id');
+            $table->string('koderuang');
+            $table->string('namaruang');
+            $table->string('kodekelas');
+            $table->string('kapasitastotal')->default(0);
+            $table->string('kapasitaspria')->default(0);
+            $table->string('kapasitaswanita')->default(0);
+            $table->string('kapasitaspriawanita')->default(0);
+            $table->string('status');
+            $table->string('pic');
+            $table->string('user');
             $table->timestamps();
         });
     }
