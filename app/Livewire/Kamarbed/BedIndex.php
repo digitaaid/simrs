@@ -2,13 +2,17 @@
 
 namespace App\Livewire\Kamarbed;
 
+use App\Exports\BedExport;
 use App\Models\Bed;
 use App\Models\Kamar;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BedIndex extends Component
 {
-    public $form = 0;
+    use WithFileUploads;
+    public $form = 0, $formimport = 0, $fileimport;
     public $kamars, $beds;
     public $bed, $id, $kamar_id, $nomorbed, $bedpria, $bedwanita, $status;
     public function store()
@@ -44,11 +48,40 @@ class BedIndex extends Component
         $this->status = $bed->status;
         $this->form = 1;
     }
-
     public function tambah()
     {
         $this->form = $this->form ? 0 : 1;
         $this->reset(['bed', 'id', 'kamar_id', 'nomorbed', 'bedpria', 'bedwanita', 'status']);
+    }
+    public function export()
+    {
+        try {
+            $time = now()->format('Y-m-d');
+            return Excel::download(new BedExport, 'bed_backup_' . $time . '.xlsx');
+            flash('Export Kamar successfully', 'success');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
+    }
+    public function importform()
+    {
+        $this->formimport = $this->formimport ? 0 : 1;
+        $this->reset(['fileimport']);
+    }
+    public function import()
+    {
+        try {
+            $this->validate([
+                'fileimport' => 'required|mimes:xlsx'
+            ]);
+            Excel::import(new BedExport, $this->fileimport->getRealPath());
+            flash('Import Bed successfully', 'success');
+            $this->formimport = 0;
+            $this->fileimport = null;
+            return redirect()->route('kamar.bed.index');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
     }
     public function mount()
     {

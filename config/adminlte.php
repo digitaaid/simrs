@@ -408,7 +408,7 @@ return [
             'icon'    => 'fas fa-ambulance',
             'submenu' => [
                 [
-                    'text' => 'Pasien IGD',
+                    'text' => 'Pendaftaran Pasien IGD',
                     'url' => 'pendaftaran/igd',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
@@ -429,11 +429,12 @@ return [
             'icon'    => 'fas fa-procedures',
             'submenu' => [
                 [
-                    'text' => 'Pasien Rawat Inap',
+                    'text' => 'Pendaftaran Pasien Ranap',
                     'url' => 'pendaftaran/ranap',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
                     'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
+                    'active'  => ['pendaftaran/ranap', 'pendaftaran/ranap/proses'],
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [

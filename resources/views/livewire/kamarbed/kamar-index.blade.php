@@ -4,6 +4,19 @@
             {{ flash()->message }}
         </x-adminlte-alert>
     @endif
+    @if ($formimport)
+        <x-adminlte-card title="Import Kamar" theme="secondary">
+            <x-adminlte-input-file wire:model='fileimport' name="fileimport"
+                placeholder="{{ $fileimport ? $fileimport->getClientOriginalName() : 'Pilih File Kamar' }}"
+                igroup-size="sm" label="File Import" />
+            <x-slot name="footerSlot">
+                <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
+                    theme="success" label="Import" wire:confirm='Apakah anda yakin akan mengimport data kamar ?' />
+                <x-adminlte-button theme="danger" wire:click='importform' class="btn-sm" icon="fas fa-times"
+                    label="Tutup" data-dismiss="modal" />
+            </x-slot>
+        </x-adminlte-card>
+    @endif
     @if ($form)
         <x-adminlte-card title="Formulir Kamar Rawat Inap" theme="primary">
             <x-adminlte-select wire:model='unit_id' igroup-size="sm" fgroup-class="row" label-class="text-right col-4"
@@ -45,7 +58,7 @@
                 <x-adminlte-button wire:click='export'
                     wire:confirm='Apakah anda yakin akan mendownload file saat ini ? ' class="btn-sm mb-2"
                     label="Export" theme="primary" icon="fas fa-upload" />
-                <x-adminlte-button wire:click='import' class="btn-sm mb-2" label="Import" theme="primary"
+                <x-adminlte-button wire:click='importform' class="btn-sm mb-2" label="Import" theme="primary"
                     icon="fas fa-download" />
             </div>
             <div class="col-md-6">

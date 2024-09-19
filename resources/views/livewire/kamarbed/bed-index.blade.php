@@ -4,6 +4,19 @@
             {{ flash()->message }}
         </x-adminlte-alert>
     @endif
+    @if ($formimport)
+        <x-adminlte-card title="Import Bed" theme="secondary">
+            <x-adminlte-input-file wire:model='fileimport' name="fileimport"
+                placeholder="{{ $fileimport ? $fileimport->getClientOriginalName() : 'Pilih File Bed' }}"
+                igroup-size="sm" label="File Import" />
+            <x-slot name="footerSlot">
+                <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
+                    theme="success" label="Import" wire:confirm='Apakah anda yakin akan mengimport data bed ?' />
+                <x-adminlte-button theme="danger" wire:click='importform' class="btn-sm" icon="fas fa-times"
+                    label="Tutup" data-dismiss="modal" />
+            </x-slot>
+        </x-adminlte-card>
+    @endif
     @if ($form)
         <x-adminlte-card title="Formulir Bed Rawat Inap" theme="primary">
             <input type="hidden" name="id" wire:model='id'>
@@ -32,7 +45,7 @@
                 <x-adminlte-button wire:click='export'
                     wire:confirm='Apakah anda yakin akan mendownload file saat ini ? ' class="btn-sm mb-2"
                     label="Export" theme="primary" icon="fas fa-upload" />
-                <x-adminlte-button wire:click='import' class="btn-sm mb-2" label="Import" theme="primary"
+                <x-adminlte-button wire:click='importform' class="btn-sm mb-2" label="Import" theme="primary"
                     icon="fas fa-download" />
             </div>
             <div class="col-md-6">

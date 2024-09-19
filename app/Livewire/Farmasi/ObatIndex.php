@@ -101,7 +101,7 @@ class ObatIndex extends Component
         try {
             $time = now()->format('Y-m-d');
             return Excel::download(new ObatExport, 'obat_backup_' . $time . '.xlsx');
-            flash('Export Pasien successfully', 'success');
+            flash('Export Obat successfully', 'success');
         } catch (\Throwable $th) {
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
