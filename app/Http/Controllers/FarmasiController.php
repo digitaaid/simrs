@@ -13,21 +13,21 @@ class FarmasiController extends Controller
 {
     public function print_resep($kodebooking)
     {
-        $antrian = Antrian::where('kodebooking', $kodebooking)->first();
-        $resepobat = $antrian->resepobat;
-        $resepobatdetails = $antrian->resepobatdetails;
-        $qrurl = QrCode::format('png')->size(150)->generate(route('print.resep', $antrian->kodebooking));
+        $kunjungan = Kunjungan::where('kode', $kodebooking)->first();
+        $resepobat = $kunjungan->resepobat;
+        $resepobatdetails = $kunjungan->resepobatdetails;
+        $qrurl = QrCode::format('png')->size(150)->generate(route('print.resep', $kunjungan->kode));
         $url = "data:image/png;base64," . base64_encode($qrurl);
         // return view('print.pdf_resep_obat', compact('resepobatdetails', 'resepobat', 'antrian', 'url'));
-        $pdf = Pdf::loadView('print.pdf_resep_obat', compact('resepobatdetails', 'resepobat', 'antrian', 'url'));
+        $pdf = Pdf::loadView('print.pdf_resep_obat', compact('resepobatdetails', 'resepobat', 'kunjungan', 'url'));
         return $pdf->stream('etiket.pdf');
         // return view('livewire.farmasi.print_resep_obat', compact('antrian', 'resepobat', 'resepobatdetails'));
     }
     public function print_resepfarmasi($kodebooking)
     {
-        $resepobat = ResepFarmasi::where('kode', $kodebooking)->first();
-        $kunjungan = $resepobat->kunjungan;
-        $resepobatdetails = $resepobat->resepfarmasidetails;
+        $kunjungan = Kunjungan::where('kode', $kodebooking)->first();
+        $resepobat = $kunjungan->resepfarmasi;
+        $resepobatdetails = $kunjungan->resepfarmasidetails;
         $qrurl = QrCode::format('png')->size(150)->generate(route('print.resepfarmasi', $resepobat->kode));
         $url = "data:image/png;base64," . base64_encode($qrurl);
         // return view('print.pdf_resep_obat', compact('resepobatdetails', 'resepobat', 'antrian', 'url'));

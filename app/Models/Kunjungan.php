@@ -33,6 +33,10 @@ class Kunjungan extends Model
     {
         return $this->hasOne(Bed::class,  'id', 'bed_id');
     }
+    public function jaminans()
+    {
+        return $this->hasOne(Jaminan::class,  'kode', 'jaminan');
+    }
     public function asesmenrajal()
     {
         return $this->hasOne(AsesmenRajal::class);

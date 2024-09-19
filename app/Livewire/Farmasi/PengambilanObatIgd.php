@@ -3,7 +3,6 @@
 namespace App\Livewire\Farmasi;
 
 use App\Models\FrekuensiObat;
-use App\Models\Kunjungan;
 use App\Models\Obat;
 use App\Models\ResepFarmasi;
 use App\Models\ResepFarmasiDetail;

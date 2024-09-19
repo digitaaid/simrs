@@ -9,6 +9,7 @@ use Livewire\Component;
 class PendaftaranIgdProses extends Component
 {
     public $kunjungan;
+    protected $listeners = ['refreshPage' => '$refresh'];
     public function mount(Request $request)
     {
         $this->kunjungan = Kunjungan::where('kode', $request->kode)->first();

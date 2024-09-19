@@ -1,5 +1,5 @@
 @extends('print.pdf_layout')
-@section('title', 'Print SEP BPJS')
+@section('title', 'Resep Farmasi ' . $kunjungan->nama)
 
 @section('content')
     <table class="table table-sm table-bordered" style="font-size: 9px;">
@@ -19,20 +19,20 @@
                     <tr>
                         <td>No RM</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->norm ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->norm ?? '-' }}</b></td>
                     </tr>
                     <tr>
                         <td>Nama</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->nama ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->nama ?? '-' }}</b></td>
                     </tr>
                     <tr>
                         <td>Tgl Lahir</td>
                         <td>:</td>
                         <td>
                             <b>
-                                {{ \Carbon\Carbon::parse($antrian->kunjungan->tgl_lahir)->format('d F Y') }}
-                                ({{ \Carbon\Carbon::parse($antrian->kunjungan->tgl_lahir)->age }} tahun)
+                                {{ \Carbon\Carbon::parse($kunjungan->tgl_lahir)->format('d F Y') }}
+                                ({{ \Carbon\Carbon::parse($kunjungan->tgl_lahir)->age }} tahun)
                             </b>
                         </td>
                     </tr>
@@ -41,8 +41,8 @@
                         <td>:</td>
                         <td>
                             <b>
-                                @if ($antrian->kunjungan)
-                                    @if ($antrian->kunjungan->gender == 'P')
+                                @if ($kunjungan)
+                                    @if ($kunjungan->gender == 'P')
                                         Perempuan
                                     @else
                                         Laki-laki
@@ -56,7 +56,35 @@
         </tr>
         <tr class="text-center" style="background: yellow">
             <td colspan="3">
-                <b>RESEP OBAT RAWAT JALAN</b>
+                <b>RESEP OBAT FARMASI
+                    @switch($kunjungan->jeniskunjungan)
+                        @case(1)
+                            Rawat Jalan (FKTP)
+                        @break
+
+                        @case(2)
+                            Rawat Jalan (Umum)
+                        @break
+
+                        @case(3)
+                            Rawat Jalan (Kontrol)
+                        @break
+
+                        @case(4)
+                            Rawat Jalan (RS)
+                        @break
+
+                        @case(5)
+                            IGD
+                        @break
+
+                        @case(6)
+                            Rawat Inap
+                        @break
+
+                        @default
+                    @endswitch
+                </b>
             </td>
         </tr>
         <tr>
@@ -69,18 +97,18 @@
                         <td>Tanggal Masuk</td>
                         <td>:</td>
                         <td><b>
-                                {{ $antrian->kunjungan->tgl_masuk ? \Carbon\Carbon::parse($antrian->kunjungan->tgl_masuk)->format('d F Y H:i') : '-' }}
+                                {{ $kunjungan->tgl_masuk ? \Carbon\Carbon::parse($kunjungan->tgl_masuk)->format('d F Y H:i') : '-' }}
                             </b></td>
                     </tr>
                     <tr>
                         <td>Unit / Ruangan</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->kunjungan->units->nama ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->units->nama ?? '-' }}</b></td>
                     </tr>
                     <tr>
                         <td>Dokter</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->kunjungan->dokters->nama ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->dokters->nama ?? '-' }}</b></td>
                     </tr>
                 </table>
             </td>
@@ -89,25 +117,49 @@
                     <tr>
                         <td>Jenis Pelayanan</td>
                         <td>:</td>
-                        <td><b>Rawat Jalan</b></td>
+                        <td><b>
+                                @switch($kunjungan->jeniskunjungan)
+                                    @case(1)
+                                        Rawat Jalan (FKTP)
+                                    @break
+
+                                    @case(2)
+                                        Rawat Jalan (Umum)
+                                    @break
+
+                                    @case(3)
+                                        Rawat Jalan (Kontrol)
+                                    @break
+
+                                    @case(4)
+                                        Rawat Jalan (RS)
+                                    @break
+
+                                    @case(5)
+                                        IGD
+                                    @break
+
+                                    @case(6)
+                                        Rawat Inap
+                                    @break
+
+                                    @default
+                                @endswitch
+                            </b></td>
                     </tr>
                     <tr>
                         <td>Penjamin</td>
                         <td>:</td>
                         <td>
                             <b>
-                                @if ($antrian->jenispasien == 'JKN')
-                                    BPJS / JKN
-                                @else
-                                    UMUM / NON-JKN
-                                @endif
+                                {{ $kunjungan->jaminans?->nama }}
                             </b>
                         </td>
                     </tr>
                     <tr>
                         <td>No. SEP</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->kunjungan->sep ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->sep ?? '-' }}</b></td>
                     </tr>
                 </table>
             </td>
@@ -118,11 +170,11 @@
                     <tr>
                         <td>Alamat Pasien</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->pasien->alamat ?? '-' }}</b>
-                            @if ($antrian->pasien)
-                                <b>{{ $antrian->pasien->kabupaten ?? '' }}</b>
-                                <b>{{ $antrian->pasien->kecamatan ?? '' }}</b>
-                                <b>{{ $antrian->pasien->desa ?? '' }}</b>
+                        <td><b>{{ $kunjungan->pasien->alamat ?? '-' }}</b>
+                            @if ($kunjungan->pasien)
+                                <b>{{ $kunjungan->pasien->kabupaten ?? '' }}</b>
+                                <b>{{ $kunjungan->pasien->kecamatan ?? '' }}</b>
+                                <b>{{ $kunjungan->pasien->desa ?? '' }}</b>
                             @endif
                         </td>
                     </tr>

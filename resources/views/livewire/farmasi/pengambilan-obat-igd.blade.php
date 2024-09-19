@@ -206,7 +206,7 @@
                                         <span class="badge badge-primary">{{ $resep->status }}. Peracikan</span>
                                     @break
 
-                                    @case(2)
+                                    @case(3)
                                         <span class="badge badge-success">{{ $resep->status }}. Selesai</span>
                                     @break
 
@@ -227,11 +227,16 @@
                                         label="Selesai" theme="success" icon="fas fa-check" />
                                 @endif
                                 @if ($resep->status == 3)
+                                    <a href="#editresep">
+                                        <x-adminlte-button wire:click='edit({{ $resep }})' class="btn-xs"
+                                            label="Edit" theme="warning" icon="fas fa-edit" />
+                                    </a>
                                     <x-adminlte-button wire:confirm='Apakah anda yakin panggil pasien ?'
                                         wire:click='panggil({{ $resep }})' class="btn-xs" label="Panggil"
                                         theme="primary" icon="fas fa-check" />
                                     <a href="{{ route('print.resepfarmasi', $resep->kode) }}" target="_blank">
-                                        <x-adminlte-button class="btn-xs" theme="primary" title="Cetak Resep Farmasi"  icon="fas fa-print" />
+                                        <x-adminlte-button class="btn-xs" theme="primary" title="Cetak Resep Farmasi"
+                                            icon="fas fa-print" />
                                     </a>
                                 @endif
                             </td>

@@ -4,7 +4,11 @@
             <li class="nav-item">
                 <a href="#datapasien" class="nav-link">
                     <i class="fas fa-users"></i> Data Pasien
-                    <span class="badge bg-success float-right">Pasien</span>
+                    @if ($kunjungan->nama)
+                        <span class="badge bg-success float-right">{{ $kunjungan->nama }}</span>
+                    @else
+                        <span class="badge bg-danger float-right">Belum Daftar</span>
+                    @endif
                 </a>
                 <a href="#kunjunganigd" class="nav-link">
                     <i class="fas fa-ambulance"></i> Kunjungan
@@ -29,6 +33,14 @@
                     </a>
                     <a href="#layanan" class="nav-link">
                         <i class="fas fa-hand-holding-medical"></i> Layanan & Tindakan
+                        @if ($kunjungan->layanans)
+                            <span
+                                class="badge bg-success float-right">{{ money($kunjungan->layanans->sum('subtotal'), 'IDR') }}
+                            </span>
+                        @else
+                            <span class="badge bg-success float-right">{{ money(0, 'IDR') }}
+                            </span>
+                        @endif
                         {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
                     <a href="#resepdokterigd" class="nav-link">
@@ -57,6 +69,10 @@
                     </a>
                     <a href="#resumeigd" class="nav-link">
                         <i class="fas fa-file-medical"></i> Resume IGD
+                        {{-- <span class="badge bg-success float-right"></span> --}}
+                    </a>
+                    <a href="#invoiceigd" class="nav-link">
+                        <i class="fas fa-file-medical"></i> Invoice IGD
                         {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
                 @endif
