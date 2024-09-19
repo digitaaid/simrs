@@ -34,6 +34,10 @@
                     <a href="#resepdokterigd" class="nav-link">
                         <i class="fas fa-pills"></i> Resep Obat
                         {{-- <span class="badge bg-success float-right"></span> --}}
+                        @if ($kunjungan->resepobatdetails)
+                            <span class="badge bg-success float-right">{{ count($kunjungan->resepobatdetails) }}
+                                Obat</span>
+                        @endif
                     </a>
                     <a href="#instruksitindaklanjut" class="nav-link">
                         <i class="fas fa-users"></i> Instruksi Tindak Lanjut
@@ -41,11 +45,15 @@
                     </a>
                     <a href="#tranferrawatinap" class="nav-link">
                         <i class="fas fa-bed"></i> Transfer Rawat Inap
-                        {{-- <span class="badge bg-success float-right"></span> --}}
+                        @if ($kunjungan->kode_transfer)
+                            <span class="badge bg-success float-right">Sudah ditransfer</span>
+                        @endif
                     </a>
                     <a href="#tranferrawatinap" class="nav-link">
                         <i class="fas fa-ambulance"></i> Pemulangan Pasien IGD
-                        {{-- <span class="badge bg-success float-right"></span> --}}
+                        @if ($kunjungan->tgl_pulang)
+                            <span class="badge bg-success float-right">{{ $kunjungan->tgl_pulang }}</span>
+                        @endif
                     </a>
                     <a href="#resumeigd" class="nav-link">
                         <i class="fas fa-file-medical"></i> Resume IGD
