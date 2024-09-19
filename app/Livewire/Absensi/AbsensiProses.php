@@ -21,37 +21,37 @@ class AbsensiProses extends Component
         $lat_kantor = $lokasikantor->latitude;
         $long_kantor = $lokasikantor->longitude;
         $request["jarak_masuk"] = $this->distance($request["lat_masuk"], $request["long_masuk"], $lat_kantor, $long_kantor, "K") * 1000;
-        // if ($request["jarak_masuk"] > $lokasikantor->radius) {
-        //     Alert::error('Diluar Jangkauan', 'Lokasi Anda Diluar Radius Kantor');
-        //     return redirect()->route('absensi.proses');
-        // } else {
-        $foto_absensi_masuk = $request["foto_absensi"];
-        $image_parts = explode(";base64,", $foto_absensi_masuk);
-        $image_base64 = base64_decode($image_parts[1]);
-        $fileName = 'foto_absensi_masuk/' . uniqid() . '.png';
-        Storage::put($fileName, $image_base64);
-        $request["foto_absensi_masuk"] = $fileName;
-        $request["status_absen"] = "Masuk";
-        $request["absensi_masuk"] = now()->format("Y-m-d H:i");
-        $shiftpegawai = ShiftPegawai::where('id', $id)->first();
-        $tgl_skrg = date("Y-m-d");
-        $awal  = strtotime($shiftpegawai->tanggal . ' ' . $shiftpegawai->jam_masuk);
-        $akhir = strtotime($request["absensi_masuk"]);
-        $diff  = $akhir - $awal;
-        if ($diff <= 0) {
-            $request["telat"] = 0;
+        if ($request["jarak_masuk"] > $lokasikantor->radius) {
+            Alert::error('Diluar Jangkauan', 'Lokasi Anda Diluar Radius Kantor');
+            return redirect()->route('absensi.proses');
         } else {
-            $request["telat"] = $diff;
+            $foto_absensi_masuk = $request["foto_absensi"];
+            $image_parts = explode(";base64,", $foto_absensi_masuk);
+            $image_base64 = base64_decode($image_parts[1]);
+            $fileName = 'foto_absensi_masuk/' . uniqid() . '.png';
+            Storage::put($fileName, $image_base64);
+            $request["foto_absensi_masuk"] = $fileName;
+            $request["status_absen"] = "Masuk";
+            $request["absensi_masuk"] = now()->format("Y-m-d H:i");
+            $shiftpegawai = ShiftPegawai::where('id', $id)->first();
+            $tgl_skrg = date("Y-m-d");
+            $awal  = strtotime($shiftpegawai->tanggal . ' ' . $shiftpegawai->jam_masuk);
+            $akhir = strtotime($request["absensi_masuk"]);
+            $diff  = $akhir - $awal;
+            if ($diff <= 0) {
+                $request["telat"] = 0;
+            } else {
+                $request["telat"] = $diff;
+            }
+            $shiftpegawai->update($request->all());
+            Alert::success('Success', 'Berhasil Absen Masuk');
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Absensi Masuk',
+                'description' => auth()->user()->name . ' telah melakukan absensi masuk',
+            ]);
+            return redirect()->route('absensi.proses');
         }
-        $shiftpegawai->update($request->all());
-        Alert::success('Success', 'Berhasil Absen Masuk');
-        ActivityLog::create([
-            'user_id' => auth()->user()->id,
-            'activity' => 'Absensi Masuk',
-            'description' => auth()->user()->name . ' telah melakukan absensi masuk',
-        ]);
-        return redirect()->route('absensi.proses');
-        // }
     }
     public function pulang($id, Request $request)
     {
