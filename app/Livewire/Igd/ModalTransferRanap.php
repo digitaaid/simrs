@@ -56,7 +56,7 @@ class ModalTransferRanap extends Component
             'jenispeserta' => $this->jenispeserta,
         ]);
         $kunjunganigd = $this->kunjungan;
-        if ($kunjunganigd->kode_transfer) {
+        if (!empty($kunjunganigd->kode_transfer)) {
             $kodetf = $kunjunganigd->kode_transfer;
         } else {
             $kodetf = strtoupper(uniqid());
@@ -90,11 +90,12 @@ class ModalTransferRanap extends Component
             'user1' => auth()->user()->id,
         ]);
         $kunjunganigd->update([
-            'kode_trasnfer' => $kodetf,
+            'kode_transfer' => $kodetf,
             'tgl_pulang' => Carbon::parse($this->tgl_transfer),
             'status' => 2,
             'user1' => auth()->user()->id,
         ]);
+
         Alert::success('Success', 'Kunjungan berhasil disimpan');
         // flash('Kunjungan berhasil disimpan', 'success');
         $url = route('pendaftaran.igd.proses') . "?kode=" . $kunjunganigd->kode;

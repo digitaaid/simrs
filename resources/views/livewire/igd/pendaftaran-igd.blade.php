@@ -58,6 +58,7 @@
                 $heads = [
                     'No',
                     'Tgl Masuk',
+                    'Tgl Pulang',
                     'Counter',
                     'No RM',
                     'Nama Pasien',
@@ -80,6 +81,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->tgl_masuk }}</td>
+                            <td>{{ $item->tgl_pulang }}</td>
                             <td>{{ $item->counter }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>

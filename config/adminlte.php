@@ -429,7 +429,7 @@ return [
             'icon'    => 'fas fa-procedures',
             'submenu' => [
                 [
-                    'text' => 'Pendaftaran Ranap',
+                    'text' => 'Pasien Rawat Inap',
                     'url' => 'pendaftaran/ranap',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
