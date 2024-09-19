@@ -12,7 +12,7 @@ class BedImport implements ToCollection, WithHeadingRow
     public function collection(Collection $collection)
     {
         foreach ($collection as $row) {
-            if ($row['unit_id']) {
+            if ($row['kamar_id']) {
                 Bed::updateOrCreate(
                     [
                         'kamar_id' => $row['kamar_id'],

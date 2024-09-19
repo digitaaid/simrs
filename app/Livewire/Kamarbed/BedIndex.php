@@ -3,6 +3,7 @@
 namespace App\Livewire\Kamarbed;
 
 use App\Exports\BedExport;
+use App\Imports\BedImport;
 use App\Models\Bed;
 use App\Models\Kamar;
 use Livewire\Component;
@@ -74,7 +75,7 @@ class BedIndex extends Component
             $this->validate([
                 'fileimport' => 'required|mimes:xlsx'
             ]);
-            Excel::import(new BedExport, $this->fileimport->getRealPath());
+            Excel::import(new BedImport, $this->fileimport->getRealPath());
             flash('Import Bed successfully', 'success');
             $this->formimport = 0;
             $this->fileimport = null;

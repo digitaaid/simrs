@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('kapasitaspria')->default(0);
             $table->string('kapasitaswanita')->default(0);
             $table->string('kapasitaspriawanita')->default(0);
-            $table->string('status');
+            $table->string('status')->default(1);
             $table->string('pic');
             $table->string('user');
             $table->timestamps();
