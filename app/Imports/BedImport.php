@@ -20,6 +20,7 @@ class BedImport implements ToCollection, WithHeadingRow
                     ],
                     [
                         'koderuang' => $row['koderuang'],
+                        'namaruang' => $row['namaruang'],
                         'unit_id' => $row['unit_id'],
                         'bedpria' => $row['bedpria'],
                         'bedwanita' => $row['bedwanita'],
