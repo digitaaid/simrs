@@ -70,7 +70,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($antrian->layanans as $item)
+                @foreach ($antrian->kunjungan->layanans as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->nama }}</td>

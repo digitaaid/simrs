@@ -34,7 +34,7 @@
         <a href="#layanan" class="nav-link">
             <i class="fas fa-hand-holding-medical"></i> Layanan & Tindakan
             <span class="badge bg-success float-right">
-                {{ $antrian->layanans->count() }} Layanan
+                {{ $antrian->kunjungan?->layanans->count() }} Layanan
             </span>
         </a>
     </li>
