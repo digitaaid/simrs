@@ -58,32 +58,32 @@
             <td colspan="3">
                 <b>NOTA PEMBAYARAN
                     @switch($kunjungan->jeniskunjungan)
-                    @case(1)
-                        RAWAT JALAN (FKTP)
-                    @break
+                        @case(1)
+                            RAWAT JALAN (FKTP)
+                        @break
 
-                    @case(2)
-                        RAWAT JALAN (Umum)
-                    @break
+                        @case(2)
+                            RAWAT JALAN (Umum)
+                        @break
 
-                    @case(3)
-                        RAWAT JALAN (Kontrol)
-                    @break
+                        @case(3)
+                            RAWAT JALAN (Kontrol)
+                        @break
 
-                    @case(4)
-                        RAWAT JALAN (RS)
-                    @break
+                        @case(4)
+                            RAWAT JALAN (RS)
+                        @break
 
-                    @case(5)
-                        IGD
-                    @break
+                        @case(5)
+                            IGD
+                        @break
 
-                    @case(6)
-                        RAWAT INAP
-                    @break
+                        @case(6)
+                            RAWAT INAP
+                        @break
 
-                    @default
-                @endswitch
+                        @default
+                    @endswitch
 
                 </b>
             </td>
@@ -202,9 +202,9 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->jumlah }}</td>
-                            <td class="text-right">{{ money($item->harga ? floatval($item->harga) : 0, 'IDR') }}</td>
+                            <td class="text-right">{{ money(floatval($item->harga ?? 0), 'IDR') }}</td>
                             <td class="text-right">{{ $item->diskon }}%</td>
-                            <td class="text-right">{{ money($item->subtotal ? floatval($item->subtotal) : 0, 'IDR') }}</td>
+                            <td class="text-right">{{ money(floatval($item->subtotal ?? 0), 'IDR') }}</td>
                         </tr>
                     @endforeach
                     <tr>

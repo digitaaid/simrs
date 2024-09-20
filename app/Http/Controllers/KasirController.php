@@ -24,8 +24,8 @@ class KasirController extends Controller
         $qrttdpasien = QrCode::format('png')->size(150)->generate($antrian->nama);
         $ttdpasien = "data:image/png;base64," . base64_encode($qrttdpasien);
         // return view('print.pdf_notarajal', compact('resepobatdetails', 'resepobat', 'antrian','url));
-        $pdf = Pdf::loadView('print.pdf_notarajal', compact('resepobatdetails', 'resepobat', 'antrian', 'url', 'ttdpetugas','ttdpasien'));
-        return $pdf->stream('etiket.pdf');
+        $pdf = Pdf::loadView('print.pdf_notarajal', compact('resepobatdetails', 'resepobat', 'antrian', 'url', 'ttdpetugas', 'ttdpasien'));
+        return $pdf->stream($kunjungan->nama . '.pdf');
     }
     public function print_notarajalf($kodebooking)
     {
@@ -41,7 +41,7 @@ class KasirController extends Controller
         $qrttdpasien = QrCode::format('png')->size(150)->generate($kunjungan->nama);
         $ttdpasien = "data:image/png;base64," . base64_encode($qrttdpasien);
         // return view('print.pdf_notarajal', compact('resepobatdetails', 'resepobat', 'antrian','url));
-        $pdf = Pdf::loadView('print.pdf_notarajal', compact('resepobatdetails', 'resepobat', 'kunjungan', 'url', 'ttdpetugas','ttdpasien'));
-        return $pdf->stream('etiket.pdf');
+        $pdf = Pdf::loadView('print.pdf_notarajal', compact('resepobatdetails', 'resepobat', 'kunjungan', 'url', 'ttdpetugas', 'ttdpasien'));
+        return $pdf->stream($kunjungan->nama . '.pdf');
     }
 }
