@@ -19,8 +19,7 @@
         <x-adminlte-card title="Pasien IGD" theme="secondary">
             <div class="row">
                 <div class="col-md-3">
-                    <x-adminlte-input wire:model.change='tanggal' type="date" name="tanggal"
-                        igroup-size="sm">
+                    <x-adminlte-input wire:model.change='tanggal' type="date" name="tanggal" igroup-size="sm">
                         <x-slot name="appendSlot">
                             <x-adminlte-button wire:click='caritanggal' theme="primary" label="Pilih" />
                         </x-slot>
@@ -62,6 +61,7 @@
                     'Counter',
                     'No RM',
                     'Nama Pasien',
+                    'Status',
                     'Action',
                     'Layanan',
                     'Unit',
@@ -69,7 +69,6 @@
                     'PIC',
                     'Kartu BPJS',
                     'NIK',
-                    'Status',
                 ];
                 $config['order'] = [5, 'asc'];
                 $config['scrollX'] = true;
@@ -86,6 +85,26 @@
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
+                                @switch($item->status)
+                                    @case(1)
+                                        <span class="badge bg-warning float-right">{{ $item->status }}. Aktif
+                                        </span>
+                                    @break
+
+                                    @case(2)
+                                        <span class="badge bg-success float-right">{{ $item->status }}. Selesai
+                                        </span>
+                                    @break
+
+                                    @case(99)
+                                        <span class="badge bg-success float-right">{{ $item->status }}. Batal
+                                        </span>
+                                    @break
+
+                                    @default
+                                @endswitch
+                            </td>
+                            <td>
                                 <a href="{{ route('pendaftaran.igd.proses') }}?kode={{ $item->kode }}">
                                     <x-adminlte-button class="btn-xs" label="Proses" theme="success"
                                         icon="fas fa-hand-holding-medical" />
@@ -97,7 +116,6 @@
                             <td>{{ $item->pic1->name }}</td>
                             <td>{{ $item->nomorkartu }}</td>
                             <td>{{ $item->nik }} </td>
-                            <td>{{ $item->status }} </td>
                         </tr>
                     @endforeach
                 @endisset

@@ -95,9 +95,8 @@ class ModalTransferRanap extends Component
             'status' => 2,
             'user1' => auth()->user()->id,
         ]);
-
-        Alert::success('Success', 'Kunjungan berhasil disimpan');
-        // flash('Kunjungan berhasil disimpan', 'success');
+        Alert::success('Success', 'Kunjungan berhasil ditransfer');
+        flash('Kunjungan IGD berhasil ditransfer ke Rawat Inap', 'success');
         $url = route('pendaftaran.igd.proses') . "?kode=" . $kunjunganigd->kode;
         redirect()->to($url);
     }

@@ -4,7 +4,7 @@
             <li class="nav-item">
                 <a href="#datapasien" class="nav-link">
                     <i class="fas fa-users"></i> Data Pasien
-                    @if ($kunjungan->nama)
+                    @if ($kunjungan)
                         <span class="badge bg-success float-right">{{ $kunjungan->nama }}</span>
                     @else
                         <span class="badge bg-danger float-right">Belum Daftar</span>
@@ -12,10 +12,27 @@
                 </a>
                 <a href="#kunjunganigd" class="nav-link">
                     <i class="fas fa-ambulance"></i> Kunjungan
-                    @if ($kunjungan->tgl_masuk)
-                        <span class="badge bg-success float-right">{{ $kunjungan->tgl_masuk }}</span>
+                    @if ($kunjungan)
+                        @switch($kunjungan->status)
+                            @case(1)
+                                <span class="badge bg-warning float-right">{{ $kunjungan->status }}. Aktif
+                                </span>
+                            @break
+
+                            @case(2)
+                                <span class="badge bg-success float-right">{{ $kunjungan->status }}. Selesai
+                                </span>
+                            @break
+
+                            @case(99)
+                                <span class="badge bg-success float-right">{{ $kunjungan->status }}. Batal
+                                </span>
+                            @break
+
+                            @default
+                        @endswitch
                     @else
-                        <span class="badge bg-danger float-right">Belum Daftar</span>
+                        <span class="badge bg-danger float-right">0. Belum Daftar</span>
                     @endif
                 </a>
                 @if ($kunjungan)

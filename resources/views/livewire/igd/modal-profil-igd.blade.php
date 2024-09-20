@@ -40,7 +40,7 @@
                 <td>Tgl Lahir</td>
                 <td>:</td>
                 <th>{{ $kunjungan->pasien?->tgl_lahir ?? 'Belum Didaftarkan' }}
-                    @if ($kunjungan->pasien)
+                    @if ($kunjungan)
                     ({{ \Carbon\Carbon::parse($kunjungan->pasien?->tgl_lahir)->age  }} tahun)
                     @endif
                 </th>

@@ -37,6 +37,12 @@ class ModalKunjunganIgd extends Component
             'cara_masuk' => 'required',
             'jeniskunjungan' => 'required',
         ]);
+        $kunjunganaktif = Kunjungan::where('norm', $this->norm)
+            ->where('status', 1)
+            ->first();
+        if ($kunjunganaktif) {
+            return flash('Pasien atas nama ' . $kunjunganaktif->nama . ' masih memiliki kunjungan aktif ke ' . $kunjunganaktif->units->nama, 'danger');
+        }
         if (!$this->kode && !$this->counter) {
             $this->counter = Kunjungan::where('norm', $this->norm)->first()?->counter ?? 1;
             $this->kode = strtoupper(uniqid());
@@ -77,7 +83,6 @@ class ModalKunjunganIgd extends Component
             'user1' => auth()->user()->id,
         ]);
         Alert::success('Success', 'Kunjungan berhasil disimpan');
-        // flash('Kunjungan berhasil disimpan', 'success');
         $url = route('pendaftaran.igd.proses') . "?kode=" . $kunjungan->kode;
         redirect()->to($url);
     }

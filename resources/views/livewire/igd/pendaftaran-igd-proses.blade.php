@@ -20,26 +20,28 @@
         <div id="kunjunganigd">
             @livewire('igd.modal-kunjungan-igd', ['lazy' => true, 'kunjungan' => $kunjungan])
         </div>
-        <div id="triaseigd">
-            @livewire('igd.modal-triase-igd', ['lazy' => true])
-        </div>
-        <div id="layanan">
-            @livewire('igd.modal-layanan-igd', ['lazy' => true, 'kunjungan' => $kunjungan])
-        </div>
-        <div id="resepdokterigd">
-            @livewire('igd.modal-resep-dokter-igd', ['lazy' => true, 'kunjungan' => $kunjungan])
-        </div>
-        <div id="asesmenigd">
-            @livewire('igd.modal-asesmen-igd', ['lazy' => true])
-        </div>
-        <div id="tranferrawatinap">
-            @livewire('igd.modal-transfer-ranap', ['lazy' => true, 'kunjungan' => $kunjungan])
-        </div>
-        <div id="invoiceigd">
-            <x-adminlte-card theme="primary" title="Nota Pembayaran Pasien">
-                <iframe src="{{ route('print.notarajalf', $kunjungan->kode) }}" width="100%" height="500"
-                    frameborder="0"></iframe>
-            </x-adminlte-card>
-        </div>
+        @if ($kunjungan)
+            <div id="triaseigd">
+                @livewire('igd.modal-triase-igd', ['lazy' => true])
+            </div>
+            <div id="layanan">
+                @livewire('igd.modal-layanan-igd', ['lazy' => true, 'kunjungan' => $kunjungan])
+            </div>
+            <div id="resepdokterigd">
+                @livewire('igd.modal-resep-dokter-igd', ['lazy' => true, 'kunjungan' => $kunjungan])
+            </div>
+            <div id="asesmenigd">
+                @livewire('igd.modal-asesmen-igd', ['lazy' => true])
+            </div>
+            <div id="tranferrawatinap">
+                @livewire('igd.modal-transfer-ranap', ['lazy' => true, 'kunjungan' => $kunjungan])
+            </div>
+            <div id="invoiceigd">
+                <x-adminlte-card theme="primary" title="Nota Pembayaran Pasien">
+                    <iframe src="{{ route('print.notarajalf', $kunjungan->kode) }}" width="100%" height="500"
+                        frameborder="0"></iframe>
+                </x-adminlte-card>
+            </div>
+        @endif
     </div>
 </div>
