@@ -25,7 +25,7 @@ class KasirController extends Controller
         $ttdpasien = "data:image/png;base64," . base64_encode($qrttdpasien);
         // return view('print.pdf_notarajal', compact('resepobatdetails', 'resepobat', 'antrian','url));
         $pdf = Pdf::loadView('print.pdf_notarajal', compact('resepobatdetails', 'resepobat', 'antrian', 'url', 'ttdpetugas', 'ttdpasien'));
-        return $pdf->stream($kunjungan->nama . '.pdf');
+        return $pdf->stream($antrian->nama . '.pdf');
     }
     public function print_notarajalf($kodebooking)
     {
