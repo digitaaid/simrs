@@ -1,11 +1,5 @@
 <div class="row">
-    @if (flash()->message)
-        <div class="col-md-12">
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        </div>
-    @endif
+
     @if (isset($antrians))
         <div class="col-md-12">
             <div class="row">
@@ -22,6 +16,13 @@
                         theme="danger" icon="fas fa-user-injured" />
                 </div>
             </div>
+        </div>
+    @endif
+    @if (flash()->message)
+        <div class="col-md-12">
+            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
+                {{ flash()->message }}
+            </x-adminlte-alert>
         </div>
     @endif
     <div id="editresep" class="col-md-12">
