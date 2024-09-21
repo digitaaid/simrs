@@ -208,6 +208,9 @@ class PengambilanResep extends Component
             $antrian->status = 1;
             $antrian->user4 = auth()->user()->id;
             $antrian->update();
+            $kunjungan = $antrian->kunjungan;
+            $kunjungan->status = 2;
+            $kunjungan->update();
             return flash('Pelayanan farmasi atas nama pasien ' . $antrian->nama . ' telah selesai.', 'success');
         } else {
             $antrian->taskid = 7;
@@ -215,6 +218,9 @@ class PengambilanResep extends Component
             $antrian->status = 1;
             $antrian->user4 = auth()->user()->id;
             $antrian->update();
+            $kunjungan = $antrian->kunjungan;
+            $kunjungan->status = 2;
+            $kunjungan->update();
             flash('Pelayanan farmasi atas nama pasien ' . $antrian->nama . ' telah selesai.', 'success');
         }
     }
