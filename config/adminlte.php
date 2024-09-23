@@ -874,19 +874,28 @@ return [
                     'text' => 'Lokasi Absensi',
                     'icon'    => 'fas fa-map-marked-alt',
                     'url'  => 'lokasi-absensi',
+                    'can'  => 'crud-absensi',
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Shift Absensi',
                     'icon'    => 'fas fa-calendar-day',
                     'url'  => 'shift-absensi',
+                    'can'  => 'crud-absensi',
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Shift Pegawai',
                     'icon'    => 'fas fa-user-clock',
                     'url'  => 'shift-pegawai',
+                    'can'  => 'crud-absensi',
                     'active'  => ['shift-pegawai', 'shift-pegawai-edit'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Laporan Absensi',
+                    'icon' => 'fas fa-chart-line',
+                    'url'  => 'laporan-absensi',
                     'shift'   => 'ml-2',
                 ],
                 [
@@ -899,6 +908,7 @@ return [
                     'text' => 'Lembur Pegawai',
                     'icon'    => 'fas fa-business-time',
                     'url'  => 'lokasi-pegawai',
+                    'can'  => 'crud-absensi',
                     'shift'   => 'ml-2',
                 ],
                 [
@@ -909,8 +919,9 @@ return [
                 ],
                 [
                     'text' => 'Cuti Pegawai',
-                    'icon'    => 'fas fa-calendar-times',
+                    'icon' => 'fas fa-chart-line',
                     'url'  => 'lokasi-pegawai',
+                    'can'  => 'crud-absensi',
                     'shift'   => 'ml-2',
                 ],
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SepController;
 use App\Http\Controllers\SuratKontrolController;
 use App\Livewire\Absensi\AbsensiProses;
+use App\Livewire\Absensi\LaporanAbsensi;
 use App\Livewire\Absensi\LokasiAbsensi;
 use App\Livewire\Absensi\LokasiSaya;
 use App\Livewire\Absensi\ShiftAbsensi;
@@ -138,6 +139,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('absensi-proses', AbsensiProses::class)->name('absensi.proses');
     Route::put('absensi-masuk/{id}', [AbsensiProses::class, 'masuk'])->name('absensi.masuk');
     Route::put('absensi-pulang/{id}', [AbsensiProses::class, 'pulang'])->name('absensi.pulang');
+    Route::get('laporan-absensi', LaporanAbsensi::class)->name('laporan.absensi');
+    Route::get('print-laporan-absensi', [LaporanAbsensi::class, 'print'])->name('print.laporan.absensi');
     Route::get('lokasi-saya', LokasiSaya::class)->name('lokasi.saya');
     Route::get('lokasi-absensi', LokasiAbsensi::class)->name('lokasi.absensi');
     Route::get('shift-absensi', ShiftAbsensi::class)->name('shift.absensi');

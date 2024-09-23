@@ -44,7 +44,9 @@
                         <div class="col-md-6">
                             <x-adminlte-input wire:model="harga_beli" fgroup-class="row" label-class="text-right col-4"
                                 igroup-class="col-8" igroup-size="sm" name="harga_beli" type="number"
-                                label="harga_beli" />
+                                label="Harga Beli/Kemasan" />
+                            <br>
+                            <b>Harga Beli Satuan = </b>
                             <x-adminlte-input wire:model="harga_jual" fgroup-class="row" label-class="text-right col-4"
                                 igroup-class="col-8" igroup-size="sm" name="harga_jual" type="number"
                                 label="harga_jual" />
