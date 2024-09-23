@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dokter;
+use App\Models\ShiftPegawai;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('home');
+        $user = auth()->user();
+        $absensi = ShiftPegawai::where('user_id', $user->id)
+            ->where('tanggal', now()->format('Y-m-d'))->first();
+        return view('home', compact('absensi'));
     }
     public function  landingpage()
     {
