@@ -33,7 +33,7 @@
                     <tr>
                         <td>Periode </td>
                         <td>:</td>
-                        <td></td>
+                        <td>{{ now()->format('F Y') }}</td>
                     </tr>
                     <tr>
                         <td>Nama </td>

@@ -3,7 +3,9 @@
 namespace App\Livewire\Absensi;
 
 use App\Models\ShiftPegawai;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class LaporanAbsensi extends Component
@@ -14,9 +16,13 @@ class LaporanAbsensi extends Component
         $id = auth()->user()->id;
         $this->absensis = ShiftPegawai::where('user_id', $id)->get();
     }
-    public function  print()
+    public function  print(Request $request)
     {
-        $user = auth()->user();
+        if ($request->user) {
+            $user = User::find($request->user);
+        } else {
+            $user = auth()->user();
+        }
         $absensis = ShiftPegawai::where('user_id', $user->id)->get();
         return view('print.pdf_laporan_absensi', compact('absensis', 'user'));
         $pdf = Pdf::loadView('print.pdf_resep_obat', compact('resepobatdetails', 'resepobat', 'kunjungan', 'url'));

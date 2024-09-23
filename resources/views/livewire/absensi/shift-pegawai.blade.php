@@ -18,6 +18,10 @@
                                 <a href="{{ route('shift.pegawai.edit') }}?kode={{ $user->id }}">
                                     <x-adminlte-button class="btn-xs" label="Jadwal" theme="warning" icon="fas fa-clock" />
                                 </a>
+                                <a href="{{ route('print.laporan.absensi') }}?user={{ $user->id }}" target="_blank">
+                                    <x-adminlte-button class="btn-xs" label="Laporan" theme="success"
+                                        icon="fas fa-print" />
+                                </a>
                             </td>
                         </tr>
                     @endforeach
