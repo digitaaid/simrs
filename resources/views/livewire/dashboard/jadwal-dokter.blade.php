@@ -1,6 +1,6 @@
 <div>
     <x-adminlte-card title="Jadwal Dokter Hari Ini" theme="secondary">
-        <table class="table table-sm table-bordered table-hover text-nowrap">
+        <table class="table table-sm table-bordered table-hover text-nowrap table-responsive">
             <thead>
                 <tr>
                     <th>#</th>
