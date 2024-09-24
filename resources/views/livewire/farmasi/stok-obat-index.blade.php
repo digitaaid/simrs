@@ -140,8 +140,8 @@
                             <th>Subtotal</th>
                             <th>No RM</th>
                             <th>Pasien</th>
-                            <th>Dokter</th>
-                            <th>Farmasi</th>
+                            <th>Unit</th>
+                            <th>Apoteker</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -154,10 +154,10 @@
                                 <td>{{ money($item->harga, 'IDR') }}</td>
                                 <td>{{ $item->jumlah }}</td>
                                 <td>{{ money($item->subtotal, 'IDR') }}</td>
-                                <td>{{ $item->kunjungan->norm }}</td>
-                                <td>{{ $item->kunjungan->nama }}</td>
-                                <td>{{ $item->antrian->namadokter }}</td>
-                                <td>{{ $item->antrian?->pic4?->name }}</td>
+                                <td>{{ $item->resep->norm }}</td>
+                                <td>{{ $item->resep->nama }}</td>
+                                <td>{{ $item->resep->namaunit }}</td>
+                                <td>{{ $item->resep->pic  }}</td>
                             </tr>
                         @endforeach
                     </tbody>

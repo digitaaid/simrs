@@ -143,8 +143,8 @@ class PenjualanObat extends Component
             'kodekunjungan' => $this->kode,
             'kode' => $this->kode,
         ], [
-            'antrian_id' => 1,
-            'kunjungan_id' => 1,
+            'antrian_id' => 0,
+            'kunjungan_id' => 0,
             'counter' => $this->counter,
             'norm' => $this->norm  ?? '000000',
             'nama' => $this->nama ?? 'PASIEN FARMASI',

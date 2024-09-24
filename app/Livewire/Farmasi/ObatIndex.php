@@ -133,6 +133,7 @@ class ObatIndex extends Component
             $this->paginate = 0;
             if ($this->filter == "minus") {
                 $obats = Obat::where('nama', 'like', $search)
+                    ->with(['reseps', 'stoks'])
                     ->orderBy('status', 'desc')
                     ->orderBy('nama', 'asc')
                     ->get()->filter(function ($obat) {
@@ -141,6 +142,7 @@ class ObatIndex extends Component
             }
             if ($this->filter == "minimum") {
                 $obats = Obat::where('nama', 'like', $search)
+                    ->with(['reseps', 'stoks'])
                     ->orderBy('status', 'desc')
                     ->orderBy('nama', 'asc')
                     ->get()->filter(function ($obat) {
@@ -150,6 +152,7 @@ class ObatIndex extends Component
             }
         } else {
             $obats = Obat::where('nama', 'like', $search)
+                ->with(['reseps', 'stoks'])
                 ->orderBy('status', 'desc')
                 ->orderBy('nama', 'asc')
                 ->paginate();

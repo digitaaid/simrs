@@ -17,4 +17,8 @@ class ResepFarmasiDetail extends Model
     {
         return $this->belongsTo(Antrian::class);
     }
+    public function resep()
+    {
+        return $this->belongsTo(ResepFarmasi::class);
+    }
 }
