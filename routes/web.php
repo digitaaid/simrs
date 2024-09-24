@@ -23,6 +23,7 @@ use App\Livewire\Antrian\AnjunganAntrianUmum;
 use App\Livewire\Antrian\AnjunganPasien;
 use App\Livewire\Antrian\DaftarAntrian;
 use App\Livewire\Aplikasi\PengaturanIndex;
+use App\Livewire\Apotek\PenjualanObat;
 use App\Livewire\Bpjs\Antrian\AntreanBelumLayani;
 use App\Livewire\Bpjs\Antrian\AntreanDokter;
 use App\Livewire\Bpjs\Antrian\AntreanKodebooking;
@@ -209,6 +210,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('farmasi/pengambilan_resep', PengambilanResep::class)->name('pengambilan.resep');
     Route::get('farmasi/pengambilan-obat-igd', PengambilanObatIgd::class)->name('pengambilan.obat.igd');
     Route::get('farmasi/pengambilan-obat-ranap', PengambilanObatRanap::class)->name('pengambilan.obat.ranap');
+    Route::get('apotek/penjualan_obat', PenjualanObat::class)->name('apotek.resepobat.rajal');
+    Route::get('apotek/resep_obat_rajal', PengambilanResep::class)->name('apotek.resepobat.rajal');
+    Route::get('apotek/resep_obat_igd', PengambilanObatIgd::class)->name('apotek.resepobat.igd');
+    Route::get('apotek/resep_obat_ranap', PengambilanObatRanap::class)->name('apotek.resepobat.ranap');
     // rekam medis
     Route::get('rekammedis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
     Route::get('rekammedis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
@@ -234,6 +239,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class, 'print_resep'])->name('print.resep');
 Route::get('farmasi/print_resepfarmasi/{kodebooking}', [FarmasiController::class, 'print_resepfarmasi'])->name('print.resepfarmasi');
+Route::get('apoteker/print_penjualan_obat/{kode}', [FarmasiController::class, 'print_penjualan_obat'])->name('print.penjualanobat');
+Route::get('apoteker/print_nota_penjualanobat/{kode}', [KasirController::class, 'print_nota_penjualanobat'])->name('print.notapenjualanobat');
 
 Route::get('farmasi/print_etiket', [FarmasiController::class, 'print_etiket'])->name('print.etiket');
 Route::get('farmasi/print_gelang', [FarmasiController::class, 'print_gelang'])->name('print.gelang');

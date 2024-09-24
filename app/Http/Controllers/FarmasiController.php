@@ -35,6 +35,17 @@ class FarmasiController extends Controller
         return $pdf->stream('etiket.pdf');
         // return view('livewire.farmasi.print_resep_obat', compact('antrian', 'resepobat', 'resepobatdetails'));
     }
+    public function print_penjualan_obat($kode)
+    {
+        $resep = ResepFarmasi::firstWhere('kode', $kode);
+        $resepobatdetails = $resep->resepfarmasidetails;
+        $qrurl = QrCode::format('png')->size(150)->generate(route('print.penjualanobat', $resep->kode));
+        $url = "data:image/png;base64," . base64_encode($qrurl);
+        // return view('print.pdf_penjualan_obat', compact('resepobatdetails', 'resep', 'url'));
+        $pdf = Pdf::loadView('print.pdf_penjualan_obat', compact('resepobatdetails', 'resep',  'url'));
+        return $pdf->stream('etiket.pdf');
+        // return view('livewire.farmasi.print_resep_obat', compact('antrian', 'resepobat', 'resepobatdetails'));
+    }
     public function print_etiket(Request $request)
     {
         $antrian = Antrian::where('kodebooking', $request->kode)->first();

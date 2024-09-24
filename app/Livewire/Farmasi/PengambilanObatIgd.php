@@ -45,7 +45,6 @@ class PengambilanObatIgd extends Component
         unset($this->resepObat[$index]);
         $this->resepObat = array_values($this->resepObat);
     }
-
     public function refreshComponent()
     {
         $this->resepantri =  $this->resepantri = ResepObat::where('status', 1)->first();
@@ -159,6 +158,7 @@ class PengambilanObatIgd extends Component
         $resep->update();
         flash('Pelayanan farmasi atas nama pasien ' . $resep->nama . ' telah selesai.', 'success');
     }
+    public function caritanggal() {}
     public function mount()
     {
         $this->tanggal = now()->format('Y-m-d');

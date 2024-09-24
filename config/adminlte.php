@@ -379,13 +379,7 @@ return [
                     'can' => 'dokter',
                     'active'  => ['pemeriksaan/dokter/rajal', 'pemeriksaan/dokter/rajal*'],
                 ],
-                [
-                    'text' => 'Pengambilan Resep Obat',
-                    'url' => 'farmasi/pengambilan_resep',
-                    'icon' => 'fas fa-pills',
-                    'shift'   => 'ml-2',
-                    'can' => 'farmasi',
-                ],
+
                 [
                     'text' => 'Kasir Pembayaran',
                     'url' => 'kasir-pembayaran',
@@ -415,13 +409,7 @@ return [
                     'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
                     'active'  => ['pendaftaran/igd', 'pendaftaran/igd/proses'],
                 ],
-                [
-                    'text' => 'Pengambilan Obat IGD',
-                    'url' => 'farmasi/pengambilan-obat-igd',
-                    'icon' => 'fas fa-pills',
-                    'shift'   => 'ml-2',
-                    'can' => ['farmasi', 'igd'],
-                ],
+
             ]
         ],
         [
@@ -484,6 +472,64 @@ return [
                 ],
             ]
         ],
+        // FARMASI & APOTEK
+        [
+            'text'    => 'Apotek & Farmasi',
+            'icon'    => 'fas fa-pills',
+            'can' => ['farmasi', 'apotek'],
+            'submenu' => [
+                [
+                    'text' => 'Penjualan Obat',
+                    'url' => 'apotek/penjualan_obat',
+                    'icon' => 'fas fa-pills',
+                    'shift'   => 'ml-2',
+                    'can' => ['farmasi', 'apotek'],
+                ],
+                [
+                    'text' => 'Resep Obat Rawat Jalan',
+                    'url' => 'apotek/resep_obat_rajal',
+                    'icon' => 'fas fa-pills',
+                    'shift'   => 'ml-2',
+                    'can' => ['farmasi', 'apotek'],
+                ],
+                [
+                    'text' => 'Resep Obat IGD',
+                    'url' => 'apotek/resep_obat_igd',
+                    'icon' => 'fas fa-pills',
+                    'shift'   => 'ml-2',
+                    'can' => ['farmasi', 'apotek'],
+                ],
+                [
+                    'text' => 'Resep Obat Rawat Inap',
+                    'url' => 'apotek/resep_obat_ranap',
+                    'icon' => 'fas fa-pills',
+                    'shift'   => 'ml-2',
+                    'can' => ['farmasi', 'apotek'],
+                ],
+                [
+                    'text' => 'Pemesanan Obat',
+                    'url' => 'pemesanan-obat',
+                    'icon' => 'fas fa-box',
+                    'can' => 'manajemen-farmasi',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Obat-Obat',
+                    'url' => 'obat',
+                    'icon' => 'fas fa-pills',
+                    'can' => 'manajemen-farmasi',
+                    'active'  => ['obat', 'obat/create', 'obat/edit/*', 'stokobat'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Stok Opname Obat',
+                    'url' => 'stok-opname',
+                    'icon' => 'fas fa-pills',
+                    'can' => 'manajemen-farmasi',
+                    'shift'   => 'ml-2',
+                ],
+            ],
+        ],
         [
             'text'    => 'Pengelolaan',
             'icon'    => 'fas fa-database',
@@ -544,28 +590,6 @@ return [
                     'shift'   => 'ml-2',
                 ],
                 [
-                    'text' => 'Pemesanan Obat',
-                    'url' => 'pemesanan-obat',
-                    'icon' => 'fas fa-box',
-                    'can' => 'manajemen-farmasi',
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Obat',
-                    'url' => 'obat',
-                    'icon' => 'fas fa-pills',
-                    'can' => 'manajemen-farmasi',
-                    'active'  => ['obat', 'obat/create', 'obat/edit/*', 'stokobat'],
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Stok Opname Obat',
-                    'url' => 'stok-opname',
-                    'icon' => 'fas fa-pills',
-                    'can' => 'manajemen-farmasi',
-                    'shift'   => 'ml-2',
-                ],
-                [
                     'text' => 'Tindakan',
                     'url' => 'tindakan',
                     'icon' => 'fas fa-hand-holding-medical',
@@ -591,6 +615,7 @@ return [
                 ],
             ],
         ],
+
         // ANTRIAN BPJS
         [
             'text'    => 'Integrasi Antrian BPJS',

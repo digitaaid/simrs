@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('tinggi_badan')->nullable();
             $table->string('bsa')->nullable();
             // date resep
-            $table->string('kode');
+            $table->string('kode')->unique();
             $table->datetime('waktu');
             $table->string('dokter')->nullable();
             $table->string('namadokter')->nullable();
