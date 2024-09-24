@@ -508,14 +508,14 @@ return [
                 ],
                 [
                     'text' => 'Pemesanan Obat',
-                    'url' => 'pemesanan-obat',
+                    'url' => 'farmasi/pemesanan-obat',
                     'icon' => 'fas fa-box',
                     'can' => ['farmasi'],
                     'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Obat-Obat',
-                    'url' => 'obat',
+                    'url' => 'farmasi/obat',
                     'icon' => 'fas fa-pills',
                     'can' => ['farmasi', 'apotek'],
                     'active'  => ['obat', 'obat/create', 'obat/edit/*', 'stokobat'],

@@ -59,6 +59,7 @@ use App\Livewire\Pendaftaran\PendaftaranRajalProses;
 use App\Livewire\Dokter\PemeriksaanDokterRajal;
 use App\Livewire\Dokter\PemeriksaanDokterRajalProses;
 use App\Livewire\Farmasi\ObatIndex;
+use App\Livewire\Farmasi\PemesananObat;
 use App\Livewire\Farmasi\PengambilanObatIgd;
 use App\Livewire\Farmasi\PengambilanObatRanap;
 use App\Livewire\Farmasi\PengambilanResep;
@@ -183,7 +184,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('perawat', PerawatIndex::class)->name('perawat.index');
         Route::get('unit', UnitIndex::class)->name('unit.index');
         Route::get('jadwaldokter', JadwalDokterIndex::class)->name('jadwaldokter.index');
-        Route::get('obat', ObatIndex::class)->name('obat.index');
         Route::get('stokobat', StokObatIndex::class)->name('stokobat.index');
         Route::get('tindakan', TindakanIndex::class)->name('tindakan.index');
         Route::get('kamar-bed', KamarBedIndex::class)->name('kamar.bed.index');
@@ -206,10 +206,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('pemeriksaan/perawat/rajal/{kodebooking}', PemeriksaanPerawatRajalProses::class)->name('pemeriksaan.perawat.rajal.proses');
     Route::get('pemeriksaan/dokter/rajal', PemeriksaanDokterRajal::class)->name('pemeriksaan.dokter.rajal');
     Route::get('pemeriksaan/dokter/rajal/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('pemeriksaan.dokter.rajal.proses');
-    // farmasi
-    Route::get('farmasi/pengambilan_resep', PengambilanResep::class)->name('pengambilan.resep');
-    Route::get('farmasi/pengambilan-obat-igd', PengambilanObatIgd::class)->name('pengambilan.obat.igd');
-    Route::get('farmasi/pengambilan-obat-ranap', PengambilanObatRanap::class)->name('pengambilan.obat.ranap');
+    //    farmasi
+    Route::get('farmasi/obat', ObatIndex::class)->name('obat.index');
+    Route::get('farmasi/pemesanan-obat', PemesananObat::class)->name('pemesanan.obat');
+    Route::get('farmasi/stok-opname', PemesananObat::class)->name('stok.opname');
+    // apotek
     Route::get('apotek/penjualan_obat', PenjualanObat::class)->name('apotek.resepobat.rajal');
     Route::get('apotek/resep_obat_rajal', PengambilanResep::class)->name('apotek.resepobat.rajal');
     Route::get('apotek/resep_obat_igd', PengambilanObatIgd::class)->name('apotek.resepobat.igd');

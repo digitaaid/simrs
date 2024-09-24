@@ -117,14 +117,7 @@ class ObatIndex extends Component
     public function mount(Request $request)
     {
         $this->filter = $request->filter;
-        $this->stokminus = Obat::all()->filter(function ($obat) {
-            return $obat->real_stok < 0;
-        })->count();
-        $this->stokterbatas = Obat::all()->filter(function ($obat) {
-            $stokmin = $obat->stok_minimum ?? 0;
-            return $obat->real_stok < $stokmin;
-        })->count();
-        $this->obataktif = Obat::where('status', 1)->count();
+
     }
     public function render()
     {
