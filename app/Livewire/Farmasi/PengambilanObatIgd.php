@@ -47,7 +47,9 @@ class PengambilanObatIgd extends Component
     }
     public function refreshComponent()
     {
-        $this->resepantri =  $this->resepantri = ResepObat::where('status', 1)->first();
+        $this->resepantri =  $this->resepantri = ResepObat::where('status', 1)
+            ->where('unit', 'UGD')
+            ->first();
         if ($this->resepantri) {
             $this->playAudio = true;
             $this->dispatch('play-audio');
@@ -170,6 +172,7 @@ class PengambilanObatIgd extends Component
     {
         if ($this->tanggal) {
             $this->reseps = ResepObat::with(['kunjungan', 'kunjungan.layanans', 'kunjungan.resepfarmasidetails'])
+                ->where('unit', 'UGD')
                 ->orderBy('status', 'asc')->get();
         }
         return view('livewire.farmasi.pengambilan-obat-igd')->title('Pengambilan Obat IGD');
