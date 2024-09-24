@@ -172,13 +172,14 @@
                                     {{ is_numeric($item->harga_bpjs) ? money(floatval($item->harga_bpjs), 'IDR') : 'Tidak Valid' }}
                                 </td>
                                 <td>
-                                    <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
-                                        label="Edit" theme="warning" icon="fas fa-edit" />
+                                    @can('farmasi')
+                                        <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
+                                            label="Edit" theme="warning" icon="fas fa-edit" />
+                                    @endcan
                                     <a href="{{ route('stokobat.index') }}?kode={{ $item->id }}">
                                         <x-adminlte-button class="btn-xs" label="Stok" theme="primary"
                                             icon="fas fa-box" />
                                     </a>
-
                                 </td>
                                 <td>{{ $item->jenisobat }}</td>
                                 <td>

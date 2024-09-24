@@ -21,7 +21,6 @@ class ModalCppt extends Component
         $kunjungans = null;
         if ($this->pasien) {
             $kunjungans = Kunjungan::where('norm', $this->pasien->norm)
-                ->where('status', 1)
                 ->with('asesmenrajal', 'antrian', 'resepobat', 'resepobatdetails', 'units', 'dokters')
                 ->orderBy('tgl_masuk', 'desc')
                 ->paginate(2);
