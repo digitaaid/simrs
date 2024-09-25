@@ -184,7 +184,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('perawat', PerawatIndex::class)->name('perawat.index');
         Route::get('unit', UnitIndex::class)->name('unit.index');
         Route::get('jadwaldokter', JadwalDokterIndex::class)->name('jadwaldokter.index');
-        Route::get('stokobat', StokObatIndex::class)->name('stokobat.index');
         Route::get('tindakan', TindakanIndex::class)->name('tindakan.index');
         Route::get('kamar-bed', KamarBedIndex::class)->name('kamar.bed.index');
     });
@@ -207,6 +206,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('pemeriksaan/dokter/rajal', PemeriksaanDokterRajal::class)->name('pemeriksaan.dokter.rajal');
     Route::get('pemeriksaan/dokter/rajal/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('pemeriksaan.dokter.rajal.proses');
     //    farmasi
+    Route::get('stokobat', StokObatIndex::class)->name('stokobat.index');
     Route::get('farmasi/obat', ObatIndex::class)->name('obat.index');
     Route::get('farmasi/pemesanan-obat', PemesananObat::class)->name('pemesanan.obat');
     Route::get('farmasi/stok-opname', PemesananObat::class)->name('stok.opname');
