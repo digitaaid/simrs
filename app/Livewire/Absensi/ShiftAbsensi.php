@@ -46,6 +46,11 @@ class ShiftAbsensi extends Component
     public function hapus(ModelsShiftAbsensi $shift)
     {
         $shift->delete();
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Hapus Shift Kerja',
+            'description' => auth()->user()->name . ' telah menghapus jadwal shift kerja',
+        ]);
         flash('Jadwal Shift Kerja berhasil dihapus.', 'success');
     }
     public function render()
