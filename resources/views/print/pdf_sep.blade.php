@@ -12,7 +12,7 @@
                 <b>KLINIK UTAMA KITA SEHAT</b><br>
             </td>
             <td width="50%" style="vertical-align: bottom;">
-                <b>NO. {{ $sep->noSep }}</b><br>
+                <b>E-SEP NO. {{ $sep->noSep }}</b><br>
             </td>
             <td width="10%" class="text-center" style="vertical-align: bottom;">
                 <img src="{{ public_path('kitasehat/logokitasehat.png') }}" style="height: 30px;">
@@ -144,15 +144,14 @@
                             <b> Pasien/<br>
                                 Keluarga Pasien
                             </b>
-                            <br><br><br><br>
-                            <hr>
+                            <br>
+                            <img src="{{ $qrpasien }}" width="50px">
                         </td>
                         <td style="padding-left: 30px">
                             <b> Petugas<br>
-                                BPJS Kesehatan
                             </b>
-                            <br><br><br><br>
-                            <hr>
+                            <br>
+                            <img src="{{ $qrpetugas }}" width="50px">
                         </td>
                     </tr>
                 </table>
