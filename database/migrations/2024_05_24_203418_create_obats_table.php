@@ -18,6 +18,9 @@ return new class extends Migration
             $table->integer('konversi_satuan')->default(1);
             $table->string('satuan')->nullable();
             $table->string('stok_minimum')->nullable();
+            $table->string('stok_buffer')->nullable();
+            $table->string('zat_aktif')->nullable();
+            $table->string('kekuatan')->nullable();
             $table->string('jenisobat');
             $table->string('tipeobat')->nullable();
             // harga

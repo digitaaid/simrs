@@ -43,6 +43,11 @@ class ShiftAbsensi extends Component
         $this->jam_pulang = $shift->jam_pulang;
         $this->form =  1;
     }
+    public function hapus(ModelsShiftAbsensi $shift)
+    {
+        $shift->delete();
+        flash('Jadwal Shift Kerja berhasil dihapus.', 'success');
+    }
     public function render()
     {
         $this->shifts = ModelsShiftAbsensi::get();
