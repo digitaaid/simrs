@@ -139,7 +139,7 @@
             </td>
         </tr>
         <tr>
-            <td width="50%" style="font-size: 6px">
+            <td width="50%" style="font-size: 5px">
                 *Saya menyetujui BPJS Kesehatan untuk :
                 <ol style="margin: 0px; padding-left: 10px; ">
                     <li style="margin: 0px;">
@@ -193,7 +193,7 @@
     </table>
     <style>
         @page {
-            size: 210mm 100mm;
+            size: 241mm 105mm;
             /* Misalnya ukuran A4 */
         }
     </style>
