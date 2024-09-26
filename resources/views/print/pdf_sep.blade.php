@@ -194,6 +194,7 @@
     <style>
         @page {
             size: 241mm 105mm;
+            margin-left: 30mm
             /* Misalnya ukuran A4 */
         }
     </style>
