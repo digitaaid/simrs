@@ -2,7 +2,7 @@
 @section('title', 'Print SEP BPJS')
 
 @section('content')
-    <table class="table table-sm" style="font-size: 11px;border-bottom: 2px solid black !important">
+    <table class="table table-sm" style="font-size: 8px;border-bottom: 2px solid black !important">
         <tr>
             <td width="10%" class="text-center" style="vertical-align: bottom;">
                 <img src="{{ public_path('img/logo_bpjs_panjang.png') }}" style="height: 25px">
@@ -19,7 +19,7 @@
             </td>
         </tr>
     </table>
-    <table class="table table-sm" style="font-size: 11px">
+    <table class="table table-sm" style="font-size: 8px">
         <tr>
             <td width="50%">
                 <table class="table-borderless">
