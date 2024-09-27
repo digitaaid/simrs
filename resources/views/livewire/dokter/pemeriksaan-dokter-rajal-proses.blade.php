@@ -75,6 +75,11 @@
                 @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian, 'lazy' => true])
             </div>
         @endcan
+        @if ($antrian->pasien && $antrian->jenispasien == 'JKN')
+            <div id="suratkontrol">
+                @livewire('pendaftaran.modal-suratkontrol', ['antrian' => $antrian, 'lazy' => true])
+            </div>
+        @endif
         <div id="resumerajal">
             @livewire('dokter.modal-resume-rajal', ['antrian' => $antrian, 'lazy' => true])
         </div>

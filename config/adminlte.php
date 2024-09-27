@@ -903,14 +903,14 @@ return [
                     'shift'   => 'ml-2',
                 ],
                 [
-                    'text' => 'Shift Absensi',
+                    'text' => 'Jadwal Absensi',
                     'icon'    => 'fas fa-calendar-day',
                     'url'  => 'shift-absensi',
                     'can'  => 'crud-absensi',
                     'shift'   => 'ml-2',
                 ],
                 [
-                    'text' => 'Shift Pegawai',
+                    'text' => 'Absensi Pegawai',
                     'icon'    => 'fas fa-user-clock',
                     'url'  => 'shift-pegawai',
                     'can'  => 'crud-absensi',
@@ -959,6 +959,12 @@ return [
             'icon' => 'fas fa-cogs',
             'can' => 'admin',
             // 'active'  => ['user', 'user/create', 'user/edit/*'],
+        ],
+        [
+            'text' => 'Whatssapp',
+            'url' => 'whatsapp-index',
+            'icon' => 'fas fa-cogs',
+            'can' => 'admin',
         ],
         [
             'text' => 'Intergrasi',

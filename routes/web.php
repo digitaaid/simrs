@@ -93,6 +93,7 @@ use App\Livewire\User\RolePermission;
 use App\Livewire\User\UserCreate;
 use App\Livewire\User\UserForm;
 use App\Livewire\User\UserIndex;
+use App\Livewire\Wa\WhatsappIndex;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -228,6 +229,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
     // kasir
     Route::get('kasir-pembayaran', KasirPembayaran::class)->name('kasir.pembayran');
+    Route::get('whatsapp-index', WhatsappIndex::class)->name('whatsapp.index');
 
     // rawat igd
     Route::get('pendaftaran/igd', PendaftaranIgd::class)->name('pendaftaran.igd');

@@ -15,7 +15,7 @@ class PemeriksaanDokterRajal extends Component
     public $antrians, $jadwals = [];
     public function mount(Request $request)
     {
-        $this->tanggalperiksa = $request->tanggalperiksa;
+        $this->tanggalperiksa = $request->tanggalperiksa ?? now()->format('Y-m-d');
         $this->jadwal = $request->jadwal;
     }
     public function cariantrian()

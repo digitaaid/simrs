@@ -20,6 +20,19 @@ class PendaftaranRajalProses extends Component
     public function batal()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
+        if (env('ANTRIAN_REALTIME')) {
+            $request = new Request([
+                'kodebooking' => $this->kodebooking,
+                'keterangan' => "Dibatalkan admin pendaftaran",
+            ]);
+            $api = new AntrianController();
+            $res = $api->batal_antrean($request);
+            if ($res->metadata->code != 200) {
+                if ($res->metadata->message  != 'TaskId=3 sudah ada') {
+                    return flash($res->metadata->message, 'danger');
+                }
+            }
+        }
         $antrian->taskid = 99;
         $antrian->user1 = auth()->user()->id;
         $antrian->update();

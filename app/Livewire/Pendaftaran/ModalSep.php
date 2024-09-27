@@ -138,6 +138,8 @@ class ModalSep extends Component
                     'nomorreferensi' =>  $this->nomorreferensi,
                 ]);
             }
+            $this->cariSEP();
+            $this->form = 0;
             $this->dispatch('refreshPage');
             return flash($res->metadata->message, 'success');
         } else {
