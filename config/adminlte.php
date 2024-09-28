@@ -311,11 +311,6 @@ return [
             'text' => 'search',
         ],
         [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
             'text'        => 'Landing Page',
             'url'         => '',
             'icon'        => 'fas fa-globe',
@@ -329,6 +324,80 @@ return [
             'text' => 'Dashboard',
             'url' => 'dashboard',
             'icon' => 'fas fa-chart-line',
+        ],
+        // ABSENSI
+        [
+            'text'    => 'Absensi',
+            'icon'    => 'fas fa-user-clock',
+            'submenu' => [
+                [
+                    'text' => 'Proses Absensi',
+                    'icon'    => 'fas fa-street-view',
+                    'url'  => 'absensi-proses',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Lokasi Saya',
+                    'icon'    => 'fas fa-map-marked-alt',
+                    'url'  => 'lokasi-saya',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Lokasi Absensi',
+                    'icon'    => 'fas fa-map-marked-alt',
+                    'url'  => 'lokasi-absensi',
+                    'can'  => 'crud-absensi',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Jadwal Absensi',
+                    'icon'    => 'fas fa-calendar-day',
+                    'url'  => 'shift-absensi',
+                    'can'  => 'crud-absensi',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Absensi Pegawai',
+                    'icon'    => 'fas fa-user-clock',
+                    'url'  => 'shift-pegawai',
+                    'can'  => 'crud-absensi',
+                    'active'  => ['shift-pegawai', 'shift-pegawai-edit'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Laporan Absensi',
+                    'icon' => 'fas fa-chart-line',
+                    'url'  => 'laporan-absensi',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Lembur',
+                    'icon'    => 'fas fa-business-time',
+                    'url'  => 'lembur-index',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Lembur Pegawai',
+                    'icon'    => 'fas fa-business-time',
+                    'url'  => 'lokasi-pegawai',
+                    'can'  => 'crud-absensi',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Cuti',
+                    'icon'    => 'fas fa-calendar-times',
+                    'url'  => 'lokasi-index',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Cuti Pegawai',
+                    'icon' => 'fas fa-chart-line',
+                    'url'  => 'lokasi-pegawai',
+                    'can'  => 'crud-absensi',
+                    'shift'   => 'ml-2',
+                ],
+
+            ],
         ],
         [
             'text'    => 'Pelayanan Rawat Jalan',
@@ -424,13 +493,6 @@ return [
                     'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
                     'active'  => ['pendaftaran/ranap', 'pendaftaran/ranap/proses'],
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
-                ],
-                [
-                    'text' => 'Pengambilan Obat Ranap',
-                    'url' => 'farmasi/pengambilan-obat-ranap',
-                    'icon' => 'fas fa-pills',
-                    'shift'   => 'ml-2',
-                    'can' => ['farmasi', 'igd'],
                 ],
             ]
         ],
@@ -611,6 +673,12 @@ return [
                     'icon' => 'fas fa-diagnoses',
                     'can' => ['rekam-medis', 'dokter', 'perawat'],
                     'active'  => ['diagnosa', 'diagnosa/create', 'diagnosa/edit/*'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Wilayah Indonesia',
+                    'url' => 'wilayah-indonesia',
+                    'icon' => 'fas fa-globe-asia',
                     'shift'   => 'ml-2',
                 ],
             ],
@@ -878,80 +946,6 @@ return [
                 ],
             ],
         ],
-        // SATU SEHAT
-        [
-            'text'    => 'Absensi',
-            'icon'    => 'fas fa-user-plus',
-            'submenu' => [
-                [
-                    'text' => 'Proses Absensi',
-                    'icon'    => 'fas fa-street-view',
-                    'url'  => 'absensi-proses',
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Lokasi Saya',
-                    'icon'    => 'fas fa-map-marked-alt',
-                    'url'  => 'lokasi-saya',
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Lokasi Absensi',
-                    'icon'    => 'fas fa-map-marked-alt',
-                    'url'  => 'lokasi-absensi',
-                    'can'  => 'crud-absensi',
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Jadwal Absensi',
-                    'icon'    => 'fas fa-calendar-day',
-                    'url'  => 'shift-absensi',
-                    'can'  => 'crud-absensi',
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Absensi Pegawai',
-                    'icon'    => 'fas fa-user-clock',
-                    'url'  => 'shift-pegawai',
-                    'can'  => 'crud-absensi',
-                    'active'  => ['shift-pegawai', 'shift-pegawai-edit'],
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Laporan Absensi',
-                    'icon' => 'fas fa-chart-line',
-                    'url'  => 'laporan-absensi',
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Lembur',
-                    'icon'    => 'fas fa-business-time',
-                    'url'  => 'lembur-index',
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Lembur Pegawai',
-                    'icon'    => 'fas fa-business-time',
-                    'url'  => 'lokasi-pegawai',
-                    'can'  => 'crud-absensi',
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Cuti',
-                    'icon'    => 'fas fa-calendar-times',
-                    'url'  => 'lokasi-index',
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Cuti Pegawai',
-                    'icon' => 'fas fa-chart-line',
-                    'url'  => 'lokasi-pegawai',
-                    'can'  => 'crud-absensi',
-                    'shift'   => 'ml-2',
-                ],
-
-            ],
-        ],
         ['header' => 'PENGATURAN'],
         [
             'text' => 'Aplikasi',
@@ -961,17 +955,17 @@ return [
             // 'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
         [
-            'text' => 'Whatssapp',
-            'url' => 'whatsapp-index',
-            'icon' => 'fas fa-cogs',
-            'can' => 'admin',
-        ],
-        [
             'text' => 'Intergrasi',
             'url' => 'integration',
             'can' => 'admin',
             'icon' => 'fas fa-cloud-upload-alt',
             'active'  => ['integration', 'integration/create', 'integration/edit/*'],
+        ],
+        [
+            'text' => 'Whatssapp',
+            'url' => 'whatsapp',
+            'icon' => 'fab fa-whatsapp',
+            'can' => 'admin',
         ],
         [
             'text' => 'User',

@@ -11,10 +11,6 @@ class WhatsappController extends Controller
     public $hari = ["MINGGU", "SENIN", "SELASA", "RABU", "KAMIS", "JUMAT", "SABTU"];
     public function test(Request $request)
     {
-        $request['message']  = "DAFTAR KONTROL_1018R0011222K001074#504#2022-12-06";
-        $sk = $this->callback($request);
-
-        $request['number'] = '6289529909036@c.us';
         $sholawat = "اَللّٰهُمَّ صَلِّ عَلٰى سَيِّدِنَا مُحَمَّدٍ، طِبِّ الْقُلُوْبِ وَدَوَائِهَا، وَعَافِيَةِ الْاَبْدَانِ وَشِفَائِهَا، وَنُوْرِ الْاَبْصَارِ وَضِيَائِهَا، وَعَلٰى اٰلِهِ وَصَحْبِهِ وَسَلِّمْ";
     }
     public function whatsapp(Request $request)

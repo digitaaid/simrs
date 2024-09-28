@@ -15,6 +15,7 @@ use App\Livewire\Absensi\LokasiSaya;
 use App\Livewire\Absensi\ShiftAbsensi;
 use App\Livewire\Absensi\ShiftPegawai;
 use App\Livewire\Absensi\ShiftPegawaiEdit;
+use App\Livewire\Admin\WilayahIndonesia;
 use App\Livewire\Antrian\AnjunganAntrian;
 use App\Livewire\Antrian\AnjunganAntrianBpjs;
 use App\Livewire\Antrian\AnjunganAntrianCreate;
@@ -66,6 +67,7 @@ use App\Livewire\Farmasi\PengambilanResep;
 use App\Livewire\Farmasi\StokObatIndex;
 use App\Livewire\Igd\PendaftaranIgd;
 use App\Livewire\Igd\PendaftaranIgdProses;
+use App\Livewire\Jaminan\JaminanIndex;
 use App\Livewire\Kamarbed\KamarBedIndex;
 use App\Livewire\Kasir\KasirPembayaran;
 use App\Livewire\Pendaftaran\DashboardPendaftaran;
@@ -94,6 +96,7 @@ use App\Livewire\User\UserCreate;
 use App\Livewire\User\UserForm;
 use App\Livewire\User\UserIndex;
 use App\Livewire\Wa\WhatsappIndex;
+use App\Models\Jaminan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -128,11 +131,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardPendaftaran::class)->name('dashboard');
     Route::get('profil', ProfilIndex::class)->name('profil')->lazy();
     Route::get('log-aktifitas', LogAktifitas::class)->name('log-aktifitas')->lazy();
+    // admin
     Route::middleware(['can:admin'])->group(function () {
-        Route::get('role-permission', RolePermission::class)->name('role-permission')->lazy();
-        Route::get('integration', IntegrationIndex::class)->name('integration.index')->lazy();
         Route::get('aplikasi', PengaturanIndex::class)->name('aplikasi.index')->lazy();
+        Route::get('integration', IntegrationIndex::class)->name('integration.index')->lazy();
+        Route::get('whatsapp', WhatsappIndex::class)->name('whatsapp.index');
         Route::get('user', UserIndex::class)->name('user.index');
+        Route::get('role-permission', RolePermission::class)->name('role-permission')->lazy();
     });
     Route::middleware(['can:pegawai'])->group(function () {
         Route::get('pegawai', PegawaiIndex::class)->name('pegawai.index');
@@ -187,6 +192,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('jadwaldokter', JadwalDokterIndex::class)->name('jadwaldokter.index');
         Route::get('tindakan', TindakanIndex::class)->name('tindakan.index');
         Route::get('kamar-bed', KamarBedIndex::class)->name('kamar.bed.index');
+        Route::get('jaminan', JaminanIndex::class)->name('jaminan.index');
+        Route::get('wilayah-indonesia', WilayahIndonesia::class)->name('wilayah.indonesia');
     });
     // anjungan antrian
     Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
@@ -229,7 +236,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
     // kasir
     Route::get('kasir-pembayaran', KasirPembayaran::class)->name('kasir.pembayran');
-    Route::get('whatsapp-index', WhatsappIndex::class)->name('whatsapp.index');
 
     // rawat igd
     Route::get('pendaftaran/igd', PendaftaranIgd::class)->name('pendaftaran.igd');

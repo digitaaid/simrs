@@ -19,7 +19,6 @@ class ModalPasienRajal extends Component
     public $form = false;
     public $id, $norm, $nama, $nomorkartu, $nik, $idpatient, $nohp, $gender, $tempat_lahir, $tgl_lahir, $hakkelas, $jenispeserta, $fktp, $desa_id, $kecamatan_id, $kabupaten_id, $provinsi_id, $alamat, $status = 1, $keterangan;
     public $kabupatens = [], $provinsis = [], $kecamatans = [], $desas = [];
-
     public function editPasien(Pasien $pasien)
     {
         $this->id = $pasien->id;
@@ -49,7 +48,6 @@ class ModalPasienRajal extends Component
         $pasien->status = 0;
         $pasien->update();
     }
-
     public function store()
     {
         $this->validate([
@@ -205,13 +203,13 @@ class ModalPasienRajal extends Component
         $search = '%' . $this->search . '%';
         $pasiens = Pasien::where(function ($query) use ($search) {
             $query->where('nama', 'like', $search)
-            ->orWhere('nik', 'like', $search)
-            ->orWhere('norm', 'like', $search)
-            ->orWhere('nomorkartu', 'like', $search);
+                ->orWhere('nik', 'like', $search)
+                ->orWhere('norm', 'like', $search)
+                ->orWhere('nomorkartu', 'like', $search);
         })
-        ->where('status', 1)
-        ->orderBy('norm', 'desc')
-        ->paginate(10);
+            ->where('status', 1)
+            ->orderBy('norm', 'desc')
+            ->paginate(10);
         return view('livewire.pendaftaran.modal-pasien-rajal', compact('pasiens'));
     }
 }
