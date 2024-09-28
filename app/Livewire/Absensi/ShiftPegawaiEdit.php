@@ -14,7 +14,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class ShiftPegawaiEdit extends Component
 {
     public $kode, $user, $shifts;
-    public $tanggal, $nama;
+    public $bulan, $tanggal, $nama;
     public $shift, $id, $shift_id, $user_id, $tgl_awal, $tgl_akhir;
     public $formTambah = 0, $formEdit = 0;
     public function tambah()
@@ -137,10 +137,21 @@ class ShiftPegawaiEdit extends Component
         $url = route('shift.pegawai.edit') . "?kode=" . $shift->user_id;
         return redirect()->to($url);
     }
+    public $tanggals;
     public function mount(Request $request)
     {
         $this->user = User::with(['shift_pegawai'])->find($request->kode);
         $this->shifts = ShiftAbsensi::get();
+        $this->bulan = now()->format('Y-m');
+        $bulanSekarang = Carbon::now()->month;
+        $tahunSekarang = Carbon::now()->year;
+        $jumlahHari = Carbon::createFromDate($tahunSekarang, $bulanSekarang)->daysInMonth;
+        $tanggalBulanIni = [];
+        for ($i = 1; $i <= $jumlahHari; $i++) {
+            $tanggal = Carbon::createFromDate($tahunSekarang, $bulanSekarang, $i)->format('Y-m-d');
+            $tanggalBulanIni[] = $tanggal;
+        }
+        $this->tanggals = $tanggalBulanIni;
     }
     public function render()
     {

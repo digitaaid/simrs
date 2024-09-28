@@ -60,6 +60,38 @@
     </div>
     <div class="col-md-12">
         <x-adminlte-card title="Jadwal Kerja Pegawai" theme="primary">
+            <table class="table text-nowrap table-sm table-hover table-bordered table-responsive mb-3">
+                <thead>
+                    <tr>
+                        <th>Nama Pegawai</th>
+                        @foreach ($tanggals as $item)
+                            <th class="text-center">{{ explode('-', $item)[2] }}</th>
+                        @endforeach
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ $user->name }}</td>
+                        @foreach ($tanggals as $item)
+                            <td>
+                                @if ($this->user->shift_pegawai->where('tanggal', $item)->first())
+                                    @php
+                                        $jadwalx = $this->user->shift_pegawai->where('tanggal', $item)->first();
+                                    @endphp
+                                    <x-adminlte-button class="btn-xs" theme="warning" wire:click="edit({{ $jadwalx->id }})"
+                                        label="{{ explode(':', $jadwalx->jam_masuk)[0] }}-{{ explode(':', $jadwalx->jam_pulang)[0] }}" />
+                                @else
+                                    <x-adminlte-button class="btn-xs" theme="secondary" label="Libur" />
+                                @endif
+                            </td>
+                        @endforeach
+                    </tr>
+                </tbody>
+            </table>
+        </x-adminlte-card>
+    </div>
+    <div class="col-md-12">
+        <x-adminlte-card title="Jadwal Kerja Pegawai" theme="primary">
             <div class="row">
                 <div class="col-md-8">
                     <x-adminlte-button wire:click='tambah' class="btn-sm" label="Tambah Jadwal" theme="success"

@@ -18,10 +18,11 @@ class JadwalAbsensiImport implements ToCollection, WithHeadingRow
                         'nama' => $row['nama'],
                     ],
                     [
-                        'slug' => $row['slug'],
-                        'user' => $row['user'],
-                        'pic' => $row['pic'],
-                        'user' => $row['user'],
+                        'slug' => $row['slug'] ?? 'P',
+                        'jam_masuk' => $row['jam_masuk'],
+                        'jam_pulang' => $row['jam_pulang'],
+                        'pic' => $row['pic'] ?? auth()->user()->name,
+                        'user' => $row['user'] ?? auth()->user()->id,
                         'created_at' => $row['created_at'] ?? now(),
                         'updated_at' => $row['updated_at'] ?? now(),
                     ]
