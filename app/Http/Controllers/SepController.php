@@ -27,7 +27,7 @@ class SepController extends Controller
             $qrpetugas = "data:image/png;base64," . base64_encode($qrurl);
             // return view('print.pdf_sep', compact('sep'));
             $pdf = Pdf::loadView('print.pdf_sep', compact('sep', 'peserta', 'qrpasien', 'qrpetugas'));
-            return $pdf->stream('sep.pdf');
+            return $pdf->stream($sep->noSep . '.pdf');
         }
     }
 }
