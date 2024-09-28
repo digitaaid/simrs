@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AntrianController;
+use App\Http\Controllers\JadwalOperasiController;
 use App\Http\Controllers\VclaimController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -46,8 +47,8 @@ Route::prefix('antrian')->group(function () {
     Route::post('batal_antrian', [AntrianController::class, 'batal_antrian'])->name('batal_antrian');
     Route::post('checkin_antrian', [AntrianController::class, 'checkin_antrian'])->name('checkin_antrian');
     Route::post('info_pasien_baru', [AntrianController::class, 'info_pasien_baru'])->name('info_pasien_baru');
-    // Route::post('jadwal_operasi_rs', [JadwalOperasiController::class, 'jadwal_operasi_rs'])->name('jadwal_operasi_rs');
-    // Route::post('jadwal_operasi_pasien', [JadwalOperasiController::class, 'jadwal_operasi_pasien'])->name('jadwal_operasi_pasien');
+    Route::post('jadwal_operasi_rs', [JadwalOperasiController::class, 'jadwal_operasi_rs'])->name('jadwal_operasi_rs');
+    Route::post('jadwal_operasi_pasien', [JadwalOperasiController::class, 'jadwal_operasi_pasien'])->name('jadwal_operasi_pasien');
     Route::post('ambil_antrian_farmasi', [AntrianController::class, 'ambil_antrian_farmasi'])->name('ambil_antrian_farmasi');
     Route::post('status_antrian_farmasi', [AntrianController::class, 'status_antrian_farmasi'])->name('status_antrian_farmasi');
     // MJKN
@@ -58,8 +59,8 @@ Route::prefix('antrian')->group(function () {
     Route::post('batalantrean', [AntrianController::class, 'batal_antrian'])->name('batalantrean');
     Route::post('checkin', [AntrianController::class, 'checkin_antrian'])->name('checkin');
     Route::post('infopasienbaru', [AntrianController::class, 'info_pasien_baru'])->name('infopasienbaru');
-    // Route::post('jadwaloperasi', [JadwalOperasiController::class, 'jadwal_operasi_rs'])->name('jadwaloperasi');
-    // Route::post('jadwaloperasipasien', [JadwalOperasiController::class, 'jadwal_operasi_pasien'])->name('jadwaloperasipasien');
+    Route::post('jadwaloperasi', [JadwalOperasiController::class, 'jadwal_operasi_rs'])->name('jadwaloperasi');
+    Route::post('jadwaloperasipasien', [JadwalOperasiController::class, 'jadwal_operasi_pasien'])->name('jadwaloperasipasien');
     Route::post('ambilantreanfarmasi', [AntrianController::class, 'ambil_antrian_farmasi'])->name('ambilantreanfarmasi');
     Route::post('statusantreanfarmasi', [AntrianController::class, 'status_antrian_farmasi'])->name('statusantreanfarmasi');
 });

@@ -493,16 +493,16 @@ class AntrianController extends ApiController
         $validator = Validator::make($request->all(), [
             "kodepoli" => "required",
             "kodedokter" => "required",
-            "tanggalperiksa" => "required|date",
+            "tanggalperiksa" => "required|date|date_format:Y-m-d",
             "jampraktek" => "required",
         ]);
         if ($validator->fails()) {
-            return $this->sendError($validator->errors()->first(), 400);
+            return $this->sendError($validator->errors()->first(), 201);
         }
         // check tanggal backdate
         $request['tanggal'] = $request->tanggalperiksa;
         if (Carbon::parse($request->tanggalperiksa)->endOfDay()->isPast()) {
-            return $this->sendError("Tanggal periksa sudah terlewat", 404);
+            return $this->sendError("Tanggal periksa tidak berlaku", 201);
         }
         // get jadwal poliklinik dari simrs
         $jadwal = JadwalDokter::where("hari",  Carbon::parse($request->tanggalperiksa)->dayOfWeek)
@@ -512,10 +512,21 @@ class AntrianController extends ApiController
             ->first();
         // tidak ada jadwal
         if (!isset($jadwal)) {
-            return $this->sendError("Tidak ada jadwal dokter poliklinik dihari tersebut", 404);
+            return $this->sendError("Jadwal dokter poliklinik tidak ditemukan", 201);
         }
         if ($jadwal->libur == 1) {
-            return $this->sendError("Jadwal Dokter dihari tersebut sedang diliburkan.",  403);
+            return $this->sendError("Jadwal Dokter dihari tersebut sedang diliburkan.",  201);
+        }
+        if ($jadwal) {
+            $jamPraktek = $jadwal->jampraktek; // Jadwal praktek poliklinik
+            $tanggalPeriksa = $request->tanggalperiksa; // Tanggal periksa yang diminta
+            list($jamMulai, $jamSelesai) = explode("-", $jamPraktek);
+            $jamMulaiTimestamp = strtotime($tanggalPeriksa . " " . $jamMulai);
+            $jamSelesaiTimestamp = strtotime($tanggalPeriksa . " " . $jamSelesai);
+            $currentTimestamp = time();
+            if ($currentTimestamp > $jamSelesaiTimestamp && Carbon::parse($tanggalPeriksa)->isToday()) {
+                return $this->sendError("Pendaftaran jadwal Poliklinik " . $jadwal->namapoli    . " " . $jadwal->namadokter . " telah tutup jam " . $jamSelesai,  201);
+            }
         }
         // get hitungan antrian
         $antrians = Antrian::where('tanggalperiksa', $request->tanggalperiksa)
@@ -848,10 +859,10 @@ class AntrianController extends ApiController
         }
         $antrian = Antrian::where('kodebooking', $request->kodebooking)->first();
         if (!$antrian) {
-            return $this->sendError("Kodebooking tidak ditemukan", 201);
+            return $this->sendError("Kodebooking antrian tidak ditemukan", 201);
         }
         $sisaantrian = Antrian::where('tanggalperiksa', $antrian->tanggalperiksa)->where('taskid', "<=", 3)->count();
-        $antreanpanggil = Antrian::where('tanggalperiksa', $antrian->tanggalperiksa)->where('taskid', 4)->first()->nomorantrean ?? '0';
+        $antreanpanggil = Antrian::where('tanggalperiksa', $antrian->tanggalperiksa)->where('taskid', 4)->first()->nomorantrean ?? '-';
         $waktutunggu = 300 +  300 * ($sisaantrian - 1);
         $data = [
             'nomorantrean' => $antrian->nomorantrean,
@@ -1055,11 +1066,24 @@ class AntrianController extends ApiController
     {
         // return $this->sendError("Anda belum memiliki No RM (Pasien Baru). Silahkan daftar secara langsung ditempat.", 400);
         $validator = Validator::make($request->all(), [
+            'nomorkartu' => 'required|numeric|digits:13',
+            'nik' => 'required|numeric|digits:16',
+            'nomorkk' => 'required|numeric',
             'nama' => 'required',
+            'jeniskelamin' => 'required',
+            'tanggallahir' => 'required|date|date_format:Y-m-d|before_or_equal:today',
             'nohp' => 'required',
             'alamat' => 'required',
-            'jeniskelamin' => 'required',
-            'tanggallahir' => 'required|date',
+            'kodeprop' => 'required',
+            'namaprop' => 'required',
+            'kodedati2' => 'required',
+            'namadati2' => 'required',
+            'kodekec' => 'required',
+            'namakec' => 'required',
+            'kodekel' => 'required',
+            'namakel' => 'required',
+            'rw' => 'required',
+            'rt' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first(),  201);
@@ -1095,33 +1119,9 @@ class AntrianController extends ApiController
             ];
             return $this->sendResponse($data, 200);
         } else {
-            $data = [
-                'norm' =>  $pasienlama->norm,
-            ];
-            return $this->sendResponse($data, 200);
+            return $this->sendError("Data Peserta Sudah Pernah Dientrikan", 201);
         }
     }
-    // public function jadwal_operasi_rs(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         "tanggalawal" => "required|date",
-    //         "tanggalakhir" => "required|date",
-    //     ]);
-    //     if ($validator->fails()) {
-    //         return $this->sendError($validator->errors()->first(),  201);
-    //     }
-    //     return $this->sendError("Klinik belum memiliki jadwal operasi.", 400);
-    // }
-    // public function jadwal_operasi_pasien(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         "nopeserta" => "required|digits:13",
-    //     ]);
-    //     if ($validator->fails()) {
-    //         return $this->sendError($validator->errors()->first(),  201);
-    //     }
-    //     return $this->sendError("Klinik belum memiliki jadwal operasi.", 400);
-    // }
     public function ambil_antrian_farmasi(Request $request)
     {
         $validator = Validator::make($request->all(), [
