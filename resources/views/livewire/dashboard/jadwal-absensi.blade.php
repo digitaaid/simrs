@@ -1,5 +1,4 @@
-<div>
-    <div class="col-md-12">
+    <div>
         <div class="row">
             <div class="col-lg-3 col-12">
                 @if ($absensi)
@@ -43,4 +42,3 @@
             </table>
         </x-adminlte-card>
     </div>
-</div>

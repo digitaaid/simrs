@@ -130,37 +130,25 @@
             @endif
         @endif
     </div>
-    <div class="col-md-6">
+    <div class="col-md-12">
         <x-adminlte-card title="Proses Absensi" theme="primary">
             @if ($shift)
                 @if ($shift->status_absen == null)
                     <form method="post" action="{{ route('absensi.masuk', $shift->id) }}">
                         @method('put')
                         @csrf
-                        <div class="form-row">
-                            <div class="col"></div>
-                            <div class="col">
-                                <center>
-                                    <h2>Absensi Masuk : </h2>
-                                    <h6>Lokasi Saat Ini : <span class="latitude">0</span>, <span
-                                            class="longitude">0</span></h6>
-                                    <div id="map" style="width:100%;height:200px;"></div>
-                                    <div class="webcam" id="results"></div>
-                                </center>
-                            </div>
-                            <div class="col">
-                                <input type="hidden" name="foto_absensi" class="image-tag">
-                                <input type="hidden" name="lat_masuk" id="lat">
-                                <input type="hidden" name="long_masuk" id="long">
-                                <input type="hidden" name="telat">
-                                <input type="hidden" name="jarak_masuk">
-                                <input type="hidden" name="status_absen" value="Masuk">
-                            </div>
-                        </div>
-                        <br>
                         <center>
+                            <h2>Absensi Masuk : </h2>
+                            <h6>Lokasi Saat Ini : <span class="latitude">0</span>, <span class="longitude">0</span></h6>
+                            <div id="map" style="width:100%;height:200px;"></div>
+                            <div class="webcam" id="results" style="width:100%;"></div>
+                            <input type="hidden" name="foto_absensi" class="image-tag">
+                            <input type="hidden" name="lat_masuk" id="lat">
+                            <input type="hidden" name="long_masuk" id="long">
+                            <input type="hidden" name="telat">
+                            <input type="hidden" name="jarak_masuk">
+                            <input type="hidden" name="status_absen" value="Masuk">
                             <div onclick="getLocation()" class="btn btn-primary">Get Lokasi</div>
-
                             <button type="submit" class="btn btn-success" value="Ambil Foto"
                                 onClick="take_snapshot()">Masuk</button>
                         </center>
