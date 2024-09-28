@@ -316,7 +316,7 @@ return [
             'icon'        => 'fas fa-globe',
         ],
         [
-            'text' => 'Home',
+            'text' => 'Menu Utama',
             'url' => 'home',
             'icon' => 'fas fa-home',
         ],

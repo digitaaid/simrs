@@ -89,6 +89,7 @@ use App\Livewire\Satusehat\PatientIndex;
 use App\Livewire\Satusehat\PractitionerIndex;
 use App\Livewire\Satusehat\TokenIndex;
 use App\Livewire\Unit\UnitIndex;
+use App\Livewire\User\HomeIndex;
 use App\Livewire\User\LogAktifitas;
 use App\Livewire\User\PermissionIndex;
 use App\Livewire\User\RolePermission;
@@ -127,7 +128,7 @@ Route::get('daftarantrian', DaftarAntrian::class)->name('daftarantrian');
 Route::get('antrianonline/{kodebooking}', [PendaftaranController::class, 'antrianonline'])->name('antrianonline');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('home', HomeIndex::class)->name('home');
     Route::get('dashboard', DashboardPendaftaran::class)->name('dashboard');
     Route::get('profil', ProfilIndex::class)->name('profil')->lazy();
     Route::get('log-aktifitas', LogAktifitas::class)->name('log-aktifitas')->lazy();

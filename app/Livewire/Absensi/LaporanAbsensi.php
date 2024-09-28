@@ -24,9 +24,9 @@ class LaporanAbsensi extends Component
             $user = auth()->user();
         }
         $absensis = ShiftPegawai::where('user_id', $user->id)->get();
-        return view('print.pdf_laporan_absensi', compact('absensis', 'user'));
-        $pdf = Pdf::loadView('print.pdf_resep_obat', compact('resepobatdetails', 'resepobat', 'kunjungan', 'url'));
-        return $pdf->stream('etiket.pdf');
+        // return view('print.pdf_laporan_absensi', compact('absensis', 'user'));
+        $pdf = Pdf::loadView('print.pdf_laporan_absensi', compact('absensis', 'user'));
+        return $pdf->stream('laporan_absensi.pdf');
     }
     public function render()
     {

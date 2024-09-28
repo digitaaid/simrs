@@ -1,5 +1,5 @@
 <div>
-    <x-adminlte-card title="Jadwal Dokter Hari Ini" theme="secondary">
+    <x-adminlte-card title="Kunjungan Rawat Jalan (Today)" theme="secondary" icon="fas fa-clinic-medical">
         <table class="table table-sm table-bordered table-hover text-nowrap table-responsive">
             <thead>
                 <tr>
