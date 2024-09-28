@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('shift_absensis', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('slug');
             $table->string('jam_masuk');
             $table->string('jam_pulang');
+            $table->string('pic');
+            $table->string('user');
             $table->timestamps();
         });
     }

@@ -190,12 +190,12 @@ return [
     |
     */
 
-    'classes_body' => 'text-sm',
+    'classes_body' => 'text-xs',
     'classes_brand' => '',
     'classes_brand_text' => '',
-    'classes_content_wrapper' => '',
-    'classes_content_header' => '',
-    'classes_content' => '',
+    'classes_content_wrapper' => 'text-xs',
+    'classes_content_header' => 'text-xs',
+    'classes_content' => 'text-xs',
     'classes_sidebar' => 'sidebar-dark-primary elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
@@ -886,6 +886,21 @@ return [
                     'url'  => 'bpjs/vclaim/sep',
                     'shift'   => 'ml-2',
                     'can' => 'vclaim-bpjs',
+                ],
+            ],
+        ],
+        // INACBG
+        [
+            'text'    => 'Integrasi INACBG',
+            'icon'    => 'fas fa-project-diagram',
+            // 'can' => ['inacbg'],
+            'submenu' => [
+                [
+                    'text' => 'Token',
+                    'icon'    => 'fas fa-user-injured',
+                    'url'  => 'satusehat/token',
+                    'shift'   => 'ml-2',
+                    'can' => ['satu-sehat'],
                 ],
             ],
         ],
