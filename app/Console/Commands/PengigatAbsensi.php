@@ -43,7 +43,7 @@ class PengigatAbsensi extends Command
             }
             $this->info('Pesan Whatsapp Pengingat Absensi telah dikirim!');
         } catch (\Throwable $th) {
-            $this->error($user->name . ' ' . $th->getMessage());
+            $this->error($absensi->user?->name . ' ' . $th->getMessage());
         }
     }
 }
