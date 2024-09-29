@@ -33,6 +33,7 @@ class PengigatAbsensi extends Command
             $user = User::get();
             $api = new WhatsappController();
             $absensis = ShiftPegawai::where('tanggal', now()->format('Y-m-d'))->get();
+            dd($absensis);
             foreach ($absensis as $absensi) {
                 if ($absensi->user) {
                     $request['number'] = $absensi->user?->phone;
@@ -43,7 +44,7 @@ class PengigatAbsensi extends Command
             }
             $this->info('Pesan Whatsapp Pengingat Absensi telah dikirim!');
         } catch (\Throwable $th) {
-            $this->error($absensi->user?->name . ' ' . $th->getMessage());
+            $this->error($th->getMessage());
         }
     }
 }
