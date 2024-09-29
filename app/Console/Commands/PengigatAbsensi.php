@@ -34,10 +34,12 @@ class PengigatAbsensi extends Command
             $api = new WhatsappController();
             $absensis = ShiftPegawai::where('tanggal', now()->format('Y-m-d'))->get();
             foreach ($absensis as $absensi) {
-                $request['number'] = $absensi->user?->phone;
-                $request['message'] = "Test Percobaan. Selamat pagi 😊🙏\nSebagai pengingat anda hari ini memiliki jadwal absensi " . $absensi->nama_shift . " pukul " . $absensi->jam_masuk . "-" . $absensi->jam_pulang . " . Jangan lupa absensi tetap waktu ya. 😉\nSemoga semoga hari ini segala urusan kita diperlancar 🤲😊\n\nklinikkitasehat.com";
-                $res =  $api->send_message($request);
-                $this->info($absensi->user?->name . ' terkirim');
+                if ($absensi->user) {
+                    $request['number'] = $absensi->user?->phone;
+                    $request['message'] = "Test Percobaan. Selamat pagi 😊🙏\nSebagai pengingat anda hari ini memiliki jadwal absensi " . $absensi->nama_shift . " pukul " . $absensi->jam_masuk . "-" . $absensi->jam_pulang . " . Jangan lupa absensi tetap waktu ya. 😉\nSemoga semoga hari ini segala urusan kita diperlancar 🤲😊\n\nklinikkitasehat.com";
+                    $res =  $api->send_message($request);
+                    $this->info($absensi->user?->name . ' terkirim');
+                }
             }
             $this->info('Pesan Whatsapp Pengingat Absensi telah dikirim!');
         } catch (\Throwable $th) {
