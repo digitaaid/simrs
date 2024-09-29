@@ -8,21 +8,21 @@ use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Http\Request;
 
-class PengigatAbsensi extends Command
+class InfoAbsensi extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:pengigat-absensi';
+    protected $signature = 'app:info-absensi';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Kirim info absensi whatsapp ke user yang memiliki jadwal';
 
     /**
      * Execute the console command.

@@ -2,7 +2,7 @@
 
 namespace App\Console;
 
-use App\Console\Commands\PengigatAbsensi;
+use App\Console\Commands\InfoAbsensi;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -22,7 +22,7 @@ class Kernel extends ConsoleKernel
     protected function commands(): void
     {
         $this->load(__DIR__ . '/Commands');
-        PengigatAbsensi::class;
+        InfoAbsensi::class;
         require base_path('routes/console.php');
     }
 }
