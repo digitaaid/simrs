@@ -35,20 +35,15 @@ class PengigatAbsensi extends Command
             $absensis = ShiftPegawai::where('tanggal', now()->format('Y-m-d'))->get();
             foreach ($absensis as $absensi) {
                 if ($absensi->user) {
-                    $this->info($absensi->user?->name . ' terkirim');
+                    $request['number'] = $absensi->user?->phone;
+                    $request['message'] = "Test Percobaan. Selamat pagi 😊🙏\nSebagai pengingat anda hari ini memiliki jadwal absensi " . $absensi->nama_shift . " pukul " . $absensi->jam_masuk . "-" . $absensi->jam_pulang . " . Jangan lupa absensi tetap waktu ya. 😉\nSemoga semoga hari ini segala urusan kita diperlancar 🤲😊\n\nklinikkitasehat.com";
+                    $res =  $api->send_message($request);
+                    $this->info('terkirim ke ' . $absensi->user?->name);
                 } else {
-                    $this->info($absensi->user_id . ' terkirim');
+                    $this->info('tidak terkirim ke ' . $absensi->user_id);
                 }
             }
-            // foreach ($absensis as $absensi) {
-            //     if ($absensi->user) {
-            //         $request['number'] = $absensi->user?->phone;
-            //         $request['message'] = "Test Percobaan. Selamat pagi 😊🙏\nSebagai pengingat anda hari ini memiliki jadwal absensi " . $absensi->nama_shift . " pukul " . $absensi->jam_masuk . "-" . $absensi->jam_pulang . " . Jangan lupa absensi tetap waktu ya. 😉\nSemoga semoga hari ini segala urusan kita diperlancar 🤲😊\n\nklinikkitasehat.com";
-            //         $res =  $api->send_message($request);
-            //         $this->info($absensi->user?->name . ' terkirim');
-            //     }
-            // }
-            // $this->info('Pesan Whatsapp Pengingat Absensi telah dikirim!');
+            $this->info('Pesan Whatsapp Pengingat Absensi telah dikirim!');
         } catch (\Throwable $th) {
             $this->error($th->getMessage());
         }
