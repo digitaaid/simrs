@@ -148,6 +148,7 @@
                             <input type="hidden" name="telat">
                             <input type="hidden" name="jarak_masuk">
                             <input type="hidden" name="status_absen" value="Masuk">
+                            <br>
                             <div onclick="getLocation()" class="btn btn-primary">Get Lokasi</div>
                             <button type="submit" class="btn btn-success" value="Ambil Foto"
                                 onClick="take_snapshot()">Masuk</button>
@@ -157,30 +158,19 @@
                     <form method="post" action="{{ route('absensi.pulang', $shift->id) }}">
                         @method('put')
                         @csrf
-                        <div class="form-row">
-                            <div class="col"></div>
-                            <div class="col">
-                                <center>
-                                    <h2>Absensi Pulang : </h2>
-                                    <h6>Lokasi Saat Ini : <span class="latitude">0</span>, <span
-                                            class="longitude">0</span></h6>
-                                    <div id="map" style="width:100%;height:200px;"></div>
-                                    <div class="webcam" id="results"></div>
-                                </center>
-                            </div>
-                            <div class="col">
-                                <input type="hidden" name="foto_absensi" class="image-tag">
-                                <input type="hidden" name="lat_pulang" id="lat">
-                                <input type="hidden" name="long_pulang" id="long">
-                                <input type="hidden" name="pulang_cepat">
-                                <input type="hidden" name="jarak_pulang">
-                                <input type="hidden" name="status_absen" value="Pulang">
-                            </div>
-                        </div>
-                        <br>
                         <center>
+                            <h2>Absensi Pulang : </h2>
+                            <h6>Lokasi Saat Ini : <span class="latitude">0</span>, <span class="longitude">0</span></h6>
+                            <div id="map" style="width:100%;height:200px;"></div>
+                            <div class="webcam" id="results" style="width:100%;"></div>
+                            <input type="hidden" name="foto_absensi" class="image-tag">
+                            <input type="hidden" name="lat_pulang" id="lat">
+                            <input type="hidden" name="long_pulang" id="long">
+                            <input type="hidden" name="pulang_cepat">
+                            <input type="hidden" name="jarak_pulang">
+                            <input type="hidden" name="status_absen" value="Pulang">
+                            <br>
                             <div onclick="getLocation()" class="btn btn-primary">Get Lokasi</div>
-
                             <button type="submit" class="btn btn-danger" value="Ambil Foto"
                                 onClick="take_snapshot()">Pulang</button>
                         </center>
