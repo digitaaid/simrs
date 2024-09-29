@@ -34,7 +34,11 @@ class PengigatAbsensi extends Command
             $api = new WhatsappController();
             $absensis = ShiftPegawai::where('tanggal', now()->format('Y-m-d'))->get();
             foreach ($absensis as $absensi) {
-                $this->info($absensi->user?->name . ' terkirim');
+                if ($absensi->user) {
+                    $this->info($absensi->user?->name . ' terkirim');
+                } else {
+                    $this->info($absensi->user_id . ' terkirim');
+                }
             }
             // foreach ($absensis as $absensi) {
             //     if ($absensi->user) {
