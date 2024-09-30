@@ -97,4 +97,5 @@
 @section('adminlte_js')
     @stack('js')
     @yield('js')
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 @stop

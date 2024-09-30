@@ -114,7 +114,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes(['verify' => true]);
-Route::get('/', [HomeController::class, 'landingpage'])->name('landingpage');
 // display antrian
 Route::get('displayantrian', [AntrianController::class, 'displayAntrian'])->name('displayantrian');
 Route::get('updatenomorantrean', [AntrianController::class, 'updatenomorantrean'])->name('updatenomorantrean');
@@ -122,12 +121,10 @@ Route::get('displaynomor', [AntrianController::class, 'displaynomor'])->name('di
 Route::get('getdisplayantrian', [AntrianController::class, 'getdisplayantrian'])->name('getdisplayantrian');
 Route::get('displayantrianfarmasi', [AntrianController::class, 'displayantrianfarmasi'])->name('displayantrianfarmasi');
 Route::get('displaynomorfarmasi', [AntrianController::class, 'displaynomorfarmasi'])->name('displaynomorfarmasi');
-
-
 Route::get('daftarantrian', DaftarAntrian::class)->name('daftarantrian');
 Route::get('antrianonline/{kodebooking}', [PendaftaranController::class, 'antrianonline'])->name('antrianonline');
-
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', HomeIndex::class)->name('landingpage');
     Route::get('home', HomeIndex::class)->name('home');
     Route::get('dashboard', DashboardPendaftaran::class)->name('dashboard');
     Route::get('profil', ProfilIndex::class)->name('profil')->lazy();
@@ -246,12 +243,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('pendaftaran/ranap', PendaftaranRanap::class)->name('pendaftaran.ranap');
     Route::get('pendaftaran/ranap/proses', PendaftaranRanapProses::class)->name('pendaftaran.ranap.proses');
 });
-
 Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class, 'print_resep'])->name('print.resep');
 Route::get('farmasi/print_resepfarmasi/{kodebooking}', [FarmasiController::class, 'print_resepfarmasi'])->name('print.resepfarmasi');
 Route::get('apoteker/print_penjualan_obat/{kode}', [FarmasiController::class, 'print_penjualan_obat'])->name('print.penjualanobat');
 Route::get('apoteker/print_nota_penjualanobat/{kode}', [KasirController::class, 'print_nota_penjualanobat'])->name('print.notapenjualanobat');
-
 Route::get('farmasi/print_etiket', [FarmasiController::class, 'print_etiket'])->name('print.etiket');
 Route::get('farmasi/print_gelang', [FarmasiController::class, 'print_gelang'])->name('print.gelang');
 Route::get('resumerajal/{kodebooking}',  [RekamMedisController::class, 'resumerajal'])->name('resume.rajal');

@@ -66,6 +66,11 @@
             @enderror
         </div>
 
+        <!-- reCAPTCHA widget -->
+        <div class="input-group mb-3">
+            <div class="g-recaptcha" data-sitekey="{{ env('SITEKEY') }}"></div>
+        </div>
+
         {{-- Login field --}}
         <div class="row">
             <div class="col-7">
