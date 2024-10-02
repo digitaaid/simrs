@@ -13,6 +13,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class AbsensiProses extends Component
 {
     public $user, $shift, $lat_kantor, $long_kantor, $rad_kantor;
+    public $message;
 
     public function masuk($id, Request $request)
     {
@@ -120,6 +121,7 @@ class AbsensiProses extends Component
                 $this->shift = $shifthariini;
             } else {
                 $this->shift = $shiftkemarin;
+                flash("Anda memiliki absensi hari kemarin yang belum diselesaikan", 'warning');
             }
         } else {
             $this->shift = $shifthariini;

@@ -1,4 +1,11 @@
 <div class="row">
+    @if (flash()->message)
+        <div class="col-md-12">
+            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
+                {{ flash()->message }}
+            </x-adminlte-alert>
+        </div>
+    @endif
     <div class="col-md-6">
         <x-adminlte-card title="Absensi Masuk" theme="primary">
             <div class="row">
@@ -16,7 +23,7 @@
                         <tr>
                             <td>Tanggal Absensi</td>
                             <td>:</td>
-                            <th>{{ now()->format('Y-m-d') }}</th>
+                            <th>{{ $shift->tanggal }}</th>
                         </tr>
                         <tr>
                             <td>Nama Jadwal</td>
@@ -105,7 +112,7 @@
                         <tr>
                             <td>Tanggal Absensi</td>
                             <td>:</td>
-                            <th>{{ now()->format('Y-m-d') }}</th>
+                            <th>{{ $shift->tanggal }}</th>
                         </tr>
                         <tr>
                             <td>Nama Jadwal</td>
