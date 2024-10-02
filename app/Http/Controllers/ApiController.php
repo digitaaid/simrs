@@ -12,7 +12,7 @@ class ApiController extends Controller
             'response' => $data,
             'metadata' => [
                 'message' => $message,
-                'code' =>  201,
+                'code' =>  200,
             ],
         ];
         return json_decode(json_encode($response));
