@@ -591,7 +591,7 @@ class AntrianController extends ApiController
                 'code' =>  200,
             ],
         ];
-        return $response;
+        return json_decode(json_encode($response));
         $validator = Validator::make($request->all(), [
             "nomorkartu" => "required|numeric|digits:13",
             "nik" => "required|numeric|digits:16",
