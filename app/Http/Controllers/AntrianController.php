@@ -673,7 +673,7 @@ class AntrianController extends ApiController
             } catch (\Throwable $th) {
                 //throw $th;
             }
-            if (!$request->method) {
+            if ($request->method == "Mobile JKN") {
                 return $this->sendAntrian($data, "Berhasil daftar antrian");
             }
             return $this->sendResponse($data, 200);
