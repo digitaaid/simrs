@@ -51,7 +51,8 @@
             {{ $antrian->namadokter }} <br>
             Jam Praktek {{ $antrian->jampraktek }} <br>
             Estimasi Dilayani<br>
-            {{ date('j F Y H:i:s', $antrian->estimasidilayani / 1000) }} <br>
+            {{ \Carbon\Carbon::createFromTimestamp($antrian->estimasidilayani / 1000)->format('j F Y H:i') }}
+            <br>
         </p>
         <hr style="margin: 0">
         <p style="line-height:13px;font-size: 8px;">
