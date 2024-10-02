@@ -571,28 +571,28 @@ class AntrianController extends ApiController
     }
     public function ambil_antrian(Request $request)
     {
-        // $data = [
-        //     'nomorantrean' => "A-12",
-        //     'angkaantrean' => 12,
-        //     'kodebooking' => "16032021A001",
-        //     'norm' => "123345",
-        //     'namapoli' => "Anak",
-        //     'namadokter' => "Dr. Hendra",
-        //     'estimasidilayani' => 1615869169000,
-        //     'sisakuotajkn' => 5,
-        //     'kuotajkn' => 30,
-        //     'sisakuotanonjkn' => 5,
-        //     'kuotanonjkn' => 30,
-        //     'keterangan' => "Peserta harap 60 menit lebih awal guna pencatatan administrasi."
-        // ];
-        // $response = [
-        //     'response' => $data,      // Data yang ingin dikirim
-        //     'metadata' => [
-        //         'message' => 'Ok',   // Pesan yang menunjukkan request berhasil
-        //         'code' => 200,    // Kode status HTTP (default: 200)
-        //     ],
-        // ];
-        // return response()->json($response);
+        $data = [
+            'nomorantrean' => "A7",
+            'angkaantrean' => 7,
+            'kodebooking' => "66FD708F79EC2",
+            'norm' =>  "005299",
+            'namapoli' => "PENYAKIT DALAM",
+            'namadokter' => "dr. DODDY RIZQI NUGRAHA, Sp.PD",
+            'estimasidilayani' => 1727917500000,
+            'sisakuotajkn' => 8,
+            'kuotajkn' => 8,
+            'sisakuotanonjkn' => 2,
+            'kuotanonjkn' => 2,
+            'keterangan' => "Silahkan datang 1 jam sebelum jadwal dokter untuk checkin fingerprint atau face-recognition. Terimkasih."
+        ];
+        $response = [
+            'response' => $data,      // Data yang ingin dikirim
+            'metadata' => [
+                'message' => 'Ok',   // Pesan yang menunjukkan request berhasil
+                'code' => 200,    // Kode status HTTP (default: 200)
+            ],
+        ];
+        return response()->json($response);
         // return $response;
         $validator = Validator::make($request->all(), [
             "nomorkartu" => "required|numeric|digits:13",
