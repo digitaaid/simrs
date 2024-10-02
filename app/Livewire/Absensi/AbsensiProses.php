@@ -93,14 +93,12 @@ class AbsensiProses extends Component
     }
     public function distance($lat1, $lon1, $lat2, $lon2, $unit)
     {
-
         $theta = $lon1 - $lon2;
         $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
         $dist = acos($dist);
         $dist = rad2deg($dist);
         $miles = $dist * 60 * 1.1515;
         $unit = strtoupper($unit);
-
         if ($unit == "K") {
             return ($miles * 1.609344);
         } else if ($unit == "N") {
@@ -112,9 +110,23 @@ class AbsensiProses extends Component
     public function mount()
     {
         $this->user = auth()->user();
-        $this->shift = ShiftPegawai::where('user_id', $this->user->id)
+
+
+        $shiftkemarin = ShiftPegawai::where('user_id', $this->user->id)
+            ->where('tanggal', now()->subDays(1)->format('Y-m-d'))
+            ->first();
+        $shifthariini = ShiftPegawai::where('user_id', $this->user->id)
             ->where('tanggal', now()->format('Y-m-d'))
             ->first();
+        if ($shiftkemarin) {
+            if ($shiftkemarin->absensi_pulang) {
+                $this->shift = $shifthariini;
+            } else {
+                $this->shift = $shiftkemarin;
+            }
+        } else {
+            $this->shift = $shifthariini;
+        }
         $lokasikantor = LokasiAbsensi::first();
         $this->lat_kantor = $lokasikantor->latitude ?? 0;
         $this->long_kantor = $lokasikantor->longitude ?? 0;
