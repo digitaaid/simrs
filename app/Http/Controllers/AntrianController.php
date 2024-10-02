@@ -757,6 +757,12 @@ class AntrianController extends ApiController
             return $this->sendError($validator->errors()->first(),  201);
         }
         $antrian =  Antrian::firstWhere('kodebooking', $request->kodebooking);
+        if ($antrian->taskid == 99) {
+            return $this->sendError('Antrian sudah dibatalkan sebelumnya', 201);
+        }
+        if ($antrian->taskid >= 5) {
+            return $this->sendError('Pasien sudah dilayani, antrian tidak bisa dibatalkan', 201);
+        }
         $now = now();
         if ($antrian) {
             // crate sep
