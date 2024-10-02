@@ -9,22 +9,22 @@ class ApiController extends Controller
     public function sendAntrian($data, $message)
     {
         $response = [
+            'response' => $data,
             'metadata' => [
                 'message' => $message,
                 'code' =>  201,
             ],
-            'response' => $data,
         ];
         return json_decode(json_encode($response));
     }
     public function sendResponse($data, int $code = 200)
     {
         $response = [
+            'response' => $data,
             'metadata' => [
                 'message' => 'Ok',
                 'code' =>  $code,
             ],
-            'response' => $data,
         ];
         return json_decode(json_encode($response));
     }

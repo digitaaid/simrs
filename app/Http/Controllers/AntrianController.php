@@ -590,18 +590,6 @@ class AntrianController extends ApiController
         if (Carbon::parse($request->tanggalperiksa)->endOfDay()->isPast()) {
             return $this->sendError("Tanggal periksa sudah terlewat", 400);
         }
-        // check tanggal hanya 7 hari
-        if (Carbon::parse($request->tanggalperiksa) >  Carbon::now()->addDay(6)) {
-            return $this->sendError("Antrian hanya dapat dibuat untuk 7 hari ke kedepan", 400);
-        }
-        // cek duplikasi nik antrian
-        $antrian_nik = Antrian::where('tanggalperiksa', $request->tanggalperiksa)
-            ->where('nik', $request->nik)
-            ->where('taskid', '<=', 5)
-            ->first();
-        if ($antrian_nik) {
-            return $this->sendError("Terdapat Antrian (" . $antrian_nik->kodebooking . ") dengan nomor NIK yang sama pada tanggal tersebut yang belum selesai. Silahkan batalkan terlebih dahulu jika ingin mendaftarkan lagi.",  409);
-        }
         // cek pasien baru
         $pasien = Pasien::where('nomorkartu',  $request->nomorkartu)->first();
         if (empty($pasien)) {
@@ -634,20 +622,46 @@ class AntrianController extends ApiController
         $request['estimasidilayani'] = $jadwal_estimasi->timestamp * 1000;
         $request['jenispasien'] =  $request->nomorreferensi  ? "JKN" : "NON-JKN";
         $request['keterangan'] = 'Silahkan datang 1 jam sebelum jadwal dokter untuk checkin fingerprint atau face-recognition. Terimkasih.';
-        $pasien = Pasien::firstWhere('nik', $request->nik);
         $request['pasienbaru'] =  $pasien ? 0 : 1;
         $request['nama'] =  $pasien ? $pasien->nama : 'Pasien Baru';
         $request['norm'] = $pasien->norm;
         $request['method'] =  $request->method ??  'Mobile JKN';
-        $res = $this->tambah_antrean($request);
-        try {
-            $wa = new WhatsappController();
-            $request['number'] = "120363344588087064@g.us";
-            $request['message'] = $res->metadata->message;
-            $wa->send_message_group($request);
-        } catch (\Throwable $th) {
-            //throw $th;
+        // cek duplikasi nik antrian
+        $antrian_sama = Antrian::where('tanggalperiksa', $request->tanggalperiksa)
+            ->where('nik', $request->nik)
+            ->where('nomorkartu', $request->nomorkartu)
+            ->where('nomorreferensi', $request->nomorreferensi)
+            ->where('kodedokter', $request->kodedokter)
+            ->where('kodepoli', $request->kodepoli)
+            ->where('nohp', $request->nohp)
+            ->where('taskid', '<=', 5)
+            ->first();
+        if ($antrian_sama) {
+            $data = [
+                'nomorantrean' => $antrian_sama->nomorantrean,
+                'angkaantrean' => $antrian_sama->angkaantrean,
+                'kodebooking' => $antrian_sama->kodebooking,
+                'norm' => $antrian_sama->norm,
+                'namapoli' => $antrian_sama->namapoli,
+                'namadokter' => $antrian_sama->namadokter,
+                'estimasidilayani' => $antrian_sama->estimasidilayani,
+                'sisakuotajkn' => $request->sisakuotajkn,
+                'kuotajkn' => $request->kuotajkn,
+                'sisakuotanonjkn' => $request->sisakuotanonjkn,
+                'kuotanonjkn' => $request->kuotanonjkn,
+                'keterangan' => $antrian_sama->keterangan,
+            ];
+            return $this->sendResponse($data, 200);
         }
+        // cek duplikasi nik antrian
+        $antrian_nik = Antrian::where('tanggalperiksa', $request->tanggalperiksa)
+            ->where('nik', $request->nik)
+            ->where('taskid', '<=', 5)
+            ->first();
+        if ($antrian_nik) {
+            return $this->sendError("Terdapat Antrian (" . $antrian_nik->kodebooking . ") dengan nomor NIK yang sama pada tanggal tersebut yang belum selesai. Silahkan batalkan terlebih dahulu jika ingin mendaftarkan lagi.",  409);
+        }
+        $res = $this->tambah_antrean($request);
         if ($res->metadata->code == 200) {
             $request['status'] = 1;
             $antrian = Antrian::create($request->all());
