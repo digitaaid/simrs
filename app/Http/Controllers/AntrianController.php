@@ -7,6 +7,7 @@ use App\Models\Integration;
 use App\Models\JadwalDokter;
 use App\Models\Kunjungan;
 use App\Models\Pasien;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -570,6 +571,28 @@ class AntrianController extends ApiController
     }
     public function ambil_antrian(Request $request)
     {
+        $data = [
+            'nomorantrean' => "A-12",
+            'angkaantrean' => 12,
+            'kodebooking' => "16032021A001",
+            'norm' => "123345",
+            'namapoli' => "Anak",
+            'namadokter' => "Dr. Hendra",
+            'estimasidilayani' => 1615869169000,
+            'sisakuotajkn' => 5,
+            'kuotajkn' => 30,
+            'sisakuotanonjkn' => 5,
+            'kuotanonjkn' => 30,
+            'keterangan' => "Peserta harap 60 menit lebih awal guna pencatatan administrasi."
+        ];
+        $response = [
+            'response' => $data,      // Data yang ingin dikirim
+            'metadata' => [
+                'message' => 'Ok',   // Pesan yang menunjukkan request berhasil
+                'code' => 200,    // Kode status HTTP (default: 200)
+            ],
+        ];
+        return $response;
         $validator = Validator::make($request->all(), [
             "nomorkartu" => "required|numeric|digits:13",
             "nik" => "required|numeric|digits:16",
@@ -656,15 +679,7 @@ class AntrianController extends ApiController
                 'kuotanonjkn' => $request->kuotanonjkn,
                 'keterangan' => $request->keterangan,
             ];
-            $response = [
-                'response' => $data,      // Data yang ingin dikirim
-                'metadata' => [
-                    'message' => 'Ok',   // Pesan yang menunjukkan request berhasil
-                    'code' => 200,    // Kode status HTTP (default: 200)
-                ],
-            ];
-            return response()->json($response);
-            // return $this->sendResponse($data, 200);
+            return $this->sendResponse($data, 200);
         } else {
             return $this->sendError($res->metadata->message, 400);
         }
