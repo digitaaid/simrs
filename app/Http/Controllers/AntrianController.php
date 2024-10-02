@@ -7,7 +7,6 @@ use App\Models\Integration;
 use App\Models\JadwalDokter;
 use App\Models\Kunjungan;
 use App\Models\Pasien;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -883,7 +882,7 @@ class AntrianController extends ApiController
                 $antrian->update([
                     'taskid' => 3,
                     'taskid1' => $now,
-                    'user1' => 'Mobile JKN',
+                    'user1' => 1,
                     'keterangan' => 'Telah checkin pada ' . $now . ' Silahkan lakukan proses selanjutnya',
                 ]);
                 return $this->sendError("Ok", 200);
