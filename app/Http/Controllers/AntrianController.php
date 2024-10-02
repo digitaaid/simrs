@@ -863,7 +863,7 @@ class AntrianController extends ApiController
             $kunjungan->diagnosa_awal = $antrian->diagAwal;
             $kunjungan->cara_masuk = "gnp";
             $kunjungan->status = 1;
-            $kunjungan->user1 = 1;
+            $kunjungan->user1 = 2;
             $kunjungan->save();
             // update antrian
             $antrian->kunjungan_id = $kunjungan->id;
@@ -882,7 +882,7 @@ class AntrianController extends ApiController
                 $antrian->update([
                     'taskid' => 3,
                     'taskid1' => $now,
-                    'user1' => 1,
+                    'user1' => 2,
                     'keterangan' => 'Telah checkin pada ' . $now . ' Silahkan lakukan proses selanjutnya',
                 ]);
                 return $this->sendError("Ok", 200);

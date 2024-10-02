@@ -436,7 +436,7 @@ class AnjunganAntrianMandiri extends Component
         if (!$this->pasienbaru) {
             $antrian->taskid = 3;
             $antrian->taskid3 = now();
-            $antrian->user1 = 1;
+            $antrian->user1 = 2;
             $antrian->save();
         }
         return redirect()->route('anjunganantrian.print', $antrian->kodebooking);
