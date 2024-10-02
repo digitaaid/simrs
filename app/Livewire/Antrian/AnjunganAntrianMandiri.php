@@ -237,7 +237,6 @@ class AnjunganAntrianMandiri extends Component
         }
         $antiranhari = Antrian::where('tanggalperiksa', $this->tanggalperiksa)->count();
         $antrianpoli = Antrian::where('tanggalperiksa', $this->tanggalperiksa)->where('jadwal_id', $jadwal->id)->count();
-
         $jamPraktek = explode('-', $jadwal->jampraktek)[0] . ':00';
         $timestamp = $this->tanggalperiksa . ' ' . $jamPraktek;
         if (Carbon::hasFormat($timestamp, 'Y-m-d H:i:s')) {
