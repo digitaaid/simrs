@@ -650,6 +650,7 @@ class AntrianController extends ApiController
                 'sisakuotanonjkn' => $request->sisakuotanonjkn,
                 'kuotanonjkn' => $request->kuotanonjkn,
                 'keterangan' => $antrian_sama->keterangan,
+                'taskid' => $antrian_sama->taskid,
             ];
             return $this->sendResponse($data, 200);
         }
