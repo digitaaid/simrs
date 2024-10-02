@@ -585,14 +585,7 @@ class AntrianController extends ApiController
             'kuotanonjkn' => 2,
             'keterangan' => "Silahkan datang 1 jam sebelum jadwal dokter untuk checkin fingerprint atau face-recognition. Terimkasih."
         ];
-        $response = [
-            'response' => $data,      // Data yang ingin dikirim
-            'metadata' => [
-                'message' => 'test gagal',   // Pesan yang menunjukkan request berhasil
-                'code' => 201,    // Kode status HTTP (default: 200)
-            ],
-        ];
-        return response($response);
+        return $this->sendResponse($data, 201);
         // return $response;
         $validator = Validator::make($request->all(), [
             "nomorkartu" => "required|numeric|digits:13",
