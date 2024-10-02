@@ -12,12 +12,12 @@ class ApiController extends Controller
             'response' => $data,
             'metadata' => [
                 'message' => $message,
-                'code' =>  200,
+                'code' =>  200
             ],
         ];
-        // return new JsonResponse($response);
-        return response($response)
-            ->header('Content-Type', 'application/json');
+        return new JsonResponse($response);
+        // return response($response)
+        //     ->header('Content-Type', 'application/json');
     }
     public function sendResponse($data, int $code = 200)
     {
