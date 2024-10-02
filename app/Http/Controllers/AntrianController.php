@@ -898,6 +898,14 @@ class AntrianController extends ApiController
                     "taskid" => 99,
                     "keterangan" => $request->keterangan,
                 ]);
+                try {
+                    $wa = new WhatsappController();
+                    $request['number'] = $antrian->nohp;
+                    $request['message'] = "Antrian atas nama pasien " . $antrian->nama . " dengan kode booking " . $antrian->kodebooking . "telah dibatalkan " . $request->keterangan . ". Terimakasih.";
+                    $wa->send_message($request);
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
             }
             return $this->sendError($response->metadata->message, 200);
         } else {
