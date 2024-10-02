@@ -592,6 +592,7 @@ class AntrianController extends ApiController
                 'code' => 200,    // Kode status HTTP (default: 200)
             ],
         ];
+        return response()->json($response);
         return $response;
         $validator = Validator::make($request->all(), [
             "nomorkartu" => "required|numeric|digits:13",
