@@ -638,20 +638,6 @@ class AntrianController extends ApiController
         if ($res->metadata->code == 200) {
             $request['status'] = 1;
             $antrian = Antrian::create($request->all());
-            $data = [
-                'nomorantrean' => $request->nomorantrean,
-                // 'angkaantrean' => $request->angkaantrean,
-                // 'kodebooking' => $request->kodebooking,
-                // 'norm' => $request->norm,
-                'namapoli' => "Penyakit Dalam",
-                // 'namadokter' => $request->namadokter,
-                // 'estimasidilayani' => $request->estimasidilayani,
-                // 'sisakuotajkn' => $request->sisakuotajkn,
-                // 'kuotajkn' => $request->kuotajkn,
-                // 'sisakuotanonjkn' => $request->sisakuotanonjkn,
-                // 'kuotanonjkn' => $request->kuotanonjkn,
-                // 'keterangan' => $request->keterangan,
-            ];
             try {
                 $wa = new WhatsappController();
                 $request['number'] = $antrian->nohp;
@@ -663,8 +649,22 @@ class AntrianController extends ApiController
             } catch (\Throwable $th) {
                 //throw $th;
             }
+            $data = [
+                'nomorantrean' => $request->nomorantrean,
+                'angkaantrean' => $request->angkaantrean,
+                'kodebooking' => $request->kodebooking,
+                'norm' => $request->norm,
+                'namapoli' => "Penyakit Dalam",
+                'namadokter' => $request->namadokter,
+                'estimasidilayani' => $request->estimasidilayani,
+                'sisakuotajkn' => $request->sisakuotajkn,
+                'kuotajkn' => $request->kuotajkn,
+                'sisakuotanonjkn' => $request->sisakuotanonjkn,
+                'kuotanonjkn' => $request->kuotanonjkn,
+                'keterangan' => $request->keterangan,
+            ];
             if ($request->method == "Mobile JKN") {
-                return $this->sendAntrian($data, "Berhasil daftar antrian");
+                return $this->sendAntrian($data, "Berhasil daftar antrian dengan nomor antrian " . $antrian->nomorantrean);
             }
             return $this->sendResponse($data, 200);
         } else {
