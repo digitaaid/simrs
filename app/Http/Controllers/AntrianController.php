@@ -621,7 +621,7 @@ class AntrianController extends ApiController
         $jadwal_estimasi = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'Asia/Jakarta')->addMinutes(5 * ($antiranhari + 1));
         $request['estimasidilayani'] = $jadwal_estimasi->timestamp * 1000;
         $request['jenispasien'] =  $request->nomorreferensi  ? "JKN" : "NON-JKN";
-        $request['keterangan'] = 'Silahkan datang 1 jam sebelum jadwal dokter untuk checkin fingerprint atau face-recognition. Terimkasih.';
+        $request['keterangan'] = 'Silahkan datang sebelum jam praktek dokter untuk checkin fingerprint atau face-recognition. Terimkasih.';
         $request['pasienbaru'] =  $pasien ? 0 : 1;
         $request['nama'] =  $pasien ? $pasien->nama : 'Pasien Baru';
         $request['norm'] = $pasien->norm;
@@ -636,21 +636,13 @@ class AntrianController extends ApiController
             ->where('taskid', '<=', 5)
             ->first();
         if ($antrian_sama) {
-            $data = [
-                'nomorantrean' => $antrian_sama->nomorantrean,
-                'angkaantrean' => $antrian_sama->angkaantrean,
-                'kodebooking' => $antrian_sama->kodebooking,
-                'norm' => $antrian_sama->norm,
-                'namapoli' => $antrian_sama->namapoli,
-                'namadokter' => $antrian_sama->namadokter,
-                'estimasidilayani' => $antrian_sama->estimasidilayani,
-                'sisakuotajkn' => $request->sisakuotajkn,
-                'kuotajkn' => $request->kuotajkn,
-                'sisakuotanonjkn' => $request->sisakuotanonjkn,
-                'kuotanonjkn' => $request->kuotanonjkn,
-                'keterangan' => $antrian_sama->keterangan,
+            $response = [
+                'metadata' => [
+                    'message' => "Ok",
+                    'code' =>  200,
+                ],
             ];
-            return $this->sendResponse($data, 200);
+            return json_decode(json_encode($response));
         }
         // cek duplikasi nik antrian
         $antrian_nik = Antrian::where('tanggalperiksa', $request->tanggalperiksa)
