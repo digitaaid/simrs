@@ -633,7 +633,6 @@ class AntrianController extends ApiController
             ->where('nomorreferensi', $request->nomorreferensi)
             ->where('kodedokter', $request->kodedokter)
             ->where('kodepoli', $request->kodepoli)
-            ->where('nohp', $request->nohp)
             ->where('taskid', '<=', 5)
             ->first();
         if ($antrian_sama) {
