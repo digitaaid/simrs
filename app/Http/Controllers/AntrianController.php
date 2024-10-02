@@ -682,14 +682,6 @@ class AntrianController extends ApiController
         if ($pasien->nik != $request->nik) {
             return $this->sendError("NIK anda yang terdaftar di BPJS dengan berbeda. Silahkan perbaiki melalui pendaftaran offline",  201);
         }
-        $request['pasienbaru'] = 0;
-        $antiranhari = Antrian::where('tanggalperiksa', $request->tanggalperiksa)->count();
-        $request['nomorantrean'] = 'A' . $antiranhari + 1;
-        $request['angkaantrean'] =  $antiranhari + 1;
-        $timestamp = $request->tanggalperiksa . ' ' . explode('-', $request->jampraktek)[0] . ':00';
-        $jadwal_estimasi = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'Asia/Jakarta')->addMinutes(5 * ($antiranhari + 1));
-        $request['estimasidilayani'] = $jadwal_estimasi->timestamp * 1000;
-        $request['kodebooking'] = strtoupper(uniqid());
         $statusantrian = $this->status_antrian($request);
         if ($statusantrian->metadata->code == 200) {
             $request['sisakuotajkn']  = $statusantrian->response->sisakuotajkn;
@@ -702,6 +694,16 @@ class AntrianController extends ApiController
         } else {
             return $this->sendError($statusantrian->metadata->message, 400);
         }
+        $request['kodebooking'] = strtoupper(uniqid());
+        $antiranhari = Antrian::where('tanggalperiksa', $request->tanggalperiksa)
+            ->where('taskid', '!=', 99)
+            ->where('jadwal_id', $request->jadwal_id)
+            ->count();
+        $request['nomorantrean'] = 'A' . $antiranhari + 1;
+        $request['angkaantrean'] =  $antiranhari + 1;
+        $timestamp = $request->tanggalperiksa . ' ' . explode('-', $request->jampraktek)[0] . ':00';
+        $jadwal_estimasi = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'Asia/Jakarta')->addMinutes(5 * ($antiranhari + 1));
+        $request['estimasidilayani'] = $jadwal_estimasi->timestamp * 1000;
         $request['jenispasien'] =  $request->nomorreferensi  ? "JKN" : "NON-JKN";
         $request['keterangan'] = 'Silahkan datang 1 jam sebelum jadwal dokter untuk checkin fingerprint atau face-recognition. Terimkasih.  ';
         $pasien = Pasien::firstWhere('nik', $request->nik);
