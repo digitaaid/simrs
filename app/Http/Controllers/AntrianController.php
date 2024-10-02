@@ -703,10 +703,11 @@ class AntrianController extends ApiController
             return $this->sendError($statusantrian->metadata->message, 400);
         }
         $request['jenispasien'] =  $request->nomorreferensi  ? "JKN" : "NON-JKN";
-        $request['keterangan'] = 'Silahkan checkin 1 jam sebelum jam praktek dokter';
+        $request['keterangan'] = 'Silahkan datang 1 jam sebelum jadwal dokter untuk checkin fingerprint atau face-recognition. Terimkasih.  ';
         $pasien = Pasien::firstWhere('nik', $request->nik);
         $request['pasienbaru'] =  $pasien ? 0 : 1;
         $request['nama'] =  $pasien ? $pasien->nama : 'Pasien Baru';
+        $request['norm'] = $pasien->norm;
         $request['method'] =  $request->method ??  'Mobile JKN';
         $res = $this->tambah_antrean($request);
         if ($res->metadata->code == 200) {
