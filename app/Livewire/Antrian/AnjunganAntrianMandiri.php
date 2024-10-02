@@ -237,9 +237,16 @@ class AnjunganAntrianMandiri extends Component
         }
         $antiranhari = Antrian::where('tanggalperiksa', $this->tanggalperiksa)->count();
         $antrianpoli = Antrian::where('tanggalperiksa', $this->tanggalperiksa)->where('jadwal_id', $jadwal->id)->count();
-        $timestamp = $this->tanggalperiksa . ' ' . explode('-', $jadwal->jampraktek)[0] . ':00';
-        $jadwal_estimasi = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'Asia/Jakarta')->addMinutes(6 * ($antrianpoli + 1));
-        $this->estimasidilayani = $jadwal_estimasi->timestamp * 1000;
+
+        $jamPraktek = explode('-', $jadwal->jampraktek)[0] . ':00';
+        $timestamp = $this->tanggalperiksa . ' ' . $jamPraktek;
+        if (Carbon::hasFormat($timestamp, 'Y-m-d H:i:s')) {
+            $jadwal_estimasi = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)
+                ->addMinutes(6 * ($antrianpoli + 1));
+            $this->estimasidilayani = $jadwal_estimasi->timestamp * 1000;
+        } else {
+            return flash("Format tanggal atau waktu salah: $timestamp", 'danger');
+        }
         $this->kodebooking = strtoupper(uniqid());
         $this->nomorantrean = $jadwal->huruf . $antrianpoli + 1;
         $this->angkaantrean = $antiranhari + 1;
