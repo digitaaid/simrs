@@ -5,7 +5,6 @@ namespace App\Livewire\Absensi;
 use App\Models\ActivityLog;
 use App\Models\LokasiAbsensi;
 use App\Models\ShiftPegawai;
-use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -110,8 +109,6 @@ class AbsensiProses extends Component
     public function mount()
     {
         $this->user = auth()->user();
-
-
         $shiftkemarin = ShiftPegawai::where('user_id', $this->user->id)
             ->where('tanggal', now()->subDays(1)->format('Y-m-d'))
             ->first();
