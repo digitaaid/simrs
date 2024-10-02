@@ -624,7 +624,6 @@ class AntrianController extends ApiController
         }
         $request['kodebooking'] = strtoupper(uniqid());
         $antiranhari = Antrian::where('tanggalperiksa', $request->tanggalperiksa)
-            ->where('taskid', '!=', 99)
             ->where('jadwal_id', $request->jadwal_id)
             ->count();
         $request['nomorantrean'] = 'A' . $antiranhari + 1;
