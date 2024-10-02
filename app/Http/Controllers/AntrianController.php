@@ -585,8 +585,13 @@ class AntrianController extends ApiController
             'kuotanonjkn' => 2,
             'keterangan' => "Silahkan datang 1 jam sebelum jadwal dokter untuk checkin fingerprint atau face-recognition. Terimkasih."
         ];
-        return $this->sendResponse($data, 201);
-        // return $response;
+        $response = [
+            'metadata' => [
+                'message' => 'Ok',
+                'code' =>  200,
+            ],
+        ];
+        return $response;
         $validator = Validator::make($request->all(), [
             "nomorkartu" => "required|numeric|digits:13",
             "nik" => "required|numeric|digits:16",
