@@ -640,17 +640,17 @@ class AntrianController extends ApiController
             $antrian = Antrian::create($request->all());
             $data = [
                 'nomorantrean' => $request->nomorantrean,
-                'angkaantrean' => $request->angkaantrean,
-                'kodebooking' => $request->kodebooking,
-                'norm' => $request->norm,
-                'namapoli' => $request->namapoli,
-                'namadokter' => $request->namadokter,
-                'estimasidilayani' => $request->estimasidilayani,
-                'sisakuotajkn' => $request->sisakuotajkn,
-                'kuotajkn' => $request->kuotajkn,
-                'sisakuotanonjkn' => $request->sisakuotanonjkn,
-                'kuotanonjkn' => $request->kuotanonjkn,
-                'keterangan' => $request->keterangan,
+                // 'angkaantrean' => $request->angkaantrean,
+                // 'kodebooking' => $request->kodebooking,
+                // 'norm' => $request->norm,
+                'namapoli' => "Penyakit Dalam",
+                // 'namadokter' => $request->namadokter,
+                // 'estimasidilayani' => $request->estimasidilayani,
+                // 'sisakuotajkn' => $request->sisakuotajkn,
+                // 'kuotajkn' => $request->kuotajkn,
+                // 'sisakuotanonjkn' => $request->sisakuotanonjkn,
+                // 'kuotanonjkn' => $request->kuotanonjkn,
+                // 'keterangan' => $request->keterangan,
             ];
             try {
                 $wa = new WhatsappController();
