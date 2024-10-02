@@ -588,8 +588,8 @@ class AntrianController extends ApiController
         $response = [
             'response' => $data,      // Data yang ingin dikirim
             'metadata' => [
-                'message' => 'Ok',   // Pesan yang menunjukkan request berhasil
-                'code' => 200,    // Kode status HTTP (default: 200)
+                'message' => 'test gagal',   // Pesan yang menunjukkan request berhasil
+                'code' => 201,    // Kode status HTTP (default: 200)
             ],
         ];
         return response($response);
