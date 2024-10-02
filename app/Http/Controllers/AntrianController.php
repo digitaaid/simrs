@@ -571,28 +571,6 @@ class AntrianController extends ApiController
     }
     public function ambil_antrian(Request $request)
     {
-        $data = [
-            'nomorantrean' => "A7",
-            'angkaantrean' => 7,
-            'kodebooking' => "66FD708F79EC2",
-            'norm' =>  "005299",
-            'namapoli' => "PENYAKIT DALAM",
-            'namadokter' => "dr. DODDY RIZQI NUGRAHA, Sp.PD",
-            'estimasidilayani' => 1727917500000,
-            'sisakuotajkn' => 8,
-            'kuotajkn' => 8,
-            'sisakuotanonjkn' => 2,
-            'kuotanonjkn' => 2,
-            'keterangan' => "Silahkan datang 1 jam sebelum jadwal dokter untuk checkin fingerprint atau face-recognition. Terimkasih."
-        ];
-        $response = [
-            'metadata' => [
-                'message' => 'Ok',
-                'code' =>  200,
-            ],
-            'response' => $data,
-        ];
-        return json_decode(json_encode($response));
         $validator = Validator::make($request->all(), [
             "nomorkartu" => "required|numeric|digits:13",
             "nik" => "required|numeric|digits:16",
@@ -679,6 +657,13 @@ class AntrianController extends ApiController
                 'kuotanonjkn' => $request->kuotanonjkn,
                 'keterangan' => $request->keterangan,
             ];
+            $response = [
+                'metadata' => [
+                    'message' => 'Ok',
+                    'code' =>  200,
+                ],
+            ];
+            return json_decode(json_encode($response));
             return $this->sendResponse($data, 200);
         } else {
             return $this->sendError($res->metadata->message, 400);
