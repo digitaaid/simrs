@@ -668,7 +668,7 @@ class AntrianController extends ApiController
             try {
                 $wa = new WhatsappController();
                 $request['number'] = "120363344588087064@g.us";
-                $request['message'] = "Antrian berhasil melalui " . $antrian->method . "\nNama : *" . $antrian->nama . "* \nKodebooking : " . $antrian->kodebooking . "\nNomor : " . $antrian->nomorantrian . "\nTanggal : " . $antrian->tanggalperiksa . "\nDokter : " . $antrian->namadokter . "\nJam Praktek : " . $antrian->jampraktek;
+                $request['message'] = "Antrian berhasil melalui *" . $antrian->method . "*\nNama : *" . $antrian->nama . "* \nKodebooking : " . $antrian->kodebooking . "\nNomor : " . $antrian->nomorantrean . "\nTanggal : " . $antrian->tanggalperiksa . "\nDokter : " . $antrian->namadokter . "\nJam Praktek : " . $antrian->jampraktek;
                 $wa->send_message_group($request);
             } catch (\Throwable $th) {
                 //throw $th;
