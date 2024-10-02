@@ -87,7 +87,7 @@ class ShiftPegawai extends Component
     }
     public function mount()
     {
-        $this->shifts = ShiftAbsensi::all();
+        $this->shifts = ShiftAbsensi::orderBy('nama', 'asc')->get();
         $this->bulan = now()->format('Y-m');
     }
     public function render()
@@ -106,7 +106,7 @@ class ShiftPegawai extends Component
         $search = '%' . $this->search . '%';
         $this->users = User::where('name', 'like', $search)
             ->where('email_verified_at', '!=', null)
-            ->orderBy('name','asc')
+            ->orderBy('name', 'asc')
             ->get();
         $this->absensis = ModelsShiftPegawai::whereMonth('tanggal', $month)
             ->whereYear('tanggal', $year)

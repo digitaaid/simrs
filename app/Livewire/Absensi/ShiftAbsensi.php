@@ -72,7 +72,8 @@ class ShiftAbsensi extends Component
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
     }
-    public function importform(){
+    public function importform()
+    {
         $this->formimport = $this->formimport ? 0 : 1;
         $this->reset(['fileimport']);
     }
@@ -93,7 +94,7 @@ class ShiftAbsensi extends Component
     }
     public function render()
     {
-        $this->shifts = ModelsShiftAbsensi::get();
+        $this->shifts = ModelsShiftAbsensi::orderBy('nama', 'asc')->get();
         return view('livewire.absensi.shift-absensi')->title('Jadwal Shift Kerja');
     }
 }
