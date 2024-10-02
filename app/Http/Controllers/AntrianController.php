@@ -673,13 +673,6 @@ class AntrianController extends ApiController
             } catch (\Throwable $th) {
                 //throw $th;
             }
-            // $response = [
-            //     'metadata' => [
-            //         'message' => 'Ok',
-            //         'code' =>  200,
-            //     ],
-            // ];
-            // return $response;
             return $this->sendResponse($data, 200);
         } else {
             return $this->sendError($res->metadata->message, 400);
