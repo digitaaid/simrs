@@ -663,7 +663,7 @@ class AntrianController extends ApiController
                     'code' =>  200,
                 ],
             ];
-            return json_decode(json_encode($response));
+            return $response;
             return $this->sendResponse($data, 200);
         } else {
             return $this->sendError($res->metadata->message, 400);
