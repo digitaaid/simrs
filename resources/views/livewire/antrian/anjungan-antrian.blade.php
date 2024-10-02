@@ -30,11 +30,11 @@
                             <h1>ANJUNGAN PELAYANAN MANDIRI</h1>
                         </x-adminlte-card>
                     </a>
-                    <a wire:navigate href="{{ route('anjunganantrian.bpjs') }}">
+                    {{-- <a wire:navigate href="{{ route('anjunganantrian.bpjs') }}">
                         <x-adminlte-card class="mb-2 withLoad" body-class="bg-success">
                             <h1>ANTRIAN PASIEN BPJS</h1>
                         </x-adminlte-card>
-                    </a>
+                    </a> --}}
                     <a wire:navigate href="{{ route('anjunganantrian.umum') }}?jenispasien=NON-JKN">
                         <x-adminlte-card class="mb-2 withLoad" body-class="bg-success">
                             <h1>ANTRIAN PASIEN UMUM</h1>
