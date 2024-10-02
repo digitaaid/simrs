@@ -705,7 +705,7 @@ class AntrianController extends ApiController
         $jadwal_estimasi = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'Asia/Jakarta')->addMinutes(5 * ($antiranhari + 1));
         $request['estimasidilayani'] = $jadwal_estimasi->timestamp * 1000;
         $request['jenispasien'] =  $request->nomorreferensi  ? "JKN" : "NON-JKN";
-        $request['keterangan'] = 'Silahkan datang 1 jam sebelum jadwal dokter untuk checkin fingerprint atau face-recognition. Terimkasih.  ';
+        $request['keterangan'] = 'Silahkan datang 1 jam sebelum jadwal dokter untuk checkin fingerprint atau face-recognition. Terimkasih.';
         $pasien = Pasien::firstWhere('nik', $request->nik);
         $request['pasienbaru'] =  $pasien ? 0 : 1;
         $request['nama'] =  $pasien ? $pasien->nama : 'Pasien Baru';
@@ -729,7 +729,15 @@ class AntrianController extends ApiController
                 'kuotanonjkn' => $request->kuotanonjkn,
                 'keterangan' => $request->keterangan,
             ];
-            return $this->sendResponse($data, 200);
+            $response = [
+                'response' => $data,      // Data yang ingin dikirim
+                'metadata' => [
+                    'message' => 'Ok',   // Pesan yang menunjukkan request berhasil
+                    'code' => 200,    // Kode status HTTP (default: 200)
+                ],
+            ];
+            return response()->json($response);
+            // return $this->sendResponse($data, 200);
         } else {
             return $this->sendError($res->metadata->message, 400);
         }
@@ -901,7 +909,7 @@ class AntrianController extends ApiController
                 try {
                     $wa = new WhatsappController();
                     $request['number'] = $antrian->nohp;
-                    $request['message'] = "Antrian atas nama pasien " . $antrian->nama . " dengan kode booking " . $antrian->kodebooking . "telah dibatalkan " . $request->keterangan . ". Terimakasih.";
+                    $request['message'] = "Antrian atas nama pasien " . $antrian->nama . " dengan kode booking " . $antrian->kodebooking . " telah dibatalkan dengan keterangan " . $request->keterangan . ". Terimakasih.";
                     $wa->send_message($request);
                 } catch (\Throwable $th) {
                     //throw $th;
