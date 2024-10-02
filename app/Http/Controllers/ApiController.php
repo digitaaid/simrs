@@ -9,11 +9,11 @@ class ApiController extends Controller
     public function sendResponse($data, int $code = 200)
     {
         $response = [
-            'response' => $data,
             'metadata' => [
                 'message' => 'Ok',
                 'code' =>  $code,
             ],
+            'response' => $data,
         ];
         return json_decode(json_encode($response));
     }
