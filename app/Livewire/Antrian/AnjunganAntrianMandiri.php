@@ -267,7 +267,7 @@ class AnjunganAntrianMandiri extends Component
             'kuotajkn' => $this->kuotajkn,
             'sisakuotanonjkn' => $this->sisakuotanonjkn,
             'kuotanonjkn' => $this->kuotanonjkn,
-            "keterangan" =>  "Silahkan ke loket pendaftaran",
+            "keterangan" =>  "Silahkan untuk menunggu anamnesa perawat dan periksa dokter. Terimakasih.",
             "nama" =>  $this->nama,
         ]);
         $api = new AntrianController();
