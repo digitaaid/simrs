@@ -640,6 +640,14 @@ class AntrianController extends ApiController
         $request['norm'] = $pasien->norm;
         $request['method'] =  $request->method ??  'Mobile JKN';
         $res = $this->tambah_antrean($request);
+        try {
+            $wa = new WhatsappController();
+            $request['number'] = "120363344588087064@g.us";
+            $request['message'] = $res->metadata->message;
+            $wa->send_message_group($request);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         if ($res->metadata->code == 200) {
             $request['status'] = 1;
             $antrian = Antrian::create($request->all());
@@ -659,7 +667,7 @@ class AntrianController extends ApiController
             ];
             try {
                 $wa = new WhatsappController();
-                $request['number'] = 120363344588087064;
+                $request['number'] = "120363344588087064@g.us";
                 $request['message'] = "Antrian berhasil melalui " . $antrian->method . "\nNama : *" . $antrian->nama . "* \nKodebooking : " . $antrian->kodebooking . "\nNomor : " . $antrian->nomorantrian . "\nTanggal : " . $antrian->tanggalperiksa . "\nDokter : " . $antrian->namadokter . "\nJam Praktek : " . $antrian->jampraktek;
                 $wa->send_message_group($request);
             } catch (\Throwable $th) {
@@ -731,6 +739,8 @@ class AntrianController extends ApiController
                     $request['number'] = $antrian->nohp;
                     $request['message'] = "Antrian atas nama pasien " . $antrian->nama . " dengan kode booking " . $antrian->kodebooking . " telah dibatalkan dengan keterangan " . $request->keterangan . ". Terimakasih.";
                     $wa->send_message($request);
+                    $request['number'] = "120363344588087064@g.us";
+                    $wa->send_message_group($request);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
