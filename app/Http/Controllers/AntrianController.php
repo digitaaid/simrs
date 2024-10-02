@@ -590,6 +590,14 @@ class AntrianController extends ApiController
         if (Carbon::parse($request->tanggalperiksa)->endOfDay()->isPast()) {
             return $this->sendError("Tanggal periksa sudah terlewat", 400);
         }
+        // cek duplikasi nik antrian
+        $antrian_nik = Antrian::where('tanggalperiksa', $request->tanggalperiksa)
+            ->where('nik', $request->nik)
+            ->where('taskid', '<=', 5)
+            ->first();
+        if ($antrian_nik) {
+            return $this->sendError("Terdapat Antrian (" . $antrian_nik->kodebooking . ") dengan nomor NIK yang sama pada tanggal tersebut yang belum selesai. Silahkan batalkan terlebih dahulu jika ingin mendaftarkan lagi.",  409);
+        }
         // cek pasien baru
         $pasien = Pasien::where('nomorkartu',  $request->nomorkartu)->first();
         if (empty($pasien)) {
@@ -626,32 +634,6 @@ class AntrianController extends ApiController
         $request['nama'] =  $pasien ? $pasien->nama : 'Pasien Baru';
         $request['norm'] = $pasien->norm;
         $request['method'] =  $request->method ??  'Mobile JKN';
-        // cek duplikasi nik antrian
-        $antrian_sama = Antrian::where('tanggalperiksa', $request->tanggalperiksa)
-            ->where('nik', $request->nik)
-            ->where('nomorkartu', $request->nomorkartu)
-            ->where('nomorreferensi', $request->nomorreferensi)
-            ->where('kodedokter', $request->kodedokter)
-            ->where('kodepoli', $request->kodepoli)
-            ->where('taskid', '<=', 5)
-            ->first();
-        if ($antrian_sama) {
-            $response = [
-                'metadata' => [
-                    'message' => "Ok",
-                    'code' =>  200,
-                ],
-            ];
-            return json_decode(json_encode($response));
-        }
-        // cek duplikasi nik antrian
-        $antrian_nik = Antrian::where('tanggalperiksa', $request->tanggalperiksa)
-            ->where('nik', $request->nik)
-            ->where('taskid', '<=', 5)
-            ->first();
-        if ($antrian_nik) {
-            return $this->sendError("Terdapat Antrian (" . $antrian_nik->kodebooking . ") dengan nomor NIK yang sama pada tanggal tersebut yang belum selesai. Silahkan batalkan terlebih dahulu jika ingin mendaftarkan lagi.",  409);
-        }
         $res = $this->tambah_antrean($request);
         if ($res->metadata->code == 200) {
             $request['status'] = 1;
@@ -681,9 +663,9 @@ class AntrianController extends ApiController
             } catch (\Throwable $th) {
                 //throw $th;
             }
-            // if ($request->method == "Mobile JKN") {
-            //     return $this->sendAntrian($data, "Berhasil daftar antrian");
-            // }
+            if ($request->method == "Mobile JKN") {
+                return $this->sendAntrian($data, "Berhasil daftar antrian");
+            }
             return $this->sendResponse($data, 200);
         } else {
             return $this->sendError($res->metadata->message, 400);

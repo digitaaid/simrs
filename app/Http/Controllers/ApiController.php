@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class ApiController extends Controller
 {
@@ -15,7 +15,9 @@ class ApiController extends Controller
                 'code' =>  200,
             ],
         ];
-        return json_decode(json_encode($response));
+        // return new JsonResponse($response);
+        return response($response)
+            ->header('Content-Type', 'application/json');
     }
     public function sendResponse($data, int $code = 200)
     {
