@@ -625,7 +625,7 @@ class AntrianController extends ApiController
         $request['nomorantrean'] = 'A' . $antiranhari + 1;
         $request['angkaantrean'] =  $antiranhari + 1;
         $timestamp = $request->tanggalperiksa . ' ' . explode('-', $request->jampraktek)[0] . ':00';
-        $jadwal_estimasi = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'Asia/Jakarta')->addMinutes(5 * ($antiranhari + 1));
+        $jadwal_estimasi = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'Asia/Jakarta')->addMinutes(6 * ($antiranhari + 1));
         $request['estimasidilayani'] = $jadwal_estimasi->timestamp * 1000;
         $request['jenispasien'] =  $request->nomorreferensi  ? "JKN" : "NON-JKN";
         $request['keterangan'] = 'Silahkan datang sebelum jam praktek dokter untuk checkin fingerprint atau face-recognition. Terimkasih.';
