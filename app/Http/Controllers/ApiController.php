@@ -9,7 +9,7 @@ class ApiController extends Controller
     public function sendAntrian($data, $message)
     {
         $response = [
-            'response' => $data,
+            // 'response' => $data,
             'metadata' => [
                 'message' => $message,
                 'code' =>  200
