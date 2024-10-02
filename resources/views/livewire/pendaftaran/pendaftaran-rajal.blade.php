@@ -15,12 +15,12 @@
             </div>
             <div class="col-lg-3 col-6">
                 <x-adminlte-small-box
-                    title="{{ count($antrians) ? $antrians->where('jenispasien', 'JKN')->count() : '-' }}"
+                    title="{{ count($antrians) ? $antrians->where('taskid', '!=', 99)->where('jenispasien', 'JKN')->count() : '-' }}"
                     text="Pasien JKN" theme="warning" icon="fas fa-user-injured" />
             </div>
             <div class="col-lg-3 col-6">
                 <x-adminlte-small-box
-                    title="{{ count($antrians) ? $antrians->where('jenispasien', 'NON-JKN')->count() : '-' }}"
+                    title="{{ count($antrians) ? $antrians->where('taskid', '!=', 99)->where('jenispasien', 'NON-JKN')->count() : '-' }}"
                     text="Pasien NON-JKN" theme="warning" icon="fas fa-user-injured" />
             </div>
         </div>
