@@ -28,7 +28,7 @@
                     @php
                         $pemanfaatan =
                             ($antrians->where('taskid', '!=', 99)->where('method', 'Mobile JKN')->count() /
-                                $antrians->where('taskid', '!=', 99)->count()) *
+                                $antrians->where('taskid', 7)->count()) *
                             100;
                     @endphp
                     <x-adminlte-small-box
