@@ -23,6 +23,19 @@
                     title="{{ count($antrians) ? $antrians->where('taskid', '!=', 99)->where('jenispasien', 'NON-JKN')->count() : '-' }}"
                     text="Pasien NON-JKN" theme="warning" icon="fas fa-user-injured" />
             </div>
+            @if (count($antrians))
+                <div class="col-lg-3 col-6">
+                    @php
+                        $pemanfaatan =
+                            ($antrians->where('taskid', '!=', 99)->where('method', 'Mobile JKN')->count() /
+                                $antrians->where('taskid', '!=', 99)->count()) *
+                            100;
+                    @endphp
+                    <x-adminlte-small-box
+                        title="{{ $antrians->where('taskid', '!=', 99)->where('method', 'Mobile JKN')->count() }}"
+                        text="{{ $pemanfaatan }}  Pemanfaatan MJKN" theme="primary" icon="fas fa-user-injured" />
+                </div>
+            @endif
         </div>
     </div>
     <div class="col-md-12">
