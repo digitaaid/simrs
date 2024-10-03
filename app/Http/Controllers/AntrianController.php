@@ -620,10 +620,10 @@ class AntrianController extends ApiController
             return $this->sendError($statusantrian->metadata->message, 400);
         }
         $request['kodebooking'] = strtoupper(uniqid());
-        $antiranhari = Antrian::where('tanggalperiksa', $request->tanggalperiksa)
-            ->where('jadwal_id', $request->jadwal_id)
-            ->count();
-        $request['nomorantrean'] = 'A' . $antiranhari + 1;
+        $antiranhari = Antrian::where('tanggalperiksa', $request->tanggalperiksa)->count();
+        $jadwal = JadwalDokter::find($request->jadwal_id);
+        $antrianpoli = Antrian::where('tanggalperiksa', $request->tanggalperiksa)->where('jadwal_id', $jadwal->id)->count();
+        $request['nomorantrean'] = $jadwal->huruf . $antrianpoli + 1;
         $request['angkaantrean'] =  $antiranhari + 1;
         $timestamp = $request->tanggalperiksa . ' ' . explode('-', $request->jampraktek)[0] . ':00';
         $jadwal_estimasi = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'Asia/Jakarta')->addMinutes(6 * ($antiranhari + 1));
