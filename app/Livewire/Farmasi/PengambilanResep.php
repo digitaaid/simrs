@@ -203,7 +203,9 @@ class PengambilanResep extends Component
             $api = new AntrianController();
             $res = $api->update_antrean($request);
             if ($res->metadata->code != 200) {
-                return flash($res->metadata->message, 'danger');
+                if ($res->metadata->message != "TaskId=7 sudah ada") {
+                    return flash($res->metadata->message, 'danger');
+                }
             }
             $antrian->taskid = 7;
             $antrian->taskid7 =  $now;
