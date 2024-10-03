@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\Antrian;
 use App\Models\Integration;
 use App\Models\JadwalDokter;
@@ -637,13 +638,17 @@ class AntrianController extends ApiController
         if ($res->metadata->code == 200) {
             $request['status'] = 1;
             $antrian = Antrian::create($request->all());
+            ActivityLog::create([
+                'user_id' => 0,
+                'activity' => 'Ambil Antrian BPJS',
+                'description' =>  'Berhasil ambil antrian atas nama pasien ' . $antrian->nama . ' dengan kodebooking ' . $antrian->kodebooking . ' untuk tanggal ' . $antrian->tanggalperiksa . ' dan nomorantrean ' . $antrian->nomorantrean,
+            ]);
             try {
                 $wa = new WhatsappController();
+                $request['message'] = "Antrian berhasil melalui *" . $antrian->method . "*\nNama : *" . $antrian->nama . "* \nNo HP : " . $antrian->nohp . "\nNo BPJS" . $antrian->nomorkartu . "\nKodebooking : " . $antrian->kodebooking . "\nNomor Antrian : " . $antrian->nomorantrean . "\nTanggal : " . $antrian->tanggalperiksa . "\nDokter : " . $antrian->namadokter . "\nJam Praktek : " . $antrian->jampraktek;
                 $request['number'] = $antrian->nohp;
-                $request['message'] = "Antrian berhasil melalui *" . $antrian->method . "*\nNama : *" . $antrian->nama . "* \nKodebooking : " . $antrian->kodebooking . "\nNomor : " . $antrian->nomorantrean . "\nTanggal : " . $antrian->tanggalperiksa . "\nDokter : " . $antrian->namadokter . "\nJam Praktek : " . $antrian->jampraktek;
                 $wa->send_message($request);
                 $request['number'] = "120363344588087064@g.us";
-                $request['message'] = "Antrian berhasil melalui *" . $antrian->method . "*\nNama : *" . $antrian->nama . "* \nKodebooking : " . $antrian->kodebooking . "\nNomor : " . $antrian->nomorantrean . "\nTanggal : " . $antrian->tanggalperiksa . "\nDokter : " . $antrian->namadokter . "\nJam Praktek : " . $antrian->jampraktek;
                 $wa->send_message_group($request);
             } catch (\Throwable $th) {
                 //throw $th;
@@ -718,6 +723,11 @@ class AntrianController extends ApiController
                 $antrian->update([
                     "taskid" => 99,
                     "keterangan" => $request->keterangan,
+                ]);
+                ActivityLog::create([
+                    'user_id' => 0,
+                    'activity' => 'Batal Antrian BPJS',
+                    'description' =>  'Berhasil batal antrian atas nama pasien ' . $antrian->nama . ' dengan kodebooking ' . $antrian->kodebooking . ' untuk tanggal ' . $antrian->tanggalperiksa . ' dan nomorantrean ' . $antrian->nomorantrean . ' dengan keterangan ' . $request->keterangan,
                 ]);
                 try {
                     $wa = new WhatsappController();
@@ -890,6 +900,11 @@ class AntrianController extends ApiController
                     'taskid1' => $now,
                     'user1' => 2,
                     'keterangan' => 'Telah checkin pada ' . $now . ' Silahkan lakukan proses selanjutnya',
+                ]);
+                ActivityLog::create([
+                    'user_id' => 0,
+                    'activity' => 'Checkin Antrian BPJS',
+                    'description' =>  'Berhasil checkin antrian atas nama pasien ' . $antrian->nama . ' dengan kodebooking ' . $antrian->kodebooking . ' untuk tanggal ' . $antrian->tanggalperiksa . ' dan nomorantrean ' . $antrian->nomorantrean,
                 ]);
                 return $this->sendError("Ok", 200);
             } else {
