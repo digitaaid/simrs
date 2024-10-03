@@ -436,7 +436,7 @@ return [
                 [
                     'text' => 'Jadwal Dokter Rajal',
                     'url' => 'pendaftaran/jadwaldokter',
-                    'icon' => 'fas fa-desktop',
+                    'icon' => 'fas fa-calendar',
                     'shift'   => 'ml-2',
                     'can' => 'pendaftaran',
                 ],
