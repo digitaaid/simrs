@@ -620,8 +620,8 @@ class AntrianController extends ApiController
             return $this->sendError($statusantrian->metadata->message, 400);
         }
         $request['kodebooking'] = strtoupper(uniqid());
-        $antiranhari = Antrian::where('tanggalperiksa', $request->tanggalperiksa)->count();
         $jadwal = JadwalDokter::find($request->jadwal_id);
+        $antiranhari = Antrian::where('tanggalperiksa', $request->tanggalperiksa)->count();
         $antrianpoli = Antrian::where('tanggalperiksa', $request->tanggalperiksa)->where('jadwal_id', $jadwal->id)->count();
         $request['nomorantrean'] = $jadwal->huruf . $antrianpoli + 1;
         $request['angkaantrean'] =  $antiranhari + 1;
