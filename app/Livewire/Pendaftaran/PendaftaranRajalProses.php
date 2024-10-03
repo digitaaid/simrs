@@ -112,6 +112,7 @@ class PendaftaranRajalProses extends Component
             $antrian->taskid2 = $now;
             $antrian->panggil = 0;
             $antrian->taskid = 1;
+            $antrian->keterangan = "Anda telah dicheckin oleh admin pendaftaran";
             $antrian->user1 = auth()->user()->id;
             $antrian->update();
             flash('Nomor antrian ' . $antrian->nomorantrean . ' dipanggil.', 'success');
