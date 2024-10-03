@@ -4,6 +4,7 @@ namespace App\Livewire\Pendaftaran;
 
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\VclaimController;
+use App\Models\ActivityLog;
 use App\Models\Antrian;
 use App\Models\Dokter;
 use App\Models\JadwalDokter;
@@ -129,6 +130,11 @@ class ModalAntrianRajal extends Component
         } else {
             return flash($res->metadata->message, 'danger');
         }
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Create/Update Antrian Pasien',
+            'description' => auth()->user()->name . ' telah create/update antrian pasien ' . $antrian->nama . ' dengan kodebooking ' . $antrian->kodebooking . ' pada tanggal ' . $antrian->tanggalperiksa . ' dan nomorantrean ' . $antrian->nomorantrean,
+        ]);
         // tambah antrean
         $request = new Request([
             "kodebooking" => $this->kodebooking,

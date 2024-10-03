@@ -85,7 +85,7 @@ class AbsensiProses extends Component
             Alert::success('Success', 'Berhasil Absensi Pulang');
             ActivityLog::create([
                 'user_id' => auth()->user()->id,
-                'activity' => 'Absensi Masuk',
+                'activity' => 'Absensi Pulang',
                 'description' => auth()->user()->name . ' telah melakukan absensi pulang',
             ]);
             return redirect()->route('absensi.proses');

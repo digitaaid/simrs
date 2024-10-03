@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <x-adminlte-card title="Log Aktifitas" theme="secondary">
-            <table class="table text-nowrap table-sm table-hover table-bordered">
+            <table class="table text-nowrap table-sm table-hover table-bordered table-responsive">
                 <thead>
                     <tr>
                         <th>Craeted_at</th>
