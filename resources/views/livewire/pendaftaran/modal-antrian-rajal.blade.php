@@ -1,10 +1,12 @@
 <div>
     <x-adminlte-card theme="primary" title="Antrian Pasien">
         <form wire:submit="editAntrian">
-            <input type="hidden" wire:model='kodebooking' name="kodebooking">
             <input type="hidden" wire:model='antrianId' name="antrianId">
             <div class="row">
                 <div class="col-md-6">
+                    <x-adminlte-input wire:model='kodebooking' name="kodebooking" fgroup-class="row"
+                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" label="Kodebooking"
+                        readonly />
                     <x-adminlte-input wire:model='nomorkartu' name="nomorkartu" fgroup-class="row"
                         label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" label="Nomor Kartu">
                         <x-slot name="appendSlot">

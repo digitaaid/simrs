@@ -2,17 +2,21 @@
 
 namespace App\Livewire\Pendaftaran;
 
+use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\VclaimController;
 use App\Models\Antrian;
+use App\Models\JadwalDokter;
+use App\Models\Pasien;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
 class ModalSuratkontrol extends Component
 {
+    public $daftarantrian = true;
     public $antrian, $tanggal, $formatfilter;
-    public $nomorkartu, $noSEP, $tglRencanaKontrol, $poliKontrol, $kodeDokter, $noSuratKontrol;
+    public $nomorkartu, $noSEP, $tglRencanaKontrol, $poliKontrol, $kodeDokter, $noSuratKontrol, $jampraktek, $nohp;
     public $seps = [], $polis = [], $dokters = [], $suratkontrols = [], $form = false;
-
     public function hapusSurat($noSuratKontrol)
     {
         $this->noSuratKontrol = $noSuratKontrol;
@@ -22,7 +26,6 @@ class ModalSuratkontrol extends Component
             'user' => auth()->user()->name,
         ]);
         $res = $api->suratkontrol_delete($request);
-        dd($res);
         if ($res->metadata->code == 200) {
             return flash($res->metadata->message, 'success');
         } else {
@@ -44,6 +47,17 @@ class ModalSuratkontrol extends Component
             'poliKontrol' => 'required',
             'kodeDokter' => 'required',
         ]);
+        $this->jampraktek = str_replace(' ', '', explode('|', $this->kodeDokter)[1]);
+        $this->kodeDokter = explode('|', $this->kodeDokter)[0];
+        $pasien = Pasien::firstWhere('nomorkartu', $this->nomorkartu);
+        $jadwal = JadwalDokter::where("hari",  Carbon::parse($this->tglRencanaKontrol)->dayOfWeek)
+            ->where("kodepoli", $this->poliKontrol)
+            ->where('kodedokter', $this->kodeDokter)
+            ->where("jampraktek", $this->jampraktek)
+            ->first();
+        if (!$jadwal || !$pasien) {
+            return flash('Jadwal dokter / pasien tidak ditemukan', 'danger');
+        }
         $api = new VclaimController();
         if ($this->noSuratKontrol) {
             $request = new Request([
@@ -66,11 +80,30 @@ class ModalSuratkontrol extends Component
             $res = $api->suratkontrol_insert($request);
         }
         if ($res->metadata->code == 200) {
+            if ($this->daftarantrian) {
+                $antrian = new AntrianController();
+                $request = new Request([
+                    // data pasien
+                    'nomorkartu' => $pasien->nomorkartu,
+                    'nik' => $pasien->nik,
+                    'nohp' => $this->nohp ?? $pasien->nohp,
+                    'norm' => $pasien->norm,
+                    // data jadwal
+                    'tanggalperiksa' => $this->tglRencanaKontrol,
+                    'kodepoli' => $jadwal->kodesubspesialis,
+                    'kodedokter' => $jadwal->kodedokter,
+                    'jampraktek' => $jadwal->jampraktek,
+                    // data surat kontrol
+                    'jeniskunjungan' => 3,
+                    'nomorreferensi' => $res->response->noSuratKontrol,
+                ]);
+                $res = $antrian->ambil_antrian($request);
+            }
             $this->form = false;
             $this->formatfilter = 2;
             $this->tanggal = now()->format('Y-m');
             $this->cariDataSuratKontrol();
-            return flash($res->metadata->message, 'success');
+            return flash($res->metadata->message, 'danger');
         } else {
             return flash($res->metadata->message, 'danger');
         }
@@ -189,6 +222,7 @@ class ModalSuratkontrol extends Component
     {
         $this->antrian = $antrian;
         $this->nomorkartu = $antrian->nomorkartu;
+        $this->nohp = $antrian->nohp;
     }
     public function render()
     {

@@ -86,10 +86,10 @@
                 Loading ...
             </div>
             @if (flash()->message)
-            <div class="text-{{ flash()->class }}" wire:loading.remove>
-                Loading Result : {{ flash()->message }}
-            </div>
-        @endif
+                <div class="text-{{ flash()->class }}" wire:loading.remove>
+                    Loading Result : {{ flash()->message }}
+                </div>
+            @endif
         </x-slot>
     </x-adminlte-card>
     @if ($form)
@@ -103,6 +103,8 @@
                     @endif
                     <x-adminlte-input fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
                         igroup-size="sm" wire:model='nomorkartu' name="nomorkartu" label="Nomor Kartu" />
+                    <x-adminlte-input fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
+                        igroup-size="sm" wire:model='nohp' name="nohp" label="No HP" />
                     <x-adminlte-select fgroup-class="row" label-class="text-left col-3" igroup-class="col-9"
                         igroup-size="sm" name="noSEP" wire:model='noSEP' wire:click='cariSEP' label="No SEP">
                         <option value=null>Pilih No SEP</option>
@@ -139,7 +141,8 @@
                         label="Dokter">
                         <option value=null>Pilih Poli Kontrol</option>
                         @foreach ($dokters as $key => $item)
-                            <option value="{{ $item['kodeDokter'] }}">{{ $item['namaDokter'] }}
+                            <option value="{{ $item['kodeDokter'] }}|{{ $item['jadwalPraktek'] }}">
+                                {{ $item['namaDokter'] }}
                                 ({{ $item['jadwalPraktek'] }})
                             </option>
                         @endforeach
@@ -149,6 +152,13 @@
                             </div>
                         </x-slot>
                     </x-adminlte-select>
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" wire:model='daftarantrian'
+                                id="daftarantrian" value="1">
+                            <label for="daftarantrian" class="custom-control-label">Daftarkan Antrian MJKN</label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <x-slot name="footerSlot">
