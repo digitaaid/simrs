@@ -26,10 +26,14 @@
             @if (count($antrians))
                 <div class="col-lg-3 col-6">
                     @php
-                        $pemanfaatan =
-                            ($antrians->where('taskid', '!=', 99)->where('method', 'Mobile JKN')->count() /
-                                $antrians->where('taskid', 7)->count()) *
-                            100;
+                        if ($antrians->where('taskid', '!=', 99)->where('method', 'Mobile JKN')->count()) {
+                            $pemanfaatan =
+                                ($antrians->where('taskid', '!=', 99)->where('method', 'Mobile JKN')->count() /
+                                    $antrians->where('taskid', 7)->count()) *
+                                100;
+                        } else {
+                            $pemanfaatan = 0;
+                        }
                         $pemanfaatan = number_format($pemanfaatan, 2);
                     @endphp
                     <x-adminlte-small-box
