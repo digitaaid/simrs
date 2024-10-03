@@ -645,7 +645,7 @@ class AntrianController extends ApiController
             ]);
             try {
                 $wa = new WhatsappController();
-                $request['message'] = "Antrian berhasil melalui *" . $antrian->method . "*\nNama : *" . $antrian->nama . "* \nNo HP : " . $antrian->nohp . "\nNo BPJS" . $antrian->nomorkartu . "\nKodebooking : " . $antrian->kodebooking . "\nNomor Antrian : " . $antrian->nomorantrean . "\nTanggal : " . $antrian->tanggalperiksa . "\nDokter : " . $antrian->namadokter . "\nJam Praktek : " . $antrian->jampraktek;
+                $request['message'] = "Antrian berhasil melalui *" . $antrian->method . "*\nNama : *" . $antrian->nama . "* \nNo HP : " . $antrian->nohp . "\nNo BPJS : " . $antrian->nomorkartu . "\nKodebooking : " . $antrian->kodebooking . "\nNomor Antrian : " . $antrian->nomorantrean . "\nTanggal : " . $antrian->tanggalperiksa . "\nDokter : " . $antrian->namadokter . "\nJam Praktek : " . $antrian->jampraktek;
                 $request['number'] = $antrian->nohp;
                 $wa->send_message($request);
                 $request['number'] = "120363344588087064@g.us";
