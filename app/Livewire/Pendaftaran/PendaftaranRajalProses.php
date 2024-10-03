@@ -61,7 +61,7 @@ class PendaftaranRajalProses extends Component
                 $res = $api->update_antrean($request);
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
-                    'waktu' => Carbon::parse($antrian->taskid2),
+                    'waktu' => Carbon::parse($antrian->taskid2)->subMinutes(3),
                     'taskid' => 2,
                 ]);
                 $api = new AntrianController();
