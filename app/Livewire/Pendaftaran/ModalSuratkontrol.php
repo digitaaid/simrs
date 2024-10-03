@@ -104,7 +104,7 @@ class ModalSuratkontrol extends Component
             $this->formatfilter = 2;
             $this->tanggal = now()->format('Y-m');
             $this->cariDataSuratKontrol();
-            return flash($res->metadata->message, 'danger');
+            return flash($res->metadata->message, 'success');
         } else {
             return flash($res->metadata->message, 'danger');
         }

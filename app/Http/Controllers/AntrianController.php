@@ -629,6 +629,12 @@ class AntrianController extends ApiController
         $jadwal_estimasi = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'Asia/Jakarta')->addMinutes(6 * ($antiranhari + 1));
         $request['estimasidilayani'] = $jadwal_estimasi->timestamp * 1000;
         $request['jenispasien'] =  $request->nomorreferensi  ? "JKN" : "NON-JKN";
+        $request['nomorreferensi'] =  $request->nomorreferensi;
+        if ($request->jeniskunjungan == 3) {
+            $request['nomorsuratkontrol'] =  $request->nomorreferensi;
+        } else {
+            $request['nomorrujukan'] =  $request->nomorreferensi;
+        }
         $request['keterangan'] = 'Silahkan datang sebelum jam praktek dokter untuk checkin fingerprint atau face-recognition. Terimkasih.';
         $request['pasienbaru'] =  $pasien ? 0 : 1;
         $request['nama'] =  $pasien ? $pasien->nama : 'Pasien Baru';
@@ -766,152 +772,168 @@ class AntrianController extends ApiController
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first(),  201);
         }
-        $antrian =  Antrian::firstWhere('kodebooking', $request->kodebooking);
+        $antrian = Antrian::firstWhere('kodebooking', $request->kodebooking);
         if ($antrian->taskid == 99) {
             return $this->sendError('Antrian sudah dibatalkan sebelumnya', 201);
         }
-        if ($antrian->taskid >= 5) {
-            return $this->sendError('Pasien sudah dilayani, antrian tidak bisa dibatalkan', 201);
+        if ($antrian->taskid >= 4) {
+            return $this->sendError('Pasien sudah mendapatkan pelayanan', 201);
         }
         $now = now();
         if ($antrian) {
             // crate sep
-            $api = new VclaimController();
-            if ($antrian->jeniskunjungan == 3) {
-                $this->tujuanKunj = "2";
-                $this->flagProcedure = "";
-                $this->kdPenunjang = "";
-                $this->assesmentPel = "2";
-                $request = new Request([
-                    "noSuratKontrol" => $antrian->nomorreferensi,
-                ]);
-                $res = $api->suratkontrol_nomor($request);
-                if ($res->metadata->code == 200) {
-                    $this->diagAwal =  explode(' - ', $res->response->sep->diagnosa)[0];
-                    $rujukan = $res->response->sep->provPerujuk;
-                    $this->asalRujukan = $rujukan->asalRujukan;
-                    $this->noRujukan = $rujukan->noRujukan;
-                    $this->tglRujukan = $rujukan->tglRujukan;
-                    $this->ppkRujukan = $rujukan->kdProviderPerujuk;
-                } else {
-                    return $this->sendError($res->metadata->message, 400);
-                }
-                $this->noSurat = $antrian->nomorreferensi;
-            } else {
-                $this->noRujukan = $antrian->nomorreferensi;
-                $request = new Request([
-                    "nomorrujukan" => $this->noRujukan,
-                ]);
-                if ($antrian->jeniskunjungan == 1) {
-                    $res = $api->rujukan_nomor($request);
-                    $this->asalRujukan = 1;
-                } else {
-                    $res = $api->rujukan_rs_nomor($request);
-                    $this->asalRujukan = 2;
-                }
-                if ($res->metadata->code == 200) {
-                    $rujukan = $res->response->rujukan;
-                    $this->asalRujukan = $this->asalRujukan;
-                    $this->noRujukan = $rujukan->noKunjungan;
-                    $this->tglRujukan = $rujukan->tglKunjungan;
-                    $this->ppkRujukan = $rujukan->provPerujuk->kode;
-                } else {
-                    return $this->sendError($res->metadata->message, 400);
-                }
-                $this->tujuanKunj = "0";
-                $this->flagProcedure = "";
-                $this->kdPenunjang = "";
-                $this->assesmentPel = "";
-                $this->diagAwal =  $res->response->rujukan->diagnosa->kode;
-            }
-            $this->tujuan = $antrian->kodepoli;
-            $this->dpjpLayan = $antrian->kodedokter;
-            $request = new Request([
-                "noKartu" => $antrian->nomorkartu,
-                "tglSep" => $antrian->tanggalperiksa,
-                "nama" => $antrian->nama,
-                "noMR" => $antrian->norm,
-                "noTelp" => $antrian->nohp,
-                'noRujukan' => $this->noRujukan,
-                'asalRujukan' => $this->asalRujukan,
-                'tglRujukan' => $this->tglRujukan,
-                'ppkRujukan' => $this->ppkRujukan,
-                'noSurat' => $this->noSurat,
-                "jnsPelayanan" => 2,
-                "tujuan" => $this->tujuan,
-                "dpjpLayan" => $this->dpjpLayan,
-                "diagAwal" => $this->diagAwal,
-                "catatan" => 'SEP Anjungan Pelayanan Mandiri',
-                "tujuanKunj" => $this->tujuanKunj,
-                "flagProcedure" => $this->flagProcedure,
-                "kdPenunjang" => $this->kdPenunjang,
-                "assesmentPel" => $this->assesmentPel,
-                "eksekutif" =>  0,
-                "ppkPelayanan" => "0125S007",
-                "klsRawatHak" => "3",
-                "user" => 'Briding Antrian',
-            ]);
-            $res = $api->sep_insert($request);
-            if ($res->metadata->code != 200) {
-                return $this->sendError($res->metadata->message, 400);
-            }
-            $antrian->sep = $res->response->sep->noSep ?? null;
-            $antrian->sep = $antrian->sep;
-            // crate kunjungan
+            // $api = new VclaimController();
+            // if ($antrian->jeniskunjungan == 3) {
+            //     $this->tujuanKunj = "2";
+            //     $this->flagProcedure = "";
+            //     $this->kdPenunjang = "";
+            //     $this->assesmentPel = "2";
+            //     $request = new Request([
+            //         "noSuratKontrol" => $antrian->nomorreferensi,
+            //     ]);
+            //     $res = $api->suratkontrol_nomor($request);
+            //     if ($res->metadata->code == 200) {
+            //         $this->diagAwal =  explode(' - ', $res->response->sep->diagnosa)[0];
+            //         $rujukan = $res->response->sep->provPerujuk;
+            //         $this->asalRujukan = $rujukan->asalRujukan;
+            //         $this->noRujukan = $rujukan->noRujukan;
+            //         $this->tglRujukan = $rujukan->tglRujukan;
+            //         $this->ppkRujukan = $rujukan->kdProviderPerujuk;
+            //     } else {
+            //         return $this->sendError($res->metadata->message, 400);
+            //     }
+            //     $this->noSurat = $antrian->nomorreferensi;
+            // } else {
+            //     $this->noRujukan = $antrian->nomorreferensi;
+            //     $request = new Request([
+            //         "nomorrujukan" => $this->noRujukan,
+            //     ]);
+            //     if ($antrian->jeniskunjungan == 1) {
+            //         $res = $api->rujukan_nomor($request);
+            //         $this->asalRujukan = 1;
+            //     } else {
+            //         $res = $api->rujukan_rs_nomor($request);
+            //         $this->asalRujukan = 2;
+            //     }
+            //     if ($res->metadata->code == 200) {
+            //         $rujukan = $res->response->rujukan;
+            //         $this->asalRujukan = $this->asalRujukan;
+            //         $this->noRujukan = $rujukan->noKunjungan;
+            //         $this->tglRujukan = $rujukan->tglKunjungan;
+            //         $this->ppkRujukan = $rujukan->provPerujuk->kode;
+            //     } else {
+            //         return $this->sendError($res->metadata->message, 400);
+            //     }
+            //     $this->tujuanKunj = "0";
+            //     $this->flagProcedure = "";
+            //     $this->kdPenunjang = "";
+            //     $this->assesmentPel = "";
+            //     $this->diagAwal =  $res->response->rujukan->diagnosa->kode;
+            // }
+            // $this->tujuan = $antrian->kodepoli;
+            // $this->dpjpLayan = $antrian->kodedokter;
+            // $request = new Request([
+            //     "noKartu" => $antrian->nomorkartu,
+            //     "tglSep" => $antrian->tanggalperiksa,
+            //     "nama" => $antrian->nama,
+            //     "noMR" => $antrian->norm,
+            //     "noTelp" => $antrian->nohp,
+            //     'noRujukan' => $this->noRujukan,
+            //     'asalRujukan' => $this->asalRujukan,
+            //     'tglRujukan' => $this->tglRujukan,
+            //     'ppkRujukan' => $this->ppkRujukan,
+            //     'noSurat' => $this->noSurat,
+            //     "jnsPelayanan" => 2,
+            //     "tujuan" => $this->tujuan,
+            //     "dpjpLayan" => $this->dpjpLayan,
+            //     "diagAwal" => $this->diagAwal,
+            //     "catatan" => 'SEP Anjungan Pelayanan Mandiri',
+            //     "tujuanKunj" => $this->tujuanKunj,
+            //     "flagProcedure" => $this->flagProcedure,
+            //     "kdPenunjang" => $this->kdPenunjang,
+            //     "assesmentPel" => $this->assesmentPel,
+            //     "eksekutif" =>  0,
+            //     "ppkPelayanan" => "0125S007",
+            //     "klsRawatHak" => "3",
+            //     "user" => 'Briding Antrian',
+            // ]);
+            // $res = $api->sep_insert($request);
+            // if ($res->metadata->code != 200) {
+            //     return $this->sendError($res->metadata->message, 400);
+            // }
+            // $antrian->sep = $res->response->sep->noSep ?? null;
+            // $antrian->sep = $antrian->sep;
+            // create or update kunjungan
             $pasien = Pasien::firstWhere('norm', $antrian->norm);
             $counter = Kunjungan::where('norm', $antrian->norm)->first()?->counter ?? 1;
-            $kunjungan = new Kunjungan();
-            $kunjungan->kode = $antrian->kodebooking;
-            $kunjungan->counter = $counter;
-            $kunjungan->tgl_masuk = now();
-            $kunjungan->jaminan = "00003";
-            $kunjungan->nomorkartu = $antrian->nomorkartu;
-            $kunjungan->norm = $antrian->norm;
-            $kunjungan->nama = $antrian->nama;
-            $kunjungan->nohp = $antrian->nohp;
-            $kunjungan->tgl_lahir = $pasien->tgl_lahir ?? "1990-01-01";
-            $kunjungan->gender = $pasien->gender ?? "P";
-            $kunjungan->kelas = $pasien->hakkelas ?? "3";
-            $kunjungan->penjamin = "000001";
-            $kunjungan->unit = $antrian->kodesubspesialis ?? "INT";
-            $kunjungan->dokter = $antrian->kodedokter;
-            $kunjungan->jeniskunjungan = $antrian->jeniskunjungan;
-            $kunjungan->nomorreferensi = $antrian->nomorreferensi;
-            $kunjungan->sep = $antrian->sep;
-            $kunjungan->diagnosa_awal = $antrian->diagAwal;
-            $kunjungan->cara_masuk = "gnp";
-            $kunjungan->status = 1;
-            $kunjungan->user1 = 2;
-            $kunjungan->save();
+            switch ($antrian->jeniskunjungan) {
+                case '1':
+                    $caramasuk = 'gp';
+                    break;
+
+                case '3':
+                    $caramasuk = 'outp';
+                    break;
+
+                case '4':
+                    $caramasuk = 'hosp-trans';
+                    break;
+
+                default:
+                    $caramasuk = 'other';
+                    break;
+            }
+            $kunjungan = Kunjungan::updateOrCreate(
+                ['kode' => $antrian->kodebooking], // condition to check for update
+                [
+                    'counter' => $counter,
+                    'tgl_masuk' => $now,
+                    'jaminan' => "00003",
+                    'nomorkartu' => $antrian->nomorkartu,
+                    'norm' => $antrian->norm,
+                    'nama' => $antrian->nama,
+                    'tgl_lahir' => $pasien->tgl_lahir ?? "1990-01-01",
+                    'gender' => $pasien->gender ?? "P",
+                    'kelas' => $pasien->hakkelas ?? "3",
+                    'penjamin' => $pasien->jenispeserta,
+                    'unit' => $antrian->kodesubspesialis ?? "INT",
+                    'dokter' => $antrian->kodedokter,
+                    'jeniskunjungan' => $antrian->jeniskunjungan,
+                    'nomorreferensi' => $antrian->nomorreferensi,
+                    'sep' => $antrian->sep,
+                    'diagnosa_awal' => $antrian->diagAwal,
+                    'cara_masuk' => $caramasuk,
+                    'status' => 1,
+                    'user1' => 2
+                ]
+            );
             // update antrian
             $antrian->kunjungan_id = $kunjungan->id;
             $antrian->kodekunjungan = $kunjungan->kode;
             $antrian->save();
-            if ($antrian->taskid <= 1) {
-                if (env('ANTRIAN_REALTIME')) {
-                    $request['kodebooking'] = $antrian->kodebooking;
-                    $request['taskid'] = 3;
-                    $request['waktu'] = $now;
-                    $res = $this->update_antrean($request);
-                    if ($res->metadata->code != 200) {
+            if (env('ANTRIAN_REALTIME')) {
+                $request['kodebooking'] = $antrian->kodebooking;
+                $request['taskid'] = 3;
+                $request['waktu'] = $now;
+                $res = $this->update_antrean($request);
+                if ($res->metadata->code != 200) {
+                    if ($res->metadata->message != "TaskId=3 sudah ada") {
                         return $this->sendError($res->metadata->message, 201);
                     }
                 }
-                $antrian->update([
-                    'taskid' => 3,
-                    'taskid1' => $now,
-                    'user1' => 2,
-                    'keterangan' => 'Telah checkin pada ' . $now . ' Silahkan lakukan proses selanjutnya',
-                ]);
-                ActivityLog::create([
-                    'user_id' => 0,
-                    'activity' => 'Checkin Antrian BPJS',
-                    'description' =>  'Berhasil checkin antrian atas nama pasien ' . $antrian->nama . ' dengan kodebooking ' . $antrian->kodebooking . ' untuk tanggal ' . $antrian->tanggalperiksa . ' dan nomorantrean ' . $antrian->nomorantrean,
-                ]);
-                return $this->sendError("Ok", 200);
-            } else {
-                return $this->sendError("Pasien sudah mendapatkan pelayanan", 405);
             }
+            $antrian->update([
+                'taskid' => 3,
+                'taskid1' => $now,
+                'user1' => 2,
+                'keterangan' => 'Telah checkin pada ' . $now . ' Silahkan lakukan proses selanjutnya',
+            ]);
+            ActivityLog::create([
+                'user_id' => 0,
+                'activity' => 'Checkin Antrian BPJS',
+                'description' =>  'Berhasil checkin antrian atas nama pasien ' . $antrian->nama . ' dengan kodebooking ' . $antrian->kodebooking . ' untuk tanggal ' . $antrian->tanggalperiksa . ' dan nomorantrean ' . $antrian->nomorantrean,
+            ]);
+            return $this->sendError("Ok", 200);
         } else {
             return $this->sendError("Kodebooking tidak ditemukan.", 404);
         }
