@@ -36,7 +36,7 @@ class InfoAbsensi extends Command
             foreach ($absensis as $absensi) {
                 if ($absensi->user) {
                     $request['number'] = $absensi->user?->phone;
-                    $request['message'] = "Selamat pagi 😊🙏\nSebagai pengingat anda hari ini memiliki jadwal absensi " . $absensi->nama_shift . " pukul " . $absensi->jam_masuk . "-" . $absensi->jam_pulang . " . Jangan lupa absensi tetap waktu ya. 😉\nSemoga semoga hari ini segala urusan kita diperlancar 🤲😊\n\nLogin : klinikkitasehat.com/login";
+                    $request['message'] = "Selamat pagi 😊🙏\nSebagai pengingat anda hari ini memiliki jadwal absensi " . $absensi->nama_shift . " pukul " . $absensi->jam_masuk . "-" . $absensi->jam_pulang . " . Jangan lupa absensi tetap waktu ya. 😉\nSemoga hari ini segala urusan kita diperlancar 🤲😊\n\nLogin : klinikkitasehat.com/login";
                     $res =  $api->send_message($request);
                     $this->info('terkirim ke ' . $absensi->user?->name);
                 } else {
