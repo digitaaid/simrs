@@ -30,6 +30,7 @@
                             ($antrians->where('taskid', '!=', 99)->where('method', 'Mobile JKN')->count() /
                                 $antrians->where('taskid', 7)->count()) *
                             100;
+                        $pemanfaatan = number_format($pemanfaatan, 2);
                     @endphp
                     <x-adminlte-small-box
                         title="{{ $antrians->where('taskid', '!=', 99)->where('method', 'Mobile JKN')->count() }}"
