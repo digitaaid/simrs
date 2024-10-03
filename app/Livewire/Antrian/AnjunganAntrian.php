@@ -24,7 +24,6 @@ class AnjunganAntrian extends Component
     {
         dd('test');
     }
-
     public function render()
     {
         $this->jadwals = JadwalDokter::where('hari', now()->dayOfWeek)->get();

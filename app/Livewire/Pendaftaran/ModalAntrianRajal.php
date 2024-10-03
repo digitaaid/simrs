@@ -36,7 +36,6 @@ class ModalAntrianRajal extends Component
             'kodepoli' => 'required',
             'kodedokter' => 'required',
         ]);
-
         $this->pasienbaru = $this->pasienbaru ? 1 : 0;
         // proses data antrian
         if ($this->jenispasien == "JKN") {
