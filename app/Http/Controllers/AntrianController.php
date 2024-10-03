@@ -571,6 +571,9 @@ class AntrianController extends ApiController
     }
     public function ambil_antrian(Request $request)
     {
+        if (!$request['nohp']) {
+            $request['nohp'] = '089529909036';
+        }
         $validator = Validator::make($request->all(), [
             "nomorkartu" => "required|numeric|digits:13",
             "nik" => "required|numeric|digits:16",
