@@ -73,23 +73,17 @@ class PengambilanResep extends Component
             $api = new AntrianController();
             $res = $api->update_antrean($request);
             if ($res->metadata->code != 200) {
-                return flash($res->metadata->message, 'danger');
-            } else {
-                $antrian->taskid = 6;
-                $antrian->taskid6 = $now;
-                $antrian->panggil = 0;
-                $antrian->status = 1;
-                $antrian->user4 = auth()->user()->id;
-                $antrian->update();
+                if ($res->metadata->message != "TaskId=6 sudah ada") {
+                    return flash($res->metadata->message, 'danger');
+                }
             }
-        } else {
-            $antrian->taskid = 6;
-            $antrian->taskid6 = $now;
-            $antrian->panggil = 0;
-            $antrian->status = 1;
-            $antrian->user4 = auth()->user()->id;
-            $antrian->update();
         }
+        $antrian->taskid = 6;
+        $antrian->taskid6 = $now;
+        $antrian->panggil = 0;
+        $antrian->status = 1;
+        $antrian->user4 = auth()->user()->id;
+        $antrian->update();
         flash('Resep obat atas nama pasien ' . $antrian->nama . ' telah diterima farmasi.', 'success');
     }
     public function edit(Antrian $antrianedit)
@@ -207,28 +201,17 @@ class PengambilanResep extends Component
                     return flash($res->metadata->message, 'danger');
                 }
             }
-            $antrian->taskid = 7;
-            $antrian->taskid7 =  $now;
-            $antrian->status = 1;
-            $antrian->panggil = 0;
-            $antrian->user4 = auth()->user()->id;
-            $antrian->update();
-            $kunjungan = $antrian->kunjungan;
-            $kunjungan->status = 2;
-            $kunjungan->update();
-            return flash('Pelayanan farmasi atas nama pasien ' . $antrian->nama . ' telah selesai.', 'success');
-        } else {
-            $antrian->taskid = 7;
-            $antrian->taskid7 =  $now;
-            $antrian->status = 1;
-            $antrian->panggil = 0;
-            $antrian->user4 = auth()->user()->id;
-            $antrian->update();
-            $kunjungan = $antrian->kunjungan;
-            $kunjungan->status = 2;
-            $kunjungan->update();
-            flash('Pelayanan farmasi atas nama pasien ' . $antrian->nama . ' telah selesai.', 'success');
         }
+        $antrian->taskid = 7;
+        $antrian->taskid7 =  $now;
+        $antrian->status = 1;
+        $antrian->panggil = 0;
+        $antrian->user4 = auth()->user()->id;
+        $antrian->update();
+        $kunjungan = $antrian->kunjungan;
+        $kunjungan->status = 2;
+        $kunjungan->update();
+        return flash('Pelayanan farmasi atas nama pasien ' . $antrian->nama . ' telah selesai.', 'success');
     }
     public function mount(Request $request)
     {
