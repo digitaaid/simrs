@@ -48,10 +48,11 @@ class PendaftaranRajalProses extends Component
     }
     public function selesaiPendaftaran()
     {
+        $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
             $antrian->taskid = 3;
-            $antrian->taskid3 = now();
+            $antrian->taskid3 = $now;
             $antrian->panggil = 0;
             $antrian->user1 = auth()->user()->id;
             if (env('ANTRIAN_REALTIME')) {
@@ -73,7 +74,7 @@ class PendaftaranRajalProses extends Component
                 }
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
-                    'waktu' => now(),
+                    'waktu' => $now,
                     'taskid' => 3,
                 ]);
                 $api = new AntrianController();
@@ -93,12 +94,13 @@ class PendaftaranRajalProses extends Component
     }
     public function checkinHadir()
     {
+        $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
             if (env('ANTRIAN_REALTIME')) {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
-                    'waktu' => now(),
+                    'waktu' => $now,
                     'taskid' => 1,
                 ]);
                 $api = new AntrianController();
@@ -107,7 +109,7 @@ class PendaftaranRajalProses extends Component
                     return flash($res->metadata->message, 'danger');
                 }
             }
-            $antrian->taskid2 = now();
+            $antrian->taskid2 = $now;
             $antrian->panggil = 0;
             $antrian->taskid = 1;
             $antrian->user1 = auth()->user()->id;
@@ -120,20 +122,21 @@ class PendaftaranRajalProses extends Component
     }
     public function panggilPendaftaran()
     {
+        $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
             if (env('ANTRIAN_REALTIME')) {
                 if ($antrian->pasienbaru) {
                     $request = new Request([
                         'kodebooking' => $this->kodebooking,
-                        'waktu' => now(),
+                        'waktu' =>  $now,
                         'taskid' => 2,
                     ]);
                     $api = new AntrianController();
                     $res = $api->update_antrean($request);
                 }
             }
-            $antrian->taskid2 = now();
+            $antrian->taskid2 = $now;
             $antrian->panggil = 0;
             $antrian->taskid = 2;
             $antrian->user1 = auth()->user()->id;
