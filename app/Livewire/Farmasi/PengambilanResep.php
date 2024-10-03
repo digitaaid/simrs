@@ -63,10 +63,11 @@ class PengambilanResep extends Component
     }
     public function terimaResep(Antrian $antrian)
     {
+        $now = now();
         if (env('ANTRIAN_REALTIME')) {
             $request = new Request([
                 'kodebooking' => $antrian->kodebooking,
-                'waktu' => now(),
+                'waktu' => $now,
                 'taskid' => 6,
             ]);
             $api = new AntrianController();
@@ -75,7 +76,7 @@ class PengambilanResep extends Component
                 return flash($res->metadata->message, 'danger');
             } else {
                 $antrian->taskid = 6;
-                $antrian->taskid6 = now();
+                $antrian->taskid6 = $now;
                 $antrian->panggil = 0;
                 $antrian->status = 1;
                 $antrian->user4 = auth()->user()->id;
@@ -83,7 +84,7 @@ class PengambilanResep extends Component
             }
         } else {
             $antrian->taskid = 6;
-            $antrian->taskid6 = now();
+            $antrian->taskid6 = $now;
             $antrian->panggil = 0;
             $antrian->status = 1;
             $antrian->user4 = auth()->user()->id;
@@ -192,10 +193,11 @@ class PengambilanResep extends Component
     }
     public function selesai(Antrian $antrian)
     {
+        $now = now();
         if (env('ANTRIAN_REALTIME')) {
             $request = new Request([
                 'kodebooking' => $antrian->kodebooking,
-                'waktu' => now(),
+                'waktu' =>  $now,
                 'taskid' => 7,
             ]);
             $api = new AntrianController();
@@ -204,8 +206,9 @@ class PengambilanResep extends Component
                 return flash($res->metadata->message, 'danger');
             }
             $antrian->taskid = 7;
-            $antrian->taskid7 = now();
+            $antrian->taskid7 =  $now;
             $antrian->status = 1;
+            $antrian->panggil = 0;
             $antrian->user4 = auth()->user()->id;
             $antrian->update();
             $kunjungan = $antrian->kunjungan;
@@ -214,8 +217,9 @@ class PengambilanResep extends Component
             return flash('Pelayanan farmasi atas nama pasien ' . $antrian->nama . ' telah selesai.', 'success');
         } else {
             $antrian->taskid = 7;
-            $antrian->taskid7 = now();
+            $antrian->taskid7 =  $now;
             $antrian->status = 1;
+            $antrian->panggil = 0;
             $antrian->user4 = auth()->user()->id;
             $antrian->update();
             $kunjungan = $antrian->kunjungan;
