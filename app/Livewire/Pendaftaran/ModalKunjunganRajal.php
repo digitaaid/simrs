@@ -66,7 +66,9 @@ class ModalKunjunganRajal extends Component
         ]);
         try {
             $antrian = Antrian::find($this->antrianId);
-            $counter = Kunjungan::where('norm', $antrian->norm)->first()?->counter ?? 1;
+            if (!$this->kode && !$this->counter) {
+                $this->counter = Kunjungan::where('norm', $antrian->norm)->count() + 1 ?? 1;
+            }
             // update pasien
             $pasien = Pasien::firstWhere('norm', $this->norm);
             $pasien->update([
@@ -81,8 +83,8 @@ class ModalKunjunganRajal extends Component
             // simpan kunjungan
             $kunjungan = Kunjungan::updateOrCreate([
                 'kode' => $antrian->kodebooking,
-                'counter' => $counter,
             ], [
+                'counter' => $this->counter,
                 'tgl_masuk' => Carbon::parse($this->tgl_masuk),
                 'jaminan' => $this->jaminan,
                 'nomorkartu' => $this->nomorkartu,

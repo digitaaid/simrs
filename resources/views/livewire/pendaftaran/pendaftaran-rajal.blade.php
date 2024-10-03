@@ -207,7 +207,7 @@
                                     @break
 
                                     @case(99)
-                                        <span class="badge badge-success">Batal</span>
+                                        <span class="badge badge-danger">Batal</span>
                                     @break
 
                                     @default

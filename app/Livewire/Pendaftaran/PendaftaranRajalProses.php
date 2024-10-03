@@ -28,9 +28,7 @@ class PendaftaranRajalProses extends Component
             $api = new AntrianController();
             $res = $api->batal_antrean($request);
             if ($res->metadata->code != 200) {
-                if ($res->metadata->message  != 'TaskId=3 sudah ada') {
-                    return flash($res->metadata->message, 'danger');
-                }
+                flash($res->metadata->message, 'danger');
             }
         }
         $antrian->taskid = 99;
@@ -39,7 +37,7 @@ class PendaftaranRajalProses extends Component
         $kunjungan = $antrian->kunjungan;
         if ($kunjungan) {
             $kunjungan->update([
-                'status' => 0,
+                'status' => 99,
                 'user1' => auth()->user()->id,
             ]);
         }

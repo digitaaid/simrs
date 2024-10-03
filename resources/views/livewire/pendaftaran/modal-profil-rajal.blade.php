@@ -36,6 +36,11 @@
                 <td>:</td>
                 <td>{{ $antrian->pasienbaru ? 'Pasien Baru' : 'Pasien Lama' }}</td>
             </tr>
+            <tr>
+                <td>No HP</td>
+                <td>:</td>
+                <td>{{ $antrian->nohp }}</td>
+            </tr>
         </table>
     </div>
     <div class="col-md-3">
@@ -91,32 +96,6 @@
                 </td>
             </tr>
             <tr>
-                <td class="col-sm-3 m-0">Jenis</td>
-                <td>:</td>
-                <td>
-                    @switch($antrian->jeniskunjungan)
-                        @case(1)
-                            Rujukan FKTP
-                        @break
-
-                        @case(2)
-                            Umum
-                        @break
-
-                        @case(3)
-                            Surat Kontrol
-                        @break
-
-                        @case(4)
-                            Rujukan Antar RS
-                        @break
-
-                        @default
-                            Belum Kunjungan
-                    @endswitch
-                </td>
-            </tr>
-            <tr>
                 <td class="col-sm-3 m-0">Status</td>
                 <td>:</td>
                 <td>
@@ -158,6 +137,32 @@
                         @break
 
                         @default
+                    @endswitch
+                </td>
+            </tr>
+            <tr>
+                <td class="col-sm-3 m-0">Jenis</td>
+                <td>:</td>
+                <td>
+                    @switch($antrian->jeniskunjungan)
+                        @case(1)
+                            Rujukan FKTP
+                        @break
+
+                        @case(2)
+                            Umum
+                        @break
+
+                        @case(3)
+                            Surat Kontrol
+                        @break
+
+                        @case(4)
+                            Rujukan Antar RS
+                        @break
+
+                        @default
+                            Belum Kunjungan
                     @endswitch
                 </td>
             </tr>
