@@ -861,6 +861,7 @@ class AntrianController extends ApiController
             $antrian->sep = $res->response->sep->noSep ?? null;
             $antrian->sep = $antrian->sep;
             // crate kunjungan
+            $pasien = Pasien::firstWhere('norm', $antrian->norm);
             $counter = Kunjungan::where('norm', $antrian->norm)->first()?->counter ?? 1;
             $kunjungan = new Kunjungan();
             $kunjungan->kode = $antrian->kodebooking;
@@ -870,10 +871,11 @@ class AntrianController extends ApiController
             $kunjungan->nomorkartu = $antrian->nomorkartu;
             $kunjungan->norm = $antrian->norm;
             $kunjungan->nama = $antrian->nama;
-            $kunjungan->tgl_lahir = $antrian->tgl_lahir ?? "1998-05-09";
-            $kunjungan->gender = $antrian->gender ?? "P";
-            $kunjungan->kelas = $antrian->hakkelas ?? "3";
-            $kunjungan->penjamin = $antrian->jenispeserta ?? "000001";
+            $kunjungan->nohp = $antrian->nohp;
+            $kunjungan->tgl_lahir = $pasien->tgl_lahir ?? "1990-01-01";
+            $kunjungan->gender = $pasien->gender ?? "P";
+            $kunjungan->kelas = $pasien->hakkelas ?? "3";
+            $kunjungan->penjamin = "000001";
             $kunjungan->unit = $antrian->kodesubspesialis ?? "INT";
             $kunjungan->dokter = $antrian->kodedokter;
             $kunjungan->jeniskunjungan = $antrian->jeniskunjungan;
