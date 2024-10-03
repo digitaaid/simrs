@@ -68,7 +68,6 @@ class JadwalDokterIndex extends Component
             'kapasitas' => 'required',
         ]);
         if ($this->id) {
-            # code...
             $jadwal = JadwalDokter::find($this->id);
             $jadwal->update([
                 'hari' => $this->hari,
