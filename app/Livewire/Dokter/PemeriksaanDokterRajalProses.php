@@ -23,17 +23,18 @@ class PemeriksaanDokterRajalProses extends Component
     protected $listeners = ['modalCppt', 'modalAsesmenRajal',  'modalPemeriksaanPerawat', 'modalPemeriksaanDokter', 'refreshPage' => '$refresh'];
     public function panggilPemeriksaanMute()
     {
+        $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 4) {
             $antrian->taskid = 4;
-            $antrian->taskid4 = now();
+            $antrian->taskid4 = $now;
             $antrian->panggil = 1;
             $antrian->user3 = auth()->user()->id;
             $antrian->update();
             if (env('ANTRIAN_REALTIME')) {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
-                    'waktu' => now(),
+                    'waktu' => $now,
                     'taskid' => 4,
                 ]);
                 $api = new AntrianController();
@@ -50,17 +51,18 @@ class PemeriksaanDokterRajalProses extends Component
     }
     public function panggilPemeriksaan()
     {
+        $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 4) {
             $antrian->taskid = 4;
-            $antrian->taskid4 = now();
+            $antrian->taskid4 = $now;
             $antrian->panggil = 0;
             $antrian->user3 = auth()->user()->id;
             $antrian->update();
             if (env('ANTRIAN_REALTIME')) {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
-                    'waktu' => now(),
+                    'waktu' => $now,
                     'taskid' => 4,
                 ]);
                 $api = new AntrianController();
@@ -77,17 +79,18 @@ class PemeriksaanDokterRajalProses extends Component
     }
     public function selesaiPelayanan()
     {
+        $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 4) {
             $antrian->taskid = 5;
-            $antrian->taskid5 = now();
+            $antrian->taskid5 = $now();
             $antrian->panggil = 1;
             $antrian->status = 1;
             $antrian->user3 = auth()->user()->id;
             if (env('ANTRIAN_REALTIME')) {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
-                    'waktu' => now(),
+                    'waktu' => $now(),
                     'taskid' => 5,
                 ]);
                 $api = new AntrianController();
@@ -105,12 +108,13 @@ class PemeriksaanDokterRajalProses extends Component
     }
     public function lanjutFarmasi()
     {
+        $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 4) {
             if (env('ANTRIAN_REALTIME')) {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
-                    'waktu' => now(),
+                    'waktu' => $now,
                     'taskid' => 5,
                 ]);
                 $api = new AntrianController();
@@ -120,7 +124,7 @@ class PemeriksaanDokterRajalProses extends Component
                 }
             }
             $antrian->taskid = 5;
-            $antrian->taskid5 = now();
+            $antrian->taskid5 = $now;
             $antrian->panggil = 0;
             $antrian->status = 0;
             $antrian->user3 = auth()->user()->id;
