@@ -27,6 +27,7 @@ class ModalSuratkontrol extends Component
         ]);
         $res = $api->suratkontrol_delete($request);
         if ($res->metadata->code == 200) {
+            $this->cariDataSuratKontrol();
             return flash($res->metadata->message, 'success');
         } else {
             return flash($res->metadata->message, 'danger');
