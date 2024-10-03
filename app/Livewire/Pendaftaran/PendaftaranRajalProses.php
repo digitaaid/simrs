@@ -54,14 +54,14 @@ class PendaftaranRajalProses extends Component
             if (env('ANTRIAN_REALTIME')) {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
-                    'waktu' => Carbon::parse($antrian->taskid1),
+                    'waktu' => Carbon::createFromFormat('Y-m-d H:i:s', $antrian->taskid1, 'Asia/Jakarta'),
                     'taskid' => 1,
                 ]);
                 $api = new AntrianController();
                 $res = $api->update_antrean($request);
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
-                    'waktu' => Carbon::parse($antrian->taskid2)->subMinutes(3),
+                    'waktu' => Carbon::createFromFormat('Y-m-d H:i:s', $antrian->taskid2, 'Asia/Jakarta'),
                     'taskid' => 2,
                 ]);
                 $api = new AntrianController();
