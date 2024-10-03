@@ -51,10 +51,6 @@ class PendaftaranRajalProses extends Component
         $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
-            $antrian->taskid = 3;
-            $antrian->taskid3 = $now;
-            $antrian->panggil = 0;
-            $antrian->user1 = auth()->user()->id;
             if (env('ANTRIAN_REALTIME')) {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
@@ -83,6 +79,10 @@ class PendaftaranRajalProses extends Component
                     }
                 }
             }
+            $antrian->taskid = 3;
+            $antrian->taskid3 = $now;
+            $antrian->panggil = 0;
+            $antrian->user1 = auth()->user()->id;
             $antrian->update();
             Alert::success('Success', 'Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pendaftaran.');
             return redirect()->to(route('pendaftaran.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
