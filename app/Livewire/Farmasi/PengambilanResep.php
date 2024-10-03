@@ -207,6 +207,7 @@ class PengambilanResep extends Component
         $antrian->status = 1;
         $antrian->panggil = 0;
         $antrian->user4 = auth()->user()->id;
+        $antrian->keterangan = "Pelayanan telah selesai";
         $antrian->update();
         $kunjungan = $antrian->kunjungan;
         $kunjungan->status = 2;

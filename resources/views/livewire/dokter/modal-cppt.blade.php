@@ -23,8 +23,23 @@
                                 {{ $kunjungan->units->nama }} <br>
                                 {{ $kunjungan->dokters->nama }} <br>
                                 Masuk : {{ \Carbon\Carbon::parse($kunjungan->tgl_masuk)->format('d/m/Y h:i') }} <br>
-                                Kunjungan : {{ $kunjungan->counter }} /
-                                {{ $kunjungan->kode }}
+                                Kunjungan : {{ $kunjungan->kode }}
+                                @switch($kunjungan->status)
+                                    @case(1)
+                                        <span class="badge badge-warning">Aktif</span>
+                                    @break
+
+                                    @case(2)
+                                        <span class="badge badge-success">Selesai</span>
+                                    @break
+
+                                    @case(99)
+                                        <span class="badge badge-success">Batal</span>
+                                    @break
+
+                                    @default
+                                        <span class="badge badge-secondary">{{ $kunjungan->status }}</span>
+                                @endswitch
                             </td>
                             <td>
                                 @if ($kunjungan->asesmenrajal?->keluhan_utama)

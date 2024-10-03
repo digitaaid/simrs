@@ -196,7 +196,25 @@
                             <td>{{ $item->nomorkartu }}</td>
                             <td>{{ $item->nik }} </td>
                             <td>{{ $item->method }} </td>
-                            <td>{{ $item->status }} </td>
+                            <td>
+                                @switch($item->kunjungan?->status)
+                                    @case(1)
+                                        <span class="badge badge-warning">Aktif</span>
+                                    @break
+
+                                    @case(2)
+                                        <span class="badge badge-success">Selesai</span>
+                                    @break
+
+                                    @case(99)
+                                        <span class="badge badge-success">Batal</span>
+                                    @break
+
+                                    @default
+                                        <span class="badge badge-secondary">{{ $item->kunjungan?->status }}</span>
+                                @endswitch
+
+                            </td>
                         </tr>
                     @endforeach
                 @endisset

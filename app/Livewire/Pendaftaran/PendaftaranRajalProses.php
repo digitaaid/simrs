@@ -107,7 +107,7 @@ class PendaftaranRajalProses extends Component
                     return flash($res->metadata->message, 'danger');
                 }
             }
-            $antrian->taskid2 = $now;
+            $antrian->taskid1 = $now;
             $antrian->panggil = 0;
             $antrian->taskid = 1;
             $antrian->keterangan = "Anda telah dicheckin oleh admin pendaftaran";
@@ -125,15 +125,13 @@ class PendaftaranRajalProses extends Component
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
             if (env('ANTRIAN_REALTIME')) {
-                if ($antrian->pasienbaru) {
-                    $request = new Request([
-                        'kodebooking' => $this->kodebooking,
-                        'waktu' =>  $now,
-                        'taskid' => 2,
-                    ]);
-                    $api = new AntrianController();
-                    $res = $api->update_antrean($request);
-                }
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' =>  $now,
+                    'taskid' => 2,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
             }
             $antrian->taskid2 = $now;
             $antrian->panggil = 0;
