@@ -56,22 +56,20 @@ class PendaftaranRajalProses extends Component
             $antrian->panggil = 0;
             $antrian->user1 = auth()->user()->id;
             if (env('ANTRIAN_REALTIME')) {
-                if ($antrian->pasienbaru) {
-                    $request = new Request([
-                        'kodebooking' => $this->kodebooking,
-                        'waktu' => Carbon::parse($antrian->taskid1),
-                        'taskid' => 1,
-                    ]);
-                    $api = new AntrianController();
-                    $res = $api->update_antrean($request);
-                    $request = new Request([
-                        'kodebooking' => $this->kodebooking,
-                        'waktu' => Carbon::parse($antrian->taskid2),
-                        'taskid' => 2,
-                    ]);
-                    $api = new AntrianController();
-                    $res = $api->update_antrean($request);
-                }
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => Carbon::parse($antrian->taskid1),
+                    'taskid' => 1,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => Carbon::parse($antrian->taskid2),
+                    'taskid' => 2,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
                     'waktu' => $now,
