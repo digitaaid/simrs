@@ -410,6 +410,7 @@ return [
                     'shift'   => 'ml-2',
                     'can' => 'pendaftaran',
                 ],
+
                 [
                     'text' => 'Display Antrian',
                     'url' => 'displayantrian',
@@ -431,6 +432,13 @@ return [
                     'shift'   => 'ml-2',
                     'can' => 'pendaftaran',
                     'active'  => ['pendaftaran/rajal', 'pendaftaran/rajal/*'],
+                ],
+                [
+                    'text' => 'Jadwal Dokter Rajal',
+                    'url' => 'pendaftaran/jadwaldokter',
+                    'icon' => 'fas fa-desktop',
+                    'shift'   => 'ml-2',
+                    'can' => 'pendaftaran',
                 ],
                 [
                     'text' => 'Pemeriksaan Perawat',

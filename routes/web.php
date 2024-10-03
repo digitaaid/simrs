@@ -207,6 +207,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('anjunganantrian/print/{kodebooking}', [PendaftaranController::class, 'printkarcis'])->name('anjunganantrian.print');
     Route::get('anjunganantrian/test/', [AnjunganAntrian::class, 'test'])->name('anjunganantrian.test');
     // pendaftaran
+    Route::get('pendaftaran/jadwaldokter', JadwalDokterIndex::class)->name('pendaftaran.jadwaldokter.index');
     Route::get('pendaftaran/rajal', PendaftaranRajal::class)->name('pendaftaran.rajal');
     Route::get('pendaftaran/rajal/{kodebooking}', PendaftaranRajalProses::class)->name('pendaftaran.rajal.proses');
     // pemeriksaan perawat
