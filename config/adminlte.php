@@ -978,6 +978,20 @@ return [
         ],
         ['header' => 'PENGATURAN'],
         [
+            'text' => 'Role & Permission',
+            'url' => 'role-permission',
+            'can' => 'admin',
+            'icon' => 'fas fa-users-cog',
+            'active'  => ['role-permission', 'permission/create', 'role/create', 'permission/edit/*'],
+        ],
+        [
+            'text' => 'User',
+            'url' => 'user',
+            'can' => 'admin',
+            'icon' => 'fas fa-users',
+            'active'  => ['user', 'user/create', 'user/edit/*'],
+        ],
+        [
             'text' => 'Aplikasi',
             'url' => 'aplikasi',
             'icon' => 'fas fa-cogs',
@@ -997,20 +1011,8 @@ return [
             'icon' => 'fab fa-whatsapp',
             'can' => 'admin',
         ],
-        [
-            'text' => 'User',
-            'url' => 'user',
-            'can' => 'admin',
-            'icon' => 'fas fa-users',
-            'active'  => ['user', 'user/create', 'user/edit/*'],
-        ],
-        [
-            'text' => 'Role & Permission',
-            'url' => 'role-permission',
-            'can' => 'admin',
-            'icon' => 'fas fa-users-cog',
-            'active'  => ['role-permission', 'permission/create', 'role/create', 'permission/edit/*'],
-        ],
+
+
         [
             'text' => 'Log Aktifitas',
             'url' => 'log-aktifitas',

@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-
 class ProfilIndex extends Component
 {
     public $user;
@@ -39,11 +38,6 @@ class ProfilIndex extends Component
         $this->email = $user->email;
         $this->phone = $user->phone;
         $this->username = $user->username;
-    }
-    public function placeholder()
-    {
-        return view('components.placeholder.placeholder-text')
-            ->title('Profil');
     }
     public function render()
     {

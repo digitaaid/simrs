@@ -15,11 +15,13 @@ use Spatie\Permission\Models\Permission;
 class PermissionIndex extends Component
 {
     use WithFileUploads;
+
     public $id, $name, $permissions;
     public $form = false;
     public $search = '';
     public $formImport = 0;
     public $fileImport;
+
     public function store()
     {
         $this->validate([
@@ -29,34 +31,36 @@ class PermissionIndex extends Component
             ['id' => $this->id],
             ['name' => Str::slug($this->name)],
         );
-        ActivityLog::create([
-            'user_id' => auth()->user()->id,
-            'activity' => 'Update/Create Permission',
-            'description' => auth()->user()->name . ' telah menyimpan data permission ' . $permission->name,
-        ]);
+
+        ActivityLog::createLog(
+            'Update/Create Permission',
+            auth()->user()->name . ' telah menyimpan data permission ' . $permission->name
+        );
+
         flash('Permission ' . $permission->name . ' saved successfully.', 'success');
         $this->closeForm();
     }
+
     public function destroy($id)
     {
         $permission = Permission::find($id);
+
         if ($permission->roles->count()) {
-            ActivityLog::create([
-                'user_id' => auth()->user()->id,
-                'activity' => 'Delete Permission',
-                'description' => auth()->user()->name . ' telah gagal menghapus data permission ' . $permission->name,
-            ]);
+            ActivityLog::createLog(
+                'Delete Permission Gagal',
+                auth()->user()->name . ' gagal menghapus data permission ' . $permission->name
+            );
             flash('Permission tidak bisa dihapus karena sedang dipakai', 'danger');
         } else {
             $permission->delete();
-            ActivityLog::create([
-                'user_id' => auth()->user()->id,
-                'activity' => 'Delete Permission',
-                'description' => auth()->user()->name . ' telah menghapus data permission ' . $permission->name,
-            ]);
+            ActivityLog::createLog(
+                'Delete Permission Berhasil',
+                auth()->user()->name . ' telah menghapus data permission ' . $permission->name
+            );
             flash('Permission ' . $permission->name . ' deleted successfully.', 'success');
         }
     }
+
     public function edit($id)
     {
         $this->form = true;
@@ -64,61 +68,65 @@ class PermissionIndex extends Component
         $this->name = $permission->name;
         $this->id = $permission->id;
     }
+
     public function openForm()
     {
         $this->form = true;
         $this->name = '';
         $this->id = '';
     }
+
     public function closeForm()
     {
         $this->form = false;
         $this->name = '';
         $this->id = '';
     }
-    public function placeholder()
-    {
-        return view('components.placeholder.placeholder-text');
-    }
+
     public function export()
     {
         try {
             $time = now()->format('Y-m-d');
-            ActivityLog::create([
-                'user_id' => auth()->user()->id,
-                'activity' => 'Export Permission',
-                'description' => auth()->user()->name . ' telah export data permission',
-            ]);
+
+            ActivityLog::createLog(
+                'Export Permission',
+                auth()->user()->name . ' telah mengekspor data permission'
+            );
+
             flash('Export successfully', 'success');
             return Excel::download(new PermissionExport, 'permission_backup_' . $time . '.xlsx');
         } catch (\Throwable $th) {
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
     }
+
     public function openFormImport()
     {
         $this->formImport = $this->formImport ?  0 : 1;
     }
+
     public function import()
     {
         try {
             $this->validate([
                 'fileImport' => 'required|mimes:xlsx'
             ]);
+
             Excel::import(new PermissionImport, $this->fileImport->getRealPath());
-            ActivityLog::create([
-                'user_id' => auth()->user()->id,
-                'activity' => 'Import Permission',
-                'description' => auth()->user()->name . ' telah import data permission',
-            ]);
-            Alert::success('Success', 'User imported successfully');
+
+            ActivityLog::createLog(
+                'Import Permission',
+                auth()->user()->name . ' telah mengimpor data permission'
+            );
+
+            Alert::success('Success', 'Permission imported successfully');
             return redirect()->route('role-permission');
         } catch (\Throwable $th) {
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
     }
     public function cari() {}
-    public function mount() {}
+
     public function render()
     {
         $search = '%' . $this->search . '%';

@@ -128,23 +128,22 @@ Route::get('displaynomor', [AntrianController::class, 'displaynomor'])->name('di
 Route::get('getdisplayantrian', [AntrianController::class, 'getdisplayantrian'])->name('getdisplayantrian');
 Route::get('displayantrianfarmasi', [AntrianController::class, 'displayantrianfarmasi'])->name('displayantrianfarmasi');
 Route::get('displaynomorfarmasi', [AntrianController::class, 'displaynomorfarmasi'])->name('displaynomorfarmasi');
-
-
+// daftar online
 Route::get('daftarantrian', DaftarAntrian::class)->name('daftarantrian');
 Route::get('antrianonline/{kodebooking}', [PendaftaranController::class, 'antrianonline'])->name('antrianonline');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('home', HomeIndex::class)->name('home');
+    Route::get('profil', ProfilIndex::class)->name('profil');
     Route::get('dashboard', DashboardPendaftaran::class)->name('dashboard');
-    Route::get('profil', ProfilIndex::class)->name('profil')->lazy();
-    Route::get('log-aktifitas', LogAktifitas::class)->name('log-aktifitas')->lazy();
+    Route::get('log-aktifitas', LogAktifitas::class)->name('log-aktifitas');
     // admin
     Route::middleware(['can:admin'])->group(function () {
+        Route::get('role-permission', RolePermission::class)->name('role-permission')->lazy();
         Route::get('aplikasi', PengaturanIndex::class)->name('aplikasi.index')->lazy();
         Route::get('integration', IntegrationIndex::class)->name('integration.index')->lazy();
         Route::get('whatsapp', WhatsappIndex::class)->name('whatsapp.index');
         Route::get('user', UserIndex::class)->name('user.index');
-        Route::get('role-permission', RolePermission::class)->name('role-permission')->lazy();
     });
     Route::middleware(['can:pegawai'])->group(function () {
         Route::get('pegawai', PegawaiIndex::class)->name('pegawai.index');

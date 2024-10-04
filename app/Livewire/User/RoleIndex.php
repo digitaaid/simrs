@@ -75,10 +75,6 @@ class RoleIndex extends Component
         $this->id = '';
         $this->selectedPermissions = [];
     }
-    public function placeholder()
-    {
-        return view('components.placeholder.placeholder-text');
-    }
     public function export()
     {
         try {

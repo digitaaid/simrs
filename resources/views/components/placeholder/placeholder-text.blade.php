@@ -15,11 +15,9 @@
             </div>
         </div>
         <div class="card-footer">
-            <button  class="btn btn-sm btn-primary" >Loading Button...</button>
+            <button class="btn btn-sm btn-primary">Loading Button...</button>
         </div>
     </div>
-</div>
-@push('css')
     <style>
         .placeholder {
             display: inline-block;
@@ -53,4 +51,4 @@
             }
         }
     </style>
-@endpush
+</div>

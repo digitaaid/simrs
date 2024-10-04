@@ -8,6 +8,8 @@ use Livewire\Component;
 class LogAktifitas extends Component
 {
     public $logs;
+    public function mount(){
+    }
     public function render()
     {
         $this->logs = ActivityLog::orderBy('created_at', 'desc')->get();
