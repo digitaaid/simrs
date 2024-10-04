@@ -992,13 +992,6 @@ return [
             'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
         [
-            'text' => 'Aplikasi',
-            'url' => 'aplikasi',
-            'icon' => 'fas fa-cogs',
-            'can' => 'admin',
-            // 'active'  => ['user', 'user/create', 'user/edit/*'],
-        ],
-        [
             'text' => 'Intergrasi',
             'url' => 'integration',
             'can' => 'admin',
@@ -1006,13 +999,18 @@ return [
             'active'  => ['integration', 'integration/create', 'integration/edit/*'],
         ],
         [
+            'text' => 'Aplikasi',
+            'url' => 'aplikasi',
+            'icon' => 'fas fa-cogs',
+            'can' => 'admin',
+            // 'active'  => ['user', 'user/create', 'user/edit/*'],
+        ],
+        [
             'text' => 'Whatssapp',
             'url' => 'whatsapp',
             'icon' => 'fab fa-whatsapp',
             'can' => 'admin',
         ],
-
-
         [
             'text' => 'Log Aktifitas',
             'url' => 'log-aktifitas',
