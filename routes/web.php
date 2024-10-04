@@ -117,6 +117,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes(['verify' => true]);
+Route::get('/refresh-captcha', function () {
+    return response()->json(['captcha'=> captcha_img()]);
+});
 Route::get('/', [HomeController::class, 'landingpage'])->name('landingpage');
 // display antrian
 Route::get('displayantrian', [AntrianController::class, 'displayAntrian'])->name('displayantrian');

@@ -45,6 +45,10 @@ class LoginController extends Controller
         $this->validate($request, [
             'email' => 'required',
             'password' => 'required',
+            'captcha' => 'required|captcha',
+        ], [
+            'captcha.required' => 'Harap masukkan kode CAPTCHA.',
+            'captcha.captcha' => 'Kode CAPTCHA tidak valid atau salah.',
         ]);
         $fieldType = filter_var($request->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         $user = User::where('username', $request->email)
