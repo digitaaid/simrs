@@ -7,6 +7,7 @@ use App\Imports\RoleImport;
 use App\Models\ActivityLog;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Permission;
@@ -15,7 +16,8 @@ use Spatie\Permission\Models\Role;
 class RoleIndex extends Component
 {
     use WithFileUploads;
-    public $id, $name, $roles;
+    use WithPagination;
+    public $id, $name;
     public $permissions = [];
     public $selectedPermissions = [];
     public $form = false;
@@ -117,10 +119,12 @@ class RoleIndex extends Component
     public function render()
     {
         $search = '%' . $this->search . '%';
-        $this->roles = Role::orderBy('name', 'asc')->with(['permissions'])
+        $roles = Role::orderBy('name', 'asc')->with(['permissions'])
+            ->withCount('users')
             ->where('name', 'like', $search)
-            ->get();
+            ->orderBy('name', 'asc')
+            ->paginate(10);
         $this->permissions = Permission::pluck('name', 'id');
-        return view('livewire.user.role-index');
+        return view('livewire.user.role-index', compact('roles'));
     }
 }

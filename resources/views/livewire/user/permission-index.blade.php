@@ -63,38 +63,40 @@
                 </x-adminlte-input>
             </div>
         </div>
-        <table class="table table-sm table-bordered table-hover text-nowrap">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($permissions as $item)
-                    <tr wire:key="{{ $item->id }}">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>
-                            <a href="#editPermission">
-                                <x-adminlte-button label="Edit" class="btn-xs" icon="fas fa-edit"
-                                    wire:click="edit({{ $item->id }})" theme="warning" />
-                            </a>
-                            <x-adminlte-button label="Hapus" class="btn-xs" icon="fas fa-trash"
-                                wire:click="destroy({{ $item->id }})"
-                                wire:confirm="Apakah anda yakin ingin menghapus permission ?" theme="danger" />
-                        </td>
-                        <td>
-                            @foreach ($item->roles as $item)
-                                <span class="badge badge-warning">{{ $item->name }}</span>
-                            @endforeach
-                        </td>
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-hover text-nowrap">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Action</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($permissions as $item)
+                        <tr wire:key="{{ $item->id }}">
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>
+                                <a href="#editPermission">
+                                    <x-adminlte-button label="Edit" class="btn-xs" icon="fas fa-edit"
+                                        wire:click="edit({{ $item->id }})" theme="warning" />
+                                </a>
+                                <x-adminlte-button label="Hapus" class="btn-xs" icon="fas fa-trash"
+                                    wire:click="destroy({{ $item->id }})"
+                                    wire:confirm="Apakah anda yakin ingin menghapus permission ?" theme="danger" />
+                            </td>
+                            <td>
+                                @foreach ($item->roles as $item)
+                                    <span class="badge badge-warning">{{ $item->name }}</span>
+                                @endforeach
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         {{ $permissions->links() }}
     </x-adminlte-card>
 </div>

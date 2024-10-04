@@ -75,42 +75,47 @@
                 </x-adminlte-input>
             </div>
         </div>
-        @php
-            $heads = ['#', 'Name', 'User', 'Action', 'Permission'];
-            $config['order'] = [0, 'asc'];
-            $config['paging'] = false;
-            $config['searching'] = false;
-            $config['info'] = false;
-            $config['scrollX'] = true;
-        @endphp
-        <x-adminlte-datatable id="tableRole" class="text-nowrap" :heads="$heads" :config="$config" bordered hoverable
-            compressed>
-            @foreach ($roles as $item)
-                <tr wire:key="{{ $item->id }}">
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->name }}</td>
-                    <td></td>
-                    <td>
-                        <a href="#editRole">
-                            <x-adminlte-button label="Edit" class="btn-xs" icon="fas fa-edit"
-                                wire:click="edit({{ $item->id }})" theme="warning" />
-                        </a>
-                        <x-adminlte-button label="Hapus" class="btn-xs" icon="fas fa-trash"
-                            wire:click="destroy({{ $item->id }})"
-                            wire:confirm="Apakah anda yakin ingin menghapus Role {{ $item->name }} ?"
-                            theme="danger" />
-                    </td>
-                    <td>
-                        @if ($item->permissions->isNotEmpty())
-                            @foreach ($item->permissions as $permission)
-                                <span class="badge badge-warning">{{ $permission->name }}</span>
-                            @endforeach
-                        @else
-                            -
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
-        </x-adminlte-datatable>
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-hover  text-nowrap">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>User</th>
+                        <th>Action</th>
+                        <th>Permission</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($roles as $item)
+                        <tr wire:key="{{ $item->id }}">
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->users_count }}</td>
+                            <td>
+                                <a href="#editRole">
+                                    <x-adminlte-button label="Edit" class="btn-xs" icon="fas fa-edit"
+                                        wire:click="edit({{ $item->id }})" theme="warning" />
+                                </a>
+                                <x-adminlte-button label="Hapus" class="btn-xs" icon="fas fa-trash"
+                                    wire:click="destroy({{ $item->id }})"
+                                    wire:confirm="Apakah anda yakin ingin menghapus Role {{ $item->name }} ?"
+                                    theme="danger" />
+                            </td>
+                            <td>
+                                @if ($item->permissions->isNotEmpty())
+                                    @foreach ($item->permissions as $permission)
+                                        <span class="badge badge-warning">{{ $permission->name }}</span>
+                                    @endforeach
+                                @else
+                                    -
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        {{ $roles->links() }}
     </x-adminlte-card>
 </div>
