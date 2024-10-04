@@ -2,13 +2,14 @@
 
 namespace App\Livewire\Farmasi;
 
-use App\Models\FrekuensiObat;
-use App\Models\Obat;
-use App\Models\PemesananObat as ModelsPemesananObat;
-use App\Models\WaktuObat;
 use Livewire\Component;
+use App\Models\PemesananObat;
+use App\Models\PemesananObatDetail;
+use App\Models\Obat;
+use App\Models\SupplierObat;
+use Illuminate\Support\Facades\Auth;
 
-class PemesananObat extends Component
+class PemesananObatIndex extends Component
 {
     public $tanggal;
     public $form = 0, $formimport = 0;
@@ -70,20 +71,19 @@ class PemesananObat extends Component
     }
     public function simpan()
     {
-        dd($this->all());
-        ModelsPemesananObat::create([
-            'kode'=> strtoupper(uniqid()),
-            'nomor'=> strtoupper(uniqid()),
-            'penganggungjawab'=> $this->penanggungjawab,
-            'jabatan'=> $this->jabatan,
-            'sipa'=> $this->sipa,
-            'distributor'=> $this->distributor,
-            'alamat_distributor'=> $this->alamat_distributor,
-            'nohp_distributor'=> $this->nohp,
-            'nama_sarana'=> $this->nama_sarana,
-            'alamat_sarana'=> $this->alamat_sarana,
-            'no_izin_sarana'=> $this->no_izin_sarana,
-            'apoteker'=> $this->apoteker,
+        PemesananObat::create([
+            'kode' => strtoupper(uniqid()),
+            'nomor' => strtoupper(uniqid()),
+            'penganggungjawab' => $this->penanggungjawab,
+            'jabatan' => $this->jabatan,
+            'sipa' => $this->sipa,
+            'distributor' => $this->distributor,
+            'alamat_distributor' => $this->alamat_distributor,
+            'nohp_distributor' => $this->nohp,
+            'nama_sarana' => $this->nama_sarana,
+            'alamat_sarana' => $this->alamat_sarana,
+            'no_izin_sarana' => $this->no_izin_sarana,
+            'apoteker' => $this->apoteker,
         ]);
     }
 

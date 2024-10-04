@@ -577,6 +577,13 @@ return [
                     'can' => ['farmasi', 'apotek'],
                 ],
                 [
+                    'text' => 'Supplier Obat',
+                    'url' => 'farmasi/supplier-obat',
+                    'icon' => 'fas fa-box',
+                    'can' => ['farmasi'],
+                    'shift'   => 'ml-2',
+                ],
+                [
                     'text' => 'Pemesanan Obat',
                     'url' => 'farmasi/pemesanan-obat',
                     'icon' => 'fas fa-box',

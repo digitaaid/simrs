@@ -61,10 +61,12 @@ use App\Livewire\Dokter\PemeriksaanDokterRajal;
 use App\Livewire\Dokter\PemeriksaanDokterRajalProses;
 use App\Livewire\Farmasi\ObatIndex;
 use App\Livewire\Farmasi\PemesananObat;
+use App\Livewire\Farmasi\PemesananObatIndex;
 use App\Livewire\Farmasi\PengambilanObatIgd;
 use App\Livewire\Farmasi\PengambilanObatRanap;
 use App\Livewire\Farmasi\PengambilanResep;
 use App\Livewire\Farmasi\StokObatIndex;
+use App\Livewire\Farmasi\SupplierObatIndex;
 use App\Livewire\Igd\PendaftaranIgd;
 use App\Livewire\Igd\PendaftaranIgdProses;
 use App\Livewire\Jaminan\JaminanIndex;
@@ -98,6 +100,7 @@ use App\Livewire\User\UserForm;
 use App\Livewire\User\UserIndex;
 use App\Livewire\Wa\WhatsappIndex;
 use App\Models\Jaminan;
+use App\Models\SupplierObat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -218,7 +221,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //    farmasi
     Route::get('stokobat', StokObatIndex::class)->name('stokobat.index');
     Route::get('farmasi/obat', ObatIndex::class)->name('obat.index');
-    Route::get('farmasi/pemesanan-obat', PemesananObat::class)->name('pemesanan.obat');
+    Route::get('farmasi/pemesanan-obat', PemesananObatIndex::class)->name('pemesanan.obat');
+    Route::get('farmasi/supplier-obat', SupplierObatIndex::class)->name('supplier.obat');
     Route::get('farmasi/stok-opname', PemesananObat::class)->name('stok.opname');
     // apotek
     Route::get('apotek/penjualan_obat', PenjualanObat::class)->name('apotek.resepobat.rajal');
