@@ -4,6 +4,7 @@ namespace App\Livewire\Farmasi;
 
 use App\Models\FrekuensiObat;
 use App\Models\Obat;
+use App\Models\PemesananObat as ModelsPemesananObat;
 use App\Models\WaktuObat;
 use Livewire\Component;
 
@@ -12,6 +13,7 @@ class PemesananObat extends Component
     public $tanggal;
     public $form = 0, $formimport = 0;
     public $obats = [], $frekuensiObats = [], $waktuObats = [];
+    public $nomor, $penanggungjawab, $jabatan, $sipa, $distributor, $alamat_distributor, $nohp, $nama_sarana, $alamat_sarana, $no_izin_sarana, $apoteker;
     public $resepObat = [
         [
             'obat' => '',
@@ -59,7 +61,20 @@ class PemesananObat extends Component
     public function mount()
     {
         $this->tanggal = now()->format('Y-m-d');
+        $this->penanggungjawab = "Apt. Nunung Nurhayati, S.Si";
+        $this->jabatan = "Apoteker Penanggung Jawab";
+        $this->sipa = "449/SIPA-242/SDK/DINKES/XI/2023";
+        $this->nama_sarana = "Klinik Utama Kita Sehat";
+        $this->alamat_sarana = "Jl. Merdeka Utara, Ciledug Kulon, Ciledug, Cirebon";
+        $this->no_izin_sarana = "16082100122660007";
     }
+    public function simpan()
+    {
+        ModelsPemesananObat::create([
+            ''
+        ]);
+    }
+
 
     public function render()
     {

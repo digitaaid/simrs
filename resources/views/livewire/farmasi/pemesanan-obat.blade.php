@@ -30,13 +30,13 @@
                         <div class="col-md-4">
                             <x-adminlte-input wire:model="apoteker" fgroup-class="row" label-class="text-right col-4"
                                 igroup-class="col-8" igroup-size="sm" name="apoteker" label="Nama Apoteker" />
-                            <x-adminlte-input wire:model="faskes" fgroup-class="row" label-class="text-right col-4"
-                                igroup-class="col-8" igroup-size="sm" name="faskes" label="Nama Sarana" />
-                            <x-adminlte-input wire:model="alamat_faskes" fgroup-class="row"
+                            <x-adminlte-input wire:model="nama_sarana" fgroup-class="row" label-class="text-right col-4"
+                                igroup-class="col-8" igroup-size="sm" name="nama_sarana" label="Nama Sarana" />
+                            <x-adminlte-input wire:model="alamat_sarana" fgroup-class="row"
                                 label-class="text-right col-4" igroup-class="col-8" igroup-size="sm"
-                                name="alamat_faskes" label="Alamat Sarana" />
-                            <x-adminlte-input wire:model="no_oss" fgroup-class="row" label-class="text-right col-4"
-                                igroup-class="col-8" igroup-size="sm" name="no_oss" label="No Ijin Sarana (OSS)" />
+                                name="alamat_sarana" label="Alamat Sarana" />
+                            <x-adminlte-input wire:model="no_izin_sarana" fgroup-class="row" label-class="text-right col-4"
+                                igroup-class="col-8" igroup-size="sm" name="no_izin_sarana" label="No Ijin Sarana (OSS)" />
                         </div>
                         <div class="col-md-12">
                             <h5>Obat Yang Dipesan</h5>
@@ -94,7 +94,7 @@
                     </div>
                 </form>
                 <x-slot name="footerSlot">
-                    <x-adminlte-button label="Simpan" class="btn-sm" icon="fas fa-save" wire:click="store"
+                    <x-adminlte-button label="Simpan" class="btn-sm" icon="fas fa-save" wire:click="simpan"
                         wire:confirm="Apakah anda ingin menyimpan data pemesanan obat ?" theme="success" />
                     <x-adminlte-button wire:click='tambah' class="btn-sm" label="Tutup" theme="danger"
                         icon="fas fa-times" />
