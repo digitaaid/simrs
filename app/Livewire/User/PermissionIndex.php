@@ -8,6 +8,7 @@ use App\Models\ActivityLog;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Permission;
@@ -15,8 +16,9 @@ use Spatie\Permission\Models\Permission;
 class PermissionIndex extends Component
 {
     use WithFileUploads;
+    use WithPagination;
 
-    public $id, $name, $permissions;
+    public $id, $name;
     public $form = false;
     public $search = '';
     public $formImport = 0;
@@ -129,10 +131,10 @@ class PermissionIndex extends Component
 
     public function render()
     {
-        $search = '%' . $this->search . '%';
-        $this->permissions = Permission::with(['roles'])->orderBy('name', 'asc')
-            ->where('name', 'like', $search)
-            ->get();
-        return view('livewire.user.permission-index');
+        $permissions = Permission::with('roles')
+            ->where('name', 'like', '%' . $this->search . '%')
+            ->orderBy('name', 'asc')
+            ->paginate(10);
+        return view('livewire.user.permission-index', compact('permissions'));
     }
 }
