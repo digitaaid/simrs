@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\ActivityLog;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -71,6 +72,11 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+        ]);
+        ActivityLog::create([
+            'user_id' => '0',
+            'activity' => 'Register',
+            'description' => 'User register (' . $user->name . ', ' . $user->phone . ',' . $user->email . ')',
         ]);
         return  $user;
     }
