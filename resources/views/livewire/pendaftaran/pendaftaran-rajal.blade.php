@@ -38,7 +38,7 @@
                     @endphp
                     <x-adminlte-small-box
                         title="{{ $antrians->where('taskid', 7)->where('method', 'Mobile JKN')->count() }}"
-                        text="{{ $pemanfaatan }}  Pemanfaatan MJKN" theme="primary" icon="fas fa-user-injured" />
+                        text="{{ $pemanfaatan }}%  Pemanfaatan MJKN" theme="primary" icon="fas fa-user-injured" />
                 </div>
             @endif
         </div>
