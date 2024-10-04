@@ -16,6 +16,11 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('activity');
             $table->string('description');
+            $table->string('ip_address')->nullable();
+            $table->text('user_agent')->nullable();
+            $table->string('device')->nullable();
+            $table->string('browser')->nullable();
+            $table->string('platform')->nullable();
             $table->timestamps();
         });
     }

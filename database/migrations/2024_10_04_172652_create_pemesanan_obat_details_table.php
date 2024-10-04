@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('pemesanan_obat_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pemesanan_obat_id')->constrained('pemesanan_obats')->onDelete('cascade'); // Relasi ke pemesanan obat utama
-            $table->foreignId('obat_id')->constrained('obats')->onDelete('cascade'); // Relasi ke tabel obat
+            $table->foreignId('pemesanan_obat_id')->from('pemesanan_obats')->onDelete('cascade'); // Relasi ke pemesanan obat utama
+            $table->foreignId('obat_id')->from('obats')->onDelete('cascade'); // Relasi ke tabel obat
             $table->string('nama'); // Nama obat
             $table->string('kekuatan'); // Kekuatan obat
             $table->string('zat_aktif'); // Zat aktif obat
@@ -24,8 +24,8 @@ return new class extends Migration
             $table->double('harga'); // Harga obat
             $table->double('total'); // Total (jumlah * harga)
             $table->boolean('status')->default(0); // Status detail pemesanan (belum selesai/sudah selesai)
-            $table->foreignId('pic_id')->constrained('users')->onDelete('set null'); // Pengguna terakhir yang bertanggung jawab
-            $table->foreignId('user_id')->constrained('users')->onDelete('set null'); // Pengguna yang terakhir mengubah data
+            $table->foreignId('pic_id')->from('users')->onDelete('set null'); // Pengguna terakhir yang bertanggung jawab
+            $table->foreignId('user_id')->from('users')->onDelete('set null'); // Pengguna yang terakhir mengubah data
             $table->timestamps();
             $table->softDeletes(); // Mendukung soft delete untuk detail pemesanan
         });

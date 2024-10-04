@@ -9,6 +9,7 @@
         "akaunting/laravel-money": "^5.2",
         "barryvdh/laravel-dompdf": "^2.2",
         "guzzlehttp/guzzle": "^7.2",
+        "jenssegers/agent": "^2.6",
         "jeroennoten/laravel-adminlte": "^3.11",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
