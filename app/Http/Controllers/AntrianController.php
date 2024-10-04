@@ -730,6 +730,11 @@ class AntrianController extends ApiController
                     "taskid" => 99,
                     "keterangan" => $request->keterangan,
                 ]);
+                $kunjungan = $antrian->kunjungan;
+                if ($kunjungan) {
+                    $kunjungan->status = 99;
+                    $kunjungan->update();
+                }
                 ActivityLog::create([
                     'user_id' => 0,
                     'activity' => 'Batal Antrian BPJS',
