@@ -75,7 +75,7 @@
                 </x-adminlte-input>
             </div>
         </div>
-        <div class="table-responsive">
+        <div class="table-responsive mb">
             <table class="table table-sm table-bordered table-hover  text-nowrap">
                 <thead>
                     <tr>

@@ -161,7 +161,7 @@ class UserIndex extends Component
             ->where('name', 'like', $search)
             ->orWhere('email', 'like', $search)
             ->orderBy('created_at', 'desc')
-            ->paginate();
+            ->paginate(10);
         $this->roles = Role::pluck('name', 'id');
         return view('livewire.user.user-index', compact('users'))
             ->title('User');

@@ -17,49 +17,56 @@ class RoleIndex extends Component
 {
     use WithFileUploads;
     use WithPagination;
-    public $id, $name;
+
+    public $roleId, $name;
     public $permissions = [];
     public $selectedPermissions = [];
     public $form = false;
     public $search = '';
     public $formImport = 0;
     public $fileImport;
+
     public function store()
     {
         $this->validate([
             'name' => 'required',
         ]);
         $role = Role::updateOrCreate(
-            ['id' => $this->id],
+            ['id' => $this->roleId],
             ['name' => $this->name],
         );
-        $role->syncPermissions();
         $role->syncPermissions($this->selectedPermissions);
-        ActivityLog::create([
-            'user_id' => auth()->user()->id,
-            'activity' => 'Update/Create Role',
-            'description' => auth()->user()->name . ' menyimpan data role ' . $role->name,
-        ]);
+        ActivityLog::createLog(
+            'Update/Create Role',
+            auth()->user()->name . ' menyimpan data role ' . $role->name
+        );
         flash('Role ' . $role->name . ' saved successfully.', 'success');
         $this->closeForm();
     }
     public function destroy($id)
     {
         $role = Role::find($id);
-        $role->delete();
-        ActivityLog::create([
-            'user_id' => auth()->user()->id,
-            'activity' => 'Delete Role',
-            'description' => auth()->user()->name . ' megnhapus data role ' . $role->name,
-        ]);
-        flash('Role ' . $role->name . ' deleted successfully.', 'success');
+        if ($role->users()->count()) {
+            ActivityLog::createLog(
+                'Delete Role Gagal',
+                auth()->user()->name . ' gagal menghapus data role ' . $role->name
+            );
+            flash('Role tidak bisa dihapus karena sedang dipakai', 'danger');
+        } else {
+            $role->delete();
+            ActivityLog::createLog(
+                'Delete Role',
+                auth()->user()->name . ' menghapus data role ' . $role->name
+            );
+            flash('Role ' . $role->name . ' deleted successfully.', 'success');
+        }
     }
     public function edit($id)
     {
         $this->form = true;
         $role = Role::find($id);
         $this->name = $role->name;
-        $this->id = $role->id;
+        $this->roleId = $role->id;
         $this->permissions = Permission::pluck('name', 'id');
         $this->selectedPermissions = $role->permissions()->pluck('name');
     }
@@ -67,26 +74,28 @@ class RoleIndex extends Component
     {
         $this->form = true;
         $this->name = '';
-        $this->id = '';
+        $this->roleId = '';
         $this->permissions = Permission::pluck('name', 'id');
+        $this->selectedPermissions = [];
     }
     public function closeForm()
     {
         $this->form = false;
         $this->name = '';
-        $this->id = '';
+        $this->roleId = '';
         $this->selectedPermissions = [];
     }
     public function export()
     {
         try {
             $time = now()->format('Y-m-d');
+
+            ActivityLog::createLog(
+                'Export Role',
+                auth()->user()->name . ' mengekspor data role'
+            );
+
             flash('Export successfully', 'success');
-            ActivityLog::create([
-                'user_id' => auth()->user()->id,
-                'activity' => 'Export Role',
-                'description' => auth()->user()->name . ' export data role',
-            ]);
             return Excel::download(new RoleExport, 'role_backup_' . $time . '.xlsx');
         } catch (\Throwable $th) {
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
@@ -102,29 +111,33 @@ class RoleIndex extends Component
             $this->validate([
                 'fileImport' => 'required|mimes:xlsx'
             ]);
+
             Excel::import(new RoleImport, $this->fileImport->getRealPath());
-            ActivityLog::create([
-                'user_id' => auth()->user()->id,
-                'activity' => 'Import Role',
-                'description' => auth()->user()->name . ' import data role',
-            ]);
+
+            ActivityLog::createLog(
+                'Import Role',
+                auth()->user()->name . ' mengimpor data role'
+            );
+
             Alert::success('Success', 'Imported successfully');
             return redirect()->route('role-permission');
         } catch (\Throwable $th) {
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
     }
-    public function cari() {}
-    public function mount() {}
+    public function mount()
+    {
+        $this->permissions = Permission::pluck('name', 'id');
+    }
     public function render()
     {
         $search = '%' . $this->search . '%';
-        $roles = Role::orderBy('name', 'asc')->with(['permissions'])
+        $roles = Role::with('permissions')
             ->withCount('users')
             ->where('name', 'like', $search)
             ->orderBy('name', 'asc')
             ->paginate(10);
-        $this->permissions = Permission::pluck('name', 'id');
+
         return view('livewire.user.role-index', compact('roles'));
     }
 }

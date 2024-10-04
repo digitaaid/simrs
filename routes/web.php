@@ -118,7 +118,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 Route::get('/refresh-captcha', function () {
-    return response()->json(['captcha'=> captcha_img()]);
+    return response()->json(['captcha' => captcha_img()]);
 });
 Route::get('/', [HomeController::class, 'landingpage'])->name('landingpage');
 // display antrian
@@ -139,11 +139,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('log-aktifitas', LogAktifitas::class)->name('log-aktifitas');
     // admin
     Route::middleware(['can:admin'])->group(function () {
-        Route::get('role-permission', RolePermission::class)->name('role-permission')->lazy();
-        Route::get('aplikasi', PengaturanIndex::class)->name('aplikasi.index')->lazy();
-        Route::get('integration', IntegrationIndex::class)->name('integration.index')->lazy();
-        Route::get('whatsapp', WhatsappIndex::class)->name('whatsapp.index');
+        Route::get('role-permission', RolePermission::class)->name('role-permission');
         Route::get('user', UserIndex::class)->name('user.index');
+        Route::get('aplikasi', PengaturanIndex::class)->name('aplikasi.index');
+        Route::get('integration', IntegrationIndex::class)->name('integration.index');
+        Route::get('whatsapp', WhatsappIndex::class)->name('whatsapp.index');
     });
     Route::middleware(['can:pegawai'])->group(function () {
         Route::get('pegawai', PegawaiIndex::class)->name('pegawai.index');
