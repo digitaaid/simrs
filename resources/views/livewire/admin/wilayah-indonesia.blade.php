@@ -8,6 +8,7 @@
                     <option value="{{ $name }}"></option>
                 @endforeach
             </datalist>
+
             <x-adminlte-input wire:model.live="kabupaten_id" list="kabupaten_id_list" fgroup-class="row"
                 label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" name="kabupaten_id"
                 label="Kabupaten" />
@@ -16,6 +17,7 @@
                     <option value="{{ $name }}"></option>
                 @endforeach
             </datalist>
+
             <x-adminlte-input wire:model.live="kecamatan_id" list="kecamatan_id_list" fgroup-class="row"
                 label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" name="kecamatan_id"
                 label="Kecamatan" />
@@ -24,13 +26,19 @@
                     <option value="{{ $name }}"></option>
                 @endforeach
             </datalist>
+
             <x-adminlte-input wire:model.live="desa_id" list="desa_id_list" fgroup-class="row"
-                label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" name="Desa" label="Desa" />
+                label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" name="desa_id" label="Desa" />
             <datalist id="desa_id_list">
                 @foreach ($desas as $code => $name)
                     <option value="{{ $name }}"></option>
                 @endforeach
             </datalist>
+
+            <!-- Display error message if search result is not found -->
+            @if ($errorMessage)
+                <div class="alert alert-danger mt-3">{{ $errorMessage }}</div>
+            @endif
         </x-adminlte-card>
     </div>
 </div>
