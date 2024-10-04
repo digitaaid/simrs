@@ -102,7 +102,6 @@ class ModalKunjunganRajal extends Component
                 'sep' => $this->sep,
                 'diagnosa_awal' => $this->diagnosa,
                 'cara_masuk' => $this->caramasuk,
-                'status' => 1,
                 'user1' => auth()->user()->id,
             ]);
             // update antrian
