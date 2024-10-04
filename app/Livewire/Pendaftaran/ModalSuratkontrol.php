@@ -98,7 +98,7 @@ class ModalSuratkontrol extends Component
                     'jeniskunjungan' => 3,
                     'nomorreferensi' => $res->response->noSuratKontrol,
                 ]);
-                $res = $antrian->ambil_antrian($request);
+                $antrian->ambil_antrian($request);
             }
             $this->form = false;
             $this->formatfilter = 2;
