@@ -95,6 +95,13 @@ class ObatIndex extends Component
         $this->distributor = $obat->distributor;
         $this->bpom = $obat->bpom;
         $this->barcode = $obat->barcode;
+        if ($this->harga_beli && $this->konversi_satuan) {
+            $this->hargabelippn = $this->harga_beli + ($this->harga_beli * 11 / 100);
+            $this->hargabelisatuan = $this->harga_beli / $this->konversi_satuan;
+            $this->hargabelisatuanppn =  $this->hargabelippn / $this->konversi_satuan ?? 0;
+            $this->hargabelimargin = $this->hargabelisatuanppn + ($this->hargabelisatuanppn * 25 / 100);
+            $this->hargajualppn = $this->hargabelimargin + ($this->hargabelimargin * 11 / 100);
+        }
         $this->form = true;
     }
     public function import()
@@ -137,6 +144,8 @@ class ObatIndex extends Component
     public $hargabelisatuan = 0;
     public $hargabelisatuanppn = 0;
     public $hargabelimargin = 0;
+    public $hargajualppn = 0;
+
     public function updatedHargaBeli()
     {
         $this->validate([
@@ -145,7 +154,19 @@ class ObatIndex extends Component
         $this->hargabelippn = $this->harga_beli + ($this->harga_beli * 11 / 100);
         $this->hargabelisatuan = $this->harga_beli / $this->konversi_satuan;
         $this->hargabelisatuanppn =  $this->hargabelippn / $this->konversi_satuan ?? 0;
-        $this->hargabelimargin = $this->hargabelisatuanppn + ($this->harga_beli * 25 / 100);
+        $this->hargabelimargin = $this->hargabelisatuanppn + ($this->hargabelisatuanppn * 25 / 100);
+        $this->hargajualppn = $this->hargabelimargin + ($this->hargabelimargin * 11 / 100);
+    }
+    public function updatedKonversiSatuan()
+    {
+        $this->validate([
+            'harga_beli' => 'required|integer|min:1',
+        ]);
+        $this->hargabelippn = $this->harga_beli + ($this->harga_beli * 11 / 100);
+        $this->hargabelisatuan = $this->harga_beli / $this->konversi_satuan;
+        $this->hargabelisatuanppn =  $this->hargabelippn / $this->konversi_satuan ?? 0;
+        $this->hargabelimargin = $this->hargabelisatuanppn + ($this->hargabelisatuanppn * 25 / 100);
+        $this->hargajualppn = $this->hargabelimargin + ($this->hargabelimargin * 11 / 100);
     }
     public function mount(Request $request)
     {

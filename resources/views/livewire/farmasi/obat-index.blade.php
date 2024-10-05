@@ -22,7 +22,7 @@
                                         <option value="{{ $satuan }}"></option>
                                     @endforeach
                                 </datalist>
-                                <x-adminlte-input wire:model="konversi_satuan" fgroup-class="row"
+                                <x-adminlte-input wire:model.live="konversi_satuan" fgroup-class="row"
                                     label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
                                     name="konversi_satuan" label="Jml Satauan/Kemasan" type="number" />
                                 <x-adminlte-input wire:model="satuan" list="satuanlist" name="satuan" label="satuan"
@@ -58,10 +58,11 @@
                                     name="harga_beli" type="number" label="Harga Beli/Kemasan" />
                                 <br>
 
-                                <b>Hrg Beli PPN 11% = {{ money($hargabelippn, 'IDR') }}</b> <br>
-                                <b>Hrg Beli Satuan = {{ money($hargabelisatuan, 'IDR') }}</b> <br>
-                                <b>Hrg Beli Satuan PPN = {{ money($hargabelisatuanppn, 'IDR') }}</b> <br>
-                                <b>Hrg Beli Margin 25% = {{ money($hargabelimargin, 'IDR') }}</b> <br><br>
+                                <b>Hrg Beli PPN 11% = {{ money(floatval($hargabelippn), 'IDR') }}</b> <br>
+                                <b>Hrg Beli Satuan = {{ money(floatval($hargabelisatuan), 'IDR') }}</b> <br>
+                                <b>Hrg Beli Satuan PPN = {{ money(floatval($hargabelisatuanppn), 'IDR') }}</b> <br>
+                                <b>Hrg Beli Satuan Margin 25% = {{ money(floatval($hargabelimargin), 'IDR') }}</b> <br>
+                                <b>Hrg Jual Satuan PPN 11% = {{ money(floatval($hargajualppn), 'IDR') }}</b> <br><br>
 
                                 <x-adminlte-input wire:model="harga_jual" fgroup-class="row"
                                     label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
