@@ -108,8 +108,8 @@ class IntegrationIndex extends Component
             Excel::import(new IntegrationImport, $this->fileImport->getRealPath());
 
             ActivityLog::createLog(
-                'Import Role',
-                auth()->user()->name . ' mengimpor data role'
+                'Import Integration',
+                auth()->user()->name . ' mengimpor data Integration'
             );
 
             Alert::success('Success', 'Imported successfully');
