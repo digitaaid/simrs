@@ -56,14 +56,19 @@
                                 <x-adminlte-input wire:model.live="harga_beli" fgroup-class="row"
                                     label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
                                     name="harga_beli" type="number" label="Harga Beli/Kemasan" />
-                                <br>
-
-                                <b>Hrg Beli PPN 11% = {{ money(floatval($hargabelippn), 'IDR') }}</b> <br>
-                                <b>Hrg Beli Satuan = {{ money(floatval($hargabelisatuan), 'IDR') }}</b> <br>
-                                <b>Hrg Beli Satuan PPN = {{ money(floatval($hargabelisatuanppn), 'IDR') }}</b> <br>
-                                <b>Hrg Beli Satuan Margin 25% = {{ money(floatval($hargabelimargin), 'IDR') }}</b> <br>
-                                <b>Hrg Jual Satuan PPN 11% = {{ money(floatval($hargajualppn), 'IDR') }}</b> <br><br>
-
+                                <div class="row mb-4">
+                                    <div class="col-4"></div>
+                                    <div class="col-8">
+                                        <b>Hrg Beli PPN 11% = {{ money(floatval($hargabelippn), 'IDR') }}</b> <br>
+                                        <b>Hrg Beli Satuan = {{ money(floatval($hargabelisatuan), 'IDR') }}</b> <br>
+                                        <b>Hrg Beli Satuan PPN = {{ money(floatval($hargabelisatuanppn), 'IDR') }}</b>
+                                        <br>
+                                        <b>Hrg Beli Satuan Margin 25% =
+                                            {{ money(floatval($hargabelimargin), 'IDR') }}</b> <br>
+                                        <b>Hrg Jual Satuan PPN 11% = {{ money(floatval($hargajualppn), 'IDR') }}</b>
+                                        <br>
+                                    </div>
+                                </div>
                                 <x-adminlte-input wire:model="harga_jual" fgroup-class="row"
                                     label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
                                     name="harga_jual" type="number" label="harga_jual" />

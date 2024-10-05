@@ -84,6 +84,8 @@ class ObatIndex extends Component
         $this->konversi_satuan = $obat->konversi_satuan;
         $this->satuan = $obat->satuan;
         $this->stok_minimum = $obat->stok_minimum;
+        $this->zat_aktif = $obat->zat_aktif;
+        $this->kekuatan = $obat->kekuatan;
         $this->jenisobat = $obat->jenisobat;
         $this->tipeobat = $obat->tipeobat;
         $this->harga_beli = $obat->harga_beli;
