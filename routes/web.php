@@ -65,6 +65,7 @@ use App\Livewire\Farmasi\PemesananObatIndex;
 use App\Livewire\Farmasi\PengambilanObatIgd;
 use App\Livewire\Farmasi\PengambilanObatRanap;
 use App\Livewire\Farmasi\PengambilanResep;
+use App\Livewire\Farmasi\SatuanKemasanIndex;
 use App\Livewire\Farmasi\StokObatIndex;
 use App\Livewire\Farmasi\SupplierObatIndex;
 use App\Livewire\Igd\PendaftaranIgd;
@@ -83,7 +84,6 @@ use App\Livewire\Ranap\PendaftaranRanap;
 use App\Livewire\Ranap\PendaftaranRanapProses;
 use App\Livewire\Rekammedis\RekamMedisRajal;
 use App\Livewire\Rekammedis\RekamMedisRajalEdit;
-use App\Livewire\Satusehat\CondititionIndex;
 use App\Livewire\Satusehat\EncounterIndex;
 use App\Livewire\Satusehat\LocationIndex;
 use App\Livewire\Satusehat\OrganizationIndex;
@@ -220,17 +220,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('pemeriksaan/perawat/rajal/{kodebooking}', PemeriksaanPerawatRajalProses::class)->name('pemeriksaan.perawat.rajal.proses');
     Route::get('pemeriksaan/dokter/rajal', PemeriksaanDokterRajal::class)->name('pemeriksaan.dokter.rajal');
     Route::get('pemeriksaan/dokter/rajal/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('pemeriksaan.dokter.rajal.proses');
-    //    farmasi
-    Route::get('stokobat', StokObatIndex::class)->name('stokobat.index');
-    Route::get('farmasi/obat', ObatIndex::class)->name('obat.index');
-    Route::get('farmasi/pemesanan-obat', PemesananObatIndex::class)->name('pemesanan.obat');
-    Route::get('farmasi/supplier-obat', SupplierObatIndex::class)->name('supplier.obat');
-    Route::get('farmasi/stok-opname', PemesananObat::class)->name('stok.opname');
     // apotek
-    Route::get('apotek/penjualan_obat', PenjualanObat::class)->name('apotek.resepobat.rajal');
-    Route::get('apotek/resep_obat_rajal', PengambilanResep::class)->name('apotek.resepobat.rajal');
-    Route::get('apotek/resep_obat_igd', PengambilanObatIgd::class)->name('apotek.resepobat.igd');
-    Route::get('apotek/resep_obat_ranap', PengambilanObatRanap::class)->name('apotek.resepobat.ranap');
+    Route::middleware(['can:apotek'])->group(function () {
+        Route::get('apotek/penjualan_obat', PenjualanObat::class)->name('apotek.resepobat.rajal');
+        Route::get('apotek/resep_obat_rajal', PengambilanResep::class)->name('apotek.resepobat.rajal');
+        Route::get('apotek/resep_obat_igd', PengambilanObatIgd::class)->name('apotek.resepobat.igd');
+        Route::get('apotek/resep_obat_ranap', PengambilanObatRanap::class)->name('apotek.resepobat.ranap');
+    });
+    // farmasi
+    Route::middleware(['can:farmasi'])->group(function () {
+        Route::get('farmasi/supplier-obat', SupplierObatIndex::class)->name('supplier.obat');
+        Route::get('farmasi/satuan-kemasan', SatuanKemasanIndex::class)->name('supplier.obat');
+        Route::get('farmasi/obat', ObatIndex::class)->name('obat.index');
+        Route::get('stokobat', StokObatIndex::class)->name('stokobat.index');
+        Route::get('farmasi/pemesanan-obat', PemesananObatIndex::class)->name('pemesanan.obat');
+        Route::get('farmasi/stok-opname', PemesananObat::class)->name('stok.opname');
+    });
     // rekam medis
     Route::get('rekammedis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
     Route::get('rekammedis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
@@ -241,7 +246,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('satusehat/organization', UnitIndex::class)->name('satusehat.organization');
     Route::get('satusehat/location', UnitIndex::class)->name('satusehat.location');
     Route::get('satusehat/encounter', EncounterIndex::class)->name('satusehat.encounter');
-    Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
+    // Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
     // kasir
     Route::get('kasir-pembayaran', KasirPembayaran::class)->name('kasir.pembayran');
 

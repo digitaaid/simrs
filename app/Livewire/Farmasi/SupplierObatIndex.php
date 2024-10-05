@@ -11,8 +11,11 @@ class SupplierObatIndex extends Component
     public $form = false;
     public function render()
     {
+        return view('livewire.farmasi.supplier-obat-index')->title('Supplier Obat');
+    }
+    public function mount()
+    {
         $this->suppliers = SupplierObat::all();
-        return view('livewire.farmasi.supplier-obat-index');
     }
     // Membuka form untuk menambah atau mengedit data
     public function tambah()

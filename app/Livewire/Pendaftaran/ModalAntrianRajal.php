@@ -81,7 +81,7 @@ class ModalAntrianRajal extends Component
             ->where('taskid', '<=', 5)
             ->first();
         if ($antrianx) {
-            if ($antrianx->taskid <= 5 && $antrianx->id != $antrian->id) {
+            if ($antrianx->taskid >= 3 && $antrianx->taskid <= 5 && $antrianx->id != $antrian->id) {
                 return flash('Pasien sudah mendapatkan pelayanan. Silahkan batalkan terlebih dahulu.', 'danger');
             }
         }

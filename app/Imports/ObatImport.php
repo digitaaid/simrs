@@ -25,6 +25,8 @@ class ObatImport implements ToCollection, WithHeadingRow
                         'stok_minimum' => $row['stok_minimum'],
                         'jenisobat' => $row['jenisobat'] ?? 'OBAT',
                         'tipeobat' => $row['tipeobat'],
+                        'zat_aktif' => $row['zat_aktif'],
+                        'kekuatan' => $row['kekuatan'],
                         'harga_beli' => $row['harga_beli'] ?? 0,
                         'diskon_beli' => $row['diskon_beli'] ?? 0,
                         'harga_jual' => $row['harga_jual'] ?? 0,

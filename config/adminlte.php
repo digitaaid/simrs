@@ -584,8 +584,8 @@ return [
                     'shift'   => 'ml-2',
                 ],
                 [
-                    'text' => 'Pemesanan Obat',
-                    'url' => 'farmasi/pemesanan-obat',
+                    'text' => 'Satuan Kemasan',
+                    'url' => 'farmasi/satuan-kemasan',
                     'icon' => 'fas fa-box',
                     'can' => ['farmasi'],
                     'shift'   => 'ml-2',
@@ -596,6 +596,13 @@ return [
                     'icon' => 'fas fa-pills',
                     'can' => ['farmasi', 'apotek'],
                     'active'  => ['obat', 'obat/create', 'obat/edit/*', 'stokobat'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Pemesanan Obat',
+                    'url' => 'farmasi/pemesanan-obat',
+                    'icon' => 'fas fa-box',
+                    'can' => ['farmasi'],
                     'shift'   => 'ml-2',
                 ],
                 [
