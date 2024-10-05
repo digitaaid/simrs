@@ -10,7 +10,7 @@
                                 igroup-class="col-8" igroup-size="sm" name="nomor" label="Nomor" />
                             <x-adminlte-input wire:model="tanggal_pemesanan" fgroup-class="row"
                                 label-class="text-right col-4" igroup-class="col-8" igroup-size="sm"
-                                name="tanggal_pemesanan" label="Tgl Pemesanan" />
+                                name="tanggal_pemesanan" type="date" label="Tgl Pemesanan" />
                             <x-adminlte-input wire:model="penanggungjawab" fgroup-class="row"
                                 label-class="text-right col-4" igroup-class="col-8" igroup-size="sm"
                                 name="penanggungjawab" label="Penanggungjawab" />
@@ -20,12 +20,18 @@
                                 igroup-class="col-8" igroup-size="sm" name="sipa" label="No SIPA" />
                         </div>
                         <div class="col-md-4">
-                            <x-adminlte-input wire:model="distributor" fgroup-class="row" label-class="text-right col-4"
-                                igroup-class="col-8" igroup-size="sm" name="distributor" label="Distributor" />
-                            <x-adminlte-input wire:model="alamat" fgroup-class="row" label-class="text-right col-4"
-                                igroup-class="col-8" igroup-size="sm" name="alamat" label="Alamat" />
-                            <x-adminlte-input wire:model="nohp" fgroup-class="row" label-class="text-right col-4"
-                                igroup-class="col-8" igroup-size="sm" name="nohp" label="No HP" />
+                            <x-adminlte-input wire:model.live="supplier" fgroup-class="row" label-class="text-right col-4"
+                                igroup-class="col-8" list="supplierlist" igroup-size="sm" name="supplier"
+                                label="Supplier" />
+                            <datalist id="supplierlist">
+                                @foreach ($suppliers as $key => $nama)
+                                    <option value="{{ $nama }}"></option>
+                                @endforeach
+                            </datalist>
+                            <x-adminlte-input wire:model="alamat_supplier" fgroup-class="row" label-class="text-right col-4"
+                                igroup-class="col-8" igroup-size="sm" name="alamat_supplier" label="Alamat" />
+                            <x-adminlte-input wire:model="nohp_supplier" fgroup-class="row" label-class="text-right col-4"
+                                igroup-class="col-8" igroup-size="sm" name="nohp_supplier" label="No HP" />
                         </div>
                         <div class="col-md-4">
                             <x-adminlte-input wire:model="apoteker" fgroup-class="row" label-class="text-right col-4"

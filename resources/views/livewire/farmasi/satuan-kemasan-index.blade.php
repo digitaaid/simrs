@@ -4,7 +4,23 @@
             {{ flash()->message }}
         </x-adminlte-alert>
     @endif
-
+    @if ($formImport)
+        <x-adminlte-card title="Import File" theme="secondary">
+            <x-adminlte-input-file wire:model='fileImport' name="fileImport"
+                placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File' }}" igroup-size="sm"
+                label="File Import" />
+            <x-slot name="footerSlot">
+                <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
+                    theme="success" label="Import"
+                    wire:confirm='Apakah anda yakin akan mengimport file pasien saat ini ?' />
+                <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
+                    label="Kembali" data-dismiss="modal" />
+                <div wire:loading>
+                    Loading...
+                </div>
+            </x-slot>
+        </x-adminlte-card>
+    @endif
     @if ($form)
         <x-adminlte-card title="Formulir Satuan Obat" theme="primary">
             <!-- Nama Satuan -->
@@ -25,6 +41,10 @@
             <div class="col-md-6">
                 <x-adminlte-button wire:click='tambah' class="btn-sm mb-2" label="Tambah Satuan" theme="success"
                     icon="fas fa-plus" />
+                <x-adminlte-button wire:click='export' class="btn-sm mb-2" label="Export" theme="primary"
+                    icon="fas fa-file-export" />
+                <x-adminlte-button wire:click='importform' class="btn-sm mb-2" label="Import" theme="primary"
+                    icon="fas fa-file-import" />
             </div>
             <div class="col-md-6">
                 <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian" igroup-size="sm">

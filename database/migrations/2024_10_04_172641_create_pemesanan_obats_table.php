@@ -19,15 +19,16 @@ return new class extends Migration
             $table->string('jabatan'); // Jabatan penanggung jawab
             $table->string('sipa'); // Surat Izin Praktek Apoteker
             $table->foreignId('supplier_id')->from('supplier_obats')->onDelete('cascade'); // Relasi ke pemasok
-            $table->string('alamat_distributor'); // Alamat distributor
-            $table->string('nohp'); // Nomor telepon distributor
+            $table->string('nama_supplier'); // Alamat distributor
+            $table->string('alamat_supplier'); // Alamat distributor
+            $table->string('nohp_supplier'); // Nomor telepon distributor
             $table->string('nama_sarana'); // Nama sarana
             $table->string('alamat_sarana'); // Alamat sarana
             $table->string('no_izin_sarana'); // Nomor izin sarana
             $table->string('apoteker'); // Nama apoteker
             $table->string('status')->default(1); // Status pemesanan (aktif/nonaktif)
-            $table->foreignId('pic_id')->from('users')->onDelete('set null'); // Pengguna terakhir yang bertanggung jawab
-            $table->foreignId('user_id')->from('users')->onDelete('set null'); // Pengguna yang terakhir mengubah data
+            $table->foreignId('pic'); // Pengguna terakhir yang bertanggung jawab
+            $table->foreignId('user'); // Pengguna yang terakhir mengubah data
             $table->timestamps(); // Timestamps untuk created_at dan updated_at
         });
     }

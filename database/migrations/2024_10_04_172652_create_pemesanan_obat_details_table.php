@@ -23,9 +23,9 @@ return new class extends Migration
             $table->integer('jumlah'); // Jumlah pemesanan
             $table->double('harga'); // Harga obat
             $table->double('total'); // Total (jumlah * harga)
-            $table->boolean('status')->default(0); // Status detail pemesanan (belum selesai/sudah selesai)
-            $table->foreignId('pic_id')->from('users')->onDelete('set null'); // Pengguna terakhir yang bertanggung jawab
-            $table->foreignId('user_id')->from('users')->onDelete('set null'); // Pengguna yang terakhir mengubah data
+            $table->boolean('status')->default(1); // Status detail pemesanan (belum selesai/sudah selesai)
+            $table->foreignId('pic'); // Pengguna terakhir yang bertanggung jawab
+            $table->foreignId('user'); // Pengguna yang terakhir mengubah data
             $table->timestamps();
             $table->softDeletes(); // Mendukung soft delete untuk detail pemesanan
         });

@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('supplier_obats', function (Blueprint $table) {
             $table->id();
-            $table->string('nama'); // Nama pemasok
-            $table->string('alamat'); // Alamat pemasok
-            $table->string('kontak'); // Kontak pemasok
-            $table->string('email')->nullable(); // Email pemasok (optional)
-            $table->string('nohp')->nullable(); // Nomor HP pemasok (optional)
-            $table->softDeletes(); // Soft delete jika diperlukan
+            $table->string('nama');
+            $table->string('alamat');
+            $table->string('distributor')->nullable();
+            $table->string('kontak')->nullable();
+            $table->string('email')->nullable();
+            $table->string('nohp')->nullable();
+            $table->string('pic');
+            $table->string('user');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

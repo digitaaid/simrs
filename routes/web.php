@@ -230,11 +230,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // farmasi
     Route::middleware(['can:farmasi'])->group(function () {
         Route::get('farmasi/supplier-obat', SupplierObatIndex::class)->name('supplier.obat');
-        Route::get('farmasi/satuan-kemasan', SatuanKemasanIndex::class)->name('supplier.obat');
+        Route::get('farmasi/satuan-kemasan', SatuanKemasanIndex::class)->name('satuan.kemasan');
+        Route::get('farmasi/pemesanan-obat', PemesananObatIndex::class)->name('pemesanan.obat');
         Route::get('farmasi/obat', ObatIndex::class)->name('obat.index');
         Route::get('stokobat', StokObatIndex::class)->name('stokobat.index');
-        Route::get('farmasi/pemesanan-obat', PemesananObatIndex::class)->name('pemesanan.obat');
-        Route::get('farmasi/stok-opname', PemesananObat::class)->name('stok.opname');
+        Route::get('farmasi/stok-opname', PemesananObatIndex::class)->name('stok.opname');
     });
     // rekam medis
     Route::get('rekammedis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');

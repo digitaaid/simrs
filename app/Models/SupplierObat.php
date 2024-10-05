@@ -15,6 +15,9 @@ class SupplierObat extends Model
         'alamat',
         'kontak',
         'email',
-        'nohp'
+        'nohp',
+        'pic',
+        'user',
+        'distributor',
     ];
 }

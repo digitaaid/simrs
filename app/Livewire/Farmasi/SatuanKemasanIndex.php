@@ -2,17 +2,27 @@
 
 namespace App\Livewire\Farmasi;
 
+use App\Exports\SatuanKemasanExport;
+use App\Imports\SatuanKemasanImport;
+use App\Models\ActivityLog;
 use App\Models\SatuanKemasan;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SatuanKemasanIndex extends Component
 {
+    use WithFileUploads;
     use WithPagination;
 
     public $nama, $satuanId, $search;
     public $isEdit = false;
     public $form = false;
+    public $formImport = false;
+    public $fileImport;
+
 
     protected $rules = [
         'nama' => 'required|string|max:255',
@@ -21,7 +31,7 @@ class SatuanKemasanIndex extends Component
     public function render()
     {
         return view('livewire.farmasi.satuan-kemasan-index', [
-            'satuanObat' => SatuanKemasan::where('nama', 'like', '%'.$this->search.'%')->paginate(10)
+            'satuanObat' => SatuanKemasan::where('nama', 'like', '%' . $this->search . '%')->paginate(10)
         ]);
     }
 
@@ -75,5 +85,44 @@ class SatuanKemasanIndex extends Component
     public function tutup()
     {
         $this->resetInput();
+    }
+    public function export()
+    {
+        try {
+            $time = now()->format('Y-m-d');
+
+            ActivityLog::createLog(
+                'Export satuan_kemasan',
+                auth()->user()->name . ' mengekspor data satuan_kemasan'
+            );
+
+            flash('Export successfully', 'success');
+            return Excel::download(new SatuanKemasanExport, 'satuan_kemasan_backup_' . $time . '.xlsx');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
+    }
+    public function importform()
+    {
+        $this->formImport = $this->formImport ?  0 : 1;
+    }
+    public function import()
+    {
+        try {
+            $this->validate([
+                'fileImport' => 'required|mimes:xlsx'
+            ]);
+
+            Excel::import(new SatuanKemasanImport, $this->fileImport->getRealPath());
+
+            ActivityLog::createLog(
+                'Import satuan kemasan',
+                auth()->user()->name . ' mengimpor data satuan kemasan'
+            );
+            Alert::success('Success', 'Imported successfully');
+            return redirect()->route('satuan.kemasan');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
     }
 }

@@ -2,24 +2,17 @@
 
 namespace App\Exports;
 
-use App\Models\SupplierObat;
+use App\Models\SatuanKemasan;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class SupplierObatExport implements FromCollection, WithHeadings
+class SatuanKemasanExport implements FromCollection, WithHeadings
 {
     public function collection()
     {
-        return SupplierObat::get([
+        return SatuanKemasan::get([
             'id',
             'nama',
-            'alamat',
-            'distributor',
-            'kontak',
-            'email',
-            'nohp',
-            'user',
-            'pic',
             'created_at',
             'updated_at',
         ]);
@@ -29,13 +22,6 @@ class SupplierObatExport implements FromCollection, WithHeadings
         return [
             'id',
             'nama',
-            'alamat',
-            'distributor',
-            'kontak',
-            'email',
-            'nohp',
-            'user',
-            'pic',
             'created_at',
             'updated_at',
         ];

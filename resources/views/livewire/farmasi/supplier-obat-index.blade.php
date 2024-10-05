@@ -4,6 +4,23 @@
             {{ flash()->message }}
         </x-adminlte-alert>
     @endif
+    @if ($formImport)
+        <x-adminlte-card title="Import File" theme="secondary">
+            <x-adminlte-input-file wire:model='fileImport' name="fileImport"
+                placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File' }}" igroup-size="sm"
+                label="File Import" />
+            <x-slot name="footerSlot">
+                <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
+                    theme="success" label="Import"
+                    wire:confirm='Apakah anda yakin akan mengimport file pasien saat ini ?' />
+                <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
+                    label="Kembali" data-dismiss="modal" />
+                <div wire:loading>
+                    Loading...
+                </div>
+            </x-slot>
+        </x-adminlte-card>
+    @endif
     @if ($form)
         <x-adminlte-card title="Formulir Pemasok Obat" theme="primary">
             <!-- Nama Pemasok -->
@@ -13,8 +30,12 @@
             <x-adminlte-input wire:model="alamat" name="alamat" label="Alamat Pemasok" placeholder="Masukkan Alamat"
                 fgroup-class="row" label-class="text-right col-4" igroup-class="col-8" igroup-size="sm" />
             <!-- Kontak Pemasok -->
+            <x-adminlte-input wire:model="distributor" name="distributor" label="Distributor Pemasok"
+                placeholder="Masukkan Distributor" fgroup-class="row" label-class="text-right col-4"
+                igroup-class="col-8" igroup-size="sm" />
             <x-adminlte-input wire:model="kontak" name="kontak" label="Kontak Pemasok" placeholder="Masukkan Kontak"
                 fgroup-class="row" label-class="text-right col-4" igroup-class="col-8" igroup-size="sm" />
+
             <!-- Email Pemasok -->
             <x-adminlte-input wire:model="email" name="email" label="Email Pemasok"
                 placeholder="Masukkan Email (opsional)" fgroup-class="row" label-class="text-right col-4"

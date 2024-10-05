@@ -2,20 +2,26 @@
 
 namespace App\Livewire\Farmasi;
 
+use App\Exports\SupplierObatExport;
+use App\Imports\SupplierObatImport;
+use App\Models\ActivityLog;
 use App\Models\SupplierObat;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SupplierObatIndex extends Component
 {
-    public $suppliers, $nama, $alamat, $kontak, $email, $nohp, $supplier_id;
+    use WithFileUploads;
+    public $suppliers, $nama, $alamat, $distributor, $kontak, $email, $nohp, $supplier_id;
     public $form = false;
+    public $formImport = false;
+    public $fileImport;
     public function render()
     {
-        return view('livewire.farmasi.supplier-obat-index')->title('Supplier Obat');
-    }
-    public function mount()
-    {
         $this->suppliers = SupplierObat::all();
+        return view('livewire.farmasi.supplier-obat-index')->title('Supplier Obat');
     }
     // Membuka form untuk menambah atau mengedit data
     public function tambah()
@@ -29,6 +35,7 @@ class SupplierObatIndex extends Component
         $this->nama = '';
         $this->alamat = '';
         $this->kontak = '';
+        $this->distributor = '';
         $this->email = '';
         $this->nohp = '';
         $this->supplier_id = '';
@@ -38,11 +45,12 @@ class SupplierObatIndex extends Component
     {
         // Validasi input form
         $this->validate([
-            'nama' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255',
-            'kontak' => 'required|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'nohp' => 'nullable|string|max:20',
+            'nama' => 'required|string',
+            'alamat' => 'required|string',
+            'kontak' => 'required|string',
+            'distributor' => 'nullable|string',
+            'email' => 'nullable|email',
+            'nohp' => 'nullable|numeric',
         ]);
 
         // Buat atau perbarui data SupplierObat
@@ -51,9 +59,12 @@ class SupplierObatIndex extends Component
             [
                 'nama' => $this->nama,
                 'alamat' => $this->alamat,
+                'distributor' => $this->distributor,
                 'kontak' => $this->kontak,
                 'email' => $this->email,
                 'nohp' => $this->nohp,
+                'pic' => auth()->user()->name,
+                'user' => auth()->user()->id,
             ]
         );
 
@@ -76,6 +87,7 @@ class SupplierObatIndex extends Component
         $this->kontak = $supplier->kontak;
         $this->email = $supplier->email;
         $this->nohp = $supplier->nohp;
+        $this->distributor = $supplier->distributor;
 
         $this->form = true; // Buka form untuk edit
     }
@@ -84,5 +96,44 @@ class SupplierObatIndex extends Component
     {
         SupplierObat::findOrFail($id)->delete();
         session()->flash('message', 'Data pemasok berhasil dihapus.');
+    }
+    public function export()
+    {
+        try {
+            $time = now()->format('Y-m-d');
+
+            ActivityLog::createLog(
+                'Export supplier_obat',
+                auth()->user()->name . ' mengekspor data supplier_obat'
+            );
+
+            flash('Export successfully', 'success');
+            return Excel::download(new SupplierObatExport, 'supplier_obat_backup_' . $time . '.xlsx');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
+    }
+    public function importform()
+    {
+        $this->formImport = $this->formImport ?  0 : 1;
+    }
+    public function import()
+    {
+        try {
+            $this->validate([
+                'fileImport' => 'required|mimes:xlsx'
+            ]);
+
+            Excel::import(new SupplierObatImport, $this->fileImport->getRealPath());
+
+            ActivityLog::createLog(
+                'Import supplierobat',
+                auth()->user()->name . ' mengimpor data supplierobat'
+            );
+            Alert::success('Success', 'Imported successfully');
+            return redirect()->route('supplier.obat');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
     }
 }
