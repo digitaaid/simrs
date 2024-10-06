@@ -15,7 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('kode')->unique(); // Kode unik pemesanan
             $table->string('nomor')->unique(); // Nomor unik pemesanan
-            $table->string('penganggungjawab'); // Orang yang bertanggung jawab
+            $table->date('tgl_pemesanan');
+            $table->date('tgl_kedatangan')->nullable();
+            $table->string('jenis_obat')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->string('penanggungjawab'); // Orang yang bertanggung jawab
             $table->string('jabatan'); // Jabatan penanggung jawab
             $table->string('sipa'); // Surat Izin Praktek Apoteker
             $table->foreignId('supplier_id')->from('supplier_obats')->onDelete('cascade'); // Relasi ke pemasok
@@ -27,9 +31,10 @@ return new class extends Migration
             $table->string('no_izin_sarana'); // Nomor izin sarana
             $table->string('apoteker'); // Nama apoteker
             $table->string('status')->default(1); // Status pemesanan (aktif/nonaktif)
-            $table->foreignId('pic'); // Pengguna terakhir yang bertanggung jawab
-            $table->foreignId('user'); // Pengguna yang terakhir mengubah data
-            $table->timestamps(); // Timestamps untuk created_at dan updated_at
+            $table->string('pic'); // Pengguna terakhir yang bertanggung jawab
+            $table->string('user'); // Pengguna yang terakhir mengubah data
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -24,10 +24,10 @@ return new class extends Migration
             $table->double('harga'); // Harga obat
             $table->double('total'); // Total (jumlah * harga)
             $table->boolean('status')->default(1); // Status detail pemesanan (belum selesai/sudah selesai)
-            $table->foreignId('pic'); // Pengguna terakhir yang bertanggung jawab
-            $table->foreignId('user'); // Pengguna yang terakhir mengubah data
+            $table->string('pic'); // Pengguna terakhir yang bertanggung jawab
+            $table->string('user'); // Pengguna yang terakhir mengubah data
             $table->timestamps();
-            $table->softDeletes(); // Mendukung soft delete untuk detail pemesanan
+            $table->softDeletes();
         });
     }
 
