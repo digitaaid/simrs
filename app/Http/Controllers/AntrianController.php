@@ -900,7 +900,7 @@ class AntrianController extends ApiController
                     'tgl_lahir' => $pasien->tgl_lahir ?? "1990-01-01",
                     'gender' => $pasien->gender ?? "P",
                     'kelas' => $pasien->hakkelas ?? "3",
-                    'penjamin' => $pasien->jenispeserta,
+                    'penjamin' => $pasien->jenispeserta ?? "JKN",
                     'unit' => $antrian->kodesubspesialis ?? "INT",
                     'dokter' => $antrian->kodedokter,
                     'jeniskunjungan' => $antrian->jeniskunjungan,
