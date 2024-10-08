@@ -753,7 +753,8 @@ class AntrianController extends ApiController
             }
             return $this->sendError($response->metadata->message, 200);
         } else {
-            return $this->sendError('Antrian tidak ditemukan',  201);
+            $response = $this->batal_antrean($request);
+            return $this->sendError($response->metadata->message,  $response->metadata->code);
         }
     }
     public $asalRujukan;
