@@ -21,4 +21,19 @@
             </x-slot>
         </x-adminlte-card>
     </div>
+    <div class="col-md-6" wire:poll.1000ms>
+        <x-adminlte-card title="Whatsapp Integrastion User" theme="primary">
+            @foreach ($qr as $item)
+                {!! QrCode::size(300)->generate($item->qr) !!} <br>
+                {{ $item->created_at }} Tolong scan QR Whastapp Yang Terbaru<br>
+            @endforeach
+        </x-adminlte-card>
+    </div>
+    <div class="col-md-6" wire:poll.1000ms>
+        <x-adminlte-card title="Whatsapp Log" theme="primary">
+            @foreach ($logs as $log)
+                {{ $log->created_at }} {{ $log->type }} {{ $log->status }} <br>
+            @endforeach
+        </x-adminlte-card>
+    </div>
 </div>

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\WhatsappLog;
+use App\Models\WhatsappQr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class WhatsappController extends Controller
@@ -129,10 +132,28 @@ class WhatsappController extends Controller
     }
     public function webhook(Request $request)
     {
-        $pesan = strtoupper($request->message);
-        $sholawat = "اَللّٰهُمَّ صَلِّ عَلٰى سَيِّدِنَا مُحَمَّدٍ، طِبِّ الْقُلُوْبِ وَدَوَائِهَا، وَعَافِيَةِ الْاَبْدَانِ وَشِفَائِهَا، وَنُوْرِ الْاَبْصَارِ وَضِيَائِهَا، وَعَلٰى اٰلِهِ وَصَحْبِهِ وَسَلِّمْ";
-        $request['message'] = $sholawat;
-        $request['number'] = '6289529909036@c.us';
-        return $this->send_message($request);
+        if ($request->username == env('WHATASAPP_USERNAME')) {
+            if ($request->type == "qr") {
+                WhatsappQr::create([
+                    'qr' => $request->qr,
+                    'username' => $request->username,
+                ]);
+                Log::info('QR Whatsapp : ' . $request->data);
+            }
+            if ($request->type == "message") {
+                WhatsappQr::create([
+                    'qr' => $request->qr,
+                    'username' => $request->username,
+                ]);
+                Log::info('QR Whatsapp : ' . $request->data);
+            }
+            WhatsappLog::create([
+                'status' => $request->status,
+                'type' => $request->type,
+                'username' => $request->username,
+            ]);
+        } else {
+            Log::warning('Error Username Whatsapp : ' . $request->username);
+        }
     }
 }

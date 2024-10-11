@@ -3,6 +3,7 @@
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\JadwalOperasiController;
 use App\Http\Controllers\VclaimController;
+use App\Http\Controllers\WhatsappController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -69,5 +70,7 @@ Route::prefix('antrian')->group(function () {
 Route::prefix('vclaim')->group(function () {
     Route::get('rujukan_nomor', [VclaimController::class, 'rujukan_nomor'])->name('rujukan_nomor');
     Route::get('rujukan_peserta', [VclaimController::class, 'rujukan_peserta'])->name('rujukan_peserta');
-
+});
+Route::prefix('wa')->group(function () {
+    Route::post('webhook', [WhatsappController::class, 'webhook'])->name('webhook');
 });

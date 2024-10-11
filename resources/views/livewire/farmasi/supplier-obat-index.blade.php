@@ -13,7 +13,7 @@
                 <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
                     theme="success" label="Import"
                     wire:confirm='Apakah anda yakin akan mengimport file pasien saat ini ?' />
-                <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
+                <x-adminlte-button theme="danger" wire:click='tambah' class="btn-sm" icon="fas fa-times"
                     label="Kembali" data-dismiss="modal" />
                 <div wire:loading>
                     Loading...
@@ -49,7 +49,7 @@
                 <!-- Tombol Simpan dengan Loading Indicator -->
                 <x-adminlte-button label="Simpan" icon="fas fa-save" class="btn-sm" theme="success" wire:click="store"
                     wire:loading.attr="disabled" wire:confirm="Apakah Anda yakin ingin menyimpan data pemasok?" />
-                <x-adminlte-button wire:click="tutup" class="btn-sm" label="Tutup" theme="danger"
+                <x-adminlte-button wire:click="tambah" class="btn-sm" label="Tutup" theme="danger"
                     icon="fas fa-times" />
             </x-slot>
         </x-adminlte-card>

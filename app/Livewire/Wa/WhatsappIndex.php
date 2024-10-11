@@ -3,12 +3,14 @@
 namespace App\Livewire\Wa;
 
 use App\Http\Controllers\WhatsappController;
+use App\Models\WhatsappLog;
+use App\Models\WhatsappQr;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
 class WhatsappIndex extends Component
 {
-    public $number, $message;
+    public $number, $message, $qr, $logs;
     public function kirim(Request $request)
     {
         $api = new WhatsappController();
@@ -29,6 +31,8 @@ class WhatsappIndex extends Component
     }
     public function render()
     {
+        $this->qr = WhatsappQr::orderBy('created_at', 'desc')->limit(3)->get();
+        $this->logs = WhatsappLog::orderBy('created_at', 'desc')->limit(10)->get();
         return view('livewire.wa.whatsapp-index')->title('Whatsapp');
     }
 }
