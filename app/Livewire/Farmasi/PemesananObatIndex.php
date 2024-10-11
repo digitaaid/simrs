@@ -190,5 +190,6 @@ class PemesananObatIndex extends Component
         }
         $pemesanans->delete();
         session()->flash('message', 'Pemesanan obat berhasil dihapus.');
+        $this->form = 0;
     }
 }
