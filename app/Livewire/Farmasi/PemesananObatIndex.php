@@ -103,7 +103,7 @@ class PemesananObatIndex extends Component
                 'nomor' => $this->nomor,
             ],
             [
-
+                'kode' => strtoupper(uniqid()),
                 'tgl_pemesanan' => $this->tgl_pemesanan,
                 'penanggungjawab' => $this->penanggungjawab,
                 'jabatan' => $this->jabatan,
