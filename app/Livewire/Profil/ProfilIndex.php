@@ -11,6 +11,11 @@ class ProfilIndex extends Component
 {
     public $user;
     public $id, $name, $email, $phone, $username, $password;
+    public function render()
+    {
+        return view('livewire.profil.profil-index')
+            ->title('Profil');
+    }
     public function save()
     {
         $user = Auth::user();
@@ -38,10 +43,5 @@ class ProfilIndex extends Component
         $this->email = $user->email;
         $this->phone = $user->phone;
         $this->username = $user->username;
-    }
-    public function render()
-    {
-        return view('livewire.profil.profil-index')
-            ->title('Profil');
     }
 }
