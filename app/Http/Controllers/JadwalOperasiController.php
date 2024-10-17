@@ -19,7 +19,7 @@ class JadwalOperasiController extends ApiController
         }
         $wa = new WhatsappController();
         $request['number'] = "089529909036";
-        $request['message'] = "get jadwal operasi " . now();
+        $request['message'] = "get jadwal operasi rs " . now();
         $res = $wa->send_message($request);
         $jadwals = [];
         for ($i = 1; $i < 3; $i++) {
@@ -47,6 +47,10 @@ class JadwalOperasiController extends ApiController
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first(),  201);
         }
+        $wa = new WhatsappController();
+        $request['number'] = "089529909036";
+        $request['message'] = "get jadwal operasi pasiem nobpjs : " . $request->nopeserta . " \nwaktu: " . now();
+        $res = $wa->send_message($request);
         $jadwals = [];
         for ($i = 1; $i < 3; $i++) {
             $jadwals[] = [
