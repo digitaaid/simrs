@@ -27,7 +27,7 @@ class JadwalOperasiController extends ApiController
                 "namapoli" =>  "ANAK",
                 "terlaksana" =>  0,
                 "nopeserta" =>  '0000067026778',
-                "lastupdate" => Carbon::now()->timestamp * 1000,
+                "lastupdate" => Carbon::parse("2024-10-17 07:00:00")->timestamp * 1000,
             ];
         }
         $response = [
