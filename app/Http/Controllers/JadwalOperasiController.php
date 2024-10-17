@@ -23,8 +23,8 @@ class JadwalOperasiController extends ApiController
                 "kodebooking" => 'OK' . Carbon::now()->format('Ymd') . $i,
                 "tanggaloperasi" => Carbon::now()->format('Y-m-d'),
                 "jenistindakan" => 'test briding jadwal operasi',
-                "kodepoli" => 'BED',
-                "namapoli" =>  "BEDAH",
+                "kodepoli" => 'ANA',
+                "namapoli" =>  "ANAK",
                 "terlaksana" =>  0,
                 "nopeserta" =>  '0000067026778',
                 "lastupdate" => Carbon::now()->timestamp * 1000,
@@ -49,8 +49,8 @@ class JadwalOperasiController extends ApiController
                 "kodebooking" => 'OK' . Carbon::now()->format('Ymd') . $i,
                 "tanggaloperasi" => Carbon::now()->format('Y-m-d'),
                 "jenistindakan" => 'test briding jadwal operasi',
-                "kodepoli" => 'BED',
-                "namapoli" =>  "BEDAH",
+                "kodepoli" => 'ANA',
+                "namapoli" =>  "ANAK",
                 "terlaksana" => 0,
             ];
         }
