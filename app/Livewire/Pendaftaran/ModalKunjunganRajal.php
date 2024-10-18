@@ -12,10 +12,10 @@ use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ModalKunjunganRajal extends Component
 {
-    protected $listeners = ['refreshPage' => '$refresh'];
     public $antrian, $jaminans, $polikliniks, $dokters;
     public $diagnosas = [];
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $tgl_lahir, $nohp, $fktp, $gender, $hakkelas, $jenispeserta, $kode, $counter, $jaminan, $tgl_masuk, $unit, $dokter, $caramasuk, $diagnosa, $jeniskunjungan, $nomorreferensi, $sep;
@@ -66,7 +66,9 @@ class ModalKunjunganRajal extends Component
         ]);
         try {
             $antrian = Antrian::find($this->antrianId);
-            $counter = Kunjungan::where('norm', $antrian->norm)->first()?->counter ?? 1;
+            if (!$this->kode && !$this->counter) {
+                $this->counter = Kunjungan::where('norm', $antrian->norm)->count() + 1 ?? 1;
+            }
             // update pasien
             $pasien = Pasien::firstWhere('norm', $this->norm);
             $pasien->update([
@@ -81,8 +83,8 @@ class ModalKunjunganRajal extends Component
             // simpan kunjungan
             $kunjungan = Kunjungan::updateOrCreate([
                 'kode' => $antrian->kodebooking,
-                'counter' => $counter,
             ], [
+                'counter' => $this->counter,
                 'tgl_masuk' => Carbon::parse($this->tgl_masuk),
                 'jaminan' => $this->jaminan,
                 'nomorkartu' => $this->nomorkartu,
@@ -100,7 +102,6 @@ class ModalKunjunganRajal extends Component
                 'sep' => $this->sep,
                 'diagnosa_awal' => $this->diagnosa,
                 'cara_masuk' => $this->caramasuk,
-                'status' => 1,
                 'user1' => auth()->user()->id,
             ]);
             // update antrian
@@ -111,11 +112,12 @@ class ModalKunjunganRajal extends Component
                 'user1' => auth()->user()->id,
             ]);
             // masukan tarif
-            flash('Kunjungan atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
-            $this->dispatch('refreshPage');
+            Alert::success('Success', 'Kunjungan atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
         } catch (\Throwable $th) {
-            flash($th->getMessage(), 'danger');
+            Alert::error('Mohon Maaf', $th->getMessage());
         }
+        $url = route('pendaftaran.rajal.proses', $this->kodebooking);
+        return redirect()->to($url);
     }
     public function cariNomorKartu()
     {
@@ -193,10 +195,10 @@ class ModalKunjunganRajal extends Component
         $this->antrian = $antrian;
         $this->antrianId = $antrian->id;
         $this->kodebooking = $antrian->kodebooking;
-        $this->nomorkartu = $antrian->nomorkartu;
-        $this->nik = $antrian->nik;
-        $this->norm = $antrian->norm;
-        $this->nama = $antrian->nama;
+        $this->nomorkartu = $antrian->kunjungan?->nomorkartu ?? $antrian->nomorkartu;
+        $this->nik = $antrian->kunjungan?->nik ?? $antrian->nik;
+        $this->norm = $antrian->kunjungan?->norm ?? $antrian->norm;
+        $this->nama = $antrian->kunjungan?->nama ?? $antrian->nama;
         $this->tgl_lahir = $antrian->kunjungan?->tgl_lahir;
         $this->gender = $antrian->kunjungan?->gender;
         $this->hakkelas = $antrian->kunjungan?->kelas;
@@ -204,15 +206,20 @@ class ModalKunjunganRajal extends Component
         $this->kode = $antrian->kunjungan?->kode;
         $this->counter = $antrian->kunjungan?->counter;
         $this->tgl_masuk = $antrian->kunjungan?->tgl_masuk;
-        $this->jaminan = $antrian->kunjungan?->jaminan;
-        $this->unit = $antrian->kunjungan?->unit;
-        $this->dokter = $antrian->kunjungan?->dokter;
+        if ($antrian->jenispasien == 'JKN') {
+            $jaminan = "00003";
+        } else {
+            $jaminan = "00001";
+        }
+        $this->jaminan = $antrian->kunjungan?->jaminan ?? $jaminan;
+        $this->unit = $antrian->kunjungan?->unit ?? $antrian->kodepoli;
+        $this->dokter = $antrian->kunjungan?->dokter ?? $antrian->kodedokter;
         $this->caramasuk = $antrian->kunjungan?->cara_masuk;
         $this->diagnosa = $antrian->kunjungan?->diagnosa_awal;
-        $this->nomorreferensi = $antrian->kunjungan?->nomorreferensi;
+        $this->nomorreferensi = $antrian->kunjungan?->nomorreferensi ?? $antrian->nomorreferensi;
         $this->sep = $antrian->kunjungan?->sep;
         $this->jeniskunjungan =  $antrian->kunjungan?->jeniskunjungan ?? $antrian->jeniskunjungan;
-        $this->polikliniks = Unit::pluck('nama', 'kode');
+        $this->polikliniks = Unit::where("jenis", "Pelayanan Rawat Jalan")->pluck('nama', 'kode');
         $this->dokters = Dokter::pluck('nama', 'kode');
         $this->jaminans = Jaminan::pluck('nama', 'kode');
     }

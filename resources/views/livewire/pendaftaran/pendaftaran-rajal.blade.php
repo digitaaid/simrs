@@ -6,30 +6,43 @@
             </x-adminlte-alert>
         </div>
     @endif
-    @if (isset($antrians))
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 2)->first()->nomorantrean ?? '-' }}"
-                        text="Antrian Dilayani" theme="primary" icon="fas fa-user-injured"
-                        url="{{ route('pendaftaran.rajal.proses', $antrians->where('taskid', 1)->first()->kodebooking ?? '00') }}"
-                        url-text="Proses Antrian Selanjutnya" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 1)->count() }}" text="Sisa Antrian"
-                        theme="warning" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}"
-                        text="Total Antrian" theme="success" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 99)->count() }}" text="Batal Antrian"
-                        theme="danger" icon="fas fa-user-injured" />
-                </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box
+                    title="{{ count($antrians) ? $antrians->where('taskid', '!=', 99)->count() : '-' }}"
+                    text="Total Pasien" theme="success" icon="fas fa-user-injured" />
             </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box
+                    title="{{ count($antrians) ? $antrians->where('taskid', '!=', 99)->where('jenispasien', 'JKN')->count() : '-' }}"
+                    text="Pasien JKN" theme="warning" icon="fas fa-user-injured" />
+            </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box
+                    title="{{ count($antrians) ? $antrians->where('taskid', '!=', 99)->where('jenispasien', 'NON-JKN')->count() : '-' }}"
+                    text="Pasien NON-JKN" theme="warning" icon="fas fa-user-injured" />
+            </div>
+            @if (count($antrians))
+                <div class="col-lg-3 col-6">
+                    @php
+                        if ($antrians->where('taskid', 7)->count()) {
+                            $pemanfaatan =
+                                ($antrians->where('taskid', 7)->where('method', 'Mobile JKN')->count() /
+                                    $antrians->where('taskid', 7)->count()) *
+                                100;
+                        } else {
+                            $pemanfaatan = 0;
+                        }
+                        $pemanfaatan = number_format($pemanfaatan, 2);
+                    @endphp
+                    <x-adminlte-small-box
+                        title="{{ $antrians->where('taskid', 7)->where('method', 'Mobile JKN')->count() }}"
+                        text="{{ $pemanfaatan }}%  Pemanfaatan MJKN" theme="primary" icon="fas fa-user-injured" />
+                </div>
+            @endif
         </div>
-    @endif
+    </div>
     <div class="col-md-12">
         <x-adminlte-card title="Table Antrian Pendaftaran" theme="secondary">
             <div class="row">
@@ -70,9 +83,10 @@
                     'Kodebooking',
                     'No RM',
                     'Nama Pasien',
+                    'Jenis Pasien',
+                    'SEP',
                     'Action',
                     'Taskid',
-                    'Jenis Pasien',
                     'Layanan',
                     'Unit',
                     'Dokter',
@@ -89,12 +103,17 @@
                 hoverable compressed>
                 @isset($antrians)
                     @foreach ($antrians as $item)
-                        <tr>
+                        <tr
+                            class="{{ $item->nomorkartu ? ($item->jenispasien == 'JKN' ? $item->sep ?? 'table-danger' : null) : null }}">
                             <td>{{ $item->angkaantrean }}</td>
                             <td>{{ $item->nomorantrean }}</td>
                             <td>{{ $item->kodebooking }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
+                            <td>{{ $item->jenispasien }}</td>
+                            <td>
+                                {{ $item->nomorkartu ? ($item->jenispasien == 'JKN' ? $item->sep ?? 'Belum Input' : null) : null }}
+                            </td>
                             <td>
                                 @if ($item->taskid <= 2)
                                     <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
@@ -170,7 +189,6 @@
                                         {{ $item->taskid }}
                                 @endswitch
                             </td>
-                            <td>{{ $item->jenispasien }} </td>
                             <td class="text-right">{{ money($item->layanans->sum('harga'), 'IDR') }} </td>
                             <td>{{ $item->kunjungan->units->nama ?? $item->namapoli }} </td>
                             <td>{{ $item->kunjungan->dokters->namadokter ?? $item->namadokter }}</td>
@@ -178,7 +196,25 @@
                             <td>{{ $item->nomorkartu }}</td>
                             <td>{{ $item->nik }} </td>
                             <td>{{ $item->method }} </td>
-                            <td>{{ $item->status }} </td>
+                            <td>
+                                @switch($item->kunjungan?->status)
+                                    @case(1)
+                                        <span class="badge badge-warning">Aktif</span>
+                                    @break
+
+                                    @case(2)
+                                        <span class="badge badge-success">Selesai</span>
+                                    @break
+
+                                    @case(99)
+                                        <span class="badge badge-danger">Batal</span>
+                                    @break
+
+                                    @default
+                                        <span class="badge badge-secondary">{{ $item->kunjungan?->status }}</span>
+                                @endswitch
+
+                            </td>
                         </tr>
                     @endforeach
                 @endisset

@@ -31,7 +31,7 @@
             </div>
         @endif
         {{-- Email field --}}
-        <div class="input-group mb-3">
+        <div class="input-group mb-2">
             <input name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
                 placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
 
@@ -49,7 +49,7 @@
         </div>
 
         {{-- Password field --}}
-        <div class="input-group mb-3">
+        <div class="input-group mb-2">
             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
                 placeholder="{{ __('adminlte::adminlte.password') }}">
 
@@ -66,6 +66,24 @@
             @enderror
         </div>
 
+        {{-- Captcha field --}}
+        <div class="input-group mb-2">
+            <input name="captcha" class="form-control @error('captcha') is-invalid @enderror" placeholder="Captcha">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-image"></span>
+                </div>
+            </div>
+            @error('captcha')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="captcha  mb-2">
+            <span>{!! captcha_img() !!}</span>
+            <button type="button" class="btn btn-secondary btn-refresh"><i class="fas fa-sync"></i></button>
+        </div>
         {{-- Login field --}}
         <div class="row">
             <div class="col-7">

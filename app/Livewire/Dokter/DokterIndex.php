@@ -3,8 +3,12 @@
 namespace App\Livewire\Dokter;
 
 use App\Exports\DokterExport;
+use App\Http\Controllers\SatuSehatController;
 use App\Imports\DokterImport;
 use App\Models\Dokter;
+use App\Models\Integration;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -20,6 +24,32 @@ class DokterIndex extends Component
     public $id, $nama, $kode, $kodejkn, $nik, $user_id, $idpractitioner, $title, $gender, $sip, $image, $status, $user, $pic;
     public $fileImport;
     public $dokter;
+
+
+    public function cariIdPractitioner($nik)
+    {
+        $res = $this->practitioner_by_nik($nik);
+        $dokter = Dokter::where('nik', $nik)->first();
+        if (count($res->response->entry)) {
+            $id = $res->response->entry[0]->resource->id;
+            $dokter->update([
+                'idpractitioner' => $id
+            ]);
+            flash('Data Dokter sudah disinkronkan satusehat', 'success');
+        } else {
+            flash('Data Dokter tidak ditemukan di satusehat', 'danger');
+        }
+    }
+    public function practitioner_by_nik($nik)
+    {
+        $token = Cache::get('satusehat_access_token');
+        $api = Integration::where('name', 'Satu Sehat')->first();
+        $url = $api->base_url . "/Practitioner?identifier=https://fhir.kemkes.go.id/id/nik|" . $nik;
+        $response = Http::withToken($token)->get($url);
+        $data = $response->json();
+        $api = new SatuSehatController();
+        return $api->responseSatuSehat($data);
+    }
 
     public function store()
     {

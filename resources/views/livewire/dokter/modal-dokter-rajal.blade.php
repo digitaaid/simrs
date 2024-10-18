@@ -1,4 +1,4 @@
-<div id="pemeriksaandokter">
+<div>
     <x-adminlte-card theme="primary" title="Pemeriksaan Dokter">
         @if (flash()->message)
             <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>

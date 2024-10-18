@@ -2,10 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class ApiController extends Controller
 {
+    public function sendAntrian($data, $message)
+    {
+        $response = [
+            'response' => $data,
+            'metadata' => [
+                'message' => $message,
+                'code' =>  201
+            ],
+        ];
+        return new JsonResponse($response);
+        // return response($response)
+        //     ->header('Content-Type', 'application/json');
+    }
     public function sendResponse($data, int $code = 200)
     {
         $response = [

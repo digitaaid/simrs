@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Pegawai;
 
-use App\Models\User;
 use Livewire\Component;
 
 class PegawaiIndex extends Component

@@ -15,7 +15,7 @@ class AntreanBelumLayani extends Component
         $request = new Request();
         $res  = $api->antrian_belum_dilayani($request);
         if ($res->metadata->code == 200) {
-            $this->antrians = $res->response[0];
+            $this->antrians = $res->response;
             flash($res->metadata->message, 'success');
         } else {
             flash($res->metadata->message, 'danger');

@@ -18,7 +18,6 @@ class ModalSep extends Component
     public $nomorkartu, $tanggal, $seps = [], $form = false;
     public $asalRujukan, $rujukans = [], $suratkontrols = [];
     public $noKartu, $noMR, $nama, $tglSep, $ppkPelayanan, $jnsPelayanan, $klsRawatHak, $tglRujukan, $noRujukan, $ppkRujukan, $catatan, $diagAwal, $tujuan, $eksekutif, $tujuanKunj = 0, $flagProcedure = "", $kdPenunjang = "", $assesmentPel = "", $noSurat, $kodeDPJP, $dpjpLayan, $noTelp, $user;
-
     public function hapusSurat($noSep)
     {
         $request = new Request([
@@ -37,6 +36,7 @@ class ModalSep extends Component
                     'sep' =>  null,
                 ]);
             }
+            $this->cariSEP();
             return flash($res->metadata->message, 'success');
         } else {
             return flash($res->metadata->message, 'danger');
@@ -91,7 +91,7 @@ class ModalSep extends Component
                 $this->asalRujukan = $this->asalRujukan;
                 $this->noRujukan = $rujukan->noKunjungan;
                 $this->tglRujukan = $rujukan->tglKunjungan;
-                $this->ppkRujukan = $rujukan->peserta->provUmum->kdProvider;
+                $this->ppkRujukan = $rujukan->provPerujuk->kode;
                 flash($res->metadata->message, 'success');
             } else {
                 return flash($res->metadata->message, 'danger');
@@ -138,6 +138,8 @@ class ModalSep extends Component
                     'nomorreferensi' =>  $this->nomorreferensi,
                 ]);
             }
+            $this->cariSEP();
+            $this->form = 0;
             $this->dispatch('refreshPage');
             return flash($res->metadata->message, 'success');
         } else {
@@ -265,9 +267,9 @@ class ModalSep extends Component
         $this->noMR = $antrian->norm;
         $this->nama = $antrian->nama;
         $this->noTelp = $antrian->nohp;
-
         $this->polikliniks = Unit::pluck('nama', 'kode');
         $this->dokters = Dokter::pluck('nama', 'kodejkn');
+        $this->cariSEP();
     }
     public function render()
     {

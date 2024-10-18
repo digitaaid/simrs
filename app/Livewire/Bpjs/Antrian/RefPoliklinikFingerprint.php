@@ -12,7 +12,7 @@ class RefPoliklinikFingerprint extends Component
     {
         $api = new AntrianController();
         $res  = $api->ref_poli_fingerprint();
-        if ($res->metadata->code) {
+        if ($res->metadata->code == 200) {
             $this->polikliniks = $res->response;
         } else {
             flash($res->metadata->message, 'danger');

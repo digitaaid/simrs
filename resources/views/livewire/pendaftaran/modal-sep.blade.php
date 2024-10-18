@@ -1,4 +1,4 @@
-<div id="modalsep">
+<div>
     <x-adminlte-card theme="primary" title="SEP Pasien">
         <div class="row">
             <div class="col-md-4">
@@ -253,5 +253,4 @@
             </x-slot>
         </x-adminlte-card>
     @endif
-
 </div>

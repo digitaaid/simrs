@@ -16,7 +16,7 @@ class ModalLayananTindakan extends Component
     public function hapusLayanan(Layanan $layanan)
     {
         $user =  auth()->user()->id;
-        if ($layanan->user == $user) {
+        if ($layanan->user == $user || auth()->user()->hasPermissionTo('rekam-medis')) {
             $layanan->delete();
             $this->dispatch('refreshPage');
             flash('Layanan berhasil dihapus.', 'success');
@@ -101,11 +101,11 @@ class ModalLayananTindakan extends Component
         $this->kodekunjungan = $antrian->kunjungan->kode;
         $this->kunjungan_id = $antrian->kunjungan->id;
         $this->jaminan = $antrian->kunjungan->jaminan;
+        $this->tindakans = Tindakan::pluck('harga', 'nama');
+        $this->jaminans = Jaminan::pluck('nama', 'kode');
     }
     public function render()
     {
-        $this->tindakans = Tindakan::pluck('harga', 'nama');
-        $this->jaminans = Jaminan::pluck('nama', 'kode');
         return view('livewire.perawat.modal-layanan-tindakan');
     }
 }

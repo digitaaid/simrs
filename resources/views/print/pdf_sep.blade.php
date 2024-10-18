@@ -12,7 +12,7 @@
                 <b>KLINIK UTAMA KITA SEHAT</b><br>
             </td>
             <td width="50%" style="vertical-align: bottom;">
-                <b>NO. {{ $sep->noSep }}</b><br>
+                <b>E-SEP NO. {{ $sep->noSep }}</b><br>
             </td>
             <td width="10%" class="text-center" style="vertical-align: bottom;">
                 <img src="{{ public_path('kitasehat/logokitasehat.png') }}" style="height: 30px;">
@@ -36,12 +36,7 @@
                     <tr>
                         <td>No Kartu</td>
                         <td>:</td>
-                        <td><b>{{ $sep->peserta->noKartu }}</b></td>
-                    </tr>
-                    <tr>
-                        <td>No RM</td>
-                        <td>:</td>
-                        <td><b>{{ $sep->peserta->noMr }}</b></td>
+                        <td><b>{{ $sep->peserta->noKartu }} (MR. {{ $sep->peserta->noMr }})</b></td>
                     </tr>
                     <tr>
                         <td>Nama</td>
@@ -54,33 +49,9 @@
                         <td><b> {{ Carbon\Carbon::parse($sep->peserta->tglLahir)->translatedFormat('d F Y') }}</b>
                     </tr>
                     <tr>
-                        <td>Jenis Peserta</td>
+                        <td>No Telp</td>
                         <td>:</td>
-                        <td><b>{{ $sep->peserta->jnsPeserta }}</b></td>
-                    </tr>
-                </table>
-            </td>
-            <td width="50%">
-                <table class="table-borderless">
-                    <tr>
-                        <td>No Rujukan</td>
-                        <td>:</td>
-                        <td><b>{{ $sep->noRujukan }}</b></td>
-                    </tr>
-                    <tr>
-                        <td>No Surat Kontrol</td>
-                        <td>:</td>
-                        <td><b>{{ $sep->kontrol->noSurat }}</b></td>
-                    </tr>
-                    <tr>
-                        <td>Jenis Pelayanan</td>
-                        <td>:</td>
-                        <td><b>{{ $sep->jnsPelayanan }}</b></td>
-                    </tr>
-                    <tr>
-                        <td>Kelas Rawat</td>
-                        <td>:</td>
-                        <td><b>{{ $sep->kelasRawat }}</b></td>
+                        <td><b>{{ $peserta->mr->noTelepon }}</b></td>
                     </tr>
                     <tr>
                         <td>Sub/Spesialis</td>
@@ -93,6 +64,11 @@
                         <td><b>{{ $sep->dpjp->nmDPJP }}</b></td>
                     </tr>
                     <tr>
+                        <td>Faskes Perujuk</td>
+                        <td>:</td>
+                        <td><b>{{ $peserta->provUmum->nmProvider }}</b></td>
+                    </tr>
+                    <tr>
                         <td>Diagnosa Awal</td>
                         <td>:</td>
                         <td><b>{{ $sep->diagnosa }}</b></td>
@@ -103,6 +79,62 @@
                         <td><b>{{ $sep->catatan }}</b></td>
                     </tr>
 
+                </table>
+            </td>
+            <td width="50%">
+                <table class="table-borderless">
+                    <tr>
+                        <td>Jenis Peserta</td>
+                        <td>:</td>
+                        <td><b>{{ $sep->peserta->jnsPeserta }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Jns Pelayanan</td>
+                        <td>:</td>
+                        <td><b>{{ $sep->jnsPelayanan }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Jns Kunjungan</td>
+                        <td>:</td>
+                        <td>
+                            <b>
+                                - {{ $sep->tujuanKunj->nama }} <br>
+                                - {{ $sep->flagProcedure->nama }} <br>
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Poli Perujuk</td>
+                        <td>:</td>
+                        <td><b>-</b></td>
+                    </tr>
+                    <tr>
+                        <td>Kelas Hak</td>
+                        <td>:</td>
+                        <td><b>
+                                {{ $sep->peserta->hakKelas }}
+                            </b></td>
+                    </tr>
+                    <tr>
+                        <td>Kelas Rawat</td>
+                        <td>:</td>
+                        <td><b>{{ $sep->kelasRawat }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Penjamin</td>
+                        <td>:</td>
+                        <td><b>{{ $sep->penjamin }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>No Rujukan</td>
+                        <td>:</td>
+                        <td><b>{{ $sep->noRujukan }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>No Surat Kontrol</td>
+                        <td>:</td>
+                        <td><b>{{ $sep->kontrol->noSurat }}</b></td>
+                    </tr>
                 </table>
             </td>
         </tr>
@@ -144,15 +176,14 @@
                             <b> Pasien/<br>
                                 Keluarga Pasien
                             </b>
-                            <br><br><br><br>
-                            <hr>
+                            <br>
+                            <img src="{{ $qrpasien }}" width="50px">
                         </td>
                         <td style="padding-left: 30px">
                             <b> Petugas<br>
-                                BPJS Kesehatan
                             </b>
-                            <br><br><br><br>
-                            <hr>
+                            <br>
+                            <img src="{{ $qrpetugas }}" width="50px">
                         </td>
                     </tr>
                 </table>
@@ -162,8 +193,9 @@
     </table>
     <style>
         @page {
-            size: 210mm 100mm;
-            /* Misalnya ukuran A4 */
+            size: 241mm 105mm;
+            margin-left: 30mm
+                /* Misalnya ukuran A4 */
         }
     </style>
 @endsection

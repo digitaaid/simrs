@@ -5,9 +5,11 @@
                 {{ flash()->message }}
             </x-adminlte-alert>
         @endif
-        @if ($form)
-            @include('livewire.jadwaldokter.form-jadwal-dokter')
-        @endif
+        <div id="editJadwal">
+            @if ($form)
+                @include('livewire.jadwaldokter.form-jadwal-dokter')
+            @endif
+        </div>
         @if ($formImport)
             <x-adminlte-card title="Import Dokter" theme="secondary">
                 <x-adminlte-input-file wire:model='fileImport' name="fileImport"
@@ -70,8 +72,10 @@
                             <td>{{ $item->namadokter }}</td>
                             <td>{{ $item->namapoli }}</td>
                             <td>
-                                <x-adminlte-button label="Edit" class="btn-xs" icon="fas fa-edit"
+                                <a href="#editJadwal">
+                                    <x-adminlte-button label="Edit" class="btn-xs" icon="fas fa-edit"
                                     wire:click="edit({{ $item }})" theme="warning" />
+                                </a>
                                 <x-adminlte-button class="btn-xs" icon="fas fa-trash"
                                     wire:click="destroy({{ $item }})"
                                     wire:confirm="Apakah anda yakin ingin menghapus jadwal ?" theme="danger" />

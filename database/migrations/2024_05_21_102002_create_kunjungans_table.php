@@ -29,6 +29,10 @@ return new class extends Migration
 
             $table->string('unit');
             $table->string('dokter');
+            // ranap
+            $table->string('kode_transfer')->nullable();
+            $table->string('kamar_id')->nullable();
+            $table->string('bed_id')->nullable();
 
             $table->string('jeniskunjungan');
             $table->string('nomorreferensi')->nullable();

@@ -4,6 +4,7 @@ namespace App\Livewire\Pendaftaran;
 
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\VclaimController;
+use App\Models\ActivityLog;
 use App\Models\Antrian;
 use App\Models\Dokter;
 use App\Models\JadwalDokter;
@@ -12,14 +13,14 @@ use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ModalAntrianRajal extends Component
 {
-    protected $listeners = ['refreshPage' => '$refresh'];
     public $antrian, $polikliniks, $dokters;
-    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien, $keterangan, $perujuk, $jeniskunjungan, $jeniskunjunjgan;
+    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $namadokter, $jenispasien, $keterangan, $perujuk, $jeniskunjungan, $jeniskunjunjgan;
     public $gender, $tgl_lahir, $fktp, $jenispeserta, $hakkelas;
-    public $pasienbaru = 0, $estimasidilayani, $sisakuotajkn, $kuotajkn, $sisakuotanonjkn, $kuotanonjkn;
+    public $pasienbaru, $estimasidilayani, $sisakuotajkn, $kuotajkn, $sisakuotanonjkn, $kuotanonjkn;
     public $asalRujukan, $nomorreferensi, $noRujukan, $noSurat;
     public $rujukans = [], $suratkontrols = [];
     public function editAntrian()
@@ -36,6 +37,7 @@ class ModalAntrianRajal extends Component
             'kodepoli' => 'required',
             'kodedokter' => 'required',
         ]);
+        $this->pasienbaru = $this->pasienbaru ? 1 : 0;
         // proses data antrian
         if ($this->jenispasien == "JKN") {
             $this->validate([
@@ -55,7 +57,7 @@ class ModalAntrianRajal extends Component
                 $this->nomorreferensi = $this->noSurat;
             } else {
                 $request['nomorrujukan'] = $this->noRujukan;
-                if ($request->asalRujukan == 2) {
+                if ($this->asalRujukan == 2) {
                     $this->jeniskunjungan = 4;
                     $res =  $vclaim->rujukan_rs_nomor($request);
                 } else {
@@ -73,6 +75,17 @@ class ModalAntrianRajal extends Component
         $this->keterangan = "Antrian proses di pendaftaran";
         // simpan antrean
         $antrian = Antrian::find($this->antrianId);
+        // cek antrian sebelumnya
+        $antrianx = Antrian::where('norm', $this->norm)
+            ->whereDate('tanggalperiksa', $this->tanggalperiksa)
+            ->where('taskid', '<=', 5)
+            ->first();
+        if ($antrianx) {
+            if ($antrianx->taskid >= 3 && $antrianx->taskid <= 5 && $antrianx->id != $antrian->id) {
+                return flash('Pasien sudah mendapatkan pelayanan. Silahkan batalkan terlebih dahulu.', 'danger');
+            }
+        }
+        $dokter = Dokter::where('kodejkn', $this->kodedokter)->first();
         $antrian->update([
             'nomorkartu' => $this->nomorkartu,
             'nik' => $this->nik,
@@ -82,6 +95,7 @@ class ModalAntrianRajal extends Component
             'tanggalperiksa' => $this->tanggalperiksa,
             'kodepoli' => $this->kodepoli,
             'kodedokter' => $this->kodedokter,
+            'namadokter' => $dokter->nama,
             'jenispasien' => $this->jenispasien,
             'jeniskunjungan' => $this->jeniskunjungan,
             'perujuk' => $this->perujuk,
@@ -89,6 +103,7 @@ class ModalAntrianRajal extends Component
             'nomorrujukan' => $this->noRujukan,
             'nomorsuratkontrol' => $this->noSurat,
             'keterangan' => $this->keterangan,
+            'pasienbaru' => $this->pasienbaru,
             'user1' => auth()->user()->id,
         ]);
         $pasien = Pasien::where('norm', $this->norm)->first();
@@ -115,6 +130,11 @@ class ModalAntrianRajal extends Component
         } else {
             return flash($res->metadata->message, 'danger');
         }
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Create/Update Antrian Pasien',
+            'description' => auth()->user()->name . ' telah create/update antrian pasien ' . $antrian->nama . ' dengan kodebooking ' . $antrian->kodebooking . ' pada tanggal ' . $antrian->tanggalperiksa . ' dan nomorantrean ' . $antrian->nomorantrean,
+        ]);
         // tambah antrean
         $request = new Request([
             "kodebooking" => $this->kodebooking,
@@ -146,12 +166,12 @@ class ModalAntrianRajal extends Component
         if ($res->metadata->code == 200) {
             $antrian->status = 1;
             $antrian->update();
-            flash('Antrian atas nama pasien ' . $antrian->nama .  ' saved successfully.', 'success');
-            $this->dispatch('formAntrian');
+            Alert::success('Success', $res->metadata->message);
         } else {
-            flash($res->metadata->message, 'danger');
+            Alert::error('Mohon Maaf', $res->metadata->message);
         }
-        $this->dispatch('refreshPage');
+        $url = route('pendaftaran.rajal.proses', $this->kodebooking);
+        return redirect()->to($url);
     }
     public function cariRujukan()
     {
@@ -299,6 +319,24 @@ class ModalAntrianRajal extends Component
         $this->kodepoli = $antrian->kodepoli;
         $this->kodedokter = $antrian->kodedokter;
         $this->jenispasien = $antrian->jenispasien;
+        $this->pasienbaru = $antrian->pasienbaru ? true : false;
+        if ($antrian->jeniskunjungan == 3) {
+            $this->noSurat = $antrian->nomorsuratkontrol;
+        } else {
+            $this->noRujukan = $antrian->nomorrujukan;
+            switch ($antrian->jeniskunjungan) {
+                case 1:
+                    $this->asalRujukan = 1;
+                    break;
+
+                case 4:
+                    $this->asalRujukan = 2;
+                    break;
+
+                default:
+                    break;
+            }
+        }
         $this->polikliniks = Unit::pluck('nama', 'kode');
         $this->dokters = Dokter::pluck('nama', 'kode');
     }

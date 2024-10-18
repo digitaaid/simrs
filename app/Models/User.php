@@ -4,8 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Livewire\Absensi\ShiftPegawai;
+use App\Models\ShiftPegawai as ModelsShiftPegawai;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -13,21 +16,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
-
-    protected $fillable = [
-        'name',
-        'email',
-        'username',
-        'phone',
-        'password',
-    ];
-
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
+    protected $guarded = ['id'];
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
@@ -47,5 +37,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function pegawai()
     {
         return $this->hasOne(Pegawai::class);
+    }
+    public function shift_pegawai()
+    {
+        return $this->hasMany(ModelsShiftPegawai::class);
     }
 }

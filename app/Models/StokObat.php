@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class StokObat extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
+
 }

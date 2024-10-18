@@ -9,11 +9,11 @@ use Livewire\Component;
 class PendaftaranRajal extends Component
 {
     public $tanggalperiksa;
-    public $antrians;
+    public $antrians = [];
     public $search = '';
     public function mount(Request $request)
     {
-        $this->tanggalperiksa = $request->tanggalperiksa;
+        $this->tanggalperiksa = $request->tanggalperiksa ?? now()->format('Y-m-d');
     }
     public function caritanggal()
     {
@@ -27,7 +27,10 @@ class PendaftaranRajal extends Component
         if ($this->tanggalperiksa) {
             $search = '%' . $this->search . '%';
             $this->antrians = Antrian::where('tanggalperiksa', $this->tanggalperiksa)
-                ->where('nama', 'like', $search)
+                ->where(function ($query) use ($search) {
+                    $query->where('nama', 'like', "%{$search}%")
+                        ->orWhere('norm', 'like', "%{$search}%");
+                })
                 ->orderBy('taskid', 'asc')
                 ->get();
         }
@@ -39,7 +42,10 @@ class PendaftaranRajal extends Component
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
                 ->orderBy('asesmen_rajals.status_asesmen_perawat', 'asc')
                 ->select('antrians.*')
-                ->where('antrians.nama', 'like', $search)
+                ->where(function ($query) use ($search) {
+                    $query->where('antrians.nama', 'like', "%{$search}%")
+                        ->orWhere('antrians.norm', 'like', "%{$search}%");
+                })
                 ->get();
         }
         return view('livewire.pendaftaran.pendaftaran-rajal')->title('Pendaftaran Rawat Jalan');

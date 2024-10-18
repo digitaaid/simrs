@@ -121,6 +121,25 @@
                 </span>
             @enderror
         </div>
+        {{-- Captcha field --}}
+        <label for="captcha">Gamber Captcha</label>
+        <div class="input-group mb-2">
+            <input id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" placeholder="Captcha">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-image"></span>
+                </div>
+            </div>
+            @error('captcha')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="captcha mb-3">
+            <span>{!! captcha_img() !!}</span>
+            <button type="button" class="btn btn-secondary btn-refresh"><i class="fas fa-sync"></i></button>
+        </div>
         {{-- Register button --}}
         <button type="submit" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
             <span class="fas fa-user-plus"></span>

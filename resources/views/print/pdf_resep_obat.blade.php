@@ -1,15 +1,14 @@
 @extends('print.pdf_layout')
-@section('title', 'Print SEP BPJS')
+@section('title', 'Resep Farmasi ' . $kunjungan->nama)
 
 @section('content')
-    <table class="table table-sm table-bordered" style="font-size: 10px;">
+    <table class="table table-sm table-bordered" style="font-size: 9px;">
         <tr>
             <td width="10%" class="text-center" style="vertical-align: top;">
                 <img src="{{ public_path('kitasehat/logokitasehat.png') }}" style="height: 30px;">
                 {{-- <img src="{{ asset('kitasehat/logokitasehat.png') }}" style="height: 30px;"> --}}
             </td>
             <td width="50%" style="vertical-align: top;">
-                <b>RESEP OBAT NO. {{ $resepobat->kode }}</b><br>
                 <b>{{ strtoupper(env('APP_NAME_LONG')) }}</b><br>
                 Jl. Raya Merdeka Utama Ciledug Desa Ciledug Kulon, <br>
                 Kec. Ciledug, Kabupaten Cirebon, Jawa Barat 45682 <br>
@@ -20,20 +19,20 @@
                     <tr>
                         <td>No RM</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->norm ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->norm ?? '-' }}</b></td>
                     </tr>
                     <tr>
                         <td>Nama</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->nama ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->nama ?? '-' }}</b></td>
                     </tr>
                     <tr>
                         <td>Tgl Lahir</td>
                         <td>:</td>
                         <td>
                             <b>
-                                {{ \Carbon\Carbon::parse($antrian->kunjungan->tgl_lahir)->format('d F Y') }}
-                                ({{ \Carbon\Carbon::parse($antrian->kunjungan->tgl_lahir)->age }} tahun)
+                                {{ \Carbon\Carbon::parse($kunjungan->tgl_lahir)->format('d F Y') }}
+                                ({{ \Carbon\Carbon::parse($kunjungan->tgl_lahir)->age }} tahun)
                             </b>
                         </td>
                     </tr>
@@ -42,8 +41,8 @@
                         <td>:</td>
                         <td>
                             <b>
-                                @if ($antrian->kunjungan)
-                                    @if ($antrian->kunjungan->gender == 'P')
+                                @if ($kunjungan)
+                                    @if ($kunjungan->gender == 'P')
                                         Perempuan
                                     @else
                                         Laki-laki
@@ -55,48 +54,129 @@
                 </table>
             </td>
         </tr>
+        <tr class="text-center" style="background: yellow">
+            <td colspan="3">
+                <b>RESEP OBAT FARMASI
+                    @switch($kunjungan->jeniskunjungan)
+                        @case(1)
+                            Rawat Jalan (FKTP)
+                        @break
+
+                        @case(2)
+                            Rawat Jalan (Umum)
+                        @break
+
+                        @case(3)
+                            Rawat Jalan (Kontrol)
+                        @break
+
+                        @case(4)
+                            Rawat Jalan (RS)
+                        @break
+
+                        @case(5)
+                            IGD
+                        @break
+
+                        @case(6)
+                            Rawat Inap
+                        @break
+
+                        @default
+                    @endswitch
+                </b>
+            </td>
+        </tr>
         <tr>
-            <td colspan="2">
+            <td class="text-center">
+                <img src="{{ $url }}" width="40px">
+            </td>
+            <td>
                 <table class="table-borderless">
                     <tr>
-                        <td>Alamat</td>
+                        <td>Tanggal Masuk</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->pasien->alamat ?? '-' }}</b>
-                            @if ($antrian->pasien)
-                                <b>{{ $antrian->pasien->kabupaten ?? '' }}</b>
-                                <b>{{ $antrian->pasien->kecamatan ?? '' }}</b>
-                                <b>{{ $antrian->pasien->desa ?? '' }}</b>
-                            @endif
-                        </td>
+                        <td><b>
+                                {{ $kunjungan->tgl_masuk ? \Carbon\Carbon::parse($kunjungan->tgl_masuk)->format('d F Y H:i') : '-' }}
+                            </b></td>
                     </tr>
                     <tr>
-                        <td>BB / TB</td>
+                        <td>Unit / Ruangan</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->asesmenrajal->berat_badan ?? '-' }} kg /
-                                {{ $antrian->asesmenrajal->tinggi_badan ?? '-' }} cm</b></td>
+                        <td><b>{{ $kunjungan->units->nama ?? '-' }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Dokter</td>
+                        <td>:</td>
+                        <td><b>{{ $kunjungan->dokters->nama ?? '-' }}</b></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="table-borderless">
+                    <tr>
+                        <td>Jenis Pelayanan</td>
+                        <td>:</td>
+                        <td><b>
+                                @switch($kunjungan->jeniskunjungan)
+                                    @case(1)
+                                        Rawat Jalan (FKTP)
+                                    @break
+
+                                    @case(2)
+                                        Rawat Jalan (Umum)
+                                    @break
+
+                                    @case(3)
+                                        Rawat Jalan (Kontrol)
+                                    @break
+
+                                    @case(4)
+                                        Rawat Jalan (RS)
+                                    @break
+
+                                    @case(5)
+                                        IGD
+                                    @break
+
+                                    @case(6)
+                                        Rawat Inap
+                                    @break
+
+                                    @default
+                                @endswitch
+                            </b></td>
                     </tr>
                     <tr>
                         <td>Penjamin</td>
                         <td>:</td>
                         <td>
                             <b>
-                                @if ($antrian->jenispasien == 'JKN')
-                                    BPJS / JKN
-                                @else
-                                    UMUM / NON-JKN
-                                @endif
+                                {{ $kunjungan->jaminans?->nama }}
                             </b>
                         </td>
                     </tr>
                     <tr>
-                        <td>Ruangan/Klinik</td>
+                        <td>No. SEP</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->kunjungan->units->nama ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->sep ?? '-' }}</b></td>
                     </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table class="table-borderless">
                     <tr>
-                        <td>Dokter</td>
+                        <td>Alamat Pasien</td>
                         <td>:</td>
-                        <td><b>{{ $antrian->kunjungan->dokters->nama ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->pasien->alamat ?? '-' }}</b>
+                            @if ($kunjungan->pasien)
+                                <b>{{ $kunjungan->pasien->kabupaten ?? '' }}</b>
+                                <b>{{ $kunjungan->pasien->kecamatan ?? '' }}</b>
+                                <b>{{ $kunjungan->pasien->desa ?? '' }}</b>
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td>Riwayat Alergi</td>
@@ -108,10 +188,17 @@
                         <td>:</td>
                         <td><b>{{ $antrian->asesmenrajal->riwayat_penyakit ?? '-' }}</b></td>
                     </tr>
+
+                    <tr>
+                        <td>BB / TB</td>
+                        <td>:</td>
+                        <td><b>{{ $antrian->asesmenrajal->berat_badan ?? '-' }} kg /
+                                {{ $antrian->asesmenrajal->tinggi_badan ?? '-' }} cm</b></td>
+                    </tr>
                 </table>
                 <br>
-                <b>RESEP OBAT NO. {{ $resepobat->kode }}</b><br>
-                <div style="font-size: 13px">
+                RESEP OBAT NO. {{ $resepobat->kode }}<br>
+                <div style="font-size: 10px">
                     @foreach ($resepobatdetails as $item)
                         <b>R/ {{ $item->nama }}</b> ({{ $item->jumlah }}) {{ $item->frekuensi }} {{ $item->waktu }}
                         {{ $item->keterangan }}<br>
@@ -222,14 +309,7 @@
                             <br>
                             <br>
                             <br>
-                            .........................
-                        </td>
-                        <td>
-                            <b>Disetujui</b>
-                            <br>
-                            <br>
-                            <br>
-                            .........................
+                            {{ $antrian->pic4->name ?? '-' }}
                         </td>
                         <td>
                             <b>Menerima Obat Beserta Informasi</b>

@@ -27,7 +27,7 @@ return new class extends Migration
             // harga layanan
             $table->string('obat_id')->nullable();
             $table->double('harga')->nullable();
-            $table->integer('diskon')->default(0);
+            $table->double('diskon')->default(0);
             $table->double('subtotal')->nullable();
             $table->string('klasifikasi')->nullable();
             $table->timestamps();

@@ -190,12 +190,12 @@ return [
     |
     */
 
-    'classes_body' => 'text-sm',
+    'classes_body' => 'text-xs',
     'classes_brand' => '',
     'classes_brand_text' => '',
-    'classes_content_wrapper' => '',
-    'classes_content_header' => '',
-    'classes_content' => '',
+    'classes_content_wrapper' => 'text-xs',
+    'classes_content_header' => 'text-xs',
+    'classes_content' => 'text-xs',
     'classes_sidebar' => 'sidebar-dark-primary elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
@@ -311,34 +311,94 @@ return [
             'text' => 'search',
         ],
         [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
             'text'        => 'Landing Page',
             'url'         => '',
             'icon'        => 'fas fa-globe',
         ],
         [
-            'text' => 'Dashboard',
+            'text' => 'Menu Utama',
             'url' => 'home',
             'icon' => 'fas fa-home',
         ],
-        // [
-        //     'text'    => 'Pelayanan IGD',
-        //     'icon'    => 'fas fa-hand-holding-medical',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Pendaftaran',
-        //             'url' => 'pendaftaran/igd',
-        //             'icon' => 'fas fa-user-plus',
-        //             'shift'   => 'ml-2',
-        // 'can' => 'admin',
-        //             // 'active'  => ['user', 'user/create', 'user/edit/*'],
-        //         ],
-        //     ]
-        // ],
+        [
+            'text' => 'Dashboard',
+            'url' => 'dashboard',
+            'icon' => 'fas fa-chart-line',
+        ],
+        // ABSENSI
+        [
+            'text'    => 'Absensi',
+            'icon'    => 'fas fa-user-clock',
+            'submenu' => [
+                [
+                    'text' => 'Proses Absensi',
+                    'icon'    => 'fas fa-street-view',
+                    'url'  => 'absensi-proses',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Lokasi Saya',
+                    'icon'    => 'fas fa-map-marked-alt',
+                    'url'  => 'lokasi-saya',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Lokasi Absensi',
+                    'icon'    => 'fas fa-map-marked-alt',
+                    'url'  => 'lokasi-absensi',
+                    'can'  => 'crud-absensi',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Jadwal Absensi',
+                    'icon'    => 'fas fa-calendar-day',
+                    'url'  => 'shift-absensi',
+                    'can'  => 'crud-absensi',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Absensi Pegawai',
+                    'icon'    => 'fas fa-user-clock',
+                    'url'  => 'shift-pegawai',
+                    'can'  => 'crud-absensi',
+                    'active'  => ['shift-pegawai', 'shift-pegawai-edit'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Laporan Absensi',
+                    'icon' => 'fas fa-chart-line',
+                    'url'  => 'laporan-absensi',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Lembur',
+                    'icon'    => 'fas fa-business-time',
+                    'url'  => 'lembur-index',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Lembur Pegawai',
+                    'icon'    => 'fas fa-business-time',
+                    'url'  => 'lokasi-pegawai',
+                    'can'  => 'crud-absensi',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Cuti',
+                    'icon'    => 'fas fa-calendar-times',
+                    'url'  => 'lokasi-index',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Cuti Pegawai',
+                    'icon' => 'fas fa-chart-line',
+                    'url'  => 'lokasi-pegawai',
+                    'can'  => 'crud-absensi',
+                    'shift'   => 'ml-2',
+                ],
+
+            ],
+        ],
         [
             'text'    => 'Pelayanan Rawat Jalan',
             'icon'    => 'fas fa-hand-holding-medical',
@@ -350,6 +410,7 @@ return [
                     'shift'   => 'ml-2',
                     'can' => 'pendaftaran',
                 ],
+
                 [
                     'text' => 'Display Antrian',
                     'url' => 'displayantrian',
@@ -358,12 +419,26 @@ return [
                     'can' => 'pendaftaran',
                 ],
                 [
+                    'text' => 'Display Antrian Farmasi',
+                    'url' => 'displayantrianfarmasi',
+                    'icon' => 'fas fa-desktop',
+                    'shift'   => 'ml-2',
+                    'can' => ['pendaftaran', 'farmasi', 'apoteker'],
+                ],
+                [
                     'text' => 'Pendaftaran',
                     'url' => 'pendaftaran/rajal',
                     'icon' => 'fas fa-user-plus',
                     'shift'   => 'ml-2',
                     'can' => 'pendaftaran',
                     'active'  => ['pendaftaran/rajal', 'pendaftaran/rajal/*'],
+                ],
+                [
+                    'text' => 'Jadwal Dokter Rajal',
+                    'url' => 'pendaftaran/jadwaldokter',
+                    'icon' => 'fas fa-calendar',
+                    'shift'   => 'ml-2',
+                    'can' => 'pendaftaran',
                 ],
                 [
                     'text' => 'Pemeriksaan Perawat',
@@ -381,16 +456,10 @@ return [
                     'can' => 'dokter',
                     'active'  => ['pemeriksaan/dokter/rajal', 'pemeriksaan/dokter/rajal*'],
                 ],
-                [
-                    'text' => 'Pengambilan Resep Obat',
-                    'url' => 'farmasi/pengambilan_resep',
-                    'icon' => 'fas fa-pills',
-                    'shift'   => 'ml-2',
-                    'can' => 'farmasi',
-                ],
+
                 [
                     'text' => 'Kasir Pembayaran',
-                    'url' => 'aplication',
+                    'url' => 'kasir-pembayaran',
                     'icon' => 'fas fa-cash-register',
                     'shift'   => 'ml-2',
                     'can' => 'kasir',
@@ -398,26 +467,43 @@ return [
                 [
                     'text' => 'Rekam Medis Rawat Jalan',
                     'url' => 'rekammedis/rajal',
+                    'active' => ['rekammedis/rajal', 'rekammedis/rajal/edit/*'],
                     'icon' => 'fas fa-laptop-medical',
                     'shift'   => 'ml-2',
                     'can' => 'rekam-medis',
                 ],
             ]
         ],
-        // [
-        //     'text'    => 'Pelayanan Rawat Inap',
-        //     'icon'    => 'fas fa-hand-holding-medical',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Pendaftaran',
-        //             'url' => 'aplication',
-        //             'icon' => 'fas fa-users',
-        //             'shift'   => 'ml-2',
-        // 'can' => 'admin',
-        //             // 'active'  => ['user', 'user/create', 'user/edit/*'],
-        //         ],
-        //     ]
-        // ],
+        [
+            'text'    => 'Pelayanan IGD',
+            'icon'    => 'fas fa-ambulance',
+            'submenu' => [
+                [
+                    'text' => 'Pendaftaran Pasien IGD',
+                    'url' => 'pendaftaran/igd',
+                    'icon' => 'fas fa-users',
+                    'shift'   => 'ml-2',
+                    'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
+                    'active'  => ['pendaftaran/igd', 'pendaftaran/igd/proses'],
+                ],
+
+            ]
+        ],
+        [
+            'text'    => 'Pelayanan Rawat Inap',
+            'icon'    => 'fas fa-procedures',
+            'submenu' => [
+                [
+                    'text' => 'Pendaftaran Pasien Ranap',
+                    'url' => 'pendaftaran/ranap',
+                    'icon' => 'fas fa-users',
+                    'shift'   => 'ml-2',
+                    'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
+                    'active'  => ['pendaftaran/ranap', 'pendaftaran/ranap/proses'],
+                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                ],
+            ]
+        ],
         [
             'text'    => 'Pelayanan Penunjang',
             'icon'    => 'fas fa-hand-holding-medical',
@@ -455,6 +541,78 @@ return [
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
             ]
+        ],
+        // FARMASI & APOTEK
+        [
+            'text'    => 'Apotek & Farmasi',
+            'icon'    => 'fas fa-pills',
+            'can' => ['farmasi', 'apotek'],
+            'submenu' => [
+                [
+                    'text' => 'Penjualan Obat',
+                    'url' => 'apotek/penjualan_obat',
+                    'icon' => 'fas fa-pills',
+                    'shift'   => 'ml-2',
+                    'can' => ['farmasi', 'apotek'],
+                ],
+                [
+                    'text' => 'Resep Obat Rawat Jalan',
+                    'url' => 'apotek/resep_obat_rajal',
+                    'icon' => 'fas fa-pills',
+                    'shift'   => 'ml-2',
+                    'can' => ['farmasi', 'apotek'],
+                ],
+                [
+                    'text' => 'Resep Obat IGD',
+                    'url' => 'apotek/resep_obat_igd',
+                    'icon' => 'fas fa-pills',
+                    'shift'   => 'ml-2',
+                    'can' => ['farmasi', 'apotek'],
+                ],
+                [
+                    'text' => 'Resep Obat Rawat Inap',
+                    'url' => 'apotek/resep_obat_ranap',
+                    'icon' => 'fas fa-pills',
+                    'shift'   => 'ml-2',
+                    'can' => ['farmasi', 'apotek'],
+                ],
+                [
+                    'text' => 'Satuan & Kemasan',
+                    'url' => 'farmasi/satuan-kemasan',
+                    'icon' => 'fas fa-box',
+                    'can' => ['farmasi'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Supplier Obat',
+                    'url' => 'farmasi/supplier-obat',
+                    'icon' => 'fas fa-box',
+                    'can' => ['farmasi'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Obat-Obat',
+                    'url' => 'farmasi/obat',
+                    'icon' => 'fas fa-pills',
+                    'can' => ['farmasi', 'apotek'],
+                    'active'  => ['obat', 'obat/create', 'obat/edit/*', 'stokobat'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Pemesanan Obat',
+                    'url' => 'farmasi/pemesanan-obat',
+                    'icon' => 'fas fa-box',
+                    'can' => ['farmasi'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Stok Opname Obat',
+                    'url' => 'stok-opname',
+                    'icon' => 'fas fa-pills',
+                    'can' => ['farmasi'],
+                    'shift'   => 'ml-2',
+                ],
+            ],
         ],
         [
             'text'    => 'Pengelolaan',
@@ -501,19 +659,18 @@ return [
                     'shift'   => 'ml-2',
                 ],
                 [
+                    'text' => 'Kamar & Bed',
+                    'url' => 'kamar-bed',
+                    'icon' => 'fas fa-bed',
+                    'active'  => ['kamar-bed', 'kamar-bed/create', 'kamar-bed/edit/*'],
+                    'shift'   => 'ml-2',
+                ],
+                [
                     'text' => 'Jadwal Dokter Rajal',
                     'url' => 'jadwaldokter',
                     'icon' => 'fas fa-calendar-alt',
                     'can' => ['manajemen-pelayanan', 'pendaftaran'],
                     'active'  => ['jadwaldokter', 'jadwaldokter/create', 'jadwaldokter/edit/*'],
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Obat',
-                    'url' => 'obat',
-                    'icon' => 'fas fa-pills',
-                    'can' => 'manajemen-farmasi',
-                    'active'  => ['obat', 'obat/create', 'obat/edit/*'],
                     'shift'   => 'ml-2',
                 ],
                 [
@@ -540,8 +697,15 @@ return [
                     'active'  => ['diagnosa', 'diagnosa/create', 'diagnosa/edit/*'],
                     'shift'   => 'ml-2',
                 ],
+                [
+                    'text' => 'Wilayah Indonesia',
+                    'url' => 'wilayah-indonesia',
+                    'icon' => 'fas fa-globe-asia',
+                    'shift'   => 'ml-2',
+                ],
             ],
         ],
+
         // ANTRIAN BPJS
         [
             'text'    => 'Integrasi Antrian BPJS',
@@ -569,6 +733,13 @@ return [
                     'shift'   => 'ml-2',
                     'can' => 'antrian-bpjs',
                 ],
+                // [
+                //     'text' => 'Update Jadwal Dokter',
+                //     'icon'    => 'fas fa-calendar-alt',
+                //     'url'  => 'bpjs/antrian/updatejadwaldokter',
+                //     'shift'   => 'ml-2',
+                //     'can' => 'antrian-bpjs',
+                // ],
                 [
                     'text' => 'Poliklinik Fingerprint',
                     'icon'    => 'fas fa-clinic-medical',
@@ -740,6 +911,21 @@ return [
                 ],
             ],
         ],
+        // INACBG
+        [
+            'text'    => 'Integrasi INACBG',
+            'icon'    => 'fas fa-project-diagram',
+            // 'can' => ['inacbg'],
+            'submenu' => [
+                [
+                    'text' => 'Token',
+                    'icon'    => 'fas fa-user-injured',
+                    'url'  => 'satusehat/token',
+                    'shift'   => 'ml-2',
+                    'can' => ['satu-sehat'],
+                ],
+            ],
+        ],
         // SATU SEHAT
         [
             'text'    => 'Integrasi Satu Sehat',
@@ -799,18 +985,11 @@ return [
         ],
         ['header' => 'PENGATURAN'],
         [
-            'text' => 'Aplikasi',
-            'url' => 'aplication',
-            'icon' => 'fas fa-users',
+            'text' => 'Role & Permission',
+            'url' => 'role-permission',
             'can' => 'admin',
-            // 'active'  => ['user', 'user/create', 'user/edit/*'],
-        ],
-        [
-            'text' => 'Intergrasi',
-            'url' => 'integration',
-            'can' => 'admin',
-            'icon' => 'fas fa-cloud-upload-alt',
-            'active'  => ['integration', 'integration/create', 'integration/edit/*'],
+            'icon' => 'fas fa-users-cog',
+            'active'  => ['role-permission', 'permission/create', 'role/create', 'permission/edit/*'],
         ],
         [
             'text' => 'User',
@@ -820,11 +999,29 @@ return [
             'active'  => ['user', 'user/create', 'user/edit/*'],
         ],
         [
-            'text' => 'Role & Permission',
-            'url' => 'role-permission',
+            'text' => 'Intergrasi',
+            'url' => 'integration',
             'can' => 'admin',
-            'icon' => 'fas fa-users-cog',
-            'active'  => ['role-permission', 'permission/create', 'role/create', 'permission/edit/*'],
+            'icon' => 'fas fa-cloud-upload-alt',
+            'active'  => ['integration', 'integration/create', 'integration/edit/*'],
+        ],
+        [
+            'text' => 'Aplikasi',
+            'url' => 'aplikasi',
+            'icon' => 'fas fa-cogs',
+            'can' => 'admin',
+            // 'active'  => ['user', 'user/create', 'user/edit/*'],
+        ],
+        [
+            'text' => 'Whatssapp',
+            'url' => 'whatsapp',
+            'icon' => 'fab fa-whatsapp',
+            'can' => 'admin',
+        ],
+        [
+            'text' => 'Log Aktifitas',
+            'url' => 'log-aktifitas',
+            'icon' => 'fas fa-history',
         ],
         [
             'text' => 'Profil',
@@ -1110,6 +1307,21 @@ return [
                     'type' => 'js',
                     'asset' => true,
                     'location' => 'vendor/bs-custom-file-input/bs-custom-file-input.min.js',
+                ],
+            ],
+        ],
+        'Chartjs' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/chart.js/Chart.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/chart.js/Chart.min.css',
                 ],
             ],
         ],

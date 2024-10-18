@@ -4,12 +4,11 @@ namespace App\Livewire\Pendaftaran;
 
 use App\Http\Controllers\AntrianController;
 use App\Models\Antrian;
-use App\Models\Dokter;
-use App\Models\Jaminan;
 use App\Models\Pasien;
-use App\Models\Unit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PendaftaranRajalProses extends Component
 {
@@ -21,56 +20,118 @@ class PendaftaranRajalProses extends Component
     public function batal()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
+        if (env('ANTRIAN_REALTIME')) {
+            $request = new Request([
+                'kodebooking' => $this->kodebooking,
+                'keterangan' => "Dibatalkan admin pendaftaran",
+            ]);
+            $api = new AntrianController();
+            $res = $api->batal_antrean($request);
+            if ($res->metadata->code != 200) {
+                flash($res->metadata->message, 'danger');
+            }
+        }
         $antrian->taskid = 99;
         $antrian->user1 = auth()->user()->id;
         $antrian->update();
         $kunjungan = $antrian->kunjungan;
         if ($kunjungan) {
             $kunjungan->update([
-                'status' => 0,
+                'status' => 99,
                 'user1' => auth()->user()->id,
             ]);
         }
-        flash('Nomor antrian ' . $antrian->nomorantrean . ' telah dibatalakan pendaftaran.', 'success');
+        Alert::success('Success', 'Nomor antrian ' . $antrian->nomorantrean . ' telah dibatalakan pendaftaran.');
+        return redirect()->to(route('pendaftaran.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
     }
     public function selesaiPendaftaran()
     {
+        $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
             if (env('ANTRIAN_REALTIME')) {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
-                    'waktu' => now(),
+                    'waktu' => Carbon::createFromFormat('Y-m-d H:i:s', $antrian->taskid1, 'Asia/Jakarta')->timestamp * 1000,
+                    'taskid' => 1,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => Carbon::createFromFormat('Y-m-d H:i:s', $antrian->taskid2, 'Asia/Jakarta')->timestamp * 1000,
+                    'taskid' => 2,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => $now,
                     'taskid' => 3,
                 ]);
                 $api = new AntrianController();
                 $res = $api->update_antrean($request);
+                if ($res->metadata->code != 200) {
+                    if ($res->metadata->message  != 'TaskId=3 sudah ada') {
+                        return flash($res->metadata->message, 'danger');
+                    }
+                }
             }
             $antrian->taskid = 3;
-            $antrian->taskid3 = now();
+            $antrian->taskid3 = $now;
             $antrian->panggil = 0;
             $antrian->user1 = auth()->user()->id;
             $antrian->update();
-            flash('Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pendaftaran.', 'success');
+            Alert::success('Success', 'Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pendaftaran.');
             return redirect()->to(route('pendaftaran.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
+        } else {
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
+        }
+    }
+    public function checkinHadir()
+    {
+        $now = now();
+        $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
+        if ($antrian->taskid <= 2) {
+            if (env('ANTRIAN_REALTIME')) {
+                $request = new Request([
+                    'kodebooking' => $this->kodebooking,
+                    'waktu' => $now,
+                    'taskid' => 1,
+                ]);
+                $api = new AntrianController();
+                $res = $api->update_antrean($request);
+                if ($res->metadata->code != 200) {
+                    return flash($res->metadata->message, 'danger');
+                }
+            }
+            $antrian->taskid1 = $now;
+            $antrian->panggil = 0;
+            $antrian->taskid = 1;
+            $antrian->keterangan = "Anda telah dicheckin oleh admin pendaftaran";
+            $antrian->user1 = auth()->user()->id;
+            $antrian->update();
+            flash('Nomor antrian ' . $antrian->nomorantrean . ' dipanggil.', 'success');
+            $this->dispatch('refreshPage');
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
         }
     }
     public function panggilPendaftaran()
     {
+        $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
             if (env('ANTRIAN_REALTIME')) {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
-                    'waktu' => now(),
+                    'waktu' =>  $now,
                     'taskid' => 2,
                 ]);
                 $api = new AntrianController();
                 $res = $api->update_antrean($request);
             }
-            $antrian->taskid2 = now();
+            $antrian->taskid2 = $now;
             $antrian->panggil = 0;
             $antrian->taskid = 2;
             $antrian->user1 = auth()->user()->id;

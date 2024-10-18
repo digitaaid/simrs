@@ -10,17 +10,14 @@
                                 Klinik Utama Kita Sehat<br>
                                 Jl. Raya Merdeka Utama Ciledug <br>
                                 Desa Ciledug Kulon, Kec. Ciledug, Kabupaten Cirebon, Jawa Barat 45188<br><br>
-                                <a href="https://wa.me/6282311696919">
-                                    <strong>Whatsapp:</strong> 0823 1169 6919<br>
-                                </a>
-                                <a href="tel://02318850943">
-                                    <strong>Call Center:</strong> (0231) 8850943<br>
+                                <a href="https://wa.me/6281220877566">
+                                    <strong>Whatsapp:</strong>0812 2087 7566<br>
                                 </a>
                             </p>
                             <div class="social-links mt-3">
-                                <a href="https://www.instagram.com/klinikutamalmc/" class="instagram"><i
+                                <a href="https://www.instagram.com/klinikutama_kitasehat/" class="instagram"><i
                                         class="bx bxl-instagram"></i></a>
-                                <a href="https://www.youtube.com/@KLINIKLMC" class="youtube"><i
+                                <a href="https://www.youtube.com/@kitasehat3335" class="youtube"><i
                                         class="bx bxl-youtube"></i></a>
                                 {{-- <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a> --}}
                             </div>

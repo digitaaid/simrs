@@ -1,4 +1,4 @@
-<div id="kunjungan">
+<div>
     <x-adminlte-card theme="primary" title="Kunjungan Pasien">
         <form>
             <input type="hidden" name="kodebooking" value="{{ $antrian->kodebooking }}">

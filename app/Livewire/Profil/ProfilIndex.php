@@ -2,15 +2,20 @@
 
 namespace App\Livewire\Profil;
 
+use App\Models\ActivityLog;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-
 class ProfilIndex extends Component
 {
     public $user;
-    public $id, $name, $email, $phone, $username;
+    public $id, $name, $email, $phone, $username, $password;
+    public function render()
+    {
+        return view('livewire.profil.profil-index')
+            ->title('Profil');
+    }
     public function save()
     {
         $user = Auth::user();
@@ -18,15 +23,16 @@ class ProfilIndex extends Component
         $user->username = $this->username;
         $user->phone = $this->phone;
         $user->email = $this->email;
+        if ($this->password) {
+            $user->password = bcrypt($this->password);
+        }
         $user->save();
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Update Profile',
+            'description' => 'User ' . auth()->user()->name . ' telah memperbaharui profile',
+        ]);
         flash('User updated successfully!', 'success');
-    }
-    public function resetForm()
-    {
-        $this->name = null;
-        $this->email = null;
-        $this->phone = null;
-        $this->username = null;
     }
     public function mount()
     {
@@ -37,15 +43,5 @@ class ProfilIndex extends Component
         $this->email = $user->email;
         $this->phone = $user->phone;
         $this->username = $user->username;
-    }
-    public function placeholder()
-    {
-        return view('components.placeholder.placeholder-text');
-    }
-    public function render()
-    {
-
-        return view('livewire.profil.profil-index')
-            ->title('Profil');
     }
 }

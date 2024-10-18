@@ -15,7 +15,7 @@ class PemeriksaanDokterRajal extends Component
     public $antrians, $jadwals = [];
     public function mount(Request $request)
     {
-        $this->tanggalperiksa = $request->tanggalperiksa;
+        $this->tanggalperiksa = $request->tanggalperiksa ?? now()->format('Y-m-d');
         $this->jadwal = $request->jadwal;
     }
     public function cariantrian()
@@ -41,9 +41,13 @@ class PemeriksaanDokterRajal extends Component
                 ->where('taskid', '!=', 99)
                 ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
+                ->orderBy('taskid', 'asc')
                 ->orderBy('asesmen_rajals.status_asesmen_dokter', 'asc')
                 ->select('antrians.*')
-                ->where('antrians.nama', 'like', $search)
+                ->where(function ($query) use ($search) {
+                    $query->where('antrians.nama', 'like', "%{$search}%")
+                        ->orWhere('antrians.norm', 'like', "%{$search}%");
+                })
                 ->get();
         }
         if ($this->search && $this->tanggalperiksa == null) {
@@ -52,9 +56,13 @@ class PemeriksaanDokterRajal extends Component
                 ->where('taskid', '!=', 99)
                 ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')
                 ->with(['kunjungan', 'kunjungan.units', 'kunjungan.dokters', 'layanans', 'asesmenrajal', 'pic1'])
+                ->orderBy('taskid', 'asc')
                 ->orderBy('asesmen_rajals.status_asesmen_perawat', 'asc')
                 ->select('antrians.*')
-                ->where('antrians.nama', 'like', $search)
+                ->where(function ($query) use ($search) {
+                    $query->where('antrians.nama', 'like', "%{$search}%")
+                        ->orWhere('antrians.norm', 'like', "%{$search}%");
+                })
                 ->get();
         }
         return view('livewire.dokter.pemeriksaan-dokter-rajal')->title('Pemeriksaan Dokter Rajal');

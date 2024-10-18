@@ -20,6 +20,7 @@ class MonitoringDataKunjungan extends Component
             'jenispelayanan' => $this->jenispelayanan,
             'tanggal' => $this->tanggal,
         ]);
+        $this->kunjungans = [];
         $api = new VclaimController();
         $res  = $api->monitoring_data_kunjungan($request);
         if ($res->metadata->code == 200) {

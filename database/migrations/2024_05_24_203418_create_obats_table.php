@@ -18,14 +18,17 @@ return new class extends Migration
             $table->integer('konversi_satuan')->default(1);
             $table->string('satuan')->nullable();
             $table->string('stok_minimum')->nullable();
+            $table->string('stok_buffer')->nullable();
+            $table->string('zat_aktif')->nullable();
+            $table->string('kekuatan')->nullable();
             $table->string('jenisobat');
             $table->string('tipeobat')->nullable();
             // harga
-            $table->string('harga_beli')->default(0);
-            $table->string('diskon_beli')->default(0);
-            $table->string('harga_jual')->default(0);
-            $table->string('harga_klinik')->default(0);
-            $table->string('harga_bpjs')->default(0);
+            $table->double('harga_beli')->default(0);
+            $table->double('diskon_beli')->default(0);
+            $table->double('harga_jual')->default(0);
+            $table->double('harga_klinik')->default(0);
+            $table->double('harga_bpjs')->default(0);
             // merk
             $table->string('merk')->nullable();
             $table->string('distributor')->nullable();

@@ -1,4 +1,4 @@
-<div id="cppt">
+<div>
     <x-adminlte-card theme="primary" title="Catatan Perkembangan Pasien Terintegrasi">
         @if (flash()->message)
             <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
@@ -6,7 +6,7 @@
             </x-adminlte-alert>
         @endif
         @if ($kunjungans)
-            <table class="table table-bordered table-responsive-sm table-xl mb-2">
+            <table class="table table-sm table-bordered table-responsive-sm table-xl mb-2">
                 <thead>
                     <tr>
                         <th>Kunjungan</th>
@@ -23,15 +23,31 @@
                                 {{ $kunjungan->units->nama }} <br>
                                 {{ $kunjungan->dokters->nama }} <br>
                                 Masuk : {{ \Carbon\Carbon::parse($kunjungan->tgl_masuk)->format('d/m/Y h:i') }} <br>
-                                Antrian : {{ $kunjungan->antrian->nomorantrean }} /
-                                {{ $kunjungan->antrian->kodebooking }}
+                                Kunjungan : {{ $kunjungan->kode }}
+                                @switch($kunjungan->status)
+                                    @case(1)
+                                        <span class="badge badge-warning">Aktif</span>
+                                    @break
+
+                                    @case(2)
+                                        <span class="badge badge-success">Selesai</span>
+                                    @break
+
+                                    @case(99)
+                                        <span class="badge badge-danger">Batal</span>
+                                    @break
+
+                                    @default
+                                        <span class="badge badge-secondary">{{ $kunjungan->status }}</span>
+                                @endswitch
                             </td>
                             <td>
                                 @if ($kunjungan->asesmenrajal?->keluhan_utama)
                                     <b>Keluhan :</b> {{ $kunjungan->asesmenrajal?->keluhan_utama }} <br>
                                 @endif
                                 @if ($kunjungan->asesmenrajal?->riwayat_pengobatan)
-                                    <b>Rwyat Pengobatan :</b> {{ $kunjungan->asesmenrajal?->riwayat_pengobatan }} <br>
+                                    <b>Rwyat Pengobatan :</b> {{ $kunjungan->asesmenrajal?->riwayat_pengobatan }}
+                                    <br>
                                 @endif
                                 @if ($kunjungan->asesmenrajal?->riwayat_penyakit)
                                     <b>Rwyat Penyakit :</b> {{ $kunjungan->asesmenrajal?->riwayat_penyakit }} <br>
@@ -115,6 +131,14 @@
                                 @if ($kunjungan->asesmenrajal?->instruksi_medis)
                                     <b>Instruksi :</b> {{ $kunjungan->asesmenrajal?->instruksi_medis }} <br>
                                 @endif
+                                @if (count($kunjungan->resepobatdetails))
+                                    <br>
+                                    <b>Resep Obat :</b> {{ $kunjungan->resepobat?->kode }} <br>
+                                    @foreach ($kunjungan->resepobatdetails as $item)
+                                        <b>Rx {{ $item->nama }}</b> ({{ $item->jumlah }}) {{ $item->frekuensi }}
+                                        {{ $item->waktu }} {{ $item->keterangan }}<br>
+                                    @endforeach
+                                @endif
                                 {{ $kunjungan->asesmenrajal?->pic_dokter }} <br>
                                 {{ $kunjungan->asesmenrajal?->waktu_asesmen_dokter }}
                             </td>
@@ -130,12 +154,12 @@
                                 @endif
                             </td>
                             <td>
-                                @if (count($kunjungan->resepobatdetails))
-                                    @foreach ($kunjungan->resepobatdetails as $item)
+                                @if (count($kunjungan->resepfarmasidetails))
+                                    <b>Resep Obat :</b> {{ $kunjungan->resepobat?->kode }} <br>
+                                    @foreach ($kunjungan->resepfarmasidetails as $item)
                                         <b>Rx {{ $item->nama }}</b> ({{ $item->jumlah }}) {{ $item->frekuensi }}
                                         {{ $item->waktu }} {{ $item->keterangan }}<br>
                                     @endforeach
-                                    <b>Kode :</b> {{ $kunjungan->resepobat?->kode }}
                                 @endif
                             </td>
                         </tr>

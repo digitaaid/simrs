@@ -19,7 +19,9 @@ return new class extends Migration
             $table->integer('jumlah_kemasan');
             $table->integer('jumlah_satuan');
             $table->integer('harga_beli')->default(0);
+            $table->integer('pajak_ppn')->default(0);
             $table->integer('diskon_beli')->default(0);
+            $table->integer('harga_pajak')->default(0);
             $table->bigInteger('total_harga')->default(0);
             $table->date('tgl_input')->nullable();
             $table->date('tgl_expire')->nullable();

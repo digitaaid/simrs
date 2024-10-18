@@ -22,7 +22,7 @@
     <table class="table table-sm" style="font-size: 11px">
         <tr>
             <td width="50%">
-                <table class="table-borderless">
+                <table class="table-borderless table table-resonsive">
                     <tr>
                         <td>Kepada Yth</td>
                         <td></td>
@@ -31,7 +31,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="3">Permohonan Pemeriksaan dan Penanganan Lebih Lanjut :</td>
+                        <td colspan="3">Permohonan Pemeriksaan dan Penanganan Lebih Lanjut : </td>
+                    </tr>
+                    <tr>
+                        <td>Rencana Kontrol</td>
+                        <td>:</td>
+                        <td><b> {{ Carbon\Carbon::parse($suratkontrol->tglRencanaKontrol)->translatedFormat('d F Y') }}</b>
+                        </td>
                     </tr>
                     <tr>
                         <td>No Kartu</td>
@@ -49,12 +55,16 @@
                         <td><b>{{ Carbon\Carbon::parse($peserta->tglLahir)->translatedFormat('d F Y') }}</b></td>
                     </tr>
                     <tr>
-                        <td>Rencana Kontrol</td>
+                        <td>No SEP</td>
                         <td>:</td>
-                        <td><b> {{ Carbon\Carbon::parse($suratkontrol->tglRencanaKontrol)->translatedFormat('d F Y') }}</b>
+                        <td><b>{{ $sep->noSep }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Tgl SEP</td>
+                        <td>:</td>
+                        <td><b> {{ Carbon\Carbon::parse($sep->tglSep)->translatedFormat('d F Y') }}</b>
                         </td>
                     </tr>
-
                 </table>
             </td>
             <td width="50%">
@@ -65,11 +75,7 @@
                         <td>:</td>
                         <td><b>{{ $sep->diagnosa }}</b></td>
                     </tr>
-                    <tr>
-                        <td>No SEP</td>
-                        <td>:</td>
-                        <td><b>{{ $sep->noSep }}</b></td>
-                    </tr>
+
                     <tr>
                         <td>Poliklinik</td>
                         <td>:</td>
@@ -84,6 +90,20 @@
                         <td>No Rujukan</td>
                         <td>:</td>
                         <td><b>{{ $sep->provPerujuk->noRujukan }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Tgl Rujukan</td>
+                        <td>:</td>
+                        <td><b>
+                                {{ Carbon\Carbon::parse($sep->provPerujuk->tglRujukan)->translatedFormat('d F Y') }}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Berlaku Rujukan</td>
+                        <td>:</td>
+                        <td><b>
+                                {{ Carbon\Carbon::parse($sep->provPerujuk->tglRujukan)->addDays(90)->translatedFormat('d F Y') }}</b>
+                        </td>
                     </tr>
                 </table>
             </td>
@@ -106,7 +126,8 @@
     </table>
     <style>
         @page {
-            size: 210mm 120mm;
+            size: 241mm 105mm;
+            margin-left: 30mm
         }
     </style>
 @endsection

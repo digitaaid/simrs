@@ -9,4 +9,9 @@ class ResepObatDetail extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    public function kunjungan()
+    {
+        return $this->hasOne(Kunjungan::class);
+    }
+
 }

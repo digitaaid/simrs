@@ -1,10 +1,12 @@
-<div id="antrian">
+<div>
     <x-adminlte-card theme="primary" title="Antrian Pasien">
         <form wire:submit="editAntrian">
-            <input type="hidden" wire:model='kodebooking' name="kodebooking">
             <input type="hidden" wire:model='antrianId' name="antrianId">
             <div class="row">
                 <div class="col-md-6">
+                    <x-adminlte-input wire:model='kodebooking' name="kodebooking" fgroup-class="row"
+                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" label="Kodebooking"
+                        readonly />
                     <x-adminlte-input wire:model='nomorkartu' name="nomorkartu" fgroup-class="row"
                         label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" label="Nomor Kartu">
                         <x-slot name="appendSlot">
@@ -33,6 +35,13 @@
                         label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
                     <x-adminlte-input wire:model='nohp' name="nohp" class="nohp-id" label="Nomor HP"
                         fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" wire:model='pasienbaru' id="pasienbaru1"
+                                value="1">
+                            <label for="pasienbaru1" class="custom-control-label">Pasien Baru</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <x-adminlte-input wire:model='tanggalperiksa' name="tanggalperiksa" type='date'
@@ -69,6 +78,10 @@
                             igroup-size="sm" name="noRujukan" wire:model='noRujukan' wire:click='cariRujukan'
                             label="No Rujukan">
                             <option value=null>Pilih Nomor Rujukan</option>
+                            @if ($antrian->nomorrujukan)
+                                <option value={{ $antrian->nomorrujukan }}>{{ $antrian->nomorrujukan }}
+                                </option>
+                            @endif
                             @foreach ($rujukans as $key => $item)
                                 <option value="{{ $item['noKunjungan'] }}">{{ $item['noKunjungan'] }}
                                     {{ $item['tglKunjungan'] }} {{ $item['namaPoli'] }}</option>
@@ -83,6 +96,10 @@
                             igroup-size="sm" name="noSurat" wire:model='noSurat' wire:click='cariSuratKontrol'
                             label="No Surat Kontrol">
                             <option value=null>Pilih Surat Kontrol</option>
+                            @if ($antrian->nomorsuratkontrol)
+                                <option value={{ $antrian->nomorsuratkontrol }}>{{ $antrian->nomorsuratkontrol }}
+                                </option>
+                            @endif
                             @foreach ($suratkontrols as $key => $item)
                                 <option value="{{ $item['noSuratKontrol'] }}">{{ $item['noSuratKontrol'] }}
                                     {{ $item['tglRencanaKontrol'] }} {{ $item['namaPoliTujuan'] }}

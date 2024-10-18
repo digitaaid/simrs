@@ -1,9 +1,10 @@
-    <div id="datapasien">
+<div>
+    <div id="editPasien">
         @if ($form)
             <x-adminlte-card title="Tambah Identitas Pasien Baru" theme="success" icon="fas fa-user-plus">
                 <div class="row">
                     <input hidden wire:model="id" name="id">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <x-adminlte-input wire:model="norm" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="norm" label="No RM" readonly />
                         <x-adminlte-input wire:model="nama" fgroup-class="row" label-class="text-left col-4"
@@ -35,7 +36,7 @@
                         <x-adminlte-input wire:model="nohp" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="nohp" label="No HP" />
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <x-adminlte-select wire:model="gender" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="gender" label="Sex">
                             <option value=null disabled>Pilih Jenis Kelamin</option>
@@ -59,7 +60,10 @@
                         <x-adminlte-input wire:model="fktp" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="fktp" label="FKTP" />
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div class="col-md-6">
                         <x-adminlte-input wire:model="alamat" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="alamat" label="Alamat" />
                         <x-adminlte-input wire:model.live="provinsi_id" list="provinsi_id_list" fgroup-class="row"
@@ -97,6 +101,14 @@
                         <x-adminlte-input wire:model="keterangan" fgroup-class="row" label-class="text-left col-4"
                             igroup-class="col-8" igroup-size="sm" name="keterangan" label="Keterangan" />
                     </div>
+                    <div class="col-md-6">
+                        <x-adminlte-input wire:model="nama_ibu" fgroup-class="row" label-class="text-left col-4"
+                            igroup-class="col-8" igroup-size="sm" name="nama_ibu" label="Ibu Kandung" />
+                        <x-adminlte-input wire:model="bahasa" fgroup-class="row" label-class="text-left col-4"
+                            igroup-class="col-8" igroup-size="sm" name="bahasa" label="Bahasa Digunakan" />
+                        <x-adminlte-input wire:model="status_nikah" fgroup-class="row" label-class="text-left col-4"
+                            igroup-class="col-8" igroup-size="sm" name="status_nikah" label="Status Nikah" />
+                    </div>
                 </div>
                 <x-slot name="footerSlot">
                     <x-adminlte-button label="Simpan" class="btn-sm" onclick="store()" icon="fas fa-save"
@@ -117,75 +129,79 @@
                 </x-slot>
             </x-adminlte-card>
         @endif
-        <x-adminlte-card theme="primary" title="Data Pasien" icon="fas fa-user-injured">
-            <div class="row">
-                <div class="col-md-8">
-                    <x-adminlte-button wire:click='tambahPasien' class="btn-sm" label="Tambah Pasien Baru"
-                        theme="success" icon="fas fa-user-plus" />
-                </div>
-                <div class="col-md-4">
-                    <x-adminlte-input wire:model.live="search" name="searchPasien" placeholder="Pencarian Pasien"
-                        igroup-size="sm">
-                        <x-slot name="appendSlot">
-                            <x-adminlte-button theme="primary" label="Cari" />
-                        </x-slot>
-                        <x-slot name="prependSlot">
-                            <div class="input-group-text text-primary">
-                                <i class="fas fa-search"></i>
-                            </div>
-                        </x-slot>
-                    </x-adminlte-input>
-                </div>
+    </div>
+    <x-adminlte-card theme="primary" title="Data Pasien" icon="fas fa-user-injured">
+        <div class="row">
+            <div class="col-md-8">
+                <x-adminlte-button wire:click='tambahPasien' class="btn-sm" label="Tambah Pasien Baru"
+                    theme="success" icon="fas fa-user-plus" />
             </div>
-            <table class="table text-nowrap table-sm table-hover table-bordered table-responsive mb-3">
-                <thead>
+            <div class="col-md-4">
+                <x-adminlte-input wire:model.live="search" name="searchPasien" placeholder="Pencarian Pasien"
+                    igroup-size="sm">
+                    <x-slot name="appendSlot">
+                        <x-adminlte-button theme="primary" label="Cari" />
+                    </x-slot>
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text text-primary">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </x-slot>
+                </x-adminlte-input>
+            </div>
+        </div>
+        <table class="table text-nowrap table-sm table-hover table-bordered table-responsive mb-3">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>No RM</th>
+                    <th>Nama Pasien</th>
+                    <th>Sex</th>
+                    <th>No BPJS</th>
+                    <th>NIK</th>
+                    <th>Action</th>
+                    <th>Alamat</th>
+                    <th>No HP</th>
+                    <th>Tempat Lahir</th>
+                    <th>Tgl Lahir</th>
+                    <th>PIC</th>
+                    <th>Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($pasiens as $item)
                     <tr>
-                        <th>#</th>
-                        <th>No RM</th>
-                        <th>Nama Pasien</th>
-                        <th>Sex</th>
-                        <th>No BPJS</th>
-                        <th>NIK</th>
-                        <th>Action</th>
-                        <th>Alamat</th>
-                        <th>No HP</th>
-                        <th>Tempat Lahir</th>
-                        <th>Tgl Lahir</th>
-                        <th>PIC</th>
-                        <th>Updated</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pasiens as $item)
-                        <tr>
-                            <td>{{ $loop->index + $pasiens->firstItem() }}</td>
-                            <td>{{ $item->norm }}</td>
-                            <td>{{ $item->nama }}</td>
-                            <td>{{ $item->gender }}</td>
-                            <td>{{ $item->nomorkartu }}</td>
-                            <td>{{ $item->nik }}</td>
-                            <td>
+                        <td>{{ $loop->index + $pasiens->firstItem() }}</td>
+                        <td>{{ $item->norm }}</td>
+                        <td>{{ $item->nama }}</td>
+                        <td>{{ $item->gender }}</td>
+                        <td>{{ $item->nomorkartu }}</td>
+                        <td>{{ $item->nik }}</td>
+                        <td>
+                            <a href="#editPasien">
                                 <x-adminlte-button wire:click='editPasien({{ $item }})' theme="warning"
                                     class="btn-xs" icon="fas fa-edit" />
-                                <x-adminlte-button wire:click='nonaktifPasien({{ $item }})' theme="danger"
-                                    class="btn-xs" icon="fas fa-times" wire:confirm='Apakah anda yakin akan menonaktifkan pasien tersebut ?' />
-                            </td>
-                            <td>{{ $item->alamat }}</td>
-                            <td>{{ $item->nohp }}</td>
-                            <td>{{ $item->tempat_lahir }}</td>
-                            <td>{{ $item->tgl_lahir }}</td>
-                            <td>{{ $item->pic }}</td>
-                            <td>{{ $item->updated_at }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <x-slot name="footerSlot">
-                <div wire:loading>
-                    <div class="spinner-border spinner-border-sm text-primary" role="status">
-                    </div>
-                    Loading ...
+                            </a>
+                            <x-adminlte-button wire:click='nonaktifPasien({{ $item }})' theme="danger"
+                                class="btn-xs" icon="fas fa-times"
+                                wire:confirm='Apakah anda yakin akan menonaktifkan pasien tersebut ?' />
+                        </td>
+                        <td>{{ $item->alamat }}</td>
+                        <td>{{ $item->nohp }}</td>
+                        <td>{{ $item->tempat_lahir }}</td>
+                        <td>{{ $item->tgl_lahir }}</td>
+                        <td>{{ $item->pic }}</td>
+                        <td>{{ $item->updated_at }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <x-slot name="footerSlot">
+            <div wire:loading>
+                <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>
-            </x-slot>
-        </x-adminlte-card>
-    </div>
+                Loading ...
+            </div>
+        </x-slot>
+    </x-adminlte-card>
+</div>

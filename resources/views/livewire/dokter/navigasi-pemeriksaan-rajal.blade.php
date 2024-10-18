@@ -34,15 +34,15 @@
         <a href="#layanan" class="nav-link">
             <i class="fas fa-hand-holding-medical"></i> Layanan & Tindakan
             <span class="badge bg-success float-right">
-                {{ $antrian->layanans->count() }} Layanan
+                {{ $antrian->kunjungan?->layanans->count() }} Layanan
             </span>
         </a>
     </li>
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a href="#asesmenrajal" class="nav-link">
             <i class="fas fa-file-medical-alt"></i> Asesmen Rawat Jalan
         </a>
-    </li>
+    </li> --}}
     @can('perawat')
         <li class="nav-item">
             <a href="#pemeriksaanperawat" class="nav-link">
@@ -71,6 +71,11 @@
             </a>
         </li>
     @endcan
+    <li class="nav-item">
+        <a href="#suratkontrol" class="nav-link">
+            <i class="fas fa-file-medical-alt"></i> Surat Kontrol
+        </a>
+    </li>
     <li class="nav-item">
         <a href="#resumerajal" class="nav-link">
             <i class="fas fa-file-medical-alt"></i> Resume Rawat Jalan

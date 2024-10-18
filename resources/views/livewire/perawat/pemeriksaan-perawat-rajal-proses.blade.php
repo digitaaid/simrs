@@ -19,9 +19,11 @@
                     href="{{ route('pemeriksaan.perawat.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}&jadwal={{ $antrian->jadwal_id }}">
                     <x-adminlte-button class="btn-xs mb-2" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
                 </a>
-                <x-adminlte-button wire:click='selesaiPerawat'
-                    wire:confirm='Apakah anda yakin telah selesai pemeriksaan perawat ?' class="btn-xs mb-2"
-                    label="Selesai & Kembali" theme="success" icon="fas fa-check" />
+                @if ($this->antrian->asesmenrajal)
+                    <x-adminlte-button wire:click='selesaiPerawat'
+                        wire:confirm='Apakah anda yakin telah selesai pemeriksaan perawat ?' class="btn-xs mb-2"
+                        label="Selesai & Kembali" theme="success" icon="fas fa-check" />
+                @endif
                 <div wire:loading>
                     <div class="spinner-border spinner-border-sm text-primary" role="status">
                     </div>
@@ -32,15 +34,37 @@
     </div>
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
-        @livewire('dokter.modal-cppt', ['antrian' => $antrian])
-        @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
-        @livewire('dokter.modal-asesmen-rajal')
+        <div id="icare">
+            @livewire('dokter.modal-icare', ['antrian' => $antrian, 'lazy' => true])
+        </div>
+        <div id="cppt">
+            @livewire('dokter.modal-cppt', ['antrian' => $antrian, 'lazy' => true])
+        </div>
+        <div id="laboratorium">
+            @livewire('laboratorium.modal-laboratorium', ['antrian' => $antrian, 'lazy' => true])
+        </div>
+        <div id="radiologi">
+            @livewire('radiologi.modal-radiologi', ['antrian' => $antrian, 'lazy' => true])
+        </div>
+        <div id="penunjang">
+            @livewire('penunjang.modal-penunjang', ['antrian' => $antrian, 'lazy' => true])
+        </div>
+        <div id="layanan">
+            @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian, 'lazy' => true])
+        </div>
+        {{-- @livewire('dokter.modal-asesmen-rajal') --}}
         @can('perawat')
-            @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian])
+            <div id="pemeriksaanperawat">
+                @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian, 'lazy' => true])
+            </div>
         @endcan
         @can('dokter')
-            @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian])
+            <div id="pemeriksaandokter">
+                @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian, 'lazy' => true])
+            </div>
         @endcan
-        @livewire('dokter.modal-resume-rajal', ['antrian' => $antrian])
+        <div id="resumerajal">
+            @livewire('dokter.modal-resume-rajal', ['antrian' => $antrian, 'lazy' => true])
+        </div>
     </div>
 </div>

@@ -19,7 +19,13 @@
                                 igroup-class="col-8" igroup-size="sm" name="kodejkn" label="Kode JKN" />
                             <x-adminlte-input wire:model="idorganization" fgroup-class="row"
                                 label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
-                                name="idorganization" label="idorganization" />
+                                name="idorganization" label="idorganization">
+                                <x-slot name="appendSlot">
+                                    <div class="btn btn-primary" wire:click="cariIdOrganization('{{ $kode }}')">
+                                        <i class="fas fa-search"></i> Cari
+                                    </div>
+                                </x-slot>
+                            </x-adminlte-input>
                             <x-adminlte-input wire:model="idlocation" fgroup-class="row" label-class="text-left col-4"
                                 igroup-class="col-8" igroup-size="sm" name="idlocation" label="idlocation" />
                         </div>
@@ -29,7 +35,7 @@
                                 <option value=null disabled>Pilih Jenis</option>
                                 <option>Pelayanan Rawat Jalan</option>
                                 <option>Pelayanan Rawat Inap</option>
-                                <option>Pelayanan Rawat IGD</option>
+                                <option>Pelayanan IGD</option>
                                 <option>Pelayanan Farmasi</option>
                             </x-adminlte-select>
                             <x-adminlte-input wire:model="lokasi" fgroup-class="row" label-class="text-left col-4"
