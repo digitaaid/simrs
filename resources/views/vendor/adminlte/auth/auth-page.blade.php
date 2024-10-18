@@ -13,21 +13,24 @@
     @yield('css')
     <style>
         .login-page {
-            background-image: url('{{ asset('kitasehat/depan.jpg') }}');
+            background-image: url('{{ asset('lmc/2.jpg') }}');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
             background-blend-mode: overlay;
-            background-size: 100% 100%
+            background-size: 100% 100%;
+            background-color: rgba(251, 229, 255, 0.95);
         }
 
         .register-page {
-            background-image: url('{{ asset('kitasehat/depan.jpg') }}');
+            background-image: url('{{ asset('lmc/2.jpg') }}');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
             background-blend-mode: overlay;
-            background-size: 100% 100%
+            background-size: 100% 100%;
+            background-color: rgba(251, 229, 255, 0.95);
+
         }
     </style>
 @stop
