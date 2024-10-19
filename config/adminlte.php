@@ -500,7 +500,13 @@ return [
                     'shift'   => 'ml-2',
                     'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
                     'active'  => ['pendaftaran/ranap', 'pendaftaran/ranap/proses'],
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
+                ],
+                [
+                    'text' => 'Kamar & Bed',
+                    'url' => 'kamar-bed',
+                    'icon' => 'fas fa-bed',
+                    'active'  => ['kamar-bed', 'kamar-bed/create', 'kamar-bed/edit/*'],
+                    'shift'   => 'ml-2',
                 ],
             ]
         ],
@@ -622,6 +628,20 @@ return [
             'active'  => ['pasien', 'pasien/create', 'pasien/edit/*'],
         ],
         [
+            'text' => 'Dokter',
+            'url' => 'dokter',
+            'icon' => 'fas fa-user-md',
+            'can' => ['manajemen-pelayanan', 'pendaftaran'],
+            'active'  => ['dokter', 'dokter/create', 'dokter/edit/*'],
+        ],
+        [
+            'text' => 'Unit',
+            'url' => 'unit',
+            'icon' => 'fas fa-clinic-medical',
+            'can' => ['manajemen-pelayanan', 'pendaftaran'],
+            'active'  => ['unit', 'unit/create', 'unit/edit/*'],
+        ],
+        [
             'text'    => 'Pengelolaan',
             'icon'    => 'fas fa-database',
             'submenu' => [
@@ -633,14 +653,7 @@ return [
                     'active'  => ['pegawai', 'pegawai/create', 'pegawai/edit/*'],
                     'shift'   => 'ml-2',
                 ],
-                [
-                    'text' => 'Dokter',
-                    'url' => 'dokter',
-                    'icon' => 'fas fa-user-md',
-                    'can' => ['manajemen-pelayanan', 'pendaftaran'],
-                    'active'  => ['dokter', 'dokter/create', 'dokter/edit/*'],
-                    'shift'   => 'ml-2',
-                ],
+
                 [
                     'text' => 'Perawat',
                     'url' => 'perawat',
@@ -649,21 +662,8 @@ return [
                     'active'  => ['perawat', 'perawat/create', 'perawat/edit/*'],
                     'shift'   => 'ml-2',
                 ],
-                [
-                    'text' => 'Unit',
-                    'url' => 'unit',
-                    'icon' => 'fas fa-clinic-medical',
-                    'can' => ['manajemen-pelayanan', 'pendaftaran'],
-                    'active'  => ['unit', 'unit/create', 'unit/edit/*'],
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Kamar & Bed',
-                    'url' => 'kamar-bed',
-                    'icon' => 'fas fa-bed',
-                    'active'  => ['kamar-bed', 'kamar-bed/create', 'kamar-bed/edit/*'],
-                    'shift'   => 'ml-2',
-                ],
+
+
                 [
                     'text' => 'Tindakan',
                     'url' => 'tindakan',
