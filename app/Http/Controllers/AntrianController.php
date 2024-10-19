@@ -596,7 +596,7 @@ class AntrianController extends ApiController
             ->where('taskid', '<=', 5)
             ->first();
         if ($antrian_nik) {
-            return $this->sendError("Terdapat Antrian (" . $antrian_nik->kodebooking . ") dengan nomor NIK yang sama pada tanggal tersebut yang belum selesai. Silahkan batalkan terlebih dahulu jika ingin mendaftarkan lagi.",  409);
+            return $this->sendError("Nomor antrian hanya dapat diambil 1 kali. Anda telah memiliki antrian dengan kode booking " . $antrian_nik->kodebooking,  201);
         }
         // cek pasien baru
         $pasien = Pasien::where('nomorkartu',  $request->nomorkartu)->first();
@@ -617,7 +617,7 @@ class AntrianController extends ApiController
             $request['namadokter']  = $statusantrian->response->namadokter;
             $request['jadwal_id']  = $statusantrian->response->jadwal_id;
         } else {
-            return $this->sendError($statusantrian->metadata->message, 400);
+            return $this->sendError($statusantrian->metadata->message, $statusantrian->metadata->code);
         }
         $request['kodebooking'] = strtoupper(uniqid());
         $jadwal = JadwalDokter::find($request->jadwal_id);
@@ -673,9 +673,9 @@ class AntrianController extends ApiController
                 'kuotanonjkn' => $request->kuotanonjkn,
                 'keterangan' => $request->keterangan,
             ];
-            if ($request->method == "Mobile JKN") {
-                return $this->sendAntrian($data, "Berhasil daftar antrian dengan nomor antrian " . $antrian->nomorantrean);
-            }
+            // if ($request->method == "Mobile JKN") {
+            //     return $this->sendAntrian($data, "Berhasil daftar antrian dengan nomor antrian " . $antrian->nomorantrean);
+            // }
             return $this->sendResponse($data, 200);
         } else {
             return $this->sendError($res->metadata->message, 400);
