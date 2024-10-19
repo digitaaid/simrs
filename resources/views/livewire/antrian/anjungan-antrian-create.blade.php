@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <header class="bg-green text-white p-2">
+                <header class="bg-purple text-white p-2">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6">
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            <x-adminlte-card class="m-2" title="Pilih Jadwal Dokter {{ $jenispasien }}" theme="green"
+            <x-adminlte-card class="m-2" title="Pilih Jadwal Dokter {{ $jenispasien }}" theme="purple"
                 icon="fas fa-user-md">
                 <div class="row">
                     @foreach ($jadwals as $item)
