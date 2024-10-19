@@ -615,17 +615,16 @@ return [
             ],
         ],
         [
+            'text' => 'Pasien',
+            'url' => 'pasien',
+            'icon' => 'fas fa-user-injured',
+            'can' => ['manajemen-pelayanan', 'pendaftaran'],
+            'active'  => ['pasien', 'pasien/create', 'pasien/edit/*'],
+        ],
+        [
             'text'    => 'Pengelolaan',
             'icon'    => 'fas fa-database',
             'submenu' => [
-                [
-                    'text' => 'Pasien',
-                    'url' => 'pasien',
-                    'icon' => 'fas fa-user-injured',
-                    'can' => ['manajemen-pelayanan', 'pendaftaran'],
-                    'active'  => ['pasien', 'pasien/create', 'pasien/edit/*'],
-                    'shift'   => 'ml-2',
-                ],
                 [
                     'text' => 'Pegawai',
                     'url' => 'pegawai',
@@ -663,14 +662,6 @@ return [
                     'url' => 'kamar-bed',
                     'icon' => 'fas fa-bed',
                     'active'  => ['kamar-bed', 'kamar-bed/create', 'kamar-bed/edit/*'],
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Jadwal Dokter Rajal',
-                    'url' => 'jadwaldokter',
-                    'icon' => 'fas fa-calendar-alt',
-                    'can' => ['manajemen-pelayanan', 'pendaftaran'],
-                    'active'  => ['jadwaldokter', 'jadwaldokter/create', 'jadwaldokter/edit/*'],
                     'shift'   => 'ml-2',
                 ],
                 [
