@@ -973,7 +973,7 @@ class AntrianController extends ApiController
         $pasienlama = Pasien::where('nik', $request->nik)->first();
         if (!$pasienlama) {
             $pasien = new Pasien();
-            $pasiensebelumnya  = Pasien::latest()->first()?->norm;
+            $pasiensebelumnya  = Pasien::orderBy('norm', 'desc')->first()?->norm;
             if ($pasiensebelumnya) {
                 $norm = sprintf("%06d", $pasiensebelumnya + 1);
             } else {
@@ -1025,7 +1025,7 @@ class AntrianController extends ApiController
             "nomorantrean" => $request->nomorantrean,
             "keterangan" => $request->keterangan,
         ];
-        return $res;
+        return $this->sendResponse($responses, 200);
     }
     public function status_antrian_farmasi(Request $request)
     {
@@ -1048,7 +1048,7 @@ class AntrianController extends ApiController
         $antreansudah = Antrian::whereDate('tanggalperiksa', $antrian->tanggalperiksa)
             ->count();
         $request['totalantrean'] = $totalantrean ?? 0;
-        $request['sisaantrean'] = $totalantrean - $antreansudah ?? 0;
+        $request['sisaantrean'] = $totalantrean ?? 0;
         $request['antreanpanggil'] = $antreanpanggil->angkaantrean ?? 0;
         $request['keterangan'] = $antrian->keterangan;
         $request['jenisresep'] = "Racikan/Non Racikan";

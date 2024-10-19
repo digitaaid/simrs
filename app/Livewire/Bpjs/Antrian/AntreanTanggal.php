@@ -29,7 +29,7 @@ class AntreanTanggal extends Component
     public function render()
     {
         return view('livewire.bpjs.antrian.antrean-tanggal')->title(
-            'Antrian Tanggal'
+            'Antrian Per Tanggal'
         );
     }
 }

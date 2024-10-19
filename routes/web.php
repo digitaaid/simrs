@@ -171,9 +171,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('bpjs/antrian/dashboardtanggal', DashboardTanggal::class)->name('antrian.dashboardtanggal')->lazy();
         Route::get('bpjs/antrian/dashboardbulan', DashboardBulan::class)->name('antrian.dashboardbulan')->lazy();
         Route::get('bpjs/antrian/antreantanggal', AntreanTanggal::class)->name('antrian.antreantanggal')->lazy();
-        Route::get('bpjs/antrian/antreankodebooking/{kodebooking}', AntreanKodebooking::class)->name('antrian.antreankodebooking')->lazy();
-        Route::get('bpjs/antrian/antreanbelumlayani', AntreanBelumLayani::class)->name('antrian.antreanbelumlayani')->lazy();
-        Route::get('bpjs/antrian/antreandokter', AntreanDokter::class)->name('antrian.antreandokter')->lazy();
+        Route::get('bpjs/antrian/antreankodebooking/{kodebooking}', AntreanKodebooking::class)->name('antrian.antreankodebooking');
+        Route::get('bpjs/antrian/antreanbelumlayani', AntreanBelumLayani::class)->name('antrian.antreanbelumlayani');
+        Route::get('bpjs/antrian/antreandokter', AntreanDokter::class)->name('antrian.antreandokter');
     });
     Route::middleware(['can:vclaim-bpjs'])->group(function () {
         Route::get('bpjs/vclaim/monitoring-data-kunjungan', MonitoringDataKunjungan::class)->name('vclaim.monitoring.datakunjungan')->lazy();
