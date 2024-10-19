@@ -7,7 +7,7 @@
         </div>
     @endif
     <div class="col-md-12">
-        <x-adminlte-card title="Table Referensi Dokter" theme="secondary">
+        <x-adminlte-card title="Antrian Belum Dilayani" theme="secondary">
             <div wire:loading class="col-md-12">
                 @include('components.placeholder.placeholder-text')
             </div>

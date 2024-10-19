@@ -58,7 +58,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Tgl Lahir</td>
+                <td class="text-nowrap">Tgl Lahir</td>
                 <td>:</td>
                 <td>
                     @if ($antrian->kunjungan)
@@ -71,12 +71,12 @@
                 </td>
             </tr>
             <tr>
-                <td>NIK</td>
+                <td class="text-nowrap">NIK</td>
                 <td>:</td>
                 <td>{{ $antrian->nik ? $antrian->nik : 'Belum Didaftarkan' }}</td>
             </tr>
             <tr>
-                <td>Alamat</td>
+                <td class="text-nowrap">Alamat</td>
                 <td>:</td>
                 <td>{{ $antrian->pasien ? $antrian->pasien?->alamat : 'Belum Didaftarkan' }}
                 </td>

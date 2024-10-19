@@ -47,7 +47,7 @@ Route::prefix('antrian')->group(function () {
     Route::post('ambilantrean', [AntrianController::class, 'ambil_antrian'])->name('ambilantrean');
     Route::post('sisaantrean', [AntrianController::class, 'sisa_antrian'])->name('sisaantrean');
     Route::post('batalantrean', [AntrianController::class, 'batal_antrian'])->name('batalantrean');
-    Route::post('checkin', [AntrianController::class, 'checkin_antrian'])->name('checkin');
+    Route::post('checkinantrean', [AntrianController::class, 'checkin_antrian'])->name('checkinantrean');
     Route::post('infopasienbaru', [AntrianController::class, 'info_pasien_baru'])->name('infopasienbaru');
     Route::post('jadwaloperasi', [JadwalOperasiController::class, 'jadwal_operasi_rs'])->name('jadwaloperasi');
     Route::post('jadwaloperasipasien', [JadwalOperasiController::class, 'jadwal_operasi_pasien'])->name('jadwaloperasipasien');
