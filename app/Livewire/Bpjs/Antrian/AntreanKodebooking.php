@@ -24,6 +24,6 @@ class AntreanKodebooking extends Component
     }
     public function render()
     {
-        return view('livewire.bpjs.antrian.antrean-kodebooking');
+        return view('livewire.bpjs.antrian.antrean-kodebooking')->title('Antrian Per Kodebooking');
     }
 }
