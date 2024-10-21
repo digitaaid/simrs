@@ -184,7 +184,6 @@ class ModalSuratkontrol extends Component
             return flash($res->metadata->message, 'danger');
         }
     }
-
     public function cariDokter()
     {
         $this->validate([
@@ -268,7 +267,6 @@ class ModalSuratkontrol extends Component
             return flash($res->metadata->message, 'danger');
         }
     }
-
     public function cariDataSuratKontrol()
     {
         $this->validate([

@@ -12,7 +12,6 @@ class SepController extends Controller
     {
         $vclaim = new VclaimController();
         $res = $vclaim->sep_nomor($request);
-        dd($res);
         if ($res->metadata->code == 200) {
             $sep = $res->response;
             $peserta = $sep->peserta;

@@ -40,9 +40,11 @@
                         <i class="fas fa-file-medical"></i> Surat Kontrol & SPRI
                         {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
-                    <a href="#sep" class="nav-link">
+                    <a href="#modalsep" class="nav-link">
                         <i class="fas fa-file-medical"></i> SEP
-                        {{-- <span class="badge bg-success float-right"></span> --}}
+                        @if ($kunjungan->sep)
+                            <span class="badge bg-success float-right">{{ $kunjungan->sep }}</span>
+                        @endif
                     </a>
                     <a href="#triaseigd" class="nav-link">
                         <i class="fas fa-ambulance"></i> Triase & Anamnesis

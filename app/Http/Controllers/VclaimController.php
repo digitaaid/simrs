@@ -681,7 +681,7 @@ class VclaimController extends ApiController
             "ppkRujukan" => "required",
             "catatan" => "required",
             "diagAwal" => "required",
-            "tujuan" => "required",
+            // "tujuan" => "required",
             "eksekutif" => "required",
             "tujuanKunj" => "required",
             // "flagProcedure" => "required",
@@ -689,7 +689,7 @@ class VclaimController extends ApiController
             // "assesmentPel" => "required",
             // "noSurat" => "required",
             // "kodeDPJP" => "required",
-            "dpjpLayan" => "required",
+            // "dpjpLayan" => "required",
             "noTelp" => "required",
             "user" => "required",
         ]);
@@ -754,7 +754,7 @@ class VclaimController extends ApiController
                     "assesmentPel" => $request->assesmentPel,
                     "skdp" => [
                         "noSurat" => $request->noSurat,
-                        "kodeDPJP" => $request->dpjpLayan,
+                        "kodeDPJP" => $request->kodeDPJP,
                     ],
                     "dpjpLayan" => $request->dpjpLayan,
                     "noTelp" => $request->noTelp,

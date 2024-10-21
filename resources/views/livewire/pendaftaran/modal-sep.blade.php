@@ -110,8 +110,8 @@
                     <x-adminlte-input wire:model='noTelp' name="noTelp" label="Nomor HP" fgroup-class="row"
                         label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
                     <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
-                        igroup-size="sm" name="klsRawatHak" label="Jenis Pelayanan">
-                        <option disabled>Pilih Kelas Pasien</option>
+                        igroup-size="sm" wire:model='klsRawatHak' name="klsRawatHak" label="Kelas Pelayanan">
+                        <option value="">Pilih Kelas Pasien</option>
                         <option value="1">Kelas 1</option>
                         <option value="2">Kelas 2</option>
                         <option value="3">Kelas 3</option>
@@ -139,7 +139,7 @@
                     <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
                         igroup-size="sm" name="noSurat" wire:model='noSurat' wire:click='cariSuratKontrol'
                         label="No Surat Kontrol">
-                        <option value=null>Pilih Surat Kontrol</option>
+                        <option value="">Pilih Surat Kontrol</option>
                         @foreach ($suratkontrols as $key => $item)
                             <option value="{{ $item['noSuratKontrol'] }}">{{ $item['noSuratKontrol'] }}
                                 {{ $item['tglRencanaKontrol'] }} {{ $item['namaPoliTujuan'] }}
@@ -161,7 +161,7 @@
                     </x-adminlte-select>
                     <x-adminlte-select2 wire:model='tujuan' fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" name="tujuan" label="Poliklinik" required>
-                        <option value=null disabled>Pilih Poliklinik</option>
+                        <option value="">Pilih Poliklinik</option>
                         @foreach ($polikliniks as $key => $item)
                             <option value="{{ $key }}">{{ $item }}
                             </option>
@@ -169,7 +169,7 @@
                     </x-adminlte-select2>
                     <x-adminlte-select2 wire:model='dpjpLayan' fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" name="dpjpLayan" label="Dokter DPJP" required>
-                        <option value=null disabled>Pilih Dokter DPJP</option>
+                        <option value="" >Pilih Dokter DPJP</option>
                         @foreach ($dokters as $key => $item)
                             <option value="{{ $key }}">{{ $item }}
                             </option>
