@@ -17,7 +17,7 @@ class SuratKontrolController extends Controller
             $suratkontrol = $res->response;
             $sep = $res->response->sep;
             $peserta = $res->response->sep->peserta;
-            $pdf = Pdf::loadView('print.pdf_spri', compact(
+            $pdf = Pdf::loadView('print.pdf_suratkontrol', compact(
                 'suratkontrol',
                 'sep',
                 'peserta',
