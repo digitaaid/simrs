@@ -36,12 +36,12 @@
                     @endif
                 </a>
                 @if ($kunjungan)
-                    <a href="#sep" class="nav-link">
-                        <i class="fas fa-file-medical"></i> SEP
+                    <a href="#suratkontrol" class="nav-link">
+                        <i class="fas fa-file-medical"></i> Surat Kontrol & SPRI
                         {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
-                    <a href="#suratkontrol" class="nav-link">
-                        <i class="fas fa-file-medical"></i> SPRI & Surat Kontrol
+                    <a href="#sep" class="nav-link">
+                        <i class="fas fa-file-medical"></i> SEP
                         {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
                     <a href="#triaseigd" class="nav-link">

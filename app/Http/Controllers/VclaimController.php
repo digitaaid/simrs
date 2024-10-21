@@ -533,9 +533,9 @@ class VclaimController extends ApiController
     {
         $validator = Validator::make($request->all(), [
             "noKartu" => "required",
-            "tglRencanaKontrol" => "required|date",
             "kodeDokter" => "required",
             "poliKontrol" => "required",
+            "tglRencanaKontrol" => "required|date",
             "user" => "required",
         ]);
         if ($validator->fails()) {
@@ -554,6 +554,33 @@ class VclaimController extends ApiController
             ]
         ];
         $response = Http::withHeaders($signature)->post($url, $data);
+        return $this->response_decrypt($response, $signature);
+    }
+    public function spri_update(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "noSPRI" => "required",
+            "kodeDokter" => "required",
+            "poliKontrol" => "required",
+            "tglRencanaKontrol" => "required|date",
+            "user" => "required",
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first(), 400);
+        }
+        $url =  $this->api()->base_url . "RencanaKontrol/UpdateSPRI";
+        $signature = $this->signature();
+        $signature['Content-Type'] = 'application/x-www-form-urlencoded';
+        $data = [
+            "request" => [
+                "noSPRI" => $request->noSPRI,
+                "kodeDokter" => $request->kodeDokter,
+                "poliKontrol" => $request->poliKontrol,
+                "tglRencanaKontrol" => $request->tglRencanaKontrol,
+                "user" =>  $request->user,
+            ]
+        ];
+        $response = Http::withHeaders($signature)->put($url, $data);
         return $this->response_decrypt($response, $signature);
     }
     // RUJUKAN

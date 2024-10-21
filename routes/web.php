@@ -184,6 +184,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('bpjs/vclaim/referensi', Referensi::class)->name('vclaim.referensi')->lazy();
         Route::get('bpjs/vclaim/surat-kontrol', SuratKontrol::class)->name('vclaim.suratkontrol')->lazy();
         Route::get('bpjs/vclaim/suratkontrol_print', [SuratKontrolController::class, 'suratkontrol_print'])->name('vclaim.suratkontrol_print');
+        Route::get('bpjs/vclaim/spri_print', [SuratKontrolController::class, 'spri_print'])->name('vclaim.spri_print');
         Route::get('bpjs/vclaim/rujukan', Rujukan::class)->name('vclaim.rujukan')->lazy();
         Route::get('bpjs/vclaim/sep', Sep::class)->name('vclaim.sep')->lazy();
         Route::get('bpjs/vclaim/sep_print', [SepController::class, 'sep_print'])->name('vclaim.sep_print');

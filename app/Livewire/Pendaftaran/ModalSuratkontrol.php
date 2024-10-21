@@ -5,9 +5,11 @@ namespace App\Livewire\Pendaftaran;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\VclaimController;
 use App\Models\Antrian;
+use App\Models\Dokter;
 use App\Models\JadwalDokter;
 use App\Models\Kunjungan;
 use App\Models\Pasien;
+use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
@@ -17,30 +19,35 @@ class ModalSuratkontrol extends Component
     public $daftarantrian = true;
     public $antrian, $kunjungan, $tanggal, $formatfilter;
     public $nomorkartu, $noSEP, $tglRencanaKontrol, $poliKontrol, $kodeDokter, $noSuratKontrol, $jampraktek, $nohp;
-    public $seps = [], $polis = [], $dokters = [], $suratkontrols = [], $form = false;
-    public function hapusSurat($noSuratKontrol)
+    public $noSPRI;
+    public $seps = [], $polis = [], $dokters = [], $dokterss, $units, $suratkontrols = [];
+    public $formSuratKontrol = false, $formSpri = false;
+    public function render()
     {
-        $this->noSuratKontrol = $noSuratKontrol;
-        $api = new VclaimController();
-        $request = new Request([
-            'noSuratKontrol' => $this->noSuratKontrol,
-            'user' => auth()->user()->name,
-        ]);
-        $res = $api->suratkontrol_delete($request);
-        if ($res->metadata->code == 200) {
-            $this->cariDataSuratKontrol();
-            return flash($res->metadata->message, 'success');
-        } else {
-            return flash($res->metadata->message, 'danger');
-        }
+        return view('livewire.pendaftaran.modal-suratkontrol');
     }
-    public function editSurat($noSuratKontrol, $noSepAsalKontrol)
+    public function mount(Kunjungan $kunjungan)
     {
-        $this->noSuratKontrol = $noSuratKontrol;
-        $this->noSEP = $noSepAsalKontrol;
-        $this->form = true;
+        $this->kunjungan = $kunjungan;
+        $this->antrian = $kunjungan->antrian;
+        $this->nomorkartu = $kunjungan->nomorkartu;
+        $this->nohp = $kunjungan->pasien?->nohp;
+        $this->dokterss = Dokter::where('status', 1)->where('kodejkn', '!=', null)->pluck('nama', 'kodejkn');
+        $this->units = Unit::where('status', 1)->where('jenis', 'Pelayanan Rawat Jalan')->where('kodejkn', '!=', null)->pluck('nama', 'kodejkn');
     }
     public function buatSuratKontrol()
+    {
+        $this->reset(['noSEP', 'seps', 'tglRencanaKontrol', 'poliKontrol', 'kodeDokter', 'noSuratKontrol']);
+        $this->formSuratKontrol = $this->formSuratKontrol ?  false : true;
+        $this->formSpri = false;
+    }
+    public function buatSPRI()
+    {
+        $this->reset(['noSPRI',  'tglRencanaKontrol', 'poliKontrol', 'kodeDokter']);
+        $this->formSpri = $this->formSpri ? false : true;
+        $this->formSuratKontrol = false;
+    }
+    public function insertSuratKontrol()
     {
         $this->validate([
             'nomorkartu' => 'required',
@@ -101,7 +108,7 @@ class ModalSuratkontrol extends Component
                 ]);
                 $antrian->ambil_antrian($request);
             }
-            $this->form = false;
+            $this->formSuratKontrol = false;
             $this->formatfilter = 2;
             $this->tanggal = now()->format('Y-m');
             $this->cariDataSuratKontrol();
@@ -110,6 +117,74 @@ class ModalSuratkontrol extends Component
             return flash($res->metadata->message, 'danger');
         }
     }
+    public function insertSPRI()
+    {
+        $this->validate([
+            'nomorkartu' => 'required',
+            'kodeDokter' => 'required',
+            'poliKontrol' => 'required',
+            'tglRencanaKontrol' => 'required',
+        ]);
+        $api = new VclaimController();
+        if ($this->noSPRI) {
+            $request = new Request([
+                'noSPRI' => $this->noSPRI,
+                'noKartu' => $this->nomorkartu,
+                'kodeDokter' => $this->kodeDokter,
+                'poliKontrol' => $this->poliKontrol,
+                'tglRencanaKontrol' => $this->tglRencanaKontrol,
+                'user' => auth()->user()->name,
+            ]);
+            $res = $api->spri_update($request);
+        } else {
+            $request = new Request([
+                'noKartu' => $this->nomorkartu,
+                'kodeDokter' => $this->kodeDokter,
+                'poliKontrol' => $this->poliKontrol,
+                'tglRencanaKontrol' => $this->tglRencanaKontrol,
+                'user' => auth()->user()->name,
+            ]);
+            $res = $api->spri_insert($request);
+        }
+        if ($res->metadata->code == 200) {
+            $this->formSuratKontrol = false;
+            $this->formSpri = false;
+            $this->formatfilter = 2;
+            $this->tanggal = now()->format('Y-m');
+            $this->cariDataSuratKontrol();
+            return flash($res->metadata->message, 'success');
+        } else {
+            return flash($res->metadata->message, 'danger');
+        }
+    }
+    public function editSurat($noSuratKontrol, $noSepAsalKontrol)
+    {
+        $this->noSuratKontrol = $noSuratKontrol;
+        $this->noSEP = $noSepAsalKontrol;
+        $this->formSuratKontrol = true;
+    }
+    public function editSPRI($noSPRI)
+    {
+        $this->noSPRI = $noSPRI;
+        $this->formSpri = true;
+    }
+    public function hapusSurat($noSuratKontrol)
+    {
+        $this->noSuratKontrol = $noSuratKontrol;
+        $api = new VclaimController();
+        $request = new Request([
+            'noSuratKontrol' => $this->noSuratKontrol,
+            'user' => auth()->user()->name,
+        ]);
+        $res = $api->suratkontrol_delete($request);
+        if ($res->metadata->code == 200) {
+            $this->cariDataSuratKontrol();
+            return flash($res->metadata->message, 'success');
+        } else {
+            return flash($res->metadata->message, 'danger');
+        }
+    }
+
     public function cariDokter()
     {
         $this->validate([
@@ -193,11 +268,7 @@ class ModalSuratkontrol extends Component
             return flash($res->metadata->message, 'danger');
         }
     }
-    public function openForm()
-    {
-        $this->reset(['noSEP', 'seps', 'tglRencanaKontrol', 'poliKontrol', 'kodeDokter', 'noSuratKontrol']);
-        $this->form = $this->form ?  false : true;
-    }
+
     public function cariDataSuratKontrol()
     {
         $this->validate([
@@ -219,16 +290,5 @@ class ModalSuratkontrol extends Component
         } else {
             return flash($res->metadata->message, 'danger');
         }
-    }
-    public function mount(Kunjungan $kunjungan)
-    {
-        $this->kunjungan = $kunjungan;
-        $this->antrian = $kunjungan->antrian;
-        $this->nomorkartu = $kunjungan->nomorkartu;
-        $this->nohp = $kunjungan->nohp;
-    }
-    public function render()
-    {
-        return view('livewire.pendaftaran.modal-suratkontrol');
     }
 }
