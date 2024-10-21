@@ -5,6 +5,7 @@ namespace App\Livewire\Pendaftaran;
 use App\Http\Controllers\VclaimController;
 use App\Models\Antrian;
 use App\Models\Dokter;
+use App\Models\Kunjungan;
 use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,11 +14,15 @@ use Spatie\FlareClient\Api;
 
 class ModalSep extends Component
 {
-    public $antrian, $kodebooking, $antrian_id, $nomorreferensi;
+    public $antrian, $kunjungan, $kodebooking, $antrian_id, $nomorreferensi;
     public $polikliniks = [], $dokters = [], $diagnosas = [], $diagnosa;
     public $nomorkartu, $tanggal, $seps = [], $form = false;
     public $asalRujukan, $rujukans = [], $suratkontrols = [];
     public $noKartu, $noMR, $nama, $tglSep, $ppkPelayanan, $jnsPelayanan, $klsRawatHak, $tglRujukan, $noRujukan, $ppkRujukan, $catatan, $diagAwal, $tujuan, $eksekutif, $tujuanKunj = 0, $flagProcedure = "", $kdPenunjang = "", $assesmentPel = "", $noSurat, $kodeDPJP, $dpjpLayan, $noTelp, $user;
+    public function render()
+    {
+        return view('livewire.pendaftaran.modal-sep');
+    }
     public function hapusSurat($noSep)
     {
         $request = new Request([
@@ -32,7 +37,10 @@ class ModalSep extends Component
                 $antrian->update([
                     'sep' =>  null,
                 ]);
-                $antrian->kunjungan->update([
+            }
+            $kunjungan = Kunjungan::firstWhere('sep', $noSep);
+            if ($antrian) {
+                $kunjungan->update([
                     'sep' =>  null,
                 ]);
             }
@@ -257,22 +265,19 @@ class ModalSep extends Component
     {
         $this->form = $this->form ?  false : true;
     }
-    public function mount(Antrian $antrian)
+    public function mount(Kunjungan $kunjungan)
     {
-        $this->antrian = $antrian;
-        $this->nomorkartu = $antrian->nomorkartu;
-        $this->kodebooking = $antrian->kodebooking;
-        $this->antrian_id = $antrian->id;
-        $this->noKartu = $antrian->nomorkartu;
-        $this->noMR = $antrian->norm;
-        $this->nama = $antrian->nama;
-        $this->noTelp = $antrian->nohp;
+        $this->kunjungan = $kunjungan;
+        $this->antrian = $kunjungan->antrian;
+        $this->nomorkartu = $kunjungan->nomorkartu;
+        $this->kodebooking = $kunjungan->antrian?->kodebooking;
+        $this->antrian_id = $kunjungan->antrian?->id;
+        $this->noKartu = $kunjungan->nomorkartu;
+        $this->noMR = $kunjungan->norm;
+        $this->nama = $kunjungan->nama;
+        $this->noTelp = $kunjungan->nohp;
         $this->polikliniks = Unit::pluck('nama', 'kode');
         $this->dokters = Dokter::pluck('nama', 'kodejkn');
         $this->cariSEP();
-    }
-    public function render()
-    {
-        return view('livewire.pendaftaran.modal-sep');
     }
 }

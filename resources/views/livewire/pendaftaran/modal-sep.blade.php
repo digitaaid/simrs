@@ -79,8 +79,8 @@
             </table>
             <br>
         @endif
-        @if ($antrian->sep)
-            <iframe src="{{ route('vclaim.sep_print') }}?noSep={{ $antrian->sep }}" width="100%" height="300"
+        @if ($kunjungan->sep)
+            <iframe src="{{ route('vclaim.sep_print') }}?noSep={{ $kunjungan->sep }}" width="100%" height="300"
                 frameborder="0"></iframe>
         @endif
         <x-slot name="footerSlot">

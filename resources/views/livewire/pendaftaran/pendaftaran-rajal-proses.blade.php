@@ -23,15 +23,15 @@
         <div id="kunjungan">
             @livewire('pendaftaran.modal-kunjungan-rajal', ['antrian' => $antrian, 'lazy' => true])
         </div>
-        @if ($antrian->pasien && $antrian->jenispasien == 'JKN')
-            <div id="modalsep">
-                @livewire('pendaftaran.modal-sep', ['antrian' => $antrian, 'lazy' => true])
-            </div>
-            <div id="suratkontrol">
-                @livewire('pendaftaran.modal-suratkontrol', ['antrian' => $antrian, 'lazy' => true])
-            </div>
-        @endif
         @if ($antrian->kunjungan)
+            @if ($antrian->pasien && $antrian->jenispasien == 'JKN')
+                <div id="suratkontrol">
+                    @livewire('pendaftaran.modal-suratkontrol', ['kunjungan' => $kunjungan, 'lazy' => true])
+                </div>
+                <div id="modalsep">
+                    @livewire('pendaftaran.modal-sep', ['antrian' => $antrian, 'lazy' => true])
+                </div>
+            @endif
             <div id="cppt">
                 @livewire('dokter.modal-cppt', ['antrian' => $antrian, 'lazy' => true])
             </div>

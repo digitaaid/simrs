@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="col-md-12">
-        <x-adminlte-card title="Pasien IGD" theme="secondary">
+        <x-adminlte-card title="Pasien Rawat Inap" theme="secondary">
             <div class="row">
                 <div class="col-md-3">
                     <x-adminlte-input wire:model.change='tanggal' type="date" name="tanggal" igroup-size="sm">
@@ -30,8 +30,8 @@
                     </x-adminlte-input>
                 </div>
                 <div class="col-md-2">
-                    <a href="{{ route('pendaftaran.igd.proses') }}">
-                        <x-adminlte-button class="btn-sm" theme="success" icon="fas fa-user-plus" label="Daftar IGD" />
+                    <a href="{{ route('pendaftaran.ranap.proses') }}">
+                        <x-adminlte-button class="btn-sm" theme="success" icon="fas fa-user-plus" label="Daftar Rawat Inap" />
                     </a>
                 </div>
                 <div class="col-md-3">

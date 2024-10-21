@@ -1,5 +1,5 @@
 <div>
-    <x-adminlte-card theme="primary" title="Kunjungan IGD" icon="fas fa-ambulance">
+    <x-adminlte-card theme="primary" title="Kunjungan Rawat Inap" icon="fas fa-bed">
         <div class="row">
             <div class="col-md-6">
                 <x-adminlte-input wire:model='nomorkartu' name="nomorkartu" fgroup-class="row" label-class="text-left col-4"
@@ -41,21 +41,29 @@
             </div>
             <div class="col-md-6">
                 <x-adminlte-input wire:model="kode" fgroup-class="row" label-class="text-left col-4"
-                    igroup-class="col-8" igroup-size="sm" name="kode" label="Kode Kunjungan" readonly />
+                    igroup-class="col-8" igroup-size="sm" name="kode" label="Kode" readonly />
                 <x-adminlte-input wire:model="counter" fgroup-class="row" label-class="text-left col-4"
                     igroup-class="col-8" igroup-size="sm" name="counter" label="Counter" readonly />
                 <x-adminlte-input wire:model="tgl_masuk" type='datetime-local' fgroup-class="row"
                     label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" name="tgl_masuk"
                     label="Tanggal Masuk" />
-                <x-adminlte-select wire:model='unit' fgroup-class="row" label-class="text-left col-4"
-                    igroup-class="col-8" igroup-size="sm" name="unit" label="Unit">
-                    <option value=null disabled>Pilih Unit</option>
+                <x-adminlte-select wire:model.change='unit' fgroup-class="row" label-class="text-left col-4"
+                    igroup-class="col-8" igroup-size="sm" name="unit" label="Kamar/Ruangan">
+                    <option value=null disabled>--Pilih Unit--</option>
                     @foreach ($units as $key => $value)
                         <option value="{{ $key }}">{{ $value }}</option>
                     @endforeach
                 </x-adminlte-select>
+                <x-adminlte-select wire:model='bed' fgroup-class="row" label-class="text-left col-4"
+                    igroup-class="col-8" igroup-size="sm" name="bed" label="Bed">
+                    <option value=null disabled>--Pilih Bed--</option>
+                    @foreach ($beds as $bed)
+                        <option value="{{ $bed->id }}" {{ $bed->status ? 'disabled' : null }}>BED
+                            {{ $bed->nomorbed }} {{ $bed->status ? '(Dipakai)' : null }}</option>
+                    @endforeach
+                </x-adminlte-select>
                 <x-adminlte-select wire:model='dokter' fgroup-class="row" label-class="text-left col-4"
-                    igroup-class="col-8" igroup-size="sm" name="dokter" label="Dokter">
+                    igroup-class="col-8" igroup-size="sm" name="dokter" label="Dokter DPJP">
                     <option value=null disabled>Pilih Dokter</option>
                     @foreach ($dokters as $key => $value)
                         <option value="{{ $key }}">{{ $value }}</option>
@@ -89,8 +97,8 @@
                 <x-adminlte-select wire:model="jeniskunjungan" fgroup-class="row" label-class="text-left col-4"
                     igroup-class="col-8" igroup-size="sm" name="jeniskunjungan" label="Jenis Kunjungan">
                     <option value=null disabled>Pilih Jenis Kunjungan</option>
-                    <option value="5">
-                        Instalasi Gawat Darurat</option>
+                    <option value="6">
+                        Pelayanan Rawat Inap</option>
                 </x-adminlte-select>
                 <x-adminlte-select wire:model='penjamin' igroup-size="sm" fgroup-class="row"
                     label-class="text-left col-4" igroup-class="col-8" name="penjamin" label="Jaminan Pasien">
@@ -106,8 +114,9 @@
             </div>
         </div>
         <x-slot name="footerSlot">
-            <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
-                wire:click="editKunjungan" wire:confirm='Apakah anda yakin akan menyimpan data kunjungan ?' />
+            <x-adminlte-button theme="success" icon="fas fa-bed" class="btn-sm" label="Simpan"
+                wire:click="editKunjungan"
+                wire:confirm='Apakah anda yakin akan menyimpan kunjungan pasien rawat inap ?' />
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>

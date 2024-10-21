@@ -4,17 +4,46 @@
             <li class="nav-item">
                 <a href="#datapasien" class="nav-link">
                     <i class="fas fa-users"></i> Data Pasien
-                    <span class="badge bg-success float-right">Pasien</span>
-                </a>
-                <a href="#kunjunganigd" class="nav-link">
-                    <i class="fas fa-ambulance"></i> Kunjungan
                     @if ($kunjungan)
-                        <span class="badge bg-success float-right">Sudah</span>
+                        <span class="badge bg-success float-right">{{ $kunjungan->nama }}</span>
                     @else
                         <span class="badge bg-danger float-right">Belum Daftar</span>
                     @endif
                 </a>
+                <a href="#kunjunganigd" class="nav-link">
+                    <i class="fas fa-ambulance"></i> Kunjungan
+                    @if ($kunjungan)
+                        @switch($kunjungan->status)
+                            @case(1)
+                                <span class="badge bg-warning float-right">{{ $kunjungan->status }}. Aktif
+                                </span>
+                            @break
+
+                            @case(2)
+                                <span class="badge bg-success float-right">{{ $kunjungan->status }}. Selesai
+                                </span>
+                            @break
+
+                            @case(99)
+                                <span class="badge bg-success float-right">{{ $kunjungan->status }}. Batal
+                                </span>
+                            @break
+
+                            @default
+                        @endswitch
+                    @else
+                        <span class="badge bg-danger float-right">0. Belum Daftar</span>
+                    @endif
+                </a>
                 @if ($kunjungan)
+                    <a href="#sep" class="nav-link">
+                        <i class="fas fa-file-medical"></i> SEP
+                        {{-- <span class="badge bg-success float-right"></span> --}}
+                    </a>
+                    <a href="#suratkontrol" class="nav-link">
+                        <i class="fas fa-file-medical"></i> SPRI & Surat Kontrol
+                        {{-- <span class="badge bg-success float-right"></span> --}}
+                    </a>
                     <a href="#triaseigd" class="nav-link">
                         <i class="fas fa-ambulance"></i> Triase & Anamnesis
                         {{-- <span class="badge bg-success float-right"></span> --}}
@@ -29,14 +58,24 @@
                     </a>
                     <a href="#layanan" class="nav-link">
                         <i class="fas fa-hand-holding-medical"></i> Layanan & Tindakan
-                        {{-- <span class="badge bg-success float-right"></span> --}}
+                        @if ($kunjungan->layanans)
+                            <span
+                                class="badge bg-success float-right">{{ money($kunjungan->layanans->sum('subtotal'), 'IDR') }}
+                            </span>
+                        @else
+                            <span class="badge bg-success float-right">{{ money(0, 'IDR') }}
+                            </span>
+                        @endif
                     </a>
                     <a href="#resepdokterigd" class="nav-link">
                         <i class="fas fa-pills"></i> Resep Obat
-                        {{-- <span class="badge bg-success float-right"></span> --}}
-                        @if ($kunjungan->resepobatdetails)
-                            <span class="badge bg-success float-right">{{ count($kunjungan->resepobatdetails) }}
-                                Obat</span>
+                        @if ($kunjungan->resepfarmasidetails)
+                            <span
+                                class="badge bg-success float-right">{{ money($kunjungan->resepfarmasidetails->sum('subtotal'), 'IDR') }}
+                            </span>
+                        @else
+                            <span class="badge bg-success float-right">{{ money(0, 'IDR') }}
+                            </span>
                         @endif
                     </a>
                     <a href="#instruksitindaklanjut" class="nav-link">
@@ -59,12 +98,23 @@
                         <i class="fas fa-file-medical"></i> Resume IGD
                         {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
+                    <a href="#invoiceigd" class="nav-link">
+                        <i class="fas fa-file-medical"></i> Invoice IGD
+                        @if ($kunjungan->resepfarmasidetails || $kunjungan->layanans)
+                            <span
+                                class="badge bg-success float-right">{{ money($kunjungan->layanans?->sum('subtotal') + $kunjungan->resepfarmasidetails?->sum('subtotal'), 'IDR') }}
+                            </span>
+                        @else
+                            <span class="badge bg-success float-right">{{ money(0, 'IDR') }}
+                            </span>
+                        @endif
+                    </a>
                 @endif
             </li>
         </ul>
         <x-slot name="footerSlot">
             <a
-                href="{{ route('pendaftaran.igd') }}?tanggalperiksa={{ $antrian->tanggalperiksa ?? now()->format('Y-m-d') }}">
+                href="{{ route('pendaftaran.ranap') }}?tanggalperiksa={{ $antrian->tanggalperiksa ?? now()->format('Y-m-d') }}">
                 <x-adminlte-button class="btn-xs mb-1" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
             </a>
             <div wire:loading>

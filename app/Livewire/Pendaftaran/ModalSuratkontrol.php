@@ -6,6 +6,7 @@ use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\VclaimController;
 use App\Models\Antrian;
 use App\Models\JadwalDokter;
+use App\Models\Kunjungan;
 use App\Models\Pasien;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ use Livewire\Component;
 class ModalSuratkontrol extends Component
 {
     public $daftarantrian = true;
-    public $antrian, $tanggal, $formatfilter;
+    public $antrian, $kunjungan, $tanggal, $formatfilter;
     public $nomorkartu, $noSEP, $tglRencanaKontrol, $poliKontrol, $kodeDokter, $noSuratKontrol, $jampraktek, $nohp;
     public $seps = [], $polis = [], $dokters = [], $suratkontrols = [], $form = false;
     public function hapusSurat($noSuratKontrol)
@@ -219,11 +220,12 @@ class ModalSuratkontrol extends Component
             return flash($res->metadata->message, 'danger');
         }
     }
-    public function mount(Antrian $antrian)
+    public function mount(Kunjungan $kunjungan)
     {
-        $this->antrian = $antrian;
-        $this->nomorkartu = $antrian->nomorkartu;
-        $this->nohp = $antrian->nohp;
+        $this->kunjungan = $kunjungan;
+        $this->antrian = $kunjungan->antrian;
+        $this->nomorkartu = $kunjungan->nomorkartu;
+        $this->nohp = $kunjungan->nohp;
     }
     public function render()
     {

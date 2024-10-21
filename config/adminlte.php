@@ -426,7 +426,7 @@ return [
                     'can' => ['pendaftaran', 'farmasi', 'apoteker'],
                 ],
                 [
-                    'text' => 'Pendaftaran',
+                    'text' => 'Pendaftaran Pasien Rajal',
                     'url' => 'pendaftaran/rajal',
                     'icon' => 'fas fa-user-plus',
                     'shift'   => 'ml-2',
