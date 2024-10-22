@@ -91,6 +91,11 @@
                 </div>
                 Loading ...
             </div>
+            @if (flash()->message)
+                <div class="text-{{ flash()->class }}" wire:loading.remove>
+                    Loading Result : {{ flash()->message }}
+                </div>
+            @endif
         </x-slot>
     </x-adminlte-card>
     @if ($form)
@@ -169,7 +174,7 @@
                     </x-adminlte-select2>
                     <x-adminlte-select2 wire:model='dpjpLayan' fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" name="dpjpLayan" label="Dokter DPJP" required>
-                        <option value="" >Pilih Dokter DPJP</option>
+                        <option value="">Pilih Dokter DPJP</option>
                         @foreach ($dokters as $key => $item)
                             <option value="{{ $key }}">{{ $item }}
                             </option>
