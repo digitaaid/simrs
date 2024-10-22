@@ -5,9 +5,9 @@
                 <thead>
                     <tr>
                         <th>Tgl Input</th>
-                        <th>SOAP</th>
+                        <th>Hasil Asesmen & Pemberian Pelayanan</th>
+                        <th>Instruksi</th>
                         <th>Action</th>
-                        <th>Dokter</th>
                         <th>Profesi</th>
                         <th>Dokter</th>
                     </tr>
@@ -41,6 +41,7 @@
                                     <pre>{{ $cppt->plan }}</pre>
                                 @endif
                             </td>
+                            <td>{{ $cppt->instruksi }}</td>
                             <td>
                                 <a href="#editCppt">
                                     <x-adminlte-button theme="warning" class="btn-xs"
@@ -51,9 +52,8 @@
                                     wire:confirm='Apakah anda yakin ingin menghapus data teresebut ?'
                                     icon="fas fa-trash" />
                             </td>
-                            <td>{{ $cppt->instruksi }}</td>
                             <td>{{ $cppt->profesi }}</td>
-                            <td>{{ $cppt->pic }}</td>
+                            <td>{{ $cppt->dokter_dpjp }}</td>
                         </tr>
                     @endforeach
                 </tbody>
