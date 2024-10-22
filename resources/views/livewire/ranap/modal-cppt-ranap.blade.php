@@ -91,8 +91,7 @@
             <x-adminlte-textarea igroup-size="sm" rows=4 label="Objective" name="objective" wire:model="objective" />
             <x-adminlte-textarea igroup-size="sm" rows=4 label="Assesment" name="assessment" wire:model="assessment" />
             <x-adminlte-textarea igroup-size="sm" rows=4 label="Plan" name="plan" wire:model="plan" />
-            <x-adminlte-input wire:model="instruksi" fgroup-class="row" label-class="text-left col-4"
-                igroup-class="col-8" igroup-size="sm" name="instruksi" label="Dokter Jaga" />
+            <x-adminlte-textarea igroup-size="sm" rows=4 label="Instruksi" name="instruksi" wire:model="instruksi" />
             <x-adminlte-input wire:model="dokter_dpjp" fgroup-class="row" label-class="text-left col-4"
                 igroup-class="col-8" igroup-size="sm" name="dokter_dpjp" label="Dokter DPJP" />
             <x-slot name="footerSlot">
