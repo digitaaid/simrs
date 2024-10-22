@@ -90,9 +90,9 @@
                                 </a>
                             </td>
                             <td>{{ $item->jeniskunjungan }}</td>
-                            <td>{{ $item->units->nama }} BED {{ $item->beds->nomorbed }}</td>
-                            <td>{{ $item->dokters->nama }}</td>
-                            <td>{{ $item->pic1->name }}</td>
+                            <td>{{ $item->units?->nama }} BED {{ $item->beds?->nomorbed }}</td>
+                            <td>{{ $item->dokters?->nama }}</td>
+                            <td>{{ $item->pic1?->name }}</td>
                             <td>{{ $item->nomorkartu }}</td>
                             <td>{{ $item->nik }} </td>
                             <td>{{ $item->status }} </td>
