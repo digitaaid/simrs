@@ -181,7 +181,7 @@ class ModalKunjunganIgd extends Component
         }
         $this->jaminans = Jaminan::pluck('nama', 'kode');
         $this->units = Unit::where("jenis", "Pelayanan IGD")->pluck('nama', 'kode');
-        $this->dokters = Dokter::pluck('nama', 'kode');
+        $this->dokters = Dokter::where("status", 1)->pluck('nama', 'kode');
     }
     public function render()
     {

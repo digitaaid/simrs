@@ -42,6 +42,12 @@
             <div id="pemulanganranap">
                 @livewire('ranap.modal-pemulangan-ranap', ['lazy' => true, 'kunjungan' => $kunjungan])
             </div>
+            <div id="invoiceranap">
+                <x-adminlte-card theme="primary" title="Nota Pembayaran Pasien">
+                    <iframe src="{{ route('print.notarajalf', $kunjungan->kode) }}" width="100%" height="500"
+                        frameborder="0"></iframe>
+                </x-adminlte-card>
+            </div>
         @endif
     </div>
 </div>
