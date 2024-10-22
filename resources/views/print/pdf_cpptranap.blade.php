@@ -62,6 +62,7 @@
         <tr>
             <td class="text-center">
                 <img src="{{ $url }}" width="40px">
+                {{ $kunjungan->kode ?? '-' }}
             </td>
             <td>
                 <table class="table-borderless">
@@ -73,9 +74,18 @@
                             </b></td>
                     </tr>
                     <tr>
+                        <td>Tanggal Pulang</td>
+                        <td>:</td>
+                        <td>
+                            <b>
+                                {{ $kunjungan->tgl_pulang ? \Carbon\Carbon::parse($kunjungan->tgl_pulang)->format('d F Y H:i') : 'Belum Pulang' }}
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>Unit / Ruangan</td>
                         <td>:</td>
-                        <td><b>{{ $kunjungan->units->nama ?? '-' }}</b></td>
+                        <td><b>{{ $kunjungan->units->nama ?? '-' }} BED {{ $kunjungan->beds_id ?? '-' }}</b></td>
                     </tr>
                     <tr>
                         <td>Dokter</td>
@@ -87,33 +97,29 @@
             <td>
                 <table class="table-borderless">
                     <tr>
+                        <td>Jenis Pelayanan</td>
+                        <td>:</td>
+                        <td><b>Rawat Inap</b></td>
+                    </tr>
+                    <tr>
                         <td>Penjamin</td>
                         <td>:</td>
                         <td>
 
                         </td>
                     </tr>
-                    <tr>
-                        <td>Jenis Pelayanan</td>
-                        <td>:</td>
-                        <td><b>Rawat Inap</b></td>
-                    </tr>
-                    <tr>
-                        <td>Kode Kunjungan</td>
-                        <td>:</td>
-                        <td><b>{{ $kunjungan->kode ?? '-' }}</b></td>
-                    </tr>
+
                 </table>
             </td>
         </tr>
     </table>
     <table class="table table-sm table-bordered" style="font-size: 9px;">
         <tr>
-            <th>Tanggal / Jam</th>
-            <th>Profesi</th>
-            <th>Hasil Asesment dan Pelayanan Pasien</th>
-            <th>Dokter</th>
-            <th>Dokter</th>
+            <th>Tanggal, Jam</th>
+            <th>Profesional Pemberi<br>Asuhan</th>
+            <th>Hasil Asesmen Pasien dan Pemberian Pelayanan</th>
+            <th>Instruksi PPA Termasuk<br>Pasca Bedah / Prosedur</th>
+            <th>Review <br>& Verifikasi DPJP</th>
         </tr>
         @foreach ($inputs as $item)
             <tr>
@@ -137,7 +143,7 @@
                         <pre>{{ $item->plan }}</pre>
                     @endif
                 </td>
-                <td>{{ $item->dokter_jaga }}</td>
+                <td>{{ $item->instruksi }}</td>
                 <td>{{ $item->dokter_dpjp }}</td>
             </tr>
         @endforeach

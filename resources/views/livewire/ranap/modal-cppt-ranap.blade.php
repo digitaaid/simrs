@@ -51,7 +51,7 @@
                                     wire:confirm='Apakah anda yakin ingin menghapus data teresebut ?'
                                     icon="fas fa-trash" />
                             </td>
-                            <td>{{ $cppt->dokter_jaga }}</td>
+                            <td>{{ $cppt->instruksi }}</td>
                             <td>{{ $cppt->profesi }}</td>
                             <td>{{ $cppt->pic }}</td>
                         </tr>
@@ -91,8 +91,8 @@
             <x-adminlte-textarea igroup-size="sm" rows=4 label="Objective" name="objective" wire:model="objective" />
             <x-adminlte-textarea igroup-size="sm" rows=4 label="Assesment" name="assessment" wire:model="assessment" />
             <x-adminlte-textarea igroup-size="sm" rows=4 label="Plan" name="plan" wire:model="plan" />
-            <x-adminlte-input wire:model="dokter_jaga" fgroup-class="row" label-class="text-left col-4"
-                igroup-class="col-8" igroup-size="sm" name="dokter_jaga" label="Dokter Jaga" />
+            <x-adminlte-input wire:model="instruksi" fgroup-class="row" label-class="text-left col-4"
+                igroup-class="col-8" igroup-size="sm" name="instruksi" label="Dokter Jaga" />
             <x-adminlte-input wire:model="dokter_dpjp" fgroup-class="row" label-class="text-left col-4"
                 igroup-class="col-8" igroup-size="sm" name="dokter_dpjp" label="Dokter DPJP" />
             <x-slot name="footerSlot">

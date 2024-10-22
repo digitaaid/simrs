@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('objective')->nullable();
             $table->text('assessment')->nullable();
             $table->text('plan')->nullable();
-            $table->string('dokter_jaga')->nullable();
+            $table->string('instruksi')->nullable();
             $table->string('dokter_dpjp')->nullable();
             $table->string('user');
             $table->string('pic');
