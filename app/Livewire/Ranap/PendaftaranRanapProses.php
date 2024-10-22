@@ -16,6 +16,11 @@ class PendaftaranRanapProses extends Component
     }
     public function render()
     {
-        return view('livewire.ranap.pendaftaran-ranap-proses')->title('Pendaftaran Rawat Inap');
+        if ($this->kunjungan) {
+            $title = "Rawat Inap " . $this->kunjungan->nama;
+        } else {
+            $title = "Pendaftaran Pasien Rawat Inap";
+        }
+        return view('livewire.ranap.pendaftaran-ranap-proses')->title($title);
     }
 }

@@ -24,6 +24,6 @@ class PendaftaranRanap extends Component
             $search = '%' . $this->search . '%';
             $this->kunjungans = Kunjungan::where('jeniskunjungan', 6)->get();
         }
-        return view('livewire.ranap.pendaftaran-ranap')->title('Pendaftaran Rawat Inap');
+        return view('livewire.ranap.pendaftaran-ranap')->title('Pasien Rawat Inap');
     }
 }

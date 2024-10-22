@@ -494,7 +494,7 @@ return [
             'icon'    => 'fas fa-procedures',
             'submenu' => [
                 [
-                    'text' => 'Pendaftaran Pasien Ranap',
+                    'text' => 'Pasien Ranap',
                     'url' => 'pendaftaran/ranap',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
