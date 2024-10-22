@@ -802,6 +802,36 @@ class VclaimController extends ApiController
         $response = Http::withHeaders($signature)->get($url);
         return $this->response_decrypt($response, $signature);
     }
+    public function sep_update_tanggal_pulang(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "noSep" => "required",
+            "statusPulang" => "required",
+            "tglPulang" => "required",
+            "user" => "required",
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first(), 400);
+        }
+        $url =  $this->api()->base_url . "SEP/2.0/updtglplg";
+        $signature = $this->signature();
+        $signature['Content-Type'] = 'application/x-www-form-urlencoded';
+        $data = [
+            "request" => [
+                "t_sep" => [
+                    "noSep" => $request->noSep,
+                    "statusPulang" => $request->statusPulang,
+                    "noSuratMeninggal" => $request->noSuratMeninggal,
+                    "tglMeninggal" => $request->tglMeninggal,
+                    "tglPulang" => $request->tglPulang,
+                    "noLPManual" => $request->noLPManual,
+                    "user" =>  $request->user,
+                ]
+            ]
+        ];
+        $response = Http::withHeaders($signature)->put($url, $data);
+        return $this->response_decrypt($response, $signature);
+    }
     public function list_approval_sep(Request $request)
     {
         $validator = Validator::make($request->all(), [

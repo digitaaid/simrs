@@ -101,13 +101,14 @@
                             </span>
                         @endif
                     </a>
-                    <a href="#tranferrawatinap" class="nav-link">
+                    <a href="#pemulanganranap" class="nav-link">
                         <i class="fas fa-bed"></i> Pemulangan Pasien
-                        @if ($kunjungan->kode_transfer)
-                            <span class="badge bg-success float-right">Sudah ditransfer</span>
+                        @if ($kunjungan->tgl_pulang)
+                            <span class="badge bg-success float-right">{{ $kunjungan->tgl_pulang }}</span>
+                        @else
+                            <span class="badge bg-warning float-right">Belum Pulang</span>
                         @endif
                     </a>
-
                 @endif
             </li>
         </ul>

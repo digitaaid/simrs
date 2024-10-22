@@ -39,6 +39,9 @@
             <div id="resumeranap">
                 @livewire('ranap.modal-resume-ranap', ['lazy' => true, 'kunjungan' => $kunjungan])
             </div>
+            <div id="pemulanganranap">
+                @livewire('ranap.modal-pemulangan-ranap', ['lazy' => true, 'kunjungan' => $kunjungan])
+            </div>
         @endif
     </div>
 </div>
