@@ -5,14 +5,13 @@ namespace App\Livewire\Ranap;
 use App\Models\CpptRanap;
 use App\Models\Kunjungan;
 use Livewire\Component;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class ModalCpptRanap extends Component
 {
     public $kunjungan, $inputs;
     public $id, $tgl_input, $profesi, $subjective, $objective, $assessment, $plan, $dokter_jaga, $dokter_dpjp;
     public $form = false;
-    protected $listeners = ['refreshData' => 'loadData'];
+    protected $listeners = ['refreshPage' => 'loadData'];
     public function loadData()
     {
         $this->inputs = $this->kunjungan->cppt_ranap;
@@ -60,7 +59,7 @@ class ModalCpptRanap extends Component
         );
         $this->form = false;
         $this->reset(['id', 'tgl_input', 'profesi', 'subjective', 'objective', 'assessment', 'plan', 'dokter_jaga', 'dokter_dpjp']);
-        $this->dispatch('refreshData');
+        $this->dispatch('refreshPage');
         flash('CPPT Rawat Inap Berhasil Disimpan', 'success');
     }
     public function editCppt($id)
@@ -84,7 +83,7 @@ class ModalCpptRanap extends Component
         $cppt->delete();
         $this->form = false;
         $this->reset(['id', 'tgl_input', 'profesi', 'subjective', 'objective', 'assessment', 'plan', 'dokter_jaga', 'dokter_dpjp']);
-        $this->dispatch('refreshData');
+        $this->dispatch('refreshPage');
         flash('CPPT Rawat Inap Berhasil dihapus', 'success');
     }
 }

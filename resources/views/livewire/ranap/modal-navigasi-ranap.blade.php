@@ -48,6 +48,8 @@
                     </a>
                     <a href="#cpptranap" class="nav-link">
                         <i class="fas fa-file-medical"></i> CPPT Pasien Ranap
+                        <span class="badge bg-success float-right">{{ $kunjungan->cppt_ranap->count() }} Catatan
+                        </span>
                     </a>
                     {{-- <a href="#triaseigd" class="nav-link">
                         <i class="fas fa-ambulance"></i> Triase & Anamnesis
