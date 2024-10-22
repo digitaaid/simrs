@@ -104,4 +104,15 @@ class RekamMedisController extends Controller
         $pdf = Pdf::loadView('print.pdf_cpptranap', compact('kunjungan', 'inputs', 'url'));
         return $pdf->stream('pdf_cpptranap.pdf');
     }
+    public function print_resumeranap(Request $request)
+    {
+        $kunjungan = Kunjungan::where('kode', $request->kode)->first();
+        $resume = $kunjungan->resume_ranap;
+        $qrurl = QrCode::format('png')->size(150)->generate(route('print.resumeranap') . "?kode=" . $kunjungan->kode);
+        $url = "data:image/png;base64," . base64_encode($qrurl);
+        // return view('print.pdf_resumeranap',  compact('kunjungan', 'resume', 'url'));
+        $pdf = Pdf::loadView('print.pdf_resumeranap', compact('kunjungan', 'resume', 'url'));
+        return $pdf->stream('pdf_resumeranap.pdf');
+    }
+
 }

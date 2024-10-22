@@ -270,6 +270,7 @@ Route::get('farmasi/print_gelang', [FarmasiController::class, 'print_gelang'])->
 Route::get('resumerajal/{kodebooking}',  [RekamMedisController::class, 'resumerajal'])->name('resume.rajal');
 Route::get('resumerajalf/{kodebooking}',  [RekamMedisController::class, 'resumerajalf'])->name('resume.rajalf');
 Route::get('print_cpptranap',  [RekamMedisController::class, 'print_cpptranap'])->name('print.cpptranap');
+Route::get('print_resumeranap',  [RekamMedisController::class, 'print_resumeranap'])->name('print.resumeranap');
 Route::get('rekammedis/rajal_print/{kodebooking}',  [RekamMedisController::class, 'rajal_print'])->name('rekammedis.rajal.print');
 Route::get('rekammedis/rajal_printf/{kodebooking}',  [RekamMedisController::class, 'rajal_printf'])->name('rekammedis.rajal.printf');
 Route::get('kasir/print_notarajal/{kodebooking}', [KasirController::class, 'print_notarajal'])->name('print.notarajal');

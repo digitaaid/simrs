@@ -1,5 +1,5 @@
 <div>
-    <x-adminlte-card theme="primary" title="CPPT Pasien Rawat Inap" icon="fas fa-bed">
+    <x-adminlte-card theme="primary" title="CPPT Rawat Inap" icon="fas fa-file-medical">
         <div class="table-responsive">
             <table class="table table-sm table-bordered  table-xl mb-2">
                 <thead>

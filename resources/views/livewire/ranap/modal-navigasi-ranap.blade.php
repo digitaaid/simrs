@@ -82,8 +82,13 @@
                             </span>
                         @endif
                     </a>
-                    <a href="#resumeigd" class="nav-link">
+                    <a href="#resumeranap" class="nav-link">
                         <i class="fas fa-file-medical"></i> Resume Rawat Inap
+                        @if ($kunjungan->resume_ranap)
+                            <span class="badge bg-success float-right">Sudah</span>
+                        @else
+                            <span class="badge bg-danger float-right">Belum</span>
+                        @endif
                     </a>
                     <a href="#invoiceigd" class="nav-link">
                         <i class="fas fa-file-medical"></i> Invoice Rawat Inap

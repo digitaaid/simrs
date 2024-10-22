@@ -1,5 +1,5 @@
 @extends('print.pdf_layout')
-@section('title', 'CPPT Rawat Inap')
+@section('title', 'Resume Rawat Inap')
 
 @section('content')
     <table class="table table-sm table-bordered" style="font-size: 9px;">
@@ -56,7 +56,7 @@
         </tr>
         <tr class="text-center" style="background: yellow">
             <td colspan="3">
-                <b>CATATAN PERKEMBANGAN PASIEN TERINTEGRASI RAWAT INAP</b>
+                <b>RESUME RAWAT INAP</b>
             </td>
         </tr>
         <tr>
@@ -112,41 +112,6 @@
                 </table>
             </td>
         </tr>
-    </table>
-    <table class="table table-sm table-bordered" style="font-size: 9px;">
-        <tr>
-            <th>Tanggal, Jam</th>
-            <th>Profesional Pemberi<br>Asuhan</th>
-            <th>Hasil Asesmen Pasien dan Pemberian Pelayanan</th>
-            <th>Instruksi PPA Termasuk<br>Pasca Bedah / Prosedur</th>
-            <th>Review <br>& Verifikasi DPJP</th>
-        </tr>
-        @foreach ($inputs as $item)
-            <tr>
-                <td>{{ $item->tgl_input }}</td>
-                <td>{{ $item->profesi }}</td>
-                <td>
-                    @if ($item->subjective)
-                        <b>Subjective : </b>
-                        <pre>{{ $item->subjective }}</pre>
-                    @endif
-                    @if ($item->objective)
-                        <b>Objective : </b>
-                        <pre>{{ $item->objective }}</pre>
-                    @endif
-                    @if ($item->assessment)
-                        <b>Assessment : </b>
-                        <pre>{{ $item->assessment }}</pre>
-                    @endif
-                    @if ($item->plan)
-                        <b>Plan : </b>
-                        <pre>{{ $item->plan }}</pre>
-                    @endif
-                </td>
-                <td>{{ $item->instruksi }}</td>
-                <td>{{ $item->dokter_dpjp }}</td>
-            </tr>
-        @endforeach
     </table>
     <style>
         @page {
