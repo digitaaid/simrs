@@ -13,10 +13,15 @@ use RealRashid\SweetAlert\Facades\Alert;
 class PendaftaranRajalProses extends Component
 {
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien;
-    public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
+    public $kunjungan, $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
     public $antrian, $pasien;
     public $polikliniks, $dokters, $jaminans;
     protected $listeners = ['modalCppt', 'modalSEP', 'modalSK', 'modalLayanan', 'formAntrian',  'formKunjungan', 'formPasien', 'refreshPage' => '$refresh'];
+    public function render()
+    {
+        $pasiencount = Pasien::count();
+        return view('livewire.pendaftaran.pendaftaran-rajal-proses', compact('pasiencount'))->title('Pendaftaran ' . $this->antrian->nama);
+    }
     public function batal()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
@@ -147,6 +152,7 @@ class PendaftaranRajalProses extends Component
         $antrian = Antrian::firstWhere('kodebooking', $kodebooking);
         if ($antrian) {
             $this->antrian = $antrian;
+            $this->kunjungan = $antrian->kunjungan;
             $this->pasien = $antrian->pasien;
             $this->kodebooking = $kodebooking;
             $this->antrianId = $antrian->id;
@@ -163,10 +169,5 @@ class PendaftaranRajalProses extends Component
             flash('Antrian tidak ditemukan.', 'danger');
             return redirect()->route('pendaftaran.rajal');
         }
-    }
-    public function render()
-    {
-        $pasiencount = Pasien::count();
-        return view('livewire.pendaftaran.pendaftaran-rajal-proses', compact('pasiencount'))->title('Pendaftaran ' . $this->antrian->nama);
     }
 }
