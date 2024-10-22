@@ -21,6 +21,12 @@
             @livewire('igd.modal-kunjungan-igd', ['lazy' => true, 'kunjungan' => $kunjungan])
         </div>
         @if ($kunjungan)
+            <div id="suratkontrol">
+                @livewire('pendaftaran.modal-suratkontrol', ['kunjungan' => $kunjungan, 'lazy' => true])
+            </div>
+            <div id="modalsep">
+                @livewire('pendaftaran.modal-sep', ['kunjungan' => $kunjungan, 'lazy' => true])
+            </div>
             {{-- <div id="triaseigd">
                 @livewire('igd.modal-triase-igd', ['lazy' => true])
             </div> --}}

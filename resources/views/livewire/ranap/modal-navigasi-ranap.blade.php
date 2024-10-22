@@ -38,7 +38,6 @@
                 @if ($kunjungan)
                     <a href="#suratkontrol" class="nav-link">
                         <i class="fas fa-file-medical"></i> Surat Kontrol & SPRI
-                        {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
                     <a href="#modalsep" class="nav-link">
                         <i class="fas fa-file-medical"></i> SEP
