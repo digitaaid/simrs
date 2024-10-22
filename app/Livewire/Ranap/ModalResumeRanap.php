@@ -20,7 +20,7 @@ class ModalResumeRanap extends Component
         $this->kunjungan = $kunjungan;
         $this->resume = $kunjungan->resume_ranap;
         if ($this->resume) {
-            $this->tgl_resume = $this->resume->tgl_resume;
+            $this->tgl_resume = $this->resume->tgl_resume ?? now()->format('Y-m-d');
             $this->diagnosis_masuk = $this->resume->diagnosis_masuk;
             $this->anamnesis = $this->resume->anamnesis;
             $this->pemeriksaan_fisik = $this->resume->pemeriksaan_fisik;
