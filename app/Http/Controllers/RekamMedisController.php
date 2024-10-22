@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Antrian;
+use App\Models\Kunjungan;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -23,7 +24,7 @@ class RekamMedisController extends Controller
         $url = "data:image/png;base64," . base64_encode($qrurl);
         $resepobatdetails = $antrian->resepobatdetails;
         // return view('print.pdf_resumerajal',  compact('antrian','ttddokter','url'));
-        $pdf = Pdf::loadView('print.pdf_resumerajal', compact('antrian', 'ttddokter', 'url','resepobatdetails'));
+        $pdf = Pdf::loadView('print.pdf_resumerajal', compact('antrian', 'ttddokter', 'url', 'resepobatdetails'));
         return $pdf->stream('resumerajal.pdf');
     }
     public function resumerajalf($kodebooking)
@@ -40,7 +41,7 @@ class RekamMedisController extends Controller
         $url = "data:image/png;base64," . base64_encode($qrurl);
         $resepobatdetails = $antrian->resepfarmasidetails;
         // return view('print.pdf_resumerajal',  compact('antrian','ttddokter','url'));
-        $pdf = Pdf::loadView('print.pdf_resumerajal', compact('antrian', 'ttddokter', 'url','resepobatdetails'));
+        $pdf = Pdf::loadView('print.pdf_resumerajal', compact('antrian', 'ttddokter', 'url', 'resepobatdetails'));
         return $pdf->stream('resumerajal.pdf');
     }
     public function rajal_print($kodebooking)
@@ -65,7 +66,7 @@ class RekamMedisController extends Controller
         $resepobat = $antrian->resepobat;
         $resepobatdetails = $antrian->resepobatdetails;
         // return view('print.pdf_rekammedis_rajal',  compact('antrian','ttddokter','url'));
-        $pdf = Pdf::loadView('print.pdf_rekammedis_rajal', compact('antrian', 'resepobat', 'resepobatdetails', 'ttddokter', 'ttdpasien', 'ttdpetugas','url'));
+        $pdf = Pdf::loadView('print.pdf_rekammedis_rajal', compact('antrian', 'resepobat', 'resepobatdetails', 'ttddokter', 'ttdpasien', 'ttdpetugas', 'url'));
         return $pdf->stream('resumerajal.pdf');
     }
     public function rajal_printf($kodebooking)
@@ -90,7 +91,17 @@ class RekamMedisController extends Controller
         $resepobat = $antrian->resepobat;
         $resepobatdetails = $antrian->resepfarmasidetails;
         // return view('print.pdf_rekammedis_rajal',  compact('antrian','ttddokter','url'));
-        $pdf = Pdf::loadView('print.pdf_rekammedis_rajal', compact('antrian', 'resepobat', 'resepobatdetails', 'ttddokter', 'ttdpasien', 'ttdpetugas','url'));
+        $pdf = Pdf::loadView('print.pdf_rekammedis_rajal', compact('antrian', 'resepobat', 'resepobatdetails', 'ttddokter', 'ttdpasien', 'ttdpetugas', 'url'));
         return $pdf->stream('resumerajal.pdf');
+    }
+    public function print_cpptranap(Request $request)
+    {
+        $kunjungan = Kunjungan::where('kode', $request->kode)->first();
+        $inputs = $kunjungan->cppt_ranap;
+        $qrurl = QrCode::format('png')->size(150)->generate(route('print.cpptranap') . "?kode=" . $kunjungan->kode);
+        $url = "data:image/png;base64," . base64_encode($qrurl);
+        // return view('print.pdf_cpptranap',  compact('kunjungan', 'inputs', 'url'));
+        $pdf = Pdf::loadView('print.pdf_cpptranap', compact('kunjungan', 'inputs', 'url'));
+        return $pdf->stream('pdf_cpptranap.pdf');
     }
 }

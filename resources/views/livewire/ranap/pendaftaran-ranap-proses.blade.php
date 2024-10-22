@@ -27,6 +27,9 @@
             <div id="modalsep">
                 @livewire('pendaftaran.modal-sep', ['kunjungan' => $kunjungan, 'lazy' => true])
             </div>
+            <div id="cpptranap">
+                @livewire('ranap.modal-cppt-ranap', ['kunjungan' => $kunjungan, 'lazy' => true])
+            </div>
             <div id="layanan">
                 @livewire('igd.modal-layanan-igd', ['lazy' => true, 'kunjungan' => $kunjungan])
             </div>

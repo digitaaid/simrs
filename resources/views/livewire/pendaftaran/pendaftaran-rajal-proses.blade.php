@@ -29,7 +29,7 @@
                     @livewire('pendaftaran.modal-suratkontrol', ['kunjungan' => $kunjungan, 'lazy' => true])
                 </div>
                 <div id="modalsep">
-                    @livewire('pendaftaran.modal-sep', ['antrian' => $antrian, 'lazy' => true])
+                    @livewire('pendaftaran.modal-sep', ['kunjungan' => $kunjungan, 'lazy' => true])
                 </div>
             @endif
             <div id="cppt">

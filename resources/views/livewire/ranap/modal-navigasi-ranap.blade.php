@@ -46,18 +46,18 @@
                             <span class="badge bg-success float-right">{{ $kunjungan->sep }}</span>
                         @endif
                     </a>
-                    <a href="#triaseigd" class="nav-link">
+                    <a href="#cpptranap" class="nav-link">
+                        <i class="fas fa-file-medical"></i> CPPT Pasien Ranap
+                    </a>
+                    {{-- <a href="#triaseigd" class="nav-link">
                         <i class="fas fa-ambulance"></i> Triase & Anamnesis
-                        {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
                     <a href="#anamnesis" class="nav-link">
                         <i class="fas fa-user-md"></i> Asesmen Awal
-                        {{-- <span class="badge bg-success float-right"></span> --}}
                     </a>
                     <a href="#identitaspasien" class="nav-link">
                         <i class="fas fa-users"></i> Diagnosis Klinis
-                        {{-- <span class="badge bg-success float-right"></span> --}}
-                    </a>
+                    </a> --}}
                     <a href="#layanan" class="nav-link">
                         <i class="fas fa-hand-holding-medical"></i> Layanan & Tindakan
                         @if ($kunjungan->layanans)
@@ -80,28 +80,11 @@
                             </span>
                         @endif
                     </a>
-                    <a href="#instruksitindaklanjut" class="nav-link">
-                        <i class="fas fa-users"></i> Instruksi Tindak Lanjut
-                        {{-- <span class="badge bg-success float-right"></span> --}}
-                    </a>
-                    <a href="#tranferrawatinap" class="nav-link">
-                        <i class="fas fa-bed"></i> Transfer Rawat Inap
-                        @if ($kunjungan->kode_transfer)
-                            <span class="badge bg-success float-right">Sudah ditransfer</span>
-                        @endif
-                    </a>
-                    <a href="#tranferrawatinap" class="nav-link">
-                        <i class="fas fa-ambulance"></i> Pemulangan Pasien IGD
-                        @if ($kunjungan->tgl_pulang)
-                            <span class="badge bg-success float-right">{{ $kunjungan->tgl_pulang }}</span>
-                        @endif
-                    </a>
                     <a href="#resumeigd" class="nav-link">
-                        <i class="fas fa-file-medical"></i> Resume IGD
-                        {{-- <span class="badge bg-success float-right"></span> --}}
+                        <i class="fas fa-file-medical"></i> Resume Rawat Inap
                     </a>
                     <a href="#invoiceigd" class="nav-link">
-                        <i class="fas fa-file-medical"></i> Invoice IGD
+                        <i class="fas fa-file-medical"></i> Invoice Rawat Inap
                         @if ($kunjungan->resepfarmasidetails || $kunjungan->layanans)
                             <span
                                 class="badge bg-success float-right">{{ money($kunjungan->layanans?->sum('subtotal') + $kunjungan->resepfarmasidetails?->sum('subtotal'), 'IDR') }}
@@ -111,6 +94,13 @@
                             </span>
                         @endif
                     </a>
+                    <a href="#tranferrawatinap" class="nav-link">
+                        <i class="fas fa-bed"></i> Pemulangan Pasien
+                        @if ($kunjungan->kode_transfer)
+                            <span class="badge bg-success float-right">Sudah ditransfer</span>
+                        @endif
+                    </a>
+
                 @endif
             </li>
         </ul>
