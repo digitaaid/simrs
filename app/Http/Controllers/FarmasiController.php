@@ -30,8 +30,14 @@ class FarmasiController extends Controller
         $resepobatdetails = $kunjungan->resepfarmasidetails;
         $qrurl = QrCode::format('png')->size(150)->generate(route('print.resepfarmasi', $resepobat->kode));
         $url = "data:image/png;base64," . base64_encode($qrurl);
+        // ttd d pasien
+        $qrttdpasien = QrCode::format('png')->size(150)->generate($kunjungan->nama);
+        $ttdpasien = "data:image/png;base64," . base64_encode($qrttdpasien);
+        // ttd petugas
+        $ttdpetugas = QrCode::format('png')->size(150)->generate($antrian->pic4->name ?? auth()->user()->name);
+        $ttdpetugas = "data:image/png;base64," . base64_encode($ttdpetugas);
         // return view('print.pdf_resep_obat', compact('resepobatdetails', 'resepobat', 'antrian', 'url'));
-        $pdf = Pdf::loadView('print.pdf_resep_obat', compact('resepobatdetails', 'resepobat', 'kunjungan', 'url'));
+        $pdf = Pdf::loadView('print.pdf_resep_obat', compact('resepobatdetails', 'resepobat', 'kunjungan', 'url', 'ttdpasien', 'ttdpetugas'));
         return $pdf->stream('etiket.pdf');
         // return view('livewire.farmasi.print_resep_obat', compact('antrian', 'resepobat', 'resepobatdetails'));
     }

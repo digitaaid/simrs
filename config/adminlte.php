@@ -410,7 +410,6 @@ return [
                     'shift'   => 'ml-2',
                     'can' => 'pendaftaran',
                 ],
-
                 [
                     'text' => 'Display Antrian',
                     'url' => 'displayantrian',
@@ -483,7 +482,7 @@ return [
                     'url' => 'pendaftaran/igd',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
+                    'can' => ['pendaftaran', 'perawat', 'dokter'],
                     'active'  => ['pendaftaran/igd', 'pendaftaran/igd/proses'],
                 ],
 
@@ -498,7 +497,7 @@ return [
                     'url' => 'pendaftaran/ranap',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
+                    'can' => ['pendaftaran', 'perawat', 'dokter'],
                     'active'  => ['pendaftaran/ranap', 'pendaftaran/ranap/proses'],
                 ],
                 [

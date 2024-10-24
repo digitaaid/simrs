@@ -7,6 +7,7 @@ use App\Models\Kunjungan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ModalPemulanganIgd extends Component
 {
@@ -61,7 +62,10 @@ class ModalPemulanganIgd extends Component
             'status' => 2,
             'keterangan' => "Pasien sudah dipulangkan pada " . $now,
         ]);
-        $this->dispatch('refreshPage');
+        // $this->dispatch('refreshPage');
+        Alert::success('Success', 'Kunjungan berhasil disimpan');
+        $url = route('pendaftaran.igd.proses') . "?kode=" . $this->kunjungan->kode;
+        redirect()->to($url);
         return flash("Berhasil Pemulangan Pasien", 'success');
     }
 }

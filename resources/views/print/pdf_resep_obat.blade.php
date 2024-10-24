@@ -305,17 +305,13 @@
                 <table class="table table-borderless" style="font-size: 8px">
                     <tr class="text-center">
                         <td>
-                            <b>Petugas Farmasi</b>
-                            <br>
-                            <br>
-                            <br>
+                            <b>Petugas Farmasi</b><br>
+                            <img src="{{ $ttdpasien }}" width="70px"><br>
                             {{ $antrian->pic4->name ?? '-' }}
                         </td>
                         <td>
-                            <b>Menerima Obat Beserta Informasi</b>
-                            <br>
-                            <br>
-                            <br>
+                            <b>Menerima Obat Beserta Informasi</b> <br>
+                            <img src="{{ $ttdpasien }}" width="70px"><br>
                             (Pasien/Keluarga)
                         </td>
                     </tr>
