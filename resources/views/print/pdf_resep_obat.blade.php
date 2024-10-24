@@ -306,7 +306,7 @@
                     <tr class="text-center">
                         <td>
                             <b>Petugas Farmasi</b><br>
-                            <img src="{{ $ttdpasien }}" width="70px"><br>
+                            <img src="{{ $ttdpetugas }}" width="70px"><br>
                             {{ $antrian->pic4->name ?? '-' }}
                         </td>
                         <td>
