@@ -429,6 +429,11 @@
                             <td>:</td>
                             <td><b>{{ $kunjungan->kode ?? '-' }}</b></td>
                         </tr>
+                        <tr>
+                            <td>SEP</td>
+                            <td>:</td>
+                            <td><b>{{ $kunjungan->sep ?? '-' }}</b></td>
+                        </tr>
                     </table>
                 </td>
             </tr>
