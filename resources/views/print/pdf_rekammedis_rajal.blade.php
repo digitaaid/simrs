@@ -33,7 +33,7 @@
                             <tr>
                                 <td>Tgl SEP</td>
                                 <td>:</td>
-                                <td><b>{{ $sep->tglSep }}</b></td>
+                                <td><b>{{ \Carbon\Carbon::parse($sep->tglSep)->isoFormat('d MMMM Y') }}</b></td>
                             </tr>
                             <tr>
                                 <td>No Kartu</td>
@@ -268,7 +268,7 @@
                             <td>Tanggal Masuk</td>
                             <td>:</td>
                             <td><b>
-                                    {{ $antrian->kunjungan->tgl_masuk ? \Carbon\Carbon::parse($antrian->kunjungan->tgl_masuk)->format('d F Y H:i') : '-' }}
+                                    {{ $antrian->kunjungan->tgl_masuk ? \Carbon\Carbon::parse($antrian->kunjungan->tgl_masuk)->isoFormat('d MMMM Y HH:mm') : '-' }}
                                 </b></td>
                         </tr>
                         <tr>
@@ -563,7 +563,7 @@
                             <td>Tanggal Masuk</td>
                             <td>:</td>
                             <td><b>
-                                    {{ $kunjungan->tgl_masuk ? \Carbon\Carbon::parse($kunjungan->tgl_masuk)->format('d F Y H:i') : '-' }}
+                                    {{ $kunjungan->tgl_masuk ? \Carbon\Carbon::parse($kunjungan->tgl_masuk)->isoFormat('d MMMM Y HH:mm') : '-' }}
                                 </b></td>
                         </tr>
                         <tr>
