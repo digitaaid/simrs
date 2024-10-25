@@ -90,8 +90,9 @@ class RekamMedisController extends Controller
         $url = "data:image/png;base64," . base64_encode($qrurl);
         $resepobat = $antrian->resepobat;
         $resepobatdetails = $antrian->resepfarmasidetails;
+        $kunjungan = $antrian->kunjungan;
         // return view('print.pdf_rekammedis_rajal',  compact('antrian','ttddokter','url'));
-        $pdf = Pdf::loadView('print.pdf_rekammedis_rajal', compact('antrian', 'resepobat', 'resepobatdetails', 'ttddokter', 'ttdpasien', 'ttdpetugas', 'url'));
+        $pdf = Pdf::loadView('print.pdf_rekammedis_rajal', compact('antrian', 'kunjungan', 'resepobat', 'resepobatdetails', 'ttddokter', 'ttdpasien', 'ttdpetugas', 'url'));
         return $pdf->stream('resumerajal.pdf');
     }
     public function print_cpptranap(Request $request)
@@ -114,5 +115,4 @@ class RekamMedisController extends Controller
         $pdf = Pdf::loadView('print.pdf_resumeranap', compact('kunjungan', 'resume', 'url'));
         return $pdf->stream('pdf_resumeranap.pdf');
     }
-
 }
