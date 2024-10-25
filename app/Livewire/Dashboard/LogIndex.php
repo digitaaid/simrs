@@ -10,7 +10,7 @@ class LogIndex extends Component
     public $logs;
     public function mount()
     {
-        $this->logs = ActivityLog::where('user_id', auth()->user()->id)->limit(50)->get();
+        $this->logs = ActivityLog::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->limit(50)->get();
     }
     public function render()
     {
