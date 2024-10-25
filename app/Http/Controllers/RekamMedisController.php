@@ -65,8 +65,35 @@ class RekamMedisController extends Controller
         $url = "data:image/png;base64," . base64_encode($qrurl);
         $resepobat = $antrian->resepobat;
         $resepobatdetails = $antrian->resepobatdetails;
+        $kunjungan = $antrian->kunjungan;
+        if ($kunjungan->sep) {
+            $vclaim = new VclaimController();
+            $request = new Request([
+                'noSep' => $kunjungan->sep
+            ]);
+            $res = $vclaim->sep_nomor($request);
+            if ($res->metadata->code == 200) {
+                $sep = $res->response;
+                $peserta = $sep->peserta;
+                $request['nomorkartu'] = $peserta->noKartu;
+                $request['tanggal'] = $sep->tglSep;
+                $res = $vclaim->peserta_nomorkartu($request);
+                if ($res->metadata->code == 200) {
+                    $peserta = $res->response->peserta;
+                }
+                // $qrurl = QrCode::format('png')->size(150)->generate($peserta->noKartu);
+                // $qrpasien = "data:image/png;base64," . base64_encode($qrurl);
+                // $qrurl = QrCode::format('png')->size(150)->generate(auth()->user()->name);
+                // $qrpetugas = "data:image/png;base64," . base64_encode($qrurl);
+                // return view('print.pdf_sep', compact('sep'));
+                // $pdf = Pdf::loadView('print.pdf_sep', compact( 'qrpasien', 'qrpetugas'));
+                // return $pdf->stream($sep->noSep . '.pdf');
+            } else {
+                return $res->metadata->message;
+            }
+        }
         // return view('print.pdf_rekammedis_rajal',  compact('antrian','ttddokter','url'));
-        $pdf = Pdf::loadView('print.pdf_rekammedis_rajal', compact('antrian', 'resepobat', 'resepobatdetails', 'ttddokter', 'ttdpasien', 'ttdpetugas', 'url'));
+        $pdf = Pdf::loadView('print.pdf_rekammedis_rajal', compact('antrian', 'kunjungan', 'sep', 'peserta',  'resepobat', 'resepobatdetails', 'ttddokter', 'ttdpasien', 'ttdpetugas', 'url'));
         return $pdf->stream('resumerajal.pdf');
     }
     public function rajal_printf($kodebooking)
