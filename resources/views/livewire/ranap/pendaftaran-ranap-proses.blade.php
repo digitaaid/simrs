@@ -47,6 +47,7 @@
                     <iframe src="{{ route('print.notarajalf', $kunjungan->kode) }}" width="100%" height="500"
                         frameborder="0"></iframe>
                 </x-adminlte-card>
+
             </div>
         @endif
     </div>

@@ -117,6 +117,9 @@
                 href="{{ route('pendaftaran.ranap') }}?tanggalperiksa={{ $antrian->tanggalperiksa ?? now()->format('Y-m-d') }}">
                 <x-adminlte-button class="btn-xs mb-1" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
             </a>
+            <x-adminlte-button wire:click='batal'
+                wire:confirm='Apakah anda yakin ingin membatalkan antrian dan kunjungan ini ?' label="Batal"
+                class="btn-xs mb-1" icon="fas fa-times" theme="danger" />
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>
