@@ -2,7 +2,7 @@
 @section('title', 'Resume Rawat Inap')
 
 @section('content')
-    <table class="table table-sm table-bordered" style="font-size: 9px;">
+    <table class="table table-sm table-bordered" style="font-size: 11px;">
         <tr>
             <td width="10%" class="text-center" style="vertical-align: top;">
                 <img src="{{ public_path('kitasehat/logokitasehat.png') }}" style="height: 30px;">
@@ -61,7 +61,7 @@
         </tr>
         <tr>
             <td class="text-center">
-                <img src="{{ $url }}" width="40px">
+                <img src="{{ $url }}" width="60px">
                 {{ $kunjungan->kode ?? '-' }}
             </td>
             <td>
@@ -112,7 +112,91 @@
                 </table>
             </td>
         </tr>
+        <tr>
+            <td colspan="3">
+                <table class="table-borderless">
+                    <tr>
+                        <th class="text-left">Diagnosis Masuk</th>
+                        <td>:</td>
+                        <td>
+                            <pre>{{ $resume->diagnosis_masuk ?? '-' }}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Anamnesis</th>
+                        <td>:</td>
+                        <td>
+                            <pre>{{ $resume->anamnesis ?? '-' }}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Riwayat Alergi</th>
+                        <td>:</td>
+                        <td>
+                            <pre>{{ $resume->riwayat_alergi ?? '-' }}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Pemeriksaan Fisik</th>
+                        <td>:</td>
+                        <td>
+                            <pre>{{ $resume->pemeriksaan_fisik ?? '-' }}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Alasan Pasien Dirawat</th>
+                        <td>:</td>
+                        <td>
+                            <pre>{{ $resume->alasan_dirawat ?? '-' }}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Pmeriksaan Penunjang</th>
+                        <td>:</td>
+                        <td>
+                            <pre>{{ $resume->pemeriksaan_penunjang ?? '-' }}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Diagnosis Primer</th>
+                        <td>:</td>
+                        <td>
+                            <pre>{{ $resume->diagnosis_primer ?? '-' }}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Diagnosis Sekunder</th>
+                        <td>:</td>
+                        <td>
+                            <pre>{{ $resume->diagnosis_sekunder ?? '-' }}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Tindakan Operasi</th>
+                        <td>:</td>
+                        <td>
+                            <pre>{{ $resume->tindakan_operasi ?? '-' }}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Pengobatan</th>
+                        <td>:</td>
+                        <td>
+                            <pre>{{ $resume->pengobatan ?? '-' }}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Kondisi Pulang</th>
+                        <td>:</td>
+                        <td>
+                            <pre>{{ $resume->kondisi_pulang ?? '-' }}</pre>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
     </table>
+
     <style>
         @page {
             size: "A4";

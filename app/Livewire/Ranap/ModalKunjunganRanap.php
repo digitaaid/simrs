@@ -123,6 +123,8 @@ class ModalKunjunganRanap extends Component
             $this->nik = $pasien->nik;
             $this->norm = $pasien->norm;
             $this->nama = $pasien->nama;
+            $this->nohp = $pasien->nohp;
+            $this->hakkelas = $pasien->hakkelas;
             $this->tgl_lahir = $pasien->tgl_lahir;
             $this->gender = $pasien->gender;
             $this->jenispeserta = $pasien->jenispeserta;

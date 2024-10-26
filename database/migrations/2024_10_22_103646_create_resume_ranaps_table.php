@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('tgl_resume');
             $table->text('diagnosis_masuk')->nullable();
             $table->text('anamnesis')->nullable();
+            $table->text('riwayat_alergi')->nullable();
             $table->text('pemeriksaan_fisik')->nullable();
             $table->text('alasan_dirawat')->nullable();
             $table->text('pemeriksaan_penunjang')->nullable();
@@ -28,6 +29,8 @@ return new class extends Migration
             $table->text('pengobatan')->nullable();
             $table->string('kondisi_pulang')->nullable();
             $table->string('cara_pulang')->nullable();
+            $table->string('dirujukke')->nullable();
+            $table->string('noSuratMeninggal')->nullable();
             $table->string('di_rujuk')->nullable();
             $table->dateTime('tgl_kontrol')->nullable();
             $table->string('ttd_pasien')->nullable();

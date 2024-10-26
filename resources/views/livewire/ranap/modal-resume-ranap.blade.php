@@ -5,6 +5,8 @@
                 <x-adminlte-textarea igroup-size="sm" rows=4 label="Diagnosis Masuk" name="diagnosis_masuk"
                     wire:model="diagnosis_masuk" />
                 <x-adminlte-textarea igroup-size="sm" rows=4 label="Anamnesis" name="anamnesis" wire:model="anamnesis" />
+                <x-adminlte-textarea igroup-size="sm" rows=4 label="Riwayat Alergi" name="riwayat_alergi"
+                    wire:model="riwayat_alergi" />
                 <x-adminlte-textarea igroup-size="sm" rows=4 label="Pemeriksaan Fisik" name="pemeriksaan_fisik"
                     wire:model="pemeriksaan_fisik" />
                 <x-adminlte-textarea igroup-size="sm" rows=4 label="Alasan Pasien Dirawat" name="alasan_dirawat"
@@ -23,43 +25,53 @@
                 <div class="form-group row">
                     <div class="custom-control custom-radio ml-2">
                         <input class="custom-control-input" type="radio" id="sembuh" wire:model='kondisi_pulang'
-                            value="1" name="kondisi_pulang">
+                            value="Sembuh" name="kondisi_pulang">
                         <label for="sembuh" class="custom-control-label">Sembuh</label>
                     </div>
                     <div class="custom-control custom-radio ml-2">
                         <input class="custom-control-input" type="radio" id="membaik" wire:model='kondisi_pulang'
-                            value="1" name="kondisi_pulang">
+                            value="Membaik" name="kondisi_pulang">
                         <label for="membaik" class="custom-control-label">Membaik</label>
                     </div>
                     <div class="custom-control custom-radio ml-2">
                         <input class="custom-control-input" type="radio" id="belumsembuh" wire:model='kondisi_pulang'
-                            value="1" name="kondisi_pulang">
+                            value="Belum Sembuh" name="kondisi_pulang">
                         <label for="belumsembuh" class="custom-control-label">Belum Sembuh</label>
                     </div>
                     <div class="custom-control custom-radio ml-2">
                         <input class="custom-control-input" type="radio" id="meninggalkurang48"
-                            wire:model='kondisi_pulang' value="1" name="kondisi_pulang">
+                            wire:model='kondisi_pulang' value="Meninggal < 48 Jam" name="kondisi_pulang">
                         <label for="meninggalkurang48" class="custom-control-label">Meninggal < 48 Jam</label>
                     </div>
                     <div class="custom-control custom-radio ml-2">
                         <input class="custom-control-input" type="radio" id="meninggallebih48"
-                            wire:model='kondisi_pulang' value="1" name="kondisi_pulang">
+                            wire:model='kondisi_pulang' value="Meninggal > 48 Jam" name="kondisi_pulang">
                         <label for="meninggallebih48" class="custom-control-label">Meninggal > 48 Jam</label>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <x-adminlte-select name="cara_pulang" label="Tingkat Kesadaran" wire:model="cara_pulang">
-                    <option value=null disabled>Pilih Tingkat Kesadaran</option>
-                    <option value="1">Sadar Baik/Alert</option>
-                    <option value="2">Berespon dengan kata-kata/Voice</option>
-                    <option value="3">Hanya berespons jika dirangsang nyeri/pain</option>
-                    <option value="4">Pasien tidak sadar/unresponsive</option>
-                    <option value="5">Gelisah atau bingung</option>
-                    <option value="6">Acute Confusional States</option>
+                <x-adminlte-select name="cara_pulang" label="Cara Pulang" wire:model.live="cara_pulang"
+                    fgroup-class="row" label-class="text-left col-4" igroup-size="sm" igroup-class="col-8">
+                    <option value="">Pilih Cara Pulang</option>
+                    <option value="1">Atas Persetujuan Dokter</option>
+                    <option value="2">Di Rujuk</option>
+                    <option value="3">Atas Permintaan Sendiri</option>
+                    <option value="4">Meninggal</option>
+                    <option value="5">Lain-lain</option>
                 </x-adminlte-select>
             </div>
             <div class="col-md-6">
+                @if ($cara_pulang == 2)
+                    <x-adminlte-input wire:model="dirujukke" name="dirujukke" label="Di Rujuk Ke" fgroup-class="row"
+                        label-class="text-left col-4" igroup-size="sm" igroup-class="col-8" />
+                @endif
+                @if ($cara_pulang == 4)
+                    <x-adminlte-input wire:model="noSuratMeninggal" name="noSuratMeninggal"
+                        label="No Surat Meninggal" fgroup-class="row" label-class="text-left col-4" igroup-size="sm"
+                        igroup-class="col-8" />
+                @endif
+
             </div>
             <div class="col-md-12">
                 <hr>
@@ -75,7 +87,8 @@
             </div>
             <div class="col-md-6">
                 <x-adminlte-input wire:model="tgl_resume" name="tgl_resume" label="Tanggal Resume" igroup-size="sm"
-                    fgroup-class="row" label-class="text-left col-4" igroup-size="sm" igroup-class="col-8" type="date" />
+                    fgroup-class="row" label-class="text-left col-4" igroup-size="sm" igroup-class="col-8"
+                    type="date" />
                 <x-adminlte-input wire:model="ttd_pasien" name="ttd_pasien" label="Tanda Tangan Pasien"
                     igroup-size="sm" fgroup-class="row" label-class="text-left col-4" igroup-size="sm"
                     igroup-class="col-8" />

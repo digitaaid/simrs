@@ -2,7 +2,7 @@
 @section('title', 'Print Nota Pembayaran')
 
 @section('content')
-    <table class="table table-sm table-bordered" style="font-size: 9px;">
+    <table class="table table-sm table-bordered" style="font-size: 11px;">
         <tr>
             <td width="10%" class="text-center" style="vertical-align: top;">
                 <img src="{{ public_path('kitasehat/logokitasehat.png') }}" style="height: 30px;">

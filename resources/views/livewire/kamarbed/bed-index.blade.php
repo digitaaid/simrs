@@ -85,7 +85,7 @@
                         <td>
                             <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs" theme="warning"
                                 icon="fas fa-edit" />
-                            <x-adminlte-button wire:click='hapus({{ $item }})' class="btn-xs" theme="danger"
+                            <x-adminlte-button wire:click='hapus({{ $item }})' wire:confirm='Apakah anda yakin akan menghapus data tersebut ?' class="btn-xs" theme="danger"
                                 icon="fas fa-trash" />
                         </td>
                     </tr>
