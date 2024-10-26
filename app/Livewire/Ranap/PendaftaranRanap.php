@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Ranap;
 
+use App\Models\Bed;
 use App\Models\Kunjungan;
 use Livewire\Component;
 
 class PendaftaranRanap extends Component
 {
-    public $tanggal;
+    public $tanggal, $beds, $bedkosong;
     public $kunjungans = [];
     public $search = '';
     public function caritanggal() {}
@@ -25,5 +26,12 @@ class PendaftaranRanap extends Component
             $this->kunjungans = Kunjungan::where('jeniskunjungan', 6)->get();
         }
         return view('livewire.ranap.pendaftaran-ranap')->title('Pasien Rawat Inap');
+    }
+    public function mount()
+    {
+        $this->beds = Bed::get();
+        $this->bedkosong =  $this->beds->filter(function ($bed) {
+            return !Kunjungan::where('bed_id', $bed->id)->where('status', 1)->exists();
+        })->count();
     }
 }

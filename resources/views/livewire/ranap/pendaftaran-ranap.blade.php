@@ -12,6 +12,10 @@
                 <x-adminlte-small-box title="{{ count($kunjungans) ? $kunjungans->where('status', '1')->count() : '-' }}"
                     text="Sedang Dirawat" theme="success" icon="fas fa-user-injured" />
             </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box title="{{ $bedkosong }}"
+                    text="Ketersediaan Bed" theme="warning" icon="fas fa-user-injured" />
+            </div>
         </div>
     </div>
     <div class="col-md-12">
