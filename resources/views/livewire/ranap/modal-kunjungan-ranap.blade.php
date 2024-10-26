@@ -58,8 +58,8 @@
                     igroup-class="col-8" igroup-size="sm" name="bed" label="Bed">
                     <option value=null disabled>--Pilih Bed--</option>
                     @foreach ($beds as $bed)
-                        <option value="{{ $bed->id }}" {{ $bed->status ? 'disabled' : null }}>BED
-                            {{ $bed->nomorbed }} {{ $bed->status ? '(Dipakai)' : null }}</option>
+                        <option value="{{ $bed->id }}" {{ $bed->terisi ? 'disabled' : null }}>BED
+                            {{ $bed->nomorbed }} {{ $bed->terisi ? '(Dipakai)' : '(Kosong)' }}</option>
                     @endforeach
                 </x-adminlte-select>
                 <x-adminlte-select wire:model='dokter' fgroup-class="row" label-class="text-left col-4"
