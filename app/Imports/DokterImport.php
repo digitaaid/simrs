@@ -27,7 +27,7 @@ class DokterImport implements ToCollection, WithHeadingRow
                         'gender' => $row['gender'],
                         'sip' => $row['sip'],
                         'image' => $row['image'],
-                        'status' => $row['status'] ?? 1,
+                        'status' => $row['status'] ?? 0,
                         'user' => $row['user'] ?? auth()->user()->id,
                         'pic' => $row['pic'] ?? auth()->user()->name,
                         'status' => $row['status'] ?? 1,

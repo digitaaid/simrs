@@ -24,8 +24,12 @@ class DokterIndex extends Component
     public $id, $nama, $kode, $kodejkn, $nik, $user_id, $idpractitioner, $title, $gender, $sip, $image, $status, $user, $pic;
     public $fileImport;
     public $dokter;
-
-
+    public function render()
+    {
+        $search = '%' . $this->search . '%';
+        $dokters = Dokter::where('nama', 'like', $search)->paginate();
+        return view('livewire.dokter.dokter-index', compact('dokters'))->title('Dokter');
+    }
     public function cariIdPractitioner($nik)
     {
         $res = $this->practitioner_by_nik($nik);
@@ -68,6 +72,7 @@ class DokterIndex extends Component
         $dokter->nik = $this->nik;
         $dokter->idpractitioner = $this->idpractitioner;
         $dokter->title = $this->title;
+        $dokter->gender = $this->gender;
         $dokter->sip = $this->sip;
         $dokter->user = auth()->user()->id;
         $dokter->pic = auth()->user()->name;
@@ -156,10 +161,5 @@ class DokterIndex extends Component
     {
         $this->form = false;
     }
-    public function render()
-    {
-        $search = '%' . $this->search . '%';
-        $dokters = Dokter::where('nama', 'like', $search)->paginate();
-        return view('livewire.dokter.dokter-index', compact('dokters'))->title('Dokter');
-    }
+
 }

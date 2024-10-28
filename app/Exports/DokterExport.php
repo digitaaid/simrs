@@ -10,7 +10,24 @@ class DokterExport implements FromCollection, WithHeadings
 {
     public function collection()
     {
-        return Dokter::all();
+        return Dokter::get([
+            'id',
+            'nama',
+            'kode',
+            'kodejkn',
+            'nik',
+            'user_id',
+            'idpractitioner',
+            'title',
+            'gender',
+            'sip',
+            'image',
+            'status',
+            'user',
+            'pic',
+            'created_at',
+            'updated_at',
+        ]);
     }
     public function headings(): array
     {
