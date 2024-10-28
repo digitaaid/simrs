@@ -87,13 +87,18 @@
                     <tr>
                         <th>Tgl Periksa</th>
                         <th>Antrian Total</th>
+                        <th>BPJS</th>
+                        <th>UMUM</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($antrians->groupBy('tanggalperiksa') as $tgl => $antrian)
                         <tr>
                             <td>{{ $tgl }}</td>
-                            <td>{{ count($antrian) }}</td>
+                            <td>{{ $antrian->where('taskid', '!=', 99)->count() }}</td>
+                            <td>{{ $antrian->where('taskid', '!=', 99)->where('jenispasien', 'JKN')->count() }}</td>
+                            <td>{{ $antrian->where('taskid', '!=', 99)->where('jenispasien', 'NON-JKN')->count() }}
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
