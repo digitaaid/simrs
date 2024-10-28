@@ -12,7 +12,9 @@ class MonitoringRajal extends Component
     public function render()
     {
         if ($this->tgl_awal && $this->tgl_akhir) {
-            $this->antrians = Antrian::whereBetween('tanggalperiksa', [$this->tgl_awal, $this->tgl_akhir])->get();
+            $this->antrians = Antrian::whereBetween('tanggalperiksa', [$this->tgl_awal, $this->tgl_akhir])
+                ->orderBy('tanggalperiksa', 'asc')
+                ->get();
         }
         return view('livewire.pendaftaran.monitoring-rajal')->title('Monitoring Rawat Jalan');
     }

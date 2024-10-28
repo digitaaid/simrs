@@ -89,6 +89,8 @@
                         <th>Antrian Total</th>
                         <th>BPJS</th>
                         <th>UMUM</th>
+                        <th>MJKN</th>
+                        <th>%</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,6 +100,21 @@
                             <td>{{ $antrian->where('taskid', '!=', 99)->count() }}</td>
                             <td>{{ $antrian->where('taskid', '!=', 99)->where('jenispasien', 'JKN')->count() }}</td>
                             <td>{{ $antrian->where('taskid', '!=', 99)->where('jenispasien', 'NON-JKN')->count() }}
+                            </td>
+                            <td>{{ $antrian->where('taskid', 7)->where('method', 'Mobile JKN')->count() }}</td>
+                            <td>
+                                @php
+                                    if ($antrian->where('taskid', 7)->count()) {
+                                        $pemanfaatan =
+                                            ($antrian->where('taskid', 7)->where('method', 'Mobile JKN')->count() /
+                                                $antrian->where('taskid', 7)->count()) *
+                                            100;
+                                    } else {
+                                        $pemanfaatan = 0;
+                                    }
+                                    $pemanfaatan = number_format($pemanfaatan, 2);
+                                @endphp
+                                {{ $pemanfaatan }}%
                             </td>
                         </tr>
                     @endforeach
