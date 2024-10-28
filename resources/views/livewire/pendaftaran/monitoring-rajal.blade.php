@@ -82,6 +82,22 @@
                     @endforeach
                 </tbody>
             </table>
+            <table class="table table-sm table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Tgl Periksa</th>
+                        <th>Antrian Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($antrians->groupBy('tanggalperiksa') as $tgl => $antrian)
+                        <tr>
+                            <td>{{ $tgl }}</td>
+                            <td>{{ count($antrian) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </x-adminlte-card>
     </div>
 </div>
