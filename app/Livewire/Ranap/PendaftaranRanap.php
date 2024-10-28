@@ -26,7 +26,7 @@ class PendaftaranRanap extends Component
                     ->orWhere('norm', 'like', $search);
             });
         } else {
-            $query->orWhere('status', 1)->where('jeniskunjungan', 5);
+            $query->orWhere('status', 1)->where('jeniskunjungan', 6);
         }
         $this->kunjungans = $query->get();
         return view('livewire.ranap.pendaftaran-ranap')->title('Pasien Rawat Inap');
