@@ -440,6 +440,13 @@ return [
                     'can' => 'pendaftaran',
                 ],
                 [
+                    'text' => 'Monitoring Antrian Bulan',
+                    'icon'    => 'fas fa-calendar-alt',
+                    'url'  => 'monitoring-rajal',
+                    'shift'   => 'ml-2',
+                    'can' => 'antrian-bpjs',
+                ],
+                [
                     'text' => 'Pemeriksaan Perawat',
                     'url' => 'pemeriksaan/perawat/rajal',
                     'icon' => 'fas fa-user-nurse',

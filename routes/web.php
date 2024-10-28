@@ -74,6 +74,7 @@ use App\Livewire\Jaminan\JaminanIndex;
 use App\Livewire\Kamarbed\KamarBedIndex;
 use App\Livewire\Kasir\KasirPembayaran;
 use App\Livewire\Pendaftaran\DashboardPendaftaran;
+use App\Livewire\Pendaftaran\MonitoringRajal;
 use App\Livewire\Perawat\LayananIndex;
 use App\Livewire\Perawat\PemeriksaanPerawatRajal;
 use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
@@ -216,6 +217,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('pendaftaran/jadwaldokter', JadwalDokterIndex::class)->name('pendaftaran.jadwaldokter.index');
     Route::get('pendaftaran/rajal', PendaftaranRajal::class)->name('pendaftaran.rajal');
     Route::get('pendaftaran/rajal/{kodebooking}', PendaftaranRajalProses::class)->name('pendaftaran.rajal.proses');
+    Route::get('monitoring-rajal', MonitoringRajal::class)->name('monitoring.rajal');
     // pemeriksaan perawat
     Route::get('pemeriksaan/perawat/rajal', PemeriksaanPerawatRajal::class)->name('pemeriksaan.perawat.rajal');
     Route::get('pemeriksaan/perawat/rajal/{kodebooking}', PemeriksaanPerawatRajalProses::class)->name('pemeriksaan.perawat.rajal.proses');
