@@ -14,17 +14,21 @@ class PendaftaranRanap extends Component
     public function caritanggal() {}
     public function render()
     {
-        if ($this->tanggal == null) {
-            $this->tanggal = now()->format('Y-m-d');
-        }
+        $this->tanggal = $this->tanggal ?? now()->format('Y-m-d');
+        $search = '%' . $this->search . '%';
+        $query = Kunjungan::where('jeniskunjungan', 6);
         if ($this->tanggal) {
-            $search = '%' . $this->search . '%';
-            $this->kunjungans = Kunjungan::where('jeniskunjungan', 6)->get();
+            $query->whereDate('tgl_masuk', $this->tanggal);
         }
-        if ($this->search && $this->tanggal == null) {
-            $search = '%' . $this->search . '%';
-            $this->kunjungans = Kunjungan::where('jeniskunjungan', 6)->get();
+        if ($this->search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', $search)
+                    ->orWhere('norm', 'like', $search);
+            });
+        } else {
+            $query->orWhere('status', 1)->where('jeniskunjungan', 5);
         }
+        $this->kunjungans = $query->get();
         return view('livewire.ranap.pendaftaran-ranap')->title('Pasien Rawat Inap');
     }
     public function mount()

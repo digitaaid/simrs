@@ -25,7 +25,7 @@
                             @break
 
                             @case(99)
-                                <span class="badge bg-success float-right">{{ $kunjungan->status }}. Batal
+                                <span class="badge bg-danger float-right">{{ $kunjungan->status }}. Batal
                                 </span>
                             @break
 
