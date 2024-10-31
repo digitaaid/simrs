@@ -92,7 +92,7 @@ class RekamMedisController extends Controller
         $resepobat = $antrian->resepobat;
         $resepobatdetails = $antrian->resepfarmasidetails;
         $kunjungan = $antrian->kunjungan;
-        dd($kunjungan);
+        dd($antrian,$kunjungan);
         // return view('print.pdf_rekammedis_rajal',  compact('antrian','ttddokter','url'));
         $pdf = Pdf::loadView('print.pdf_rekammedis_rajal', compact('antrian', 'kunjungan', 'resepobat', 'resepobatdetails', 'ttddokter', 'ttdpasien', 'ttdpetugas', 'url'));
         return $pdf->stream('resumerajal.pdf');
