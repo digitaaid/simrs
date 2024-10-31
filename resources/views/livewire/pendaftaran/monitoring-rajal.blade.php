@@ -59,6 +59,7 @@
             <table class="table table-sm table-bordered table-hover">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Tgl Periksa</th>
                         <th>Kodebooking</th>
                         <th>Nama</th>
@@ -71,6 +72,7 @@
                 <tbody>
                     @foreach ($antrians as $item)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->tanggalperiksa }}</td>
                             <td>{{ $item->kodebooking }}</td>
                             <td>{{ $item->nama }}</td>
@@ -85,6 +87,7 @@
             <table class="table table-sm table-bordered table-hover">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Tgl Periksa</th>
                         <th>Antrian Total</th>
                         <th>BPJS</th>
@@ -96,6 +99,7 @@
                 <tbody>
                     @foreach ($antrians->groupBy('tanggalperiksa') as $tgl => $antrian)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $tgl }}</td>
                             <td>{{ $antrian->where('taskid', '!=', 99)->count() }}</td>
                             <td>{{ $antrian->where('taskid', '!=', 99)->where('jenispasien', 'JKN')->count() }}</td>

@@ -20,20 +20,20 @@
                         <tr>
                             <td>No RM</td>
                             <td>:</td>
-                            <td><b>{{ $antrian->norm ?? '-' }}</b></td>
+                            <td><b>{{ $kunjungan->norm ?? '-' }}</b></td>
                         </tr>
                         <tr>
                             <td>Nama</td>
                             <td>:</td>
-                            <td><b>{{ $antrian->nama ?? '-' }}</b></td>
+                            <td><b>{{ $kunjungan->nama ?? '-' }}</b></td>
                         </tr>
                         <tr>
                             <td>Tgl Lahir</td>
                             <td>:</td>
                             <td>
                                 <b>
-                                    {{ \Carbon\Carbon::parse($antrian->kunjungan->tgl_lahir)->format('d F Y') }}
-                                    ({{ \Carbon\Carbon::parse($antrian->kunjungan->tgl_lahir)->age }} tahun)
+                                    {{ \Carbon\Carbon::parse($kunjungan->tgl_lahir)->format('d F Y') }}
+                                    ({{ \Carbon\Carbon::parse($kunjungan->tgl_lahir)->age }} tahun)
                                 </b>
                             </td>
                         </tr>
@@ -42,8 +42,8 @@
                             <td>:</td>
                             <td>
                                 <b>
-                                    @if ($antrian->kunjungan)
-                                        @if ($antrian->kunjungan->gender == 'P')
+                                    @if ($kunjungan)
+                                        @if ($kunjungan->gender == 'P')
                                             Perempuan
                                         @else
                                             Laki-laki
@@ -70,18 +70,18 @@
                             <td>Tanggal Masuk</td>
                             <td>:</td>
                             <td><b>
-                                    {{ $antrian->kunjungan->tgl_masuk ? \Carbon\Carbon::parse($antrian->kunjungan->tgl_masuk)->isoFormat('d MMMM Y HH:mm') : '-' }}
+                                    {{ $kunjungan->tgl_masuk ? \Carbon\Carbon::parse($kunjungan->tgl_masuk)->isoFormat('d MMMM Y HH:mm') : '-' }}
                                 </b></td>
                         </tr>
                         <tr>
                             <td>Unit / Ruangan</td>
                             <td>:</td>
-                            <td><b>{{ $antrian->kunjungan->units->nama ?? '-' }}</b></td>
+                            <td><b>{{ $kunjungan->units->nama ?? '-' }}</b></td>
                         </tr>
                         <tr>
                             <td>Dokter</td>
                             <td>:</td>
-                            <td><b>{{ $antrian->kunjungan->dokters->nama ?? '-' }}</b></td>
+                            <td><b>{{ $kunjungan->dokters->nama ?? '-' }}</b></td>
                         </tr>
                     </table>
                 </td>
@@ -108,7 +108,7 @@
                         <tr>
                             <td>Kode Kunjungan</td>
                             <td>:</td>
-                            <td><b>{{ $antrian->kunjungan->kode ?? '-' }}</b></td>
+                            <td><b>{{ $kunjungan->kode ?? '-' }}</b></td>
                         </tr>
                     </table>
                 </td>
@@ -119,14 +119,14 @@
                         <tr>
                             <td>Keluhan Utama</td>
                             <td>:</td>
-                            <td>{{ $antrian->asesmenrajal->keluhan_utama ?? '-' }}</td>
+                            <td>{{ $kunjungan->asesmenrajal->keluhan_utama ?? '-' }}</td>
                         </tr>
                         <tr>
                             <td style="white-space:nowrap;">Pemeriksaan Fisik</td>
                             <td>:</td>
                             <td>
-                                {{ $antrian->asesmenrajal->pemeriksaan_fisik_perawat ?? '' }}
-                                {{ $antrian->asesmenrajal->pemeriksaan_fisik_dokter ?? '-' }}
+                                {{ $kunjungan->asesmenrajal->pemeriksaan_fisik_perawat ?? '' }}
+                                {{ $kunjungan->asesmenrajal->pemeriksaan_fisik_dokter ?? '-' }}
                             </td>
                         </tr>
                         <tr>
@@ -134,7 +134,7 @@
                             <td>:</td>
                             <td>
                                 @if ($antrian->asesmenrajal?->diagnosa)
-                                    @foreach (explode(';', $antrian->asesmenrajal?->diagnosa) as $item)
+                                    @foreach (explode(';', $kunjungan->asesmenrajal?->diagnosa) as $item)
                                         {{ $item }} <br>
                                     @endforeach
                                 @endif
@@ -143,7 +143,7 @@
                         <tr>
                             <td class="text-nowarp">ICD-10 Primer</td>
                             <td>:</td>
-                            <td><b>{{ $antrian->asesmenrajal->icd1 ?? '-' }}</b></td>
+                            <td><b>{{ $kunjungan->asesmenrajal->icd1 ?? '-' }}</b></td>
                         </tr>
                         <tr>
                             <td>ICD-10 Sekunder</td>
@@ -151,7 +151,7 @@
                             <td>
                                 <b>
                                     @if ($antrian->asesmenrajal?->icd2)
-                                        @foreach (explode(';', $antrian->asesmenrajal?->icd2) as $item)
+                                        @foreach (explode(';', $kunjungan->asesmenrajal?->icd2) as $item)
                                             {{ $item }} <br>
                                         @endforeach
                                     @endif
@@ -161,7 +161,7 @@
                         <tr>
                             <td>Tindakan</td>
                             <td>:</td>
-                            <td>{{ $antrian->asesmenrajal->tindakan_medis ?? '-' }}</td>
+                            <td>{{ $kunjungan->asesmenrajal->tindakan_medis ?? '-' }}</td>
                         </tr>
                         <tr>
                             <td>ICD-9 Procedure</td>
@@ -169,7 +169,7 @@
                             <td>
                                 <b>
                                     @if ($antrian->asesmenrajal?->icd9)
-                                        @foreach (explode(';', $antrian->asesmenrajal?->icd9) as $item)
+                                        @foreach (explode(';', $kunjungan->asesmenrajal?->icd9) as $item)
                                             {{ $item }} <br>
                                         @endforeach
                                     @endif
@@ -195,7 +195,7 @@
                             <td>Tekanan Darah</td>
                             <td>:</td>
                             <td>
-                                {{ $antrian->asesmenrajal->sistole ?? '-' }}/{{ $antrian->asesmenrajal->distole ?? '-' }}
+                                {{ $kunjungan->asesmenrajal->sistole ?? '-' }}/{{ $kunjungan->asesmenrajal->distole ?? '-' }}
                                 mmHg
                             </td>
                         </tr>
@@ -203,29 +203,29 @@
                             <td>Denyut Nadi</td>
                             <td>:</td>
                             <td>
-                                {{ $antrian->asesmenrajal->denyut_jantung ?? '-' }} x/menit
+                                {{ $kunjungan->asesmenrajal->denyut_jantung ?? '-' }} x/menit
                             </td>
                         </tr>
                         <tr>
                             <td>Pernapasan</td>
                             <td>:</td>
                             <td>
-                                {{ $antrian->asesmenrajal->pernapasan ?? '-' }} x/menit
+                                {{ $kunjungan->asesmenrajal->pernapasan ?? '-' }} x/menit
                             </td>
                         </tr>
                         <tr>
                             <td>Suhu</td>
                             <td>:</td>
                             <td>
-                                {{ $antrian->asesmenrajal->suhu ?? '-' }} Celcius
+                                {{ $kunjungan->asesmenrajal->suhu ?? '-' }} Celcius
                             </td>
                         </tr>
                         <tr>
                             <td>BB / TB</td>
                             <td>:</td>
                             <td>
-                                {{ $antrian->asesmenrajal->berat_badan ?? '-' }} kg /
-                                {{ $antrian->asesmenrajal->tinggi_badan ?? '-' }} cm
+                                {{ $kunjungan->asesmenrajal->berat_badan ?? '-' }} kg /
+                                {{ $kunjungan->asesmenrajal->tinggi_badan ?? '-' }} cm
                             </td>
                         </tr>
                     </table>
@@ -238,21 +238,21 @@
                             <td>Catatan Laboratorium</td>
                             <td>:</td>
                             <td>
-                                {{ $antrian->asesmenrajal->pemeriksaan_lab ?? '-' }}
+                                {{ $kunjungan->asesmenrajal->pemeriksaan_lab ?? '-' }}
                             </td>
                         </tr>
                         <tr>
                             <td>Catatan Radiologi</td>
                             <td>:</td>
                             <td>
-                                {{ $antrian->asesmenrajal->pemeriksaan_rad ?? '-' }}
+                                {{ $kunjungan->asesmenrajal->pemeriksaan_rad ?? '-' }}
                             </td>
                         </tr>
                         <tr>
                             <td>Catatan Penunjang</td>
                             <td>:</td>
                             <td>
-                                {{ $antrian->asesmenrajal->pemeriksaan_penunjang ?? '-' }}
+                                {{ $kunjungan->asesmenrajal->pemeriksaan_penunjang ?? '-' }}
                             </td>
                         </tr>
 
@@ -262,7 +262,7 @@
                 <td class="text-center">
                     Dokter DPJP, <br>
                     <img src="{{ $ttddokter }}" width="70px"><br>
-                    <b><u>{{ $antrian->kunjungan->dokters->nama }}</u></b>
+                    <b><u>{{ $kunjungan->dokters->nama }}</u></b>
                 </td>
             </tr>
         </table>
