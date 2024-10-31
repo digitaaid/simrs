@@ -365,7 +365,7 @@
                             <td>Tanggal Masuk</td>
                             <td>:</td>
                             <td><b>
-                                    {{ $kunjungan->tgl_masuk ? \Carbon\Carbon::parse($kunjungan->tgl_masuk)->isoFormat('d MMMM Y HH:mm') : '-' }}
+                                    {{ $kunjungan->tgl_masuk ? \Carbon\Carbon::parse($kunjungan->tgl_masuk)->isoFormat('dd MMMM Y HH:mm') : '-' }}
                                 </b></td>
                         </tr>
                         <tr>
