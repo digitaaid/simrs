@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Antrian;
 use App\Models\Kunjungan;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -92,6 +93,7 @@ class RekamMedisController extends Controller
         $resepobat = $antrian->resepobat;
         $resepobatdetails = $antrian->resepfarmasidetails;
         $kunjungan = $antrian->kunjungan;
+        dd(Carbon::parse($kunjungan->tgl_masuk)->isoFormat('DD MMMM Y HH:mm'));
         // return view('print.pdf_rekammedis_rajal',  compact('antrian','ttddokter','url'));
         $pdf = Pdf::loadView('print.pdf_rekammedis_rajal', compact('antrian', 'kunjungan', 'resepobat', 'resepobatdetails', 'ttddokter', 'ttdpasien', 'ttdpetugas', 'url'));
         return $pdf->stream('resumerajal.pdf');
