@@ -33,7 +33,7 @@
                             <tr>
                                 <td>Tgl SEP</td>
                                 <td>:</td>
-                                <td><b>{{ \Carbon\Carbon::parse($sep->tglSep)->isoFormat('d MMMM Y') }}</b></td>
+                                <td><b>{{ \Carbon\Carbon::parse($sep->tglSep)->isoFormat('DD MMMM Y') }}</b></td>
                             </tr>
                             <tr>
                                 <td>No Kartu</td>
