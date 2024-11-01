@@ -133,7 +133,7 @@
     <x-adminlte-card theme="primary" title="Data Pasien" icon="fas fa-user-injured">
         <div class="row">
             <div class="col-md-8">
-                <x-adminlte-button wire:click='tambahPasien' class="btn-sm" label="Tambah Pasien Baru"
+                <x-adminlte-button wire:click='tambahPasien' class="btn-sm mb-2" label="Tambah Pasien Baru"
                     theme="success" icon="fas fa-user-plus" />
             </div>
             <div class="col-md-4">
@@ -150,52 +150,54 @@
                 </x-adminlte-input>
             </div>
         </div>
-        <table class="table text-nowrap table-sm table-hover table-bordered table-responsive mb-3">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>No RM</th>
-                    <th>Nama Pasien</th>
-                    <th>Sex</th>
-                    <th>No BPJS</th>
-                    <th>NIK</th>
-                    <th>Action</th>
-                    <th>Alamat</th>
-                    <th>No HP</th>
-                    <th>Tempat Lahir</th>
-                    <th>Tgl Lahir</th>
-                    <th>PIC</th>
-                    <th>Updated</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($pasiens as $item)
+        <div class="table-responsive">
+            <table class="table text-nowrap table-sm table-hover table-bordered">
+                <thead>
                     <tr>
-                        <td>{{ $loop->index + $pasiens->firstItem() }}</td>
-                        <td>{{ $item->norm }}</td>
-                        <td>{{ $item->nama }}</td>
-                        <td>{{ $item->gender }}</td>
-                        <td>{{ $item->nomorkartu }}</td>
-                        <td>{{ $item->nik }}</td>
-                        <td>
-                            <a href="#editPasien">
-                                <x-adminlte-button wire:click='editPasien({{ $item }})' theme="warning"
-                                    class="btn-xs" icon="fas fa-edit" />
-                            </a>
-                            <x-adminlte-button wire:click='nonaktifPasien({{ $item }})' theme="danger"
-                                class="btn-xs" icon="fas fa-times"
-                                wire:confirm='Apakah anda yakin akan menonaktifkan pasien tersebut ?' />
-                        </td>
-                        <td>{{ $item->alamat }}</td>
-                        <td>{{ $item->nohp }}</td>
-                        <td>{{ $item->tempat_lahir }}</td>
-                        <td>{{ $item->tgl_lahir }}</td>
-                        <td>{{ $item->pic }}</td>
-                        <td>{{ $item->updated_at }}</td>
+                        <th>#</th>
+                        <th>No RM</th>
+                        <th>Nama Pasien</th>
+                        <th>Sex</th>
+                        <th>No BPJS</th>
+                        <th>NIK</th>
+                        <th>Action</th>
+                        <th>Alamat</th>
+                        <th>No HP</th>
+                        <th>Tempat Lahir</th>
+                        <th>Tgl Lahir</th>
+                        <th>PIC</th>
+                        <th>Updated</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($pasiens as $item)
+                        <tr>
+                            <td>{{ $loop->index + $pasiens->firstItem() }}</td>
+                            <td>{{ $item->norm }}</td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->gender }}</td>
+                            <td>{{ $item->nomorkartu }}</td>
+                            <td>{{ $item->nik }}</td>
+                            <td>
+                                <a href="#editPasien">
+                                    <x-adminlte-button wire:click='editPasien({{ $item }})' theme="warning"
+                                        class="btn-xs" icon="fas fa-edit" />
+                                </a>
+                                <x-adminlte-button wire:click='nonaktifPasien({{ $item }})' theme="danger"
+                                    class="btn-xs" icon="fas fa-times"
+                                    wire:confirm='Apakah anda yakin akan menonaktifkan pasien tersebut ?' />
+                            </td>
+                            <td>{{ $item->alamat }}</td>
+                            <td>{{ $item->nohp }}</td>
+                            <td>{{ $item->tempat_lahir }}</td>
+                            <td>{{ $item->tgl_lahir }}</td>
+                            <td>{{ $item->pic }}</td>
+                            <td>{{ $item->updated_at }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         <x-slot name="footerSlot">
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">

@@ -47,7 +47,7 @@ class PendaftaranRajalProses extends Component
             ]);
         }
         Alert::success('Success', 'Nomor antrian ' . $antrian->nomorantrean . ' telah dibatalakan pendaftaran.');
-        return redirect()->to(route('pendaftaran.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
+        return redirect()->to(route('pendaftaran.rajal.index') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
     }
     public function selesaiPendaftaran()
     {
@@ -88,7 +88,7 @@ class PendaftaranRajalProses extends Component
             $antrian->user1 = auth()->user()->id;
             $antrian->update();
             Alert::success('Success', 'Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pendaftaran.');
-            return redirect()->to(route('pendaftaran.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
+            return redirect()->to(route('pendaftaran.rajal.index') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
         }
@@ -167,7 +167,7 @@ class PendaftaranRajalProses extends Component
             $this->kodedokter = $antrian->kodedokter;
         } else {
             flash('Antrian tidak ditemukan.', 'danger');
-            return redirect()->route('pendaftaran.rajal');
+            return redirect()->route('pendaftaran.rajal.index');
         }
     }
 }

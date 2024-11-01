@@ -11,7 +11,7 @@
         </x-adminlte-card>
     </div>
     {{-- navigasi --}}
-    @include('livewire.pendaftaran.navigasi-rajal')
+    @include('livewire.pendaftaran.modal-navigasi-rajal')
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
         <div id="datapasien">

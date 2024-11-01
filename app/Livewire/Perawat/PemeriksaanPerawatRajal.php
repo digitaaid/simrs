@@ -35,7 +35,9 @@ class PemeriksaanPerawatRajal extends Component
                 ->with(['dokter', 'unit'])
                 ->get();
             $this->antrians = Antrian::where('tanggalperiksa', $this->tanggalperiksa)
-                ->where('jadwal_id', "like", "%" . $this->jadwal . "%")
+                ->when($this->jadwal, function ($query) {
+                    return $query->where('jadwal_id', $this->jadwal);
+                })
                 ->where('taskid', '>=', 3)
                 ->where('taskid', '!=', 99)
                 ->leftJoin('asesmen_rajals', 'antrians.id', '=', 'asesmen_rajals.antrian_id')

@@ -100,6 +100,7 @@ class ModalKunjunganRajal extends Component
                 'jeniskunjungan' => $this->jeniskunjungan,
                 'nomorreferensi' => $this->nomorreferensi,
                 'sep' => $this->sep,
+                'status' => 1,
                 'diagnosa_awal' => $this->diagnosa,
                 'cara_masuk' => $this->caramasuk,
                 'user1' => auth()->user()->id,
@@ -184,6 +185,10 @@ class ModalKunjunganRajal extends Component
             $this->norm = $pasien->norm;
             $this->nama = $pasien->nama;
             $this->nohp = $pasien->nohp;
+            $this->hakkelas = $pasien->hakkelas;
+            $this->tgl_lahir = $pasien->tgl_lahir;
+            $this->gender = $pasien->gender;
+            $this->jenispeserta = $pasien->jenispeserta;
         }
     }
     public function formKunjungan()

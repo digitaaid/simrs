@@ -214,15 +214,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('anjunganantrian/print/{kodebooking}', [PendaftaranController::class, 'printkarcis'])->name('anjunganantrian.print');
     Route::get('anjunganantrian/test/', [AnjunganAntrian::class, 'test'])->name('anjunganantrian.test');
     // pendaftaran
-    Route::get('pendaftaran/jadwaldokter', JadwalDokterIndex::class)->name('pendaftaran.jadwaldokter.index');
-    Route::get('pendaftaran/rajal', PendaftaranRajal::class)->name('pendaftaran.rajal');
-    Route::get('pendaftaran/rajal/{kodebooking}', PendaftaranRajalProses::class)->name('pendaftaran.rajal.proses');
+    Route::middleware(['can:pendaftaran-rawat-jalan'])->group(function () {
+        Route::get('pendaftaran-rajal', PendaftaranRajal::class)->name('pendaftaran.rajal.index');
+        Route::get('pendaftaran-rajal/proses/{kodebooking}', PendaftaranRajalProses::class)->name('pendaftaran.rajal.proses');
+        Route::get('pendaftaran-rajal/jadwaldokter', JadwalDokterIndex::class)->name('pendaftaran.rajal.jadwaldokter');
+    });
     Route::get('monitoring-rajal', MonitoringRajal::class)->name('monitoring.rajal');
     // pemeriksaan perawat
-    Route::get('pemeriksaan/perawat/rajal', PemeriksaanPerawatRajal::class)->name('pemeriksaan.perawat.rajal');
-    Route::get('pemeriksaan/perawat/rajal/{kodebooking}', PemeriksaanPerawatRajalProses::class)->name('pemeriksaan.perawat.rajal.proses');
-    Route::get('pemeriksaan/dokter/rajal', PemeriksaanDokterRajal::class)->name('pemeriksaan.dokter.rajal');
-    Route::get('pemeriksaan/dokter/rajal/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('pemeriksaan.dokter.rajal.proses');
+    Route::middleware(['can:perawat-rawat-jalan'])->group(function () {
+        Route::get('perawat-rawat-jalan/pemeriksaan', PemeriksaanPerawatRajal::class)->name('perawat.rajal.pemeriksaan');
+        Route::get('perawat-rawat-jalan/pemeriksaan/{kodebooking}', PemeriksaanPerawatRajalProses::class)->name('perawat.rajal.pemeriksaan.proses');
+    });
+    //    pemeriksaan dokter
+    Route::middleware(['can:dokter-rawat-jalan'])->group(function () {
+        Route::get('dokter-rawat-jalan/pemeriksaan', PemeriksaanDokterRajal::class)->name('dokter.rajal.pemeriksaan');
+        Route::get('dokter-rawat-jalan/pemeriksaan/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('dokter.rajal.pemeriksaan.proses');
+    });
     // apotek
     Route::middleware(['can:apotek'])->group(function () {
         Route::get('apotek/penjualan_obat', PenjualanObat::class)->name('apotek.resepobat.rajal');

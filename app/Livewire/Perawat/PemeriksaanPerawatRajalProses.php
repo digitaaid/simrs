@@ -18,6 +18,10 @@ class PemeriksaanPerawatRajalProses extends Component
     public $openmodalPerawat = false;
     public $openmodalDokter = false;
     protected $listeners = ['modalAsesmenRajal', 'modalCppt', 'modalPemeriksaanPerawat', 'modalPemeriksaanDokter', 'refreshPage' => '$refresh'];
+    public function render()
+    {
+        return view('livewire.perawat.pemeriksaan-perawat-rajal-proses')->title('Pemeriksaan Perawat ' . $this->antrian->nama);
+    }
     public function selesaiPerawat()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
@@ -25,7 +29,7 @@ class PemeriksaanPerawatRajalProses extends Component
             $antrian->user2 = auth()->user()->id;
             $antrian->update();
             flash('Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pemeriksaan perawat.', 'success');
-            return redirect()->to(route('pemeriksaan.perawat.rajal') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
+            return redirect()->to(route('perawat.rajal.pemeriksaan') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan obat.', 'danger');
         }
@@ -71,9 +75,5 @@ class PemeriksaanPerawatRajalProses extends Component
             flash('Antrian tidak ditemukan.', 'danger');
             return redirect()->route('pendaftaran.rajal');
         }
-    }
-    public function render()
-    {
-        return view('livewire.perawat.pemeriksaan-perawat-rajal-proses')->title('Pemeriksaan Perawat ' . $this->antrian->nama);
     }
 }
