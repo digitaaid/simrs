@@ -442,14 +442,6 @@ return [
                     'can' => 'kasir',
                 ],
                 [
-                    'text' => 'Rekam Medis Rawat Jalan',
-                    'url' => 'rekammedis/rajal',
-                    'active' => ['rekammedis/rajal', 'rekammedis/rajal/edit/*'],
-                    'icon' => 'fas fa-laptop-medical',
-                    'shift'   => 'ml-2',
-                    'can' => 'rekam-medis',
-                ],
-                [
                     'text' => 'Anjungan Antrian',
                     'url' => 'anjunganantrian',
                     'icon' => 'fas fa-desktop',
@@ -621,6 +613,21 @@ return [
                     'icon' => 'fas fa-pills',
                     'can' => ['farmasi'],
                     'shift'   => 'ml-2',
+                ],
+            ],
+        ],
+        // REKAM MEDIS & CASEMIX
+        [
+            'text'    => 'Rekam Medis & Casemix',
+            'icon'    => 'fas fa-file-medical',
+            'submenu' => [
+                [
+                    'text' => 'Rekam Medis Rawat Jalan',
+                    'url' => 'rekam-medis/rajal',
+                    'active' => ['rekam-medis/rajal', 'rekam-medis/rajal/edit/*'],
+                    'icon' => 'fas fa-laptop-medical',
+                    'shift'   => 'ml-2',
+                    'can' => 'rekam-medis',
                 ],
             ],
         ],

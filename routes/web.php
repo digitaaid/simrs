@@ -231,7 +231,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('dokter-rawat-jalan/pemeriksaan/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('dokter.rajal.pemeriksaan.proses');
     });
     // apotek
-    Route::middleware(['can:apotek'])->group(function () {
+    Route::middleware(['can:apoteker'])->group(function () {
         Route::get('apotek/penjualan_obat', PenjualanObat::class)->name('apotek.resepobat.rajal');
         Route::get('apotek/resep_obat_rajal', PengambilanResep::class)->name('apotek.resepobat.rajal');
         Route::get('apotek/resep_obat_igd', PengambilanObatIgd::class)->name('apotek.resepobat.igd');
@@ -247,8 +247,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('farmasi/stok-opname', PemesananObatIndex::class)->name('stok.opname');
     });
     // rekam medis
-    Route::get('rekammedis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
-    Route::get('rekammedis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
+    Route::middleware(['can:rekam-medis'])->group(function () {
+        Route::get('rekam-medis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
+        Route::get('rekam-medis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
+    });
     // satusehat
     Route::get('satusehat/token', TokenIndex::class)->name('satusehat.token');
     Route::get('satusehat/patient', PasienIndex::class)->name('satusehat.patient');

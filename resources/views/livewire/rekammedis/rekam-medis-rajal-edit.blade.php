@@ -259,7 +259,7 @@
             @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian])
             <div id="notaPembayaran">
                 <x-adminlte-card theme="primary" title="Nota Pembayaran Pasien">
-                    <iframe src="{{ route('print.notarajal', $antrian->kodebooking) }}" width="100%"
+                    <iframe src="{{ route('print.notarajalf', $antrian->kodebooking) }}" width="100%"
                         height="500" frameborder="0"></iframe>
                 </x-adminlte-card>
             </div>
