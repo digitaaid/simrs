@@ -917,14 +917,14 @@ return [
         [
             'text'    => 'Integrasi INACBG',
             'icon'    => 'fas fa-project-diagram',
-            // 'can' => ['inacbg'],
+            'can' => ['inacbg'],
             'submenu' => [
                 [
                     'text' => 'Token',
                     'icon'    => 'fas fa-user-injured',
                     'url'  => 'satusehat/token',
                     'shift'   => 'ml-2',
-                    'can' => ['satu-sehat'],
+                    'can' => ['inacbg'],
                 ],
             ],
         ],

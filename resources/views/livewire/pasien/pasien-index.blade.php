@@ -45,58 +45,62 @@
                     </x-adminlte-input>
                 </div>
             </div>
-            @php
-                $heads = [
-                    '#',
-                    'No RM',
-                    'Nama Pasien',
-                    'Action',
-                    'No BPJS',
-                    'NIK',
-                    'IdPatient',
-                    'No HP',
-                    'Sex',
-                    'Tgl Lahir',
-                    'Umur',
-                    'Alamat',
-                    'Alamat',
-                    'PIC',
-                    'Updated',
-                ];
-                $config['order'] = [0, 'asc'];
-                $config['paging'] = false;
-                $config['searching'] = false;
-                $config['info'] = false;
-                $config['scrollX'] = true;
-            @endphp
-            <x-adminlte-datatable id="table1" class="text-nowrap" :heads="$heads" :config="$config" bordered
-                hoverable compressed>
-                @forelse ($pasiens as $item)
-                    <tr wire:key="{{ $item->id }}">
-                        <td>{{ $loop->index + $pasiens->firstItem() }}</td>
-                        <td>{{ $item->norm }}</td>
-                        <td>{{ $item->nama }}</td>
-                        <td>
-                            <a href="{{ route('pasien.edit', $item->norm) }}" wire:navigate>
-                                <x-adminlte-button class="btn-xs" label="Edit" theme="warning" icon="fas fa-edit" />
-                            </a>
-                        </td>
-                        <td>{{ $item->nomorkartu }}</td>
-                        <td>{{ $item->nik }}</td>
-                        <td>{{ $item->idpatient }}</td>
-                        <td>{{ $item->nohp }}</td>
-                        <td>{{ $item->gender }}</td>
-                        <td>{{ $item->tgl_lahir }} ({{ \Carbon\Carbon::parse($item->tgl_lahir)->age }})</td>
-                        <td>{{ $item->jenispeserta }}</td>
-                        <td>{{ $item->desa_id }}, {{ $item->kecamatan_id }},
-                            {{ $item->kabupaten_id }}, {{ $item->provinsi_id }}</td>
-                        <td>{{ $item->alamat }}</td>
-                        <td>{{ $item->pic }}</td>
-                        <td>{{ $item->updated_at }}</td>
-                    </tr>
-                @empty
-                @endforelse
-            </x-adminlte-datatable>
+            <div class="table-responsive">
+                <table class="table table-sm text-nowrap table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>No RM</th>
+                            <th>Nama Pasien</th>
+                            <th>Action</th>
+                            <th>No BPJS</th>
+                            <th>NIK</th>
+                            <th>IdPatient</th>
+                            <th>No HP</th>
+                            <th>Sex</th>
+                            <th>Tgl Lahir</th>
+                            <th>Umur</th>
+                            <th>Alamat</th>
+                            <th>Alamat</th>
+                            <th>PIC</th>
+                            <th>Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($pasiens as $item)
+                            <tr>
+                                <td>{{ $loop->index + $pasiens->firstItem() }}</td>
+                                <td>{{ $item->norm }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>
+                                    <a href="{{ route('pasien.edit', $item->norm) }}" wire:navigate>
+                                        <x-adminlte-button class="btn-xs" label="Edit" theme="warning"
+                                            icon="fas fa-edit" />
+                                    </a>
+                                </td>
+                                <td>{{ $item->nomorkartu }}</td>
+                                <td>{{ $item->nik }}</td>
+                                <td>
+                                    {{ $item->idpatient }}
+                                    <x-adminlte-button wire:click="getPatientId({{ $item->nik }})" class="btn-xs"
+                                        theme="warning" icon="fas fa-sync" />
+                                </td>
+                                <td>{{ $item->nohp }}</td>
+                                <td>{{ $item->gender }}</td>
+                                <td>{{ $item->tgl_lahir }} ({{ \Carbon\Carbon::parse($item->tgl_lahir)->age }})
+                                </td>
+                                <td>{{ $item->jenispeserta }}</td>
+                                <td>{{ $item->desa_id }}, {{ $item->kecamatan_id }},
+                                    {{ $item->kabupaten_id }}, {{ $item->provinsi_id }}</td>
+                                <td>{{ $item->alamat }}</td>
+                                <td>{{ $item->pic }}</td>
+                                <td>{{ $item->updated_at }}</td>
+                            </tr>
+                        @empty
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
             {{ $pasiens->links() }}
         </x-adminlte-card>
     </div>

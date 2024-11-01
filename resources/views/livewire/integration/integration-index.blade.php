@@ -81,40 +81,42 @@
             <div class="col-md-6">
             </div>
         </div>
-        <table class="table text-nowrap table-sm table-hover table-bordered table-responsive-xl mb-3">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nama</th>
-                    <th>Description</th>
-                    <th>Action</th>
-                    <th>User</th>
-                    <th>BaseUrl</th>
-                    <th>AuthUrl</th>
-                    <th>UserKey</th>
-                    <th>SecretKey</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($integrations as $item)
+        <div class="table-responsive">
+            <table class="table text-nowrap table-sm table-hover table-bordered">
+                <thead>
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->description }}</td>
-                        <td>
-                            <a href="#editIntegration">
-                                <x-adminlte-button label="Edit" class="btn-xs" icon="fas fa-edit"
-                                    wire:click="edit({{ $item->id }})" theme="warning" />
-                            </a>
-                        </td>
-                        <td>{{ $item->user_id }}</td>
-                        <td>{{ $item->base_url }}</td>
-                        <td>{{ $item->auth_url }}</td>
-                        <td>{{ $item->user_key }}</td>
-                        <td>{{ $item->secret_key }}</td>
+                        <th>#</th>
+                        <th>Nama</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                        <th>User</th>
+                        <th>BaseUrl</th>
+                        <th>AuthUrl</th>
+                        <th>UserKey</th>
+                        <th>SecretKey</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($integrations as $item)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->description }}</td>
+                            <td>
+                                <a href="#editIntegration">
+                                    <x-adminlte-button label="Edit" class="btn-xs" icon="fas fa-edit"
+                                        wire:click="edit({{ $item->id }})" theme="warning" />
+                                </a>
+                            </td>
+                            <td>{{ $item->user_id }}</td>
+                            <td>{{ $item->base_url }}</td>
+                            <td>{{ $item->auth_url }}</td>
+                            <td>{{ $item->user_key }}</td>
+                            <td>{{ $item->secret_key }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </x-adminlte-card>
 </div>

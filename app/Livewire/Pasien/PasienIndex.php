@@ -3,9 +3,11 @@
 namespace App\Livewire\Pasien;
 
 use App\Exports\PasienExport;
+use App\Http\Controllers\PatientController;
 use App\Imports\PasienImport;
 use App\Models\Pasien;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -19,6 +21,17 @@ class PasienIndex extends Component
     public $search = '';
     public $formImport = false;
     public $filePasienImport;
+    public function render()
+    {
+        $search = '%' . $this->search . '%';
+        $pasiens = Pasien::where('nama', 'like', $search)
+            ->OrWhere('nik', 'like', $search)
+            ->OrWhere('norm', 'like', $search)
+            ->OrWhere('nomorkartu', 'like', $search)
+            ->orderBy($this->sortBy, $this->sortDirection)
+            ->paginate();
+        return view('livewire.pasien.pasien-index', compact('pasiens'))->title('Pasien');
+    }
     public function import()
     {
         try {
@@ -68,15 +81,17 @@ class PasienIndex extends Component
     {
         return view('components.placeholder.placeholder-text');
     }
-    public function render()
+    public function getPatientId($nik)
     {
-        $search = '%' . $this->search . '%';
-        $pasiens = Pasien::where('nama', 'like', $search)
-            ->OrWhere('nik', 'like', $search)
-            ->OrWhere('norm', 'like', $search)
-            ->OrWhere('nomorkartu', 'like', $search)
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate();
-        return view('livewire.pasien.pasien-index', compact('pasiens'))->title('Pasien');
+        $api = new PatientController();
+        $request = new Request([
+            'nik' => $nik
+        ]);
+        $res = $api->get_patien_id($request);
+        if ($res->metadata->code == 200) {
+            flash('Get Patien ID successfully', 'success');
+        } else {
+            flash($res->metadata->message, 'danger');
+        }
     }
 }

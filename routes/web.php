@@ -191,9 +191,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('bpjs/vclaim/sep_print', [SepController::class, 'sep_print'])->name('vclaim.sep_print');
     });
     Route::middleware(['can:manajemen-pelayanan'])->group(function () {
-        Route::get('pasien', PasienIndex::class)->name('pasien.index')->lazy();
-        Route::get('pasien/create', PasienForm::class)->name('pasien.create');
-        Route::get('pasien/edit/{norm}', PasienForm::class)->name('pasien.edit');
         Route::get('dokter', DokterIndex::class)->name('dokter.index');
         Route::get('perawat', PerawatIndex::class)->name('perawat.index');
         Route::get('unit', UnitIndex::class)->name('unit.index');
@@ -202,6 +199,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('kamar-bed', KamarBedIndex::class)->name('kamar.bed.index');
         Route::get('jaminan', JaminanIndex::class)->name('jaminan.index');
         Route::get('wilayah-indonesia', WilayahIndonesia::class)->name('wilayah.indonesia');
+    });
+    Route::middleware(['can:crud-pasien'])->group(function () {
+        Route::get('pasien', PasienIndex::class)->name('pasien.index')->lazy();
+        Route::get('pasien/create', PasienForm::class)->name('pasien.create');
+        Route::get('pasien/edit/{norm}', PasienForm::class)->name('pasien.edit');
     });
     // anjungan antrian
     Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
@@ -252,13 +254,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('rekam-medis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
     });
     // satusehat
-    Route::get('satusehat/token', TokenIndex::class)->name('satusehat.token');
-    Route::get('satusehat/patient', PasienIndex::class)->name('satusehat.patient');
-    Route::get('satusehat/practitioner', DokterIndex::class)->name('satusehat.practitioner');
-    Route::get('satusehat/organization', UnitIndex::class)->name('satusehat.organization');
-    Route::get('satusehat/location', UnitIndex::class)->name('satusehat.location');
-    Route::get('satusehat/encounter', EncounterIndex::class)->name('satusehat.encounter');
-    // Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
+    Route::middleware(['can:satu-sehat'])->group(function () {
+        Route::get('satusehat/token', TokenIndex::class)->name('satusehat.token');
+        Route::get('satusehat/patient', PasienIndex::class)->name('satusehat.patient');
+        Route::get('satusehat/practitioner', DokterIndex::class)->name('satusehat.practitioner');
+        Route::get('satusehat/organization', UnitIndex::class)->name('satusehat.organization');
+        Route::get('satusehat/location', UnitIndex::class)->name('satusehat.location');
+        Route::get('satusehat/encounter', EncounterIndex::class)->name('satusehat.encounter');
+        // Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
+    });
     // kasir
     Route::get('kasir-pembayaran', KasirPembayaran::class)->name('kasir.pembayran');
 
