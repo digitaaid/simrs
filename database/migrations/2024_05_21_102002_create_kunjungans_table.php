@@ -52,7 +52,7 @@ return new class extends Migration
             $table->string('catatan')->nullable();
             $table->string('status');
             $table->string('idencounter')->nullable();
-            $table->string('idcondititon')->nullable();
+            $table->string('idconditition')->nullable();
             $table->string('user1')->nullable(); #pendaftaran
             $table->string('user2')->nullable(); #perawat
             $table->string('user3')->nullable(); #dokter

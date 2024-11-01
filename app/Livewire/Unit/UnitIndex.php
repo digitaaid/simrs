@@ -3,6 +3,8 @@
 namespace App\Livewire\Unit;
 
 use App\Exports\UnitExport;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\SatuSehatController;
 use App\Imports\UnitImport;
 use App\Models\Integration;
@@ -27,7 +29,12 @@ class UnitIndex extends Component
     public $fileImport;
     public $id, $nama, $kode, $kodejkn,  $idorganization, $idlocation, $jenis, $lokasi, $status, $user, $pic;
     public $unit;
-
+    public function render()
+    {
+        $search = '%' . $this->search . '%';
+        $units = Unit::where('nama', 'like', $search)->paginate();
+        return view('livewire.unit.unit-index', compact('units'))->title('Unit');
+    }
     public function cariIdOrganization($kode)
     {
         $unit = Unit::where('kode', $kode)->first();
@@ -244,10 +251,65 @@ class UnitIndex extends Component
     {
         $this->form =  $this->form ? false : true;
     }
-    public function render()
+    public function createOrganization($kode)
     {
-        $search = '%' . $this->search . '%';
-        $units = Unit::where('nama', 'like', $search)->paginate();
-        return view('livewire.unit.unit-index', compact('units'))->title('Unit');
+        $unit = Unit::where('kode', $kode)->first();
+        $pengaturan = Pengaturan::firstOrFail();
+        $request = new Request();
+        $request['organization_id'] = $pengaturan->idorganization;
+        $request['identifier'] = $unit->nama;
+        $request['name'] = $unit->nama;
+        $request['phone'] = $pengaturan->phone;
+        $request['email'] = $pengaturan->email;
+        $request['url'] = $pengaturan->website;
+        $request['address'] = $pengaturan->address;
+        $request['postalCode'] = $pengaturan->postalCode;
+        $request['province'] = $pengaturan->province;
+        $request['city'] = $pengaturan->city;
+        $request['district'] = $pengaturan->district;
+        $request['village'] = $pengaturan->village;
+        $api = new OrganizationController();
+        $res = $api->store($request);
+        $json = $res->response;
+        if ($json->resourceType == "Organization") {
+            $unit->update(['idorganization' => $json->id]);
+            flash('Ok', 'success');
+        } else {
+            flash($res->metadata->message, 'danger');
+        }
+        return redirect()->back();
+    }
+    public function createLocation($kode)
+    {
+        $unit = Unit::where('kode', $kode)->first();
+        $pengaturan = Pengaturan::firstOrFail();
+        $request = new Request();
+        $request['organization_id'] = $pengaturan->idorganization;
+        $request['identifier'] = $unit->nama;
+        $request['name'] = $unit->nama;
+        $request['phone'] = $pengaturan->phone;
+        $request['email'] = $pengaturan->email;
+        $request['url'] = $pengaturan->website;
+        $request['address'] = $pengaturan->address;
+        $request['postalCode'] = $pengaturan->postalCode;
+        $request['province'] = $pengaturan->province;
+        $request['city'] = $pengaturan->city;
+        $request['city'] = $pengaturan->city;
+        $request['district'] = $pengaturan->district;
+        $request['village'] = $pengaturan->village;
+        $request['longitude'] = floatval($pengaturan->longitude) ?? -6.8963544;
+        $request['latitude'] = floatval($pengaturan->latitude) ?? 108.7479554;
+        $request['altitude'] = floatval($pengaturan->altitude) ?? 730;
+        $request['description'] = "Unit " . $unit->nama . " Lokasi " . $unit->lokasi;
+        $api = new LocationController();
+        $res = $api->store($request);
+        $json = $res->response;
+        if ($json->resourceType == "Location") {
+            $unit->update(['idlocation' => $json->id]);
+            flash('Ok', 'success');
+        } else {
+            flash($res->metadata->message, 'danger');
+        }
+        return redirect()->back();
     }
 }

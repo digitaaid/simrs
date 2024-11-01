@@ -412,13 +412,6 @@ return [
                     'active'  => ['pendaftaran-rajal', 'pendaftaran-rajal/proses/*'],
                 ],
                 [
-                    'text' => 'Jadwal Dokter Rajal',
-                    'url' => 'pendaftaran-rajal/jadwaldokter',
-                    'icon' => 'fas fa-calendar',
-                    'shift'   => 'ml-2',
-                    'can' => 'pendaftaran-rawat-jalan',
-                ],
-                [
                     'text' => 'Pemeriksaan Perawat',
                     'url' => 'perawat-rawat-jalan/pemeriksaan',
                     'icon' => 'fas fa-user-nurse',
@@ -440,6 +433,13 @@ return [
                     'icon' => 'fas fa-cash-register',
                     'shift'   => 'ml-2',
                     'can' => 'kasir',
+                ],
+                [
+                    'text' => 'Jadwal Dokter Rajal',
+                    'url' => 'pendaftaran-rajal/jadwaldokter',
+                    'icon' => 'fas fa-calendar',
+                    'shift'   => 'ml-2',
+                    'can' => 'pendaftaran-rawat-jalan',
                 ],
                 [
                     'text' => 'Anjungan Antrian',
@@ -974,6 +974,7 @@ return [
                     'icon'    => 'fas fa-user',
                     'url'  => 'satusehat/encounter',
                     'shift'   => 'ml-2',
+                    'active'  => ['satusehat/encounter', 'satusehat/encounter/*'],
                     'can' => ['satu-sehat'],
                 ],
                 [

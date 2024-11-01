@@ -115,8 +115,16 @@
                             <td>{{ $item->kode }}</td>
                             <td>{{ $item->kodejkn }}</td>
                             <td>{{ $item->nama }}</td>
-                            <td>{{ $item->idorganization }}</td>
-                            <td>{{ $item->idlocation }}</td>
+                            <td>
+                                {{ $item->idorganization }}
+                                <x-adminlte-button wire:click="createOrganization('{{ $item->kode }}')"
+                                    class="btn-xs" theme="warning" icon="fas fa-sync" />
+                            </td>
+                            <td>
+                                {{ $item->idlocation }}
+                                <x-adminlte-button wire:click="createLocation('{{ $item->kode }}')"
+                                    class="btn-xs" theme="warning" icon="fas fa-sync" />
+                            </td>
                             <td>{{ $item->jenis }}</td>
                             <td>{{ $item->lokasi }}</td>
                             <td>

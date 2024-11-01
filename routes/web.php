@@ -85,6 +85,7 @@ use App\Livewire\Ranap\PendaftaranRanap;
 use App\Livewire\Ranap\PendaftaranRanapProses;
 use App\Livewire\Rekammedis\RekamMedisRajal;
 use App\Livewire\Rekammedis\RekamMedisRajalEdit;
+use App\Livewire\Satusehat\EncounterEdit;
 use App\Livewire\Satusehat\EncounterIndex;
 use App\Livewire\Satusehat\LocationIndex;
 use App\Livewire\Satusehat\OrganizationIndex;
@@ -198,8 +199,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('tindakan', TindakanIndex::class)->name('tindakan.index');
         Route::get('kamar-bed', KamarBedIndex::class)->name('kamar.bed.index');
         Route::get('jaminan', JaminanIndex::class)->name('jaminan.index');
-        Route::get('wilayah-indonesia', WilayahIndonesia::class)->name('wilayah.indonesia');
     });
+    Route::get('wilayah-indonesia', WilayahIndonesia::class)->name('wilayah.indonesia');
     Route::middleware(['can:crud-pasien'])->group(function () {
         Route::get('pasien', PasienIndex::class)->name('pasien.index')->lazy();
         Route::get('pasien/create', PasienForm::class)->name('pasien.create');
@@ -261,15 +262,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('satusehat/organization', UnitIndex::class)->name('satusehat.organization');
         Route::get('satusehat/location', UnitIndex::class)->name('satusehat.location');
         Route::get('satusehat/encounter', EncounterIndex::class)->name('satusehat.encounter');
+        Route::get('satusehat/encounter/{idencounter}', EncounterEdit::class)->name('satusehat.encounter.edit');
         // Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
     });
     // kasir
     Route::get('kasir-pembayaran', KasirPembayaran::class)->name('kasir.pembayran');
-
     // rawat igd
     Route::get('pendaftaran/igd', PendaftaranIgd::class)->name('pendaftaran.igd');
     Route::get('pendaftaran/igd/proses', PendaftaranIgdProses::class)->name('pendaftaran.igd.proses');
-
     // rawat inap
     Route::get('pendaftaran/ranap', PendaftaranRanap::class)->name('pendaftaran.ranap');
     Route::get('pendaftaran/ranap/proses', PendaftaranRanapProses::class)->name('pendaftaran.ranap.proses');

@@ -2,40 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dokter;
 use App\Models\Integration;
-use App\Models\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
-class PatientController extends SatuSehatController
+class PractitionerController extends SatuSehatController
 {
-    public function patient_by_nik(Request $request)
+    public function practitioner_by_nik(Request $request)
     {
         $token = Cache::get('satusehat_access_token');
         $api = Integration::where('name', 'Satu Sehat')->first();
-        $url = $api->base_url . "/Patient?identifier=https://fhir.kemkes.go.id/id/nik|" . $request->nik;
+        $url = $api->base_url . "/Practitioner?identifier=https://fhir.kemkes.go.id/id/nik|" . $request->nik;
         $response = Http::withToken($token)->get($url);
         $data = $response->json();
         return $this->responseSatuSehat($data);
     }
-    public function get_patient_id(Request $request)
+    public function get_practitioner_id(Request $request)
     {
-        $pasien = Pasien::where('nik', $request->nik)->first();
-        // $request['nik'] = $pasien->nik;
-        $request['nik'] = "9271060312000001";
+        $dokter = Dokter::where('nik', $request->nik)->first();
+        $request['nik'] = $dokter->nik;
         if ($request->nik) {
-            $res = $this->patient_by_nik($request);
+            $res = $this->practitioner_by_nik($request);
+            $dokter->update([
+                'idpractitioner' => 'N10000001'
+            ]);
             if ($res->metadata->code == 200) {
                 if ($res->response->entry) {
                     $id = $res->response->entry[0]->resource->id;
-                    $pasien->update([
-                        'idpatient' => $id
+                    $dokter->update([
+                        // 'idpractitioner' => $id
+                        'idpractitioner' => 'N10000001'
                     ]);
                 } else {
                     $data = [
                         'metadata' => [
-                            'message' => "Data Pasien Tidak Ditemukan Di Server Satu Sehat",
+                            'message' => "Data Dokter Tidak Ditemukan Di Server Satu Sehat",
                             'code' => 404,
                         ],
                     ];
@@ -53,28 +56,30 @@ class PatientController extends SatuSehatController
         }
         return $res;
     }
-    // public function patient_sync(Request $request)
+
+    // public function practitioner_sync(Request $request)
     // {
-    //     $pasien = Pasien::where('norm', $request->norm)->first();
-    //     $request['nik'] = $pasien->nik_bpjs;
+    //     $dokter = Dokter::where('kodedokter', $request->kodedokter)->first();
+    //     $request['nik'] = $dokter->nik;
     //     if ($request->nik) {
-    //         $res = $this->patient_by_nik($request);
+    //         $res = $this->practitioner_by_nik($request);
     //         if ($res->metadata->code == 200) {
-    //             if ($res->response->entry) {
+    //             if (count($res->response->entry)) {
     //                 $id = $res->response->entry[0]->resource->id;
-    //                 $pasien->update([
-    //                     'idpatient' => $id
+    //                 $dokter->update([
+    //                     'idpractitioner' => $id
     //                 ]);
-    //                 Alert::success('Sukses', 'Berhasil Sync Patient Satu Sehat');
+    //                 Alert::success('Success', 'Berhasil Sync Practitioner Satu Sehat');
     //             } else {
-    //                 Alert::error('Mohon Maaf', 'Data Pasien Tidak Ditemukan Di Server Satu Sehat');
+    //                 Alert::error('Mohon Maaf', $res->metadata->message);
     //             }
     //         } else {
-    //             Alert::error('Mohon Maaf', $res->metadata->message);
+    //             Alert::error('Mohon Maaf', 'Gagal Sync Practitioner ' . $res->metadata->message);
     //         }
     //     } else {
-    //         Alert::error('Mohon Maaf', 'Pasien belum memiliki nik');
+    //         Alert::error('Mohon Maaf', 'Dokter belum memiliki nik');
     //     }
     //     return redirect()->back();
+
     // }
 }

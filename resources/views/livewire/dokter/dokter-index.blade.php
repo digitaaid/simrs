@@ -139,7 +139,11 @@
                             </td>
                             <td>{{ $item->kodejkn }}</td>
                             <td>{{ $item->nik }}</td>
-                            <td>{{ $item->idpractitioner }}</td>
+                            <td>
+                                {{ $item->idpractitioner }}
+                                <x-adminlte-button wire:click="getPractitionerId({{ $item->nik }})" class="btn-xs"
+                                    theme="warning" icon="fas fa-sync" />
+                            </td>
                             <td>{{ $item->gender }}</td>
                             <td>{{ $item->title }}</td>
                             <td>{{ $item->sip }}</td>

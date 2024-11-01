@@ -87,7 +87,7 @@ class PasienIndex extends Component
         $request = new Request([
             'nik' => $nik
         ]);
-        $res = $api->get_patien_id($request);
+        $res = $api->get_patient_id($request);
         if ($res->metadata->code == 200) {
             flash('Get Patien ID successfully', 'success');
         } else {

@@ -1,4 +1,9 @@
 <div>
+    @if (flash()->message)
+        <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
+            {{ flash()->message }}
+        </x-adminlte-alert>
+    @endif
     <x-adminlte-card title="Pengaturan Aplikasi" theme="secondary">
         <div class="row">
             <div class="col-md-6">

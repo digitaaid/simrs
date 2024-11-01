@@ -3,10 +3,12 @@
 namespace App\Livewire\Dokter;
 
 use App\Exports\DokterExport;
+use App\Http\Controllers\PractitionerController;
 use App\Http\Controllers\SatuSehatController;
 use App\Imports\DokterImport;
 use App\Models\Dokter;
 use App\Models\Integration;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
@@ -54,7 +56,6 @@ class DokterIndex extends Component
         $api = new SatuSehatController();
         return $api->responseSatuSehat($data);
     }
-
     public function store()
     {
         $this->validate([
@@ -160,6 +161,19 @@ class DokterIndex extends Component
     public function closeForm()
     {
         $this->form = false;
+    }
+    public function getPractitionerId($nik)
+    {
+        $api = new PractitionerController();
+        $request = new Request([
+            'nik' => $nik
+        ]);
+        $res = $api->get_practitioner_id($request);
+        if ($res->metadata->code == 200) {
+            flash('Get ID successfully', 'success');
+        } else {
+            flash($res->metadata->message, 'danger');
+        }
     }
 
 }
