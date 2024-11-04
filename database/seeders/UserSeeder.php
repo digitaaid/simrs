@@ -9,9 +9,6 @@ use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $user = User::create([
@@ -31,27 +28,5 @@ class UserSeeder extends Seeder
             'password' => bcrypt('antrianbpjs'),
             'email_verified_at' => now()
         ]);
-        $roles = [
-            'Admin',
-            'Pendaftaran',
-            'Perawat',
-            'Dokter',
-            'Farmasi',
-            'Kasir',
-            'Rekam Medis',
-            'Keuangan',
-            'Manajemen',
-        ];
-        foreach ($roles as  $value) {
-            $user = User::create([
-                "name" => $value,
-                "username" => Str::slug($value),
-                "email" => Str::slug($value) . "@gmail.com",
-                "phone" => "089529909036",
-                'password' => bcrypt(Str::slug($value)),
-                'email_verified_at' => now()
-            ]);
-            $user->assignRole($value);
-        }
     }
 }
