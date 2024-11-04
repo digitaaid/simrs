@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => true,
         'img' => [
-            'path' => 'kitasehat/logokitasehat-lingkar.png',
+            'path' => 'lmc/lmc-b.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
