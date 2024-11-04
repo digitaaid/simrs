@@ -9,7 +9,6 @@ use Livewire\Component;
 class TokenIndex extends Component
 {
     public $token;
-
     public function generateToken()
     {
         $api = new SatuSehatController();
@@ -17,7 +16,6 @@ class TokenIndex extends Component
         $token = Cache::get('satusehat_access_token');
         $this->token = $token;
     }
-
     public function render()
     {
         $token = Cache::get('satusehat_access_token');
@@ -27,7 +25,6 @@ class TokenIndex extends Component
         // $url = $api->base_url . "/Patient?identifier=https://fhir.kemkes.go.id/id/nik|9104025209000006";
         // $response = Http::withToken($token)->get($url);
         // $data =  $response->json();
-
         return view('livewire.satusehat.token-index');
     }
 }

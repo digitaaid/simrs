@@ -20,19 +20,15 @@ class IntegrationIndex extends Component
     public $isFormVisible = false;
     public $formImport = false;
     public $fileImport;
-
-
     public function render()
     {
         return view('livewire.integration.integration-index')
             ->title('Aplikasi Integrasi');
     }
-
     public function mount()
     {
         $this->integrations = Integration::all();
     }
-
     public function store()
     {
         $this->validate([
@@ -63,7 +59,6 @@ class IntegrationIndex extends Component
         flash('Aplikasi Integrasi ' . $integration->name . ' saved successfully.', 'success');
         $this->closeForm();
     }
-
     public function edit($id)
     {
         $this->isFormVisible = true;
@@ -118,19 +113,16 @@ class IntegrationIndex extends Component
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
     }
-
     public function openForm()
     {
         $this->isFormVisible = true;
         $this->resetFormFields();
     }
-
     public function closeForm()
     {
         $this->isFormVisible = false;
         $this->resetFormFields();
     }
-
     private function resetFormFields()
     {
         $this->integrationId = '';

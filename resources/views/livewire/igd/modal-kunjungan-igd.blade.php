@@ -88,7 +88,7 @@
                 </x-adminlte-select>
                 <x-adminlte-select wire:model="jeniskunjungan" fgroup-class="row" label-class="text-left col-4"
                     igroup-class="col-8" igroup-size="sm" name="jeniskunjungan" label="Jenis Kunjungan">
-                    <option value=null disabled>Pilih Jenis Rujukan</option>
+                    <option value=null disabled>Pilih Jenis Kunjungan</option>
                     <option value="5">
                         Instalasi Gawat Darurat</option>
                 </x-adminlte-select>

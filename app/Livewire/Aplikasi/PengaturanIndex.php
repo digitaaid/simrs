@@ -43,7 +43,6 @@ class PengaturanIndex extends Component
         }
         flash('Data berhasil disimpan', 'success');
     }
-
     public function render()
     {
         $this->pengaturan = Pengaturan::first();

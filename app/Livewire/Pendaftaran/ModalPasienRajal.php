@@ -19,6 +19,20 @@ class ModalPasienRajal extends Component
     public $form = false;
     public $id, $norm, $nama, $nomorkartu, $nik, $idpatient, $nohp, $gender, $tempat_lahir, $tgl_lahir, $hakkelas, $jenispeserta, $fktp, $desa_id, $kecamatan_id, $kabupaten_id, $provinsi_id, $alamat, $status = 1, $keterangan;
     public $kabupatens = [], $provinsis = [], $kecamatans = [], $desas = [];
+    public function render()
+    {
+        $search = '%' . $this->search . '%';
+        $pasiens = Pasien::where(function ($query) use ($search) {
+            $query->where('nama', 'like', $search)
+                ->orWhere('nik', 'like', $search)
+                ->orWhere('norm', 'like', $search)
+                ->orWhere('nomorkartu', 'like', $search);
+        })
+            ->where('status', 1)
+            ->orderBy('norm', 'desc')
+            ->paginate(10);
+        return view('livewire.pendaftaran.modal-pasien-rajal', compact('pasiens'));
+    }
     public function editPasien(Pasien $pasien)
     {
         $this->id = $pasien->id;
@@ -117,19 +131,19 @@ class ModalPasienRajal extends Component
     {
         $this->kabupatens = [];
         $provinsi = Provinsi::where('name', $this->provinsi_id)->first();
-        $this->kabupatens = Kabupaten::where('province_code', $provinsi->code)->where('name', 'like', '%' . $this->kabupaten_id . '%')->limit(20)->pluck('name', 'code');
+        $this->kabupatens = Kabupaten::where('province_code', optional($provinsi)->code)->where('name', 'like', '%' . $this->kabupaten_id . '%')->limit(20)->pluck('name', 'code');
     }
     public function updatedKecamatanId()
     {
         $this->kecamatans = [];
         $kabupaten = Kabupaten::where('name', $this->kabupaten_id)->first();
-        $this->kecamatans = Kecamatan::where('city_code', $kabupaten->code)->where('name', 'like', '%' . $this->kecamatan_id . '%')->limit(20)->pluck('name', 'code');
+        $this->kecamatans = Kecamatan::where('city_code', optional($kabupaten)->code)->where('name', 'like', '%' . $this->kecamatan_id . '%')->limit(20)->pluck('name', 'code');
     }
     public function updatedDesaId()
     {
         $this->desas = [];
         $kecamatan = Kecamatan::where('name', $this->kecamatan_id)->first();
-        $this->desas = Kelurahan::where('district_code', $kecamatan->code)->where('name', 'like', '%' . $this->desa_id . '%')->limit(20)->pluck('name', 'code');
+        $this->desas = Kelurahan::where('district_code', optional($kecamatan)->code)->where('name', 'like', '%' . $this->desa_id . '%')->limit(20)->pluck('name', 'code');
     }
     public function cariNomorKartu()
     {
@@ -196,20 +210,10 @@ class ModalPasienRajal extends Component
             $this->norm = $pasien->norm;
             $this->nama = $pasien->nama;
             $this->nohp = $pasien->nohp;
+            $this->hakkelas = $pasien->hakkelas;
+            $this->tgl_lahir = $pasien->tgl_lahir;
+            $this->gender = $pasien->gender;
+            $this->jenispeserta = $pasien->jenispeserta;
         }
-    }
-    public function render()
-    {
-        $search = '%' . $this->search . '%';
-        $pasiens = Pasien::where(function ($query) use ($search) {
-            $query->where('nama', 'like', $search)
-                ->orWhere('nik', 'like', $search)
-                ->orWhere('norm', 'like', $search)
-                ->orWhere('nomorkartu', 'like', $search);
-        })
-            ->where('status', 1)
-            ->orderBy('norm', 'desc')
-            ->paginate(10);
-        return view('livewire.pendaftaran.modal-pasien-rajal', compact('pasiens'));
     }
 }

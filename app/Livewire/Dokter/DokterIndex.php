@@ -3,10 +3,12 @@
 namespace App\Livewire\Dokter;
 
 use App\Exports\DokterExport;
+use App\Http\Controllers\PractitionerController;
 use App\Http\Controllers\SatuSehatController;
 use App\Imports\DokterImport;
 use App\Models\Dokter;
 use App\Models\Integration;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
@@ -24,8 +26,12 @@ class DokterIndex extends Component
     public $id, $nama, $kode, $kodejkn, $nik, $user_id, $idpractitioner, $title, $gender, $sip, $image, $status, $user, $pic;
     public $fileImport;
     public $dokter;
-
-
+    public function render()
+    {
+        $search = '%' . $this->search . '%';
+        $dokters = Dokter::where('nama', 'like', $search)->paginate();
+        return view('livewire.dokter.dokter-index', compact('dokters'))->title('Dokter');
+    }
     public function cariIdPractitioner($nik)
     {
         $res = $this->practitioner_by_nik($nik);
@@ -50,7 +56,6 @@ class DokterIndex extends Component
         $api = new SatuSehatController();
         return $api->responseSatuSehat($data);
     }
-
     public function store()
     {
         $this->validate([
@@ -68,6 +73,7 @@ class DokterIndex extends Component
         $dokter->nik = $this->nik;
         $dokter->idpractitioner = $this->idpractitioner;
         $dokter->title = $this->title;
+        $dokter->gender = $this->gender;
         $dokter->sip = $this->sip;
         $dokter->user = auth()->user()->id;
         $dokter->pic = auth()->user()->name;
@@ -156,10 +162,18 @@ class DokterIndex extends Component
     {
         $this->form = false;
     }
-    public function render()
+    public function getPractitionerId($nik)
     {
-        $search = '%' . $this->search . '%';
-        $dokters = Dokter::where('nama', 'like', $search)->paginate();
-        return view('livewire.dokter.dokter-index', compact('dokters'))->title('Dokter');
+        $api = new PractitionerController();
+        $request = new Request([
+            'nik' => $nik
+        ]);
+        $res = $api->get_practitioner_id($request);
+        if ($res->metadata->code == 200) {
+            flash('Get ID successfully', 'success');
+        } else {
+            flash($res->metadata->message, 'danger');
+        }
     }
+
 }

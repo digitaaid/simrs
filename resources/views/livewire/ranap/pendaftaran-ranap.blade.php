@@ -12,10 +12,14 @@
                 <x-adminlte-small-box title="{{ count($kunjungans) ? $kunjungans->where('status', '1')->count() : '-' }}"
                     text="Sedang Dirawat" theme="success" icon="fas fa-user-injured" />
             </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box title="{{ $bedkosong }}"
+                    text="Ketersediaan Bed" theme="warning" icon="fas fa-user-injured" />
+            </div>
         </div>
     </div>
     <div class="col-md-12">
-        <x-adminlte-card title="Pasien IGD" theme="secondary">
+        <x-adminlte-card title="Pasien Rawat Inap" theme="secondary">
             <div class="row">
                 <div class="col-md-3">
                     <x-adminlte-input wire:model.change='tanggal' type="date" name="tanggal" igroup-size="sm">
@@ -30,8 +34,9 @@
                     </x-adminlte-input>
                 </div>
                 <div class="col-md-2">
-                    <a href="{{ route('pendaftaran.igd.proses') }}">
-                        <x-adminlte-button class="btn-sm" theme="success" icon="fas fa-user-plus" label="Daftar IGD" />
+                    <a href="{{ route('pendaftaran.ranap.proses') }}">
+                        <x-adminlte-button class="btn-sm" theme="success" icon="fas fa-user-plus"
+                            label="Daftar Rawat Inap" />
                     </a>
                 </div>
                 <div class="col-md-3">
@@ -60,6 +65,7 @@
                     'Counter',
                     'No RM',
                     'Nama Pasien',
+                    'Status',
                     'Action',
                     'Layanan',
                     'Kamar/Bed',
@@ -67,7 +73,6 @@
                     'PIC',
                     'Kartu BPJS',
                     'NIK',
-                    'Status',
                 ];
                 $config['order'] = [5, 'asc'];
                 $config['scrollX'] = true;
@@ -84,18 +89,34 @@
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
+                                @switch($item->status)
+                                    @case(1)
+                                        <span class="badge badge-warning">{{ $item->status }}. Aktif</span>
+                                    @break
+
+                                    @case(2)
+                                        <span class="badge badge-success">{{ $item->status }}. Selesai</span>
+                                    @break
+
+                                    @case(99)
+                                        <span class="badge badge-danger">{{ $item->status }}. Batal</span>
+                                    @break
+
+                                    @default
+                                @endswitch
+                            </td>
+                            <td>
                                 <a href="{{ route('pendaftaran.ranap.proses') }}?kode={{ $item->kode }}">
                                     <x-adminlte-button class="btn-xs" label="Proses" theme="success"
                                         icon="fas fa-hand-holding-medical" />
                                 </a>
                             </td>
                             <td>{{ $item->jeniskunjungan }}</td>
-                            <td>{{ $item->units->nama }} BED {{ $item->beds->nomorbed }}</td>
-                            <td>{{ $item->dokters->nama }}</td>
-                            <td>{{ $item->pic1->name }}</td>
+                            <td>{{ $item->units?->nama }} BED {{ $item->beds?->nomorbed }}</td>
+                            <td>{{ $item->dokters?->nama }}</td>
+                            <td>{{ $item->pic1?->name }}</td>
                             <td>{{ $item->nomorkartu }}</td>
                             <td>{{ $item->nik }} </td>
-                            <td>{{ $item->status }} </td>
                         </tr>
                     @endforeach
                 @endisset

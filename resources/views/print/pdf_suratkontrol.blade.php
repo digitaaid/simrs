@@ -22,17 +22,21 @@
     <table class="table table-sm" style="font-size: 11px">
         <tr>
             <td width="50%">
-                <table class="table-borderless table table-resonsive">
-                    <tr>
-                        <td>Kepada Yth</td>
-                        <td></td>
-                        <td><b>{{ $suratkontrol->namaDokter }}</b><br>
-                            Sp./Sub. {{ $suratkontrol->namaPoliTujuan }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">Permohonan Pemeriksaan dan Penanganan Lebih Lanjut : </td>
-                    </tr>
+                Kepada Yth. <br>
+                <b>{{ $suratkontrol->namaDokter }}</b><br>
+                Sp./Sub. {{ $suratkontrol->namaPoliTujuan }} <br>
+                <br>
+                Permohonan Pemeriksaan dan Penanganan Lebih Lanjut :
+            </td>
+            <td width="50%">
+            </td>
+        </tr>
+    </table>
+
+    <table class="table table-sm" style="font-size: 11px">
+        <tr>
+            <td width="50%">
+                <table class="table-borderless table table-responsive">
                     <tr>
                         <td>Rencana Kontrol</td>
                         <td>:</td>
@@ -65,10 +69,15 @@
                         <td><b> {{ Carbon\Carbon::parse($sep->tglSep)->translatedFormat('d F Y') }}</b>
                         </td>
                     </tr>
+                    <tr>
+                        <td>Jenis Pelayanan</td>
+                        <td>:</td>
+                        <td><b>{{ $sep->jnsPelayanan }}</b>
+                        </td>
+                    </tr>
                 </table>
             </td>
             <td width="50%">
-                <br><br><br>
                 <table class="table-borderless">
                     <tr>
                         <td>Diagnosa</td>

@@ -11,10 +11,38 @@ use Livewire\Component;
 class RekamMedisRajalEdit extends Component
 {
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien;
-    public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
+    public $kunjungan, $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
     public $antrian, $pasien;
     public $polikliniks, $dokters, $jaminans;
     protected $listeners = ['modalCppt', 'modalSEP', 'modalSK', 'modalLayanan', 'formAntrian',  'formKunjungan', 'formPasien', 'refreshPage' => '$refresh'];
+    public function render()
+    {
+        $pasiencount = Pasien::count();
+        return view('livewire.rekammedis.rekam-medis-rajal-edit', compact('pasiencount'))->title('Rekam Medis Rajal ' . $this->antrian->nama);
+    }
+    public function mount($kodebooking)
+    {
+        $antrian = Antrian::firstWhere('kodebooking', $kodebooking);
+        if ($antrian) {
+            $this->antrian = $antrian;
+            $this->kunjungan = $antrian->kunjungan;
+            $this->pasien = $antrian->pasien;
+            $this->kodebooking = $kodebooking;
+            $this->antrianId = $antrian->id;
+            $this->nomorkartu = $antrian->nomorkartu;
+            $this->nik = $antrian->nik;
+            $this->norm = $antrian->norm;
+            $this->nama = $antrian->nama;
+            $this->nohp = $antrian->nohp;
+            $this->tanggalperiksa = $antrian->tanggalperiksa;
+            $this->jenispasien = $antrian->jenispasien;
+            $this->kodepoli = $antrian->kodepoli;
+            $this->kodedokter = $antrian->kodedokter;
+        } else {
+            flash('Antrian tidak ditemukan.', 'danger');
+            return redirect()->route('pendaftaran.rajal');
+        }
+    }
     public function batal()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
@@ -68,32 +96,5 @@ class RekamMedisRajalEdit extends Component
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan pelayanan.', 'danger');
         }
-    }
-    public function mount($kodebooking)
-    {
-        $antrian = Antrian::firstWhere('kodebooking', $kodebooking);
-        if ($antrian) {
-            $this->antrian = $antrian;
-            $this->pasien = $antrian->pasien;
-            $this->kodebooking = $kodebooking;
-            $this->antrianId = $antrian->id;
-            $this->nomorkartu = $antrian->nomorkartu;
-            $this->nik = $antrian->nik;
-            $this->norm = $antrian->norm;
-            $this->nama = $antrian->nama;
-            $this->nohp = $antrian->nohp;
-            $this->tanggalperiksa = $antrian->tanggalperiksa;
-            $this->jenispasien = $antrian->jenispasien;
-            $this->kodepoli = $antrian->kodepoli;
-            $this->kodedokter = $antrian->kodedokter;
-        } else {
-            flash('Antrian tidak ditemukan.', 'danger');
-            return redirect()->route('pendaftaran.rajal');
-        }
-    }
-    public function render()
-    {
-        $pasiencount = Pasien::count();
-        return view('livewire.rekammedis.rekam-medis-rajal-edit', compact('pasiencount'))->title('Rekam Medis Rajal ' . $this->antrian->nama);
     }
 }

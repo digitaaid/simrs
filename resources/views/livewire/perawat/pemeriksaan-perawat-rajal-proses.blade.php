@@ -16,7 +16,7 @@
             @include('livewire.dokter.navigasi-pemeriksaan-rajal')
             <x-slot name="footerSlot">
                 <a
-                    href="{{ route('pemeriksaan.perawat.rajal') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}&jadwal={{ $antrian->jadwal_id }}">
+                    href="{{ route('perawat.rajal.pemeriksaan') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}&jadwal={{ $antrian->jadwal_id }}">
                     <x-adminlte-button class="btn-xs mb-2" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
                 </a>
                 @if ($this->antrian->asesmenrajal)

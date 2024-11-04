@@ -5,7 +5,7 @@
                 label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" name="provinsi_id" label="Provinsi" />
             <datalist id="provinsi_id_list">
                 @foreach ($provinsis as $code => $name)
-                    <option value="{{ $name }}"></option>
+                    <option value="{{ $name }}">{{ $name }} {{ $code }}</option>
                 @endforeach
             </datalist>
 
@@ -14,7 +14,7 @@
                 label="Kabupaten" />
             <datalist id="kabupaten_id_list">
                 @foreach ($kabupatens as $code => $name)
-                    <option value="{{ $name }}"></option>
+                    <option value="{{ $name }}">{{ $name }} {{ $code }}</option>
                 @endforeach
             </datalist>
 
@@ -23,7 +23,7 @@
                 label="Kecamatan" />
             <datalist id="kecamatan_id_list">
                 @foreach ($kecamatans as $code => $name)
-                    <option value="{{ $name }}"></option>
+                    <option value="{{ $name }}">{{ $name }} {{ $code }}</option>
                 @endforeach
             </datalist>
 
@@ -31,7 +31,7 @@
                 label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" name="desa_id" label="Desa" />
             <datalist id="desa_id_list">
                 @foreach ($desas as $code => $name)
-                    <option value="{{ $name }}"></option>
+                    <option value="{{ $name }}">{{ $name }} {{ $code }}</option>
                 @endforeach
             </datalist>
 

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('unit_id');
             $table->string('bedpria')->default(1);
             $table->string('bedwanita')->default(1);
-            $table->string('status')->default(0);
+            $table->string('status')->default(1);
             $table->string('user');
             $table->string('pic');
             $table->timestamps();

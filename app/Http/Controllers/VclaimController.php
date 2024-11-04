@@ -533,9 +533,9 @@ class VclaimController extends ApiController
     {
         $validator = Validator::make($request->all(), [
             "noKartu" => "required",
-            "tglRencanaKontrol" => "required|date",
             "kodeDokter" => "required",
             "poliKontrol" => "required",
+            "tglRencanaKontrol" => "required|date",
             "user" => "required",
         ]);
         if ($validator->fails()) {
@@ -554,6 +554,33 @@ class VclaimController extends ApiController
             ]
         ];
         $response = Http::withHeaders($signature)->post($url, $data);
+        return $this->response_decrypt($response, $signature);
+    }
+    public function spri_update(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "noSPRI" => "required",
+            "kodeDokter" => "required",
+            "poliKontrol" => "required",
+            "tglRencanaKontrol" => "required|date",
+            "user" => "required",
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first(), 400);
+        }
+        $url =  $this->api()->base_url . "RencanaKontrol/UpdateSPRI";
+        $signature = $this->signature();
+        $signature['Content-Type'] = 'application/x-www-form-urlencoded';
+        $data = [
+            "request" => [
+                "noSPRI" => $request->noSPRI,
+                "kodeDokter" => $request->kodeDokter,
+                "poliKontrol" => $request->poliKontrol,
+                "tglRencanaKontrol" => $request->tglRencanaKontrol,
+                "user" =>  $request->user,
+            ]
+        ];
+        $response = Http::withHeaders($signature)->put($url, $data);
         return $this->response_decrypt($response, $signature);
     }
     // RUJUKAN
@@ -654,7 +681,7 @@ class VclaimController extends ApiController
             "ppkRujukan" => "required",
             "catatan" => "required",
             "diagAwal" => "required",
-            "tujuan" => "required",
+            // "tujuan" => "required",
             "eksekutif" => "required",
             "tujuanKunj" => "required",
             // "flagProcedure" => "required",
@@ -662,7 +689,7 @@ class VclaimController extends ApiController
             // "assesmentPel" => "required",
             // "noSurat" => "required",
             // "kodeDPJP" => "required",
-            "dpjpLayan" => "required",
+            // "dpjpLayan" => "required",
             "noTelp" => "required",
             "user" => "required",
         ]);
@@ -727,7 +754,7 @@ class VclaimController extends ApiController
                     "assesmentPel" => $request->assesmentPel,
                     "skdp" => [
                         "noSurat" => $request->noSurat,
-                        "kodeDPJP" => $request->dpjpLayan,
+                        "kodeDPJP" => $request->kodeDPJP,
                     ],
                     "dpjpLayan" => $request->dpjpLayan,
                     "noTelp" => $request->noTelp,
@@ -773,6 +800,36 @@ class VclaimController extends ApiController
         $url =  $this->api()->base_url . "SEP/" . $request->noSep;
         $signature = $this->signature();
         $response = Http::withHeaders($signature)->get($url);
+        return $this->response_decrypt($response, $signature);
+    }
+    public function sep_update_tanggal_pulang(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "noSep" => "required",
+            "statusPulang" => "required",
+            "tglPulang" => "required",
+            "user" => "required",
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first(), 400);
+        }
+        $url =  $this->api()->base_url . "SEP/2.0/updtglplg";
+        $signature = $this->signature();
+        $signature['Content-Type'] = 'application/x-www-form-urlencoded';
+        $data = [
+            "request" => [
+                "t_sep" => [
+                    "noSep" => $request->noSep,
+                    "statusPulang" => $request->statusPulang,
+                    "noSuratMeninggal" => $request->noSuratMeninggal,
+                    "tglMeninggal" => $request->tglMeninggal,
+                    "tglPulang" => $request->tglPulang,
+                    "noLPManual" => $request->noLPManual,
+                    "user" =>  $request->user,
+                ]
+            ]
+        ];
+        $response = Http::withHeaders($signature)->put($url, $data);
         return $this->response_decrypt($response, $signature);
     }
     public function list_approval_sep(Request $request)

@@ -107,12 +107,12 @@
                             <td>{{ $item->nama }}</td>
                             <td>
                                 @if ($item->taskid <= 5)
-                                    <a href="{{ route('pemeriksaan.dokter.rajal.proses', $item->kodebooking) }}">
+                                    <a href="{{ route('dokter.rajal.pemeriksaan.proses', $item->kodebooking) }}">
                                         <x-adminlte-button class="btn-xs" label="Proses" theme="success"
                                             icon="fas fa-user-md" />
                                     </a>
                                 @else
-                                    <a href="{{ route('pemeriksaan.dokter.rajal.proses', $item->kodebooking) }}">
+                                    <a href="{{ route('dokter.rajal.pemeriksaan.proses', $item->kodebooking) }}">
                                         <x-adminlte-button class="btn-xs" label="Lihat" theme="secondary"
                                             icon="fas fa-user-md" />
                                     </a>

@@ -150,6 +150,8 @@ class ModalKunjunganIgd extends Component
             $this->nik = $pasien->nik;
             $this->norm = $pasien->norm;
             $this->nama = $pasien->nama;
+            $this->nohp = $pasien->nohp;
+            $this->hakkelas = $pasien->hakkelas;
             $this->tgl_lahir = $pasien->tgl_lahir;
             $this->gender = $pasien->gender;
             $this->jenispeserta = $pasien->jenispeserta;
@@ -181,7 +183,7 @@ class ModalKunjunganIgd extends Component
         }
         $this->jaminans = Jaminan::pluck('nama', 'kode');
         $this->units = Unit::where("jenis", "Pelayanan IGD")->pluck('nama', 'kode');
-        $this->dokters = Dokter::pluck('nama', 'kode');
+        $this->dokters = Dokter::where("status", 1)->pluck('nama', 'kode');
     }
     public function render()
     {

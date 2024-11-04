@@ -16,6 +16,11 @@ class BedIndex extends Component
     public $form = 0, $formimport = 0, $fileimport;
     public $kamars, $beds;
     public $bed, $id, $kamar_id, $nomorbed, $bedpria, $bedwanita, $status;
+    public function render()
+    {
+        $this->beds = Bed::get();
+        return view('livewire.kamarbed.bed-index');
+    }
     public function store()
     {
         $kamar = Kamar::find($this->kamar_id);
@@ -48,6 +53,11 @@ class BedIndex extends Component
         $this->bedwanita = $bed->bedwanita;
         $this->status = $bed->status;
         $this->form = 1;
+    }
+    public function hapus(Bed $bed)
+    {
+        $this->status = $bed->delete();
+        flash('Berhasil hapus data bed', 'success');
     }
     public function tambah()
     {
@@ -88,9 +98,5 @@ class BedIndex extends Component
     {
         $this->kamars = Kamar::get();
     }
-    public function render()
-    {
-        $this->beds = Bed::get();
-        return view('livewire.kamarbed.bed-index');
-    }
+
 }

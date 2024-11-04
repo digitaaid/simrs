@@ -97,7 +97,7 @@
                                     @break
 
                                     @case(99)
-                                        <span class="badge bg-success float-right">{{ $item->status }}. Batal
+                                        <span class="badge bg-danger float-right">{{ $item->status }}. Batal
                                         </span>
                                     @break
 

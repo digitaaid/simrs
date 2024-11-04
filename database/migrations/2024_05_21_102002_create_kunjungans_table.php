@@ -33,6 +33,10 @@ return new class extends Migration
             $table->string('kode_transfer')->nullable();
             $table->string('kamar_id')->nullable();
             $table->string('bed_id')->nullable();
+            $table->string('status_pulang')->nullable();
+            $table->date('tgl_meninggal')->nullable();
+            $table->string('noSuratMeninggal')->nullable();
+            $table->string('noLPManual')->nullable();
 
             $table->string('jeniskunjungan');
             $table->string('nomorreferensi')->nullable();
@@ -48,7 +52,7 @@ return new class extends Migration
             $table->string('catatan')->nullable();
             $table->string('status');
             $table->string('idencounter')->nullable();
-            $table->string('idcondititon')->nullable();
+            $table->string('idconditition')->nullable();
             $table->string('user1')->nullable(); #pendaftaran
             $table->string('user2')->nullable(); #perawat
             $table->string('user3')->nullable(); #dokter

@@ -74,6 +74,7 @@ use App\Livewire\Jaminan\JaminanIndex;
 use App\Livewire\Kamarbed\KamarBedIndex;
 use App\Livewire\Kasir\KasirPembayaran;
 use App\Livewire\Pendaftaran\DashboardPendaftaran;
+use App\Livewire\Pendaftaran\MonitoringRajal;
 use App\Livewire\Perawat\LayananIndex;
 use App\Livewire\Perawat\PemeriksaanPerawatRajal;
 use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
@@ -84,6 +85,7 @@ use App\Livewire\Ranap\PendaftaranRanap;
 use App\Livewire\Ranap\PendaftaranRanapProses;
 use App\Livewire\Rekammedis\RekamMedisRajal;
 use App\Livewire\Rekammedis\RekamMedisRajalEdit;
+use App\Livewire\Satusehat\EncounterEdit;
 use App\Livewire\Satusehat\EncounterIndex;
 use App\Livewire\Satusehat\LocationIndex;
 use App\Livewire\Satusehat\OrganizationIndex;
@@ -184,14 +186,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('bpjs/vclaim/referensi', Referensi::class)->name('vclaim.referensi')->lazy();
         Route::get('bpjs/vclaim/surat-kontrol', SuratKontrol::class)->name('vclaim.suratkontrol')->lazy();
         Route::get('bpjs/vclaim/suratkontrol_print', [SuratKontrolController::class, 'suratkontrol_print'])->name('vclaim.suratkontrol_print');
+        Route::get('bpjs/vclaim/spri_print', [SuratKontrolController::class, 'spri_print'])->name('vclaim.spri_print');
         Route::get('bpjs/vclaim/rujukan', Rujukan::class)->name('vclaim.rujukan')->lazy();
         Route::get('bpjs/vclaim/sep', Sep::class)->name('vclaim.sep')->lazy();
         Route::get('bpjs/vclaim/sep_print', [SepController::class, 'sep_print'])->name('vclaim.sep_print');
     });
     Route::middleware(['can:manajemen-pelayanan'])->group(function () {
-        Route::get('pasien', PasienIndex::class)->name('pasien.index')->lazy();
-        Route::get('pasien/create', PasienForm::class)->name('pasien.create');
-        Route::get('pasien/edit/{norm}', PasienForm::class)->name('pasien.edit');
         Route::get('dokter', DokterIndex::class)->name('dokter.index');
         Route::get('perawat', PerawatIndex::class)->name('perawat.index');
         Route::get('unit', UnitIndex::class)->name('unit.index');
@@ -199,7 +199,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('tindakan', TindakanIndex::class)->name('tindakan.index');
         Route::get('kamar-bed', KamarBedIndex::class)->name('kamar.bed.index');
         Route::get('jaminan', JaminanIndex::class)->name('jaminan.index');
-        Route::get('wilayah-indonesia', WilayahIndonesia::class)->name('wilayah.indonesia');
+    });
+    Route::get('wilayah-indonesia', WilayahIndonesia::class)->name('wilayah.indonesia');
+    Route::middleware(['can:crud-pasien'])->group(function () {
+        Route::get('pasien', PasienIndex::class)->name('pasien.index')->lazy();
+        Route::get('pasien/create', PasienForm::class)->name('pasien.create');
+        Route::get('pasien/edit/{norm}', PasienForm::class)->name('pasien.edit');
     });
     // anjungan antrian
     Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
@@ -212,16 +217,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('anjunganantrian/print/{kodebooking}', [PendaftaranController::class, 'printkarcis'])->name('anjunganantrian.print');
     Route::get('anjunganantrian/test/', [AnjunganAntrian::class, 'test'])->name('anjunganantrian.test');
     // pendaftaran
-    Route::get('pendaftaran/jadwaldokter', JadwalDokterIndex::class)->name('pendaftaran.jadwaldokter.index');
-    Route::get('pendaftaran/rajal', PendaftaranRajal::class)->name('pendaftaran.rajal');
-    Route::get('pendaftaran/rajal/{kodebooking}', PendaftaranRajalProses::class)->name('pendaftaran.rajal.proses');
+    Route::middleware(['can:pendaftaran-rawat-jalan'])->group(function () {
+        Route::get('pendaftaran-rajal', PendaftaranRajal::class)->name('pendaftaran.rajal.index');
+        Route::get('pendaftaran-rajal/proses/{kodebooking}', PendaftaranRajalProses::class)->name('pendaftaran.rajal.proses');
+        Route::get('pendaftaran-rajal/jadwaldokter', JadwalDokterIndex::class)->name('pendaftaran.rajal.jadwaldokter');
+    });
+    Route::get('monitoring-rajal', MonitoringRajal::class)->name('monitoring.rajal');
     // pemeriksaan perawat
-    Route::get('pemeriksaan/perawat/rajal', PemeriksaanPerawatRajal::class)->name('pemeriksaan.perawat.rajal');
-    Route::get('pemeriksaan/perawat/rajal/{kodebooking}', PemeriksaanPerawatRajalProses::class)->name('pemeriksaan.perawat.rajal.proses');
-    Route::get('pemeriksaan/dokter/rajal', PemeriksaanDokterRajal::class)->name('pemeriksaan.dokter.rajal');
-    Route::get('pemeriksaan/dokter/rajal/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('pemeriksaan.dokter.rajal.proses');
+    Route::middleware(['can:perawat-rawat-jalan'])->group(function () {
+        Route::get('perawat-rawat-jalan/pemeriksaan', PemeriksaanPerawatRajal::class)->name('perawat.rajal.pemeriksaan');
+        Route::get('perawat-rawat-jalan/pemeriksaan/{kodebooking}', PemeriksaanPerawatRajalProses::class)->name('perawat.rajal.pemeriksaan.proses');
+    });
+    //    pemeriksaan dokter
+    Route::middleware(['can:dokter-rawat-jalan'])->group(function () {
+        Route::get('dokter-rawat-jalan/pemeriksaan', PemeriksaanDokterRajal::class)->name('dokter.rajal.pemeriksaan');
+        Route::get('dokter-rawat-jalan/pemeriksaan/{kodebooking}', PemeriksaanDokterRajalProses::class)->name('dokter.rajal.pemeriksaan.proses');
+    });
     // apotek
-    Route::middleware(['can:apotek'])->group(function () {
+    Route::middleware(['can:apoteker'])->group(function () {
         Route::get('apotek/penjualan_obat', PenjualanObat::class)->name('apotek.resepobat.rajal');
         Route::get('apotek/resep_obat_rajal', PengambilanResep::class)->name('apotek.resepobat.rajal');
         Route::get('apotek/resep_obat_igd', PengambilanObatIgd::class)->name('apotek.resepobat.igd');
@@ -237,23 +250,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('farmasi/stok-opname', PemesananObatIndex::class)->name('stok.opname');
     });
     // rekam medis
-    Route::get('rekammedis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
-    Route::get('rekammedis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
+    Route::middleware(['can:rekam-medis'])->group(function () {
+        Route::get('rekam-medis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
+        Route::get('rekam-medis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
+    });
     // satusehat
-    Route::get('satusehat/token', TokenIndex::class)->name('satusehat.token');
-    Route::get('satusehat/patient', PasienIndex::class)->name('satusehat.patient');
-    Route::get('satusehat/practitioner', DokterIndex::class)->name('satusehat.practitioner');
-    Route::get('satusehat/organization', UnitIndex::class)->name('satusehat.organization');
-    Route::get('satusehat/location', UnitIndex::class)->name('satusehat.location');
-    Route::get('satusehat/encounter', EncounterIndex::class)->name('satusehat.encounter');
-    // Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
+    Route::middleware(['can:satu-sehat'])->group(function () {
+        Route::get('satusehat/token', TokenIndex::class)->name('satusehat.token');
+        Route::get('satusehat/patient', PasienIndex::class)->name('satusehat.patient');
+        Route::get('satusehat/practitioner', DokterIndex::class)->name('satusehat.practitioner');
+        Route::get('satusehat/organization', UnitIndex::class)->name('satusehat.organization');
+        Route::get('satusehat/location', UnitIndex::class)->name('satusehat.location');
+        Route::get('satusehat/encounter', EncounterIndex::class)->name('satusehat.encounter');
+        Route::get('satusehat/encounter/{idencounter}', EncounterEdit::class)->name('satusehat.encounter.edit');
+        // Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
+    });
     // kasir
     Route::get('kasir-pembayaran', KasirPembayaran::class)->name('kasir.pembayran');
-
     // rawat igd
     Route::get('pendaftaran/igd', PendaftaranIgd::class)->name('pendaftaran.igd');
     Route::get('pendaftaran/igd/proses', PendaftaranIgdProses::class)->name('pendaftaran.igd.proses');
-
     // rawat inap
     Route::get('pendaftaran/ranap', PendaftaranRanap::class)->name('pendaftaran.ranap');
     Route::get('pendaftaran/ranap/proses', PendaftaranRanapProses::class)->name('pendaftaran.ranap.proses');
@@ -268,6 +284,8 @@ Route::get('farmasi/print_etiket', [FarmasiController::class, 'print_etiket'])->
 Route::get('farmasi/print_gelang', [FarmasiController::class, 'print_gelang'])->name('print.gelang');
 Route::get('resumerajal/{kodebooking}',  [RekamMedisController::class, 'resumerajal'])->name('resume.rajal');
 Route::get('resumerajalf/{kodebooking}',  [RekamMedisController::class, 'resumerajalf'])->name('resume.rajalf');
+Route::get('print_cpptranap',  [RekamMedisController::class, 'print_cpptranap'])->name('print.cpptranap');
+Route::get('print_resumeranap',  [RekamMedisController::class, 'print_resumeranap'])->name('print.resumeranap');
 Route::get('rekammedis/rajal_print/{kodebooking}',  [RekamMedisController::class, 'rajal_print'])->name('rekammedis.rajal.print');
 Route::get('rekammedis/rajal_printf/{kodebooking}',  [RekamMedisController::class, 'rajal_printf'])->name('rekammedis.rajal.printf');
 Route::get('kasir/print_notarajal/{kodebooking}', [KasirController::class, 'print_notarajal'])->name('print.notarajal');

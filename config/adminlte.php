@@ -404,59 +404,29 @@ return [
             'icon'    => 'fas fa-hand-holding-medical',
             'submenu' => [
                 [
-                    'text' => 'Anjungan Antrian',
-                    'url' => 'anjunganantrian',
-                    'icon' => 'fas fa-desktop',
-                    'shift'   => 'ml-2',
-                    'can' => 'pendaftaran',
-                ],
-
-                [
-                    'text' => 'Display Antrian',
-                    'url' => 'displayantrian',
-                    'icon' => 'fas fa-desktop',
-                    'shift'   => 'ml-2',
-                    'can' => 'pendaftaran',
-                ],
-                [
-                    'text' => 'Display Antrian Farmasi',
-                    'url' => 'displayantrianfarmasi',
-                    'icon' => 'fas fa-desktop',
-                    'shift'   => 'ml-2',
-                    'can' => ['pendaftaran', 'farmasi', 'apoteker'],
-                ],
-                [
-                    'text' => 'Pendaftaran',
-                    'url' => 'pendaftaran/rajal',
+                    'text' => 'Pendaftaran Pasien Rajal',
+                    'url' => 'pendaftaran-rajal',
                     'icon' => 'fas fa-user-plus',
                     'shift'   => 'ml-2',
-                    'can' => 'pendaftaran',
-                    'active'  => ['pendaftaran/rajal', 'pendaftaran/rajal/*'],
-                ],
-                [
-                    'text' => 'Jadwal Dokter Rajal',
-                    'url' => 'pendaftaran/jadwaldokter',
-                    'icon' => 'fas fa-calendar',
-                    'shift'   => 'ml-2',
-                    'can' => 'pendaftaran',
+                    'can' => 'pendaftaran-rawat-jalan',
+                    'active'  => ['pendaftaran-rajal', 'pendaftaran-rajal/proses/*'],
                 ],
                 [
                     'text' => 'Pemeriksaan Perawat',
-                    'url' => 'pemeriksaan/perawat/rajal',
+                    'url' => 'perawat-rawat-jalan/pemeriksaan',
                     'icon' => 'fas fa-user-nurse',
                     'shift'   => 'ml-2',
-                    'can' => 'perawat',
-                    'active'  => ['pemeriksaan/perawat/rajal', 'pemeriksaan/perawat/rajal*'],
+                    'can' => 'perawat-rawat-jalan',
+                    'active'  => ['perawat-rawat-jalan/pemeriksaan', 'perawat-rawat-jalan/pemeriksaan/*'],
                 ],
                 [
                     'text' => 'Pemeriksaan Dokter',
-                    'url' => 'pemeriksaan/dokter/rajal',
+                    'url' => 'dokter-rawat-jalan/pemeriksaan',
                     'icon' => 'fas fa-user-md',
                     'shift'   => 'ml-2',
-                    'can' => 'dokter',
-                    'active'  => ['pemeriksaan/dokter/rajal', 'pemeriksaan/dokter/rajal*'],
+                    'can' => 'dokter-rawat-jalan',
+                    'active'  => ['dokter-rawat-jalan/pemeriksaan', 'dokter-rawat-jalan/pemeriksaan/*'],
                 ],
-
                 [
                     'text' => 'Kasir Pembayaran',
                     'url' => 'kasir-pembayaran',
@@ -465,12 +435,38 @@ return [
                     'can' => 'kasir',
                 ],
                 [
-                    'text' => 'Rekam Medis Rawat Jalan',
-                    'url' => 'rekammedis/rajal',
-                    'active' => ['rekammedis/rajal', 'rekammedis/rajal/edit/*'],
-                    'icon' => 'fas fa-laptop-medical',
+                    'text' => 'Jadwal Dokter Rajal',
+                    'url' => 'pendaftaran-rajal/jadwaldokter',
+                    'icon' => 'fas fa-calendar',
                     'shift'   => 'ml-2',
-                    'can' => 'rekam-medis',
+                    'can' => 'pendaftaran-rawat-jalan',
+                ],
+                [
+                    'text' => 'Anjungan Antrian',
+                    'url' => 'anjunganantrian',
+                    'icon' => 'fas fa-desktop',
+                    'shift'   => 'ml-2',
+                    'can' => 'pendaftaran-rawat-jalan',
+                ],
+                [
+                    'text' => 'Display Antrian',
+                    'url' => 'displayantrian',
+                    'icon' => 'fas fa-desktop',
+                    'shift'   => 'ml-2',
+                    'can' => 'pendaftaran-rawat-jalan',
+                ],
+                [
+                    'text' => 'Display Antrian Farmasi',
+                    'url' => 'displayantrianfarmasi',
+                    'icon' => 'fas fa-desktop',
+                    'shift'   => 'ml-2',
+                    'can' => ['pendaftaran-rawat-jalan', 'farmasi', 'apoteker'],
+                ],
+                [
+                    'text' => 'Monitoring Antrian Bulan',
+                    'icon'    => 'fas fa-calendar-alt',
+                    'url'  => 'monitoring-rajal',
+                    'shift'   => 'ml-2',
                 ],
             ]
         ],
@@ -479,11 +475,11 @@ return [
             'icon'    => 'fas fa-ambulance',
             'submenu' => [
                 [
-                    'text' => 'Pendaftaran Pasien IGD',
+                    'text' => 'Pasien IGD',
                     'url' => 'pendaftaran/igd',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
+                    'can' => ['pendaftaran', 'perawat', 'dokter'],
                     'active'  => ['pendaftaran/igd', 'pendaftaran/igd/proses'],
                 ],
 
@@ -494,11 +490,11 @@ return [
             'icon'    => 'fas fa-procedures',
             'submenu' => [
                 [
-                    'text' => 'Pendaftaran Pasien Ranap',
+                    'text' => 'Pasien Ranap',
                     'url' => 'pendaftaran/ranap',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    'can' => ['pendaftaran', 'igd', 'pendaftaran-ranap'],
+                    'can' => ['pendaftaran', 'perawat', 'dokter'],
                     'active'  => ['pendaftaran/ranap', 'pendaftaran/ranap/proses'],
                 ],
                 [
@@ -617,6 +613,21 @@ return [
                     'icon' => 'fas fa-pills',
                     'can' => ['farmasi'],
                     'shift'   => 'ml-2',
+                ],
+            ],
+        ],
+        // REKAM MEDIS & CASEMIX
+        [
+            'text'    => 'Rekam Medis & Casemix',
+            'icon'    => 'fas fa-file-medical',
+            'submenu' => [
+                [
+                    'text' => 'Rekam Medis Rawat Jalan',
+                    'url' => 'rekam-medis/rajal',
+                    'active' => ['rekam-medis/rajal', 'rekam-medis/rajal/edit/*'],
+                    'icon' => 'fas fa-laptop-medical',
+                    'shift'   => 'ml-2',
+                    'can' => 'rekam-medis',
                 ],
             ],
         ],
@@ -906,14 +917,14 @@ return [
         [
             'text'    => 'Integrasi INACBG',
             'icon'    => 'fas fa-project-diagram',
-            // 'can' => ['inacbg'],
+            'can' => ['inacbg'],
             'submenu' => [
                 [
                     'text' => 'Token',
                     'icon'    => 'fas fa-user-injured',
                     'url'  => 'satusehat/token',
                     'shift'   => 'ml-2',
-                    'can' => ['satu-sehat'],
+                    'can' => ['inacbg'],
                 ],
             ],
         ],
@@ -963,6 +974,7 @@ return [
                     'icon'    => 'fas fa-user',
                     'url'  => 'satusehat/encounter',
                     'shift'   => 'ml-2',
+                    'active'  => ['satusehat/encounter', 'satusehat/encounter/*'],
                     'can' => ['satu-sehat'],
                 ],
                 [

@@ -29,6 +29,14 @@ class Kunjungan extends Model
     {
         return $this->hasMany(Layanan::class);
     }
+    public function cppt_ranap()
+    {
+        return $this->hasMany(CpptRanap::class);
+    }
+    public function resume_ranap()
+    {
+        return $this->hasOne(ResumeRanap::class);
+    }
     public function beds()
     {
         return $this->hasOne(Bed::class,  'id', 'bed_id');
