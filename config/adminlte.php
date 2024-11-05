@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>' . env('APP_NAME') . '</b>',
-    'logo_img' => 'kitasehat/logokitasehat-lingkar.png',
+    'logo_img' => 'lmc/lmc-b.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => true,
         'img' => [
-            'path' => 'kitasehat/logokitasehat-lingkar.png',
+            'path' => 'lmc/lmc-b.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -304,7 +304,6 @@ return [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
-
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
@@ -319,11 +318,6 @@ return [
             'text' => 'Menu Utama',
             'url' => 'home',
             'icon' => 'fas fa-home',
-        ],
-        [
-            'text' => 'Dashboard',
-            'url' => 'dashboard',
-            'icon' => 'fas fa-chart-line',
         ],
         // ABSENSI
         [
@@ -399,6 +393,7 @@ return [
 
             ],
         ],
+        // RAWAT JALAN
         [
             'text'    => 'Pelayanan Rawat Jalan',
             'icon'    => 'fas fa-hand-holding-medical',
@@ -463,6 +458,12 @@ return [
                     'can' => ['pendaftaran-rawat-jalan', 'farmasi', 'apoteker'],
                 ],
                 [
+                    'text' => 'Dashboard Rawat Jalan',
+                    'url' => 'dashboard',
+                    'shift'   => 'ml-2',
+                    'icon' => 'fas fa-chart-line',
+                ],
+                [
                     'text' => 'Monitoring Antrian Bulan',
                     'icon'    => 'fas fa-calendar-alt',
                     'url'  => 'monitoring-rajal',
@@ -470,6 +471,7 @@ return [
                 ],
             ]
         ],
+        // RAWAT DARURAT
         [
             'text'    => 'Pelayanan IGD',
             'icon'    => 'fas fa-ambulance',
@@ -479,12 +481,13 @@ return [
                     'url' => 'pendaftaran/igd',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    'can' => ['pendaftaran', 'perawat', 'dokter'],
+                    'can' => ['pendaftaran-rawat-darurat', 'perawat-rawat-darurat', 'dokter-rawat-darurat'],
                     'active'  => ['pendaftaran/igd', 'pendaftaran/igd/proses'],
                 ],
 
             ]
         ],
+        // RAWAT INAP
         [
             'text'    => 'Pelayanan Rawat Inap',
             'icon'    => 'fas fa-procedures',
@@ -494,7 +497,7 @@ return [
                     'url' => 'pendaftaran/ranap',
                     'icon' => 'fas fa-users',
                     'shift'   => 'ml-2',
-                    'can' => ['pendaftaran', 'perawat', 'dokter'],
+                    'can' => ['pendaftaran-rawat-inap', 'perawat-rawat-inap', 'dokter-rawat-inap'],
                     'active'  => ['pendaftaran/ranap', 'pendaftaran/ranap/proses'],
                 ],
                 [
@@ -502,34 +505,35 @@ return [
                     'url' => 'kamar-bed',
                     'icon' => 'fas fa-bed',
                     'active'  => ['kamar-bed', 'kamar-bed/create', 'kamar-bed/edit/*'],
+                    'can' => ['pendaftaran-rawat-inap', 'perawat-rawat-inap', 'dokter-rawat-inap'],
                     'shift'   => 'ml-2',
                 ],
             ]
         ],
+        // PELAYANAN PENUNJANG
         [
             'text'    => 'Pelayanan Penunjang',
-            'icon'    => 'fas fa-hand-holding-medical',
+            'icon'    => 'fas fa-diagnoses',
             'submenu' => [
                 [
                     'text' => 'Laboratorium',
-                    'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'url' => 'laboratorium',
+                    'icon' => 'fas fa-vials',
                     'shift'   => 'ml-2',
                     'can' => 'laboratorium',
-                    // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
                     'text' => 'Radiologi',
-                    'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'url' => 'radiologi',
+                    'icon' => 'fas fa-x-ray',
                     'shift'   => 'ml-2',
                     'can' => 'radiologi',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
                 ],
                 [
                     'text' => 'Kemoterapi',
-                    'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'url' => 'kemoterapi',
+                    'icon' => 'fas fa-syringe',
                     'shift'   => 'ml-2',
                     'can' => 'kemoterapi',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
@@ -537,7 +541,7 @@ return [
                 [
                     'text' => 'Bank Darah',
                     'url' => 'aplication',
-                    'icon' => 'fas fa-users',
+                    'icon' => 'fas fa-medkit',
                     'shift'   => 'ml-2',
                     'can' => 'bank-darah',
                     // 'active'  => ['user', 'user/create', 'user/edit/*'],
@@ -631,55 +635,56 @@ return [
                 ],
             ],
         ],
-        [
-            'text' => 'Pasien',
-            'url' => 'pasien',
-            'icon' => 'fas fa-user-injured',
-            'can' => ['manajemen-pelayanan', 'pendaftaran'],
-            'active'  => ['pasien', 'pasien/create', 'pasien/edit/*'],
-        ],
-        [
-            'text' => 'Dokter',
-            'url' => 'dokter',
-            'icon' => 'fas fa-user-md',
-            'can' => ['manajemen-pelayanan', 'pendaftaran'],
-            'active'  => ['dokter', 'dokter/create', 'dokter/edit/*'],
-        ],
-        [
-            'text' => 'Unit',
-            'url' => 'unit',
-            'icon' => 'fas fa-clinic-medical',
-            'can' => ['manajemen-pelayanan', 'pendaftaran'],
-            'active'  => ['unit', 'unit/create', 'unit/edit/*'],
-        ],
+        // MASTER DATA
         [
             'text'    => 'Pengelolaan',
             'icon'    => 'fas fa-database',
             'submenu' => [
                 [
+                    'text' => 'Pasien',
+                    'url' => 'pasien',
+                    'icon' => 'fas fa-user-injured',
+                    'can' => ['crud-pasien'],
+                    'shift'   => 'ml-2',
+                    'active'  => ['pasien', 'pasien/create', 'pasien/edit/*'],
+                ],
+                [
+                    'text' => 'Dokter',
+                    'shift'   => 'ml-2',
+                    'url' => 'dokter',
+                    'icon' => 'fas fa-user-md',
+                    'can' => ['crud-dokter'],
+                    'active'  => ['dokter', 'dokter/create', 'dokter/edit/*'],
+                ],
+                [
+                    'text' => 'Unit',
+                    'shift'   => 'ml-2',
+                    'url' => 'unit',
+                    'icon' => 'fas fa-clinic-medical',
+                    'can' => ['crud-unit'],
+                    'active'  => ['unit', 'unit/create', 'unit/edit/*'],
+                ],
+                [
                     'text' => 'Pegawai',
                     'url' => 'pegawai',
-                    'can' => 'pegawai',
+                    'can' => 'crud-pegawai',
                     'icon' => 'fas fa-user-tie',
                     'active'  => ['pegawai', 'pegawai/create', 'pegawai/edit/*'],
                     'shift'   => 'ml-2',
                 ],
-
                 [
                     'text' => 'Perawat',
                     'url' => 'perawat',
                     'icon' => 'fas fa-user-nurse',
-                    'can' => 'manajemen-pelayanan',
+                    'can' => 'crud-perawat',
                     'active'  => ['perawat', 'perawat/create', 'perawat/edit/*'],
                     'shift'   => 'ml-2',
                 ],
-
-
                 [
                     'text' => 'Tindakan',
                     'url' => 'tindakan',
                     'icon' => 'fas fa-hand-holding-medical',
-                    'can' => 'manajemen-pelayanan',
+                    'can' => 'crud-tindakan',
                     'active'  => ['tindakan', 'tindakan/create', 'tindakan/edit/*'],
                     'shift'   => 'ml-2',
                 ],
@@ -687,7 +692,7 @@ return [
                     'text' => 'Jaminan',
                     'url' => 'jaminan',
                     'icon' => 'fas fa-id-card',
-                    'can' => 'manajemen-pelayanan',
+                    'can' => 'crud-jaminan',
                     'active'  => ['jaminan', 'jaminan/create', 'jaminan/edit/*'],
                     'shift'   => 'ml-2',
                 ],
@@ -695,7 +700,7 @@ return [
                     'text' => 'Diagnosa',
                     'url' => 'diagnosa',
                     'icon' => 'fas fa-diagnoses',
-                    'can' => ['rekam-medis', 'dokter', 'perawat'],
+                    'can' => 'crud-diagnosa',
                     'active'  => ['diagnosa', 'diagnosa/create', 'diagnosa/edit/*'],
                     'shift'   => 'ml-2',
                 ],
@@ -707,7 +712,6 @@ return [
                 ],
             ],
         ],
-
         // ANTRIAN BPJS
         [
             'text'    => 'Integrasi Antrian BPJS',
@@ -921,7 +925,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Token',
-                    'icon'    => 'fas fa-user-injured',
+                    'icon'    => 'fas fa-key',
                     'url'  => 'satusehat/token',
                     'shift'   => 'ml-2',
                     'can' => ['inacbg'],
@@ -936,7 +940,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Token',
-                    'icon'    => 'fas fa-user-injured',
+                    'icon'    => 'fas fa-key',
                     'url'  => 'satusehat/token',
                     'shift'   => 'ml-2',
                     'can' => ['satu-sehat'],
@@ -971,7 +975,7 @@ return [
                 ],
                 [
                     'text' => 'Encouter',
-                    'icon'    => 'fas fa-user',
+                    'icon'    => 'fas fa-hospital-user',
                     'url'  => 'satusehat/encounter',
                     'shift'   => 'ml-2',
                     'active'  => ['satusehat/encounter', 'satusehat/encounter/*'],
@@ -979,7 +983,7 @@ return [
                 ],
                 [
                     'text' => 'Condition',
-                    'icon'    => 'fas fa-user',
+                    'icon'    => 'fas fa-file-medical-alt',
                     'url'  => 'satusehat/condition',
                     'shift'   => 'ml-2',
                     'can' => ['satu-sehat'],
