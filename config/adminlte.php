@@ -455,7 +455,7 @@ return [
                     'url' => 'displayantrianfarmasi',
                     'icon' => 'fas fa-desktop',
                     'shift'   => 'ml-2',
-                    'can' => ['pendaftaran-rawat-jalan', 'farmasi', 'apoteker'],
+                    'can' => ['pendaftaran-rawat-jalan', 'farmasi', 'apotek'],
                 ],
                 [
                     'text' => 'Dashboard Rawat Jalan',
