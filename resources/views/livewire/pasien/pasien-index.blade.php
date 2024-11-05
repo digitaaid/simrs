@@ -27,9 +27,9 @@
                     </a>
                     <x-adminlte-button wire:click='export'
                         wire:confirm='Apakah anda yakin akan mendownload file pasien saat ini ? ' class="btn-sm"
-                        label="Export" theme="primary" icon="fas fa-upload" />
+                        label="Export" theme="primary" icon="fas fa-file-export" />
                     <x-adminlte-button wire:click='openFormImport' class="btn-sm" label="Import" theme="primary"
-                        icon="fas fa-download" />
+                        icon="fas fa-file-import" />
                 </div>
                 <div class="col-md-4">
                     <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Pasien"
