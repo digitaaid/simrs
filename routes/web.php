@@ -147,7 +147,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('integration', IntegrationIndex::class)->name('integration.index');
         Route::get('whatsapp', WhatsappIndex::class)->name('whatsapp.index');
     });
-    Route::middleware(['can:pegawai'])->group(function () {
+    Route::middleware(['can:crud-pegawai'])->group(function () {
         Route::get('pegawai', PegawaiIndex::class)->name('pegawai.index');
         Route::get('pegawai/create', PegawaiForm::class)->name('pegawai.create');
         Route::get('pegawai/edit/{id}', PegawaiForm::class)->name('pegawai.edit');
@@ -172,10 +172,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
     Route::middleware(['can:crud-dokter'])->group(function () {
         Route::get('dokter', DokterIndex::class)->name('dokter.index');
+    });
+    Route::middleware(['can:crud-dokter'])->group(function () {
         Route::get('perawat', PerawatIndex::class)->name('perawat.index');
     });
     Route::middleware(['can:crud-tindakan'])->group(function () {
         Route::get('tindakan', TindakanIndex::class)->name('tindakan.index');
+    });
+    Route::middleware(['can:crud-tindakan'])->group(function () {
         Route::get('jaminan', JaminanIndex::class)->name('jaminan.index');
     });
     Route::get('wilayah-indonesia', WilayahIndonesia::class)->name('wilayah.indonesia');

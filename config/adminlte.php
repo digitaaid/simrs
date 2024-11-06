@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Pengaturan;
+
 return [
 
     /*
@@ -15,6 +17,7 @@ return [
     */
 
     'title' => env('APP_NAME'),
+    // $value = Pengaturan::first();
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +66,7 @@ return [
     |
     */
 
-    'logo' => '<b>' . env('APP_NAME') . '</b>',
+    'logo' => '<b>Test</b>',
     'logo_img' => 'kitasehat/logokitasehat-lingkar.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -1013,7 +1016,7 @@ return [
             'active'  => ['integration', 'integration/create', 'integration/edit/*'],
         ],
         [
-            'text' => 'Aplikasi',
+            'text' => 'Pengaturan Aplikasi',
             'url' => 'aplikasi',
             'icon' => 'fas fa-cogs',
             'can' => 'admin',

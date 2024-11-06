@@ -33,14 +33,6 @@ class UserSeeder extends Seeder
         ]);
         $roles = [
             'Admin',
-            'Pendaftaran',
-            'Perawat',
-            'Dokter',
-            'Farmasi',
-            'Kasir',
-            'Rekam Medis',
-            'Keuangan',
-            'Manajemen',
         ];
         foreach ($roles as  $value) {
             $user = User::create([

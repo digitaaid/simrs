@@ -1,7 +1,7 @@
 <div>
     <x-adminlte-card title="Log Aktifitas Anda" theme="secondary" icon="fas fa-history">
-        <div style="overflow-y: auto ;max-height: 300px;">
-            <table class="table table-sm table-bordered table-hover">
+        <div class="table-responsive" style="overflow-y: auto ;max-height: 300px;">
+            <table class="table table-sm table-bordered table-hover text-nowrap">
                 <thead>
                     <tr>
                         <th>Waktu</th>

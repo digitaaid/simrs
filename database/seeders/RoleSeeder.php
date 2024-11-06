@@ -17,21 +17,6 @@ class RoleSeeder extends Seeder
     {
         $roles = [
             'Admin',
-            'Pendaftaran',
-            'Perawat',
-            'Dokter',
-            'Farmasi',
-            'Kasir',
-            'Rekam Medis',
-            'Keuangan',
-            'Manajemen',
-            'Manajemen Pelayanan',
-            'Manajemen Farmasi',
-            'Apoteker',
-            'Pegawai',
-            'Satu Sehat',
-            'Antrian BPJS',
-            'Vclaim BPJS',
         ];
         foreach ($roles as $item) {
             $permission = Permission::create(['name' => Str::slug($item)]);
@@ -40,6 +25,35 @@ class RoleSeeder extends Seeder
         }
         $permission = [
             'crud-absensi',
+            'crud-pasien',
+            'crud-dokter',
+            'crud-perawat',
+            'crud-unit',
+            'crud-pegawai',
+            'crud-tindakan',
+            'crud-jaminan',
+            'crud-diagnosa',
+            'pendaftaran-rawat-jalan',
+            'perawat-rawat-jalan',
+            'dokter-rawat-jalan',
+            'pendaftaran-rawat-darurat',
+            'perawat-rawat-darurat',
+            'dokter-rawat-darurat',
+            'pendaftaran-rawat-inap',
+            'perawat-rawat-inap',
+            'dokter-rawat-inap',
+            'farmasi',
+            'apotek',
+            'laboratorium',
+            'radiologi',
+            'kemoterapi',
+            'bank-darah',
+            'kasir',
+            'keuangan',
+            'inacbg',
+            'satu-sehat',
+            'antrian-bpjs',
+            'vclaim-bpjs',
         ];
         foreach ($permission as $item) {
             $permission = Permission::create(['name' => Str::slug($item)]);
