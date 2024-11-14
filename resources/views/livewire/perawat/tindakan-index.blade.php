@@ -130,9 +130,9 @@
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->klasifikasi }}</td>
                             <td>{{ $item->jenispasien }}</td>
-                            <td>{{ money($item->jasa_pelayanan, 'IDR') }}</td>
-                            <td>{{ money($item->jasa_rs, 'IDR') }}</td>
-                            <td>{{ money($item->harga, 'IDR') }}</td>
+                            <td>{{ $item->jasa_pelayanan ? money($item->jasa_pelayanan, 'IDR') : 'Rp 0' }} </td>
+                            <td>{{ $item->jasa_rs ? money($item->jasa_rs, 'IDR') : 'Rp 0' }}</td>
+                            <td>{{ $item->harga ? money($item->harga, 'IDR') : 'Rp 0' }}</td>
                             <td>
                                 <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs"
                                     label="Edit" theme="warning" icon="fas fa-edit" />

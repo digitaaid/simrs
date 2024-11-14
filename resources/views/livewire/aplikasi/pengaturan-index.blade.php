@@ -31,12 +31,72 @@
                     igroup-class="col-8" igroup-size="sm" name="village" label="Village" />
             </div>
             <div class="col-md-6">
-
+                <div class="form-group row">
+                    <label for="logo_icon" class="text-left col-4">
+                        Logo Bundar
+                    </label>
+                    <div class="input-group input-group-sm col-8">
+                        <input id="logo_icon" type="file" name="logo_icon" class="form-control"
+                            wire:model="logo_icon">
+                    </div>
+                    <div class=" col-4">
+                        @if ($logo_icon)
+                            <a href="{{ route('landingpage') . '/storage/pengaturan/' . $logo_icon }}"
+                                target="_blank">{{ $logo_icon }}</a>
+                        @endif
+                    </div>
+                    <div class="col-8">
+                        @error('logo_icon')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="logo_background" class="text-left col-4">
+                        Logo Background
+                    </label>
+                    <div class="input-group input-group-sm col-8">
+                        <input id="logo_background" type="file" name="logo_background" class="form-control"
+                            wire:model="logo_background">
+                    </div>
+                    <div class=" col-4">
+                        @if ($logo_background)
+                            <a href="{{ route('landingpage') . '/storage/pengaturan/' . $logo_background }}"
+                                target="_blank">{{ $logo_background }}</a>
+                        @endif
+                    </div>
+                    <div class="col-8">
+                        @error('logo_background')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="logo_no_background" class="text-left col-4">
+                        Logo No-Background
+                    </label>
+                    <div class="input-group input-group-sm col-8">
+                        <input id="logo_no_background" type="file" name="logo_no_background" class="form-control"
+                            wire:model="logo_no_background">
+                    </div>
+                    <div class="col-4">
+                        @if ($logo_no_background)
+                            <a href="{{ route('landingpage') . '/storage/pengaturan/' . $logo_no_background }}"
+                                target="_blank">{{ $logo_no_background }}</a>
+                        @endif
+                    </div>
+                    <div class="col-8">
+                        @error('logo_no_background')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
             </div>
         </div>
         <x-slot name="footerSlot">
-            <x-adminlte-button label="Simpan" class="btn-sm" onclick="store()" icon="fas fa-save" wire:click="store"
-                wire:confirm="Apakah anda yakin ingin menambahkan unit ?" form="formUpdate" theme="success" />
+            <x-adminlte-button label="Simpan" class="btn-sm" onclick="store()" icon="fas fa-save"
+                wire:click="store" wire:confirm="Apakah anda yakin ingin menambahkan unit ?" form="formUpdate"
+                theme="success" />
         </x-slot>
     </x-adminlte-card>
 </div>

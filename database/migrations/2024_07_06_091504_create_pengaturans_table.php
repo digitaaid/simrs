@@ -24,8 +24,9 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('district')->nullable();
             $table->string('village')->nullable();
-            $table->string('logo')->nullable();
-            $table->string('favicon')->nullable();
+            $table->string('logo_icon')->nullable();
+            $table->string('logo_background')->nullable();
+            $table->string('logo_no_background')->nullable();
             $table->timestamps();
         });
     }
