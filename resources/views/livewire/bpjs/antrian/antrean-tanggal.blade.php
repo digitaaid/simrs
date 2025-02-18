@@ -34,6 +34,7 @@
                             <td>tanggal</td>
                             <td>noantrean</td>
                             <td>kodebooking</td>
+                            <td>action</td>
                             <td>norekammedis</td>
                             <td>nik</td>
                             <td>nokapst</td>

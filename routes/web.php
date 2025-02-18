@@ -173,7 +173,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:crud-dokter'])->group(function () {
         Route::get('dokter', DokterIndex::class)->name('dokter.index');
     });
-    Route::middleware(['can:crud-dokter'])->group(function () {
+    Route::middleware(['can:crud-perawat'])->group(function () {
         Route::get('perawat', PerawatIndex::class)->name('perawat.index');
     });
     Route::middleware(['can:crud-tindakan'])->group(function () {
