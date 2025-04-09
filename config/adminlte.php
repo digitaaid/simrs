@@ -16,8 +16,7 @@ return [
     |
     */
 
-    'title' => 'Kita Sehat',
-    // $value = Pengaturan::first();
+    'title' => env('APP_NAME'),
     'title_prefix' => '',
     'title_postfix' => '',
 
