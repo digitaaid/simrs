@@ -52,7 +52,6 @@
                             <th>#</th>
                             <th>No RM</th>
                             <th>Nama Pasien</th>
-                            <th>Action</th>
                             <th>No BPJS</th>
                             <th>NIK</th>
                             <th>IdPatient</th>
@@ -70,14 +69,12 @@
                         @forelse ($pasiens as $item)
                             <tr>
                                 <td>{{ $loop->index + $pasiens->firstItem() }}</td>
-                                <td>{{ $item->norm }}</td>
-                                <td>{{ $item->nama }}</td>
                                 <td>
                                     <a href="{{ route('pasien.edit', $item->norm) }}" wire:navigate>
-                                        <x-adminlte-button class="btn-xs" label="Edit" theme="warning"
-                                            icon="fas fa-edit" />
+                                        {{ $item->norm }}
                                     </a>
                                 </td>
+                                <td>{{ $item->nama }}</td>
                                 <td>{{ $item->nomorkartu }}</td>
                                 <td>{{ $item->nik }}</td>
                                 <td>

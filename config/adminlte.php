@@ -639,17 +639,16 @@ return [
         ],
         // MASTER DATA
         [
+            'text' => 'Pasien',
+            'url' => 'pasien',
+            'icon' => 'fas fa-user-injured',
+            'can' => ['crud-pasien'],
+            'active'  => ['pasien', 'pasien/create', 'pasien/edit/*'],
+        ],
+        [
             'text'    => 'Pengelolaan',
             'icon'    => 'fas fa-database',
             'submenu' => [
-                [
-                    'text' => 'Pasien',
-                    'url' => 'pasien',
-                    'icon' => 'fas fa-user-injured',
-                    'can' => ['crud-pasien'],
-                    'shift'   => 'ml-2',
-                    'active'  => ['pasien', 'pasien/create', 'pasien/edit/*'],
-                ],
                 [
                     'text' => 'Dokter',
                     'shift'   => 'ml-2',
@@ -992,45 +991,57 @@ return [
                 ],
             ],
         ],
-        ['header' => 'PENGATURAN'],
+        // PENGATURAN
         [
-            'text' => 'Role & Permission',
-            'url' => 'role-permission',
-            'can' => 'admin',
-            'icon' => 'fas fa-users-cog',
-            'active'  => ['role-permission', 'permission/create', 'role/create', 'permission/edit/*'],
-        ],
-        [
-            'text' => 'User',
-            'url' => 'user',
-            'can' => 'admin',
-            'icon' => 'fas fa-users',
-            'active'  => ['user', 'user/create', 'user/edit/*'],
-        ],
-        [
-            'text' => 'Intergrasi',
-            'url' => 'integration',
-            'can' => 'admin',
-            'icon' => 'fas fa-cloud-upload-alt',
-            'active'  => ['integration', 'integration/create', 'integration/edit/*'],
-        ],
-        [
-            'text' => 'Pengaturan Aplikasi',
-            'url' => 'aplikasi',
+            'text'    => 'Pengaturan',
             'icon' => 'fas fa-cogs',
             'can' => 'admin',
-            // 'active'  => ['user', 'user/create', 'user/edit/*'],
-        ],
-        [
-            'text' => 'Whatssapp',
-            'url' => 'whatsapp',
-            'icon' => 'fab fa-whatsapp',
-            'can' => 'admin',
-        ],
-        [
-            'text' => 'Log Aktifitas',
-            'url' => 'log-aktifitas',
-            'icon' => 'fas fa-history',
+            'submenu' => [
+                [
+                    'text' => 'Role & Permission',
+                    'url' => 'role-permission',
+                    'can' => 'admin',
+                    'icon' => 'fas fa-users-cog',
+                    'active'  => ['role-permission', 'permission/create', 'role/create', 'permission/edit/*'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'User',
+                    'url' => 'user',
+                    'can' => 'admin',
+                    'icon' => 'fas fa-users',
+                    'active'  => ['user', 'user/create', 'user/edit/*'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Intergrasi',
+                    'url' => 'integration',
+                    'can' => 'admin',
+                    'icon' => 'fas fa-cloud-upload-alt',
+                    'active'  => ['integration', 'integration/create', 'integration/edit/*'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Pengaturan Aplikasi',
+                    'url' => 'aplikasi',
+                    'icon' => 'fas fa-cogs',
+                    'can' => 'admin',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Whatssapp',
+                    'url' => 'whatsapp',
+                    'icon' => 'fab fa-whatsapp',
+                    'can' => 'admin',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Log Aktifitas',
+                    'url' => 'log-aktifitas',
+                    'icon' => 'fas fa-history',
+                    'shift'   => 'ml-2',
+                ],
+            ],
         ],
         [
             'text' => 'Profil',
