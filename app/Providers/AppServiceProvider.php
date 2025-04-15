@@ -23,7 +23,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $pengaturan = Pengaturan::first();
-        Config::set('adminlte.logo', '<b>' . ($pengaturan ? $pengaturan->nama : 'Default Name') . '</b>');
     }
 }
