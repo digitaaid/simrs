@@ -479,80 +479,6 @@ return [
                 ],
             ]
         ],
-        // ABSENSI
-        // [
-        //     'text'    => 'Absensi',
-        //     'icon'    => 'fas fa-user-clock',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Proses Absensi',
-        //             'icon'    => 'fas fa-street-view',
-        //             'url'  => 'absensi-proses',
-        //             'shift'   => 'ml-2',
-        //         ],
-        //         [
-        //             'text' => 'Lokasi Saya',
-        //             'icon'    => 'fas fa-map-marked-alt',
-        //             'url'  => 'lokasi-saya',
-        //             'shift'   => 'ml-2',
-        //         ],
-        //         [
-        //             'text' => 'Lokasi Absensi',
-        //             'icon'    => 'fas fa-map-marked-alt',
-        //             'url'  => 'lokasi-absensi',
-        //             'can'  => 'crud-absensi',
-        //             'shift'   => 'ml-2',
-        //         ],
-        //         [
-        //             'text' => 'Jadwal Absensi',
-        //             'icon'    => 'fas fa-calendar-day',
-        //             'url'  => 'shift-absensi',
-        //             'can'  => 'crud-absensi',
-        //             'shift'   => 'ml-2',
-        //         ],
-        //         [
-        //             'text' => 'Absensi Pegawai',
-        //             'icon'    => 'fas fa-user-clock',
-        //             'url'  => 'shift-pegawai',
-        //             'can'  => 'crud-absensi',
-        //             'active'  => ['shift-pegawai', 'shift-pegawai-edit'],
-        //             'shift'   => 'ml-2',
-        //         ],
-        //         [
-        //             'text' => 'Laporan Absensi',
-        //             'icon' => 'fas fa-chart-line',
-        //             'url'  => 'laporan-absensi',
-        //             'shift'   => 'ml-2',
-        //         ],
-        //         [
-        //             'text' => 'Lembur',
-        //             'icon'    => 'fas fa-business-time',
-        //             'url'  => 'lembur-index',
-        //             'shift'   => 'ml-2',
-        //         ],
-        //         [
-        //             'text' => 'Lembur Pegawai',
-        //             'icon'    => 'fas fa-business-time',
-        //             'url'  => 'lokasi-pegawai',
-        //             'can'  => 'crud-absensi',
-        //             'shift'   => 'ml-2',
-        //         ],
-        //         [
-        //             'text' => 'Cuti',
-        //             'icon'    => 'fas fa-calendar-times',
-        //             'url'  => 'lokasi-index',
-        //             'shift'   => 'ml-2',
-        //         ],
-        //         [
-        //             'text' => 'Cuti Pegawai',
-        //             'icon' => 'fas fa-chart-line',
-        //             'url'  => 'lokasi-pegawai',
-        //             'can'  => 'crud-absensi',
-        //             'shift'   => 'ml-2',
-        //         ],
-
-        //     ],
-        // ],
         // RAWAT INAP
         [
             'text'    => 'Pelayanan Rawat Inap',
@@ -616,7 +542,7 @@ return [
         ],
         // FARMASI & APOTEK
         [
-            'text'    => 'Apotek & Farmasi',
+            'text'    => 'Farmasi & Apotek',
             'icon'    => 'fas fa-pills',
             'can' => ['farmasi', 'apotek'],
             'submenu' => [
@@ -742,50 +668,80 @@ return [
                 ],
             ],
         ],
-        [
-            'text'    => 'Pengelolaan',
-            'icon'    => 'fas fa-database',
-            'submenu' => [
-                [
-                    'text' => 'Unit',
-                    'shift'   => 'ml-2',
-                    'url' => 'unit',
-                    'icon' => 'fas fa-clinic-medical',
-                    'can' => ['crud-unit'],
-                    'active'  => ['unit', 'unit/create', 'unit/edit/*'],
-                ],
-                [
-                    'text' => 'Tindakan',
-                    'url' => 'tindakan',
-                    'icon' => 'fas fa-hand-holding-medical',
-                    'can' => 'crud-tindakan',
-                    'active'  => ['tindakan', 'tindakan/create', 'tindakan/edit/*'],
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Jaminan',
-                    'url' => 'jaminan',
-                    'icon' => 'fas fa-id-card',
-                    'can' => 'crud-jaminan',
-                    'active'  => ['jaminan', 'jaminan/create', 'jaminan/edit/*'],
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Diagnosa',
-                    'url' => 'diagnosa',
-                    'icon' => 'fas fa-diagnoses',
-                    'can' => 'crud-diagnosa',
-                    'active'  => ['diagnosa', 'diagnosa/create', 'diagnosa/edit/*'],
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Wilayah Indonesia',
-                    'url' => 'wilayah-indonesia',
-                    'icon' => 'fas fa-globe-asia',
-                    'shift'   => 'ml-2',
-                ],
-            ],
-        ],
+        // ABSENSI
+        // [
+        //     'text'    => 'Absensi',
+        //     'icon'    => 'fas fa-user-clock',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Proses Absensi',
+        //             'icon'    => 'fas fa-street-view',
+        //             'url'  => 'absensi-proses',
+        //             'shift'   => 'ml-2',
+        //         ],
+        //         [
+        //             'text' => 'Lokasi Saya',
+        //             'icon'    => 'fas fa-map-marked-alt',
+        //             'url'  => 'lokasi-saya',
+        //             'shift'   => 'ml-2',
+        //         ],
+        //         [
+        //             'text' => 'Lokasi Absensi',
+        //             'icon'    => 'fas fa-map-marked-alt',
+        //             'url'  => 'lokasi-absensi',
+        //             'can'  => 'crud-absensi',
+        //             'shift'   => 'ml-2',
+        //         ],
+        //         [
+        //             'text' => 'Jadwal Absensi',
+        //             'icon'    => 'fas fa-calendar-day',
+        //             'url'  => 'shift-absensi',
+        //             'can'  => 'crud-absensi',
+        //             'shift'   => 'ml-2',
+        //         ],
+        //         [
+        //             'text' => 'Absensi Pegawai',
+        //             'icon'    => 'fas fa-user-clock',
+        //             'url'  => 'shift-pegawai',
+        //             'can'  => 'crud-absensi',
+        //             'active'  => ['shift-pegawai', 'shift-pegawai-edit'],
+        //             'shift'   => 'ml-2',
+        //         ],
+        //         [
+        //             'text' => 'Laporan Absensi',
+        //             'icon' => 'fas fa-chart-line',
+        //             'url'  => 'laporan-absensi',
+        //             'shift'   => 'ml-2',
+        //         ],
+        //         [
+        //             'text' => 'Lembur',
+        //             'icon'    => 'fas fa-business-time',
+        //             'url'  => 'lembur-index',
+        //             'shift'   => 'ml-2',
+        //         ],
+        //         [
+        //             'text' => 'Lembur Pegawai',
+        //             'icon'    => 'fas fa-business-time',
+        //             'url'  => 'lokasi-pegawai',
+        //             'can'  => 'crud-absensi',
+        //             'shift'   => 'ml-2',
+        //         ],
+        //         [
+        //             'text' => 'Cuti',
+        //             'icon'    => 'fas fa-calendar-times',
+        //             'url'  => 'lokasi-index',
+        //             'shift'   => 'ml-2',
+        //         ],
+        //         [
+        //             'text' => 'Cuti Pegawai',
+        //             'icon' => 'fas fa-chart-line',
+        //             'url'  => 'lokasi-pegawai',
+        //             'can'  => 'crud-absensi',
+        //             'shift'   => 'ml-2',
+        //         ],
+
+        //     ],
+        // ],
         // ANTRIAN BPJS
         [
             'text'    => 'Antrian BPJS',
@@ -1070,6 +1026,63 @@ return [
             'icon' => 'fas fa-cogs',
             'can' => 'admin',
             'submenu' => [
+                [
+                    'text' => 'Pengaturan Rawat Jalan',
+                    'icon' => 'fas fa-hand-holding-medical',
+                    'shift'   => 'ml-2',
+                    'submenu' => [
+                        [
+                            'text' => 'Unit',
+                            'shift'   => 'ml-3',
+                            'url' => 'unit',
+                            'icon' => 'fas fa-clinic-medical',
+                            'can' => ['crud-unit'],
+                            'active'  => ['unit', 'unit/create', 'unit/edit/*'],
+                        ],
+                        [
+                            'text' => 'Tindakan',
+                            'url' => 'tindakan',
+                            'icon' => 'fas fa-hand-holding-medical',
+                            'can' => 'crud-tindakan',
+                            'active'  => ['tindakan', 'tindakan/create', 'tindakan/edit/*'],
+                            'shift'   => 'ml-3',
+                        ],
+                        [
+                            'text' => 'Jaminan',
+                            'url' => 'jaminan',
+                            'icon' => 'fas fa-id-card',
+                            'can' => 'crud-jaminan',
+                            'active'  => ['jaminan', 'jaminan/create', 'jaminan/edit/*'],
+                            'shift'   => 'ml-3',
+                        ],
+                        [
+                            'text' => 'Diagnosa',
+                            'url' => 'diagnosa',
+                            'icon' => 'fas fa-diagnoses',
+                            'can' => 'crud-diagnosa',
+                            'active'  => ['diagnosa', 'diagnosa/create', 'diagnosa/edit/*'],
+                            'shift'   => 'ml-3',
+                        ],
+                        [
+                            'text' => 'Wilayah Indonesia',
+                            'url' => 'wilayah-indonesia',
+                            'icon' => 'fas fa-globe-asia',
+                            'shift'   => 'ml-3',
+                        ],
+                    ]
+                ],
+                [
+                    'text' => 'Pengaturan Gawat Darurat',
+                    'icon' => 'fas fa-ambulance',
+                    'shift'   => 'ml-2',
+                    'submenu' => []
+                ],
+                [
+                    'text' => 'Pengaturan Rawat Inap',
+                    'icon' => 'fas fa-procedures',
+                    'shift'   => 'ml-2',
+                    'submenu' => []
+                ],
                 [
                     'text' => 'Role & Permission',
                     'url' => 'role-permission',

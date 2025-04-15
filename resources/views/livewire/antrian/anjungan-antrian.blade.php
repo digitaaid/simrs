@@ -1,8 +1,8 @@
 <div class="wrapper">
-    <div class="row">
+    <div class="row p-1">
         <div class="col-md-12">
             <div class="card">
-                <header class="bg-green text-white p-2">
+                <header class="bg-{{ env('APP_COLOUR') }} text-white p-2">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6">
@@ -23,18 +23,18 @@
             </div>
         </div>
         <div class="col-md-6 text-white">
-            <x-adminlte-card title="Pilih Jenis Pasien" theme="green" icon="fas fa-user-plus">
+            <x-adminlte-card title="Pilih Jenis Pasien" theme="{{ env('APP_COLOUR') }}" icon="fas fa-user-plus">
                 <div class="text-center">
                     <a wire:navigate href="{{ route('anjunganantrian.mandiri') }}">
                         <x-adminlte-card class="mb-2 withLoad" body-class="bg-success">
-                            <h1>ANJUNGAN PELAYANAN MANDIRI</h1>
+                            <h2>ANJUNGAN PELAYANAN MANDIRI</h2>
                         </x-adminlte-card>
                     </a>
-                    {{-- <a wire:navigate href="{{ route('anjunganantrian.bpjs') }}">
+                    <a wire:navigate href="{{ route('anjunganantrian.bpjs') }}">
                         <x-adminlte-card class="mb-2 withLoad" body-class="bg-success">
                             <h1>ANTRIAN PASIEN BPJS</h1>
                         </x-adminlte-card>
-                    </a> --}}
+                    </a>
                     <a wire:navigate href="{{ route('anjunganantrian.umum') }}?jenispasien=NON-JKN">
                         <x-adminlte-card class="mb-2 withLoad" body-class="bg-success">
                             <h1>ANTRIAN PASIEN UMUM</h1>
@@ -68,7 +68,7 @@
             </x-adminlte-card>
         </div>
         <div class="col-md-6">
-            <x-adminlte-card title="Anjungan Checkin Antrian" theme="green" icon="fas fa-qrcode">
+            <x-adminlte-card title="Anjungan Checkin Antrian" theme="{{ env('APP_COLOUR') }}" icon="fas fa-qrcode">
                 <div class="text-center">
                     <img src="{{ asset('bpjs/qrantrian.png') }}" width="48%" alt="">
                     <img src="{{ asset('bpjs/bpjs2.jpg') }}" width="45%" alt="">

@@ -117,11 +117,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Auth::routes(['verify' => true]);
 Route::get('/refresh-captcha', function () {
     return response()->json(['captcha' => captcha_img()]);
 });
+Auth::routes(['verify' => true]);
 Route::get('/', [HomeController::class, 'landingpage'])->name('landingpage');
 // display antrian
 Route::get('displayantrian', [AntrianController::class, 'displayAntrian'])->name('displayantrian');
@@ -164,8 +163,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('shift-pegawai-edit', ShiftPegawaiEdit::class)->name('shift.pegawai.edit');
     Route::middleware(['can:crud-pasien'])->group(function () {
         Route::get('pasien', PasienIndex::class)->name('pasien.index')->lazy();
-        Route::get('pasien/create', PasienForm::class)->name('pasien.create');
-        Route::get('pasien/edit/{norm}', PasienForm::class)->name('pasien.edit');
+        Route::get('pasien/create', PasienForm::class)->name('pasien.create')->lazy();
+        Route::get('pasien/edit/{norm}', PasienForm::class)->name('pasien.edit')->lazy();
     });
     Route::middleware(['can:crud-unit'])->group(function () {
         Route::get('unit', UnitIndex::class)->name('unit.index');
@@ -183,6 +182,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('jaminan', JaminanIndex::class)->name('jaminan.index');
     });
     Route::get('wilayah-indonesia', WilayahIndonesia::class)->name('wilayah.indonesia');
+    // anjungan antrian
+    Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
+    Route::get('anjunganantrian/mandiri', AnjunganAntrianMandiri::class)->name('anjunganantrian.mandiri');
+    Route::get('anjunganantrian/umum', AnjunganAntrianUmum::class)->name('anjunganantrian.umum');
+    Route::get('anjunganantrian/bpjs', AnjunganAntrianBpjs::class)->name('anjunganantrian.bpjs');
+    Route::get('anjunganantrian/pasien', AnjunganPasien::class)->name('anjunganantrian.pasien');
+    Route::get('anjunganantrian/create', AnjunganAntrianCreate::class)->name('anjunganantrian.create');
+    Route::get('anjunganantrian/checkin/', AnjunganAntrian::class)->name('anjunganantrian.checkin');
+    Route::get('anjunganantrian/print/{kodebooking}', [PendaftaranController::class, 'printkarcis'])->name('anjunganantrian.print');
+    Route::get('anjunganantrian/test/', [AnjunganAntrian::class, 'test'])->name('anjunganantrian.test');
     // pendaftaran rawat jalan
     Route::middleware(['can:pendaftaran-rawat-jalan'])->group(function () {
         Route::get('pendaftaran-rajal', PendaftaranRajal::class)->name('pendaftaran.rajal.index');
@@ -264,16 +273,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('bpjs/vclaim/sep', Sep::class)->name('vclaim.sep')->lazy();
         Route::get('bpjs/vclaim/sep_print', [SepController::class, 'sep_print'])->name('vclaim.sep_print');
     });
-    // anjungan antrian
-    Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
-    Route::get('anjunganantrian/mandiri', AnjunganAntrianMandiri::class)->name('anjunganantrian.mandiri');
-    Route::get('anjunganantrian/umum', AnjunganAntrianUmum::class)->name('anjunganantrian.umum');
-    Route::get('anjunganantrian/bpjs', AnjunganAntrianBpjs::class)->name('anjunganantrian.bpjs');
-    Route::get('anjunganantrian/pasien', AnjunganPasien::class)->name('anjunganantrian.pasien');
-    Route::get('anjunganantrian/create', AnjunganAntrianCreate::class)->name('anjunganantrian.create');
-    Route::get('anjunganantrian/checkin/', AnjunganAntrian::class)->name('anjunganantrian.checkin');
-    Route::get('anjunganantrian/print/{kodebooking}', [PendaftaranController::class, 'printkarcis'])->name('anjunganantrian.print');
-    Route::get('anjunganantrian/test/', [AnjunganAntrian::class, 'test'])->name('anjunganantrian.test');
+
 
     // kasir
     Route::get('kasir-pembayaran', KasirPembayaran::class)->name('kasir.pembayran');

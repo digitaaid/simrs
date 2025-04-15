@@ -13,6 +13,7 @@ class AnjunganAntrian extends Component
     public $jadwals;
     public function test()
     {
+        dd('test');
         return view('livewire.antrian.anjungan-antrian-test');
     }
     public function reload()
