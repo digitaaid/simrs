@@ -104,6 +104,7 @@ class ModalSuratkontrol extends Component
                     'jampraktek' => $jadwal->jampraktek,
                     // data surat kontrol
                     'jeniskunjungan' => 3,
+                    'method' => "Surat Kontrol",
                     'nomorreferensi' => $res->response->noSuratKontrol,
                 ]);
                 $antrian->ambil_antrian($request);
