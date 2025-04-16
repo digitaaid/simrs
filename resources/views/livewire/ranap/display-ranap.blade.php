@@ -9,13 +9,13 @@
                                 <div class="row">
                                     <img src="{{ asset('kitasehat/logokitasehat-lingkar.png') }}" width="80">
                                     <div class="col">
-                                        <h2>Anjungan Antrian</h2>
+                                        <h2>Monitoring Rawat Inap</h2>
                                         <h4>{{ env('APP_NAME_LONG') }}</h4>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h1>{{ env('APP_NAME') }}</h1>
+                                <h1>{{ now()->translatedFormat('l, d F Y') }}</h1>
                             </div>
                         </div>
                     </div>
@@ -42,9 +42,9 @@
                                     @if ($item->beds->where('status', 1)->count() < $item->beds->count() && $item->beds->where('status', 1)->count() > 0)
                                         <span class="badge badge-warning">Terisi</span>
                                     @endif
-                                    @if ($item->beds->where('status', 1)->count() >= $item->beds->count() )
-                                    <span class="badge badge-danger">Penuh</span>
-                                @endif
+                                    @if ($item->beds->where('status', 1)->count() >= $item->beds->count())
+                                        <span class="badge badge-danger">Penuh</span>
+                                    @endif
                                 </th>
                                 <th class="text-center">{{ $item->beds->count() }}</th>
                                 <th class="text-center">{{ $item->beds->where('status', 0)->count() }}</th>
@@ -52,6 +52,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                *Data terupdate {{ now() }}
             </x-adminlte-card>
         </div>
         <div class="col-md-6">
