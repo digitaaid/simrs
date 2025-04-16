@@ -681,6 +681,118 @@ class AntrianController extends ApiController
             return $this->sendError($res->metadata->message, 400);
         }
     }
+    public function ambil_antrian_mjkn(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "nomorkartu" => "required|numeric|digits:13",
+            "nik" => "required|numeric|digits:16",
+            "nohp" => "required",
+            "kodepoli" => "required",
+            // "norm" => "required",
+            "tanggalperiksa" => "required",
+            "kodedokter" => "required",
+            "jampraktek" => "required",
+            "jeniskunjungan" => "required|numeric",
+            // "nomorreferensi" => "numeric",
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first(), 400);
+        }
+        // check tanggal backdate
+        if (Carbon::parse($request->tanggalperiksa)->endOfDay()->isPast()) {
+            return $this->sendError("Tanggal periksa sudah terlewat", 400);
+        }
+        // cek duplikasi nik antrian
+        $antrian_nik = Antrian::where('tanggalperiksa', $request->tanggalperiksa)
+            ->where('nik', $request->nik)
+            ->where('taskid', '<=', 5)
+            ->first();
+        if ($antrian_nik) {
+            return $this->sendError("Nomor antrian hanya dapat diambil 1 kali. Anda telah memiliki antrian dengan kode booking " . $antrian_nik->kodebooking,  201);
+        }
+        // cek pasien baru
+        $pasien = Pasien::where('nomorkartu',  $request->nomorkartu)->first();
+        if (empty($pasien)) {
+            return $this->sendError("Data pasien ini tidak ditemukan. Silahkan melakukan registrasi pasien baru",  202);
+        }
+        // cek no kartu sesuai tidak
+        if ($pasien->nik != $request->nik) {
+            return $this->sendError("NIK anda yang terdaftar di BPJS dengan berbeda. Silahkan perbaiki melalui pendaftaran offline",  201);
+        }
+        $statusantrian = $this->status_antrian($request);
+        if ($statusantrian->metadata->code == 200) {
+            $request['sisakuotajkn']  = $statusantrian->response->sisakuotajkn;
+            $request['kuotajkn']  = $statusantrian->response->kuotajkn;
+            $request['sisakuotanonjkn']  = $statusantrian->response->sisakuotanonjkn;
+            $request['kuotanonjkn']  = $statusantrian->response->kuotanonjkn;
+            $request['namapoli']  = $statusantrian->response->namapoli;
+            $request['namadokter']  = $statusantrian->response->namadokter;
+            $request['jadwal_id']  = $statusantrian->response->jadwal_id;
+        } else {
+            return $this->sendError($statusantrian->metadata->message, $statusantrian->metadata->code);
+        }
+        $request['kodebooking'] = strtoupper(uniqid());
+        $jadwal = JadwalDokter::find($request->jadwal_id);
+        $antiranhari = Antrian::where('tanggalperiksa', $request->tanggalperiksa)->count();
+        $antrianpoli = Antrian::where('tanggalperiksa', $request->tanggalperiksa)->where('jadwal_id', $jadwal->id)->count();
+        $request['nomorantrean'] = $jadwal->huruf . $antrianpoli + 1;
+        $request['angkaantrean'] =  $antiranhari + 1;
+        $timestamp = $request->tanggalperiksa . ' ' . explode('-', $request->jampraktek)[0] . ':00';
+        $jadwal_estimasi = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'Asia/Jakarta')->addMinutes(6 * ($antiranhari + 1));
+        $request['estimasidilayani'] = $jadwal_estimasi->timestamp * 1000;
+        $request['jenispasien'] =  $request->nomorreferensi  ? "JKN" : "NON-JKN";
+        $request['nomorreferensi'] =  $request->nomorreferensi;
+        if ($request->jeniskunjungan == 3) {
+            $request['nomorsuratkontrol'] =  $request->nomorreferensi;
+        } else {
+            $request['nomorrujukan'] =  $request->nomorreferensi;
+        }
+        $request['keterangan'] = 'Silahkan datang sebelum jam praktek dokter untuk checkin fingerprint atau face-recognition. Terimkasih.';
+        $request['pasienbaru'] =  $pasien ? 0 : 1;
+        $request['nama'] =  $pasien ? $pasien->nama : 'Pasien Baru';
+        $request['norm'] = $pasien->norm;
+        $request['method'] =  $request->method ??  'Mobile JKN';
+        $res = $this->tambah_antrean($request);
+        if ($res->metadata->code == 200) {
+            $request['status'] = 1;
+            $antrian = Antrian::create($request->all());
+            ActivityLog::create([
+                'user_id' => 0,
+                'activity' => 'Ambil Antrian BPJS',
+                'description' =>  'Berhasil ambil antrian atas nama pasien ' . $antrian->nama . ' dengan kodebooking ' . $antrian->kodebooking . ' untuk tanggal ' . $antrian->tanggalperiksa . ' dan nomorantrean ' . $antrian->nomorantrean,
+            ]);
+            try {
+                $wa = new WhatsappController();
+                $request['message'] = "Antrian berhasil melalui *" . $antrian->method . "*\nNama : *" . $antrian->nama . "* \nNo HP : " . $antrian->nohp . "\nNo BPJS : " . $antrian->nomorkartu . "\nKodebooking : " . $antrian->kodebooking . "\nNomor Antrian : " . $antrian->nomorantrean . "\nTanggal : " . $antrian->tanggalperiksa . "\nDokter : " . $antrian->namadokter . "\nJam Praktek : " . $antrian->jampraktek;
+                $request['number'] = $antrian->nohp;
+                $wa->send_message($request);
+                $request['number'] = "120363344588087064@g.us";
+                $wa->send_message_group($request);
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+            $data = [
+                'nomorantrean' => $request->nomorantrean,
+                'angkaantrean' => $request->angkaantrean,
+                'kodebooking' => $request->kodebooking,
+                'norm' => $request->norm,
+                'namapoli' => "Penyakit Dalam",
+                'namadokter' => $request->namadokter,
+                'estimasidilayani' => $request->estimasidilayani,
+                'sisakuotajkn' => $request->sisakuotajkn,
+                'kuotajkn' => $request->kuotajkn,
+                'sisakuotanonjkn' => $request->sisakuotanonjkn,
+                'kuotanonjkn' => $request->kuotanonjkn,
+                'keterangan' => $request->keterangan,
+            ];
+            // if ($request->method == "Mobile JKN") {
+            //     return $this->sendAntrian($data, "Berhasil daftar antrian dengan nomor antrian " . $antrian->nomorantrean);
+            // }
+            return $this->sendResponse($data, 200);
+        } else {
+            return $this->sendError($res->metadata->message, 400);
+        }
+    }
     public function sisa_antrian(Request $request)
     {
         $validator = Validator::make($request->all(), [

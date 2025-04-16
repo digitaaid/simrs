@@ -44,7 +44,7 @@ Route::prefix('antrian')->group(function () {
     // MJKN
     Route::get('token', [AntrianController::class, 'token'])->name('token');
     Route::post('statusantrean', [AntrianController::class, 'status_antrian'])->name('statusantrean');
-    Route::post('ambilantrean', [AntrianController::class, 'ambil_antrian'])->name('ambilantrean');
+    Route::post('ambilantrean', [AntrianController::class, 'ambil_antrian_mjkn'])->name('ambilantrean');
     Route::post('sisaantrean', [AntrianController::class, 'sisa_antrian'])->name('sisaantrean');
     Route::post('batalantrean', [AntrianController::class, 'batal_antrian'])->name('batalantrean');
     Route::post('checkin', [AntrianController::class, 'checkin_antrian'])->name('checkin');
