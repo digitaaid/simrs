@@ -54,6 +54,13 @@ class BedIndex extends Component
         $this->status = $bed->status;
         $this->form = 1;
     }
+    public function terisi(Bed $bed)
+    {
+        $bed->update([
+            'status' => 1,
+        ]);
+        flash('Berhasil ubah status bed', 'success');
+    }
     public function hapus(Bed $bed)
     {
         $this->status = $bed->delete();
@@ -98,5 +105,4 @@ class BedIndex extends Component
     {
         $this->kamars = Kamar::get();
     }
-
 }

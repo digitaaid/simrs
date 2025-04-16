@@ -81,6 +81,7 @@ use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
 use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Perawat\TindakanIndex;
 use App\Livewire\Profil\ProfilIndex;
+use App\Livewire\Ranap\DisplayRanap;
 use App\Livewire\Ranap\PendaftaranRanap;
 use App\Livewire\Ranap\PendaftaranRanapProses;
 use App\Livewire\Rekammedis\RekamMedisRajal;
@@ -129,6 +130,7 @@ Route::get('displaynomor', [AntrianController::class, 'displaynomor'])->name('di
 Route::get('getdisplayantrian', [AntrianController::class, 'getdisplayantrian'])->name('getdisplayantrian');
 Route::get('displayantrianfarmasi', [AntrianController::class, 'displayantrianfarmasi'])->name('displayantrianfarmasi');
 Route::get('displaynomorfarmasi', [AntrianController::class, 'displaynomorfarmasi'])->name('displaynomorfarmasi');
+Route::get('displayranap', DisplayRanap::class)->name('displayranap');
 // daftar online
 Route::get('daftarantrian', DaftarAntrian::class)->name('daftarantrian');
 Route::get('antrianonline/{kodebooking}', [PendaftaranController::class, 'antrianonline'])->name('antrianonline');

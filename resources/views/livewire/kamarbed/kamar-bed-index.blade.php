@@ -12,4 +12,5 @@
     <div class="col-md-6">
         @livewire('kamarbed.bed-index', ['lazy' => true])
     </div>
+    @section('plugins.BootstrapSwitch', true)
 </div>

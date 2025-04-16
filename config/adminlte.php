@@ -485,6 +485,12 @@ return [
             'icon'    => 'fas fa-procedures',
             'submenu' => [
                 [
+                    'text' => 'Display Ranap',
+                    'url' => 'displayranap',
+                    'icon' => 'fas fa-chart-line',
+                    'shift'   => 'ml-2',
+                ],
+                [
                     'text' => 'Pasien Ranap',
                     'url' => 'pendaftaran/ranap',
                     'icon' => 'fas fa-users',

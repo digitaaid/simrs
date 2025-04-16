@@ -16,3 +16,4 @@
     {{ $slot }}
 @stop
 @section('plugins.BsCustomFileInput', true)
+@section('plugins.BootstrapSwitch', true)

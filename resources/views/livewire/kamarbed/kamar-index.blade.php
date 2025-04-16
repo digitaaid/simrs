@@ -53,13 +53,13 @@
     <x-adminlte-card title="Kamar Rawat Inap" theme="secondary">
         <div class="row">
             <div class="col-md-6">
-                <x-adminlte-button wire:click='tambah' class="btn-sm mb-2" label="Tambah Kamar" theme="success"
-                    icon="fas fa-user-plus" />
+                <x-adminlte-button wire:click='tambah' class="btn-sm mb-2" title="Tambah Kamar" theme="success"
+                    icon="fas fa-folder-plus" />
                 <x-adminlte-button wire:click='export'
                     wire:confirm='Apakah anda yakin akan mendownload file saat ini ? ' class="btn-sm mb-2"
-                    label="Export" theme="primary" icon="fas fa-upload" />
-                <x-adminlte-button wire:click='importform' class="btn-sm mb-2" label="Import" theme="primary"
-                    icon="fas fa-download" />
+                    title="Export" theme="primary" icon="fas fa-file-export" />
+                <x-adminlte-button wire:click='importform' class="btn-sm mb-2" title="Import" theme="primary"
+                    icon="fas fa-file-import" />
             </div>
             <div class="col-md-6">
                 <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian" igroup-size="sm">

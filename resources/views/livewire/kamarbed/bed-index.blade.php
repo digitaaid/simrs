@@ -7,8 +7,8 @@
     @if ($formimport)
         <x-adminlte-card title="Import Bed" theme="secondary">
             <x-adminlte-input-file wire:model='fileimport' name="fileimport"
-                placeholder="{{ $fileimport ? $fileimport->getClientOriginalName() : 'Pilih File Bed' }}"
-                igroup-size="sm" label="File Import" />
+                placeholder="{{ $fileimport ? $fileimport->getClientOriginalName() : 'Pilih File Bed' }}" igroup-size="sm"
+                label="File Import" />
             <x-slot name="footerSlot">
                 <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
                     theme="success" label="Import" wire:confirm='Apakah anda yakin akan mengimport data bed ?' />
@@ -40,19 +40,16 @@
     <x-adminlte-card title="Bed Rawat Inap" theme="secondary">
         <div class="row">
             <div class="col-md-6">
-                <x-adminlte-button wire:click='tambah' class="btn-sm mb-2" label="Tambah Bed" theme="success"
-                    icon="fas fa-user-plus" />
+                <x-adminlte-button wire:click='tambah' class="btn-sm mb-2" title="Tambah Bed" theme="success"
+                    icon="fas fa-folder-plus" />
                 <x-adminlte-button wire:click='export'
                     wire:confirm='Apakah anda yakin akan mendownload file saat ini ? ' class="btn-sm mb-2"
-                    label="Export" theme="primary" icon="fas fa-upload" />
-                <x-adminlte-button wire:click='importform' class="btn-sm mb-2" label="Import" theme="primary"
-                    icon="fas fa-download" />
+                    title="Export" theme="primary" icon="fas fa-file-export" />
+                <x-adminlte-button wire:click='importform' class="btn-sm mb-2" title="Import" theme="primary"
+                    icon="fas fa-file-import" />
             </div>
             <div class="col-md-6">
                 <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian" igroup-size="sm">
-                    <x-slot name="appendSlot">
-                        <x-adminlte-button wire:click="cari" theme="primary" label="Cari" />
-                    </x-slot>
                     <x-slot name="prependSlot">
                         <div class="input-group-text text-primary">
                             <i class="fas fa-search"></i>
@@ -81,16 +78,26 @@
                         <td>{{ $item->namaruang }}</td>
                         <td>{{ $item->bedpria }}</td>
                         <td>{{ $item->bedwanita }}</td>
-                        <td>{{ $item->status }}</td>
+                        <td>
+                            @if ($item->status)
+                                <x-adminlte-button wire:click='terisi({{ $item }})' class="btn-xs"
+                                    theme="danger" label="Terisi" />
+                            @else
+                                <x-adminlte-button wire:click='terisi({{ $item }})' class="btn-xs"
+                                    theme="success" label="Kosong" />
+                            @endif
+                        </td>
                         <td>
                             <x-adminlte-button wire:click='edit({{ $item }})' class="btn-xs" theme="warning"
                                 icon="fas fa-edit" />
-                            <x-adminlte-button wire:click='hapus({{ $item }})' wire:confirm='Apakah anda yakin akan menghapus data tersebut ?' class="btn-xs" theme="danger"
-                                icon="fas fa-trash" />
+                            <x-adminlte-button wire:click='hapus({{ $item }})'
+                                wire:confirm='Apakah anda yakin akan menghapus data tersebut ?' class="btn-xs"
+                                theme="danger" icon="fas fa-trash" />
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </x-adminlte-card>
+
 </div>

@@ -9,4 +9,8 @@ class Kamar extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    public function beds()
+    {
+        return $this->hasMany(Bed::class);
+    }
 }
