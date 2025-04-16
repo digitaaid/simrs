@@ -248,8 +248,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
     });
     Route::middleware(['can:antrian-bpjs'])->group(function () {
-        Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->name('antrian.refpoliklinik')->lazy();
-        Route::get('bpjs/antrian/refdokter', RefDokter::class)->name('antrian.refdokter')->lazy();
+        Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->name('antrian.refpoliklinik');
+        Route::get('bpjs/antrian/refdokter', RefDokter::class)->name('antrian.refdokter');
         Route::get('bpjs/antrian/refjadwaldokter', RefJadwalDokter::class)->name('antrian.refjadwaldokter')->lazy();
         Route::get('bpjs/antrian/refpoliklinik-fingerprint', RefPoliklinikFingerprint::class)->name('antrian.refpoliklinik.fingerprint')->lazy();
         Route::get('bpjs/antrian/refpeserta-fingerprint', RefPesertaFingerprint::class)->name('antrian.refpeserta.fingerprint')->lazy();

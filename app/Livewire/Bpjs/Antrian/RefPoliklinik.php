@@ -18,10 +18,6 @@ class RefPoliklinik extends Component
             flash($res->metadata->message, 'danger');
         }
     }
-    public function placeholder()
-    {
-        return view('components.placeholder.placeholder-text')->title('Referensi Poliklinik');
-    }
     public function render()
     {
         return view('livewire.bpjs.antrian.ref-poliklinik')->title('Referensi Poliklinik');

@@ -15,5 +15,7 @@
 @section('content')
     {{ $slot }}
 @stop
+
+@section('plugins.Datatables', true)
 @section('plugins.BsCustomFileInput', true)
 @section('plugins.BootstrapSwitch', true)
