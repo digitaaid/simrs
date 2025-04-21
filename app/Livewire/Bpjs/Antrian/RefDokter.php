@@ -18,10 +18,6 @@ class RefDokter extends Component
             flash($res->metadata->message, 'danger');
         }
     }
-    public function placeholder()
-    {
-        return view('components.placeholder.placeholder-text')->title('Referensi Dokter');
-    }
     public function render()
     {
         return view('livewire.bpjs.antrian.ref-dokter')

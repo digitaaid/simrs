@@ -13,6 +13,7 @@ class RefJadwalDokter extends Component
     public $jadwals = [];
     public function cari()
     {
+        dd($this->kodepoli, $this->tanggal);
         $this->validate([
             'tanggal' => 'required',
             'kodepoli' => 'required',
@@ -40,10 +41,6 @@ class RefJadwalDokter extends Component
         } else {
             flash($res->metadata->message, 'danger');
         }
-    }
-    public function placeholder()
-    {
-        return view('components.placeholder.placeholder-text')->title('Referensi Jadwal Dokter');
     }
     public function render()
     {

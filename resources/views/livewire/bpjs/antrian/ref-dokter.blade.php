@@ -7,27 +7,19 @@
         </div>
     @endif
     <div class="col-md-12">
-        <x-adminlte-card title="Table Referensi Dokter" theme="secondary">
-            <table class="table text-nowrap table-sm table-hover table-bordered table-responsive-xl mb-3">
-                <thead>
+        <x-adminlte-card title="Referensi Dokter" icon="fas fa-user-md" theme="secondary">
+            @php
+                $heads = ['#', 'Nama Dokter', 'Kode Dokter'];
+            @endphp
+            <x-adminlte-datatable id="table1" :heads="$heads" hoverable bordered compressed>
+                @foreach ($dokters as $item)
                     <tr>
-                        <th>#</th>
-                        <th>Nama Dokter</th>
-                        <th>Kode Dokter</th>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->namadokter }}</td>
+                        <td>{{ $item->kodedokter }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @forelse ($dokters as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->namadokter }}</td>
-                            <td>{{ $item->kodedokter }}</td>
-                        </tr>
-                    @empty
-                        <p>No polikliniks found.</p>
-                    @endforelse
-                </tbody>
-            </table>
+                @endforeach
+            </x-adminlte-datatable>
         </x-adminlte-card>
     </div>
 </div>
