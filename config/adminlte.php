@@ -89,7 +89,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' =>'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -116,7 +116,7 @@ return [
         'enabled' => false,
         'mode' => 'cwrapper',
         'img' => [
-            'path' =>'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'App Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
@@ -883,28 +883,28 @@ return [
                     'shift'   => 'ml-2',
                 ],
                 [
-                    'text' => 'Data Kunjungan',
+                    'text' => 'Monitoring Data Kunjungan',
                     'icon' => 'fas fa-chart-bar',
                     'url' => 'bpjs/vclaim/monitoring-data-kunjungan',
                     'can' => 'vclaim-bpjs',
                     'shift' => 'ml-2',
                 ],
                 [
-                    'text' => 'Data Klaim',
+                    'text' => 'Monitoring Data Klaim',
                     'icon' => 'fas fa-chart-bar',
                     'url' => 'bpjs/vclaim/monitoring-data-klaim',
                     'can' => 'vclaim-bpjs',
                     'shift' => 'ml-2',
                 ],
                 [
-                    'text' => 'Data Pelayanan Peserta',
+                    'text' => 'Monitoring Pelayanan Peserta',
                     'icon' => 'fas fa-id-card',
                     'url' => 'bpjs/vclaim/monitoring-pelayanan-peserta',
                     'shift' => 'ml-2',
                     'can' => 'vclaim-bpjs',
                 ],
                 [
-                    'text' => 'Data Klaim Jasa Raharja',
+                    'text' => 'Monitoring Klaim Jasa Raharja',
                     'icon' => 'fas fa-chart-bar',
                     'url' => 'bpjs/vclaim/monitoring-klaim-jasa-raharja',
                     'can' => 'vclaim-bpjs',
@@ -1112,6 +1112,27 @@ return [
                     'can' => 'admin',
                     'icon' => 'fas fa-cloud-upload-alt',
                     'active'  => ['integration', 'integration/create', 'integration/edit/*'],
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Pengaturan Antrian BPJS',
+                    'url' => 'bpjs/antrian/pengaturan',
+                    'can' => 'bpjs-antrian',
+                    'icon' => 'fas fa-users',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Pengaturan Vclaim BPJS',
+                    'url' => 'bpjs/vclaim/pengaturan',
+                    'can' => 'bpjs-vclaim',
+                    'icon' => 'fas fa-briefcase-medical',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Pengaturan Satu Sehat',
+                    'url' => 'pengaturan-satusehat',
+                    'can' => 'satusehat',
+                    'icon' => 'fas fa-laptop-medical',
                     'shift'   => 'ml-2',
                 ],
                 [

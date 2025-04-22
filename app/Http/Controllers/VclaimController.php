@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Integration;
+use App\Models\PengaturanVclaim;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -13,11 +14,11 @@ class VclaimController extends ApiController
     // API VCLAIM
     public function api()
     {
-        $api = Integration::where('name', 'Vclaim BPJS')->first();
-        $data['base_url'] =  $api->base_url;
-        $data['user_id'] = $api->user_id;
-        $data['user_key'] = $api->user_key;
-        $data['secret_key'] = $api->secret_key;
+        $api = PengaturanVclaim::first();
+        $data['base_url'] =  $api->baseUrl;
+        $data['user_id'] = $api->kode;
+        $data['user_key'] = $api->userKey;
+        $data['secret_key'] = $api->secretKey;
         return json_decode(json_encode($data));
     }
     public function signature()

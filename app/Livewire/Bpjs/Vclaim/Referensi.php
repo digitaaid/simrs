@@ -8,13 +8,23 @@ use Livewire\Component;
 
 class Referensi extends Component
 {
+    public $searchingDiagnosa = false;
+    public $searchingProcedure = false; // Menandai apakah pencarian procedure sedang berlangsung
+    public $searchingFaskes = false; // Menandai apakah pencarian faskes sedang berlangsung
+    public $searchingPoliklinik = false; // Menandai apakah pencarian poliklinik sedang berlangsung
+    public $searchingDokter = false; // Menandai apakah pencarian dokter sedang berlangsung
+    public $searchingProvinsi = false; // Menandai apakah pencarian provinsi sedang berlangsung
+    public $searchingKabupaten = false; // Menandai apakah pencarian kabupaten sedang berlangsung
+    public $searchingKecamatan = false; // Menandai apakah pencarian kecamatan sedang berlangsung
+
     public $diagnosa, $procedure, $poliklinik, $jenisfaskes, $faskes, $dokter, $tanggal, $jenispelayanan, $provinsi, $kabupaten, $kecamatan;
     public $diagnosas = [], $procedures = [], $polikliniks = [], $faskess = [], $dokters = [], $provinsis = [], $kabupatens = [], $kecamatans = [];
-    public function updateKecamatan()
+    public function updatedKecamatan()
     {
         $this->validate([
             'kabupaten' => 'required',
         ]);
+        $this->searchingKecamatan = true; // Tandai bahwa pencarian kecamatan sedang berlangsung
         try {
             $api = new VclaimController();
             $request = new Request([
@@ -22,26 +32,31 @@ class Referensi extends Component
             ]);
             $res = $api->ref_kecamatan($request);
             if ($res->metadata->code == 200) {
-                $this->kecamatans = [];
-                foreach ($res->response->list as $key => $value) {
-                    $this->kecamatans[] = [
-                        'kode' => $value->kode,
-                        'nama' => $value->nama,
-                    ];
-                }
-                return flash($res->metadata->message, 'success');
+                $this->kecamatans = collect($res->response->list)
+                    ->filter(function ($item) {
+                        return stripos($item->nama, $this->kecamatan) !== false; // Pencarian case-insensitive
+                    })
+                    ->map(function ($item) {
+                        return [
+                            'kode' => $item->kode,
+                            'nama' => $item->nama,
+                        ];
+                    })
+                    ->values()
+                    ->toArray();
             } else {
-                return flash($res->metadata->message, 'danger');
+                $this->kecamatans = []; // Kosongkan jika tidak ada data
             }
         } catch (\Throwable $th) {
-            return flash($th->getMessage(), 'danger');
+            $this->kecamatans = []; // Kosongkan jika tidak ada data
         }
     }
-    public function updateKabupaten()
+    public function updatedKabupaten()
     {
         $this->validate([
             'provinsi' => 'required',
         ]);
+        $this->searchingKabupaten = true; // Tandai bahwa pencarian kabupaten sedang berlangsung
         try {
             $api = new VclaimController();
             $request = new Request([
@@ -49,43 +64,54 @@ class Referensi extends Component
             ]);
             $res = $api->ref_kabupaten($request);
             if ($res->metadata->code == 200) {
-                $this->kabupatens = [];
-                foreach ($res->response->list as $key => $value) {
-                    $this->kabupatens[] = [
-                        'kode' => $value->kode,
-                        'nama' => $value->nama,
-                    ];
-                }
-                return flash($res->metadata->message, 'success');
+                $this->kabupatens = collect($res->response->list)
+                    ->filter(function ($item) {
+                        return stripos($item->nama, $this->kabupaten) !== false; // Pencarian case-insensitive
+                    })
+                    ->map(function ($item) {
+                        return [
+                            'kode' => $item->kode,
+                            'nama' => $item->nama,
+                        ];
+                    })
+                    ->values()
+                    ->toArray();
             } else {
-                return flash($res->metadata->message, 'danger');
+                $this->kabupatens = []; // Kosongkan jika tidak ada data
             }
         } catch (\Throwable $th) {
-            return flash($th->getMessage(), 'danger');
+            $this->kabupatens = []; // Kosongkan jika tidak ada data
         }
     }
-    public function updateProvinsi()
+    public function updatedProvinsi()
     {
+        $this->searchingProvinsi = true; // Tandai bahwa pencarian provinsi sedang berlangsung
         try {
             $api = new VclaimController();
             $request = new Request([
                 'provinsi' => $this->provinsi,
             ]);
             $res = $api->ref_provinsi($request);
-            if ($res->metadata->code == 200) {
-                $this->provinsis = [];
-                foreach ($res->response->list as $key => $value) {
-                    $this->provinsis[] = [
-                        'kode' => $value->kode,
-                        'nama' => $value->nama,
-                    ];
-                }
-                return flash($res->metadata->message, 'success');
+
+            if ($res->metadata->code == 200 && !empty($res->response->list)) {
+                // Filter hasil berdasarkan input pengguna
+                $this->provinsis = collect($res->response->list)
+                    ->filter(function ($item) {
+                        return stripos($item->nama, $this->provinsi) !== false; // Pencarian case-insensitive
+                    })
+                    ->map(function ($item) {
+                        return [
+                            'kode' => $item->kode,
+                            'nama' => $item->nama,
+                        ];
+                    })
+                    ->values()
+                    ->toArray();
             } else {
-                return flash($res->metadata->message, 'danger');
+                $this->provinsis = []; // Kosongkan jika tidak ada data
             }
         } catch (\Throwable $th) {
-            return flash($th->getMessage(), 'danger');
+            $this->provinsis = []; // Kosongkan jika terjadi error
         }
     }
     public function updatedDokter()
@@ -96,6 +122,9 @@ class Referensi extends Component
             'jenispelayanan' => 'required',
             'tanggal' => 'required',
         ]);
+
+        $this->searchingDokter = true; // Tandai bahwa pencarian dokter sedang berlangsung
+
         try {
             $api = new VclaimController();
             $request = new Request([
@@ -104,20 +133,19 @@ class Referensi extends Component
                 'tanggal' => $this->tanggal,
             ]);
             $res = $api->ref_dpjp($request);
-            if ($res->metadata->code == 200) {
+            if ($res->metadata->code == 200 && !empty($res->response->list)) {
                 $this->dokters = [];
-                foreach ($res->response->list as $key => $value) {
+                foreach ($res->response->list as $value) {
                     $this->dokters[] = [
                         'kode' => $value->kode,
                         'nama' => $value->nama,
                     ];
                 }
-                return flash($res->metadata->message, 'success');
             } else {
-                return flash($res->metadata->message, 'danger');
+                $this->dokters = []; // Kosongkan jika tidak ada data
             }
         } catch (\Throwable $th) {
-            return flash($th->getMessage(), 'danger');
+            $this->dokters = []; // Kosongkan jika terjadi error
         }
     }
     public function updatedFaskes()
@@ -126,6 +154,9 @@ class Referensi extends Component
             'faskes' => 'required|min:3',
             'jenisfaskes' => 'required',
         ]);
+
+        $this->searchingFaskes = true; // Tandai bahwa pencarian faskes sedang berlangsung
+
         try {
             $api = new VclaimController();
             $request = new Request([
@@ -133,20 +164,19 @@ class Referensi extends Component
                 'jenisfaskes' => $this->jenisfaskes,
             ]);
             $res = $api->ref_faskes($request);
-            if ($res->metadata->code == 200) {
+            if ($res->metadata->code == 200 && !empty($res->response->faskes)) {
                 $this->faskess = [];
-                foreach ($res->response->faskes as $key => $value) {
+                foreach ($res->response->faskes as $value) {
                     $this->faskess[] = [
                         'kode' => $value->kode,
                         'nama' => $value->nama,
                     ];
                 }
-                return flash($res->metadata->message, 'success');
             } else {
-                return flash($res->metadata->message, 'danger');
+                $this->faskess = []; // Kosongkan jika tidak ada data
             }
         } catch (\Throwable $th) {
-            return flash($th->getMessage(), 'danger');
+            $this->faskess = []; // Kosongkan jika terjadi error
         }
     }
     public function updatedProcedure()
@@ -154,13 +184,16 @@ class Referensi extends Component
         $this->validate([
             'procedure' => 'required|min:3',
         ]);
+
+        $this->searchingProcedure = true; // Tandai bahwa pencarian procedure sedang berlangsung
+
         try {
             $api = new VclaimController();
             $request = new Request([
                 'procedure' => $this->procedure,
             ]);
             $res = $api->ref_procedure($request);
-            if ($res->metadata->code == 200) {
+            if ($res->metadata->code == 200 && !empty($res->response->procedure)) {
                 $this->procedures = [];
                 foreach ($res->response->procedure as $value) {
                     $this->procedures[] = [
@@ -168,12 +201,11 @@ class Referensi extends Component
                         'nama' => $value->nama,
                     ];
                 }
-                return flash($res->metadata->message, 'success');
             } else {
-                return flash($res->metadata->message, 'danger');
+                $this->procedures = []; // Kosongkan jika tidak ada data
             }
         } catch (\Throwable $th) {
-            return flash($th->getMessage(), 'danger');
+            $this->procedures = []; // Kosongkan jika terjadi error
         }
     }
     public function updatedDiagnosa()
@@ -181,15 +213,16 @@ class Referensi extends Component
         $this->validate([
             'diagnosa' => 'required|min:3',
         ]);
+        $this->searchingDiagnosa = true; // Tandai bahwa pencarian telah dilakukan
         try {
             $api = new VclaimController();
             $request = new Request([
                 'diagnosa' => $this->diagnosa,
             ]);
             $res = $api->ref_diagnosa($request);
-            if ($res->metadata->code == 200) {
+            if ($res->metadata->code == 200 && !empty($res->response->diagnosa)) {
                 $this->diagnosas = [];
-                foreach ($res->response->diagnosa as $key => $value) {
+                foreach ($res->response->diagnosa as $value) {
                     $this->diagnosas[] = [
                         'kode' => $value->kode,
                         'nama' => $value->nama,
@@ -197,9 +230,11 @@ class Referensi extends Component
                 }
                 return flash($res->metadata->message, 'success');
             } else {
-                return flash($res->metadata->message, 'danger');
+                $this->diagnosas = []; // Kosongkan jika tidak ada data
+                return flash('Data tidak ditemukan.', 'warning');
             }
         } catch (\Throwable $th) {
+            $this->diagnosas = []; // Kosongkan jika terjadi error
             return flash($th->getMessage(), 'danger');
         }
     }
@@ -208,27 +243,76 @@ class Referensi extends Component
         $this->validate([
             'poliklinik' => 'required|min:3',
         ]);
+
+        $this->searchingPoliklinik = true; // Tandai bahwa pencarian poliklinik sedang berlangsung
         try {
             $api = new VclaimController();
             $request = new Request([
                 'poliklinik' => $this->poliklinik,
             ]);
             $res = $api->ref_poliklinik($request);
-            if ($res->metadata->code == 200) {
+            if ($res->metadata->code == 200 && !empty($res->response->poli)) {
                 $this->polikliniks = [];
-                foreach ($res->response->poli as $key => $value) {
+                foreach ($res->response->poli as $value) {
                     $this->polikliniks[] = [
                         'kode' => $value->kode,
                         'nama' => $value->nama,
                     ];
                 }
-                return flash($res->metadata->message, 'success');
             } else {
-                return flash($res->metadata->message, 'danger');
+                $this->polikliniks = []; // Kosongkan jika tidak ada data
             }
         } catch (\Throwable $th) {
-            return flash($th->getMessage(), 'danger');
+            $this->polikliniks = []; // Kosongkan jika terjadi error
         }
+    }
+    public function selectDiagnosa($item)
+    {
+        $this->diagnosa = $item['kode']; // Atur format sesuai kebutuhan
+        $this->searchingDiagnosa = false; // Tandai bahwa pencarian telah dilakukan
+        $this->diagnosas = []; // Kosongkan daftar setelah memilih
+    }
+    public function selectProcedure($item)
+    {
+        $this->procedure = $item['kode']; // Atur format sesuai kebutuhan
+        $this->searchingProcedure = false; // Sembunyikan tabel setelah pemilihan
+        $this->procedures = []; // Kosongkan daftar hasil pencarian
+    }
+    public function selectFaskes($item)
+    {
+        $this->faskes = $item['kode']; // Atur format sesuai kebutuhan
+        $this->searchingFaskes = false; // Sembunyikan tabel setelah pemilihan
+        $this->faskess = []; // Kosongkan daftar hasil pencarian
+    }
+    public function selectPoliklinik($item)
+    {
+        $this->poliklinik = $item['kode']; // Atur format sesuai kebutuhan
+        $this->searchingPoliklinik = false; // Sembunyikan tabel setelah pemilihan
+        $this->polikliniks = []; // Kosongkan daftar hasil pencarian
+    }
+    public function selectDokter($item)
+    {
+        $this->dokter = $item['kode']; // Atur format sesuai kebutuhan
+        $this->searchingDokter = false; // Sembunyikan tabel setelah pemilihan
+        $this->dokters = []; // Kosongkan daftar hasil pencarian
+    }
+    public function selectProvinsi($item)
+    {
+        $this->provinsi = $item['kode']; // Atur format sesuai kebutuhan
+        $this->searchingProvinsi = false; // Sembunyikan tabel setelah pemilihan
+        $this->provinsis = []; // Kosongkan daftar hasil pencarian
+    }
+    public function selectKabupaten($item)
+    {
+        $this->kabupaten = $item['kode']; // Atur format sesuai kebutuhan
+        $this->searchingKabupaten = false; // Sembunyikan tabel setelah pemilihan
+        $this->kabupatens = []; // Kosongkan daftar hasil pencarian
+    }
+    public function selectKecamatan($item)
+    {
+        $this->kecamatan = $item['kode']; // Atur format sesuai kebutuhan
+        $this->searchingKecamatan = false; // Sembunyikan tabel setelah pemilihan
+        $this->kecamatans = []; // Kosongkan daftar hasil pencarian
     }
     public function render()
     {

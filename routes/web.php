@@ -41,6 +41,7 @@ use App\Livewire\Bpjs\Vclaim\MonitoringDataKlaim;
 use App\Livewire\Bpjs\Vclaim\MonitoringDataKunjungan;
 use App\Livewire\Bpjs\Vclaim\MonitoringKlaimJasaRaharja;
 use App\Livewire\Bpjs\Vclaim\MonitoringPelayananPeserta;
+use App\Livewire\Bpjs\Vclaim\PengaturanVclaimIndex;
 use App\Livewire\Bpjs\Vclaim\Peserta;
 use App\Livewire\Bpjs\Vclaim\Referensi;
 use App\Livewire\Bpjs\Vclaim\Rujukan;
@@ -262,12 +263,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('bpjs/antrian/antreandokter', AntreanDokter::class)->name('antrian.antreandokter');
     });
     Route::middleware(['can:vclaim-bpjs'])->group(function () {
+        Route::get('bpjs/vclaim/pengaturan', PengaturanVclaimIndex::class)->name('pengaturan.vclaim.index')->lazy();
         Route::get('bpjs/vclaim/monitoring-data-kunjungan', MonitoringDataKunjungan::class)->name('vclaim.monitoring.datakunjungan')->lazy();
         Route::get('bpjs/vclaim/monitoring-data-klaim', MonitoringDataKlaim::class)->name('vclaim.monitoring.dataklaim')->lazy();
         Route::get('bpjs/vclaim/monitoring-pelayanan-peserta', MonitoringPelayananPeserta::class)->name('vclaim.monitoring.pelayananpeserta')->lazy();
         Route::get('bpjs/vclaim/monitoring-klaim-jasa-raharja', MonitoringKlaimJasaRaharja::class)->name('vclaim.monitoring.klaimjasaraharja')->lazy();
         Route::get('bpjs/vclaim/peserta-bpjs', Peserta::class)->name('vclaim.peserta.bpjs')->lazy();
-        Route::get('bpjs/vclaim/referensi', Referensi::class)->name('vclaim.referensi')->lazy();
+        Route::get('bpjs/vclaim/referensi', Referensi::class)->name('vclaim.referensi');
         Route::get('bpjs/vclaim/surat-kontrol', SuratKontrol::class)->name('vclaim.suratkontrol')->lazy();
         Route::get('bpjs/vclaim/suratkontrol_print', [SuratKontrolController::class, 'suratkontrol_print'])->name('vclaim.suratkontrol_print');
         Route::get('bpjs/vclaim/spri_print', [SuratKontrolController::class, 'spri_print'])->name('vclaim.spri_print');
