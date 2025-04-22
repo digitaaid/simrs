@@ -47,7 +47,7 @@ class WhatsappController extends Controller
         $response = Http::post($url, [
             'number' => $request->number,
             'message' => $request->message,
-            'username' => $pengaturan->kode ,
+            'username' => $pengaturan->kode,
         ]);
         $response = json_decode($response->getBody());
         return $response;
@@ -140,16 +140,7 @@ class WhatsappController extends Controller
                     'qr' => $request->qr,
                     'username' => $request->username,
                 ]);
-                WhatsappLog::create([
-                    'status' => $request->status,
-                    'type' => $request->type,
-                    'username' => $request->username,
-                ]);
                 Log::info('QR Whatsapp : ' . $request->qr);
-                return response()->json([
-                    'status' => true,
-                    'message' => 'QR Code saved successfully',
-                ]);
             }
             if ($request->type == "message") {
                 Log::info('Whatsapp Message: ' . $request->message);
@@ -158,6 +149,10 @@ class WhatsappController extends Controller
                 'status' => $request->status,
                 'type' => $request->type,
                 'username' => $request->username,
+            ]);
+            return response()->json([
+                'status' => true,
+                'message' => 'success ' . $request->status,
             ]);
         } else {
             Log::warning('Error Username Whatsapp : ' . $request->username);
