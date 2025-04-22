@@ -37,8 +37,6 @@ class WhatsappIndex extends Component
     {
         $this->number = "089529909036";
         $this->message = "test";
-        $this->qr = WhatsappQr::orderBy('created_at', 'desc')->limit(2)->get();
-        $this->logs = WhatsappLog::orderBy('created_at', 'desc')->limit(10)->get();
         $this->pengaturan = PengaturanWhatsapp::first();
         if ($this->pengaturan) {
             $this->nama = $this->pengaturan->nama;
@@ -66,6 +64,8 @@ class WhatsappIndex extends Component
     }
     public function render()
     {
+        $this->qr = WhatsappQr::orderBy('created_at', 'desc')->limit(2)->get();
+        $this->logs = WhatsappLog::orderBy('created_at', 'desc')->limit(10)->get();
         return view('livewire.wa.whatsapp-index')->title('Whatsapp');
     }
 }
