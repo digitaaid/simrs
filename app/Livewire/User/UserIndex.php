@@ -36,18 +36,15 @@ class UserIndex extends Component
         }
         $this->sortBy = $field;
     }
-
     public function tambah()
     {
         $this->reset(['userId', 'name', 'username', 'phone', 'email', 'role', 'password']);
         $this->formUser = 1;
     }
-
     public function batal()
     {
         $this->formUser = 0;
     }
-
     public function edit($id)
     {
         $user = User::find($id);
@@ -59,7 +56,6 @@ class UserIndex extends Component
         $this->role = $user->roles->first()->name ?? null;
         $this->formUser = 1;
     }
-
     public function save()
     {
         $this->validate([
@@ -98,7 +94,6 @@ class UserIndex extends Component
 
         return redirect()->route('user.index');
     }
-
     public function verifikasi($id)
     {
         $user = User::find($id);
@@ -118,7 +113,6 @@ class UserIndex extends Component
 
         return redirect()->route('user.index');
     }
-
     public function hapus($id)
     {
         $user = User::find($id);
@@ -133,7 +127,6 @@ class UserIndex extends Component
 
         return redirect()->route('user.index');
     }
-
     public function export()
     {
         try {
@@ -151,12 +144,10 @@ class UserIndex extends Component
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
     }
-
     public function openFormImport()
     {
         $this->formImport = $this->formImport ? 0 : 1;
     }
-
     public function import()
     {
         try {
@@ -178,12 +169,10 @@ class UserIndex extends Component
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
     }
-
     public function mount()
     {
         $this->roles = Role::pluck('name', 'id');
     }
-
     public function render()
     {
         $search = '%' . $this->search . '%';

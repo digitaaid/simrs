@@ -4,15 +4,16 @@ namespace App\Livewire\User;
 
 use App\Models\ActivityLog;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class LogAktifitas extends Component
 {
-    public $logs;
-    public function mount(){
-    }
+    use WithPagination;
+    // public $logs;
+    public function mount() {}
     public function render()
     {
-        $this->logs = ActivityLog::orderBy('created_at', 'desc')->get();
-        return view('livewire.user.log-aktifitas')->title('Log Aktifitas');
+        $logs = ActivityLog::orderBy('created_at', 'desc')->paginate(20);
+        return view('livewire.user.log-aktifitas', compact('logs'))->title('Log Aktifitas');
     }
 }

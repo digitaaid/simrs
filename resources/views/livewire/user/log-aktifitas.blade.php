@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <x-adminlte-card title="Log Aktifitas" theme="secondary">
-            <table class="table text-nowrap table-sm table-hover table-bordered table-responsive">
+            <table class="table text-nowrap table-sm table-hover table-bordered table-responsive-xl mb-3">
                 <thead>
                     <tr>
                         <th>Craeted_at</th>
@@ -29,6 +29,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $logs->links() }}
         </x-adminlte-card>
     </div>
 </div>
