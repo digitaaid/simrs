@@ -140,6 +140,11 @@ class WhatsappController extends Controller
                     'qr' => $request->qr,
                     'username' => $request->username,
                 ]);
+                WhatsappLog::create([
+                    'status' => $request->status,
+                    'type' => $request->type,
+                    'username' => $request->username,
+                ]);
                 Log::info('QR Whatsapp : ' . $request->qr);
                 return response()->json([
                     'status' => true,
