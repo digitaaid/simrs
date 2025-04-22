@@ -34,12 +34,11 @@
                     <tbody>
                         @foreach ($antrians as $item)
                             <tr>
-                                <td>{{ $item->tanggal }}</td>
+                                <td>{{ \Carbon\Carbon::createFromTimestampMs($item->tanggal)->setTimezone('Asia/Jakarta')->format('Y-m-d') }}
                                 <td>{{ $item->noantrean }}</td>
-                                <td>{{ $item->kodebooking }}</td>
                                 <td>
-                                    <a href="{{ route('antrian.antreankodebooking', $item->kodebooking) }}">
-                                        <x-adminlte-button class="btn-xs" theme="primary" label="Lihat" />
+                                    <a href="{{ route('antrian.antreankodebooking', $item->kodebooking) }}" target="_blank">
+                                        {{ $item->kodebooking }}
                                     </a>
                                 </td>
                                 <td>{{ $item->norekammedis }}</td>

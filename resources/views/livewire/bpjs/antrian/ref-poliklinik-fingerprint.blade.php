@@ -7,7 +7,7 @@
         </div>
     @endif
     <div class="col-md-12">
-        <x-adminlte-card title="Table Referensi Poliklinik" theme="secondary">
+        <x-adminlte-card title="Referensi Poliklinik Fingerprint" theme="secondary" icon="fas fa-clinic-medical">
             <table class="table text-nowrap table-sm table-hover table-bordered table-responsive-xl mb-3">
                 <thead>
                     <tr>

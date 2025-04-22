@@ -7,7 +7,7 @@
         </div>
     @endif
     <div class="col-md-12">
-        <x-adminlte-card title="Table Referensi Dokter" theme="secondary">
+        <x-adminlte-card title="Dashboard Bulan" theme="secondary" icon="fas fa-calendar-week">
             <div class="row">
                 <div class="col-md-3">
                     <x-adminlte-select wire:model="waktu" fgroup-class="row" label-class="text-left col-4"
@@ -40,41 +40,39 @@
             <div wire:loading class="col-md-12">
                 @include('components.placeholder.placeholder-text')
             </div>
-            <div wire:loading.remove>
-                <table class="table text-nowrap table-sm table-hover table-bordered table-responsive-xl mb-3">
-                    <thead>
+            <table class="table text-nowrap table-sm table-hover table-bordered table-responsive-xl mb-3">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Poliklinik</th>
+                        <th>Jumlah</th>
+                        <th>Tunggu Admisi</th>
+                        <th>Layan Admisi</th>
+                        <th>Tunggu Dokter</th>
+                        <th>Layan Dokter</th>
+                        <th>Tunggu Farmasi</th>
+                        <th>Layan Farmasi</th>
+                        <th>Total Waktu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($antrians as $item)
                         <tr>
-                            <th>Tanggal</th>
-                            <th>Poliklinik</th>
-                            <th>Jumlah</th>
-                            <th>Tunggu Admisi</th>
-                            <th>Layan Admisi</th>
-                            <th>Tunggu Dokter</th>
-                            <th>Layan Dokter</th>
-                            <th>Tunggu Farmasi</th>
-                            <th>Layan Farmasi</th>
-                            <th>Total Waktu</th>
+                            <td>{{ $item->tanggal }}</td>
+                            <td>{{ $item->namapoli }}</td>
+                            <td>{{ $item->jumlah_antrean }}</td>
+                            <td>{{ gmdate('H:i:s', $item->avg_waktu_task1) }}</td>
+                            <td>{{ gmdate('H:i:s', $item->avg_waktu_task2) }}</td>
+                            <td>{{ gmdate('H:i:s', $item->avg_waktu_task3) }}</td>
+                            <td>{{ gmdate('H:i:s', $item->avg_waktu_task4) }}</td>
+                            <td>{{ gmdate('H:i:s', $item->avg_waktu_task5) }}</td>
+                            <td>{{ gmdate('H:i:s', $item->avg_waktu_task6) }}</td>
+                            <td>{{ gmdate('H:i:s', $item->avg_waktu_task1 + $item->avg_waktu_task2 + $item->avg_waktu_task3 + $item->avg_waktu_task4 + $item->avg_waktu_task5 + $item->avg_waktu_task6) }}
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($antrians as $item)
-                            <tr>
-                                <td>{{ $item->tanggal }}</td>
-                                <td>{{ $item->namapoli }}</td>
-                                <td>{{ $item->jumlah_antrean }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task1) }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task2) }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task3) }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task4) }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task5) }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task6) }}</td>
-                                <td>{{ gmdate('H:i:s', $item->avg_waktu_task1 + $item->avg_waktu_task2 + $item->avg_waktu_task3 + $item->avg_waktu_task4 + $item->avg_waktu_task5 + $item->avg_waktu_task6) }}
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </x-adminlte-card>
     </div>
 </div>

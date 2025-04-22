@@ -21,7 +21,7 @@ class AntreanDokter extends Component
         ]);
         $res  = $api->antrian_poliklinik($request);
         if ($res->metadata->code == 200) {
-            $this->antrians = $res->response[0];
+            $this->antrians = $res->response;
             flash($res->metadata->message, 'success');
         } else {
             flash($res->metadata->message, 'danger');

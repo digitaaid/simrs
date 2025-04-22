@@ -8,12 +8,12 @@ use Livewire\Component;
 
 class RefJadwalDokter extends Component
 {
+    public $searchingPoliklinik = false;
     public $kodepoli, $tanggal;
     public $polikliniks = [];
     public $jadwals = [];
     public function cari()
     {
-        dd($this->kodepoli, $this->tanggal);
         $this->validate([
             'tanggal' => 'required',
             'kodepoli' => 'required',
@@ -31,6 +31,40 @@ class RefJadwalDokter extends Component
         } else {
             flash($res->metadata->message, 'danger');
         }
+    }
+    public function updatedKodepoli()
+    {
+        $this->validate([
+            'kodepoli' => 'required|min:3',
+        ]);
+        $this->searchingPoliklinik = true; // Tandai bahwa pencarian poliklinik sedang berlangsung
+        try {
+            $api = new AntrianController();
+            $res = $api->ref_poli();
+            if ($res->metadata->code == 200 && !empty($res->response)) {
+                $this->polikliniks = collect($res->response)
+                    ->filter(function ($item) {
+                        return stripos($item->nmsubspesialis, $this->kodepoli) !== false; // Pencarian case-insensitive
+                    })
+                    ->map(function ($item) {
+                        return [
+                            'kode' => $item->kdpoli,
+                            'nama' => $item->nmsubspesialis,
+                        ];
+                    })
+                    ->values()
+                    ->toArray();
+            } else {
+                $this->polikliniks = []; // Kosongkan jika tidak ada data
+            }
+        } catch (\Throwable $th) {
+            $this->polikliniks = []; // Kosongkan jika terjadi error
+        }
+    }
+    public function selectPoliklinik($kodepoli)
+    {
+        $this->kodepoli = $kodepoli['kode'];
+        $this->searchingPoliklinik = false; // Sembunyikan hasil pencarian
     }
     public function mount()
     {

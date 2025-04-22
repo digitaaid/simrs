@@ -7,7 +7,7 @@
         </div>
     @endif
     <div class="col-md-12">
-        <x-adminlte-card title="Antrian" theme="secondary">
+        <x-adminlte-card title="Antrian Kodebooking" theme="secondary" icon='fas fa-calendar-check'>
             @if ($antrian)
                 <table>
                     <tr>

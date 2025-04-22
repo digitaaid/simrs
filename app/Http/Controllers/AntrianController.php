@@ -8,6 +8,7 @@ use App\Models\Integration;
 use App\Models\JadwalDokter;
 use App\Models\Kunjungan;
 use App\Models\Pasien;
+use App\Models\PengaturanAntrian;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -111,19 +112,18 @@ class AntrianController extends ApiController
     // API FUNCTION
     public function api()
     {
-        $api = Integration::where('slug', 'antrian-bpjs')->first();
-        $data['base_url'] =  $api->base_url;
-        $data['user_id'] = $api->user_id;
-        $data['user_key'] = $api->user_key;
-        $data['secret_key'] = $api->secret_key;
+        $api = PengaturanAntrian::first();
+        $data['base_url'] =  $api->baseUrl;
+        $data['user_id'] = $api->kode;
+        $data['user_key'] = $api->userKey;
+        $data['secret_key'] = $api->secretKey;
         return json_decode(json_encode($data));
     }
     public function signature()
     {
-        $api = Integration::where('slug', 'antrian-bpjs')->first();
-        $cons_id = $api->user_id;
-        $secretKey = $api->secret_key;
-        $userkey = $api->user_key;
+        $cons_id =  $this->api()->user_id;
+        $secretKey = $this->api()->secret_key;
+        $userkey = $this->api()->user_key;
         date_default_timezone_set('UTC');
         $tStamp = strval(time() - strtotime('1970-01-01 00:00:00'));
         $signature = hash_hmac('sha256', $cons_id . "&" . $tStamp, $secretKey, true);

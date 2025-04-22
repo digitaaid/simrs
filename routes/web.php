@@ -32,6 +32,7 @@ use App\Livewire\Bpjs\Antrian\AntreanTanggal;
 use App\Livewire\Bpjs\Antrian\DashboardBulan;
 use App\Livewire\Bpjs\Antrian\DashboardTanggal;
 use App\Livewire\Bpjs\Antrian\ListTaskid;
+use App\Livewire\Bpjs\Antrian\PengaturanAntrianIndex;
 use App\Livewire\Bpjs\Antrian\RefDokter;
 use App\Livewire\Bpjs\Antrian\RefJadwalDokter;
 use App\Livewire\Bpjs\Antrian\RefPesertaFingerprint;
@@ -249,18 +250,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
     });
     Route::middleware(['can:bpjs-antrian'])->group(function () {
-        Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->name('antrian.refpoliklinik');
-        Route::get('bpjs/antrian/refdokter', RefDokter::class)->name('antrian.refdokter');
-        Route::get('bpjs/antrian/refjadwaldokter', RefJadwalDokter::class)->name('antrian.refjadwaldokter');
-        Route::get('bpjs/antrian/refpoliklinik-fingerprint', RefPoliklinikFingerprint::class)->name('antrian.refpoliklinik.fingerprint');
-        Route::get('bpjs/antrian/refpeserta-fingerprint', RefPesertaFingerprint::class)->name('antrian.refpeserta.fingerprint');
+        Route::get('bpjs/antrian/pengaturan', PengaturanAntrianIndex::class)->name('pengaturan.antrian.index')->lazy();
+        Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->name('antrian.refpoliklinik')->lazy();
+        Route::get('bpjs/antrian/refdokter', RefDokter::class)->name('antrian.refdokter')->lazy();
+        Route::get('bpjs/antrian/refjadwaldokter', RefJadwalDokter::class)->name('antrian.refjadwaldokter')->lazy();
+        Route::get('bpjs/antrian/refpoliklinik-fingerprint', RefPoliklinikFingerprint::class)->name('antrian.refpoliklinik.fingerprint')->lazy();
+        Route::get('bpjs/antrian/refpeserta-fingerprint', RefPesertaFingerprint::class)->name('antrian.refpeserta.fingerprint')->lazy();
         Route::get('bpjs/antrian/listtaskid', ListTaskid::class)->name('antrian.listtaskid')->lazy();
         Route::get('bpjs/antrian/dashboardtanggal', DashboardTanggal::class)->name('antrian.dashboardtanggal')->lazy();
         Route::get('bpjs/antrian/dashboardbulan', DashboardBulan::class)->name('antrian.dashboardbulan')->lazy();
         Route::get('bpjs/antrian/antreantanggal', AntreanTanggal::class)->name('antrian.antreantanggal')->lazy();
-        Route::get('bpjs/antrian/antreankodebooking/{kodebooking}', AntreanKodebooking::class)->name('antrian.antreankodebooking');
-        Route::get('bpjs/antrian/antreanbelumlayani', AntreanBelumLayani::class)->name('antrian.antreanbelumlayani');
-        Route::get('bpjs/antrian/antreandokter', AntreanDokter::class)->name('antrian.antreandokter');
+        Route::get('bpjs/antrian/antreankodebooking/{kodebooking}', AntreanKodebooking::class)->name('antrian.antreankodebooking')->lazy();
+        Route::get('bpjs/antrian/antreanbelumlayani', AntreanBelumLayani::class)->name('antrian.antreanbelumlayani')->lazy();
+        Route::get('bpjs/antrian/antreandokter', AntreanDokter::class)->name('antrian.antreandokter')->lazy();
     });
     Route::middleware(['can:bpjs-vclaim'])->group(function () {
         Route::get('bpjs/vclaim/pengaturan', PengaturanVclaimIndex::class)->name('pengaturan.vclaim.index')->lazy();
@@ -269,7 +271,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('bpjs/vclaim/monitoring-pelayanan-peserta', MonitoringPelayananPeserta::class)->name('vclaim.monitoring.pelayananpeserta')->lazy();
         Route::get('bpjs/vclaim/monitoring-klaim-jasa-raharja', MonitoringKlaimJasaRaharja::class)->name('vclaim.monitoring.klaimjasaraharja')->lazy();
         Route::get('bpjs/vclaim/peserta-bpjs', Peserta::class)->name('vclaim.peserta.bpjs')->lazy();
-        Route::get('bpjs/vclaim/referensi', Referensi::class)->name('vclaim.referensi');
+        Route::get('bpjs/vclaim/referensi', Referensi::class)->name('vclaim.referensi')->lazy();
         Route::get('bpjs/vclaim/surat-kontrol', SuratKontrol::class)->name('vclaim.suratkontrol')->lazy();
         Route::get('bpjs/vclaim/suratkontrol_print', [SuratKontrolController::class, 'suratkontrol_print'])->name('vclaim.suratkontrol_print');
         Route::get('bpjs/vclaim/spri_print', [SuratKontrolController::class, 'spri_print'])->name('vclaim.spri_print');

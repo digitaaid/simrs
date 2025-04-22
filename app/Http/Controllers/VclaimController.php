@@ -26,20 +26,16 @@ class VclaimController extends ApiController
         $cons_id =  $this->api()->user_id;
         $secretKey = $this->api()->secret_key;
         $userkey = $this->api()->user_key;
-
         date_default_timezone_set('UTC');
         $tStamp = strval(time() - strtotime('1970-01-01 00:00:00'));
         $signature = hash_hmac('sha256', $cons_id . "&" . $tStamp, $secretKey, true);
         $encodedSignature = base64_encode($signature);
-
-        $response = array(
-            'user_key' => $userkey,
-            'x-cons-id' => $cons_id,
-            'x-timestamp' => $tStamp,
-            'x-signature' => $encodedSignature,
-            'decrypt_key' => $cons_id . $secretKey . $tStamp,
-        );
-        return $response;
+        $data['user_key'] =  $userkey;
+        $data['x-cons-id'] = $cons_id;
+        $data['x-timestamp'] = $tStamp;
+        $data['x-signature'] = $encodedSignature;
+        $data['decrypt_key'] = $cons_id . $secretKey . $tStamp;
+        return $data;
     }
     public static function stringDecrypt($key, $string)
     {
