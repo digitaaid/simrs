@@ -80,7 +80,7 @@ use App\Livewire\Perawat\PemeriksaanPerawatRajal;
 use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
 use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Perawat\TindakanIndex;
-use App\Livewire\Profil\ProfilIndex;
+use App\Livewire\User\ProfilIndex;
 use App\Livewire\Ranap\DisplayRanap;
 use App\Livewire\Ranap\PendaftaranRanap;
 use App\Livewire\Ranap\PendaftaranRanapProses;

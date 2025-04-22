@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Profil;
+namespace App\Livewire\User;
 
 use App\Models\ActivityLog;
 use App\Models\User;
@@ -13,7 +13,7 @@ class ProfilIndex extends Component
     public $id, $name, $email, $phone, $username, $password;
     public function render()
     {
-        return view('livewire.profil.profil-index')
+        return view('livewire.user.profil-index')
             ->title('Profil');
     }
     public function save()
