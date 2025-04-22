@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PengaturanWhatsapp;
 use App\Models\WhatsappLog;
 use App\Models\WhatsappQr;
 use Illuminate\Http\Request;
@@ -41,11 +42,12 @@ class WhatsappController extends Controller
             'message' => 'required',
             'number' => 'required',
         ]);
-        $url = env('WHATASAPP_URL') . "send-message";
+        $pengaturan = PengaturanWhatsapp::first();
+        $url = $pengaturan->baseUrl . "send-message";
         $response = Http::post($url, [
             'number' => $request->number,
             'message' => $request->message,
-            'username' => env('WHATASAPP_USERNAME'),
+            'username' => $pengaturan->kode ,
         ]);
         $response = json_decode($response->getBody());
         return $response;
@@ -139,13 +141,17 @@ class WhatsappController extends Controller
                     'username' => $request->username,
                 ]);
                 Log::info('QR Whatsapp : ' . $request->data);
+                return response()->json([
+                    'status' => true,
+                    'message' => 'QR Code saved successfully',
+                ]);
             }
             if ($request->type == "message") {
-                WhatsappQr::create([
-                    'qr' => $request->qr,
-                    'username' => $request->username,
-                ]);
-                Log::info('QR Whatsapp : ' . $request->data);
+                // WhatsappQr::create([
+                //     'qr' => $request->qr,
+                //     'username' => $request->username,
+                // ]);
+                // Log::info('QR Whatsapp : ' . $request->data);
             }
             WhatsappLog::create([
                 'status' => $request->status,

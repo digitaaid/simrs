@@ -144,9 +144,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:admin'])->group(function () {
         Route::get('role-permission', RolePermission::class)->name('role-permission');
         Route::get('user', UserIndex::class)->name('user.index');
+        Route::get('pengaturan-whatsapp', WhatsappIndex::class)->name('whatsapp.index');
         Route::get('aplikasi', PengaturanIndex::class)->name('aplikasi.index');
         Route::get('integration', IntegrationIndex::class)->name('integration.index');
-        Route::get('whatsapp', WhatsappIndex::class)->name('whatsapp.index');
     });
     Route::middleware(['can:crud-pegawai'])->group(function () {
         Route::get('pegawai', PegawaiIndex::class)->name('pegawai.index');
