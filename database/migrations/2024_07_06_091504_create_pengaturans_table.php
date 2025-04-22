@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('pengaturans', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('logo_icon')->nullable();
+            $table->string('auth_img')->nullable();
+
             $table->string('idorganization')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
@@ -24,7 +27,6 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('district')->nullable();
             $table->string('village')->nullable();
-            $table->string('logo_icon')->nullable();
             $table->string('logo_background')->nullable();
             $table->string('logo_no_background')->nullable();
             $table->timestamps();

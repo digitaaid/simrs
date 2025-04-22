@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'title' => env('APP_NAME', 'APP_NAME'),
+    'title' => 'App Title',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -65,12 +65,13 @@ return [
     |
     */
 
-    'logo' => '<b>' . env('APP_NAME', 'APP_NAME') . '</b>',
-    'logo_img' => 'kitasehat/logokitasehat-lingkar.png',
+    'logo' => 'App Name',
+    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'SIMRS Logo',
+    'logo_img_alt' => 'App Name',
+    'auth_img' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -86,9 +87,9 @@ return [
     */
 
     'auth_logo' => [
-        'enabled' => true,
+        'enabled' => false,
         'img' => [
-            'path' => 'kitasehat/logokitasehat-lingkar.png',
+            'path' =>'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -115,8 +116,8 @@ return [
         'enabled' => false,
         'mode' => 'cwrapper',
         'img' => [
-            'path' => 'kitasehat/logokitasehat-lingkar.png',
-            'alt' => 'AdminLTE Preloader Image',
+            'path' =>'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'alt' => 'App Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
             'height' => 60,

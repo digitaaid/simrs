@@ -13,7 +13,7 @@
     @yield('css')
     <style>
         .login-page {
-            background-image: url('{{ asset('kitasehat/depan.jpg') }}');
+            background-image: url('{{ config('adminlte.auth_img', '<b>Admin</b>LTE') }}');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
@@ -22,7 +22,7 @@
         }
 
         .register-page {
-            background-image: url('{{ asset('kitasehat/depan.jpg') }}');
+            background-image: url('{{ config('adminlte.auth_img', '<b>Admin</b>LTE') }}');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
