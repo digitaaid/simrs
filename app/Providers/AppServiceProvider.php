@@ -24,8 +24,8 @@ class AppServiceProvider extends ServiceProvider
         if ($pengaturan = Pengaturan::first()) {
             Config::set('adminlte.title',  $pengaturan->nama);
             Config::set('adminlte.logo', '<b>' . $pengaturan->nama . '</b>');
-            Config::set('adminlte.logo_img', $pengaturan->logo_icon ? 'storage/pengaturan/' . $pengaturan->logo_icon : 'vendor/adminlte/dist/img/AdminLTELogo.png');
-            Config::set('adminlte.auth_img', $pengaturan->auth_img ? 'storage/pengaturan/' . $pengaturan->auth_img : 'vendor/adminlte/dist/img/AdminLTELogo.png');
+            Config::set('adminlte.logo_img', $pengaturan->logo_icon ? asset('storage/pengaturan/' . $pengaturan->logo_icon) : asset('vendor/adminlte/dist/img/AdminLTELogo.png'));
+            Config::set('adminlte.auth_img', $pengaturan->auth_img ? asset('storage/pengaturan/' . $pengaturan->auth_img) : asset('vendor/adminlte/dist/img/AdminLTELogo.png'));
         }
     }
 }
