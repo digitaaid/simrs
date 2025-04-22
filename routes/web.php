@@ -248,7 +248,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('satusehat/encounter/{idencounter}', EncounterEdit::class)->name('satusehat.encounter.edit');
         // Route::get('satusehat/conditition', CondititionIndex::class)->name('satusehat.conditition');
     });
-    Route::middleware(['can:antrian-bpjs'])->group(function () {
+    Route::middleware(['can:bpjs-antrian'])->group(function () {
         Route::get('bpjs/antrian/refpoliklinik', RefPoliklinik::class)->name('antrian.refpoliklinik');
         Route::get('bpjs/antrian/refdokter', RefDokter::class)->name('antrian.refdokter');
         Route::get('bpjs/antrian/refjadwaldokter', RefJadwalDokter::class)->name('antrian.refjadwaldokter');
@@ -262,7 +262,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('bpjs/antrian/antreanbelumlayani', AntreanBelumLayani::class)->name('antrian.antreanbelumlayani');
         Route::get('bpjs/antrian/antreandokter', AntreanDokter::class)->name('antrian.antreandokter');
     });
-    Route::middleware(['can:vclaim-bpjs'])->group(function () {
+    Route::middleware(['can:bpjs-vclaim'])->group(function () {
         Route::get('bpjs/vclaim/pengaturan', PengaturanVclaimIndex::class)->name('pengaturan.vclaim.index')->lazy();
         Route::get('bpjs/vclaim/monitoring-data-kunjungan', MonitoringDataKunjungan::class)->name('vclaim.monitoring.datakunjungan')->lazy();
         Route::get('bpjs/vclaim/monitoring-data-klaim', MonitoringDataKlaim::class)->name('vclaim.monitoring.dataklaim')->lazy();
