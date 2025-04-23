@@ -11,7 +11,7 @@
         </x-adminlte-card>
     </div>
     {{-- navigasi --}}
-    @include('livewire.igd.modal-navigasi-igd')
+    @include('livewire.igd.navigasi-pendaftaran-igd')
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
         <div id="datapasien">

@@ -9,11 +9,6 @@
                 <x-adminlte-input wire:model.live="nama" name="nama" label="Tindakan/Layanan" igroup-size="sm"
                     fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" />
                 <x-search-table :isSearching="$searchingTindakan" :data="$tindakans" :columns="['Nama Tindakan', 'Harga']" clickEvent="pilihTindakan" />
-                {{-- <datalist id="tindakanlist">
-                    @foreach ($tindakans as $item => $harga)
-                        <option value="{{ $item }}">{{ money($harga, 'IDR') }}</option>
-                    @endforeach
-                </datalist> --}}
                 <input type="hidden" name="tarif_id" wire:model="tarif_id">
                 <input type="hidden" name="klasifikasi" wire:model="klasifikasi">
                 <x-adminlte-select wire:model='jaminan' igroup-size="sm" fgroup-class="row"

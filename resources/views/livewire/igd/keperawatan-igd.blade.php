@@ -24,9 +24,6 @@
                     </x-adminlte-input>
                 </div>
                 <div class="col-md-2">
-                    <a href="{{ route('pendaftaran.igd.proses', 0) }}">
-                        <x-adminlte-button class="btn-sm" theme="success" icon="fas fa-user-plus" label="Daftar IGD" />
-                    </a>
                 </div>
                 <div class="col-md-3">
                 </div>
@@ -64,7 +61,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>
-                            <a href="{{ route('pendaftaran.igd.proses', $item->kode) }}">
+                            <a href="{{ route('keperawatan.igd.proses', $item->kode) }}">
                                 {{ $item->kode }}
                             </a>
                         </td>

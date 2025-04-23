@@ -10,23 +10,10 @@ use Livewire\Component;
 
 class ModalLayananIgd extends Component
 {
+    public $searchingTindakan = false;
     public $tindakans = [], $jaminans = [];
     public $kunjungan, $kodekunjungan, $kunjungan_id, $kodebooking, $antrian_id;
     public $nama, $tarif_id, $harga, $jumlah, $diskon, $subtotal, $klasifikasi, $jaminan,  $keterangan, $tgl_input;
-    public function pilihTindakan()
-    {
-        $tindakan  = Tindakan::where('nama', $this->nama)->first();
-        if ($tindakan) {
-            $this->tarif_id = $tindakan->id;
-            $this->harga = $tindakan->harga;
-            $this->jumlah = 1;
-            $this->diskon = 0;
-            $this->subtotal = $tindakan->harga * $this->jumlah - ($tindakan->harga * $this->jumlah * $this->diskon / 100);
-            $this->klasifikasi = $tindakan->klasifikasi;
-        } else {
-            flash('Tindakan atau layanan tidak ditemukan. Silahkan pilih kembali.', 'danger');
-        }
-    }
     public function hapusLayanan(Layanan $layanan)
     {
         $user =  auth()->user()->id;
@@ -88,6 +75,33 @@ class ModalLayananIgd extends Component
     public function updateSubtotal()
     {
         $this->subtotal = $this->harga * $this->jumlah - ($this->harga * $this->jumlah * $this->diskon / 100);
+    }
+    public function updatedNama()
+    {
+        $this->searchingTindakan = true;
+        try {
+            $this->tindakans = Tindakan::where('nama', 'like', '%' . $this->nama . '%')
+                ->get(['nama', 'harga'])
+                ->toArray();
+        } catch (\Throwable $th) {
+            $this->tindakans = []; // Kosongkan jika terjadi error
+        }
+    }
+    public function pilihTindakan($item)
+    {
+        $tindakan  = Tindakan::where('nama', $item['nama'])->first();
+        if ($tindakan) {
+            $this->nama = $tindakan->nama;
+            $this->tarif_id = $tindakan->id;
+            $this->harga = $tindakan->harga;
+            $this->jumlah = 1;
+            $this->diskon = 0;
+            $this->subtotal = $tindakan->harga * $this->jumlah - ($tindakan->harga * $this->jumlah * $this->diskon / 100);
+            $this->klasifikasi = $tindakan->klasifikasi;
+            $this->searchingTindakan = false;
+        } else {
+            flash('Tindakan atau layanan tidak ditemukan. Silahkan pilih kembali.', 'danger');
+        }
     }
     public function mount(Kunjungan $kunjungan)
     {

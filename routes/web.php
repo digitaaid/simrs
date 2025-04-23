@@ -70,6 +70,14 @@ use App\Livewire\Farmasi\PengambilanResep;
 use App\Livewire\Farmasi\SatuanKemasanIndex;
 use App\Livewire\Farmasi\StokObatIndex;
 use App\Livewire\Farmasi\SupplierObatIndex;
+use App\Livewire\Igd\FarmasiIgd;
+use App\Livewire\Igd\FarmasiIgdProses;
+use App\Livewire\Igd\KasirIgd;
+use App\Livewire\Igd\KasirIgdProses;
+use App\Livewire\Igd\KeperawatanIgd;
+use App\Livewire\Igd\KeperawatanIgdProses;
+use App\Livewire\Igd\PemeriksaanIgd;
+use App\Livewire\Igd\PemeriksaanIgdProses;
 use App\Livewire\Igd\PendaftaranIgd;
 use App\Livewire\Igd\PendaftaranIgdProses;
 use App\Livewire\Jaminan\JaminanIndex;
@@ -283,8 +291,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // kasir
     Route::get('kasir-pembayaran', KasirPembayaran::class)->name('kasir.pembayran');
     // rawat igd
-    Route::get('pendaftaran/igd', PendaftaranIgd::class)->name('pendaftaran.igd');
-    Route::get('pendaftaran/igd/proses', PendaftaranIgdProses::class)->name('pendaftaran.igd.proses');
+    Route::get('pelayanan-igd/pendaftaran', PendaftaranIgd::class)->name('pendaftaran.igd')->lazy();
+    Route::get('pelayanan-igd/pendaftaran/proses/{kodebooking}', PendaftaranIgdProses::class)->name('pendaftaran.igd.proses')->lazy();
+    Route::get('pelayanan-igd/keperawatan', KeperawatanIgd::class)->name('keperawatan.igd')->lazy();
+    Route::get('pelayanan-igd/keperawatan/proses/{kodebooking}', KeperawatanIgdProses::class)->name('keperawatan.igd.proses')->lazy();
+    Route::get('pelayanan-igd/pemeriksaan', PemeriksaanIgd::class)->name('pemeriksaan.igd')->lazy();
+    Route::get('pelayanan-igd/pemeriksaan/proses/{kodebooking}', PemeriksaanIgdProses::class)->name('pemeriksaan.igd.proses')->lazy();
+    Route::get('pelayanan-igd/farmasi', FarmasiIgd::class)->name('farmasi.igd')->lazy();
+    Route::get('pelayanan-igd/farmasi/proses/{kodebooking}', FarmasiIgdProses::class)->name('farmasi.igd.proses')->lazy();
+    Route::get('pelayanan-igd/kasir', KasirIgd::class)->name('kasir.igd')->lazy();
+    Route::get('pelayanan-igd/kasir/proses/{kodebooking}', KasirIgdProses::class)->name('kasir.igd.proses')->lazy();
     // rawat inap
     Route::get('pendaftaran/ranap', PendaftaranRanap::class)->name('pendaftaran.ranap');
     Route::get('pendaftaran/ranap/proses', PendaftaranRanapProses::class)->name('pendaftaran.ranap.proses');

@@ -15,9 +15,9 @@ class PendaftaranIgdProses extends Component
     {
         return view('livewire.igd.pendaftaran-igd-proses')->title('Pendaftaran IGD');
     }
-    public function mount(Request $request)
+    public function mount($kodebooking)
     {
-        $this->kunjungan = Kunjungan::where('kode', $request->kode)->first();
+        $this->kunjungan = Kunjungan::where('kode', $kodebooking)->first();
     }
     public function batal()
     {

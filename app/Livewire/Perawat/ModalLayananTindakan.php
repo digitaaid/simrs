@@ -11,7 +11,6 @@ use Livewire\Component;
 class ModalLayananTindakan extends Component
 {
     public $searchingTindakan = false;
-
     public $antrian, $kodekunjungan, $kunjungan_id, $kodebooking, $antrian_id;
     public $tindakans = [], $jaminans = [];
     public $nama, $tarif_id, $harga, $jumlah, $diskon, $subtotal, $klasifikasi, $jaminan,  $keterangan, $tgl_input;
@@ -108,7 +107,6 @@ class ModalLayananTindakan extends Component
     {
         $this->dispatch('modalLayanan');
     }
-
     public function mount(Antrian $antrian)
     {
         $this->antrian = $antrian;

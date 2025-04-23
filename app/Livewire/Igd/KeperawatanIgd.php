@@ -5,7 +5,7 @@ namespace App\Livewire\Igd;
 use App\Models\Kunjungan;
 use Livewire\Component;
 
-class PendaftaranIgd extends Component
+class KeperawatanIgd extends Component
 {
     public $tanggal;
     public $kunjungans = [];
@@ -31,6 +31,6 @@ class PendaftaranIgd extends Component
             $query->orWhere('status', 1)->where('jeniskunjungan', 5);
         }
         $this->kunjungans = $query->get();
-        return view('livewire.igd.pendaftaran-igd')->title('Pasien IGD');
+        return view('livewire.igd.keperawatan-igd');
     }
 }

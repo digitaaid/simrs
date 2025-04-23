@@ -83,7 +83,7 @@ class ModalKunjunganIgd extends Component
             'user1' => auth()->user()->id,
         ]);
         Alert::success('Success', 'Kunjungan berhasil disimpan');
-        $url = route('pendaftaran.igd.proses') . "?kode=" . $kunjungan->kode;
+        $url = route('pendaftaran.igd.proses', $kunjungan->kode);
         redirect()->to($url);
     }
     public function cariNomorKartu()
