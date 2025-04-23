@@ -16,6 +16,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ModalKunjunganRajal extends Component
 {
+    public $searchingDiagnosa = false;
     public $antrian, $jaminans, $polikliniks, $dokters;
     public $diagnosas = [];
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $tgl_lahir, $nohp, $fktp, $gender, $hakkelas, $jenispeserta, $kode, $counter, $jaminan, $tgl_masuk, $unit, $dokter, $caramasuk, $diagnosa, $jeniskunjungan, $nomorreferensi, $sep;
@@ -24,26 +25,33 @@ class ModalKunjunganRajal extends Component
         $this->validate([
             'diagnosa' => 'required|min:3',
         ]);
+        $this->searchingDiagnosa = true; // Tandai bahwa pencarian telah dilakukan
         try {
             $api = new VclaimController();
             $request = new Request([
                 'diagnosa' => $this->diagnosa,
             ]);
             $res = $api->ref_diagnosa($request);
-            if ($res->metadata->code == 200) {
+            if ($res->metadata->code == 200 && !empty($res->response->diagnosa)) {
                 $this->diagnosas = [];
-                foreach ($res->response->diagnosa as $key => $value) {
+                foreach ($res->response->diagnosa as $value) {
                     $this->diagnosas[] = [
                         'kode' => $value->kode,
                         'nama' => $value->nama,
                     ];
                 }
+                return flash($res->metadata->message, 'success');
             } else {
-                return flash($res->metadata->message, 'danger');
+                $this->diagnosas = []; // Kosongkan jika tidak ada data
             }
         } catch (\Throwable $th) {
-            return flash($th->getMessage(), 'danger');
+            $this->diagnosas = []; // Kosongkan jika terjadi error
         }
+    }
+    public function selectDiagnosa($item)
+    {
+        $this->diagnosa = $item['kode'];
+        $this->searchingDiagnosa = false;
     }
     public function editKunjungan()
     {

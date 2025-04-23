@@ -98,11 +98,8 @@
                         fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
                         label="Diagnosa">
                     </x-adminlte-input>
-                    <datalist id="diagnosalist">
-                        @foreach ($diagnosas as $item)
-                            <option value="{{ $item['kode'] }}">{{ $item['nama'] }}</option>
-                        @endforeach
-                    </datalist>
+                    <x-search-table :isSearching="$searchingDiagnosa" :data="$diagnosas" :columns="['Kode ICD-10', 'Nama Diagnosa']"
+                        clickEvent="selectDiagnosa" />
                     <x-adminlte-select wire:model="jeniskunjungan" fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" name="jeniskunjungan" label="Jenis Kunjungan">
                         <option value=null disabled>Pilih Jenis Rujukan</option>

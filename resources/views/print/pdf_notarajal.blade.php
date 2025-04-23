@@ -396,7 +396,7 @@
                         </tr>
                     </table>
                     <br>
-                    RESEP OBAT NO. {{ $resepobat->kode }}<br>
+                    RESEP OBAT NO. {{ $resepobat->kode ?? '-' }}<br>
                     <div style="font-size: 10px">
                         @foreach ($resepobatdetails as $item)
                             <b>R/ {{ $item->nama }}</b> ({{ $item->jumlah }}) {{ $item->frekuensi }}

@@ -75,18 +75,16 @@
                     </x-adminlte-input>
                 </div>
             </div>
-
             @php
                 $heads = [
                     'No',
                     'Antrian',
                     'Kodebooking',
+                    'Taskid',
                     'No RM',
                     'Nama Pasien',
                     'Jenis Pasien',
                     'SEP',
-                    'Action',
-                    'Taskid',
                     'Layanan',
                     'Unit',
                     'Dokter',
@@ -96,36 +94,18 @@
                     'Method',
                     'Status',
                 ];
-                $config['order'] = [5, 'asc'];
-                $config['scrollX'] = true;
             @endphp
-            <x-adminlte-datatable id="table1" class="text-nowrap" :heads="$heads" :config="$config" bordered
-                hoverable compressed>
+            <x-adminlte-datatable id="table1" class="text-nowrap" :heads="$heads" bordered hoverable compressed>
                 @isset($antrians)
                     @foreach ($antrians as $item)
                         <tr
                             class="{{ $item->nomorkartu ? ($item->jenispasien == 'JKN' ? $item->sep ?? 'table-danger' : null) : null }}">
                             <td>{{ $item->angkaantrean }}</td>
                             <td>{{ $item->nomorantrean }}</td>
-                            <td>{{ $item->kodebooking }}</td>
-                            <td>{{ $item->norm }}</td>
-                            <td>{{ $item->nama }}</td>
-                            <td>{{ $item->jenispasien }}</td>
                             <td>
-                                {{ $item->nomorkartu ? ($item->jenispasien == 'JKN' ? $item->sep ?? 'Belum Input' : null) : null }}
-                            </td>
-                            <td>
-                                @if ($item->taskid <= 2)
-                                    <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
-                                        <x-adminlte-button class="btn-xs" label="Proses" theme="success"
-                                            icon="fas fa-user-plus" />
-                                    </a>
-                                @else
-                                    <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
-                                        <x-adminlte-button class="btn-xs" label="Lihat" theme="secondary"
-                                            icon="fas fa-user-plus" />
-                                    </a>
-                                @endif
+                                <a href="{{ route('pendaftaran.rajal.proses', $item->kodebooking) }}">
+                                    {{ $item->kodebooking }}
+                                </a>
                             </td>
                             <td>
                                 @switch($item->taskid)
@@ -138,7 +118,7 @@
                                     @break
 
                                     @case(2)
-                                        <span class="badge badge-primary">0. Proses Pendaftaran</span>
+                                        <span class="badge badge-primary">2. Proses Pendaftaran</span>
                                     @break
 
                                     @case(3)
@@ -171,6 +151,13 @@
                                         {{ $item->taskid }}
                                 @endswitch
                             </td>
+                            <td>{{ $item->norm }}</td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->jenispasien }}</td>
+                            <td>
+                                {{ $item->nomorkartu ? ($item->jenispasien == 'JKN' ? $item->sep ?? 'Belum Input' : null) : null }}
+                            </td>
+
                             <td class="text-right">{{ money($item->layanans->sum('harga'), 'IDR') }} </td>
                             <td>{{ $item->kunjungan->units->nama ?? $item->namapoli }} </td>
                             <td>{{ $item->kunjungan->dokters->namadokter ?? $item->namadokter }}</td>

@@ -231,11 +231,9 @@ class Referensi extends Component
                 return flash($res->metadata->message, 'success');
             } else {
                 $this->diagnosas = []; // Kosongkan jika tidak ada data
-                return flash('Data tidak ditemukan.', 'warning');
             }
         } catch (\Throwable $th) {
             $this->diagnosas = []; // Kosongkan jika terjadi error
-            return flash($th->getMessage(), 'danger');
         }
     }
     public function updatedPoliklinik()
