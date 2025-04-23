@@ -1,21 +1,21 @@
 <div class="wrapper">
-    <div class="row">
+    <div class="row p-1">
         <div class="col-md-12">
             <div class="card">
-                <header class="bg-green text-white p-2">
+                <header class="bg-{{ config('adminlte.anjungan_color') }} text-white p-2">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
-                                    <img src="{{ asset('kitasehat/logokitasehat-lingkar.png') }}" width="80">
+                                    <img src="{{ asset(config('adminlte.logo_img')) }}" width="80">
                                     <div class="col">
                                         <h2>Anjungan Antrian</h2>
-                                        <h4>{{ env('APP_NAME_LONG') }}</h4>
+                                        <h4>{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}</h4>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h1>{{ env('APP_NAME') }}</h1>
+                                <h1>{{ config('adminlte.title') }}</h1>
                             </div>
                         </div>
                     </div>
@@ -23,19 +23,19 @@
             </div>
         </div>
         <div class="col-md-6">
-            <x-adminlte-card title="Pilih Jenis Pasien" theme="green" icon="fas fa-user-plus">
+            <x-adminlte-card title="Pilih Jenis Pasien" theme="{{ config('adminlte.anjungan_color') }}" icon="fas fa-user-plus">
                 <h1>Pasien BPJS</h1>
-                <h3>Apakah pasien baru atau pasien lama (pernah berobat) di kami ?</h3>
+                <h5>Apakah pasien baru atau pasien lama (pernah berobat) di kami ?</h5>
                 <div class="text-center text-white">
                     <a wire:navigate
                         href="{{ route('anjunganantrian.create') }}?pasienbaru=1&jenispasien=JKN&tanggalperiksa={{ now()->format('Y-m-d') }}">
-                        <x-adminlte-card class="mb-2 withLoad" body-class="bg-success">
+                        <x-adminlte-card class="mb-2 withLoad" body-class="bg-{{ config('adminlte.anjungan_color') }}">
                             <h1>PASIEN BPJS BARU</h1>
                         </x-adminlte-card>
                     </a>
                     <a wire:navigate
                         href="{{ route('anjunganantrian.create') }}?pasienbaru=0&jenispasien=JKN&tanggalperiksa={{ now()->format('Y-m-d') }}">
-                        <x-adminlte-card class="mb-2 withLoad" body-class="bg-success">
+                        <x-adminlte-card class="mb-2 withLoad" body-class="bg-{{ config('adminlte.anjungan_color') }}">
                             <h1>PASIEN BPJS LAMA</h1>
                         </x-adminlte-card>
                     </a>
@@ -48,7 +48,7 @@
             </x-adminlte-card>
         </div>
         <div class="col-md-6">
-            <x-adminlte-card title="Informasi" theme="green" icon="fas fa-qrcode">
+            <x-adminlte-card title="Informasi" theme="{{ config('adminlte.anjungan_color') }}" icon="fas fa-qrcode">
                 <div class="text-center">
                     <img src="{{ asset('bpjs/wajibmjkn.jpg') }}" width="45%" alt="">
                     <img src="{{ asset('bpjs/caramjkn.jpg') }}" width="45%" alt="">
