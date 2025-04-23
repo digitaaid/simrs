@@ -3,25 +3,26 @@
 namespace App\Livewire\Pendaftaran;
 
 use App\Models\Antrian;
-use Illuminate\Http\Request;
 use Livewire\Component;
 
 class PendaftaranRajal extends Component
 {
     public $tanggalperiksa;
-    public $antrians = [];
+    public $antrians;
     public $search = '';
-    public function mount(Request $request)
+
+    public function mount()
     {
-        $this->tanggalperiksa = $request->tanggalperiksa ?? now()->format('Y-m-d');
+        $this->tanggalperiksa = request('tanggalperiksa', now()->format('Y-m-d'));
     }
+
     public function caritanggal()
     {
         $this->validate([
             'tanggalperiksa' => 'required|date',
         ]);
-        $this->tanggalperiksa = $this->tanggalperiksa;
     }
+
     public function render()
     {
         if ($this->tanggalperiksa) {
@@ -33,8 +34,7 @@ class PendaftaranRajal extends Component
                 })
                 ->orderBy('taskid', 'asc')
                 ->get();
-        }
-        if ($this->search && $this->tanggalperiksa == null) {
+        } elseif ($this->search) {
             $search = '%' . $this->search . '%';
             $this->antrians = Antrian::where('taskid', '>=', 3)
                 ->where('taskid', '!=', 99)
@@ -48,6 +48,7 @@ class PendaftaranRajal extends Component
                 })
                 ->get();
         }
+
         return view('livewire.pendaftaran.pendaftaran-rajal')->title('Pendaftaran Rawat Jalan');
     }
 }

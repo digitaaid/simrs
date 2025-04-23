@@ -4,16 +4,25 @@ namespace App\Livewire\Jaminan;
 
 use App\Models\Jaminan;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class JaminanIndex extends Component
 {
-    public $jaminans;
+    use WithPagination;
+    use WithFileUploads;
+    public $jaminan;
+    public $search = '';
+    public $form = false;
+    public $formImport = false;
+    public $fileTindakanImport;
     public function mount()
     {
-        $this->jaminans = Jaminan::get();
     }
     public function render()
     {
-        return view('livewire.jaminan.jaminan-index')->title('Jaminan');
+        $search = '%' . $this->search . '%';
+        $jaminans = Jaminan::where('nama', 'like', $search)->paginate();
+        return view('livewire.jaminan.jaminan-index',compact('jaminans'))->title('Jaminan');
     }
 }

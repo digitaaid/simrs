@@ -182,7 +182,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:crud-tindakan'])->group(function () {
         Route::get('tindakan', TindakanIndex::class)->name('tindakan.index');
     });
-    Route::middleware(['can:crud-tindakan'])->group(function () {
+    Route::middleware(['can:crud-jaminan'])->group(function () {
         Route::get('jaminan', JaminanIndex::class)->name('jaminan.index');
     });
     Route::get('wilayah-indonesia', WilayahIndonesia::class)->name('wilayah.indonesia');
@@ -198,8 +198,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('anjunganantrian/test/', [AnjunganAntrian::class, 'test'])->name('anjunganantrian.test');
     // pendaftaran rawat jalan
     Route::middleware(['can:pendaftaran-rawat-jalan'])->group(function () {
-        Route::get('pendaftaran-rajal', PendaftaranRajal::class)->name('pendaftaran.rajal.index');
+        Route::get('pendaftaran-rajal', PendaftaranRajal::class)->name('pendaftaran.rajal.index')->lazy();
         Route::get('pendaftaran-rajal/proses/{kodebooking}', PendaftaranRajalProses::class)->name('pendaftaran.rajal.proses');
+
         Route::get('pendaftaran-rajal/jadwaldokter', JadwalDokterIndex::class)->name('pendaftaran.rajal.jadwaldokter');
         Route::get('monitoring-rajal', MonitoringRajal::class)->name('monitoring.rajal');
     });

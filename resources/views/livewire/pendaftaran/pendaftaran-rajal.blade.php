@@ -126,24 +126,6 @@
                                             icon="fas fa-user-plus" />
                                     </a>
                                 @endif
-
-                                {{-- @switch($item->taskid)
-                                    @case(1)
-                                        <a href="{{ route('prosespendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-warning withLoad">Proses</a>
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-secondary withLoad">Lihat</a>
-                                    @break
-
-                                    @case(2)
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-primary withLoad">Proses</a>
-                                    @break
-
-                                    @default
-                                        <a href="{{ route('lihatpendaftaran') }}?kodebooking={{ $item->kodebooking }}"
-                                            class="btn btn-xs btn-secondary withLoad">Lihat</a>
-                                @endswitch --}}
                             </td>
                             <td>
                                 @switch($item->taskid)

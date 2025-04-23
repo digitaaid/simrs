@@ -16,6 +16,6 @@
     {{ $slot }}
 @stop
 @section('plugins.Select2', true)
-@section('plugins.Datatables', true)
+{{-- @section('plugins.Datatables', true) --}}
 @section('plugins.BsCustomFileInput', true)
 @section('plugins.BootstrapSwitch', true)

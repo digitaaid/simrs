@@ -355,13 +355,7 @@ return [
                     'shift'   => 'ml-2',
                     'can' => 'pendaftaran-rawat-jalan',
                 ],
-                [
-                    'text' => 'Jadwal Dokter Rajal',
-                    'url' => 'pendaftaran-rajal/jadwaldokter',
-                    'icon' => 'fas fa-calendar',
-                    'shift'   => 'ml-2',
-                    'can' => 'pendaftaran-rawat-jalan',
-                ],
+
                 [
                     'text' => 'Display Antrian',
                     'url' => 'displayantrian',
@@ -1048,18 +1042,23 @@ return [
                             'active'  => ['unit', 'unit/create', 'unit/edit/*'],
                         ],
                         [
-                            'text' => 'Tindakan',
+                            'text' => 'Jadwal Dokter Rajal',
+                            'url' => 'pendaftaran-rajal/jadwaldokter',
+                            'icon' => 'fas fa-calendar',
+                            'shift'   => 'ml-3',
+                            'can' => 'pendaftaran-rawat-jalan',
+                        ],
+                        [
+                            'text' => 'Data Tarif Tindakan',
                             'url' => 'tindakan',
                             'icon' => 'fas fa-hand-holding-medical',
-                            'can' => 'crud-tindakan',
                             'active'  => ['tindakan', 'tindakan/create', 'tindakan/edit/*'],
                             'shift'   => 'ml-3',
                         ],
                         [
-                            'text' => 'Jaminan',
+                            'text' => 'Data Jaminan',
                             'url' => 'jaminan',
                             'icon' => 'fas fa-id-card',
-                            'can' => 'crud-jaminan',
                             'active'  => ['jaminan', 'jaminan/create', 'jaminan/edit/*'],
                             'shift'   => 'ml-3',
                         ],
