@@ -35,10 +35,10 @@ class JaminanIndex extends Component
                 'fileImport' => 'required|mimes:xlsx'
             ]);
             Excel::import(new JaminanImport, $this->fileImport->getRealPath());
-            flash('Import Tindakan successfully', 'success');
+            flash('Import Jaminan successfully', 'success');
             $this->formImport = false;
             $this->fileImport = null;
-            return redirect()->route('tindakan.index');
+            return redirect()->route('jaminan.index');
         } catch (\Throwable $th) {
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
@@ -47,7 +47,7 @@ class JaminanIndex extends Component
     {
         try {
             $time = now()->format('Y-m-d');
-            return Excel::download(new JaminanExport, 'tindakan_backup_' . $time . '.xlsx');
+            return Excel::download(new JaminanExport, 'jaminan_backup_' . $time . '.xlsx');
             flash('Export Pasien successfully', 'success');
         } catch (\Throwable $th) {
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
