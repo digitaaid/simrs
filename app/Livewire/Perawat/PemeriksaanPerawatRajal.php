@@ -13,20 +13,21 @@ class PemeriksaanPerawatRajal extends Component
     public $tanggalperiksa, $jadwal;
     public $search = '';
     public $antrians, $jadwals = [];
-    public function mount(Request $request)
+
+    public function mount()
     {
-        $this->tanggalperiksa = $request->tanggalperiksa ?? now()->format('Y-m-d');
-        $this->jadwal = $request->jadwal;
+        $this->tanggalperiksa = request('tanggalperiksa', now()->format('Y-m-d'));
+        $this->jadwal = request('jadwal');
     }
+
     public function cariantrian()
     {
         $this->validate([
             'tanggalperiksa' => 'required|date',
             'jadwal' => 'required',
         ]);
-        $this->tanggalperiksa = $this->tanggalperiksa;
-        $this->jadwal = $this->jadwal;
     }
+
     public function render()
     {
         if ($this->tanggalperiksa) {

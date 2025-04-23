@@ -10,6 +10,8 @@ use Livewire\Component;
 
 class ModalLayananTindakan extends Component
 {
+    public $searchingTindakan = false;
+
     public $antrian, $kodekunjungan, $kunjungan_id, $kodebooking, $antrian_id;
     public $tindakans = [], $jaminans = [];
     public $nama, $tarif_id, $harga, $jumlah, $diskon, $subtotal, $klasifikasi, $jaminan,  $keterangan, $tgl_input;
@@ -75,16 +77,29 @@ class ModalLayananTindakan extends Component
     {
         $this->subtotal = $this->harga * $this->jumlah - ($this->harga * $this->jumlah * $this->diskon / 100);
     }
-    public function pilihTindakan()
+    public function updatedNama()
     {
-        $tindakan  = Tindakan::where('nama', $this->nama)->first();
+        $this->searchingTindakan = true;
+        try {
+            $this->tindakans = Tindakan::where('nama', 'like', '%' . $this->nama . '%')
+                ->get(['nama', 'harga'])
+                ->toArray();
+        } catch (\Throwable $th) {
+            $this->tindakans = []; // Kosongkan jika terjadi error
+        }
+    }
+    public function pilihTindakan($item)
+    {
+        $tindakan  = Tindakan::where('nama', $item['nama'])->first();
         if ($tindakan) {
+            $this->nama = $tindakan->nama;
             $this->tarif_id = $tindakan->id;
             $this->harga = $tindakan->harga;
             $this->jumlah = 1;
             $this->diskon = 0;
             $this->subtotal = $tindakan->harga * $this->jumlah - ($tindakan->harga * $this->jumlah * $this->diskon / 100);
             $this->klasifikasi = $tindakan->klasifikasi;
+            $this->searchingTindakan = false;
         } else {
             flash('Tindakan atau layanan tidak ditemukan. Silahkan pilih kembali.', 'danger');
         }
@@ -93,6 +108,7 @@ class ModalLayananTindakan extends Component
     {
         $this->dispatch('modalLayanan');
     }
+
     public function mount(Antrian $antrian)
     {
         $this->antrian = $antrian;

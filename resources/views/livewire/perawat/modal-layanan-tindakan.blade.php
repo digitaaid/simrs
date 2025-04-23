@@ -6,14 +6,14 @@
         <input type="hidden" name="kunjungan_id" wire:model="kunjungan_id">
         <div class="row">
             <div class="col-md-6">
-                <x-adminlte-input wire:model="nama" wire:change='pilihTindakan' list="tindakanlist" name="nama"
-                    igroup-size="sm" label="Nama Tindakan/Layanan" fgroup-class="row" label-class="text-left col-4"
-                    igroup-size="sm" igroup-class="col-8" />
-                <datalist id="tindakanlist">
+                <x-adminlte-input wire:model.live="nama" name="nama" label="Tindakan/Layanan" igroup-size="sm"
+                    fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" />
+                <x-search-table :isSearching="$searchingTindakan" :data="$tindakans" :columns="['Nama Tindakan', 'Harga']" clickEvent="pilihTindakan" />
+                {{-- <datalist id="tindakanlist">
                     @foreach ($tindakans as $item => $harga)
                         <option value="{{ $item }}">{{ money($harga, 'IDR') }}</option>
                     @endforeach
-                </datalist>
+                </datalist> --}}
                 <input type="hidden" name="tarif_id" wire:model="tarif_id">
                 <input type="hidden" name="klasifikasi" wire:model="klasifikasi">
                 <x-adminlte-select wire:model='jaminan' igroup-size="sm" fgroup-class="row"
@@ -80,11 +80,10 @@
                         <td>{{ $item->jumlah }}</td>
                         <td class="text-right">{{ money($item->subtotal, 'IDR') }}</td>
                         <td>
-                            <button wire:click='editLayanan({{ $item }})'
-                                class="btn btn-xs btn-primary">Edit</button>
-                            <button wire:click='hapusLayanan({{ $item }})'
-                                wire:confirm='Apakah anda yakin ingin menghapus layanan {{ $item->nama }} ?'
-                                class="btn btn-xs btn-danger">Hapus</button>
+                            <x-adminlte-button title="Edit" class="btn-xs" icon="fas fa-edit"
+                                wire:click="editLayanan({{ $item }})" theme="warning" />
+                            <x-adminlte-button title="Hapus" class="btn-xs" icon="fas fa-trash"
+                                wire:click="hapusLayanan({{ $item }})" theme="danger" />
                         </td>
                         <td>{{ $item->pic }}</td>
                     </tr>

@@ -204,7 +204,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
     // perawat rawat jalan
     Route::middleware(['can:perawat-rawat-jalan'])->group(function () {
-        Route::get('perawat-rawat-jalan/pemeriksaan', PemeriksaanPerawatRajal::class)->name('perawat.rajal.pemeriksaan');
+        Route::get('perawat-rawat-jalan/pemeriksaan', PemeriksaanPerawatRajal::class)->name('perawat.rajal.pemeriksaan')->lazy();
         Route::get('perawat-rawat-jalan/pemeriksaan/{kodebooking}', PemeriksaanPerawatRajalProses::class)->name('perawat.rajal.pemeriksaan.proses');
     });
     // dokter rawat jalan
