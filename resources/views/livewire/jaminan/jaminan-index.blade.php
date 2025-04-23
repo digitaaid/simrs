@@ -69,9 +69,9 @@
             </x-adminlte-card>
         @endif
         @if ($formImport)
-            <x-adminlte-card title="Import Tindakan" theme="secondary">
-                <x-adminlte-input-file wire:model='fileTindakanImport' name="fileTindakanImport"
-                    placeholder="{{ $fileTindakanImport ? $fileTindakanImport->getClientOriginalName() : 'Pilih File Tindakan' }}"
+            <x-adminlte-card title="Import Jaminan" theme="secondary">
+                <x-adminlte-input-file wire:model='fileImport' name="fileImport"
+                    placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File Tindakan' }}"
                     igroup-size="sm" label="File Import" />
                 <x-slot name="footerSlot">
                     <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
@@ -82,16 +82,16 @@
                 </x-slot>
             </x-adminlte-card>
         @endif
-        <x-adminlte-card title="Table Jaminan" theme="secondary">
+        <x-adminlte-card title="Data Jaminan" theme="secondary">
             <div class="row ">
                 <div class="col-md-8">
-                    <x-adminlte-button wire:click='openForm' class="btn-sm" label="Tambah Tindakan" theme="success"
-                        icon="fas fa-user-plus" />
+                    <x-adminlte-button wire:click='openForm' class="btn-sm" title="Tambah Jaminan" theme="success"
+                        icon="fas fa-folder-plus" />
                     <x-adminlte-button wire:click='export'
-                        wire:confirm='Apakah anda yakin akan mendownload data semua Tindakan ? ' class="btn-sm"
-                        label="Export" theme="primary" icon="fas fa-upload" />
-                    <x-adminlte-button wire:click='openFormImport' class="btn-sm" label="Import" theme="primary"
-                        icon="fas fa-download" />
+                        wire:confirm='Apakah anda yakin akan mendownload semua data ? ' class="btn-sm"
+                        title="Export" theme="primary" icon="fas fa-file-export" />
+                    <x-adminlte-button wire:click='openFormImport' class="btn-sm" title="Import" theme="primary"
+                        icon="fas fa-file-import" />
                 </div>
                 <div class="col-md-4">
                     <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Tindakan"
