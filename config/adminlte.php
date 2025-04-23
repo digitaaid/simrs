@@ -1059,7 +1059,6 @@ return [
                             'text' => 'Data Jaminan',
                             'url' => 'jaminan',
                             'icon' => 'fas fa-id-card',
-                            'active'  => 'jaminan',
                             'shift'   => 'ml-3',
                         ],
                         [
