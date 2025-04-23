@@ -182,9 +182,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:crud-tindakan'])->group(function () {
         Route::get('tindakan', TindakanIndex::class)->name('tindakan.index');
     });
-    Route::middleware(['can:crud-jaminan'])->group(function () {
-        Route::get('jaminan', JaminanIndex::class)->name('jaminan.index');
-    });
+    Route::get('jaminan', JaminanIndex::class)->name('jaminan.index');
     Route::get('wilayah-indonesia', WilayahIndonesia::class)->name('wilayah.indonesia');
     // anjungan antrian
     Route::get('anjunganantrian', AnjunganAntrian::class)->name('anjunganantrian.index');
