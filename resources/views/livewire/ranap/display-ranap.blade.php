@@ -2,20 +2,20 @@
     <div class="row p-1">
         <div class="col-md-12">
             <div class="card">
-                <header class="bg-{{ env('APP_COLOUR') }} text-white p-2">
+                <header class="bg-{{ config('adminlte.anjungan_color') }} text-white p-2">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
-                                    <img src="{{ asset('kitasehat/logokitasehat-lingkar.png') }}" width="80">
+                                    <img src="{{ asset(config('adminlte.logo_img')) }}" width="80">
                                     <div class="col">
                                         <h2>Monitoring Rawat Inap</h2>
-                                        <h4>{{ env('APP_NAME_LONG') }}</h4>
+                                        <h4>{{ now()->translatedFormat('l, d F Y') }}</h4>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h1>{{ now()->translatedFormat('l, d F Y') }}</h1>
+                                <h1>{{ config('adminlte.title') }}</h1>
                             </div>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <x-adminlte-card title="Monitoring Rawat Inap" theme="{{ env('APP_COLOUR') }}" icon="fas fa-procedures">
+            <x-adminlte-card title="Monitoring Rawat Inap" theme="{{ config('adminlte.anjungan_color') }}" icon="fas fa-procedures">
                 <table class="table">
                     <thead>
                         <tr>
