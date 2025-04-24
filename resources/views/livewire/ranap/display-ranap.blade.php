@@ -22,7 +22,7 @@
                 </header>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" wire:poll.2s>
             <x-adminlte-card title="Monitoring Rawat Inap" theme="{{ config('adminlte.anjungan_color') }}" icon="fas fa-procedures">
                 <table class="table">
                     <thead>
@@ -32,7 +32,7 @@
                             <th class="text-center">Tersedia</th>
                         </tr>
                     </thead>
-                    <tbody wire:poll.2s>
+                    <tbody>
                         @foreach ($kamars as $item)
                             <tr>
                                 <th>{{ $item->namaruang }}
