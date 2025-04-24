@@ -2,53 +2,49 @@
     <x-adminlte-card theme="primary" title="Navigasi" body-class="p-0">
         <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-
-                <a href="#kunjunganigd" class="nav-link">
-                    <i class="fas fa-ambulance"></i> Kunjungan
-                    @if ($kunjungan)
-                        @switch($kunjungan->status)
-                            @case(1)
-                                <span class="badge bg-warning float-right">{{ $kunjungan->status }}. Aktif
-                                </span>
-                            @break
-
-                            @case(2)
-                                <span class="badge bg-success float-right">{{ $kunjungan->status }}. Selesai
-                                </span>
-                            @break
-
-                            @case(99)
-                                <span class="badge bg-success float-right">{{ $kunjungan->status }}. Batal
-                                </span>
-                            @break
-
-                            @default
-                        @endswitch
-                    @else
-                        <span class="badge bg-danger float-right">0. Belum Daftar</span>
-                    @endif
+                <a href="#identitas" class="nav-link">
+                    <i class="fas fa-user-injured"></i> Identitas Pasien
+                </a>
+                <a href="#generalconsent" class="nav-link">
+                    <i class="fas fa-file"></i> General Consent
+                </a>
+                <a href="#triaseigd" class="nav-link">
+                    <i class="fas fa-hand-holding-medical"></i> Triase Gawat Darurat
+                </a>
+                <a href="#asesmenigd" class="nav-link">
+                    <i class="fas fa-hand-holding-medical"></i> Asesmen Awal IGD
+                </a>
+                <a href="#layanan" class="nav-link">
+                    <i class="fas fa-hand-holding-medical"></i> Riwayat Pengunaan Obat
+                </a>
+                <a href="#layanan" class="nav-link">
+                    <i class="fas fa-hand-holding-medical"></i> SOAP
+                </a>
+                {{-- <a href="#layanan" class="nav-link">
+                    <i class="fas fa-hand-holding-medical"></i> Rencana Pemulangan
+                </a> --}}
+                <a href="#layanan" class="nav-link">
+                    <i class="fas fa-hand-holding-medical"></i> Penunjang
+                </a>
+                <a href="#layanan" class="nav-link">
+                    <i class="fas fa-hand-holding-medical"></i> Diagnosa Keperawatan
+                </a>
+                <a href="#layanan" class="nav-link">
+                    <i class="fas fa-hand-holding-medical"></i> Informed Consent
                 </a>
                 <a href="#layanan" class="nav-link">
                     <i class="fas fa-hand-holding-medical"></i> Layanan & Tindakan
-                    @if ($kunjungan->layanans)
-                        <span
-                            class="badge bg-success float-right">{{ money($kunjungan->layanans->sum('subtotal'), 'IDR') }}
-                        </span>
-                    @else
-                        <span class="badge bg-success float-right">{{ money(0, 'IDR') }}
-                        </span>
-                    @endif
+                </a>
+                <a href="#layanan" class="nav-link">
+                    <i class="fas fa-hand-holding-medical"></i> Terapi Obat
                 </a>
             </li>
         </ul>
         <x-slot name="footerSlot">
             <a
-                href="{{ route('pendaftaran.igd') }}?tanggalperiksa={{ $antrian->tanggalperiksa ?? now()->format('Y-m-d') }}">
+                href="{{ route('keperawatan.igd') }}?tanggal={{ \Carbon\Carbon::parse($kunjungan->tgl_masuk)->format('Y-m-d') }}">
                 <x-adminlte-button class="btn-xs mb-1" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
             </a>
-            <x-adminlte-button wire:click='batal'
-                wire:confirm='Apakah anda yakin ingin membatalkan antrian dan kunjungan ini ?' label="Batal"
-                class="btn-xs mb-1" icon="fas fa-times" theme="danger" />
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>

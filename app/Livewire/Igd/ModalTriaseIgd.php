@@ -12,83 +12,60 @@ use Livewire\Component;
 
 class ModalTriaseIgd extends Component
 {
-    public $jaminans, $units, $dokters;
-    public $norm, $nohp, $nomorkartu, $nama, $nik, $tgl_lahir, $jenispeserta, $fktp, $hakkelas, $gender;
-    public function cariNomorKartu()
+    public $kunjungan;
+    public $asesmenigd;
+    public $tgl_masuk, $transportasi, $rujukan_igd, $kondisi_datang, $nama_pengantar, $nohp_pengantar;
+    public function mount($kunjungan)
     {
-        $request = new Request([
-            'nomorkartu' => $this->nomorkartu,
-            'tanggal' => now()->format('Y-m-d'),
-        ]);
-        $pasien = Pasien::where('nomorkartu', $this->nomorkartu)->first();
-        if ($pasien) {
-            $this->norm = $pasien->norm;
-            $this->nohp = $pasien->nohp;
+        $this->kunjungan = $kunjungan;
+        $this->tgl_masuk = $this->kunjungan->tgl_masuk;
+        $this->asesmenigd =   $this->kunjungan->asesmenigd;
+        if ($this->asesmenigd) {
+            $this->transportasi = $this->asesmenigd->transportasi;
+            $this->rujukan_igd = $this->asesmenigd->rujukan_igd;
+            $this->kondisi_datang = $this->asesmenigd->kondisi_datang;
+            $this->nama_pengantar = $this->asesmenigd->nama_pengantar;
+            $this->nohp_pengantar = $this->asesmenigd->nohp_pengantar;
         }
-        $api = new VclaimController();
-        $res =  $api->peserta_nomorkartu($request);
-        if ($res->metadata->code == 200) {
-            $peserta = $res->response->peserta;
-            $this->nama = $peserta->nama;
-            $this->nomorkartu = $peserta->noKartu;
-            $this->nik = $pasien->nik;
-            $this->tgl_lahir = $peserta->tglLahir;
-            $this->fktp = $peserta->provUmum->nmProvider;
-            $this->jenispeserta = $peserta->jenisPeserta->keterangan;
-            $this->hakkelas = $peserta->hakKelas->kode;
-            $this->gender = $peserta->sex;
-            flash($res->metadata->message, 'success');
-        } else {
-            flash($res->metadata->message, 'danger');
-        }
-    }
-    public function cariNIK()
-    {
-        $request = new Request([
-            'nik' => $this->nik,
-            'tanggal' => now()->format('Y-m-d'),
-        ]);
-        $pasien = Pasien::where('nik', $this->nik)->first();
-        if ($pasien) {
-            $this->norm = $pasien->norm;
-            $this->nohp = $pasien->nohp;
-        }
-        $api = new VclaimController();
-        $res =  $api->peserta_nik($request);
-        if ($res->metadata->code == 200) {
-            $peserta = $res->response->peserta;
-            $this->nama = $peserta->nama;
-            $this->nomorkartu = $peserta->noKartu;
-            $this->nik = $peserta->nik;
-            $this->tgl_lahir = $peserta->tglLahir;
-            $this->fktp = $peserta->provUmum->nmProvider;
-            $this->jenispeserta = $peserta->jenisPeserta->keterangan;
-            $this->hakkelas = $peserta->hakKelas->kode;
-            $this->gender = $peserta->sex;
-            flash($res->metadata->message, 'success');
-        } else {
-            flash($res->metadata->message, 'danger');
-        }
-    }
-    public function cariNoRM()
-    {
-        $pasien = Pasien::where('norm', $this->norm)->first();
-        if ($pasien) {
-            $this->nomorkartu = $pasien->nomorkartu;
-            $this->nik = $pasien->nik;
-            $this->norm = $pasien->norm;
-            $this->nama = $pasien->nama;
-            $this->nohp = $pasien->nohp;
-        }
-    }
-    public function mount()
-    {
-        $this->jaminans = Jaminan::pluck('nama', 'kode');
-        $this->units = Unit::where("jenis", "Pelayanan IGD")->pluck('nama', 'kode');
-        $this->dokters = Dokter::pluck('nama', 'kode');
     }
     public function render()
     {
         return view('livewire.igd.modal-triase-igd');
+    }
+    public function simpanTriase()
+    {
+        $this->validate([
+            'tgl_masuk' => 'required',
+            'transportasi' => 'required',
+            'kondisi_datang' => 'required',
+            'nama_pengantar' => 'required',
+            'nohp_pengantar' => 'required',
+        ]);
+        if ($this->asesmenigd) {
+            $this->asesmenigd->update([
+                'tgl_masuk' => $this->tgl_masuk,
+                'rujukan_igd' => $this->rujukan_igd,
+                'kondisi_datang' => $this->kondisi_datang,
+                'nama_pengantar' => $this->nama_pengantar,
+                'nohp_pengantar' => $this->nohp_pengantar,
+                'triaseigd' => 1,
+                'user_triaseigd' => auth()->user()->id,
+                'time_triaseigd' => now(),
+            ]);
+        } else {
+            $this->kunjungan->asesmenigd()->create([
+                'kunjungan_id' => $this->kunjungan->id,
+                'kodekunjungan' => $this->kunjungan->kode,
+                'tgl_masuk' => $this->tgl_masuk,
+                'rujukan_igd' => $this->rujukan_igd,
+                'kondisi_datang' => $this->kondisi_datang,
+                'nama_pengantar' => $this->nama_pengantar,
+                'nohp_pengantar' => $this->nohp_pengantar,
+                'triaseigd' => 1,
+                'user_triaseigd' => auth()->user()->id,
+                'time_triaseigd' => now(),
+            ]);
+        }
+        return flash("Data triase berhasil disimpan", 'success');
     }
 }

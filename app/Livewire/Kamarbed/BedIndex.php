@@ -57,9 +57,10 @@ class BedIndex extends Component
     public function terisi(Bed $bed)
     {
         $bed->update([
-            'status' => 1,
+            'status' => $bed->status == 1 ? 0 : 1,
         ]);
-        flash('Berhasil ubah status bed', 'success');
+        $message = $bed->status == 1 ? 'Berhasil ubah status bed menjadi terisi' : 'Berhasil ubah status bed menjadi kosong';
+        flash($message, 'success');
     }
     public function hapus(Bed $bed)
     {

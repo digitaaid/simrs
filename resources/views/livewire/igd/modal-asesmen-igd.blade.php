@@ -1,5 +1,14 @@
 <div>
     <x-adminlte-card theme="primary" title="Asesmen Awal IGD" icon="fas fa-user-md">
+        <h5>Anamnesis</h5>
+        <x-adminlte-textarea igroup-size="sm" rows=4 label="Keluhan Utama" name="keluhan_utama"
+            wire:model="keluhan_utama" />
+        <x-adminlte-textarea igroup-size="sm" rows=4 label="Riwayat Penyakit" name="riwayat_penyakit"
+            wire:model="riwayat_penyakit" />
+        <x-adminlte-textarea igroup-size="sm" rows=4 label="Riwayat Alergi" name="riwayat_alergi"
+            wire:model="riwayat_alergi" />
+        <x-adminlte-textarea igroup-size="sm" rows=4 label="Riwayat Pengobatan" name="riwayat_pengobatan"
+            wire:model="riwayat_pengobatan" />
         <h5>Asesmen Nyeri</h5>
         <div class="row">
             <div class="col-md-6">

@@ -293,7 +293,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // rawat igd
     Route::get('pelayanan-igd/pendaftaran', PendaftaranIgd::class)->name('pendaftaran.igd')->lazy();
     Route::get('pelayanan-igd/pendaftaran/proses/{kodebooking}', PendaftaranIgdProses::class)->name('pendaftaran.igd.proses')->lazy();
-    Route::get('pelayanan-igd/keperawatan', KeperawatanIgd::class)->name('keperawatan.igd')->lazy();
+    Route::get('pelayanan-igd/keperawatan', KeperawatanIgd::class)->name('keperawatan.igd');
     Route::get('pelayanan-igd/keperawatan/proses/{kodebooking}', KeperawatanIgdProses::class)->name('keperawatan.igd.proses')->lazy();
     Route::get('pelayanan-igd/pemeriksaan', PemeriksaanIgd::class)->name('pemeriksaan.igd')->lazy();
     Route::get('pelayanan-igd/pemeriksaan/proses/{kodebooking}', PemeriksaanIgdProses::class)->name('pemeriksaan.igd.proses')->lazy();

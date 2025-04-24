@@ -51,6 +51,13 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    <thead>
+                        <tr>
+                            <th>Total</th>
+                            <th class="text-center">{{ $beds->count() }}</th>
+                            <th class="text-center">{{ $beds->where('status', 0)->count() }}</th>
+                        </tr>
+                    </thead>
                 </table>
                 *Data terupdate {{ now() }}
             </x-adminlte-card>

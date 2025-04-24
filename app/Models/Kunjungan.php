@@ -49,6 +49,10 @@ class Kunjungan extends Model
     {
         return $this->hasOne(AsesmenRajal::class);
     }
+    public function asesmenigd()
+    {
+        return $this->hasOne(AsesmenIgd::class);
+    }
     public function resepobat()
     {
         return $this->hasOne(ResepObat::class);

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Ranap;
 
+use App\Models\Bed;
 use App\Models\Kamar;
 use Livewire\Component;
 
@@ -11,6 +12,7 @@ class DisplayRanap extends Component
     public function render()
     {
         $this->kamars = Kamar::get();
+        $this->beds = Bed::get();
         return view('livewire.ranap.display-ranap')
             ->layout('components.layouts.layout_anjungan');
     }
