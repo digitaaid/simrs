@@ -9,15 +9,15 @@
                     <i class="fas fa-file"></i> General Consent
                 </a>
                 <a href="#triaseigd" class="nav-link">
-                    <i class="fas fa-hand-holding-medical"></i> Triase Gawat Darurat
+                    <i class="fas fa-ambulance"></i> Triase Gawat Darurat
                 </a>
                 <a href="#asesmenigd" class="nav-link">
-                    <i class="fas fa-hand-holding-medical"></i> Asesmen Awal IGD
+                    <i class="fas fa-file-medical"></i> Asesmen Awal IGD
                 </a>
-                <a href="#layanan" class="nav-link">
-                    <i class="fas fa-hand-holding-medical"></i> Riwayat Pengunaan Obat
+                <a href="#riwayatobat" class="nav-link">
+                    <i class="fas fa-pills"></i> Riwayat Pengunaan Obat
                 </a>
-                <a href="#layanan" class="nav-link">
+                <a href="#soap" class="nav-link">
                     <i class="fas fa-hand-holding-medical"></i> SOAP
                 </a>
                 {{-- <a href="#layanan" class="nav-link">

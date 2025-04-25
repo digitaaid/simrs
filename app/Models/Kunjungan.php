@@ -69,6 +69,14 @@ class Kunjungan extends Model
     {
         return $this->hasMany(ResepFarmasiDetail::class);
     }
+    public function riwayatobat()
+    {
+        return $this->hasOne(RiwayatObat::class);
+    }
+    public function riwayatobatdetails()
+    {
+        return $this->hasMany(RiwayatObatDetail::class);
+    }
     public function pic1()
     {
         return $this->hasOne(User::class,  'id', 'user1');

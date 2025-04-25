@@ -44,6 +44,7 @@ class ModalTriaseIgd extends Component
         if ($this->asesmenigd) {
             $this->asesmenigd->update([
                 'tgl_masuk' => $this->tgl_masuk,
+                'transportasi' => $this->transportasi,
                 'rujukan_igd' => $this->rujukan_igd,
                 'kondisi_datang' => $this->kondisi_datang,
                 'nama_pengantar' => $this->nama_pengantar,
@@ -57,6 +58,7 @@ class ModalTriaseIgd extends Component
                 'kunjungan_id' => $this->kunjungan->id,
                 'kodekunjungan' => $this->kunjungan->kode,
                 'tgl_masuk' => $this->tgl_masuk,
+                'transportasi' => $this->transportasi,
                 'rujukan_igd' => $this->rujukan_igd,
                 'kondisi_datang' => $this->kondisi_datang,
                 'nama_pengantar' => $this->nama_pengantar,
