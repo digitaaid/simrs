@@ -52,6 +52,7 @@ class ModalRiwayatObat extends Component
                 'frekuensi' => $this->riwayatObat[$key]['dosis'],
                 'waktu' => $this->riwayatObat[$key]['waktu'],
                 'keterangan' => $this->riwayatObat[$key]['keterangan'],
+                'pic' => $this->riwayatObat[$key]['pic'],
             ]);
             FrekuensiObat::updateOrCreate([
                 'nama' => $this->riwayatObat[$key]['dosis'],
@@ -97,7 +98,15 @@ class ModalRiwayatObat extends Component
     }
     public function tambahObat()
     {
-        $this->riwayatObat[] = ['namaobat' => '', 'dosis' => '', 'jumlahobat' => '', 'waktu' => '', 'keterangan' => ''];
+        $this->riwayatObat[] = [
+            'id' => '',
+            'namaobat' => '',
+            'dosis' => '',
+            'jumlahobat' => '',
+            'waktu' => '',
+            'keterangan' => '',
+            'pic' => auth()->user()->name,
+        ];
     }
     public function hapusObat($index)
     {
@@ -110,15 +119,30 @@ class ModalRiwayatObat extends Component
     public function mount($kunjungan)
     {
         $this->kunjungan = $kunjungan;
-
         if ($this->kunjungan->riwayatobatdetails) {
             $this->riwayatObat = [];
             foreach ($this->kunjungan->riwayatobatdetails as $key => $value) {
-                $this->riwayatObat[] = ['namaobat' => $value->nama, 'jumlahobat' => $value->jumlah, 'dosis' => $value->frekuensi, 'waktu' => $value->waktu, 'keterangan' =>  $value->keterangan,];
+                $this->riwayatObat[] = [
+                    'id' => $value->id,
+                    'namaobat' => $value->nama,
+                    'jumlahobat' => $value->jumlah,
+                    'dosis' => $value->frekuensi,
+                    'waktu' => $value->waktu,
+                    'keterangan' =>  $value->keterangan,
+                    'pic' =>  $value->pic,
+                ];
             }
         } else {
             $this->riwayatObat = [
-                ['namaobat' => '', 'dosis' => '', 'jumlahobat' => '', 'waktu' => '', 'keterangan' => '']
+                [
+                    'id' => '',
+                    'namaobat' => '',
+                    'dosis' => '',
+                    'jumlahobat' => '',
+                    'waktu' => '',
+                    'keterangan' => '',
+                    'pic' => ''
+                ]
             ];
         }
     }

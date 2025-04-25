@@ -13,17 +13,18 @@
                     <th style="width: 75px;">Jumlah</th>
                     <th>Waktu</th>
                     <th>Keterangan</th>
+                    <th>PIC</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($riwayatObat as $index => $obat)
                     <tr>
-                        <th>
+                        <td>
                             <x-adminlte-button theme="danger" icon="fas fa-times" class="btn-xs" title="Hapus obat"
                                 wire:click="hapusObat({{ $index }})" />
-                        </th>
-                        <th>{{ $index + 1 }}</th>
-                        <th>
+                        </td>
+                        <td>{{ $index + 1 }}</td>
+                        <td>
                             <x-adminlte-input wire:model="riwayatObat.{{ $index }}.namaobat" name="namaobat"
                                 igroup-class="input-group-xs" fgroup-class="form-group-xs"
                                 wire:keyup="cariObat({{ $index }})" placeholder="Cari obat..." />
@@ -31,23 +32,26 @@
                                 <x-search-table :isSearching="$searchingObat[$index]" :data="$obats" :columns="['ID', 'Nama Obat', 'Satuan', 'Merk']"
                                     clickEvent="pilihObat" />
                             @endif
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             <x-adminlte-input wire:model="riwayatObat.{{ $index }}.dosis" name="dosis"
                                 igroup-class="input-group-xs" fgroup-class="form-group-xs" />
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             <x-adminlte-input wire:model="riwayatObat.{{ $index }}.jumlahobat" name="jumlahobat"
                                 type='number' igroup-class="input-group-xs" fgroup-class="form-group-xs" />
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             <x-adminlte-input wire:model="riwayatObat.{{ $index }}.waktu" name="waktu"
                                 igroup-class="input-group-xs" fgroup-class="form-group-xs" />
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             <x-adminlte-input wire:model="riwayatObat.{{ $index }}.keterangan" name="keterangan"
                                 igroup-class="input-group-xs" fgroup-class="form-group-xs" />
-                        </th>
+                        </td>
+                        <td>
+                            {{ $obat['pic'] ?? '-' }}
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
