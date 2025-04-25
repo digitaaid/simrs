@@ -19,5 +19,11 @@
         <div id="riwayatobat">
             @livewire('igd.modal-riwayat-obat', ['lazy' => true, 'kunjungan' => $kunjungan])
         </div>
+        <div id="soap">
+            @livewire('igd.modal-soap', ['lazy' => true, 'kunjungan' => $kunjungan])
+        </div>
+        {{-- <div id="soap">
+            @livewire('igd.modal-resep-obat', ['lazy' => true, 'kunjungan' => $kunjungan])
+        </div> --}}
     </div>
 </div>

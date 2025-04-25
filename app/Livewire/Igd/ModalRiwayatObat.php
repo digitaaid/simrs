@@ -60,6 +60,7 @@ class ModalRiwayatObat extends Component
                 'nama' => $this->riwayatObat[$key]['waktu'],
             ]);
         }
+        return flash('Riwayat obat saved successfully.', 'success');
     }
     public function cariObat($index)
     {

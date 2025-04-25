@@ -1,5 +1,5 @@
 <div>
-    <x-adminlte-card theme="primary" title="Riwayat Penggunaan Obat" icon="fas fa-ambulance">
+    <x-adminlte-card theme="primary" title="Riwayat Penggunaan Obat" icon="fas fa-pills">
         <table class="table table-sm table-bordered table-striped">
             <thead>
                 <tr>
@@ -53,18 +53,9 @@
             </tbody>
         </table>
         <x-slot name="footerSlot">
-            <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
-                wire:click="simpan" wire:confirm='Apakah anda yakin akan simpan data ?' />
-            <div wire:loading>
-                <div class="spinner-border spinner-border-sm text-primary">
-                </div>
-                Loading ...
-            </div>
-            @if (flash()->message)
-                <div class="text-{{ flash()->class }}" wire:loading.remove>
-                    Loading Result : {{ flash()->message }}
-                </div>
-            @endif
+            <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan" wire:click="simpan"
+                wire:confirm='Apakah anda yakin akan simpan data ?' />
+            <x-footer-card-message />
         </x-slot>
     </x-adminlte-card>
 </div>

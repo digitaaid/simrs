@@ -23,20 +23,20 @@
                 {{-- <a href="#layanan" class="nav-link">
                     <i class="fas fa-hand-holding-medical"></i> Rencana Pemulangan
                 </a> --}}
-                <a href="#layanan" class="nav-link">
+                {{-- <a href="#layanan" class="nav-link">
                     <i class="fas fa-hand-holding-medical"></i> Penunjang
-                </a>
-                <a href="#layanan" class="nav-link">
+                </a> --}}
+                {{-- <a href="#layanan" class="nav-link">
                     <i class="fas fa-hand-holding-medical"></i> Diagnosa Keperawatan
-                </a>
-                <a href="#layanan" class="nav-link">
+                </a> --}}
+                {{-- <a href="#layanan" class="nav-link">
                     <i class="fas fa-hand-holding-medical"></i> Informed Consent
-                </a>
+                </a> --}}
                 <a href="#layanan" class="nav-link">
                     <i class="fas fa-hand-holding-medical"></i> Layanan & Tindakan
                 </a>
-                <a href="#layanan" class="nav-link">
-                    <i class="fas fa-hand-holding-medical"></i> Terapi Obat
+                <a href="#resepobat" class="nav-link">
+                    <i class="fas fa-hand-holding-medical"></i> Resep Obat
                 </a>
             </li>
         </ul>
