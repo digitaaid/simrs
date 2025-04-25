@@ -1,6 +1,6 @@
 <div>
     <x-adminlte-card theme="primary" title="Riwayat Penggunaan Obat" icon="fas fa-pills">
-        <table class="table table-sm table-bordered table-striped">
+        <table class="table table-sm table-bordered">
             <thead>
                 <tr>
                     <th>
@@ -27,8 +27,8 @@
                             <x-adminlte-input wire:model="riwayatObat.{{ $index }}.namaobat" name="namaobat"
                                 igroup-class="input-group-xs" fgroup-class="form-group-xs"
                                 wire:keyup="cariObat({{ $index }})" placeholder="Cari obat..." />
-                            @if (!empty($searchingObat[$index]) && !empty($obats[$index]))
-                                <x-search-table :isSearching="$searchingObat[$index]" :data="$obats[$index]" :columns="['ID', 'Nama Obat', 'Satuan', 'Merk']"
+                            @if (!empty($searchingObat[$index]) && !empty($obats))
+                                <x-search-table :isSearching="$searchingObat[$index]" :data="$obats" :columns="['ID', 'Nama Obat', 'Satuan', 'Merk']"
                                     clickEvent="pilihObat" />
                             @endif
                         </th>

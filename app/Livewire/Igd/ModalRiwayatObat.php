@@ -67,7 +67,7 @@ class ModalRiwayatObat extends Component
         $this->searchingObat[$index] = true; // Aktifkan pencarian untuk baris tertentu
         $query = $this->riwayatObat[$index]['namaobat'] ?? '';
         try {
-            $this->obats[$index] = Obat::where('nama', 'like', '%' . $query . '%')
+            $this->obats = Obat::where('nama', 'like', '%' . $query . '%')
                 ->limit(20)
                 ->get(['id', 'nama', 'satuan', 'merk']) // Ambil hanya kolom yang diperlukan
                 ->map(function ($obat) {
@@ -80,7 +80,7 @@ class ModalRiwayatObat extends Component
                 })
                 ->toArray();
         } catch (\Throwable $th) {
-            $this->obats[$index] = [];
+            $this->obats = [];
         }
     }
     public function pilihObat($item)
@@ -93,7 +93,7 @@ class ModalRiwayatObat extends Component
             $this->riwayatObat[$index]['jumlahobat'] = 1; // Default jumlah
         }
         $this->searchingObat[$index] = false; // Nonaktifkan pencarian untuk baris tertentu
-        $this->obats[$index] = []; // Kosongkan hasil pencarian untuk baris tertentu
+        $this->obats = []; // Kosongkan hasil pencarian untuk baris tertentu
     }
     public function tambahObat()
     {
@@ -103,7 +103,6 @@ class ModalRiwayatObat extends Component
     {
         unset($this->riwayatObat[$index]);
         unset($this->searchingObat[$index]);
-        unset($this->obats[$index]);
         $this->riwayatObat = array_values($this->riwayatObat); // Reindex array
         $this->searchingObat = array_values($this->searchingObat); // Reindex array
         $this->obats = array_values($this->obats); // Reindex array
