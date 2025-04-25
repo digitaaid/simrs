@@ -1,5 +1,5 @@
 <div>
-    <x-adminlte-card theme="primary" title="Layanan & Tindakan">
+    <x-adminlte-card theme="primary" title="Layanan & Tindakan" icon="fas fa-hand-holding-medical">
         <table class="table table-sm table-bordered">
             <thead>
                 <tr>
@@ -28,8 +28,8 @@
                             <x-adminlte-input name="nama" wire:model="layanans.{{ $index }}.nama"
                                 igroup-class="input-group-xs" fgroup-class="form-group-xs"
                                 placeholder="Cari Nama Layanan / Tindakan"
-                                wire:keyup="cariTindakan({{ $index }})" />
-                            @if (!empty($searchingTindakan[$index]))
+                                wire:keyup.debounce.500ms="cariTindakan({{ $index }})" />
+                            @if (!empty($searchingTindakan[$index]) && !empty($tindakans))
                                 <x-search-table :isSearching="$searchingTindakan[$index]" :data="$tindakans" :columns="['ID', 'Tindakan/Layanan', 'Pasien', 'Klasifikasi', 'Harga']"
                                     clickEvent="pilihTindakan" />
                             @endif

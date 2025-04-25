@@ -33,7 +33,16 @@ class ModalLayananIgd extends Component
                     ];
                 })
                 ->toArray();
+
+            if (empty($this->tindakans)) {
+                $layanan = Layanan::find($this->layanans[$index]['id']);
+                $layanan->nama = $query;
+                $layanan->klasifikasi = 'Akomodasi';
+                $layanan->save();
+                flash('Nama tarif berhasil disimpan.', 'success');
+            }
         } catch (\Throwable $th) {
+
             $this->tindakans = [];
         }
     }
