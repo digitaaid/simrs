@@ -1,5 +1,6 @@
 <div>
-    <x-adminlte-card theme="primary" title="Resep Obat Dokter" icon="fas fa-file-receipt">
+    <x-adminlte-card theme="primary" title="Resep Obat Dokter" icon="fas fa-file-receipt"
+        icon="fas fa-prescription-bottle-alt">
         <table class="table table-sm table-bordered text-nowrap table-responsive-xl">
             <thead>
                 <tr>

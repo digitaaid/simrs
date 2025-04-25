@@ -138,7 +138,7 @@ class ModalResepDokter extends Component
         if ($item) {
             $item->nama = $obat->nama;
             $item->jumlah = 1;
-            $item->herga = $obat;
+            $item->harga = $obat->harga;
             $item->pic = auth()->user()->name;
             $item->user = auth()->user()->id;
             $item->save();

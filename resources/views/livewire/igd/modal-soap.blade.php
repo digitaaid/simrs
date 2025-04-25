@@ -1,5 +1,5 @@
 <div>
-    <x-adminlte-card theme="primary" title="SOAP" icon="fas fa-ambulance">
+    <x-adminlte-card theme="primary" title="SOAP" icon="fas fa-notes-medical">
         <table class="table table-sm table-bordered table-hover text-nowrap table-responsive-xl">
             <thead>
                 <tr>

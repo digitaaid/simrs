@@ -18,25 +18,13 @@
                     <i class="fas fa-pills"></i> Riwayat Pengunaan Obat
                 </a>
                 <a href="#soap" class="nav-link">
-                    <i class="fas fa-hand-holding-medical"></i> SOAP
+                    <i class="fas fa-notes-medical"></i> SOAP
                 </a>
-                {{-- <a href="#layanan" class="nav-link">
-                    <i class="fas fa-hand-holding-medical"></i> Rencana Pemulangan
-                </a> --}}
-                {{-- <a href="#layanan" class="nav-link">
-                    <i class="fas fa-hand-holding-medical"></i> Penunjang
-                </a> --}}
-                {{-- <a href="#layanan" class="nav-link">
-                    <i class="fas fa-hand-holding-medical"></i> Diagnosa Keperawatan
-                </a> --}}
-                {{-- <a href="#layanan" class="nav-link">
-                    <i class="fas fa-hand-holding-medical"></i> Informed Consent
-                </a> --}}
                 <a href="#layanan" class="nav-link">
                     <i class="fas fa-hand-holding-medical"></i> Layanan & Tindakan
                 </a>
                 <a href="#resepobat" class="nav-link">
-                    <i class="fas fa-hand-holding-medical"></i> Resep Obat
+                    <i class="fas fa-prescription-bottle-alt"></i> Resep Obat
                 </a>
             </li>
         </ul>
