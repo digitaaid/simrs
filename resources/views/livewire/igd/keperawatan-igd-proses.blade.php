@@ -26,7 +26,7 @@
             @livewire('igd.modal-layanan-igd', ['lazy' => true, 'kunjungan' => $kunjungan])
         </div>
         <div id="resepobat">
-            @livewire('igd.modal-resep-dokter', ['lazy' => true, 'kunjungan' => $kunjungan])
+            @livewire('igd.modal-resep-dokter-igd', ['lazy' => true, 'kunjungan' => $kunjungan])
         </div>
     </div>
 </div>
