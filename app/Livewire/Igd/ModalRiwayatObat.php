@@ -13,8 +13,8 @@ class ModalRiwayatObat extends Component
 {
     public $kunjungan;
     public $riwayatObat = [];
-    public $searchingObat = []; // Array untuk status pencarian per baris
-    public $obats = []; // Array untuk hasil pencarian per baris
+    public $searchingObat = [];
+    public $obats = [];
     public function simpan()
     {
         $this->validate([

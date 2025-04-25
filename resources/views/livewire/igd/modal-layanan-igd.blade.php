@@ -1,103 +1,88 @@
 <div>
     <x-adminlte-card theme="primary" title="Layanan & Tindakan">
-        <input type="hidden" name="kodebooking" wire:model="kodebooking">
-        <input type="hidden" name="antrian_id" wire:model="antrian_id">
-        <input type="hidden" name="kodekunjungan" wire:model="kodekunjungan">
-        <input type="hidden" name="kunjungan_id" wire:model="kunjungan_id">
-        <div class="row">
-            <div class="col-md-6">
-                <x-adminlte-input wire:model.live="nama" name="nama" label="Tindakan/Layanan" igroup-size="sm"
-                    fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" />
-                <x-search-table :isSearching="$searchingTindakan" :data="$tindakans" :columns="['Nama Tindakan', 'Harga']" clickEvent="pilihTindakan" />
-                <input type="hidden" name="tarif_id" wire:model="tarif_id">
-                <input type="hidden" name="klasifikasi" wire:model="klasifikasi">
-                <x-adminlte-select wire:model='jaminan' igroup-size="sm" fgroup-class="row"
-                    label-class="text-left col-4" igroup-class="col-8" name="jaminan" label="Jaminan Pasien">
-                    <option value=null disabled>Pilih Jaminan</option>
-                    @foreach ($jaminans as $key => $item)
-                        <option value="{{ $key }}">{{ $item }}</option>
-                    @endforeach
-                </x-adminlte-select>
-                <x-adminlte-input wire:model="keterangan" name="keterangan" igroup-size="sm" label="keterangan"
-                    fgroup-class="row" label-class="text-left col-4" igroup-size="sm" igroup-class="col-8" />
-            </div>
-            <div class="col-md-6">
-                <x-adminlte-input wire:model.live="harga" wire:change="updateSubtotal" name="harga" igroup-size="sm"
-                    label="harga" type="number" fgroup-class="row" label-class="text-left col-4" igroup-size="sm"
-                    igroup-class="col-8" />
-                <x-adminlte-input wire:model.live="jumlah" wire:change="updateSubtotal" name="jumlah" igroup-size="sm"
-                    label="jumlah" type="number" fgroup-class="row" label-class="text-left col-4" igroup-size="sm"
-                    igroup-class="col-8" />
-                <x-adminlte-input wire:model.live="diskon" name="diskon" wire:change="updateSubtotal" igroup-size="sm"
-                    label="diskon" type="number" fgroup-class="row" label-class="text-left col-4" igroup-size="sm"
-                    igroup-class="col-8" />
-                <x-adminlte-input wire:model="subtotal" name="subtotal" igroup-size="sm" label="subtotal" type="number"
-                    fgroup-class="row" label-class="text-left col-4" igroup-size="sm" igroup-class="col-8" readonly />
-            </div>
-            <div class="col-md-12">
-                <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
-                    wire:click="simpanLayanan" wire:confirm='Apakah anda ingin menyimpan tindakan/layanan ini ?' />
-                <div wire:loading>
-                    <div class="spinner-border spinner-border-sm text-primary" role="status">
-                    </div>
-                    Loading ...
-                </div>
-                @if (flash()->message)
-                    <div class="text-{{ flash()->class }}" wire:loading.remove>
-                        Loading Result : {{ flash()->message }}
-                    </div>
-                @endif
-            </div>
-        </div>
-        <hr>
-        <table class="table text-nowrap table-sm table-hover table-bordered">
+        <table class="table table-sm table-bordered">
             <thead>
                 <tr>
+                    <th>
+                        <x-adminlte-button theme="success" icon="fas fa-plus" class="btn-xs" title="Tambah Layanan"
+                            wire:click="tambah" />
+                    </th>
                     <th>#</th>
-                    <th>Nama</th>
-                    <th>Jaminan</th>
+                    <th>Layanan / Tindakan</th>
                     <th>Harga</th>
                     <th>Disc</th>
-                    <th>Jml</th>
+                    <th>Jumlah</th>
                     <th>Subtotal</th>
-                    <th>Action</th>
                     <th>PIC</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($kunjungan->layanans as $item)
+                @foreach ($layanans as $index => $item)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->nama }}</td>
-                        <td>{{ $item->jaminan }}</td>
-                        <td class="text-right">{{ money($item->harga, 'IDR') }}</td>
-                        <td>{{ $item->diskon }}</td>
-                        <td>{{ $item->jumlah }}</td>
-                        <td class="text-right">{{ money($item->subtotal, 'IDR') }}</td>
                         <td>
-                            <x-adminlte-button title="Edit" class="btn-xs" icon="fas fa-edit"
-                                wire:click="editLayanan({{ $item }})" theme="warning" />
-                            <x-adminlte-button title="Hapus" class="btn-xs" icon="fas fa-trash"
-                                wire:click="hapusLayanan({{ $item }})" theme="danger" />
+                            <x-adminlte-button theme="danger" icon="fas fa-trash" class="btn-xs" title="Hapus Layanan"
+                                wire:click="hapus({{ $index }})" />
                         </td>
-                        <td>{{ $item->pic }}</td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>
+                            <x-adminlte-input name="nama" wire:model="layanans.{{ $index }}.nama"
+                                igroup-class="input-group-xs" fgroup-class="form-group-xs"
+                                placeholder="Cari Nama Layanan / Tindakan"
+                                wire:keyup="cariTindakan({{ $index }})" />
+                            @if (!empty($searchingTindakan[$index]))
+                                <x-search-table :isSearching="$searchingTindakan[$index]" :data="$tindakans" :columns="['ID', 'Tindakan/Layanan', 'Pasien', 'Klasifikasi', 'Harga']"
+                                    clickEvent="pilihTindakan" />
+                            @endif
+                        </td>
+                        <td>
+                            <x-adminlte-input name="harga" wire:model="layanans.{{ $index }}.harga"
+                                igroup-class="input-group-xs" fgroup-class="form-group-xs" placeholder="Masukan Harga"
+                                oninput="this.value = formatRibuan(this.value)"
+                                wire:keyup.debounce.1000ms="inputHarga({{ $index }})" />
+                            @error('layanans.' . $index . '.harga')
+                                <span class="invalid-feedback d-block">{{ $message }}</span>
+                            @enderror
+                        </td>
+                        <td>
+                            <x-adminlte-input name="diskon" wire:model="layanans.{{ $index }}.diskon"
+                                max="100" igroup-class="input-group-xs" fgroup-class="form-group-xs"
+                                placeholder="Masukan Diskon" oninput="this.value = formatRibuan(this.value)"
+                                wire:keyup.debounce.1000ms="inputDiskon({{ $index }})" />
+                            @error('layanans.' . $index . '.diskon')
+                                <span class="invalid-feedback d-block">{{ $message }}</span>
+                            @enderror
+                        </td>
+                        <td>
+
+                            <x-adminlte-input name="jumlah" wire:model="layanans.{{ $index }}.jumlah"
+                                igroup-class="input-group-xs" fgroup-class="form-group-xs" placeholder="Masukan Jumlah"
+                                oninput="this.value = formatRibuan(this.value)"
+                                wire:keyup.debounce.1000ms="inputJumlah({{ $index }})" />
+                            @error('layanans.' . $index . '.jumlah')
+                                <span class="invalid-feedback d-block">{{ $message }}</span>
+                            @enderror
+                        </td>
+                        <td>
+                            <x-adminlte-input name="subtotal" wire:model="layanans.{{ $index }}.subtotal"
+                                igroup-class="input-group-xs" fgroup-class="form-group-xs"
+                                placeholder="Masukan Subtotal" disabled />
+                        </td>
+                        <td>{{ $item['pic'] }}</td>
                     </tr>
                 @endforeach
             </tbody>
             <tfoot>
-                <tr>
-                    <th colspan="6">Total</th>
-                    <th class="text-right">{{ money($kunjungan->layanans?->sum('subtotal'), 'IDR') }}</th>
-                    <th colspan="2"></th>
-                </tr>
+                <th colspan="6" class="text-right">Grand Total</th>
+                <th>
+                    <x-adminlte-input name="grandtotal" value="{{ $this->getGrandTotal() }}"
+                        igroup-class="input-group-xs" fgroup-class="form-group-xs" placeholder="Masukan Grand Total"
+                        disabled />
+                </th>
+                <th></th>
             </tfoot>
         </table>
         <x-slot name="footerSlot">
-            <div wire:loading>
-                <div class="spinner-border spinner-border-sm text-primary" role="status">
-                </div>
-                Loading ...
-            </div>
+            <x-footer-card-message />
         </x-slot>
     </x-adminlte-card>
 </div>

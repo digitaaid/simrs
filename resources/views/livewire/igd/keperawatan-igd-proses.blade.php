@@ -22,8 +22,8 @@
         <div id="soap">
             @livewire('igd.modal-soap', ['lazy' => true, 'kunjungan' => $kunjungan])
         </div>
-        {{-- <div id="soap">
-            @livewire('igd.modal-resep-obat', ['lazy' => true, 'kunjungan' => $kunjungan])
-        </div> --}}
+        <div id="layanan">
+            @livewire('igd.modal-layanan-igd', ['lazy' => true, 'kunjungan' => $kunjungan])
+        </div>
     </div>
 </div>

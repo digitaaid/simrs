@@ -15,6 +15,14 @@
 @section('content')
     {{ $slot }}
 @stop
+@section('js')
+    <script>
+        function formatRibuan(value) {
+            value = value.replace(/\D/g, ''); // Hapus karakter non-digit
+            return value.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Tambahkan titik setiap ribuan
+        }
+    </script>
+@endsection
 @section('css')
     <style>
         .input-group-xs>.form-control:not(textarea),

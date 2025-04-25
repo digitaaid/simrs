@@ -19,13 +19,13 @@ return new class extends Migration
             $table->string('antrian_id')->index()->nullable();
             $table->string('nama');
             $table->string('tarif_id');
-            $table->double('harga');
-            $table->integer('jumlah');
-            $table->integer('diskon');
+            $table->double('harga')->default(0);
+            $table->integer('jumlah')->default(0);
+            $table->integer('diskon')->default(0);
             $table->double('subtotal');
             $table->string('klasifikasi');
             $table->string('jaminan');
-            $table->string('status')->default('1');
+            $table->string('status')->default(1);
             $table->string('pic');
             $table->string('user');
             $table->text('keterangan')->nullable();

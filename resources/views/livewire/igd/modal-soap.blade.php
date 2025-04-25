@@ -1,6 +1,6 @@
 <div>
     <x-adminlte-card theme="primary" title="SOAP" icon="fas fa-ambulance">
-        <table class="table table-sm table-bordered table-striped">
+        <table class="table table-sm table-bordered table-hover">
             <thead>
                 <tr>
                     <th>
