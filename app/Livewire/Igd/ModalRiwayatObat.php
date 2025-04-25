@@ -130,6 +130,7 @@ class ModalRiwayatObat extends Component
                     'waktu' => $value->waktu,
                     'keterangan' =>  $value->keterangan,
                     'pic' =>  $value->pic,
+                    'updated_at' =>  $value->updated_at,
                 ];
             }
         } else {
@@ -141,7 +142,8 @@ class ModalRiwayatObat extends Component
                     'jumlahobat' => '',
                     'waktu' => '',
                     'keterangan' => '',
-                    'pic' => ''
+                    'pic' => '',
+                    'updated_at' => ''
                 ]
             ];
         }

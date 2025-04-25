@@ -1,6 +1,6 @@
 <div>
     <x-adminlte-card theme="primary" title="Riwayat Penggunaan Obat" icon="fas fa-pills">
-        <table class="table table-sm table-bordered">
+        <table class="table table-sm table-bordered text-nowrap table-responsive-xl ">
             <thead>
                 <tr>
                     <th>
@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($riwayatObat as $index => $obat)
+                @foreach ($riwayatObat as $index => $item)
                     <tr>
                         <td>
                             <x-adminlte-button theme="danger" icon="fas fa-times" class="btn-xs" title="Hapus obat"
@@ -50,7 +50,8 @@
                                 igroup-class="input-group-xs" fgroup-class="form-group-xs" />
                         </td>
                         <td>
-                            {{ $obat['pic'] ?? '-' }}
+                            <x-adminlte-button class="btn-xs" title="{{ $item['pic'] }}"
+                                label="{{ $item['updated_at'] }}" />
                         </td>
                     </tr>
                 @endforeach

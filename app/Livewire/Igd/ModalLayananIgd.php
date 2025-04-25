@@ -33,17 +33,16 @@ class ModalLayananIgd extends Component
                     ];
                 })
                 ->toArray();
-
             if (empty($this->tindakans)) {
                 $layanan = Layanan::find($this->layanans[$index]['id']);
                 $layanan->nama = $query;
                 $layanan->klasifikasi = 'Akomodasi';
                 $layanan->save();
-                flash('Nama tarif berhasil disimpan.', 'success');
+                return flash('Nama tarif berhasil disimpan.', 'success');
             }
         } catch (\Throwable $th) {
-
             $this->tindakans = [];
+            return flash($th->getMessage(), 'danger');
         }
     }
 
@@ -186,6 +185,7 @@ class ModalLayananIgd extends Component
                     'diskon' => $value->diskon,
                     'subtotal' => number_format($value->subtotal, 0, ',', '.'),
                     'pic' => $value->pic,
+                    'updated_at' => $value->updated_at,
                 ];
             }
         }

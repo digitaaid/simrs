@@ -1,6 +1,6 @@
 <div>
     <x-adminlte-card theme="primary" title="Layanan & Tindakan" icon="fas fa-hand-holding-medical">
-        <table class="table table-sm table-bordered">
+        <table class="table table-sm table-bordered text-nowrap table-responsive-xl">
             <thead>
                 <tr>
                     <th>
@@ -11,7 +11,7 @@
                     <th>Layanan / Tindakan</th>
                     <th>Harga</th>
                     <th>Disc</th>
-                    <th>Jumlah</th>
+                    <th style="width: 75px;">Jumlah</th>
                     <th>Subtotal</th>
                     <th>PIC</th>
                 </tr>
@@ -67,7 +67,10 @@
                                 igroup-class="input-group-xs" fgroup-class="form-group-xs"
                                 placeholder="Masukan Subtotal" disabled />
                         </td>
-                        <td>{{ $item['pic'] }}</td>
+                        <td>
+                            <x-adminlte-button  class="btn-xs" title="{{ $item['pic'] }}"
+                                label="{{ $item['updated_at'] }}" />
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

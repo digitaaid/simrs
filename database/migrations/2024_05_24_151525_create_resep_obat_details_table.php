@@ -30,6 +30,8 @@ return new class extends Migration
             $table->double('diskon')->default(0);
             $table->double('subtotal')->nullable();
             $table->string('klasifikasi')->nullable();
+            $table->string('pic')->nullable();
+            $table->string('user')->nullable();
             $table->timestamps();
         });
     }
