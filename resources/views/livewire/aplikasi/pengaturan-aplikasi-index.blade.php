@@ -31,8 +31,6 @@
                                 <x-adminlte-input wire:model="nama_panjang" fgroup-class="row"
                                     label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
                                     name="nama_panjang" label="Nama Panjang" />
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group row">
                                     <label for="logo_icon" class="text-left col-4">
                                         Logo Bundar

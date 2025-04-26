@@ -1,12 +1,8 @@
 <div class="row">
+    <x-flash-message />
     <div class="col-md-12">
-        @if (flash()->message)
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        @endif
         @if ($form)
-            <x-adminlte-card title="Identitas Dokter" theme="secondary">
+            <x-modal size="xl" title="Unit" icon="fas fa-clinic-medical" theme="dark">
                 <form>
                     <input hidden wire:model="id" name="id">
                     <div class="row">
@@ -51,31 +47,31 @@
                     <x-adminlte-button wire:click='openForm' class="btn-sm" label="Tutup" theme="danger"
                         icon="fas fa-times" />
                 </x-slot>
-            </x-adminlte-card>
+            </x-modal>
         @endif
         @if ($formImport)
-            <x-adminlte-card title="Import Dokter" theme="secondary">
+            <x-modal size="lg" title="Unit" icon="fas fa-file-import" theme="dark">
                 <x-adminlte-input-file wire:model='fileImport' name="fileImport"
                     placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File Import' }}"
                     igroup-size="sm" label="File Import" />
                 <x-slot name="footerSlot">
-                    <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
+                    <x-adminlte-button class="btn-sm" wire:click='import' class="btn-sm" icon="fas fa-save"
                         theme="success" label="Import" wire:confirm='Apakah anda yakin akan mengimport data dokter ?' />
                     <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
                         label="Tutup" data-dismiss="modal" />
                 </x-slot>
-            </x-adminlte-card>
+            </x-modal>
         @endif
-        <x-adminlte-card title="Table item" theme="secondary">
+        <x-adminlte-card title="Data Unit" theme="secondary" icon="fas fa-clinic-medical">
             <div class="row ">
                 <div class="col-md-8">
-                    <x-adminlte-button wire:click='openForm' class="btn-sm" label="Tambah item" theme="success"
-                        icon="fas fa-user-plus" />
+                    <x-adminlte-button wire:click='openForm' class="btn-sm" title="Tambah" theme="success"
+                        icon="fas fa-folder-plus" />
                     <x-adminlte-button wire:click='export'
                         wire:confirm='Apakah anda yakin akan mendownload semua data dokter ? ' class="btn-sm"
-                        label="Export" theme="primary" icon="fas fa-upload" />
-                    <x-adminlte-button wire:click='openFormImport' class="btn-sm" label="Import" theme="primary"
-                        icon="fas fa-download" />
+                        title="Export" theme="primary" icon="fas fa-file-export" />
+                    <x-adminlte-button wire:click='openFormImport' class="btn-sm" title="Import" theme="primary"
+                        icon="fas fa-file-import" />
                 </div>
                 <div class="col-md-4">
                     <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Dokter"
@@ -122,8 +118,8 @@
                             </td>
                             <td>
                                 {{ $item->idlocation }}
-                                <x-adminlte-button wire:click="createLocation('{{ $item->kode }}')"
-                                    class="btn-xs" theme="warning" icon="fas fa-sync" />
+                                <x-adminlte-button wire:click="createLocation('{{ $item->kode }}')" class="btn-xs"
+                                    theme="warning" icon="fas fa-sync" />
                             </td>
                             <td>{{ $item->jenis }}</td>
                             <td>{{ $item->lokasi }}</td>

@@ -1038,7 +1038,7 @@ return [
                     'shift'   => 'ml-2',
                     'submenu' => [
                         [
-                            'text' => 'Unit',
+                            'text' => 'Data Unit',
                             'shift'   => 'ml-3',
                             'url' => 'unit',
                             'icon' => 'fas fa-clinic-medical',
@@ -1046,7 +1046,7 @@ return [
                             'active'  => ['unit', 'unit/create', 'unit/edit/*'],
                         ],
                         [
-                            'text' => 'Jadwal Dokter Rajal',
+                            'text' => 'Data Jadwal Dokter',
                             'url' => 'pendaftaran-rajal/jadwaldokter',
                             'icon' => 'fas fa-calendar',
                             'shift'   => 'ml-3',

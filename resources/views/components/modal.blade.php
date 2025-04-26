@@ -2,7 +2,7 @@
     <div class="modal-dialog @isset($size)modal-{{ $size }} @endisset">
         <div class="modal-content">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header @isset($theme)bg-{{ $theme }} text-white @endisset">
                     <h5 class="modal-title">
                         @isset($icon)
                             <i class="{{ $icon }} mr-2"></i>
@@ -16,6 +16,7 @@
                     <div class="modal-body">{{ $slot }}</div>
                 @endif
                 <div class="modal-footer">
+                    <x-footer-card-message />
                     @isset($footerSlot)
                         {{ $footerSlot }}
                     @endisset
