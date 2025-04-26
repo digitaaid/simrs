@@ -49,6 +49,16 @@ class PengaturanAplikasiIndex extends Component
             $path =  $this->logo_karcis->storeAs('public/pengaturan',  $logo_karcis);
             $this->logo_karcis =  $logo_karcis;
         }
+        if (is_file($this->anjungan_qr)) {
+            $anjungan_qr =  'anjungan_qr.' . $this->anjungan_qr->getClientOriginalExtension();
+            $path =  $this->anjungan_qr->storeAs('public/pengaturan',  $anjungan_qr);
+            $this->anjungan_qr =  $anjungan_qr;
+        }
+        if (is_file($this->anjungan_img_info)) {
+            $anjungan_img_info =  'anjungan_img_info.' . $this->anjungan_img_info->getClientOriginalExtension();
+            $path =  $this->anjungan_img_info->storeAs('public/pengaturan',  $anjungan_img_info);
+            $this->anjungan_img_info =  $anjungan_img_info;
+        }
         $pengaturan = Pengaturan::first();
         if ($pengaturan) {
             $pengaturan->update([
