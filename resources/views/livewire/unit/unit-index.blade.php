@@ -44,13 +44,13 @@
                     <x-adminlte-button label="Simpan" class="btn-sm" onclick="store()" icon="fas fa-save"
                         wire:click="store" wire:confirm="Apakah anda yakin ingin menambahkan unit ?" form="formUpdate"
                         theme="success" />
-                    <x-adminlte-button wire:click='openForm' class="btn-sm" label="Tutup" theme="danger"
+                    <x-adminlte-button wire:click='openForm' class="btn-sm" label="Batal" theme="danger"
                         icon="fas fa-times" />
                 </x-slot>
             </x-modal>
         @endif
         @if ($formImport)
-            <x-modal size="lg" title="Unit" icon="fas fa-file-import" theme="dark">
+            <x-modal size="lg" title="Import Data" icon="fas fa-file-import" theme="dark">
                 <x-adminlte-input-file wire:model='fileImport' name="fileImport"
                     placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File Import' }}"
                     igroup-size="sm" label="File Import" />
@@ -74,11 +74,8 @@
                         icon="fas fa-file-import" />
                 </div>
                 <div class="col-md-4">
-                    <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Dokter"
+                    <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian"
                         igroup-size="sm">
-                        <x-slot name="appendSlot">
-                            <x-adminlte-button theme="primary" label="Cari" />
-                        </x-slot>
                         <x-slot name="prependSlot">
                             <div class="input-group-text text-primary">
                                 <i class="fas fa-search"></i>

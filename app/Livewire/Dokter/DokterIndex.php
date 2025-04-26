@@ -79,7 +79,7 @@ class DokterIndex extends Component
         $dokter->pic = auth()->user()->name;
         $dokter->save();
         $this->resetForm();
-        $this->closeForm();
+        $this->openForm();
         flash('Dokter ' . $dokter->name . ' saved successfully', 'success');
     }
     public function edit(Dokter $dokter)
@@ -156,11 +156,7 @@ class DokterIndex extends Component
     }
     public function openForm()
     {
-        $this->form = true;
-    }
-    public function closeForm()
-    {
-        $this->form = false;
+        $this->form =  $this->form ? false : true;
     }
     public function getPractitionerId($nik)
     {
@@ -175,5 +171,4 @@ class DokterIndex extends Component
             flash($res->metadata->message, 'danger');
         }
     }
-
 }

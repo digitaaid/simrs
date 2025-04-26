@@ -116,10 +116,9 @@ class JadwalDokterIndex extends Component
                 'fileImport' => 'required|mimes:xlsx'
             ]);
             Excel::import(new JadwalDokterImport, $this->fileImport->getRealPath());
-            flash('Import Jadwal Dokter successfully', 'success');
             $this->formImport = false;
             $this->fileImport = null;
-            return redirect()->route('jadwaldokter.index');
+            return flash('Import Jadwal Dokter successfully', 'success');
         } catch (\Throwable $th) {
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }

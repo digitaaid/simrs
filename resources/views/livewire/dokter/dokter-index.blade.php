@@ -1,98 +1,86 @@
 <div class="row">
+    <x-flash-message />
     <div class="col-md-12">
-        @if (flash()->message)
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        @endif
-        <div id="editform">
-            @if ($form)
-                <x-adminlte-card title="Identitas Dokter" theme="secondary">
-                    <form>
-                        <input hidden wire:model="id" name="id">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <x-adminlte-input wire:model="nama" fgroup-class="row" label-class="text-left col-4"
-                                    igroup-class="col-8" igroup-size="sm" name="nama" label="Nama" />
-                                <x-adminlte-input wire:model="kode" fgroup-class="row" label-class="text-left col-4"
-                                    igroup-class="col-8" igroup-size="sm" name="kode" label="Kode" />
-                                <x-adminlte-input wire:model="kodejkn" fgroup-class="row" label-class="text-left col-4"
-                                    igroup-class="col-8" igroup-size="sm" name="kodejkn" label="Kode JKN" />
-                                <x-adminlte-input wire:model="nik" fgroup-class="row" label-class="text-left col-4"
-                                    igroup-class="col-8" igroup-size="sm" name="nik" label="NIK" />
-                                <x-adminlte-input wire:model="idpractitioner" fgroup-class="row"
-                                    label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
-                                    name="idpractitioner" label="IdPractitioner">
-                                    <x-slot name="appendSlot">
-                                        <div class="btn btn-primary"
-                                            wire:click="cariIdPractitioner('{{ $nik }}')">
-                                            <i class="fas fa-search"></i> Cari
-                                        </div>
-                                    </x-slot>
-                                </x-adminlte-input>
-                            </div>
-                            <div class="col-md-6">
-                                <x-adminlte-select wire:model="gender" fgroup-class="row" label-class="text-left col-4"
-                                    igroup-class="col-8" igroup-size="sm" name="gender" label="Gender">
-                                    <option value=null disabled>Pilih Jenis Kelamin</option>
-                                    <option value="L">Laki-laki</option>
-                                    <option value="P">Perempuan</option>
-                                </x-adminlte-select>
-                                <x-adminlte-select wire:model="title" fgroup-class="row" label-class="text-left col-4"
-                                    igroup-class="col-8" igroup-size="sm" name="title" label="Title">
-                                    <option value=null disabled>Pilih Title</option>
-                                    <option>Dokter Umum</option>
-                                    <option>Dokter Spesialis</option>
-                                    <option>Dokter Sub Spesialis</option>
-                                </x-adminlte-select>
-                                <x-adminlte-input wire:model="sip" fgroup-class="row" label-class="text-left col-4"
-                                    igroup-class="col-8" igroup-size="sm" name="sip" label="SIP" />
-                            </div>
+        @if ($form)
+            <x-modal size="xl" title="Dokter" icon="fas fa-user-md" theme="dark">
+                <form>
+                    <input hidden wire:model="id" name="id">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <x-adminlte-input wire:model="nama" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="nama" label="Nama" />
+                            <x-adminlte-input wire:model="kode" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="kode" label="Kode" />
+                            <x-adminlte-input wire:model="kodejkn" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="kodejkn" label="Kode JKN" />
+                            <x-adminlte-input wire:model="nik" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="nik" label="NIK" />
+                            <x-adminlte-input wire:model="idpractitioner" fgroup-class="row"
+                                label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
+                                name="idpractitioner" label="IdPractitioner">
+                                <x-slot name="appendSlot">
+                                    <div class="btn btn-primary" wire:click="cariIdPractitioner('{{ $nik }}')">
+                                        <i class="fas fa-search"></i> Cari
+                                    </div>
+                                </x-slot>
+                            </x-adminlte-input>
                         </div>
-
-                    </form>
-                    <x-slot name="footerSlot">
-                        <x-adminlte-button label="Simpan" class="btn-sm" onclick="store()" icon="fas fa-save"
-                            wire:click="store" wire:confirm="Apakah anda yakin ingin menambahkan dokter ?"
-                            form="formUpdate" theme="success" />
-                        <a wire:navigate href="{{ route('dokter.index') }}">
-                            <x-adminlte-button class="btn-sm" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
-                        </a>
-                    </x-slot>
-                </x-adminlte-card>
-            @endif
-        </div>
+                        <div class="col-md-6">
+                            <x-adminlte-select wire:model="gender" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="gender" label="Gender">
+                                <option value=null disabled>Pilih Jenis Kelamin</option>
+                                <option value="L">Laki-laki</option>
+                                <option value="P">Perempuan</option>
+                            </x-adminlte-select>
+                            <x-adminlte-select wire:model="title" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="title" label="Title">
+                                <option value=null disabled>Pilih Title</option>
+                                <option>Dokter Umum</option>
+                                <option>Dokter Spesialis</option>
+                                <option>Dokter Sub Spesialis</option>
+                            </x-adminlte-select>
+                            <x-adminlte-input wire:model="sip" fgroup-class="row" label-class="text-left col-4"
+                                igroup-class="col-8" igroup-size="sm" name="sip" label="SIP" />
+                        </div>
+                    </div>
+                </form>
+                <x-slot name="footerSlot">
+                    <x-adminlte-button label="Simpan" class="btn-sm" onclick="store()" icon="fas fa-save"
+                        wire:click="store" wire:confirm="Apakah anda yakin ingin menambahkan dokter ?" form="formUpdate"
+                        theme="success" />
+                    <x-adminlte-button wire:click='openForm' class="btn-sm" label="Batal" theme="danger"
+                        icon="fas fa-times" />
+                </x-slot>
+            </x-modal>
+        @endif
         @if ($formImport)
-            <x-adminlte-card title="Import Dokter" theme="secondary">
+            <x-modal size="lg" title="Import Unit" icon="fas fa-file-import" theme="dark">
                 <x-adminlte-input-file wire:model='fileImport' name="fileImport"
                     placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File Import' }}"
                     igroup-size="sm" label="File Import" />
                 <x-slot name="footerSlot">
-                    <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
+                    <x-adminlte-button class="btn-sm" wire:click='import' class="btn-sm" icon="fas fa-save"
                         theme="success" label="Import"
                         wire:confirm='Apakah anda yakin akan mengimport data dokter ?' />
                     <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
                         label="Tutup" data-dismiss="modal" />
                 </x-slot>
-            </x-adminlte-card>
+            </x-modal>
         @endif
-        <x-adminlte-card title="Table Dokter" theme="secondary">
+        <x-adminlte-card title="Data Dokter" theme="secondary" icon="fas fa-user-md">
             <div class="row ">
                 <div class="col-md-8">
-                    <x-adminlte-button wire:click='openForm' class="btn-sm" label="Tambah item" theme="success"
-                        icon="fas fa-user-plus" />
+                    <x-adminlte-button wire:click='openForm' class="btn-sm" title="Tambah" theme="success"
+                        icon="fas fa-folder-plus" />
                     <x-adminlte-button wire:click='export'
                         wire:confirm='Apakah anda yakin akan mendownload semua data dokter ? ' class="btn-sm"
-                        label="Export" theme="primary" icon="fas fa-upload" />
-                    <x-adminlte-button wire:click='openFormImport' class="btn-sm" label="Import" theme="primary"
-                        icon="fas fa-download" />
+                        title="Export" theme="primary" icon="fas fa-file-export" />
+                    <x-adminlte-button wire:click='openFormImport' class="btn-sm" title="Import" theme="primary"
+                        icon="fas fa-file-import" />
                 </div>
                 <div class="col-md-4">
-                    <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Dokter"
+                    <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian"
                         igroup-size="sm">
-                        <x-slot name="appendSlot">
-                            <x-adminlte-button theme="primary" label="Cari" />
-                        </x-slot>
                         <x-slot name="prependSlot">
                             <div class="input-group-text text-primary">
                                 <i class="fas fa-search"></i>
