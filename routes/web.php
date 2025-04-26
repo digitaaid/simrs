@@ -23,6 +23,7 @@ use App\Livewire\Antrian\AnjunganAntrianMandiri;
 use App\Livewire\Antrian\AnjunganAntrianUmum;
 use App\Livewire\Antrian\AnjunganPasien;
 use App\Livewire\Antrian\DaftarAntrian;
+use App\Livewire\Aplikasi\PengaturanAplikasiIndex;
 use App\Livewire\Aplikasi\PengaturanIndex;
 use App\Livewire\Apotek\PenjualanObat;
 use App\Livewire\Bpjs\Antrian\AntreanBelumLayani;
@@ -155,7 +156,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('role-permission', RolePermission::class)->name('role-permission');
         Route::get('user', UserIndex::class)->name('user.index');
         Route::get('pengaturan-whatsapp', WhatsappIndex::class)->name('whatsapp.index');
-        Route::get('aplikasi', PengaturanIndex::class)->name('aplikasi.index');
+        Route::get('pengaturan-aplikasi', PengaturanAplikasiIndex::class)->name('aplikasi.index');
         Route::get('integration', IntegrationIndex::class)->name('integration.index');
     });
     Route::middleware(['can:crud-pegawai'])->group(function () {
@@ -197,7 +198,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('anjunganantrian/mandiri', AnjunganAntrianMandiri::class)->name('anjunganantrian.mandiri');
     Route::get('anjunganantrian/umum', AnjunganAntrianUmum::class)->name('anjunganantrian.umum');
     Route::get('anjunganantrian/bpjs', AnjunganAntrianBpjs::class)->name('anjunganantrian.bpjs');
-    Route::get('anjunganantrian/pasien', AnjunganPasien::class)->name('anjunganantrian.pasien');
+    // Route::get('anjunganantrian/pasien', AnjunganPasien::class)->name('anjunganantrian.pasien');
     Route::get('anjunganantrian/create', AnjunganAntrianCreate::class)->name('anjunganantrian.create');
     Route::get('anjunganantrian/checkin/', AnjunganAntrian::class)->name('anjunganantrian.checkin');
     Route::get('anjunganantrian/print/{kodebooking}', [PendaftaranController::class, 'printkarcis'])->name('anjunganantrian.print');

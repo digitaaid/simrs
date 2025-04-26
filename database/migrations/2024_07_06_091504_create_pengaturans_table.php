@@ -14,12 +14,15 @@ return new class extends Migration
         Schema::create('pengaturans', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('nama_panjang')->nullable();
             $table->string('logo_icon')->nullable();
             $table->string('auth_img')->nullable();
 
             $table->string('anjungan_color')->nullable();
             $table->string('anjungan_qr')->nullable();
             $table->string('anjungan_img_info')->nullable();
+            $table->string('logo_karcis')->nullable();
+
 
             $table->timestamps();
         });

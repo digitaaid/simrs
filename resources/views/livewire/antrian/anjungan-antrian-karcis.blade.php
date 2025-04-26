@@ -9,7 +9,7 @@
 
 <body>
     <div class="ticket" style="text-align: center; font-family: sans-serif">
-        <img src="{{ asset('kitasehat/logokitasehat.png') }}" height="40px" alt="">
+        <img src="{{ asset(config('adminlte.logo_karcis')) }}" height="40px" alt="">
         <hr style="margin: 0">
         <b>Nomor Karcis Antrian</b><br>
         <b style="font-size: 50px">{{ $antrian->nomorantrean }}</b><br>

@@ -1,29 +1,11 @@
 <div class="wrapper">
     <div class="row p-1">
         <div class="col-md-12">
-            <div class="card">
-                <header class="bg-{{ config('adminlte.anjungan_color') }} text-white p-2">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <img src="{{ asset(config('adminlte.logo_img')) }}" width="80">
-                                    <div class="col">
-                                        <h2>Anjungan Antrian</h2>
-                                        <h4>{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <h1>{{ config('adminlte.title') }}</h1>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-            </div>
+            <x-anjungan-header />
         </div>
         <div class="col-md-6 text-white">
-            <x-adminlte-card title="Karcis Antrian Pasien" theme="{{ config('adminlte.anjungan_color') }}" icon="fas fa-user-plus">
+            <x-adminlte-card title="Karcis Antrian Pasien" theme="{{ config('adminlte.anjungan_color') }}"
+                icon="fas fa-user-plus">
                 <div class="text-center">
                     <a wire:navigate href="{{ route('anjunganantrian.mandiri') }}">
                         <x-adminlte-card class="mb-2 withLoad" body-class="bg-{{ config('adminlte.anjungan_color') }}">
@@ -55,13 +37,7 @@
             </x-adminlte-card>
         </div>
         <div class="col-md-6">
-            <x-adminlte-card title="Informasi Anjunan Antrian" theme="{{ config('adminlte.anjungan_color') }}" icon="fas fa-info">
-                <div class="text-center">
-                    <img src="{{ asset('bpjs/qrantrian.png') }}" width="48%" alt="">
-                    <img src="{{ asset('bpjs/bpjs2.jpg') }}" width="45%" alt="">
-                    <br>
-                </div>
-            </x-adminlte-card>
+            <x-anjungan-info />
         </div>
     </div>
 </div>

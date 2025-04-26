@@ -1,6 +1,5 @@
 <div>
     <x-flash-message />
-    {{-- informasi kunjungan --}}
     <div class="col-md-12">
         <div class="row">
             <div class="col-lg-3 col-6">
@@ -10,9 +9,8 @@
             </div>
         </div>
     </div>
-    {{-- data pasien igd --}}
     <div class="col-md-12">
-        <x-adminlte-card title="Data Pasien IGD" theme="secondary">
+        <x-adminlte-card title="Data Pasien IGD" theme="secondary" icon="fas fa-user-injured">
             <div class="row">
                 <div class="col-md-3">
                     <x-adminlte-input wire:model.change='tanggal' type="date" name="tanggal" igroup-size="sm">

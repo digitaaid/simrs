@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=80mm, initial-scale=1.0">
-    <title>Karcis Antrian</title>
+    <title>Test Print Anjungan</title>
 </head>
 
 <body>
     <div class="ticket" style="text-align: center; font-family: sans-serif">
-        <img src="{{ asset('kitasehat/logokitasehat.png') }}" height="40px" alt="">
+        <img src="{{ asset(config('adminlte.logo_karcis')) }}" height="40px" alt="">
         <hr style="margin: 0">
         <b>Nomor Karcis Antrian</b><br>
         <b style="font-size: 50px">TEST</b><br>

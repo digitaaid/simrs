@@ -28,6 +28,9 @@
                             <div class="col-md-6">
                                 <x-adminlte-input wire:model="nama" fgroup-class="row" label-class="text-left col-4"
                                     igroup-class="col-8" igroup-size="sm" name="nama" label="Nama" />
+                                <x-adminlte-input wire:model="nama_panjang" fgroup-class="row"
+                                    label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
+                                    name="nama_panjang" label="Nama Panjang" />
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -71,52 +74,66 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <x-adminlte-button label="Simpan" class="btn-sm" onclick="store()" icon="fas fa-save"
-                            wire:click="store" wire:confirm="Apakah anda yakin ingin menambahkan unit ?"
-                            form="formUpdate" theme="success" />
-                    </div>
-                    <div class="tab-pane fade" id="tabs-anjungan">
-                        <div class="row">
                             <div class="col-md-6">
-                                <x-adminlte-input wire:model="anjungan_color" fgroup-class="row" label-class="text-left col-4"
-                                    igroup-class="col-8" igroup-size="sm" name="anjungan_color" label="Warna Anjungan" />
+                                <x-adminlte-input wire:model="anjungan_color" fgroup-class="row"
+                                    label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
+                                    name="anjungan_color" label="Warna Anjungan" />
                                 <div class="form-group row">
-                                    <label for="logo_icon" class="text-left col-4">
+                                    <label for="anjungan_qr" class="text-left col-4">
                                         QR Anjungan
                                     </label>
                                     <div class="input-group input-group-sm col-8">
-                                        <input id="logo_icon" type="file" name="logo_icon" class="form-control"
-                                            wire:model="logo_icon">
+                                        <input id="anjungan_qr" type="file" name="anjungan_qr" class="form-control"
+                                            wire:model="anjungan_qr">
                                     </div>
                                     <div class=" col-4">
-                                        @if ($logo_icon)
-                                            <a href="{{ route('landingpage') . '/storage/pengaturan/' . $logo_icon }}"
-                                                target="_blank">{{ $logo_icon }}</a>
+                                        @if ($anjungan_qr)
+                                            <a href="{{ route('landingpage') . '/storage/pengaturan/' . $anjungan_qr }}"
+                                                target="_blank">{{ $anjungan_qr }}</a>
                                         @endif
                                     </div>
                                     <div class="col-8">
-                                        @error('logo_icon')
+                                        @error('anjungan_qr')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="auth_img" class="text-left col-4">
+                                    <label for="anjungan_img_info" class="text-left col-4">
                                         Gambar Info Anjungan
                                     </label>
                                     <div class="input-group input-group-sm col-8">
-                                        <input id="auth_img" type="file" name="auth_img" class="form-control"
-                                            wire:model="auth_img">
+                                        <input id="anjungan_img_info" type="file" name="anjungan_img_info"
+                                            class="form-control" wire:model="anjungan_img_info">
                                     </div>
                                     <div class=" col-4">
-                                        @if ($auth_img)
-                                            <a href="{{ route('landingpage') . '/storage/pengaturan/' . $auth_img }}"
-                                                target="_blank">{{ $auth_img }}</a>
+                                        @if ($anjungan_img_info)
+                                            <a href="{{ route('landingpage') . '/storage/pengaturan/' . $anjungan_img_info }}"
+                                                target="_blank">{{ $anjungan_img_info }}</a>
                                         @endif
                                     </div>
                                     <div class="col-8">
-                                        @error('auth_img')
+                                        @error('anjungan_img_info')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="logo_karcis" class="text-left col-4">
+                                        Logo Karcis Antrian
+                                    </label>
+                                    <div class="input-group input-group-sm col-8">
+                                        <input id="logo_karcis" type="file" name="logo_karcis"
+                                            class="form-control" wire:model="logo_karcis">
+                                    </div>
+                                    <div class=" col-4">
+                                        @if ($logo_karcis)
+                                            <a href="{{ route('landingpage') . '/storage/pengaturan/' . $logo_karcis }}"
+                                                target="_blank">{{ $logo_karcis }}</a>
+                                        @endif
+                                    </div>
+                                    <div class="col-8">
+                                        @error('logo_karcis')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -124,7 +141,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="tabs-anjungan">
+                        <div class="row">
+
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="card-body">
+            </div>
+            <div class="card-footer">
+                <x-adminlte-button label="Simpan" class="btn-sm" onclick="store()" icon="fas fa-save"
+                    wire:click="store" wire:confirm="Apakah anda yakin ingin menambahkan unit ?" form="formUpdate"
+                    theme="success" />
             </div>
         </div>
     </div>

@@ -72,7 +72,10 @@ return [
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'App Name',
     'auth_img' => '',
-    'anjungan_color' => 'green',
+    'anjungan_color' => 'purple',
+    'anjungan_qr' => 'img/image-placeholder.jpg',
+    'anjungan_img_info' => 'img/image-placeholder.jpg',
+    'logo_karcis' =>  'vendor/adminlte/dist/img/AdminLTELogo.png',
 
     /*
     |--------------------------------------------------------------------------
@@ -1144,7 +1147,7 @@ return [
                 ],
                 [
                     'text' => 'Pengaturan Aplikasi',
-                    'url' => 'aplikasi',
+                    'url' => 'pengaturan-aplikasi',
                     'icon' => 'fas fa-cogs',
                     'can' => 'admin',
                     'shift'   => 'ml-2',

@@ -26,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
             Config::set('adminlte.logo', '<b>' . $pengaturan->nama . '</b>');
             Config::set('adminlte.logo_img', $pengaturan->logo_icon ? 'storage/pengaturan/' . $pengaturan->logo_icon : 'vendor/adminlte/dist/img/AdminLTELogo.png');
             Config::set('adminlte.auth_img', $pengaturan->auth_img ? asset('storage/pengaturan/' . $pengaturan->auth_img) : asset('vendor/adminlte/dist/img/AdminLTELogo.png'));
+            Config::set('adminlte.logo_karcis', $pengaturan->logo_karcis ? asset('storage/pengaturan/' . $pengaturan->logo_karcis) : asset('vendor/adminlte/dist/img/AdminLTELogo.png'));
+            Config::set('adminlte.anjungan_color', $pengaturan->anjungan_color ?? 'green');
         }
     }
 }

@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(JaminanSeeder::class);
         // $this->call(IntegrationSeeder::class);
-        // $this->call(JaminanSeeder::class);
         // $this->call(PengaturanSeeder::class);
         // Pasien::factory(100)->create();
         // Dokter::factory(10)->create();
