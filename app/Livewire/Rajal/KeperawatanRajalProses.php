@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire\Perawat;
+namespace App\Livewire\Rajal;
 
 use App\Models\Antrian;
 use App\Models\Pasien;
 use Livewire\Component;
 
-class PemeriksaanPerawatRajalProses extends Component
+class KeperawatanRajalProses extends Component
 {
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien;
     public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
@@ -20,7 +20,7 @@ class PemeriksaanPerawatRajalProses extends Component
     protected $listeners = ['modalAsesmenRajal', 'modalCppt', 'modalPemeriksaanPerawat', 'modalPemeriksaanDokter', 'refreshPage' => '$refresh'];
     public function render()
     {
-        return view('livewire.perawat.pemeriksaan-perawat-rajal-proses')->title('Pemeriksaan Perawat ' . $this->antrian->nama);
+        return view('livewire.rajal.keperawatan-rajal-proses')->title('Pemeriksaan Perawat ' . $this->antrian->nama);
     }
     public function selesaiPerawat()
     {

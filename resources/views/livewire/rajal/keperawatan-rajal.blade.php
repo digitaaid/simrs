@@ -62,11 +62,11 @@
                 $heads = [
                     'No',
                     'Antrian',
+                    'Kodebooking',
+                    'Asesmen',
                     'No RM',
                     'Nama Pasien',
-                    'Action',
                     'Taskid',
-                    'Asesmen',
                     'Jenis Pasien',
                     'Layanan',
                     'Unit',
@@ -76,7 +76,6 @@
                     'NIK',
                     'Method',
                     'Status',
-                    'Kodebooking',
                 ];
                 $config['order'] = [5, 'asc'];
                 $config['scrollX'] = true;
@@ -88,21 +87,20 @@
                         <tr>
                             <td>{{ $item->angkaantrean }}</td>
                             <td>{{ $item->nomorantrean }}</td>
-                            <td>{{ $item->norm }}</td>
-                            <td>{{ $item->nama }}</td>
+                            <td>
+                                <a href="{{ route('keperawatan.rajal.proses', $item->kodebooking) }}">
+                                    {{ $item->kodebooking }}
+                                </a>
+                            </td>
                             <td>
                                 @if ($item->asesmenrajal?->status_asesmen_perawat)
-                                    <a href="{{ route('perawat.rajal.pemeriksaan.proses', $item->kodebooking) }}">
-                                        <x-adminlte-button class="btn-xs" label="Lihat" theme="secondary"
-                                            icon="fas fa-user-nurse" />
-                                    </a>
+                                    <span class="badge badge-success">1. Sudah</span>
                                 @else
-                                    <a href="{{ route('perawat.rajal.pemeriksaan.proses', $item->kodebooking) }}">
-                                        <x-adminlte-button class="btn-xs" label="Proses" theme="success"
-                                            icon="fas fa-user-nurse" />
-                                    </a>
+                                    <span class="badge badge-danger">0. Belum</span>
                                 @endif
                             </td>
+                            <td>{{ $item->norm }}</td>
+                            <td>{{ $item->nama }}</td>
                             <td>
                                 @switch($item->taskid)
                                     @case(0)
@@ -146,13 +144,6 @@
                                     @default
                                         {{ $item->taskid }}
                                 @endswitch
-                            </td>
-                            <td>
-                                @if ($item->asesmenrajal?->status_asesmen_perawat)
-                                    <span class="badge badge-success">1. Sudah</span>
-                                @else
-                                    <span class="badge badge-danger">0. Belum</span>
-                                @endif
                             </td>
                             <td>{{ $item->jenispasien }} </td>
                             <td class="text-right">{{ money($item->layanans->sum('harga'), 'IDR') }} </td>

@@ -128,7 +128,7 @@
             @endif
         </ul>
         <x-slot name="footerSlot">
-            <a href="{{ route('rajal.pendaftaran.index') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
+            <a href="{{ route('pendaftaran.rajal.index') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}">
                 <x-adminlte-button class="btn-xs mb-1" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
             </a>
             @if ($antrian->taskid == 0)
