@@ -52,12 +52,12 @@
         <div id="layanan">
             @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian, 'lazy' => true])
         </div>
-        @can('perawat')
+        @can('rajal-keperawatan')
             <div id="pemeriksaanperawat">
                 @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian, 'lazy' => true])
             </div>
         @endcan
-        @can('dokter')
+        @can('rajal-pemeriksaan')
             <div id="pemeriksaandokter">
                 @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian, 'lazy' => true])
             </div>

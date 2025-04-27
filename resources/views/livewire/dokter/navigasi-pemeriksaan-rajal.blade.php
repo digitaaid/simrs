@@ -43,7 +43,7 @@
             <i class="fas fa-file-medical-alt"></i> Asesmen Rawat Jalan
         </a>
     </li> --}}
-    @can('perawat')
+    @can('rajal-keperawatan')
         <li class="nav-item">
             <a href="#pemeriksaanperawat" class="nav-link">
                 <i class="fas fa-user-nurse"></i> Pemeriksaan Perawat
@@ -57,7 +57,7 @@
             </a>
         </li>
     @endcan
-    @can('dokter')
+    @can('rajal-pemeriksaan')
         <li class="nav-item">
             <a href="#pemeriksaandokter" class="nav-link">
                 <i class="fas fa-user-md"></i> Pemeriksaan Dokter

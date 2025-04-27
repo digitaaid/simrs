@@ -29,7 +29,7 @@ class KeperawatanRajalProses extends Component
             $antrian->user2 = auth()->user()->id;
             $antrian->update();
             flash('Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pemeriksaan perawat.', 'success');
-            return redirect()->to(route('perawat.rajal.pemeriksaan') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
+            return redirect()->to(route('keperawatan.rajal.index') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan obat.', 'danger');
         }
