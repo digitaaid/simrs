@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('koderesep');
             $table->string('jaminan');
             // sigma
-            $table->string('nama');
-            $table->integer('jumlah');
+            $table->string('nama')->nullable();
+            $table->integer('jumlah')->default(0);
             $table->string('frekuensi')->nullable();
             $table->string('waktu')->nullable();
             $table->text('keterangan')->nullable();

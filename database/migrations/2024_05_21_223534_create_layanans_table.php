@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('kunjungan_id')->index()->nullable();
             $table->string('kodebooking')->index()->nullable();
             $table->string('antrian_id')->index()->nullable();
-            $table->string('nama');
-            $table->string('tarif_id');
+            $table->string('nama')->nullable();
+            $table->string('tarif_id')->nullable();
             $table->double('harga')->default(0);
             $table->integer('jumlah')->default(0);
             $table->integer('diskon')->default(0);
