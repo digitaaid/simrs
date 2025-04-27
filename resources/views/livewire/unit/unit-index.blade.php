@@ -68,7 +68,7 @@
                     <x-adminlte-button wire:click='openForm' class="btn-sm" title="Tambah" theme="success"
                         icon="fas fa-folder-plus" />
                     <x-adminlte-button wire:click='export'
-                        wire:confirm='Apakah anda yakin akan mendownload semua data dokter ? ' class="btn-sm"
+                        wire:confirm='Apakah anda yakin akan mendownload semua data ? ' class="btn-sm"
                         title="Export" theme="primary" icon="fas fa-file-export" />
                     <x-adminlte-button wire:click='openFormImport' class="btn-sm" title="Import" theme="primary"
                         icon="fas fa-file-import" />

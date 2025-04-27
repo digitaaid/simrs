@@ -2,15 +2,49 @@
 
 namespace App\Livewire\Aplikasi;
 
+use App\Exports\PengaturanAplikasiExport;
+use App\Imports\PengaturanAplikasiImport;
 use App\Models\Pengaturan;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PengaturanAplikasiIndex extends Component
 {
     use WithFileUploads;
     public $pengaturan;
-    public $nama,   $nama_panjang, $logo_icon, $auth_img, $anjungan_color, $anjungan_qr, $anjungan_img_info, $logo_karcis;
+    public $formImport = false;
+    public $fileImport;
+    public $nama, $nama_panjang, $logo_icon, $auth_img, $anjungan_color, $anjungan_qr, $anjungan_img_info, $logo_karcis;
+    public function import()
+    {
+        try {
+            $this->validate([
+                'fileImport' => 'required|mimes:xlsx'
+            ]);
+            Excel::import(new PengaturanAplikasiImport, $this->fileImport->getRealPath());
+            flash('Import successfully', 'success');
+            $this->formImport = false;
+            $this->fileImport = null;
+            return redirect()->route('pengaturan.aplikasi.index');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
+    }
+    public function export()
+    {
+        try {
+            $time = now()->format('Y-m-d');
+            return Excel::download(new PengaturanAplikasiExport, 'pengaturanaplikasi_backup_' . $time . '.xlsx');
+            flash('Export successfully', 'success');
+        } catch (\Throwable $th) {
+            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+        }
+    }
+    public function openFormImport()
+    {
+        $this->formImport =  $this->formImport ? false : true;
+    }
     public function mount()
     {
         $this->pengaturan = Pengaturan::first();

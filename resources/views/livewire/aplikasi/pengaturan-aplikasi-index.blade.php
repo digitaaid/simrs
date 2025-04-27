@@ -1,10 +1,17 @@
 <div class="row">
-    @if (flash()->message)
-        <div class="col-md-12">
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        </div>
+    <x-flash-message />
+    @if ($formImport)
+        <x-modal size="lg" title="Import Data" icon="fas fa-file-import" theme="dark">
+            <x-adminlte-input-file wire:model='fileImport' name="fileImport"
+                placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File Import' }}"
+                igroup-size="sm" label="File Import" />
+            <x-slot name="footerSlot">
+                <x-adminlte-button class="btn-sm" wire:click='import' class="btn-sm" icon="fas fa-save" theme="success"
+                    label="Import" wire:confirm='Apakah anda yakin akan mengimport data dokter ?' />
+                <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
+                    label="Tutup" data-dismiss="modal" />
+            </x-slot>
+        </x-modal>
     @endif
     <div class="col-md-12">
         <div class="card card-primary card-tabs">
@@ -81,8 +88,8 @@
                                         QR Anjungan
                                     </label>
                                     <div class="input-group input-group-sm col-8">
-                                        <input id="anjungan_qr" type="file" name="anjungan_qr" class="form-control"
-                                            wire:model="anjungan_qr">
+                                        <input id="anjungan_qr" type="file" name="anjungan_qr"
+                                            class="form-control" wire:model="anjungan_qr">
                                     </div>
                                     <div class=" col-4">
                                         @if ($anjungan_qr)
@@ -152,6 +159,10 @@
                 <x-adminlte-button label="Simpan" class="btn-sm" onclick="store()" icon="fas fa-save"
                     wire:click="store" wire:confirm="Apakah anda yakin ingin menambahkan unit ?" form="formUpdate"
                     theme="success" />
+                <x-adminlte-button wire:click='export' wire:confirm='Apakah anda yakin akan mendownload semua data ? '
+                    class="btn-sm" title="Export" theme="primary" icon="fas fa-file-export" />
+                <x-adminlte-button wire:click='openFormImport' class="btn-sm" title="Import" theme="primary"
+                    icon="fas fa-file-import" />
             </div>
         </div>
     </div>
