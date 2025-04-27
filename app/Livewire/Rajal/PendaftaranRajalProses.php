@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Pendaftaran;
+namespace App\Livewire\Rajal;
 
 use App\Http\Controllers\AntrianController;
 use App\Models\Antrian;
@@ -20,7 +20,7 @@ class PendaftaranRajalProses extends Component
     public function render()
     {
         $pasiencount = Pasien::count();
-        return view('livewire.pendaftaran.pendaftaran-rajal-proses', compact('pasiencount'))->title('Pendaftaran ' . $this->antrian->nama);
+        return view('livewire.rajal.pendaftaran-rajal-proses', compact('pasiencount'))->title('Pendaftaran ' . $this->antrian->nama);
     }
     public function batal()
     {

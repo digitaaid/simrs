@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Pendaftaran;
+namespace App\Livewire\Rajal;
 
 use App\Models\Antrian;
 use Livewire\Component;
@@ -49,6 +49,7 @@ class PendaftaranRajal extends Component
                 ->get();
         }
 
-        return view('livewire.pendaftaran.pendaftaran-rajal')->title('Pendaftaran Rawat Jalan');
+        return view('livewire.rajal.pendaftaran-rajal')->title('Pendaftaran Rawat Jalan');
     }
 }
+

@@ -58,8 +58,6 @@ use App\Livewire\Pasien\PasienIndex;
 use App\Livewire\Pegawai\PegawaiCreate;
 use App\Livewire\Pegawai\PegawaiForm;
 use App\Livewire\Pegawai\PegawaiIndex;
-use App\Livewire\Pendaftaran\PendaftaranRajal;
-use App\Livewire\Pendaftaran\PendaftaranRajalProses;
 use App\Livewire\Dokter\PemeriksaanDokterRajal;
 use App\Livewire\Dokter\PemeriksaanDokterRajalProses;
 use App\Livewire\Farmasi\ObatIndex;
@@ -91,6 +89,8 @@ use App\Livewire\Perawat\PemeriksaanPerawatRajal;
 use App\Livewire\Perawat\PemeriksaanPerawatRajalProses;
 use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Perawat\TindakanIndex;
+use App\Livewire\Rajal\PendaftaranRajal;
+use App\Livewire\Rajal\PendaftaranRajalProses;
 use App\Livewire\User\ProfilIndex;
 use App\Livewire\Ranap\DisplayRanap;
 use App\Livewire\Ranap\PendaftaranRanap;
@@ -194,7 +194,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('anjunganantrian/print/{kodebooking}', [PendaftaranController::class, 'printkarcis'])->name('anjunganantrian.print');
     Route::get('anjunganantrian/test/', [AnjunganAntrian::class, 'test'])->name('anjunganantrian.test');
 
-    Route::middleware(['can:rajal-pendaftaran'])->get('rajal/pendaftaran', PendaftaranRajal::class)->name('pendaftaran.rajal.index');
+    Route::middleware(['can:rajal-pendaftaran'])->get('rajal/pendaftaran', PendaftaranRajal::class)->name('rajal.pendaftaran.index');
     Route::middleware(['can:rajal-pendaftaran'])->get('rajal/pendaftaran/proses/{kodebooking}', PendaftaranRajalProses::class)->name('pendaftaran.rajal.proses');
     Route::middleware(['can:rajal-keperawatan'])->get('rajal/keperawatan', PemeriksaanPerawatRajal::class)->name('perawat.rajal.pemeriksaan');
     Route::middleware(['can:rajal-keperawatan'])->get('rajal/keperawatan/proses/{kodebooking}', PemeriksaanPerawatRajalProses::class)->name('perawat.rajal.pemeriksaan.proses');
