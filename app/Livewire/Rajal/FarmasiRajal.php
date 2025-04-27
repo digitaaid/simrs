@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Farmasi;
+namespace App\Livewire\Rajal;
 
 use App\Http\Controllers\AntrianController;
 use App\Models\Antrian;
@@ -14,7 +14,8 @@ use App\Models\WaktuObat;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
-class PengambilanResep extends Component
+
+class FarmasiRajal extends Component
 {
     public $tanggalperiksa;
     public $antrianresep;
@@ -218,13 +219,6 @@ class PengambilanResep extends Component
     {
         $this->tanggalperiksa = $request->tanggalperiksa ?? now()->format('Y-m-d');
     }
-    public function caritanggal()
-    {
-        $this->validate([
-            'tanggalperiksa' => 'required|date',
-        ]);
-        $this->tanggalperiksa = $this->tanggalperiksa;
-    }
     public function render()
     {
         $search = '%' . $this->search . '%';
@@ -257,6 +251,7 @@ class PengambilanResep extends Component
                 })
                 ->get();
         }
-        return view('livewire.farmasi.pengambilan-resep')->title('Pengambilan Resep Obat');
+        return view('livewire.rajal.farmasi-rajal')->title('Farmasi Resep Obat');
     }
 }
+

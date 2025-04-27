@@ -1,33 +1,25 @@
 <div class="row">
-
-    @if (isset($antrians))
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 1)->count() }}" text="Sisa Antrian"
-                        theme="warning" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}"
-                        text="Total Antrian" theme="success" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', 99)->count() }}" text="Batal Antrian"
-                        theme="danger" icon="fas fa-user-injured" />
-                </div>
+    <x-flash-message />
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box title="{{ $antrians->where('taskid', 1)->count() }}" text="Sisa Antrian"
+                    theme="warning" icon="fas fa-user-injured" />
+            </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}" text="Total Antrian"
+                    theme="success" icon="fas fa-user-injured" />
+            </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box title="{{ $antrians->where('taskid', 99)->count() }}" text="Batal Antrian"
+                    theme="danger" icon="fas fa-user-injured" />
             </div>
         </div>
-    @endif
-    @if (flash()->message)
-        <div class="col-md-12">
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        </div>
-    @endif
+    </div>
     <div id="editresep" class="col-md-12">
         @if ($formEdit)
-            <x-adminlte-card title="Resep Obat {{ $antrianedit->nama }}" theme="primary">
+            <x-modal size="xl" title="Resep Obat {{ $antrianedit->nama }}" icon="fas fa-file-import"
+                theme="dark">
                 <div class="row">
                     <div class="col-md-4">
                         <h6>Resep Obat Dokter</h6>
@@ -133,18 +125,13 @@
                             Tambah Obat</button>
                         <x-adminlte-button wire:confirm='Apakah anda yakin akan menyimpan resep obat terbaru ini ?'
                             wire:click='simpanResep' class="btn-sm" label="Simpan" theme="success" icon="fas fa-save" />
-                        <x-adminlte-button wire:click='openformEdit' class="btn-sm" label="Tutup" theme="danger"
-                            icon="fas fa-times" />
                     </div>
                 </div>
                 <x-slot name="footerSlot">
-                    <div wire:loading>
-                        <div class="spinner-border spinner-border-sm text-primary" role="status">
-                        </div>
-                        Loading ...
-                    </div>
+                    <x-adminlte-button wire:click='openformEdit' class="btn-sm" label="Tutup" theme="danger"
+                        icon="fas fa-times" />
                 </x-slot>
-            </x-adminlte-card>
+            </x-modal>
         @endif
     </div>
     <div class="col-md-12">
@@ -156,14 +143,11 @@
                 </x-adminlte-alert>
             @endif
         </div>
-        <x-adminlte-card title="Table Pengambilan Resep Obat" theme="secondary">
+        <x-adminlte-card title="Data Resep Obat" theme="secondary" icon="fas fa-file-prescription">
             <div class="row">
                 <div class="col-md-4">
                     <x-adminlte-input wire:model.change='tanggalperiksa' type="date" name="tanggalperiksa"
                         igroup-size="sm">
-                        <x-slot name="appendSlot">
-                            <x-adminlte-button wire:click='caritanggal' theme="primary" label="Pilih" />
-                        </x-slot>
                         <x-slot name="prependSlot">
                             <div class="input-group-text text-primary">
                                 <i class="fas fa-calendar-alt"></i>
