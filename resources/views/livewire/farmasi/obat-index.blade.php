@@ -105,37 +105,34 @@
             @endif
         </div>
         @if ($formImport)
-            <x-adminlte-card title="Import Obat" theme="secondary">
+            <x-modal size="lg" title="Import Data" icon="fas fa-file-import" theme="dark">
                 <x-adminlte-input-file wire:model='fileObatImport' name="fileObatImport"
                     placeholder="{{ $fileObatImport ? $fileObatImport->getClientOriginalName() : 'Pilih File Obat' }}"
                     igroup-size="sm" label="File Import" />
                 <x-slot name="footerSlot">
-                    <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
+                    <x-adminlte-button class="btn-sm" wire:click='import' class="btn-sm" icon="fas fa-save"
                         theme="success" label="Import"
                         wire:confirm='Apakah anda yakin akan mengimport data obat ?' />
                     <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
                         label="Tutup" data-dismiss="modal" />
                 </x-slot>
-            </x-adminlte-card>
+            </x-modal>
         @endif
         @livewire('farmasi.hitung-stok-obat', ['lazy' => true])
-        <x-adminlte-card title="Data Obat-Obat" theme="secondary">
+        <x-adminlte-card title="Data Obat" theme="secondary" icon="fas fa-pills">
             <div class="row ">
                 <div class="col-md-8">
-                    <x-adminlte-button wire:click='openForm' class="btn-sm" label="Tambah Obat" theme="success"
-                        icon="fas fa-user-plus" />
+                    <x-adminlte-button wire:click='openForm' class="btn-sm" title="Tambah" theme="success"
+                        icon="fas fa-folder-plus" />
                     <x-adminlte-button wire:click='export'
-                        wire:confirm='Apakah anda yakin akan mendownload data semua obat ? ' class="btn-sm"
-                        label="Export" theme="primary" icon="fas fa-upload" />
-                    <x-adminlte-button wire:click='openFormImport' class="btn-sm" label="Import" theme="primary"
-                        icon="fas fa-download" />
+                        wire:confirm='Apakah anda yakin akan mendownload semua data dokter ? ' class="btn-sm"
+                        title="Export" theme="primary" icon="fas fa-file-export" />
+                    <x-adminlte-button wire:click='openFormImport' class="btn-sm" title="Import" theme="primary"
+                        icon="fas fa-file-import" />
                 </div>
                 <div class="col-md-4">
-                    <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Obat"
+                    <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian"
                         igroup-size="sm">
-                        <x-slot name="appendSlot">
-                            <x-adminlte-button theme="primary" label="Cari" />
-                        </x-slot>
                         <x-slot name="prependSlot">
                             <div class="input-group-text text-primary">
                                 <i class="fas fa-search"></i>
@@ -144,6 +141,7 @@
                     </x-adminlte-input>
                 </div>
             </div>
+
             @if ($paginate)
                 <div class="table-responsive">
                     <table class="table text-nowrap table-sm table-hover table-bordered mb-3">

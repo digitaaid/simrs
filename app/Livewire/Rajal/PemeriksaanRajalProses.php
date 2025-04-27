@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Dokter;
+namespace App\Livewire\Rajal;
 
 use App\Http\Controllers\AntrianController;
 use App\Models\Antrian;
@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class PemeriksaanDokterRajalProses extends Component
+class PemeriksaanRajalProses extends Component
 {
     use WithPagination;
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien;
@@ -101,7 +101,7 @@ class PemeriksaanDokterRajalProses extends Component
             }
             $antrian->update();
             flash('Nomor antrian ' . $antrian->nomorantrean . ' telah selesai pelayanan.', 'success');
-            return redirect()->to(route('dokter.rajal.pemeriksaan') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
+            return redirect()->to(route('pemeriksaan.rajal.index') . "?tanggalperiksa=" . $antrian->tanggalperiksa);
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan obat.', 'danger');
         }
@@ -184,6 +184,6 @@ class PemeriksaanDokterRajalProses extends Component
     }
     public function render()
     {
-        return view('livewire.dokter.pemeriksaan-dokter-rajal-proses')->title('Pemeriksaan Dokter ' . $this->antrian->nama);
+        return view('livewire.rajal.pemeriksaan-rajal-proses')->title('Pemeriksaan Dokter ' . $this->antrian->nama);
     }
 }

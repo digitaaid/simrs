@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Dokter;
+namespace App\Livewire\Rajal;
 
 use App\Models\Antrian;
 use App\Models\JadwalDokter;
@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
-class PemeriksaanDokterRajal extends Component
+class PemeriksaanRajal extends Component
 {
     public $tanggalperiksa, $jadwal;
     public $search = '';
@@ -65,6 +65,7 @@ class PemeriksaanDokterRajal extends Component
                 })
                 ->get();
         }
-        return view('livewire.dokter.pemeriksaan-dokter-rajal')->title('Pemeriksaan Dokter Rajal');
+        return view('livewire.rajal.pemeriksaan-rajal')->title('Pemeriksaan Dokter Rajal');
     }
 }
+

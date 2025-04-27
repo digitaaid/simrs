@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="col-md-12">
-        <x-adminlte-card title="Data Antrian Keperawatan" theme="secondary" icon="fas fa-nurse">
+        <x-adminlte-card title="Data Antrian Keperawatan" theme="secondary" icon="fas fa-user-injured">
             <div class="row">
                 <div class="col-md-3">
                     <x-adminlte-input wire:model.change='tanggalperiksa' type="date" name="tanggalperiksa"

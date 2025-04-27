@@ -206,6 +206,6 @@ class ObatIndex extends Component
                 ->orderBy('nama', 'asc')
                 ->paginate(10);
         }
-        return view('livewire.farmasi.obat-index', compact('obats'))->title('Obat');
+        return view('livewire.farmasi.obat-index', compact('obats'))->title('Data Obat');
     }
 }

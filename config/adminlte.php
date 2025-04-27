@@ -615,7 +615,7 @@ return [
                     'shift'   => 'ml-2',
                 ],
                 [
-                    'text' => 'Obat-Obat',
+                    'text' => 'Data Obat',
                     'url' => 'farmasi/obat',
                     'icon' => 'fas fa-pills',
                     'can' => ['farmasi', 'apotek'],

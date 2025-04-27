@@ -16,7 +16,7 @@
             @include('livewire.dokter.navigasi-pemeriksaan-rajal')
             <x-slot name="footerSlot">
                 <a
-                    href="{{ route('dokter.rajal.pemeriksaan') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}&jadwal={{ $antrian->jadwal_id }}">
+                    href="{{ route('pemeriksaan.rajal.index') }}?tanggalperiksa={{ $antrian->tanggalperiksa }}&jadwal={{ $antrian->jadwal_id }}">
                     <x-adminlte-button class="btn-xs mb-2" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
                 </a>
                 @if ($antrian->taskid == 3 || $antrian->taskid == 4)
@@ -65,12 +65,12 @@
         <div id="asesmenrajal">
             @livewire('dokter.modal-asesmen-rajal')
         </div>
-        @can('perawat')
+        @can('rajal-keperawatan')
             <div id="pemeriksaanperawat">
                 @livewire('perawat.modal-perawat-rajal', ['antrian' => $antrian, 'lazy' => true])
             </div>
         @endcan
-        @can('dokter')
+        @can('rajal-pemeriksaan')
             <div id="pemeriksaandokter">
                 @livewire('dokter.modal-dokter-rajal', ['antrian' => $antrian, 'lazy' => true])
             </div>

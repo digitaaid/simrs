@@ -1,33 +1,24 @@
 <div class="row">
-    @if (flash()->message)
-        <div class="col-md-12">
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        </div>
-    @endif
-    @if (isset($antrians))
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}" text="Total Antrian"
-                        theme="success" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box
-                        title="{{ $antrians->where('asesmenrajal.status_asesmen_dokter', 1)->count() }}"
-                        text="Sudah Asesmen" theme="warning" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box
-                        title="{{ $antrians->where('taskid', '!=', 99)->where('asesmenrajal.status_asesmen_dokter', 0)->count() }}"
-                        text="Belum Asesmen" theme="danger" icon="fas fa-user-injured" />
-                </div>
+    <x-flash-message />
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}" text="Total Antrian"
+                    theme="success" icon="fas fa-user-injured" />
+            </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box title="{{ $antrians->where('asesmenrajal.status_asesmen_dokter', 1)->count() }}"
+                    text="Sudah Asesmen" theme="warning" icon="fas fa-user-injured" />
+            </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box
+                    title="{{ $antrians->where('taskid', '!=', 99)->where('asesmenrajal.status_asesmen_dokter', 0)->count() }}"
+                    text="Belum Asesmen" theme="danger" icon="fas fa-user-injured" />
             </div>
         </div>
-    @endif
+    </div>
     <div class="col-md-12">
-        <x-adminlte-card title="Table Antrian Pemeriksaan Dokter" theme="secondary">
+        <x-adminlte-card title="Data Antrian Pemeriksaan Dokter" theme="secondary" icon="fas fa-user-injured">
             <div class="row">
                 <div class="col-md-3">
                     <x-adminlte-input wire:model.change='tanggalperiksa' type="date" name="tanggalperiksa"
@@ -77,11 +68,11 @@
                 $heads = [
                     'No',
                     'Antrian',
+                    'Kodebooking',
+                    'Asesmen',
                     'No RM',
                     'Nama Pasien',
-                    'Action',
                     'Taskid',
-                    'Asesmen',
                     'Jenis Pasien',
                     'Layanan',
                     'Unit',
@@ -91,7 +82,6 @@
                     'NIK',
                     'Method',
                     'Status',
-                    'Kodebooking',
                 ];
                 $config['order'] = [5, 'asc'];
                 $config['scrollX'] = true;
@@ -103,21 +93,20 @@
                         <tr>
                             <td>{{ $item->angkaantrean }}</td>
                             <td>{{ $item->nomorantrean }}</td>
-                            <td>{{ $item->norm }}</td>
-                            <td>{{ $item->nama }}</td>
                             <td>
-                                @if ($item->taskid <= 5)
-                                    <a href="{{ route('dokter.rajal.pemeriksaan.proses', $item->kodebooking) }}">
-                                        <x-adminlte-button class="btn-xs" label="Proses" theme="success"
-                                            icon="fas fa-user-md" />
-                                    </a>
+                                <a href="{{ route('pemeriksaan.rajal.proses', $item->kodebooking) }}">
+                                    {{ $item->kodebooking }}
+                                </a>
+                            </td>
+                            <td>
+                                @if ($item->asesmenrajal?->status_asesmen_perawat)
+                                    <span class="badge badge-success">1. Sudah</span>
                                 @else
-                                    <a href="{{ route('dokter.rajal.pemeriksaan.proses', $item->kodebooking) }}">
-                                        <x-adminlte-button class="btn-xs" label="Lihat" theme="secondary"
-                                            icon="fas fa-user-md" />
-                                    </a>
+                                    <span class="badge badge-danger">0. Belum</span>
                                 @endif
                             </td>
+                            <td>{{ $item->norm }}</td>
+                            <td>{{ $item->nama }}</td>
                             <td>
                                 @switch($item->taskid)
                                     @case(0)
