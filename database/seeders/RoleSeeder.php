@@ -24,24 +24,45 @@ class RoleSeeder extends Seeder
             $role->syncPermissions($permission);
         }
         $permission = [
-            'crud-absensi',
-            'crud-pasien',
-            'crud-dokter',
-            'crud-perawat',
-            'crud-unit',
-            'crud-pegawai',
-            'crud-tindakan',
-            'crud-jaminan',
-            'crud-diagnosa',
-            'pendaftaran-rawat-jalan',
-            'perawat-rawat-jalan',
-            'dokter-rawat-jalan',
-            'pendaftaran-rawat-darurat',
-            'perawat-rawat-darurat',
-            'dokter-rawat-darurat',
-            'pendaftaran-rawat-inap',
-            'perawat-rawat-inap',
-            'dokter-rawat-inap',
+            'data-role-permission',
+            'data-aplikasi',
+            'data-whatsapp',
+
+            'data-pasien',
+            'data-dokter',
+            'data-unit',
+            'data-jadwaldokter',
+            'data-pegawai',
+            'data-absensi',
+            'data-perawat',
+
+            'data-tindakan',
+            'data-jaminan',
+            'data-diagnosa',
+
+            'rajal-pendaftaran',
+            'rajal-keperawatan',
+            'rajal-pemeriksaan',
+            'rajal-farmasi',
+            'rajal-kasir',
+
+            'igd-pendaftaran',
+            'igd-keperawatan',
+            'igd-pemeriksaan',
+            'igd-farmasi',
+            'igd-kasir',
+
+            'ranap-pendaftaran',
+            'ranap-keperawatan',
+            'ranap-pemeriksaan',
+            'ranap-farmasi',
+            'ranap-kasir',
+
+            'inacbg',
+            'satusehat',
+            'bpjs-antrian',
+            'bpjs-vclaim',
+
             'farmasi',
             'apotek',
             'laboratorium',
@@ -50,10 +71,6 @@ class RoleSeeder extends Seeder
             'bank-darah',
             'kasir',
             'keuangan',
-            'inacbg',
-            'satu-sehat',
-            'antrian-bpjs',
-            'vclaim-bpjs',
         ];
         foreach ($permission as $item) {
             $permission = Permission::create(['name' => Str::slug($item)]);

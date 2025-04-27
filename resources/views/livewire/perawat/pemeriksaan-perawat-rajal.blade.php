@@ -1,33 +1,24 @@
 <div class="row">
-    @if (flash()->message)
-        <div class="col-md-12">
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        </div>
-    @endif
-    @if (isset($antrians))
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}" text="Total Antrian"
-                        theme="success" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box
-                        title="{{ $antrians->where('asesmenrajal.status_asesmen_perawat', 1)->count() }}"
-                        text="Sudah Asesmen" theme="warning" icon="fas fa-user-injured" />
-                </div>
-                <div class="col-lg-3 col-6">
-                    <x-adminlte-small-box
-                        title="{{ $antrians->where('taskid', '!=', 99)->where('asesmenrajal.status_asesmen_perawat', 0)->count() }}"
-                        text="Belum Asesmen" theme="danger" icon="fas fa-user-injured" />
-                </div>
+    <x-flash-message />
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box title="{{ $antrians->where('taskid', '!=', 99)->count() }}" text="Total Antrian"
+                    theme="success" icon="fas fa-user-injured" />
+            </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box title="{{ $antrians->where('asesmenrajal.status_asesmen_perawat', 1)->count() }}"
+                    text="Sudah Asesmen" theme="warning" icon="fas fa-user-injured" />
+            </div>
+            <div class="col-lg-3 col-6">
+                <x-adminlte-small-box
+                    title="{{ $antrians->where('taskid', '!=', 99)->where('asesmenrajal.status_asesmen_perawat', 0)->count() }}"
+                    text="Belum Asesmen" theme="danger" icon="fas fa-user-injured" />
             </div>
         </div>
-    @endif
+    </div>
     <div class="col-md-12">
-        <x-adminlte-card title="Table Antrian Pemeriksaan Perawat" theme="secondary">
+        <x-adminlte-card title="Data Antrian Keperawatan" theme="secondary" icon="fas fa-nurse">
             <div class="row">
                 <div class="col-md-3">
                     <x-adminlte-input wire:model.change='tanggalperiksa' type="date" name="tanggalperiksa"
@@ -63,11 +54,6 @@
                         placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
                         <x-slot name="appendSlot">
                             <x-adminlte-button wire:click='caritanggal' theme="primary" label="Cari" />
-                        </x-slot>
-                        <x-slot name="prependSlot">
-                            <div class="input-group-text text-primary">
-                                <i class="fas fa-search"></i>
-                            </div>
                         </x-slot>
                     </x-adminlte-input>
                 </div>

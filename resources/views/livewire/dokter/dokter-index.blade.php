@@ -54,14 +54,14 @@
             </x-modal>
         @endif
         @if ($formImport)
-            <x-modal size="lg" title="Import Unit" icon="fas fa-file-import" theme="dark">
+            <x-modal size="lg" title="Import Data" icon="fas fa-file-import" theme="dark">
                 <x-adminlte-input-file wire:model='fileImport' name="fileImport"
                     placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File Import' }}"
                     igroup-size="sm" label="File Import" />
                 <x-slot name="footerSlot">
                     <x-adminlte-button class="btn-sm" wire:click='import' class="btn-sm" icon="fas fa-save"
                         theme="success" label="Import"
-                        wire:confirm='Apakah anda yakin akan mengimport data dokter ?' />
+                        wire:confirm='Apakah anda yakin akan mengimport data ?' />
                     <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
                         label="Tutup" data-dismiss="modal" />
                 </x-slot>

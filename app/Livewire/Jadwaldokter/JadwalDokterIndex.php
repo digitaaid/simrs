@@ -24,13 +24,13 @@ class JadwalDokterIndex extends Component
     public $dokters = [];
     public $units = [];
     public $haris = [
+        0 => 'Minggu',
         1 => 'Senin',
         2 => 'Selasa',
         3 => 'Rabu',
         4 => 'Kamis',
         5 => 'Jumat',
         6 => 'Sabtu',
-        7 => 'Minggu',
     ];
     public function libur(JadwalDokter $jadwal)
     {

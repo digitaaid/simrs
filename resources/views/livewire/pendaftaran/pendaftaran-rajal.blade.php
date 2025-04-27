@@ -1,11 +1,5 @@
 <div class="row">
-    @if (flash()->message)
-        <div class="col-md-12">
-            <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-                {{ flash()->message }}
-            </x-adminlte-alert>
-        </div>
-    @endif
+    <x-flash-message />
     <div class="col-md-12">
         <div class="row">
             <div class="col-lg-3 col-6">
@@ -44,7 +38,7 @@
         </div>
     </div>
     <div class="col-md-12">
-        <x-adminlte-card title="Table Antrian Pendaftaran" theme="secondary">
+        <x-adminlte-card title="Data Antrian Pendaftaran" theme="secondary" icon="fas fa-user-plus">
             <div class="row">
                 <div class="col-md-4">
                     <x-adminlte-input wire:model.change='tanggalperiksa' type="date" name="tanggalperiksa"
@@ -64,9 +58,6 @@
                 <div class="col-md-4">
                     <x-adminlte-input wire:model.live="search" name="search"
                         placeholder="Pencarian Berdasarkan Nama / No RM" igroup-size="sm">
-                        <x-slot name="appendSlot">
-                            <x-adminlte-button wire:click='caritanggal' theme="primary" label="Cari" />
-                        </x-slot>
                         <x-slot name="prependSlot">
                             <div class="input-group-text text-primary">
                                 <i class="fas fa-search"></i>

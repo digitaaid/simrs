@@ -1,35 +1,30 @@
 <div class="row">
-    @include('components.layouts.flash_message')
+    <x-flash-message />
     <div class="col-md-12">
         @if ($formImport)
-            <x-adminlte-card title="Import Pasien" theme="secondary">
-                <x-adminlte-input-file wire:model='filePasienImport' name="filePasienImport"
-                    placeholder="{{ $filePasienImport ? $filePasienImport->getClientOriginalName() : 'Pilih File Pasien' }}"
+            <x-modal size="lg" title="Import Data" icon="fas fa-file-import" theme="dark">
+                <x-adminlte-input-file wire:model='fileImport' name="fileImport"
+                    placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File Import' }}"
                     igroup-size="sm" label="File Import" />
                 <x-slot name="footerSlot">
-                    <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
-                        theme="success" label="Import"
-                        wire:confirm='Apakah anda yakin akan mengimport file pasien saat ini ?' />
-                    <x-adminlte-button theme="danger" wire:click='closeFormImport' class="btn-sm" icon="fas fa-times"
-                        label="Kembali" data-dismiss="modal" />
-                    <div wire:loading>
-                        Loading...
-                    </div>
+                    <x-adminlte-button class="btn-sm" wire:click='import' class="btn-sm" icon="fas fa-save"
+                        theme="success" label="Import" wire:confirm='Apakah anda yakin akan mengimport data dokter ?' />
+                    <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
+                        label="Tutup" data-dismiss="modal" />
                 </x-slot>
-            </x-adminlte-card>
+            </x-modal>
         @endif
-        <x-adminlte-card title="Table Pasien" theme="secondary">
+        <x-adminlte-card title="Data Pasien" theme="secondary" icon="fas fa-user-injured">
             <div class="row ">
                 <div class="col-md-8">
                     <a href="{{ route('pasien.create') }}" wire:navigate>
-                        <x-adminlte-button class="btn-sm" label="Tambah Pasien" theme="success"
-                            icon="fas fa-user-plus" />
+                        <x-adminlte-button class="btn-sm" title="Tambah" theme="success" icon="fas fa-folder-plus" />
                     </a>
                     <x-adminlte-button wire:click='export'
                         wire:confirm='Apakah anda yakin akan mendownload file pasien saat ini ? ' class="btn-sm"
-                        label="Export" theme="primary" icon="fas fa-upload" />
-                    <x-adminlte-button wire:click='openFormImport' class="btn-sm" label="Import" theme="primary"
-                        icon="fas fa-download" />
+                        title="Export" theme="primary" icon="fas fa-file-export" />
+                    <x-adminlte-button wire:click='openFormImport' class="btn-sm" title="Import" theme="primary"
+                        icon="fas fa-file-import" />
                 </div>
                 <div class="col-md-4">
                     <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Pasien"

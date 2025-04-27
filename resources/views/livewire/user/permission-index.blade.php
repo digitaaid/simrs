@@ -1,60 +1,46 @@
 <div>
-    @if (flash()->message)
-        <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-            {{ flash()->message }}
-        </x-adminlte-alert>
-    @endif
+    <x-flash-message />
     @if ($formImport)
-        <x-adminlte-card title="Import File" theme="secondary">
+        <x-modal size="lg" title="Import Data" icon="fas fa-file-import" theme="dark">
             <x-adminlte-input-file wire:model='fileImport' name="fileImport"
-                placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File' }}" igroup-size="sm"
-                label="File Import" />
+                placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File Import' }}"
+                igroup-size="sm" label="File Import" />
             <x-slot name="footerSlot">
-                <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
-                    theme="success" label="Import"
-                    wire:confirm='Apakah anda yakin akan mengimport file pasien saat ini ?' />
+                <x-adminlte-button class="btn-sm" wire:click='import' class="btn-sm" icon="fas fa-save" theme="success"
+                    label="Import" wire:confirm='Apakah anda yakin akan mengimport data dokter ?' />
                 <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
-                    label="Kembali" data-dismiss="modal" />
-                <div wire:loading>
-                    Loading...
-                </div>
+                    label="Tutup" data-dismiss="modal" />
             </x-slot>
-        </x-adminlte-card>
+        </x-modal>
     @endif
-    <div id="editPermission">
-        @if ($form)
-            <x-adminlte-card title="Permission" theme="secondary">
-                <form>
-                    <input type="hidden" wire:model="id" name="id">
-                    <x-adminlte-input wire:model="name" fgroup-class="row" label-class="text-left col-3"
-                        igroup-class="col-9" igroup-size="sm" name="name" label="Nama"
-                        placeholder="Nama Permission" />
-                </form>
-                <x-slot name="footerSlot">
-                    <x-adminlte-button label="Simpan" class="btn-sm" icon="fas fa-save" wire:click="store"
-                        wire:confirm="Apakah anda yakin ingin menyimpan permission ?" theme="success" />
-                    <x-adminlte-button wire:click='closeForm' class="btn-sm" label="Tutup" theme="danger"
-                        icon="fas fa-times" />
-                </x-slot>
-            </x-adminlte-card>
-        @endif
-    </div>
-    <x-adminlte-card title="Table Permission" theme="secondary">
+    @if ($form)
+        <x-modal size="lg" title="Permission" icon="fas fa-user-tag" theme="dark">
+            <form>
+                <input type="hidden" wire:model="id" name="id">
+                <x-adminlte-input wire:model="name" fgroup-class="row" label-class="text-left col-3"
+                    igroup-class="col-9" igroup-size="sm" name="name" label="Nama" placeholder="Nama Permission" />
+            </form>
+            <x-slot name="footerSlot">
+                <x-adminlte-button label="Simpan" class="btn-sm" icon="fas fa-save" wire:click="store"
+                    wire:confirm="Apakah anda yakin ingin menyimpan permission ?" theme="success" />
+                <x-adminlte-button wire:click='closeForm' class="btn-sm" label="Tutup" theme="danger"
+                    icon="fas fa-times" />
+            </x-slot>
+        </x-modal>
+    @endif
+    <x-adminlte-card title="Data Permission" theme="secondary" icon="fas fa-user-tag">
         <div class="row">
-            <div class="col-md-6">
-                <x-adminlte-button wire:click='openForm' class="btn-sm mb-2" label="Add Permission" theme="success"
-                    icon="fas fa-user-plus" />
-                <x-adminlte-button wire:click='export'
-                    wire:confirm='Apakah anda yakin akan mendownload file user saat ini ? ' class="btn-sm mb-2"
-                    label="Export" theme="primary" icon="fas fa-upload" />
-                <x-adminlte-button wire:click='openFormImport' class="btn-sm mb-2" label="Import" theme="primary"
-                    icon="fas fa-download" />
+            <div class="col-md-8">
+                <x-adminlte-button wire:click='openForm' class="btn-sm" title="Tambah Data" theme="success"
+                    icon="fas fa-folder-plus" />
+                <x-adminlte-button wire:click='export' wire:confirm='Apakah anda yakin akan mendownload semua data ? '
+                    class="btn-sm" title="Export" theme="primary" icon="fas fa-file-export" />
+                <x-adminlte-button wire:click='openFormImport' class="btn-sm" title="Import" theme="primary"
+                    icon="fas fa-file-import" />
             </div>
-            <div class="col-md-6">
-                <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian" igroup-size="sm">
-                    <x-slot name="appendSlot">
-                        <x-adminlte-button wire:click="cari" theme="primary" label="Cari" />
-                    </x-slot>
+            <div class="col-md-4">
+                <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Jadwal Dokter"
+                    igroup-size="sm">
                     <x-slot name="prependSlot">
                         <div class="input-group-text text-primary">
                             <i class="fas fa-search"></i>

@@ -58,7 +58,6 @@
         @endif
         @if ($formImport)
             <x-modal size="lg" title="Import Data" icon="fas fa-file-import" theme="dark">
-
                 <x-adminlte-input-file wire:model='fileImport' name="fileImport"
                     placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File Import' }}"
                     igroup-size="sm" label="File Import" />
@@ -84,9 +83,6 @@
                 <div class="col-md-4">
                     <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian Jadwal Dokter"
                         igroup-size="sm">
-                        <x-slot name="appendSlot">
-                            <x-adminlte-button theme="primary" label="Cari" />
-                        </x-slot>
                         <x-slot name="prependSlot">
                             <div class="input-group-text text-primary">
                                 <i class="fas fa-search"></i>

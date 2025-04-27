@@ -20,7 +20,7 @@ class PasienIndex extends Component
     use WithFileUploads;
     public $search = '';
     public $formImport = false;
-    public $filePasienImport;
+    public $fileImport;
     public function render()
     {
         $search = '%' . $this->search . '%';
@@ -36,12 +36,12 @@ class PasienIndex extends Component
     {
         try {
             $this->validate([
-                'filePasienImport' => 'required|mimes:xlsx'
+                'fileImport' => 'required|mimes:xlsx'
             ]);
-            Excel::import(new PasienImport, $this->filePasienImport->getRealPath());
+            Excel::import(new PasienImport, $this->fileImport->getRealPath());
             flash('Import Pasien successfully', 'success');
             $this->formImport = false;
-            $this->filePasienImport = null;
+            $this->fileImport = null;
             return redirect()->to('/pasien');
         } catch (\Throwable $th) {
             flash('Mohon maaf ' . $th->getMessage(), 'danger');
@@ -64,7 +64,7 @@ class PasienIndex extends Component
     function closeFormImport()
     {
         $this->formImport = false;
-        $this->filePasienImport = null;
+        $this->fileImport = null;
     }
     public $sortBy = 'norm';
     public $sortDirection = 'desc';
