@@ -65,6 +65,11 @@ class FarmasiRajal extends Component
     public function terimaResep(Antrian $antrian)
     {
         $now = now();
+        $antrian->taskid = 6;
+        $antrian->taskid6 = $now;
+        $antrian->panggil = 0;
+        $antrian->status = 1;
+        $antrian->user4 = auth()->user()->id;
         if (env('ANTRIAN_REALTIME')) {
             $request = new Request([
                 'kodebooking' => $antrian->kodebooking,
@@ -73,17 +78,11 @@ class FarmasiRajal extends Component
             ]);
             $api = new AntrianController();
             $res = $api->update_antrean($request);
-            if ($res->metadata->code != 200) {
-                if ($res->metadata->message != "TaskId=6 sudah ada") {
-                    return flash($res->metadata->message, 'danger');
-                }
+
+            if ($res->metadata->code != 200 && $res->metadata->message != "TaskId=6 sudah ada") {
+                return flash($res->metadata->message, 'danger');
             }
         }
-        $antrian->taskid = 6;
-        $antrian->taskid6 = $now;
-        $antrian->panggil = 0;
-        $antrian->status = 1;
-        $antrian->user4 = auth()->user()->id;
         $antrian->update();
         flash('Resep obat atas nama pasien ' . $antrian->nama . ' telah diterima farmasi.', 'success');
     }
@@ -189,26 +188,27 @@ class FarmasiRajal extends Component
     public function selesai(Antrian $antrian)
     {
         $now = now();
-        if (env('ANTRIAN_REALTIME')) {
-            $request = new Request([
-                'kodebooking' => $antrian->kodebooking,
-                'waktu' =>  $now,
-                'taskid' => 7,
-            ]);
-            $api = new AntrianController();
-            $res = $api->update_antrean($request);
-            if ($res->metadata->code != 200) {
-                if ($res->metadata->message != "TaskId=7 sudah ada") {
-                    return flash($res->metadata->message, 'danger');
-                }
-            }
-        }
         $antrian->taskid = 7;
-        $antrian->taskid7 =  $now;
+        $antrian->taskid7 = $now;
         $antrian->status = 1;
         $antrian->panggil = 0;
         $antrian->user4 = auth()->user()->id;
         $antrian->keterangan = "Pelayanan telah selesai";
+
+        if (env('ANTRIAN_REALTIME')) {
+            $request = new Request([
+                'kodebooking' => $antrian->kodebooking,
+                'waktu' => $now,
+                'taskid' => 7,
+            ]);
+            $api = new AntrianController();
+            $res = $api->update_antrean($request);
+
+            if ($res->metadata->code != 200 && $res->metadata->message != "TaskId=7 sudah ada") {
+                return flash($res->metadata->message, 'danger');
+            }
+        }
+
         $antrian->update();
         $kunjungan = $antrian->kunjungan;
         $kunjungan->status = 2;
@@ -254,4 +254,3 @@ class FarmasiRajal extends Component
         return view('livewire.rajal.farmasi-rajal')->title('Farmasi Resep Obat');
     }
 }
-

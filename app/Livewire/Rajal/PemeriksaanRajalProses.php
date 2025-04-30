@@ -132,7 +132,7 @@ class PemeriksaanRajalProses extends Component
             $antrian->user3 = auth()->user()->id;
             $antrian->update();
             flash('Nomor antrian ' . $antrian->nomorantrean . ' telah dilanjutkan ke farmasi.', 'success');
-            return redirect()->to(route('dokter.rajal.pemeriksaan') . "?tanggalperiksa=" . $antrian->tanggalperiksa . "&jadwal=" . $antrian->jadwal_id);
+            return redirect()->to(route('pemeriksaan.rajal.index') . "?tanggalperiksa=" . $antrian->tanggalperiksa . "&jadwal=" . $antrian->jadwal_id);
         } else {
             flash('Nomor antrian ' . $antrian->nomorantrean . ' sudah mendapatkan obat.', 'danger');
         }
