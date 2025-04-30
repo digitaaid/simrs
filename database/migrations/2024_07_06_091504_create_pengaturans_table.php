@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('nama_panjang')->nullable();
+            $table->string('ip_public')->nullable();
             $table->string('logo_icon')->nullable();
             $table->string('auth_img')->nullable();
 
