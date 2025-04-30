@@ -15,7 +15,6 @@
     @endif
     @if ($form)
         <x-modal size="lg" title="Role" icon="fas fa-user-tie" theme="dark">
-
             <form>
                 <input type="hidden" wire:model="id" name="id">
                 <x-adminlte-input wire:model="name" fgroup-class="row" label-class="text-left col-3"

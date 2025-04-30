@@ -65,7 +65,6 @@ class UserIndex extends Component
             'email' => 'required|email',
             'role' => 'required',
         ]);
-
         $data = [
             'name' => $this->name,
             'username' => $this->username,
@@ -73,26 +72,19 @@ class UserIndex extends Component
             'email' => $this->email,
             'pic' => auth()->user()->name,
         ];
-
         if (!empty($this->password)) {
             $data['password'] = bcrypt($this->password);
         }
-
         $user = User::updateOrCreate(
             ['id' => $this->userId],
             $data
         );
-
         $user->syncRoles($this->role);
-
         ActivityLog::createLog(
             'Update/Create User',
             auth()->user()->name . ' menyimpan user ' . $user->name
         );
-
-        Alert::success('Success', 'User ' . $user->name . ' saved successfully');
-
-        return redirect()->route('user.index');
+        return flash('Berhasil simpan data user', 'success');
     }
     public function verifikasi($id)
     {
@@ -101,17 +93,12 @@ class UserIndex extends Component
         $user->pic = auth()->user()->name;
         $user->user_verify = auth()->user()->name;
         $user->save();
-
         $status = $user->email_verified_at ? 'memverifikasi' : 'membatalkan verifikasi';
-
         ActivityLog::createLog(
             'Verify User',
             auth()->user()->name . " $status user " . $user->name
         );
-
-        Alert::success('Success', 'User ' . $user->name . ' verification status changed successfully');
-
-        return redirect()->route('user.index');
+        return flash('Verifikasi User successfully', 'success');
     }
     public function hapus($id)
     {
@@ -122,10 +109,7 @@ class UserIndex extends Component
             'Delete User',
             auth()->user()->name . ' menghapus user ' . $user->name
         );
-
-        Alert::success('Success', 'User ' . $user->name . ' deleted successfully');
-
-        return redirect()->route('user.index');
+        return flash('Berhasil hapus data user', 'success');
     }
     public function export()
     {
@@ -138,10 +122,9 @@ class UserIndex extends Component
             );
 
             flash('Export User successfully', 'success');
-
             return Excel::download(new UserExport, 'user_backup_' . $time . '.xlsx');
         } catch (\Throwable $th) {
-            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+            return flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
     }
     public function openFormImport()
@@ -156,17 +139,14 @@ class UserIndex extends Component
             ]);
 
             Excel::import(new UserImport, $this->fileImport->getRealPath());
-
             ActivityLog::createLog(
                 'Import User',
                 auth()->user()->name . ' mengimpor data user'
             );
-
             Alert::success('Success', 'User imported successfully');
-
             return redirect()->route('user.index');
         } catch (\Throwable $th) {
-            flash('Mohon maaf ' . $th->getMessage(), 'danger');
+            return flash('Mohon maaf ' . $th->getMessage(), 'danger');
         }
     }
     public function mount()
@@ -181,7 +161,6 @@ class UserIndex extends Component
             ->orWhere('email', 'like', $search)
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(10);
-
         return view('livewire.user.user-index', compact('users'))
             ->title('User');
     }

@@ -1,28 +1,20 @@
 <div>
-    @if (flash()->message)
-        <x-adminlte-alert theme="{{ flash()->class }}" title="{{ flash()->class }} !" dismissable>
-            {{ flash()->message }}
-        </x-adminlte-alert>
-    @endif
+    <x-flash-message />
     @if ($formImport)
-        <x-adminlte-card title="Import File" theme="secondary">
+        <x-modal size="lg" title="Import Data" icon="fas fa-file-import" theme="dark">
             <x-adminlte-input-file wire:model='fileImport' name="fileImport"
-                placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File' }}" igroup-size="sm"
-                label="File Import" />
+                placeholder="{{ $fileImport ? $fileImport->getClientOriginalName() : 'Pilih File Import' }}"
+                igroup-size="sm" label="File Import" />
             <x-slot name="footerSlot">
-                <x-adminlte-button class="btn-sm" wire:click='import' class="mr-auto btn-sm" icon="fas fa-save"
-                    theme="success" label="Import"
-                    wire:confirm='Apakah anda yakin akan mengimport file pasien saat ini ?' />
+                <x-adminlte-button class="btn-sm" wire:click='import' class="btn-sm" icon="fas fa-save" theme="success"
+                    label="Import" wire:confirm='Apakah anda yakin akan mengimport data dokter ?' />
                 <x-adminlte-button theme="danger" wire:click='openFormImport' class="btn-sm" icon="fas fa-times"
-                    label="Kembali" data-dismiss="modal" />
-                <div wire:loading>
-                    Loading...
-                </div>
+                    label="Tutup" data-dismiss="modal" />
             </x-slot>
-        </x-adminlte-card>
+        </x-modal>
     @endif
     @if ($formUser)
-        <x-adminlte-card title="Identitas User" theme="secondary">
+        <x-modal size="xl" title="User" icon="fas fa-user" theme="dark">
             <form>
                 <input hidden wire:model="id" name="id">
                 <x-adminlte-input wire:model="name" fgroup-class="row" label-class="text-left col-3"
@@ -50,7 +42,7 @@
                 <x-adminlte-button class="btn-sm" wire:click="batal" label="Batal" theme="danger"
                     icon="fas fa-times" />
             </x-slot>
-        </x-adminlte-card>
+        </x-modal>
     @endif
     <div>
         <x-adminlte-card title="Table User" theme="secondary">
