@@ -1183,6 +1183,13 @@ return [
                     'icon' => 'fas fa-history',
                     'shift'   => 'ml-2',
                 ],
+                [
+                    'text' => 'Log Developer',
+                    'url' => 'log-viewer',
+                    'icon' => 'fas fa-history',
+                    'shift'   => 'ml-2',
+                    'can' => 'data-aplikasi',
+                ],
             ],
         ],
         [
