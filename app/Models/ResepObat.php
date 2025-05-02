@@ -21,5 +21,8 @@ class ResepObat extends Model
     {
         return $this->hasMany(ResepObatDetail::class, 'resep_id', 'id');
     }
-
+    public function resepfarmasidetails()
+    {
+        return $this->hasMany(ResepFarmasiDetail::class, 'resep_id', 'id');
+    }
 }

@@ -106,6 +106,7 @@ class ModalRiwayatObat extends Component
             'waktu' => '',
             'keterangan' => '',
             'pic' => auth()->user()->name,
+            'updated_at' => now(),
         ];
     }
     public function hapusObat($index)
