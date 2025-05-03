@@ -25,7 +25,6 @@ class ModalPemulanganIgd extends Component
     public $kode_transfer, $kode, $counter, $tgl_transfer, $unit, $dokter, $cara_masuk, $jeniskunjungan, $penjamin, $nomorreferensi, $sep;
     protected $listeners = ['refreshPage' => '$refresh'];
 
-
     public function transfer()
     {
         $this->validate([

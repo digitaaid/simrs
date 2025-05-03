@@ -7,11 +7,12 @@ use App\Models\Kunjungan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ModalPemulanganRanap extends Component
 {
     public $kunjungan;
-    public $status_pulang = "", $kode, $counter, $noSep, $tgl_masuk, $tgl_pulang, $noLPManual, $tgl_meninggal, $noSuratMeninggal;
+    public $status_pulang, $kode, $counter, $noSep, $tgl_masuk, $tgl_pulang, $noLPManual, $tgl_meninggal, $noSuratMeninggal;
     protected $listeners = ['refreshPage' => '$refresh'];
     public function render()
     {
@@ -25,6 +26,10 @@ class ModalPemulanganRanap extends Component
         $this->noSep = $kunjungan->sep;
         $this->tgl_masuk = $kunjungan->tgl_masuk;
         $this->tgl_pulang = $kunjungan->tgl_pulang;
+        $this->status_pulang = $kunjungan->status_pulang;
+        $this->noLPManual = $kunjungan->noLPManual;
+        $this->tgl_meninggal = $kunjungan->tgl_meninggal;
+        $this->noSuratMeninggal = $kunjungan->noSuratMeninggal;
     }
     public function editKunjungan()
     {
@@ -61,7 +66,10 @@ class ModalPemulanganRanap extends Component
             'status' => 2,
             'keterangan' => "Pasien sudah dipulangkan pada " . $now,
         ]);
-        $this->dispatch('refreshPage');
+        // $this->dispatch('refreshPage');
+        Alert::success('Success', 'Kunjungan berhasil disimpan');
+        $url = route('pendaftaran.ranap.proses', $this->kunjungan->kode);
+        redirect()->to($url);
         return flash("Berhasil Pemulangan Pasien", 'success');
     }
 }

@@ -11,7 +11,7 @@
         </x-adminlte-card>
     </div>
     {{-- navigasi --}}
-    @include('livewire.ranap.modal-navigasi-ranap')
+    @include('livewire.ranap.navigasi-pendaftaran-ranap')
     {{-- form --}}
     <div class="col-md-9" style="overflow-y: auto ;max-height: 600px ;">
         <div id="datapasien">
@@ -27,27 +27,27 @@
             <div id="modalsep">
                 @livewire('pendaftaran.modal-sep', ['kunjungan' => $kunjungan, 'lazy' => true])
             </div>
-            <div id="cpptranap">
+            {{-- <div id="cpptranap">
                 @livewire('ranap.modal-cppt-ranap', ['kunjungan' => $kunjungan, 'lazy' => true])
-            </div>
+            </div> --}}
             <div id="layanan">
                 @livewire('igd.modal-layanan-igd', ['lazy' => true, 'kunjungan' => $kunjungan])
             </div>
-            <div id="resepdokterigd">
+            <div id="resepobat">
                 @livewire('igd.modal-resep-dokter-igd', ['lazy' => true, 'kunjungan' => $kunjungan])
             </div>
-            <div id="resumeranap">
+            {{-- <div id="resumeranap">
                 @livewire('ranap.modal-resume-ranap', ['lazy' => true, 'kunjungan' => $kunjungan])
-            </div>
-            <div id="pemulanganranap">
-                @livewire('ranap.modal-pemulangan-ranap', ['lazy' => true, 'kunjungan' => $kunjungan])
-            </div>
+            </div> --}}
             <div id="invoiceranap">
                 <x-adminlte-card theme="primary" title="Nota Pembayaran Pasien">
                     <iframe src="{{ route('print.notarajalf', $kunjungan->kode) }}" width="100%" height="500"
                         frameborder="0"></iframe>
                 </x-adminlte-card>
 
+            </div>
+            <div id="pemulanganpasien">
+                @livewire('ranap.modal-pemulangan-ranap', ['lazy' => true, 'kunjungan' => $kunjungan])
             </div>
         @endif
     </div>

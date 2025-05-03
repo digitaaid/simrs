@@ -56,6 +56,17 @@
                             </span>
                         @endif
                     </a>
+                    <a href="#resepobat" class="nav-link">
+                        <i class="fas fa-prescription-bottle-alt"></i> Resep Obat Dokter
+                        @if ($kunjungan->resepfarmasidetails)
+                            <span
+                                class="badge bg-success float-right">{{ money($kunjungan->resepfarmasidetails->sum('subtotal'), 'IDR') }}
+                            </span>
+                        @else
+                            <span class="badge bg-success float-right">{{ money(0, 'IDR') }}
+                            </span>
+                        @endif
+                    </a>
                     <a href="#invoiceigd" class="nav-link">
                         <i class="fas fa-file-medical"></i> Invoice IGD
                         @if ($kunjungan->resepfarmasidetails || $kunjungan->layanans)
@@ -69,13 +80,18 @@
                     </a>
                     <a href="#pemulanganpasien" class="nav-link">
                         <i class="fas fa-ambulance"></i> Pemulangan Pasien
+                        @if ($kunjungan->tgl_pulang)
+                            <span class="badge bg-success float-right">{{ $kunjungan->tgl_pulang }}</span>
+                        @else
+                            <span class="badge bg-warning float-right">Belum Pulang</span>
+                        @endif
                     </a>
+
                 @endif
             </li>
         </ul>
         <x-slot name="footerSlot">
-            <a
-                href="{{ route('pendaftaran.igd') }}?tanggalperiksa={{ $antrian->tanggalperiksa ?? now()->format('Y-m-d') }}">
+            <a href="{{ route('pendaftaran.igd') }}?tanggal={{ $antrian->tanggalperiksa ?? now()->format('Y-m-d') }}">
                 <x-adminlte-button class="btn-xs mb-1" label="Kembali" theme="danger" icon="fas fa-arrow-left" />
             </a>
             <x-adminlte-button wire:click='batal'

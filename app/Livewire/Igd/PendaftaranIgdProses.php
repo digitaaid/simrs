@@ -29,6 +29,6 @@ class PendaftaranIgdProses extends Component
             ]);
         }
         Alert::success('Success', 'Kunjungan Pasien ' . $kunjungan->nama . ' telah dibatalakan pendaftaran.');
-        return redirect()->to(route('pendaftaran.igd') . "?tanggalperiksa=" . $kunjungan->tgl_masuk);
+        return redirect()->to(route('pendaftaran.igd') . "?tanggal=" . $kunjungan->tgl_masuk);
     }
 }

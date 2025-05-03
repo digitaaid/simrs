@@ -13,16 +13,11 @@ class PendaftaranRanapProses extends Component
     protected $listeners = ['refreshPage' => '$refresh'];
     public function render()
     {
-        if ($this->kunjungan) {
-            $title = "Rawat Inap " . $this->kunjungan->nama;
-        } else {
-            $title = "Pendaftaran Pasien Rawat Inap";
-        }
-        return view('livewire.ranap.pendaftaran-ranap-proses')->title($title);
+        return view('livewire.ranap.pendaftaran-ranap-proses')->title('Pendaftaran Ranap');
     }
-    public function mount(Request $request)
+    public function mount($kodebooking)
     {
-        $this->kunjungan = Kunjungan::where('kode', $request->kode)->first();
+        $this->kunjungan = Kunjungan::where('kode', $kodebooking)->first();
     }
     public function batal()
     {
@@ -34,6 +29,6 @@ class PendaftaranRanapProses extends Component
             ]);
         }
         Alert::success('Success', 'Kunjungan Pasien ' . $kunjungan->nama . ' telah dibatalakan pendaftaran.');
-        return redirect()->to(route('pendaftaran.ranap') . "?tanggalperiksa=" . $kunjungan->tgl_masuk);
+        return redirect()->to(route('pendaftaran.ranap') . "?tanggal=" . $kunjungan->tgl_masuk);
     }
 }

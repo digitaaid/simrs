@@ -14,8 +14,10 @@
                 <x-adminlte-input wire:model="tgl_pulang" type='datetime-local' fgroup-class="row"
                     label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" name="tgl_pulang"
                     label="Tanggal Pulang" />
+            </div>
+            <div class="col-md-6">
                 <x-adminlte-select wire:model.live="status_pulang" fgroup-class="row" label-class="text-left col-4"
-                    igroup-class="col-8" igroup-size="sm" name="status_pulang" label="Cara Masuk">
+                    igroup-class="col-8" igroup-size="sm" name="status_pulang" label="Status Pulang">
                     <option value="">Pilih Status Pulang</option>
                     <option value="1">Atas Persetujuan Dokter</option>
                     <option value="3">Atas Permintaan Sendiri</option>
