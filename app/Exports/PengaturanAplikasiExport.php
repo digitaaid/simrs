@@ -6,6 +6,7 @@ use App\Models\Pengaturan;
 use App\Models\PengaturanAntrian;
 use App\Models\PengaturanSatuSehat;
 use App\Models\PengaturanVclaim;
+use App\Models\PengaturanWhatsapp;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
@@ -17,6 +18,7 @@ class PengaturanAplikasiExport implements FromCollection, WithHeadings
         $antrian = PengaturanAntrian::first();
         $vclaim = PengaturanVclaim::first();
         $satusehat = PengaturanSatuSehat::first();
+        $whatsapp = PengaturanWhatsapp::first();
         $data = collect([
             [
                 $pengaturan->nama ?? null,
@@ -48,6 +50,13 @@ class PengaturanAplikasiExport implements FromCollection, WithHeadings
                 $satusehat->authUrl ?? null,
                 $satusehat->userKey ?? null,
                 $satusehat->secretKey ?? null,
+
+                $whatsapp->nama ?? null,
+                $whatsapp->kode ?? null,
+                $whatsapp->baseUrl ?? null,
+                $whatsapp->authUrl ?? null,
+                $whatsapp->userKey ?? null,
+                $whatsapp->secretKey ?? null,
 
             ]
         ]);
@@ -85,6 +94,13 @@ class PengaturanAplikasiExport implements FromCollection, WithHeadings
             'satusehat-authUrl',
             'satusehat-userKey',
             'satusehat-secretKey',
+
+            'whatsapp-nama',
+            'whatsapp-kode',
+            'whatsapp-baseUrl',
+            'whatsapp-authUrl',
+            'whatsapp-userKey',
+            'whatsapp-secretKey',
         ];
     }
 }

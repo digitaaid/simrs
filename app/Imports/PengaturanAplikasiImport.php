@@ -63,6 +63,17 @@ class PengaturanAplikasiImport implements ToCollection, WithHeadingRow
                     'secretKey' => $row['satusehat_secretkey'],
                 ]);
             }
+            if ($row['whatsapp_nama']) {
+                PengaturanSatuSehat::updateOrCreate([
+                    'nama' => $row['whatsapp_nama'],
+                ], [
+                    'kode' => $row['whatsapp_kode'],
+                    'baseUrl' => $row['whatsapp_baseurl'],
+                    'authUrl' => $row['whatsapp_authurl'],
+                    'userKey' => $row['whatsapp_userkey'],
+                    'secretKey' => $row['whatsapp_secretkey'],
+                ]);
+            }
         }
     }
 }
