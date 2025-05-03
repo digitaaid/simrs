@@ -1125,7 +1125,7 @@ return [
                     'url' => 'role-permission',
                     'icon' => 'fas fa-users-cog',
                     'shift'   => 'ml-2',
-                    'can' => 'data-role',
+                    // 'can' => 'data-role',
                 ],
                 [
                     'text' => 'User',
