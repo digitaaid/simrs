@@ -191,17 +191,6 @@
                     </x-adminlte-input>
                     <x-search-table :isSearching="$searchingDiagnosa" :data="$diagnosas" :columns="['Kode ICD-10', 'Nama Diagnosa']"
                         clickEvent="selectDiagnosa" />
-
-{{--
-                    <x-adminlte-input wire:model.live="diagAwal" list="diagawallist" name="diagAwal"
-                        fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
-                        label="">
-                    </x-adminlte-input>
-                    <datalist id="diagawallist">
-                        @foreach ($diagnosas as $item)
-                            <option value="{{ $item['kode'] }}">{{ $item['nama'] }}</option>
-                        @endforeach
-                    </datalist> --}}
                     <x-adminlte-input wire:model='catatan' name="catatan" label="Catatan" fgroup-class="row"
                         label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
                     <x-adminlte-select wire:model='tujuanKunj' fgroup-class="row" label-class="text-left col-4"

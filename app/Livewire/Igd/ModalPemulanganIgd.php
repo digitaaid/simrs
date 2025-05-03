@@ -3,7 +3,13 @@
 namespace App\Livewire\Igd;
 
 use App\Http\Controllers\VclaimController;
+use App\Models\Bed;
+use App\Models\Dokter;
+use App\Models\Jaminan;
+use App\Models\Kamar;
 use App\Models\Kunjungan;
+use App\Models\Pasien;
+use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Livewire\Component;
@@ -11,25 +17,141 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ModalPemulanganIgd extends Component
 {
-    public $kunjungan;
-    public $status_pulang = "", $kode, $counter, $noSep, $tgl_masuk, $tgl_pulang, $noLPManual, $tgl_meninggal, $noSuratMeninggal;
+    public $form;
+    public $status_pulang, $noSep, $tgl_masuk, $tgl_pulang, $noLPManual, $tgl_meninggal, $noSuratMeninggal;
+    public $kunjungan, $kunjunganranap;
+    public $jaminans, $units, $dokters, $beds = [];
+    public $bed, $norm, $nohp, $nomorkartu, $nama, $nik, $tgl_lahir, $jenispeserta, $fktp, $hakkelas, $gender;
+    public $kode_transfer, $kode, $counter, $tgl_transfer, $unit, $dokter, $cara_masuk, $jeniskunjungan, $penjamin, $nomorreferensi, $sep;
     protected $listeners = ['refreshPage' => '$refresh'];
-    public function render()
+
+
+    public function transfer()
     {
-        return view('livewire.igd.modal-pemulangan-igd');
+        $this->validate([
+            'norm' => 'required',
+            'nomorkartu' => 'required',
+            'nik' => 'required|digits:16',
+            'nama' => 'required',
+            'nohp' => 'required',
+            'tgl_lahir' => 'required|date',
+            'gender' => 'required',
+            'hakkelas' => 'required',
+            'jenispeserta' => 'required',
+            'kode' => 'required',
+            'counter' => 'required',
+            'tgl_transfer' => 'required',
+            'penjamin' => 'required',
+            'unit' => 'required',
+            'bed' => 'required',
+            'dokter' => 'required',
+            'cara_masuk' => 'required',
+            'jeniskunjungan' => 'required',
+        ]);
+        // update pasien
+        $pasien = Pasien::firstWhere('norm', $this->norm);
+        $pasien->update([
+            'nomorkartu' => $this->nomorkartu,
+            'nik' => $this->nik,
+            'nama' => $this->nama,
+            'nohp' => $this->nohp,
+            'tgl_lahir' => $this->tgl_lahir,
+            'gender' => $this->gender,
+            'hakkelas' => $this->hakkelas,
+            'jenispeserta' => $this->jenispeserta,
+        ]);
+        $kunjunganigd = $this->kunjungan;
+        if (!empty($kunjunganigd->kode_transfer)) {
+            $kodetf = $kunjunganigd->kode_transfer;
+        } else {
+            $kodetf = strtoupper(uniqid());
+        }
+        $unit = Unit::firstWhere('kode', $this->unit);
+        $kamar = Kamar::firstWhere('unit_id', $unit->id);
+        $bed = Bed::find($this->bed);
+        $kunjunganranap = Kunjungan::updateOrCreate([
+            'kode' => $kodetf,
+            'counter' => $this->counter,
+        ], [
+            'tgl_masuk' => Carbon::parse($this->tgl_transfer),
+            'jaminan' => $this->penjamin,
+            'nomorkartu' => $this->nomorkartu,
+            'nik' => $this->nik,
+            'norm' => $this->norm,
+            'nama' => $this->nama,
+            'tgl_lahir' => $this->tgl_lahir,
+            'gender' => $this->gender,
+            'kelas' => $this->hakkelas,
+            'penjamin' => $this->jenispeserta,
+            'unit' => $this->unit,
+            'dokter' => $this->dokter,
+            'kamar_id' => $kamar->id,
+            'bed_id' => $bed->id,
+            'jeniskunjungan' => $this->jeniskunjungan,
+            'nomorreferensi' => $this->nomorreferensi,
+            'sep' => $this->sep,
+            'cara_masuk' => $this->cara_masuk,
+            'status' => 1,
+            'user1' => auth()->user()->id,
+        ]);
+        $kunjunganigd->update([
+            'kode_transfer' => $kodetf,
+            'tgl_pulang' => Carbon::parse($this->tgl_transfer),
+            'status' => 2,
+            'user1' => auth()->user()->id,
+        ]);
+        Alert::success('Success', 'Kunjungan berhasil ditransfer');
+        flash('Kunjungan IGD berhasil ditransfer ke Rawat Inap', 'success');
+        $url = route('pendaftaran.igd.proses', $kunjunganigd->kode);
+        redirect()->to($url);
     }
-    public function mount(Kunjungan $kunjungan)
+    public function updatedUnit($value)
+    {
+        $this->beds = Bed::where('koderuang', $value)->get();
+    }
+    public function getKunjungan($kunjungan)
     {
         $this->kunjungan = $kunjungan;
-        $this->kode = $kunjungan->kode;
-        $this->counter = $kunjungan->counter;
-        $this->noSep = $kunjungan->sep;
-        $this->tgl_masuk = $kunjungan->tgl_masuk;
-        $this->tgl_pulang = $kunjungan->tgl_pulang;
-        $this->status_pulang = $kunjungan->status_pulang;
-        $this->noLPManual = $kunjungan->noLPManual;
-        $this->tgl_meninggal = $kunjungan->tgl_meninggal;
-        $this->noSuratMeninggal = $kunjungan->noSuratMeninggal;
+        $this->kunjunganranap = Kunjungan::firstWhere('kode', $kunjungan->kode_transfer);
+        if ($kunjungan) {
+            $this->nomorkartu = $kunjungan->nomorkartu;
+            $this->nik = $kunjungan->pasien?->nik;
+            $this->nohp = $kunjungan->pasien?->nohp;
+            $this->norm = $kunjungan->norm;
+            $this->nama = $kunjungan->nama;
+            $this->tgl_lahir = $kunjungan->tgl_lahir;
+            $this->gender = $kunjungan->gender;
+            $this->hakkelas = $kunjungan->kelas;
+            $this->jenispeserta = $kunjungan->penjamin;
+            $this->kode_transfer = $kunjungan->kode_transfer;
+            $this->kode = $kunjungan->kode;
+            $this->counter = $kunjungan->counter;
+            // $this->tgl_masuk = $kunjungan->tgl_masuk;
+            // $this->unit = $kunjungan->unit;
+            $this->dokter = $kunjungan->dokter;
+            $this->cara_masuk = $kunjungan->cara_masuk;
+            // $this->jeniskunjungan = $kunjungan->jeniskunjungan;
+            $this->penjamin = $kunjungan->jaminan;
+            $this->nomorreferensi = $kunjungan->nomorreferensi;
+            $this->sep = $kunjungan->sep;
+        }
+        if ($this->kunjunganranap) {
+            $this->tgl_transfer = $this->kunjunganranap->tgl_masuk;
+            $this->unit = $this->kunjunganranap->unit;
+            if ($this->unit) {
+                $this->beds = Bed::where('koderuang', $this->unit)->get();
+            }
+            $this->bed = $this->kunjunganranap->bed_id;
+            $this->jeniskunjungan = $this->kunjunganranap->jeniskunjungan;
+        }
+        $this->jaminans = Jaminan::pluck('nama', 'kode');
+        $this->units = Unit::where("jenis", "Pelayanan Rawat Inap")->pluck('nama', 'kode');
+        $this->dokters = Dokter::pluck('nama', 'kode');
+    }
+    public function openForm()
+    {
+        $this->form = $this->form ?  false : true;
+        $this->getKunjungan($this->kunjungan);
     }
     public function editKunjungan()
     {
@@ -71,5 +193,22 @@ class ModalPemulanganIgd extends Component
         $url = route('pendaftaran.igd.proses', $this->kunjungan->kode);
         redirect()->to($url);
         return flash("Berhasil Pemulangan Pasien", 'success');
+    }
+    public function mount(Kunjungan $kunjungan)
+    {
+        $this->kunjungan = $kunjungan;
+        $this->kode = $kunjungan->kode;
+        $this->counter = $kunjungan->counter;
+        $this->noSep = $kunjungan->sep;
+        $this->tgl_masuk = $kunjungan->tgl_masuk;
+        $this->tgl_pulang = $kunjungan->tgl_pulang;
+        $this->status_pulang = $kunjungan->status_pulang;
+        $this->noLPManual = $kunjungan->noLPManual;
+        $this->tgl_meninggal = $kunjungan->tgl_meninggal;
+        $this->noSuratMeninggal = $kunjungan->noSuratMeninggal;
+    }
+    public function render()
+    {
+        return view('livewire.igd.modal-pemulangan-igd');
     }
 }
