@@ -20,7 +20,10 @@ class KeperawatanIgd extends Component
         $search = '%' . $this->search . '%';
         $query = Kunjungan::where('jeniskunjungan', 5);
         if ($this->tanggal) {
-            $query->whereDate('tgl_masuk', $this->tanggal);
+            $query->where(function ($q) {
+                $q->whereDate('tgl_masuk', '<=', $this->tanggal)
+                    ->whereDate('tgl_pulang', '>=', $this->tanggal);
+            });
         }
         if ($this->search) {
             $query->where(function ($q) use ($search) {

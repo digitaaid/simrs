@@ -26,6 +26,10 @@ class ModalPemulanganIgd extends Component
         $this->noSep = $kunjungan->sep;
         $this->tgl_masuk = $kunjungan->tgl_masuk;
         $this->tgl_pulang = $kunjungan->tgl_pulang;
+        $this->status_pulang = $kunjungan->status_pulang;
+        $this->noLPManual = $kunjungan->noLPManual;
+        $this->tgl_meninggal = $kunjungan->tgl_meninggal;
+        $this->noSuratMeninggal = $kunjungan->noSuratMeninggal;
     }
     public function editKunjungan()
     {
@@ -64,7 +68,7 @@ class ModalPemulanganIgd extends Component
         ]);
         // $this->dispatch('refreshPage');
         Alert::success('Success', 'Kunjungan berhasil disimpan');
-        $url = route('pendaftaran.igd.proses') . "?kode=" . $this->kunjungan->kode;
+        $url = route('pendaftaran.igd.proses', $this->kunjungan->kode);
         redirect()->to($url);
         return flash("Berhasil Pemulangan Pasien", 'success');
     }

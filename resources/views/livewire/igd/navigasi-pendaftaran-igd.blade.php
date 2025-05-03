@@ -67,6 +67,9 @@
                             </span>
                         @endif
                     </a>
+                    <a href="#pemulanganpasien" class="nav-link">
+                        <i class="fas fa-ambulance"></i> Pemulangan Pasien
+                    </a>
                 @endif
             </li>
         </ul>
