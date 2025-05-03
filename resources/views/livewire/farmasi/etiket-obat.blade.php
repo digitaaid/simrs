@@ -8,6 +8,10 @@
         Print Etiket Obat {{ $kunjungan->nama }}
     </title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
         .unicode {
             font-family: "DejaVu Sans";
         }
@@ -78,7 +82,7 @@
 
         pre {
             margin: 0;
-            font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+            font-family: Arial, sans-serif;
         }
 
         @page {
@@ -103,12 +107,12 @@
     </style>
 </head>
 
-<body style="font-size: 8px; font-family: Calibri;">
+<body style="font-size: 8px;">
     @foreach ($resepobatdetails as $key => $item)
         <br>
         <b>Farmasi {{ env('APP_NAME_LONG') }}</b>
         <hr style="margin: 0">
-        <table class="table table-borderless" style="font-size: 8px">
+        <table class="table table-borderless" style="font-size: 8px;  font-weight: bold;">
             <tr>
                 <td>No RM</td>
                 <td>:</td>
@@ -136,7 +140,7 @@
             </tr>
         </table>
         <br>
-        <div class="text-center" style="font-size: 12px">
+        <div class="text-center" style="font-size: 12px; font-weight: bold">
             <b>{{ $item->nama }}</b> <br>
             {{ $item->frekuensi }} {{ $item->waktu }} <br>
             {{ $item->keterangan }}
@@ -146,4 +150,5 @@
         @endif
     @endforeach
 </body>
+
 </html>

@@ -66,6 +66,7 @@ class FarmasiController extends Controller
             $kunjungan = Kunjungan::where('kode', $request->kode)->first();
         }
         $resepobatdetails = $kunjungan->resepobatdetails;
+        // return view('livewire.farmasi.etiket-obat', compact('resepobatdetails', 'kunjungan'));
         $pdf = Pdf::loadView('livewire.farmasi.etiket-obat', compact('resepobatdetails', 'kunjungan'));
         return $pdf->stream('etiket.pdf');
     }
