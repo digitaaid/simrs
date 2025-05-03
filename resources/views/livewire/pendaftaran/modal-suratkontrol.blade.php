@@ -2,25 +2,37 @@
     <x-adminlte-card theme="primary" title="Surat Kontrol Pasien">
         <div class="row">
             <div class="col-md-3">
-                <x-adminlte-input wire:model="nomorkartu" name="nomorkartu" fgroup-class="row" label-class="text-left col-4"
-                    igroup-class="col-8" igroup-size="sm" label="No BPJS">
+                <x-adminlte-input wire:model="nomorkartu" name="nomorkartu" igroup-size="sm">
+                    <x-slot name="prependSlot">
+                        <x-adminlte-button theme="secondary" icon="fas fa-user-injured" />
+                    </x-slot>
                 </x-adminlte-input>
             </div>
             <div class="col-md-3">
-                <x-adminlte-select wire:model="formatfilter" fgroup-class="row" label-class="text-left col-4"
-                    igroup-class="col-8" igroup-size="sm" name="formatfilter" label="Filter">
+                <x-adminlte-select wire:model="formatfilter" igroup-size="sm" name="formatfilter">
+                    <x-slot name="prependSlot">
+                        <x-adminlte-button theme="secondary" icon="fas fa-calendar-alt" />
+                    </x-slot>
                     <option value=null disabled>Pilih Format Filter</option>
                     <option value="2">Tanggal Rencana Kontrol</option>
                     <option value="1">Tanggal Entri</option>
                 </x-adminlte-select>
             </div>
-            <div class="col-md-4">
-                <x-adminlte-input wire:model="tanggal" type="month" name="tanggal" fgroup-class="row"
-                    label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" label="Bulan Tahun">
+            <div class="col-md-3">
+                <x-adminlte-input wire:model="tanggal" type="month" name="tanggal" igroup-size="sm">
+                    <x-slot name="prependSlot">
+                        <x-adminlte-button theme="secondary" icon="fas fa-calendar-alt" />
+                    </x-slot>
                     <x-slot name="appendSlot">
                         <x-adminlte-button wire:click='cariDataSuratKontrol' theme="primary" label="Cari" />
                     </x-slot>
                 </x-adminlte-input>
+            </div>
+            <div class="col-md-3">
+                <x-adminlte-button theme="success" icon="fas fa-plus" class="btn-sm" label="Surat Kontrol"
+                    wire:click="buatSuratKontrol" />
+                <x-adminlte-button theme="success" icon="fas fa-plus" class="btn-sm" label="SPRI"
+                    wire:click="buatSPRI" />
             </div>
         </div>
         @if ($suratkontrols)
@@ -88,10 +100,7 @@
             </table>
         @endif
         <x-slot name="footerSlot">
-            <x-adminlte-button theme="success" icon="fas fa-plus" class="btn-sm" label="Buat Surat Kontrol"
-                wire:click="buatSuratKontrol" />
-            <x-adminlte-button theme="success" icon="fas fa-plus" class="btn-sm" label="Buat SPRI"
-                wire:click="buatSPRI" />
+
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>
@@ -105,7 +114,7 @@
         </x-slot>
     </x-adminlte-card>
     @if ($formSuratKontrol)
-        <x-adminlte-card theme="success" title="Pembuatan Surat Kontrol Pasien">
+        <x-modal size="xl" title="Surat Kontrol" icon="fas fa-user-injured" theme="dark">
             <div class="row">
                 <div class="col-md-6">
                     @if ($noSuratKontrol)
@@ -178,21 +187,11 @@
                     wire:click="insertSuratKontrol" wire:confirm='Apakah anda yakin ingin membuat surat kontrol ?' />
                 <x-adminlte-button theme="danger" icon="fas fa-times" class="btn-sm" label="Tutup"
                     wire:click="buatSuratKontrol" />
-                <div wire:loading>
-                    <div class="spinner-border spinner-border-sm text-primary" role="status">
-                    </div>
-                    Loading ...
-                </div>
-                @if (flash()->message)
-                    <div class="text-{{ flash()->class }}" wire:loading.remove>
-                        Loading Result : {{ flash()->message }}
-                    </div>
-                @endif
             </x-slot>
-        </x-adminlte-card>
+        </x-modal>
     @endif
     @if ($formSpri)
-        <x-adminlte-card theme="success" title="Pembuatan SPRI (Surat Perintah Rawat Inap)">
+        <x-modal size="xl" title="SPRI (Surat Perintah Rawat Inap)" icon="fas fa-user-injured" theme="dark">
             <div class="row">
                 <div class="col-md-6">
                     @if ($noSPRI)
@@ -226,19 +225,9 @@
                 <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
                     wire:click="insertSPRI" wire:confirm='Apakah anda yakin ingin membuat SPRI ?' />
                 <x-adminlte-button theme="danger" icon="fas fa-times" class="btn-sm" label="Tutup"
-                    wire:click="buatSuratKontrol" />
-                <div wire:loading>
-                    <div class="spinner-border spinner-border-sm text-primary" role="status">
-                    </div>
-                    Loading ...
-                </div>
-                @if (flash()->message)
-                    <div class="text-{{ flash()->class }}" wire:loading.remove>
-                        Loading Result : {{ flash()->message }}
-                    </div>
-                @endif
+                    wire:click="buatSPRI" />
             </x-slot>
-        </x-adminlte-card>
+        </x-modal>
     @endif
 
 </div>

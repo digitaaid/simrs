@@ -2,12 +2,20 @@
     <x-adminlte-card theme="primary" title="SEP Pasien">
         <div class="row">
             <div class="col-md-4">
-                <x-adminlte-input wire:model="nomorkartu" name="nomorkartu" fgroup-class="row" label-class="text-left col-4"
-                    igroup-class="col-8" igroup-size="sm" label="No BPJS">
+                <x-adminlte-input wire:model="nomorkartu" name="nomorkartu" igroup-size="sm">
+                    <x-slot name="prependSlot">
+                        <x-adminlte-button theme="secondary" icon="fas fa-user-injured" />
+                    </x-slot>
                     <x-slot name="appendSlot">
                         <x-adminlte-button wire:click='cariSEP' theme="primary" label="Cari" />
                     </x-slot>
                 </x-adminlte-input>
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <x-adminlte-button theme="success" icon="fas fa-plus" class="btn-sm" label="Buat SEP"
+                    wire:click="openForm" />
             </div>
         </div>
         @if ($seps)
@@ -84,8 +92,6 @@
                 frameborder="0"></iframe>
         @endif
         <x-slot name="footerSlot">
-            <x-adminlte-button theme="success" icon="fas fa-plus" class="btn-sm" label="Buat SEP"
-                wire:click="openForm" />
             <div wire:loading>
                 <div class="spinner-border spinner-border-sm text-primary" role="status">
                 </div>
@@ -99,7 +105,7 @@
         </x-slot>
     </x-adminlte-card>
     @if ($form)
-        <x-adminlte-card theme="success" title="Pembuatan SEP Pasien">
+        <x-modal size="xl" title="SEP Pasien" icon="fas fa-user-injured" theme="dark">
             <input type="hidden" wire:model='kodebooking' name="kodebooking">
             <input type="hidden" wire:model='antrian_id' name="antrian_id">
             <div class="row">
@@ -180,15 +186,22 @@
                             </option>
                         @endforeach
                     </x-adminlte-select2>
+                    <x-adminlte-input wire:model.live="diagAwal" name="diagAwal" fgroup-class="row"
+                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" label="Diag Awal">
+                    </x-adminlte-input>
+                    <x-search-table :isSearching="$searchingDiagnosa" :data="$diagnosas" :columns="['Kode ICD-10', 'Nama Diagnosa']"
+                        clickEvent="selectDiagnosa" />
+
+{{--
                     <x-adminlte-input wire:model.live="diagAwal" list="diagawallist" name="diagAwal"
                         fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
-                        label="Diag Awal">
+                        label="">
                     </x-adminlte-input>
                     <datalist id="diagawallist">
                         @foreach ($diagnosas as $item)
                             <option value="{{ $item['kode'] }}">{{ $item['nama'] }}</option>
                         @endforeach
-                    </datalist>
+                    </datalist> --}}
                     <x-adminlte-input wire:model='catatan' name="catatan" label="Catatan" fgroup-class="row"
                         label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" />
                     <x-adminlte-select wire:model='tujuanKunj' fgroup-class="row" label-class="text-left col-4"
@@ -245,17 +258,7 @@
                     wire:confirm='Apakah anda yakin sudah mengisi semua data untuk pembuatan SEP ?' />
                 <x-adminlte-button theme="danger" icon="fas fa-times" class="btn-sm" label="Tutup"
                     wire:click="openForm" />
-                <div wire:loading>
-                    <div class="spinner-border spinner-border-sm text-primary" role="status">
-                    </div>
-                    Loading ...
-                </div>
-                @if (flash()->message)
-                    <div class="text-{{ flash()->class }}" wire:loading.remove>
-                        Loading Result : {{ flash()->message }}
-                    </div>
-                @endif
             </x-slot>
-        </x-adminlte-card>
+        </x-modal>
     @endif
 </div>

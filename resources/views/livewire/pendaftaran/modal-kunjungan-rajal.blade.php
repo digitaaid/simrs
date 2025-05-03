@@ -94,9 +94,8 @@
                         <option value="other">
                             Lain-lain</option>
                     </x-adminlte-select>
-                    <x-adminlte-input wire:model.live="diagnosa" list="diagnosalist" name="diagnosa"
-                        fgroup-class="row" label-class="text-left col-4" igroup-class="col-8" igroup-size="sm"
-                        label="Diagnosa">
+                    <x-adminlte-input wire:model.live="diagnosa" name="diagnosa" fgroup-class="row"
+                        label-class="text-left col-4" igroup-class="col-8" igroup-size="sm" label="Diagnosa">
                     </x-adminlte-input>
                     <x-search-table :isSearching="$searchingDiagnosa" :data="$diagnosas" :columns="['Kode ICD-10', 'Nama Diagnosa']"
                         clickEvent="selectDiagnosa" />

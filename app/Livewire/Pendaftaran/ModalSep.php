@@ -13,6 +13,7 @@ use Livewire\Component;
 
 class ModalSep extends Component
 {
+    public $searchingDiagnosa = false;
     public $antrian, $kunjungan, $kodebooking, $antrian_id, $nomorreferensi;
     public $polikliniks = [], $dokters = [], $diagnosas = [], $diagnosa;
     public $nomorkartu, $tanggal, $seps = [], $form = false;
@@ -276,30 +277,37 @@ class ModalSep extends Component
             return flash($res->metadata->message, 'danger');
         }
     }
+    public function selectDiagnosa($item)
+    {
+        $this->diagAwal = $item['kode'];
+        $this->searchingDiagnosa = false;
+    }
     public function updatedDiagAwal()
     {
         $this->validate([
             'diagAwal' => 'required|min:3',
         ]);
+        $this->searchingDiagnosa = true; // Tandai bahwa pencarian telah dilakukan
         try {
             $api = new VclaimController();
             $request = new Request([
                 'diagnosa' => $this->diagAwal,
             ]);
             $res = $api->ref_diagnosa($request);
-            if ($res->metadata->code == 200) {
+            if ($res->metadata->code == 200 && !empty($res->response->diagnosa)) {
                 $this->diagnosas = [];
-                foreach ($res->response->diagnosa as $key => $value) {
+                foreach ($res->response->diagnosa as $value) {
                     $this->diagnosas[] = [
                         'kode' => $value->kode,
                         'nama' => $value->nama,
                     ];
                 }
+                return flash($res->metadata->message, 'success');
             } else {
-                return flash($res->metadata->message, 'danger');
+                $this->diagnosas = []; // Kosongkan jika tidak ada data
             }
         } catch (\Throwable $th) {
-            return flash($th->getMessage(), 'danger');
+            $this->diagnosas = []; // Kosongkan jika terjadi error
         }
     }
     public function openForm()

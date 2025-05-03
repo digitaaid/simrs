@@ -18,7 +18,7 @@ class ModalKunjunganIgd extends Component
     public $kunjungan;
     public $jaminans, $units, $dokters;
     public $norm, $nohp, $nomorkartu, $nama, $nik, $tgl_lahir, $jenispeserta, $fktp, $hakkelas, $gender;
-    public $kode, $counter, $tgl_masuk, $unit, $dokter, $cara_masuk, $jeniskunjungan, $penjamin, $nomorreferensi, $sep;
+    public $id, $kode, $counter, $tgl_masuk, $unit, $dokter, $cara_masuk, $jeniskunjungan, $penjamin, $nomorreferensi, $sep;
     public function editKunjungan()
     {
         $this->validate([
@@ -40,7 +40,7 @@ class ModalKunjunganIgd extends Component
         $kunjunganaktif = Kunjungan::where('norm', $this->norm)
             ->where('status', 1)
             ->first();
-        if ($kunjunganaktif) {
+        if ($kunjunganaktif && $this->id == null) {
             return flash('Pasien atas nama ' . $kunjunganaktif->nama . ' masih memiliki kunjungan aktif ke ' . $kunjunganaktif->units->nama, 'danger');
         }
         if (!$this->kode && !$this->counter) {
@@ -161,6 +161,7 @@ class ModalKunjunganIgd extends Component
     {
         $this->kunjungan = $kunjungan;
         if ($kunjungan) {
+            $this->id = $kunjungan->id;
             $this->nomorkartu = $kunjungan->nomorkartu;
             $this->nik = $kunjungan->pasien?->nik;
             $this->nohp = $kunjungan->pasien?->nohp;

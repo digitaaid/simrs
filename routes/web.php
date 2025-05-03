@@ -191,21 +191,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:igd-keperawatan'])->get('igd/keperawatan/proses/{kodebooking}', KeperawatanIgdProses::class)->name('keperawatan.igd.proses');
     Route::middleware(['can:igd-pemeriksaan'])->get('igd/pemeriksaan', PemeriksaanIgd::class)->name('pemeriksaan.igd');
     Route::middleware(['can:igd-pemeriksaan'])->get('igd/pemeriksaan/proses/{kodebooking}', PemeriksaanIgdProses::class)->name('pemeriksaan.igd.proses');
-    Route::middleware(['can:igd-farmasi'])->get('igd/farmasi', FarmasiIgd::class)->name('farmasi.igd');
-    Route::middleware(['can:igd-farmasi'])->get('igd/farmasi/proses/{kodebooking}', FarmasiIgdProses::class)->name('farmasi.igd.proses');
+    Route::middleware(['can:igd-farmasi'])->get('igd/farmasi', FarmasiRajal::class)->name('farmasi.igd');
     Route::middleware(['can:igd-kasir'])->get('igd/kasir', KasirIgd::class)->name('kasir.igd');
     Route::middleware(['can:igd-kasir'])->get('igd/kasir/proses/{kodebooking}', KasirIgdProses::class)->name('kasir.igd.proses');
 
-    Route::middleware(['can:ranap-pendaftaran'])->get('igd/pendaftaran', PendaftaranIgd::class)->name('pendaftaran.igd');
-    Route::middleware(['can:ranap-pendaftaran'])->get('igd/pendaftaran/proses/{kodebooking}', PendaftaranIgdProses::class)->name('pendaftaran.igd.proses');
-    Route::middleware(['can:ranap-keperawatan'])->get('igd/keperawatan', KeperawatanIgd::class)->name('keperawatan.igd');
-    Route::middleware(['can:ranap-keperawatan'])->get('igd/keperawatan/proses/{kodebooking}', KeperawatanIgdProses::class)->name('keperawatan.igd.proses');
-    Route::middleware(['can:ranap-pemeriksaan'])->get('igd/pemeriksaan', PemeriksaanIgd::class)->name('pemeriksaan.igd');
-    Route::middleware(['can:ranap-pemeriksaan'])->get('igd/pemeriksaan/proses/{kodebooking}', PemeriksaanIgdProses::class)->name('pemeriksaan.igd.proses');
-    Route::middleware(['can:ranap-farmasi'])->get('igd/farmasi', FarmasiIgd::class)->name('farmasi.igd');
-    Route::middleware(['can:ranap-farmasi'])->get('igd/farmasi/proses/{kodebooking}', FarmasiIgdProses::class)->name('farmasi.igd.proses');
-    Route::middleware(['can:ranap-kasir'])->get('igd/kasir', KasirIgd::class)->name('kasir.igd');
-    Route::middleware(['can:ranap-kasir'])->get('igd/kasir/proses/{kodebooking}', KasirIgdProses::class)->name('kasir.igd.proses');
+    Route::middleware(['can:ranap-pendaftaran'])->get('ranap/pendaftaran', PendaftaranIgd::class)->name('pendaftaran.igd');
+    Route::middleware(['can:ranap-pendaftaran'])->get('ranap/pendaftaran/proses/{kodebooking}', PendaftaranIgdProses::class)->name('pendaftaran.igd.proses');
+    Route::middleware(['can:ranap-keperawatan'])->get('ranap/keperawatan', KeperawatanIgd::class)->name('keperawatan.igd');
+    Route::middleware(['can:ranap-keperawatan'])->get('ranap/keperawatan/proses/{kodebooking}', KeperawatanIgdProses::class)->name('keperawatan.igd.proses');
+    Route::middleware(['can:ranap-pemeriksaan'])->get('ranap/pemeriksaan', PemeriksaanIgd::class)->name('pemeriksaan.igd');
+    Route::middleware(['can:ranap-pemeriksaan'])->get('ranap/pemeriksaan/proses/{kodebooking}', PemeriksaanIgdProses::class)->name('pemeriksaan.igd.proses');
+    Route::middleware(['can:ranap-farmasi'])->get('ranap/farmasi', FarmasiIgd::class)->name('farmasi.igd');
+    Route::middleware(['can:ranap-farmasi'])->get('ranap/farmasi/proses/{kodebooking}', FarmasiIgdProses::class)->name('farmasi.igd.proses');
+    Route::middleware(['can:ranap-kasir'])->get('ranap/kasir', KasirIgd::class)->name('kasir.igd');
+    Route::middleware(['can:ranap-kasir'])->get('ranap/kasir/proses/{kodebooking}', KasirIgdProses::class)->name('kasir.igd.proses');
 
     Route::middleware(['can:farmasi'])->get('farmasi/supplier-obat', SupplierObatIndex::class)->name('supplier.obat');
     Route::middleware(['can:farmasi'])->get('farmasi/satuan-kemasan', SatuanKemasanIndex::class)->name('satuan.kemasan');
