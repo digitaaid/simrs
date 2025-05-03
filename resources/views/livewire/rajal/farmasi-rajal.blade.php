@@ -61,10 +61,10 @@
                                 @foreach ($resepObatDokter as $obat)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $obat['obat'] }}</td>
-                                        <td>{{ $obat['frekuensiobat'] }}</td>
-                                        <td>{{ $obat['frekuensiobat'] }}</td>
-                                        <td>{{ $obat['jumlahobat'] }}</td>
+                                        <td>{{ $obat['nama'] }}</td>
+                                        <td>{{ $obat['frekuensi'] }}</td>
+                                        <td>{{ $obat['waktu'] }}</td>
+                                        <td>{{ $obat['jumlah'] }}</td>
                                         <td>{{ $obat['keterangan'] }}</td>
                                     </tr>
                                 @endforeach
@@ -76,7 +76,7 @@
                                 <tr>
                                     <th>
                                         <x-adminlte-button theme="success" icon="fas fa-plus" class="btn-xs"
-                                            title="Tambah obat" wire:click="addObat" />
+                                            title="Tambah obat" wire:click="tambah" />
                                     </th>
                                     <th>Nama Obat</th>
                                     <th>Dosis</th>
@@ -91,11 +91,11 @@
                                     <tr>
                                         <td>
                                             <x-adminlte-button theme="danger" icon="fas fa-times" class="btn-xs"
-                                                title="Hapus obat" wire:click="removeObat({{ $index }})" />
+                                                title="Hapus obat" wire:click="hapus({{ $index }})" />
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="obat"
-                                                wire:model="resepObat.{{ $index }}.obat"
+                                            <x-adminlte-input name="nama"
+                                                wire:model="resepObat.{{ $index }}.nama"
                                                 igroup-class="input-group-xs" fgroup-class="form-group-xs"
                                                 placeholder="Cari Nama Obat"
                                                 wire:keyup.debounce.300ms="cariObat({{ $index }})"
@@ -109,8 +109,8 @@
                                             @enderror
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="frekuensiobat"
-                                                wire:model="resepObat.{{ $index }}.frekuensiobat"
+                                            <x-adminlte-input name="frekuensi"
+                                                wire:model="resepObat.{{ $index }}.frekuensi"
                                                 igroup-class="input-group-xs" fgroup-class="form-group-xs"
                                                 placeholder="Masukan Dosis"
                                                 wire:keyup.debounce.300ms="cariFrekuensi({{ $index }})"
@@ -121,8 +121,8 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="waktuobat"
-                                                wire:model="resepObat.{{ $index }}.waktuobat"
+                                            <x-adminlte-input name="waktu"
+                                                wire:model="resepObat.{{ $index }}.waktu"
                                                 igroup-class="input-group-xs" fgroup-class="form-group-xs"
                                                 placeholder="Masukan Cara Pakai"
                                                 wire:keyup.debounce.300ms="cariWaktu({{ $index }})"
@@ -141,10 +141,10 @@
                                             @enderror
                                         </td>
                                         <td>
-                                            <x-adminlte-input wire:model="resepObat.{{ $index }}.jumlahobat"
-                                                name="jumlahobat" igroup-class="input-group-xs"
+                                            <x-adminlte-input wire:model="resepObat.{{ $index }}.jumlah"
+                                                name="jumlah" igroup-class="input-group-xs"
                                                 fgroup-class="form-group-xs" type="number" placeholder="Jumlah Obat" />
-                                            @error('resepObat.' . $index . '.jumlahobat')
+                                            @error('resepObat.' . $index . '.jumlah')
                                                 <span class="invalid-feedback d-block">{{ $message }}</span>
                                             @enderror
                                         </td>
@@ -161,8 +161,8 @@
                 </div>
                 <x-slot name="footerSlot">
                     <x-adminlte-button wire:confirm='Apakah anda yakin akan menyimpan resep obat terbaru ini ?'
-                        wire:click='simpanResep' class="btn-sm" label="Simpan" theme="success" icon="fas fa-save" />
-                    <x-adminlte-button wire:click='openformEdit' class="btn-sm" label="Tutup" theme="danger"
+                        wire:click='simpan' class="btn-sm" label="Simpan" theme="success" icon="fas fa-save" />
+                    <x-adminlte-button wire:click='openForm' class="btn-sm" label="Tutup" theme="danger"
                         icon="fas fa-times" />
                 </x-slot>
             </x-modal>
@@ -235,7 +235,7 @@
                         <td>{{ $item->kunjungan->jaminans->nama }}</td>
                         <td>
                             @if ($item->status == 1)
-                                <x-adminlte-button wire:click="terimaResep('{{ $item->kode }}')" class="btn-xs"
+                                <x-adminlte-button wire:click="terima('{{ $item->kode }}')" class="btn-xs"
                                     label="Terima Resep" theme="success" icon="fas fa-file-prescription" />
                             @endif
                             @if ($item->status == 2)

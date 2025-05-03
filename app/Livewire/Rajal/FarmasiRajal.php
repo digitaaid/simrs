@@ -4,12 +4,14 @@ namespace App\Livewire\Rajal;
 
 use App\Http\Controllers\AntrianController;
 use App\Models\Antrian;
+use App\Models\frekuensi;
 use App\Models\FrekuensiObat;
 use App\Models\Obat;
 use App\Models\ResepFarmasi;
 use App\Models\ResepFarmasiDetail;
 use App\Models\ResepObat;
 use App\Models\ResepObatDetail;
+use App\Models\waktu;
 use App\Models\WaktuObat;
 use Illuminate\Http\Request;
 use Livewire\Component;
@@ -30,22 +32,22 @@ class FarmasiRajal extends Component
     public $resepObatDokter = [
         [
             'id' => '',
-            'obat' => '',
-            'frekuensiobat' => '',
-            'waktuobat' => '',
+            'nama' => '',
+            'frekuensi' => '',
+            'waktu' => '',
             'harga' => '',
-            'jumlahobat' => '',
+            'jumlah' => '',
             'keterangan' => '',
         ]
     ];
     public $resepObat = [
         [
             'id' => '',
-            'obat' => '',
-            'frekuensiobat' => '',
-            'waktuobat' => '',
+            'nama' => '',
+            'frekuensi' => '',
+            'waktu' => '',
             'harga' => '',
-            'jumlahobat' => '',
+            'jumlah' => '',
             'keterangan' => '',
         ]
     ];
@@ -95,16 +97,16 @@ class FarmasiRajal extends Component
         $resepObat->update();
         return flash('Pelayanan farmasi atas nama pasien ' . $resepObat->nama . ' telah selesai.', 'success');
     }
-    public function simpanResep()
+    public function simpan()
     {
         $this->validate([
-            'resepObat.*.obat' => 'required',
-            'resepObat.*.jumlahobat' => 'required',
+            'resepObat.*.nama' => 'required',
+            'resepObat.*.jumlah' => 'required',
             'resepObat.*.harga' => 'required|numeric',
         ]);
         $kunjungan = $this->resepEdit->kunjungan;
         $resep = ResepFarmasi::updateOrCreate([
-            'kode' => $this->resepEdit->kode,
+            'kode' => $kunjungan->kode,
         ], [
             'antrian_id' => $kunjungan->id,
             'kunjungan_id' => $kunjungan->id,
@@ -124,7 +126,7 @@ class FarmasiRajal extends Component
         $resep->resepfarmasidetails()->whereNotIn('id', $resepObatIds)->delete();
         if (count($this->resepObat)) {
             foreach ($this->resepObat as $key => $value) {
-                $obat = Obat::where('nama', $this->resepObat[$key]['obat'])->first();
+                $obat = Obat::where('nama', $this->resepObat[$key]['nama'])->first();
                 $obatdetails = ResepFarmasiDetail::updateOrCreate([
                     'id' => $this->resepObat[$key]['id'],
                     'resep_id' => $resep->id,
@@ -132,40 +134,44 @@ class FarmasiRajal extends Component
                 ], [
                     'kunjungan_id' => $kunjungan->id,
                     'antrian_id' => $kunjungan->id,
-                    'nama' => $this->resepObat[$key]['obat'],
+                    'nama' => $this->resepObat[$key]['nama'],
                     'jaminan' => $kunjungan->jaminan,
-                    'jumlah' => $this->resepObat[$key]['jumlahobat'],
-                    'frekuensi' => $this->resepObat[$key]['frekuensiobat'],
-                    'waktu' => $this->resepObat[$key]['waktuobat'],
+                    'jumlah' => $this->resepObat[$key]['jumlah'],
+                    'frekuensi' => $this->resepObat[$key]['frekuensi'],
+                    'waktu' => $this->resepObat[$key]['waktu'],
                     'keterangan' => $this->resepObat[$key]['keterangan'],
                     'obat_id' => $obat->id ?? 0,
-                    'harga' => $this->resepObat[$key]['harga'],
-                    'subtotal' => $this->resepObat[$key]['harga'] * $this->resepObat[$key]['jumlahobat'],
+                    'harga' =>  $this->resepObat[$key]['harga'],
+                    'subtotal' => $this->resepObat[$key]['harga'] * $this->resepObat[$key]['jumlah'],
                     'klasifikasi' => $obat->jenisobat ?? 'Obat',
                 ]);
-                FrekuensiObat::updateOrCreate([
-                    'nama' => $this->resepObat[$key]['frekuensiobat'],
-                ]);
-                WaktuObat::updateOrCreate([
-                    'nama' => $this->resepObat[$key]['waktuobat'],
-                ]);
+                if ($this->resepObat[$key]['frekuensi']) {
+                    FrekuensiObat::updateOrCreate([
+                        'nama' => $this->resepObat[$key]['frekuensi'],
+                    ]);
+                }
+                if ($this->resepObat[$key]['waktu']) {
+                    WaktuObat::updateOrCreate([
+                        'nama' => $this->resepObat[$key]['waktu'],
+                    ]);
+                }
             }
         } else {
             $resep->resepfarmasidetails()->delete();
         }
         flash('Resep obat atas nama pasien ' . $kunjungan->nama . ' saved successfully.', 'success');
-        $this->openformEdit();
+        $this->openForm();
     }
     public function pilihWaktu($item)
     {
         $index = array_search(true, $this->searchingWaktu, true);
-        $this->resepObat[$index]['waktuobat'] = $item['nama'];
+        $this->resepObat[$index]['waktu'] = $item['nama'];
         $this->searchingWaktu[$index] = false;
     }
     public function cariWaktu($index)
     {
         $this->searchingWaktu[$index] = true;
-        $query = $this->resepObat[$index]['waktuobat'] ?? '';
+        $query = $this->resepObat[$index]['waktu'] ?? '';
         try {
             $this->waktus = WaktuObat::where('nama', 'like', '%' . $query . '%')
                 ->limit(20)
@@ -188,13 +194,13 @@ class FarmasiRajal extends Component
     public function pilihFrekuensi($item)
     {
         $index = array_search(true, $this->searchingFrekuensi, true);
-        $this->resepObat[$index]['frekuensiobat'] = $item['nama'];
+        $this->resepObat[$index]['frekuensi'] = $item['nama'];
         $this->searchingFrekuensi[$index] = false;
     }
     public function cariFrekuensi($index)
     {
         $this->searchingFrekuensi[$index] = true;
-        $query = $this->resepObat[$index]['frekuensiobat'] ?? '';
+        $query = $this->resepObat[$index]['frekuensi'] ?? '';
         try {
             $this->frekuensis = FrekuensiObat::where('nama', 'like', '%' . $query . '%')
                 ->limit(20)
@@ -219,7 +225,7 @@ class FarmasiRajal extends Component
         $obat = Obat::find($item['id']);
         $index = array_search(true, $this->searchingObat, true);
         if ($obat) {
-            $this->resepObat[$index]['obat'] = $obat->nama;
+            $this->resepObat[$index]['nama'] = $obat->nama;
             $this->resepObat[$index]['harga'] = $obat->harga_jual;
         }
         $this->searchingObat[$index] = false;
@@ -228,7 +234,7 @@ class FarmasiRajal extends Component
     public function cariObat($index)
     {
         $this->searchingObat[$index] = true;
-        $query = $this->resepObat[$index]['obat'] ?? '';
+        $query = $this->resepObat[$index]['nama'] ?? '';
         try {
             $this->obats = Obat::where('nama', 'like', '%' . $query . '%')
                 ->limit(20)
@@ -252,24 +258,24 @@ class FarmasiRajal extends Component
             return flash($th->getMessage(), 'danger');
         }
     }
-    public function addObat()
+    public function tambah()
     {
         $this->resepObat[] = [
             'id' => '',
-            'obat' => '',
-            'frekuensiobat' => '',
-            'waktuobat' => '',
+            'nama' => '',
+            'frekuensi' => '',
+            'waktu' => '',
             'harga' => '',
-            'jumlahobat' => '',
+            'jumlah' => '',
             'keterangan' => '',
         ];
     }
-    public function removeObat($index)
+    public function hapus($index)
     {
         unset($this->resepObat[$index]);
         $this->resepObat = array_values($this->resepObat);
     }
-    public function openformEdit()
+    public function openForm()
     {
         $this->formEdit = $this->formEdit ? false : true;
     }
@@ -282,11 +288,11 @@ class FarmasiRajal extends Component
             foreach ($this->resepEdit->resepobatdetails as $key => $value) {
                 $this->resepObatDokter[] = [
                     'id' => null,
-                    'obat' => $value->nama,
-                    'frekuensiobat' => $value->frekuensi,
-                    'waktuobat' => $value->waktu,
+                    'nama' => $value->nama,
+                    'frekuensi' => $value->frekuensi,
+                    'waktu' => $value->waktu,
                     'harga' =>  null,
-                    'jumlahobat' => $value->jumlah,
+                    'jumlah' => $value->jumlah,
                     'keterangan' =>  $value->keterangan,
                 ];
             }
@@ -294,11 +300,11 @@ class FarmasiRajal extends Component
             foreach ($this->resepEdit->resepfarmasidetails as $key => $value) {
                 $this->resepObat[] = [
                     'id' => $value->id,
-                    'obat' => $value->nama,
-                    'frekuensiobat' => $value->frekuensi,
-                    'waktuobat' => $value->waktu,
+                    'nama' => $value->nama,
+                    'frekuensi' => $value->frekuensi,
+                    'waktu' => $value->waktu,
                     'harga' =>  $value->harga,
-                    'jumlahobat' => $value->jumlah,
+                    'jumlah' => $value->jumlah,
                     'keterangan' =>  $value->keterangan,
                 ];
             }
@@ -307,7 +313,7 @@ class FarmasiRajal extends Component
             }
         }
     }
-    public function terimaResep($kode)
+    public function terima($kode)
     {
         $resepObat = ResepObat::where('kode', $kode)->first();
         $antrian = Antrian::where('kodebooking', $kode)->first();

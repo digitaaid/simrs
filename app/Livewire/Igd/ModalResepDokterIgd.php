@@ -209,36 +209,6 @@ class ModalResepDokterIgd extends Component
             'pic' => auth()->user()->name,
             'updated_at' => now(),
         ];
-        // $resepobat = ResepObat::updateOrCreate(
-        //     [
-        //         'kunjungan_id' => $this->kunjungan->id,
-        //         'kodekunjungan' => $this->kunjungan->kode,
-        //         'kode' => $this->kunjungan->kode,
-        //     ],
-        //     [
-        //         'antrian_id' => $this->kunjungan->id,
-        //         'kodebooking' => $this->kunjungan->kode,
-        //         'counter' => $this->kunjungan->counter,
-        //         'norm' => $this->kunjungan->norm,
-        //         'nama' => $this->kunjungan->pasien->nama,
-        //         'tgl_lahir' => $this->kunjungan->pasien->tgl_lahir,
-        //         'gender' => $this->kunjungan->pasien->gender,
-        //         'waktu' => now(),
-        //         'user' => auth()->user()->id,
-        //         'pic' => auth()->user()->name,
-        //     ]
-        // );
-        // ResepObatDetail::create([
-        //     'kunjungan_id' => $this->kunjungan->id,
-        //     'antrian_id' => $this->kunjungan->id,
-        //     'resep_id' => $resepobat->id,
-        //     'koderesep' =>  $resepobat->kode,
-        //     'jaminan' => $this->kunjungan->jaminan,
-        //     'user' => auth()->user()->id,
-        //     'pic' => auth()->user()->name,
-        // ]);
-        // $this->get_resepobat();
-        // return flash('Obat telah ditambahkan.', 'success');
     }
     public function get_resepobat()
     {
