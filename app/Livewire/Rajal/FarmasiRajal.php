@@ -6,6 +6,7 @@ use App\Http\Controllers\AntrianController;
 use App\Models\Antrian;
 use App\Models\frekuensi;
 use App\Models\FrekuensiObat;
+use App\Models\Kunjungan;
 use App\Models\Obat;
 use App\Models\ResepFarmasi;
 use App\Models\ResepFarmasiDetail;
@@ -281,11 +282,12 @@ class FarmasiRajal extends Component
     }
     public function edit($kode)
     {
+        $kunjungan = Kunjungan::where('kode', $kode)->first();
         $this->resepEdit = ResepObat::where('kode', $kode)->first();
         $this->formEdit = true;
-        if (count($this->resepEdit->resepobatdetails)) {
+        if (count($kunjungan->resepobatdetails)) {
             $this->resepObatDokter = [];
-            foreach ($this->resepEdit->resepobatdetails as $key => $value) {
+            foreach ($kunjungan->resepobatdetails as $key => $value) {
                 $this->resepObatDokter[] = [
                     'id' => null,
                     'nama' => $value->nama,
@@ -297,7 +299,7 @@ class FarmasiRajal extends Component
                 ];
             }
             $this->resepObat = [];
-            foreach ($this->resepEdit->resepfarmasidetails as $key => $value) {
+            foreach ($kunjungan->resepfarmasidetails as $key => $value) {
                 $this->resepObat[] = [
                     'id' => $value->id,
                     'nama' => $value->nama,
