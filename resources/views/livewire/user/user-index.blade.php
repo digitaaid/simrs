@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-md-3">
                     <x-adminlte-select wire:model.live="searchRole" name="searchRole" igroup-size="sm">
-                        <option value="" >Pilih Role</option>
+                        <option value="">Pilih Role</option>
                         @foreach ($roles as $key => $item)
                             <option value="{{ $item }}">{{ $item }}</option>
                         @endforeach
@@ -80,14 +80,23 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Nama</th>
+                        <th>Nama
+                            <i class="fas fa-sort-alpha-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
+                                wire:click="sort('name')" style="float: right;"></i>
+                        </th>
                         <th>Username</th>
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Role</th>
                         <th>PIC</th>
-                        <th>Verify</th>
-                        <th>Updated</th>
+                        <th>Verify
+                            <i class="fas fa-sort-alpha-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
+                                wire:click="sort('email_verified_at')" style="float: right;"></i>
+                        </th>
+                        <th>Updated
+                            <i class="fas fa-sort-alpha-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
+                                wire:click="sort('updated_at')" style="float: right;"></i>
+                        </th>
                         <th>Action</th>
                     </tr>
                 </thead>
