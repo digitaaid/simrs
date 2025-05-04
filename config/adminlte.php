@@ -524,14 +524,6 @@ return [
                     'active'  => ['ranap/kasir', 'ranap/kasir/proses'],
                     'can' => 'igd-kasir',
                 ],
-                [
-                    'text' => 'Kamar & Bed',
-                    'url' => 'kamar-bed',
-                    'icon' => 'fas fa-bed',
-                    'active'  => ['kamar-bed', 'kamar-bed/create', 'kamar-bed/edit/*'],
-                    'shift'   => 'ml-2',
-                    'can' => 'ranap-pendaftaran',
-                ],
             ]
         ],
         // PELAYANAN PENUNJANG
@@ -668,6 +660,28 @@ return [
                     'active'  => ['pasien', 'pasien/create', 'pasien/edit/*'],
                 ],
             ]
+        ],
+        // PEGAWAI
+        [
+            'text'    => 'Keuangan',
+            'icon'    => 'fas fa-money-check-alt',
+            'submenu' => [
+                [
+                    'text' => 'Data Tarif Tindakan',
+                    'url' => 'tindakan',
+                    'icon' => 'fas fa-hand-holding-medical',
+                    'shift'   => 'ml-2',
+                    'can' => 'data-tindakan',
+
+                ],
+                [
+                    'text' => 'Data Jaminan',
+                    'url' => 'jaminan',
+                    'icon' => 'fas fa-id-card',
+                    'shift'   => 'ml-2',
+                    'can' => 'data-jaminan',
+                ],
+            ],
         ],
         // PEGAWAI
         [
@@ -1077,21 +1091,7 @@ return [
                             'shift'   => 'ml-3',
                             'can' => 'data-jadwaldokter',
                         ],
-                        [
-                            'text' => 'Data Tarif Tindakan',
-                            'url' => 'tindakan',
-                            'icon' => 'fas fa-hand-holding-medical',
-                            'shift'   => 'ml-3',
-                            'can' => 'data-tindakan',
 
-                        ],
-                        [
-                            'text' => 'Data Jaminan',
-                            'url' => 'jaminan',
-                            'icon' => 'fas fa-id-card',
-                            'shift'   => 'ml-3',
-                            'can' => 'data-jaminan',
-                        ],
                         [
                             'text' => 'Diagnosa',
                             'url' => 'diagnosa',
@@ -1118,7 +1118,15 @@ return [
                     'text' => 'Pengaturan Rawat Inap',
                     'icon' => 'fas fa-procedures',
                     'shift'   => 'ml-2',
-                    'submenu' => []
+                    'submenu' => [
+                        [
+                            'text' => 'Kamar & Bed',
+                            'url' => 'kamar-bed',
+                            'icon' => 'fas fa-bed',
+                            'shift'   => 'ml-3',
+                            'can' => 'ranap-pendaftaran',
+                        ],
+                    ]
                 ],
                 [
                     'text' => 'Role & Permission',
