@@ -308,6 +308,7 @@ class FarmasiRajal extends Component
                     'keterangan' =>  $value->keterangan,
                 ];
             }
+            dd($this->resepObatDokter, $this->resepObat);
             if (count($this->resepObat) == 0) {
                 $this->resepObat = $this->resepObatDokter;
             }
