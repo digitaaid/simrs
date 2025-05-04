@@ -135,8 +135,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardPendaftaran::class)->name('dashboard');
     Route::get('log-aktifitas', LogAktifitas::class)->name('log-aktifitas');
     // admin
-    // Route::middleware(['can:data-role'])->get('role-permission', RolePermission::class)->name('role-permission');
-    Route::get('role-permission', RolePermission::class)->name('role-permission');
+    Route::middleware(['can:data-role'])->get('role-permission', RolePermission::class)->name('role-permission');
     Route::middleware(['can:data-user'])->get('user', UserIndex::class)->name('user.index');
     Route::middleware(['can:data-whatsapp'])->get('pengaturan-whatsapp', WhatsappIndex::class)->name('pengaturan.whatsapp.index');
     Route::middleware(['can:data-aplikasi'])->get('pengaturan-aplikasi', PengaturanAplikasiIndex::class)->name('pengaturan.aplikasi.index');

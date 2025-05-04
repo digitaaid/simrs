@@ -47,7 +47,7 @@
     <div>
         <x-adminlte-card title="Table User" theme="secondary">
             <div class="row ">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <x-adminlte-button class="btn-sm mb-2" wire:click='tambah' label="Tambah User" theme="success"
                         icon="fas fa-user-plus" />
                     <x-adminlte-button wire:click='export'
@@ -56,16 +56,22 @@
                     <x-adminlte-button wire:click='openFormImport' class="btn-sm mb-2" label="Import"
                         theme="primary" icon="fas fa-download" />
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <x-adminlte-select wire:model.live="searchRole" name="searchRole" igroup-size="sm">
+                        <option value="" >Pilih Role</option>
+                        @foreach ($roles as $key => $item)
+                            <option value="{{ $item }}">{{ $item }}</option>
+                        @endforeach
+                        <x-slot name="prependSlot">
+                            <x-adminlte-button theme="primary" icon="fas fa-user-tie" title="Role" />
+                        </x-slot>
+                    </x-adminlte-select>
+                </div>
+                <div class="col-md-3">
                     <x-adminlte-input wire:model.live="search" name="search" placeholder="Pencarian"
                         igroup-size="sm">
-                        <x-slot name="appendSlot">
-                            <x-adminlte-button theme="primary" label="Cari" />
-                        </x-slot>
                         <x-slot name="prependSlot">
-                            <div class="input-group-text text-primary">
-                                <i class="fas fa-search"></i>
-                            </div>
+                            <x-adminlte-button theme="primary" icon="fas fa-search" title="Pencarian" />
                         </x-slot>
                     </x-adminlte-input>
                 </div>

@@ -25,6 +25,7 @@ class RoleSeeder extends Seeder
         }
         $permission = [
             'data-role-permission',
+            'data-user',
             'data-aplikasi',
             'data-whatsapp',
 

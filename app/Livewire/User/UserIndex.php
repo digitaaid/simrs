@@ -19,6 +19,7 @@ class UserIndex extends Component
     use WithFileUploads;
 
     public $search = '';
+    public $searchRole = '';
     public $sortBy = 'name';
     public $sortDirection = 'asc';
     public $formUser = 0;
@@ -157,10 +158,17 @@ class UserIndex extends Component
     {
         $search = '%' . $this->search . '%';
         $users = User::with('roles')
-            ->where('name', 'like', $search)
-            ->orWhere('email', 'like', $search)
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'like', $search)
+                    ->orWhere('email', 'like', $search);
+            })
+            ->when($this->searchRole, function ($query) {
+                $query->whereHas('roles', function ($roleQuery) {
+                    $roleQuery->where('name', $this->searchRole);
+                });
+            })
             ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate(10);
+            ->paginate(20);
         return view('livewire.user.user-index', compact('users'))
             ->title('User');
     }
