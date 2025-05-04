@@ -96,11 +96,11 @@
                                 IGD
                             @endif
                         </td>
-                        <td>{{ $item->units->nama }}</td>
-                        <td>{{ $item->dokters->nama }}</td>
-                        <td>{{ $item->nomorkartu }}</td>
-                        <td>{{ $item->nik }} </td>
-                        <td>{{ $item->pic1->name }}</td>
+                        <td>{{ $item->units->nama?? '-' }}</td>
+                        <td>{{ $item->dokters->nama ?? '-'}}</td>
+                        <td>{{ $item->nomorkartu ?? '-'}}</td>
+                        <td>{{ $item->nik ?? '-' }} </td>
+                        <td>{{ $item->pic1->name ?? '-' }}</td>
                     </tr>
                 @endforeach
             </x-adminlte-datatable>
