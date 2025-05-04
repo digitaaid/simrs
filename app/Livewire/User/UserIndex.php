@@ -159,16 +159,24 @@ class UserIndex extends Component
         $search = '%' . $this->search . '%';
         $users = User::with('roles')
             ->where(function ($query) use ($search) {
-                $query->where('name', 'like', $search)
-                    ->orWhere('email', 'like', $search);
+                $query->where('users.name', 'like', $search) // Tambahkan prefix 'users.'
+                    ->orWhere('users.email', 'like', $search); // Tambahkan prefix 'users.'
             })
             ->when($this->searchRole, function ($query) {
                 $query->whereHas('roles', function ($roleQuery) {
-                    $roleQuery->where('name', $this->searchRole);
+                    $roleQuery->where('roles.name', $this->searchRole); // Tambahkan prefix 'roles.'
                 });
             })
-            ->orderBy($this->sortBy, $this->sortDirection)
+            ->when($this->sortBy === 'role', function ($query) {
+                $query->leftJoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id') // Ganti join dengan leftJoin
+                    ->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id') // Ganti join dengan leftJoin
+                    ->select('users.*', 'roles.name as role_name')
+                    ->orderBy('role_name', $this->sortDirection);
+            }, function ($query) {
+                $query->orderBy('users.' . $this->sortBy, $this->sortDirection); // Tambahkan prefix 'users.'
+            })
             ->paginate(20);
+
         return view('livewire.user.user-index', compact('users'))
             ->title('User');
     }

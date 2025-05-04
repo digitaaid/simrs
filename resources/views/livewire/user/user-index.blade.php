@@ -80,22 +80,33 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Nama
-                            <i class="fas fa-sort-alpha-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
-                                wire:click="sort('name')" style="float: right;"></i>
+                        <th wire:click="sort('name')">Nama
+                            @if ($sortBy == 'name')
+                                <i class="fas fa-sort-alpha-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
+                                    style="float: right;"></i>
+                            @endif
                         </th>
                         <th>Username</th>
                         <th>Phone</th>
                         <th>Email</th>
-                        <th>Role</th>
-                        <th>PIC</th>
-                        <th>Verify
-                            <i class="fas fa-sort-alpha-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
-                                wire:click="sort('email_verified_at')" style="float: right;"></i>
+                        <th wire:click="sort('role')">Role
+                            @if ($sortBy == 'role')
+                                <i class="fas fa-sort-alpha-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
+                                    style="float: right;"></i>
+                            @endif
                         </th>
-                        <th>Updated
-                            <i class="fas fa-sort-alpha-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
-                                wire:click="sort('updated_at')" style="float: right;"></i>
+                        <th>PIC</th>
+                        <th wire:click="sort('email_verified_at')">Verify
+                            @if ($sortBy == 'email_verified_at')
+                                <i class="fas fa-sort-alpha-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
+                                    style="float: right;"></i>
+                            @endif
+                        </th>
+                        <th wire:click="sort('updated_at')">Updated
+                            @if ($sortBy == 'updated_at')
+                                <i class="fas fa-sort-alpha-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
+                                    style="float: right;"></i>
+                            @endif
                         </th>
                         <th>Action</th>
                     </tr>
