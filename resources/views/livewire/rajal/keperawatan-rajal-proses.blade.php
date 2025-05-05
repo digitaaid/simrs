@@ -50,7 +50,7 @@
             @livewire('penunjang.modal-penunjang', ['antrian' => $antrian, 'lazy' => true])
         </div>
         <div id="layanan">
-            @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian, 'lazy' => true])
+            @livewire('perawat.modal-layanan-tindakan', ['kunjungan' => $kunjungan, 'lazy' => true])
         </div>
         @can('rajal-keperawatan')
             <div id="pemeriksaanperawat">

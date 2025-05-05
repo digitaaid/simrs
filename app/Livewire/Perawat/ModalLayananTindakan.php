@@ -10,116 +10,207 @@ use Livewire\Component;
 
 class ModalLayananTindakan extends Component
 {
-    public $searchingTindakan = false;
-    public $antrian, $kodekunjungan, $kunjungan_id, $kodebooking, $antrian_id;
-    public $tindakans = [], $jaminans = [];
-    public $nama, $tarif_id, $harga, $jumlah, $diskon, $subtotal, $klasifikasi, $jaminan,  $keterangan, $tgl_input;
-    public function hapusLayanan(Layanan $layanan)
+    public $searchingTindakan = [];
+    public $tindakans = [];
+    public $kunjungan;
+    public $layanans = [];
+
+    public function cariTindakan($index)
     {
-        $user =  auth()->user()->id;
-        if ($layanan->user == $user || auth()->user()->hasPermissionTo('rekam-medis')) {
-            $layanan->delete();
-            $this->dispatch('refreshPage');
-            flash('Layanan berhasil dihapus.', 'success');
-        } else {
-            flash('Anda tidak memiliki akses untuk menghapus layanan ini.', 'danger');
-        }
-    }
-    public function editLayanan(Layanan $layanan)
-    {
-        $this->nama = $layanan->nama;
-        $this->tarif_id = $layanan->tarif_id;
-        $this->harga = $layanan->harga;
-        $this->jumlah = $layanan->jumlah;
-        $this->diskon = $layanan->diskon;
-        $this->subtotal = $layanan->subtotal;
-        $this->klasifikasi = $layanan->klasifikasi;
-        $this->jaminan = $layanan->jaminan;
-        $this->keterangan = $layanan->keterangan;
-    }
-    public function simpanLayanan()
-    {
-        $this->subtotal = $this->harga * $this->jumlah - ($this->harga * $this->jumlah * $this->diskon / 100);
-        $this->validate([
-            'nama' => 'required',
-            'harga' => 'required',
-            'jumlah' => 'required',
-            'diskon' => 'required',
-            'subtotal' => 'required',
-            'jaminan' => 'required',
-        ]);
-        $layanan = Layanan::updateOrCreate([
-            'kodekunjungan' => $this->kodekunjungan,
-            'kunjungan_id' => $this->kunjungan_id,
-            'kodebooking' => $this->kodebooking,
-            'antrian_id' => $this->antrian_id,
-            'nama' => $this->nama,
-            'tarif_id' => $this->tarif_id,
-        ], [
-            'harga' => $this->harga,
-            'jumlah' => $this->jumlah,
-            'diskon' => $this->diskon,
-            'subtotal' => $this->subtotal,
-            'klasifikasi' => $this->klasifikasi,
-            'jaminan' => $this->jaminan,
-            'status' => '1',
-            'pic' => auth()->user()->name,
-            'user' => auth()->user()->id,
-            'keterangan' => $this->keterangan,
-            'tgl_input' => now(),
-        ]);
-        $this->dispatch('refreshPage');
-        $this->reset(['nama', 'tarif_id', 'harga', 'jumlah', 'diskon', 'subtotal', 'klasifikasi',  'keterangan']);
-        flash('Layanan berhasil disimpan.', 'success');
-    }
-    public function updateSubtotal()
-    {
-        $this->subtotal = $this->harga * $this->jumlah - ($this->harga * $this->jumlah * $this->diskon / 100);
-    }
-    public function updatedNama()
-    {
-        $this->searchingTindakan = true;
+        $this->searchingTindakan[$index] = true;
+        $query = $this->layanans[$index]['nama'] ?? '';
         try {
-            $this->tindakans = Tindakan::where('nama', 'like', '%' . $this->nama . '%')
-                ->get(['nama', 'harga'])
+            $this->tindakans = Tindakan::where('nama', 'like', '%' . $query . '%')
+                ->limit(20)
+                ->get()
+                ->map(function ($tarif) {
+                    return [
+                        'id' => $tarif->id,
+                        'nama' => $tarif->nama,
+                        'klasifikasi' => $tarif->klasifikasi,
+                        'jenispasien' => $tarif->jenispasien,
+                        'harga' => $tarif->harga,
+                    ];
+                })
                 ->toArray();
+            if (empty($this->tindakans)) {
+                $layanan = Layanan::find($this->layanans[$index]['id']);
+                $layanan->nama = $query;
+                $layanan->klasifikasi = 'Akomodasi';
+                $layanan->save();
+                return flash('Nama tarif berhasil disimpan.', 'success');
+            }
         } catch (\Throwable $th) {
-            $this->tindakans = []; // Kosongkan jika terjadi error
+            $this->tindakans = [];
+            return flash($th->getMessage(), 'danger');
         }
     }
+
+    public function validateAndUpdate($index, $field, $rules, $messages)
+    {
+        $this->validate([$field => $rules], $messages);
+
+        $layanan = Layanan::find($this->layanans[$index]['id']);
+        $harga = str_replace('.', '', $this->layanans[$index]['harga']);
+        $jumlah = str_replace('.', '', $this->layanans[$index]['jumlah']);
+        $diskon = str_replace('.', '', $this->layanans[$index]['diskon']);
+
+        $layanan->harga = $harga;
+        $layanan->jumlah = $jumlah;
+        $layanan->diskon = $diskon;
+        $layanan->subtotal = ($harga - ($harga * $diskon / 100)) * $jumlah;
+        $layanan->pic = auth()->user()->name;
+        $layanan->user = auth()->user()->id;
+        $layanan->tgl_input = now();
+        $layanan->save();
+
+        $this->get_layanans();
+    }
+
+    public function inputHarga($index)
+    {
+        $this->validateAndUpdate(
+            $index,
+            'layanans.' . $index . '.harga',
+            'required|numeric|min:0',
+            [
+                'layanans.' . $index . '.harga.required' => 'Harga tidak boleh kosong.',
+                'layanans.' . $index . '.harga.numeric' => 'Harga harus berupa angka.',
+                'layanans.' . $index . '.harga.min' => 'Harga minimal 0.',
+            ]
+        );
+        flash('Harga berhasil diubah.', 'success');
+    }
+
+    public function inputDiskon($index)
+    {
+        $this->validateAndUpdate(
+            $index,
+            'layanans.' . $index . '.diskon',
+            'required|numeric|min:0|max:100',
+            [
+                'layanans.' . $index . '.diskon.required' => 'Diskon tidak boleh kosong.',
+                'layanans.' . $index . '.diskon.numeric' => 'Diskon harus berupa angka.',
+                'layanans.' . $index . '.diskon.min' => 'Diskon minimal 0.',
+                'layanans.' . $index . '.diskon.max' => 'Diskon maksimal 100.',
+            ]
+        );
+        flash('Diskon berhasil diubah.', 'success');
+    }
+
+    public function inputJumlah($index)
+    {
+        $this->validateAndUpdate(
+            $index,
+            'layanans.' . $index . '.jumlah',
+            'required|numeric|min:1',
+            [
+                'layanans.' . $index . '.jumlah.required' => 'Jumlah tidak boleh kosong.',
+                'layanans.' . $index . '.jumlah.numeric' => 'Jumlah harus berupa angka.',
+                'layanans.' . $index . '.jumlah.min' => 'Jumlah minimal 1.',
+            ]
+        );
+        flash('Jumlah berhasil diubah.', 'success');
+    }
+
     public function pilihTindakan($item)
     {
-        $tindakan  = Tindakan::where('nama', $item['nama'])->first();
-        if ($tindakan) {
-            $this->nama = $tindakan->nama;
-            $this->tarif_id = $tindakan->id;
-            $this->harga = $tindakan->harga;
-            $this->jumlah = 1;
-            $this->diskon = 0;
-            $this->subtotal = $tindakan->harga * $this->jumlah - ($tindakan->harga * $this->jumlah * $this->diskon / 100);
-            $this->klasifikasi = $tindakan->klasifikasi;
-            $this->searchingTindakan = false;
+        $tarif = Tindakan::find($item['id']);
+        $index = array_search(true, $this->searchingTindakan, true);
+        $layanan = Layanan::find($this->layanans[$index]['id']);
+        if ($tarif) {
+            $layanan->nama = $tarif->nama;
+            $layanan->klasifikasi = $tarif->klasifikasi;
+            $layanan->tarif_id = $tarif->id;
+            $layanan->harga = $tarif->harga ?? 0;
+            $layanan->jumlah = 1;
+            $layanan->diskon = 0;
+            $layanan->subtotal = $tarif->harga ?? 0;
+            $layanan->pic = auth()->user()->name;
+            $layanan->user = auth()->user()->id;
+            $layanan->tgl_input = now();
+            $layanan->save();
+            flash('Tindakan atau layanan berhasil ditambahkan.', 'success');
         } else {
-            flash('Tindakan atau layanan tidak ditemukan. Silahkan pilih kembali.', 'danger');
+            flash('Tindakan atau layanan tidak ditemukan.', 'danger');
+        }
+        $this->searchingTindakan[$index] = false;
+        $this->tindakans = [];
+        $this->get_layanans();
+    }
+
+    public function hapus($index)
+    {
+        $layanan = Layanan::find($this->layanans[$index]['id']);
+        if ($layanan) {
+            $layanan->delete();
+            flash('Tindakan atau layanan berhasil dihapus.', 'danger');
+        } else {
+            flash('Tindakan atau layanan tidak ditemukan.', 'danger');
+        }
+        $this->get_layanans();
+    }
+
+    public function tambah()
+    {
+        Layanan::create([
+            'kodekunjungan' => $this->kunjungan->kode,
+            'kunjungan_id' => $this->kunjungan->id,
+            'kodebooking' => $this->kunjungan->kode,
+            'antrian_id' => $this->kunjungan->id,
+            'harga' => 0,
+            'jumlah' => 1,
+            'diskon' => 0,
+            'subtotal' => 0,
+            'klasifikasi' => 'IGD',
+            'jaminan' => $this->kunjungan->jaminan,
+            'pic' => auth()->user()->name,
+            'user' => auth()->user()->id,
+            'tgl_input' => now(),
+        ]);
+        $this->get_layanans();
+    }
+
+    public function get_layanans()
+    {
+        if ($this->kunjungan->layanans) {
+            $this->layanans = [];
+            foreach ($this->kunjungan->layanans as $value) {
+                $this->layanans[] = [
+                    'id' => $value->id,
+                    'nama' => $value->nama,
+                    'tarif_id' => $value->tarif_id,
+                    'harga' => number_format($value->harga, 0, ',', '.'),
+                    'jumlah' => $value->jumlah,
+                    'diskon' => $value->diskon,
+                    'subtotal' => number_format($value->subtotal, 0, ',', '.'),
+                    'pic' => $value->pic,
+                    'updated_at' => $value->updated_at,
+                ];
+            }
         }
     }
-    public function modalLayanan()
+
+    public function mount($kunjungan)
     {
-        $this->dispatch('modalLayanan');
+        $this->kunjungan = $kunjungan;
+        $this->get_layanans();
     }
-    public function mount(Antrian $antrian)
-    {
-        $this->antrian = $antrian;
-        $this->kodebooking = $antrian->kodebooking;
-        $this->antrian_id = $antrian->id;
-        $this->kodekunjungan = $antrian->kunjungan->kode;
-        $this->kunjungan_id = $antrian->kunjungan->id;
-        $this->jaminan = $antrian->kunjungan->jaminan;
-        $this->tindakans = Tindakan::pluck('harga', 'nama');
-        $this->jaminans = Jaminan::pluck('nama', 'kode');
-    }
+
     public function render()
     {
-        return view('livewire.perawat.modal-layanan-tindakan');
+        return view('livewire.rajal.modal-layanan-tindakan');
+    }
+
+    public function getGrandTotal()
+    {
+        $total = 0;
+
+        foreach ($this->layanans as $layanan) {
+            $subtotal = str_replace('.', '', $layanan['subtotal']); // Hapus format titik jika ada
+            $total += (int) $subtotal;
+        }
+
+        return number_format($total, 0, ',', '.'); // Format dengan titik setiap ribuan
     }
 }

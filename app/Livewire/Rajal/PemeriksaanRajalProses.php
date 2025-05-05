@@ -11,6 +11,7 @@ use Livewire\WithPagination;
 class PemeriksaanRajalProses extends Component
 {
     use WithPagination;
+    public $kunjungan;
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien;
     public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
     public $antrian, $pasien;
@@ -163,6 +164,7 @@ class PemeriksaanRajalProses extends Component
         $antrian = Antrian::where('kodebooking', $kodebooking)
             ->first();
         if ($antrian) {
+            $this->kunjungan = $antrian->kunjungan;
             $this->antrian = $antrian;
             $this->kodebooking = $kodebooking;
             $this->antrianId = $antrian->id;

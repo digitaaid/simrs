@@ -36,7 +36,7 @@
                 @livewire('dokter.modal-cppt', ['antrian' => $antrian, 'lazy' => true])
             </div>
             <div id="layanan">
-                @livewire('perawat.modal-layanan-tindakan', ['antrian' => $antrian, 'lazy' => true])
+                @livewire('perawat.modal-layanan-tindakan', ['kunjungan' => $kunjungan, 'lazy' => true])
             </div>
             <div id="notaPembayaran">
                 <x-adminlte-card theme="primary" title="Nota Pembayaran Pasien">

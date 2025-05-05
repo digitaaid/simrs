@@ -8,6 +8,7 @@ use Livewire\Component;
 
 class KeperawatanRajalProses extends Component
 {
+    public $kunjungan;
     public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jenispasien;
     public $kunjunganId, $tgl_lahir, $gender, $hakkelas, $jenispeserta, $kodekunjungan, $counter, $jaminan, $unit, $dokter, $caramasuk, $diagAwal, $jenisKunjungan;
     public $antrian, $pasien;
@@ -58,6 +59,7 @@ class KeperawatanRajalProses extends Component
     {
         $antrian = Antrian::firstWhere('kodebooking', $kodebooking);
         if ($antrian) {
+            $this->kunjungan = $antrian->kunjungan;
             $this->antrian = $antrian;
             $this->pasien = $antrian->pasien;
             $this->kodebooking = $kodebooking;
