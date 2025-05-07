@@ -41,7 +41,7 @@ class ModalKunjunganIgd extends Component
             ->where('status', 1)
             ->first();
         if ($kunjunganaktif && $this->id == null) {
-            return flash('Pasien atas nama ' . $kunjunganaktif->nama . ' masih memiliki kunjungan aktif ke ' . $kunjunganaktif->units->nama, 'danger');
+            return flash('Pasien atas nama ' . $kunjunganaktif->nama . ' masih memiliki kunjungan aktif ke ' . $kunjunganaktif->units->nama . ' (' . $kunjunganaktif->tgl_masuk . ')', 'danger');
         }
         if (!$this->kode && !$this->counter) {
             $this->counter = Kunjungan::where('norm', $this->norm)->first()?->counter ?? 1;

@@ -423,6 +423,13 @@ return [
                     'shift'   => 'ml-2',
                     'can' => 'rajal-kasir',
                 ],
+                [
+                    'text' => 'Casemix Rajal',
+                    'url' => 'rajal/casemix',
+                    'icon' => 'fas fa-notes-medical',
+                    'shift'   => 'ml-2',
+                    // 'can' => 'rajal/casemix',
+                ],
             ],
         ],
         // IGD

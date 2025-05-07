@@ -17,6 +17,9 @@
                 <a href="#riwayatobat" class="nav-link">
                     <i class="fas fa-pills"></i> Riwayat Pengunaan Obat
                 </a>
+                <a href="#sbartbak" class="nav-link">
+                    <i class="fas fa-comment-medical"></i> SBAR TBAK
+                </a>
                 <a href="#soap" class="nav-link">
                     <i class="fas fa-notes-medical"></i> SOAP
                 </a>

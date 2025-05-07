@@ -75,6 +75,7 @@ use App\Livewire\Pendaftaran\DashboardPendaftaran;
 use App\Livewire\Pendaftaran\MonitoringRajal;
 use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Perawat\TindakanIndex;
+use App\Livewire\Rajal\CasemixRajal;
 use App\Livewire\Rajal\FarmasiRajal;
 use App\Livewire\Rajal\KeperawatanRajal;
 use App\Livewire\Rajal\KeperawatanRajalProses;
@@ -184,6 +185,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:rajal-pemeriksaan'])->get('rajal/pemeriksaan/proses/{kodebooking}', PemeriksaanRajalProses::class)->name('pemeriksaan.rajal.proses');
     Route::middleware(['can:rajal-farmasi'])->get('rajal/farmasi', FarmasiRajal::class)->name('farmasi.rajal.index');
     Route::middleware(['can:rajal-farmasi'])->get('rajal/farmasi/penjualanobat', PenjualanObat::class)->name('apotek.resepobat.rajal');
+    // Route::middleware(['can:rajal-casemix'])->get('rajal/casemix', CasemixRajal::class)->name('casemix.rajal');
+    Route::get('rajal/casemix', CasemixRajal::class)->name('casemix.rajal');
+    // Route::middleware(['can:rajal-casemix'])->get('rajal/casemix', FarmasiRajal::class)->name('farmasi.rajal.index');
+    // Route::middleware(['can:rajal-kasir'])->get('rajal/kasir', FarmasiRajal::class)->name('farmasi.rajal.index');
+    // Route::middleware(['can:rajal-kasir'])->get('rajal/kasir', FarmasiRajal::class)->name('farmasi.rajal.index');
+
+
     Route::middleware(['can:rajal-pendaftaran'])->get('rajal/monitoring', MonitoringRajal::class)->name('monitoring.rajal');
     Route::middleware(['can:rajal-pendaftaran'])->get('rajal/pendaftaran/jadwaldokter', JadwalDokterIndex::class)->name('pendaftaran.rajal.jadwaldokter');
 
@@ -215,8 +223,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:farmasi'])->get('stokobat', StokObatIndex::class)->name('stokobat.index');
     Route::middleware(['can:farmasi'])->get('farmasi/stok-opname', PemesananObatIndex::class)->name('stok.opname');
     // rekam medis
-    Route::middleware(['can:rekam-medis'])->get('rekam-medis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
-    Route::middleware(['can:rekam-medis'])->get('rekam-medis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
+    Route::get('rekam-medis/rajal', RekamMedisRajal::class)->name('rekammedis.rajal');
+    Route::get('rekam-medis/rajal/edit/{kodebooking}', RekamMedisRajalEdit::class)->name('rekammedis.rajal.edit');
     Route::middleware(['can:ranap-pendaftaran'])->get('kamar-bed', KamarBedIndex::class)->name('kamar.bed.index');
 
     Route::middleware(['can:satusehat'])->group(function () {

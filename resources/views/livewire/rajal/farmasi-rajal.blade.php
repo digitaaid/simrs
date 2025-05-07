@@ -208,6 +208,7 @@
             @php
                 $heads = [
                     'No',
+                    'Tgl Kunjungan',
                     'Antrian',
                     'No RM',
                     'Nama Pasien',
@@ -216,6 +217,7 @@
                     'Etiket+Resep',
                     'Invoice',
                     'Unit',
+                    'SEP',
                     'PIC',
                     'Waktu',
                     'Rp.Layanan',
@@ -229,6 +231,7 @@
                 @foreach ($resepobats as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->kunjungan->tgl_masuk }}</td>
                         <td>{{ $item->kode }}</td>
                         <td>{{ $item->norm }}</td>
                         <td>{{ $item->nama }}</td>
@@ -280,6 +283,7 @@
                             </a>
                         </td>
                         <td>{{ $item->kunjungan->units->nama }}</td>
+                        <td>{{ $item->kunjungan->sep }}</td>
                         <td>{{ $item->pic }}</td>
                         <td>{{ $item->waktu }}</td>
                         <td class="text-right">{{ money($item->kunjungan->layanans->sum('harga'), 'IDR') }} </td>
