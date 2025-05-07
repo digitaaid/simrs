@@ -76,6 +76,10 @@ class FarmasiRajal extends Component
             $antrian->panggil = 0;
             $antrian->user4 = auth()->user()->id;
             $antrian->keterangan = "Pelayanan telah selesai";
+            $antrian->update();
+            $kunjungan = $antrian->kunjungan;
+            $kunjungan->status = 2;
+            $kunjungan->update();
             if (env('ANTRIAN_REALTIME')) {
                 $request = new Request([
                     'kodebooking' => $antrian->kodebooking,
@@ -89,10 +93,7 @@ class FarmasiRajal extends Component
                     return flash($res->metadata->message, 'danger');
                 }
             }
-            $antrian->update();
-            $kunjungan = $antrian->kunjungan;
-            $kunjungan->status = 2;
-            $kunjungan->update();
+
         }
         $resepObat->status = 3;
         $resepObat->update();
@@ -326,6 +327,7 @@ class FarmasiRajal extends Component
             $antrian->panggil = 0;
             $antrian->status = 1;
             $antrian->user4 = auth()->user()->id;
+            $antrian->update();
             if (env('ANTRIAN_REALTIME')) {
                 $request = new Request([
                     'kodebooking' => $antrian->kodebooking,
@@ -339,7 +341,6 @@ class FarmasiRajal extends Component
                     return flash($res->metadata->message, 'danger');
                 }
             }
-            $antrian->update();
         }
         $resepObat->status = 2;
         $resepObat->update();
