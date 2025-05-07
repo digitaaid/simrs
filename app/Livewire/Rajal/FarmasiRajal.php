@@ -67,6 +67,9 @@ class FarmasiRajal extends Component
     public function selesai($kode)
     {
         $resepObat = ResepObat::where('kode', $kode)->first();
+        $resepObat->status = 3;
+        $resepObat->update();
+
         $antrian = Antrian::where('kodebooking', $kode)->first();
         if ($antrian) {
             $now = now();
@@ -93,10 +96,7 @@ class FarmasiRajal extends Component
                     return flash($res->metadata->message, 'danger');
                 }
             }
-
         }
-        $resepObat->status = 3;
-        $resepObat->update();
         return flash('Pelayanan farmasi atas nama pasien ' . $resepObat->nama . ' telah selesai.', 'success');
     }
     public function simpan()
@@ -319,6 +319,9 @@ class FarmasiRajal extends Component
     public function terima($kode)
     {
         $resepObat = ResepObat::where('kode', $kode)->first();
+        $resepObat->status = 2;
+        $resepObat->update();
+
         $antrian = Antrian::where('kodebooking', $kode)->first();
         if ($antrian) {
             $now = now();
@@ -342,8 +345,6 @@ class FarmasiRajal extends Component
                 }
             }
         }
-        $resepObat->status = 2;
-        $resepObat->update();
         return flash('Resep obat atas nama pasien ' . $resepObat->nama . ' telah diterima farmasi.', 'success');
     }
     public function refreshComponent()
