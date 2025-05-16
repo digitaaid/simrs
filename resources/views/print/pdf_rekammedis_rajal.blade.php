@@ -470,14 +470,14 @@
                         <tr>
                             <th class="text-left" colspan="6">FARMASI RAWAT JALAN</th>
                         </tr>
-                        @foreach ($resepobatdetails as $item)
+                        @foreach ($resepobatdetails as $obat)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->jumlah }}</td>
-                                <td class="text-right">{{ money(floatval($item->harga ?? 0), 'IDR') }}</td>
-                                <td class="text-right">{{ $item->diskon }}%</td>
-                                <td class="text-right">{{ money(floatval($item->subtotal ?? 0), 'IDR') }}</td>
+                                <td>{{ $obat->nama }}</td>
+                                <td>{{ $obat->jumlah }}</td>
+                                <td class="text-right">{{ money(floatval($obat->harga ?? 0), 'IDR') }}</td>
+                                <td class="text-right">{{ $obat->diskon }}%</td>
+                                <td class="text-right">{{ money(floatval($obat->subtotal ?? 0), 'IDR') }}</td>
                             </tr>
                         @endforeach
                         <tr>
