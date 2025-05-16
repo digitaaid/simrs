@@ -93,6 +93,7 @@ class ModalDokterRajal extends Component
                 ]);
             }
             // jika role Rekam Medis maka jangan ini
+            dd(auth()->user()->roles);
             if (!in_array('Rekam Medis', auth()->user()->roles)) {
                 // simpan resep obat
                 if (count($this->resepObat)) {
