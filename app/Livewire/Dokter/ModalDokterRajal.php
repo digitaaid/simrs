@@ -11,6 +11,7 @@ use App\Models\Kunjungan;
 use App\Models\Obat;
 use App\Models\ResepObat;
 use App\Models\ResepObatDetail;
+use App\Models\User;
 use App\Models\WaktuObat;
 use Illuminate\Http\Request;
 use Livewire\Component;
@@ -93,8 +94,7 @@ class ModalDokterRajal extends Component
                 ]);
             }
             // jika role Rekam Medis maka jangan ini
-            dd(auth()->user()->roles);
-            if (!in_array('Rekam Medis', auth()->user()->roles)) {
+            if (!auth()->user()->getRoleNames()->contains('Rekam Medis')) {
                 // simpan resep obat
                 if (count($this->resepObat)) {
                     $resep = ResepObat::updateOrCreate([
