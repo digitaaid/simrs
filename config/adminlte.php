@@ -648,7 +648,6 @@ return [
                     'active' => ['rekam-medis/rajal', 'rekam-medis/rajal/edit/*'],
                     'icon' => 'fas fa-laptop-medical',
                     'shift'   => 'ml-2',
-                    'can' => 'rekam-medis',
                 ],
             ],
         ],

@@ -91,8 +91,8 @@ class RekamMedisController extends Controller
         $qrurl = QrCode::format('png')->size(150)->generate(route('rekammedis.rajal.print', $antrian->kodebooking));
         $url = "data:image/png;base64," . base64_encode($qrurl);
         $resepobat = $antrian->resepobat;
-        $resepobatdetails = $antrian->resepfarmasidetails;
         $kunjungan = $antrian->kunjungan;
+        $resepobatdetails = $kunjungan->resepfarmasidetails;
         // return view('print.pdf_rekammedis_rajal',  compact('antrian','ttddokter','url'));
         $pdf = Pdf::loadView('print.pdf_rekammedis_rajal', compact('antrian', 'kunjungan', 'resepobat', 'resepobatdetails', 'ttddokter', 'ttdpasien', 'ttdpetugas', 'url'));
         return $pdf->stream('resumerajal.pdf');

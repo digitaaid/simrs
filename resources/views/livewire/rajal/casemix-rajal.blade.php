@@ -61,6 +61,7 @@
             @php
                 $heads = [
                     'No',
+                    'Kode',
                     'Tanggal',
                     'No RM',
                     'Nama Pasien',
@@ -87,6 +88,11 @@
                     @foreach ($antrians as $item)
                         <tr>
                             <td>{{ $item->angkaantrean }}</td>
+                            <td>
+                                <a href="{{ route('rekammedis.rajal.edit', $item->kodebooking) }}">
+                                    {{ $item->kunjungan->kode }}
+                                </a>
+                            </td>
                             <td>{{ $item->tanggalperiksa }}</td>
                             <td>{{ $item->norm }}</td>
                             <td>{{ $item->nama }}</td>
@@ -137,14 +143,11 @@
                                 @endswitch
                             </td>
                             <td>
-                                {{-- <a href="{{ route('rekammedis.rajal.edit', $item->kodebooking) }}">
-                                    <x-adminlte-button class="btn-xs" label="Edit" theme="warning" icon="fas fa-edit" />
-                                </a> --}}
                                 <a href="{{ route('rekammedis.rajal.print', $item->kodebooking) }}" target="_blank">
-                                    <x-adminlte-button class="btn-xs" theme="warning" icon="fas fa-print" />
+                                    <x-adminlte-button class="btn-xs" theme="warning" icon="fas fa-print" label="D" />
                                 </a>
                                 <a href="{{ route('rekammedis.rajal.printf', $item->kodebooking) }}" target="_blank">
-                                    <x-adminlte-button class="btn-xs" theme="warning" icon="fas fa-print" label="++" />
+                                    <x-adminlte-button class="btn-xs" theme="warning" icon="fas fa-print" label="F" />
                                 </a>
                             </td>
                             <td>
