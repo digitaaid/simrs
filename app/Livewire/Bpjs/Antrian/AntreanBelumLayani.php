@@ -8,7 +8,33 @@ use Livewire\Component;
 
 class AntreanBelumLayani extends Component
 {
-    public $antrians = [];
+    public $antrians = [], $taskid = [], $antrian = [];
+    public $formAntrian = false;
+
+    public function lihat($kodebooking)
+    {
+        $request = new Request([
+            'kodebooking' => $kodebooking,
+        ]);
+        $this->formAntrian = true;
+        $api = new AntrianController();
+        $res  = $api->antrian_kodebooking($request);
+        if ($res->metadata->code == 200) {
+            $this->antrian = $res->response[0];
+        } else {
+            return flash($res->metadata->message, 'danger');
+        }
+        $res  = $api->taskid_antrean($request);
+        if ($res->metadata->code == 200) {
+            $this->taskid = $res->response;
+        } else {
+            return flash($res->metadata->message, 'danger');
+        }
+    }
+    public function form()
+    {
+        $this->formAntrian = $this->formAntrian ? false : true;
+    }
     public function mount()
     {
         $api = new AntrianController();
@@ -16,7 +42,6 @@ class AntreanBelumLayani extends Component
         $res  = $api->antrian_belum_dilayani($request);
         if ($res->metadata->code == 200) {
             $this->antrians = $res->response;
-            flash($res->metadata->message, 'success');
         } else {
             flash($res->metadata->message, 'danger');
         }

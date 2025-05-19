@@ -8,16 +8,17 @@ use Illuminate\Http\Request;
 
 class AntreanKodebooking extends Component
 {
-    public $antrian ;
-    public function mount($kodebooking){
+    public $antrian;
+    public function mount($kodebooking)
+    {
         $request = new Request([
             'kodebooking' => $kodebooking,
         ]);
+        $this->antrian = [];
         $api = new AntrianController();
         $res  = $api->antrian_kodebooking($request);
         if ($res->metadata->code == 200) {
             $this->antrian = $res->response[0];
-            flash($res->metadata->message, 'success');
         } else {
             flash($res->metadata->message, 'danger');
         }

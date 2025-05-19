@@ -21,11 +21,11 @@ class DashboardBulan extends Component
             'bulan' => explode('-', $this->tanggal)[1],
             'tahun' => explode('-', $this->tanggal)[0],
         ]);
+        $this->antrians = [];
         $api = new AntrianController();
         $res  = $api->dashboard_bulan($request);
         if ($res->metadata->code == 200) {
             $this->antrians = $res->response->list;
-            flash($res->metadata->message, 'success');
         } else {
             flash($res->metadata->message, 'danger');
         }

@@ -27,7 +27,6 @@ class RefJadwalDokter extends Component
         $this->jadwals = [];
         if ($res->metadata->code == 200) {
             $this->jadwals = $res->response;
-            flash($res->metadata->message, 'success');
         } else {
             flash($res->metadata->message, 'danger');
         }
@@ -37,14 +36,14 @@ class RefJadwalDokter extends Component
         $this->validate([
             'kodepoli' => 'required|min:3',
         ]);
-        $this->searchingPoliklinik = true; // Tandai bahwa pencarian poliklinik sedang berlangsung
+        $this->searchingPoliklinik = true;
         try {
             $api = new AntrianController();
             $res = $api->ref_poli();
             if ($res->metadata->code == 200 && !empty($res->response)) {
                 $this->polikliniks = collect($res->response)
                     ->filter(function ($item) {
-                        return stripos($item->nmsubspesialis, $this->kodepoli) !== false; // Pencarian case-insensitive
+                        return stripos($item->nmsubspesialis, $this->kodepoli) !== false;
                     })
                     ->map(function ($item) {
                         return [
@@ -55,16 +54,16 @@ class RefJadwalDokter extends Component
                     ->values()
                     ->toArray();
             } else {
-                $this->polikliniks = []; // Kosongkan jika tidak ada data
+                $this->polikliniks = [];
             }
         } catch (\Throwable $th) {
-            $this->polikliniks = []; // Kosongkan jika terjadi error
+            $this->polikliniks = [];
         }
     }
     public function selectPoliklinik($kodepoli)
     {
         $this->kodepoli = $kodepoli['kode'];
-        $this->searchingPoliklinik = false; // Sembunyikan hasil pencarian
+        $this->searchingPoliklinik = false;
     }
     public function mount()
     {

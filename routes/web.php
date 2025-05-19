@@ -4,6 +4,7 @@ use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\FarmasiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KasirController;
+use App\Http\Controllers\PcareController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SepController;
@@ -268,6 +269,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('bpjs/vclaim/sep', Sep::class)->name('vclaim.sep');
         Route::get('bpjs/vclaim/sep_print', [SepController::class, 'sep_print'])->name('vclaim.sep_print');
     });
+    // Route::middleware(['can:pcare'])->group(function () {
+    Route::get('bpjs/vclaim/refspesialis', [PcareController::class, 'refspesialis'])->name('pcare.refspesialis');
+    // });
 });
 // print
 Route::get('farmasi/print_resep/{kodebooking}', [FarmasiController::class, 'print_resep'])->name('print.resep');

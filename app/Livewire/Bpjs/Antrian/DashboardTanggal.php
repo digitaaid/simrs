@@ -20,11 +20,11 @@ class DashboardTanggal extends Component
             'tanggal' => $this->tanggal,
             'waktu' => $this->waktu,
         ]);
+        $this->antrians = [];
         $api = new AntrianController();
         $res  = $api->dashboard_tanggal($request);
         if ($res->metadata->code == 200) {
             $this->antrians = $res->response->list;
-            flash($res->metadata->message, 'success');
         } else {
             flash($res->metadata->message, 'danger');
         }

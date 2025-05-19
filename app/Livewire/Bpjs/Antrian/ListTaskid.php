@@ -17,11 +17,11 @@ class ListTaskid extends Component
         $request = new Request([
             'kodebooking' => $this->kodebooking,
         ]);
+        $this->taskid = [];
         $api = new AntrianController();
         $res  = $api->taskid_antrean($request);
         if ($res->metadata->code == 200) {
             $this->taskid = $res->response;
-            flash($res->metadata->message, 'success');
         } else {
             flash($res->metadata->message, 'danger');
         }
