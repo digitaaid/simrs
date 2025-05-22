@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Integration;
+use App\Models\PengaturanSatuSehat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -12,11 +13,11 @@ class SatuSehatController extends ApiController
 {
     public function token_generate()
     {
-        $api = Integration::where('name', 'Satu Sehat')->first();
-        $url = $api->auth_url . "/accesstoken?grant_type=client_credentials";
+        $api = PengaturanSatuSehat::first();
+        $url = $api->authUrl . "/accesstoken?grant_type=client_credentials";
         $response = Http::asForm()->post($url, [
-            'client_id' => $api->user_key,
-            'client_secret' => $api->secret_key,
+            'client_id' => $api->userKey,
+            'client_secret' => $api->secretKey,
         ]);
         if ($response->successful()) {
             $json = $response->json();

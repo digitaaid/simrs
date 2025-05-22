@@ -92,6 +92,7 @@ use App\Livewire\Rekammedis\RekamMedisRajal;
 use App\Livewire\Rekammedis\RekamMedisRajalEdit;
 use App\Livewire\Satusehat\EncounterEdit;
 use App\Livewire\Satusehat\EncounterIndex;
+use App\Livewire\Satusehat\PengaturanSatusehatIndex;
 use App\Livewire\Satusehat\TokenIndex;
 use App\Livewire\Unit\UnitIndex;
 use App\Livewire\User\HomeIndex;
@@ -229,7 +230,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:ranap-pendaftaran'])->get('kamar-bed', KamarBedIndex::class)->name('kamar.bed.index');
 
     Route::middleware(['can:satusehat'])->group(function () {
-        // Route::get('satusehat/pengaturan', PengaturanSatuSehat::class)->name('pengaturan.satusehat.index');
+        Route::get('satusehat/pengaturan', PengaturanSatusehatIndex::class)->name('pengaturan.satusehat.index');
         Route::get('satusehat/token', TokenIndex::class)->name('satusehat.token');
         Route::get('satusehat/patient', PasienIndex::class)->name('satusehat.patient');
         Route::get('satusehat/practitioner', DokterIndex::class)->name('satusehat.practitioner');

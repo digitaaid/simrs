@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Integration;
 use App\Models\Pasien;
+use App\Models\PengaturanSatuSehat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -13,9 +14,10 @@ class PatientController extends SatuSehatController
     public function patient_by_nik(Request $request)
     {
         $token = Cache::get('satusehat_access_token');
-        $api = Integration::where('name', 'Satu Sehat')->first();
-        $url = $api->base_url . "/Patient?identifier=https://fhir.kemkes.go.id/id/nik|" . $request->nik;
+        $api = PengaturanSatuSehat::first();
+        $url = $api->baseUrl . "Patient?identifier=https://fhir.kemkes.go.id/id/nik|" . $request->nik;
         $response = Http::withToken($token)->get($url);
+        dd($token, $url, $response->json());
         $data = $response->json();
         return $this->responseSatuSehat($data);
     }
