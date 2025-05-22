@@ -11,6 +11,18 @@ class PengaturanAntrianIndex extends Component
 {
     public $pengaturan;
     public $id, $nama, $kode, $baseUrl, $authUrl, $userKey, $secretKey;
+    public $syncron_antrian = false; // Tambahkan ini
+
+    public function syncAntrian()
+    {
+        $this->syncron_antrian = !$this->syncron_antrian;
+        $pengaturan = PengaturanAntrian::first();
+        if ($pengaturan) {
+            $pengaturan->syncron_antrian = $this->syncron_antrian;
+            $pengaturan->save();
+        }
+        flash('Status syncron antrian diubah!', 'success');
+    }
     public function render()
     {
         return view('livewire.bpjs.antrian.pengaturan-antrian-index')
@@ -48,6 +60,7 @@ class PengaturanAntrianIndex extends Component
             $this->authUrl = $pengaturan->authUrl;
             $this->userKey = $pengaturan->userKey;
             $this->secretKey = $pengaturan->secretKey;
+            $this->syncron_antrian = $pengaturan->syncron_antrian ?? false; // Ambil dari DB jika ada
         }
     }
 }

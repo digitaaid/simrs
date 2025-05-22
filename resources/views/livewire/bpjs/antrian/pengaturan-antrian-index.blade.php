@@ -37,6 +37,8 @@
                                 igroup-class="col-9" igroup-size="sm" name="userKey" label="User Key" />
                             <x-adminlte-input wire:model="secretKey" fgroup-class="row" label-class="text-left col-3"
                                 igroup-class="col-9" igroup-size="sm" name="secretKey" label="Secret Key" />
+                            <x-adminlte-input-switch name="syncron_antrian" wire:model="syncron_antrian"
+                                wire:change="syncAntrian" label="Syncron Antrian BPJS" />
                         </form>
                         <x-adminlte-button label="Simpan" wire:click="save"
                             wire:confirm="Apakah anda ingin menyimpan data ?" form="formUpdate" theme="warning"

@@ -15,10 +15,10 @@ class VclaimController extends ApiController
     public function api()
     {
         $api = PengaturanVclaim::first();
-        $data['base_url'] =  $api->baseUrl;
-        $data['user_id'] = $api->kode;
-        $data['user_key'] = $api->userKey;
-        $data['secret_key'] = $api->secretKey;
+        $data['base_url'] =  $api->baseUrl ?? null;
+        $data['user_id'] = $api->kode ?? null;
+        $data['user_key'] = $api->userKey ?? null;
+        $data['secret_key'] = $api->secretKey ?? null;
         return json_decode(json_encode($data));
     }
     public function signature()
@@ -151,37 +151,45 @@ class VclaimController extends ApiController
             $response = Http::withHeaders($signature)->get($url);
             return $this->response_decrypt($response, $signature);
         } catch (\Throwable $th) {
-            //throw $th;
             return $this->sendError($th->getMessage(), 400);
         }
     }
     public function peserta_nik(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            "nik" => "required",
-            "tanggal" => "required|date",
-        ]);
-        if ($validator->fails()) {
-            return $this->sendError($validator->errors()->first(), 400);
+        try {
+            $validator = Validator::make($request->all(), [
+                "nik" => "required",
+                "tanggal" => "required|date",
+            ]);
+            if ($validator->fails()) {
+                return $this->sendError($validator->errors()->first(), 400);
+            }
+            $url =  $this->api()->base_url . "Peserta/nik/" . $request->nik . "/tglSEP/" . $request->tanggal;
+            $signature = $this->signature();
+            $response = Http::withHeaders($signature)->get($url);
+            return $this->response_decrypt($response, $signature);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage(), 400);
         }
-        $url =  $this->api()->base_url . "Peserta/nik/" . $request->nik . "/tglSEP/" . $request->tanggal;
-        $signature = $this->signature();
-        $response = Http::withHeaders($signature)->get($url);
-        return $this->response_decrypt($response, $signature);
     }
     // REFERENSI
     public function ref_diagnosa(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            "diagnosa" => "required",
-        ]);
-        if ($validator->fails()) {
-            return $this->sendError($validator->errors()->first(), 400);
+        try {
+            $validator = Validator::make($request->all(), [
+                "diagnosa" => "required",
+            ]);
+            if ($validator->fails()) {
+                return $this->sendError($validator->errors()->first(), 400);
+            }
+            $url =  $this->api()->base_url . "referensi/diagnosa/" . $request->diagnosa;
+            $signature = $this->signature();
+            $response = Http::withHeaders($signature)->get($url);
+            return $this->response_decrypt($response, $signature);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return $this->sendError($th->getMessage(), 400);
         }
-        $url =  $this->api()->base_url . "referensi/diagnosa/" . $request->diagnosa;
-        $signature = $this->signature();
-        $response = Http::withHeaders($signature)->get($url);
-        return $this->response_decrypt($response, $signature);
     }
     public function ref_procedure(Request $request)
     {

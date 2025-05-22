@@ -162,13 +162,19 @@ class ModalAntrianRajal extends Component
             "keterangan" =>    $this->keterangan,
             "nama" => $this->nama,
         ]);
-        $res =  $api->tambah_antrean($request);
-        if ($res->metadata->code == 200) {
+        if (env('ANTRIAN_REALTIME')) {
+            $res =  $api->tambah_antrean($request);
+            if ($res->metadata->code == 200) {
+                $antrian->status = 1;
+                $antrian->update();
+                Alert::success('Success', $res->metadata->message);
+            } else {
+                Alert::error('Mohon Maaf', $res->metadata->message);
+            }
+        } else {
             $antrian->status = 1;
             $antrian->update();
-            Alert::success('Success', $res->metadata->message);
-        } else {
-            Alert::error('Mohon Maaf', $res->metadata->message);
+            Alert::success('Success', 'Antrian berhasil disimpan');
         }
         $url = route('pendaftaran.rajal.proses', $this->kodebooking);
         return redirect()->to($url);
@@ -257,9 +263,9 @@ class ModalAntrianRajal extends Component
             $this->jenispeserta = $peserta->jenisPeserta->keterangan;
             $this->hakkelas = $peserta->hakKelas->kode;
             $this->gender = $peserta->sex;
-            flash($res->metadata->message, 'success');
+            return flash($res->metadata->message, 'success');
         } else {
-            flash($res->metadata->message, 'danger');
+            return flash($res->metadata->message, 'danger');
         }
     }
     public function cariNIK()
@@ -285,9 +291,9 @@ class ModalAntrianRajal extends Component
             $this->jenispeserta = $peserta->jenisPeserta->keterangan;
             $this->hakkelas = $peserta->hakKelas->kode;
             $this->gender = $peserta->sex;
-            flash($res->metadata->message, 'success');
+            return flash($res->metadata->message, 'success');
         } else {
-            flash($res->metadata->message, 'danger');
+            return flash($res->metadata->message, 'danger');
         }
     }
     public function cariNoRM()

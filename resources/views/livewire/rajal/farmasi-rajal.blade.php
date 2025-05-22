@@ -253,7 +253,7 @@
                                     theme="warning" icon="fas fa-edit" title="Edit Resep Obat" />
                                 <x-adminlte-button wire:confirm='Apakah anda yakin panggil ulang pasien ?'
                                     wire:click="panggilfarmasi('{{ $item->kode }}')" class="btn-xs"
-                                    title="Panggil" theme="primary" icon="fas fa-check" />
+                                    title="Panggil" theme="primary" icon="fas fa-sync" />
                             @endif
                         </td>
                         <td>

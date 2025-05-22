@@ -113,10 +113,10 @@ class AntrianController extends ApiController
     public function api()
     {
         $api = PengaturanAntrian::first();
-        $data['base_url'] =  $api->baseUrl;
-        $data['user_id'] = $api->kode;
-        $data['user_key'] = $api->userKey;
-        $data['secret_key'] = $api->secretKey;
+        $data['base_url'] =  $api->baseUrl ?? null;
+        $data['user_id'] = $api->kode ?? null;
+        $data['user_key'] = $api->userKey ?? null;
+        $data['secret_key'] = $api->secretKey ?? null;
         return json_decode(json_encode($data));
     }
     public function signature()

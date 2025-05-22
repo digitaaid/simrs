@@ -43,6 +43,7 @@ class ModalKunjunganRajal extends Component
                 return flash($res->metadata->message, 'success');
             } else {
                 $this->diagnosas = []; // Kosongkan jika tidak ada data
+                $this->searchingDiagnosa = false; // Tandai bahwa pencarian telah dilakukan
             }
         } catch (\Throwable $th) {
             $this->diagnosas = []; // Kosongkan jika terjadi error
