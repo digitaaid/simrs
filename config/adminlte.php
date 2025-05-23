@@ -418,7 +418,7 @@ return [
                 ],
                 [
                     'text' => 'Kasir Rajal',
-                    'url' => 'kasir-pembayaran',
+                    'url' => 'rajal/kasir',
                     'icon' => 'fas fa-cash-register',
                     'shift'   => 'ml-2',
                     'can' => 'rajal-kasir',

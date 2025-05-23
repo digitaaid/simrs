@@ -78,6 +78,7 @@ use App\Livewire\Perawat\PerawatIndex;
 use App\Livewire\Perawat\TindakanIndex;
 use App\Livewire\Rajal\CasemixRajal;
 use App\Livewire\Rajal\FarmasiRajal;
+use App\Livewire\Rajal\KasirRajal;
 use App\Livewire\Rajal\KeperawatanRajal;
 use App\Livewire\Rajal\KeperawatanRajalProses;
 use App\Livewire\Rajal\PemeriksaanRajal;
@@ -187,6 +188,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:rajal-pemeriksaan'])->get('rajal/pemeriksaan/proses/{kodebooking}', PemeriksaanRajalProses::class)->name('pemeriksaan.rajal.proses');
     Route::middleware(['can:rajal-farmasi'])->get('rajal/farmasi', FarmasiRajal::class)->name('farmasi.rajal.index');
     Route::middleware(['can:rajal-farmasi'])->get('rajal/farmasi/penjualanobat', PenjualanObat::class)->name('apotek.resepobat.rajal');
+    Route::middleware(['can:rajal-kasir'])->get('rajal/kasir', KasirRajal::class)->name('kasir.rajal.index');
+
     // Route::middleware(['can:rajal-casemix'])->get('rajal/casemix', CasemixRajal::class)->name('casemix.rajal');
     Route::get('rajal/casemix', CasemixRajal::class)->name('casemix.rajal');
     // Route::middleware(['can:rajal-casemix'])->get('rajal/casemix', FarmasiRajal::class)->name('farmasi.rajal.index');
