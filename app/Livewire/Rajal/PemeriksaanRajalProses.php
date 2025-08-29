@@ -32,7 +32,7 @@ class PemeriksaanRajalProses extends Component
             $antrian->panggil = 1;
             $antrian->user3 = auth()->user()->id;
             $antrian->update();
-            if (env('ANTRIAN_REALTIME')) {
+            if ($antrian->jenispasien != "NON-JKN") {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
                     'waktu' => $now,
@@ -60,7 +60,7 @@ class PemeriksaanRajalProses extends Component
             $antrian->panggil = 0;
             $antrian->user3 = auth()->user()->id;
             $antrian->update();
-            if (env('ANTRIAN_REALTIME')) {
+            if ($antrian->jenispasien != "NON-JKN") {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
                     'waktu' => $now,
@@ -88,7 +88,7 @@ class PemeriksaanRajalProses extends Component
             $antrian->panggil = 1;
             $antrian->status = 1;
             $antrian->user3 = auth()->user()->id;
-            if (env('ANTRIAN_REALTIME')) {
+            if ($antrian->jenispasien != "NON-JKN") {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
                     'waktu' => $now(),
@@ -112,7 +112,7 @@ class PemeriksaanRajalProses extends Component
         $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 4) {
-            if (env('ANTRIAN_REALTIME')) {
+            if ($antrian->jenispasien != "NON-JKN") {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
                     'waktu' => $now,

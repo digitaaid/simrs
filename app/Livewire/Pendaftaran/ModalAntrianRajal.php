@@ -162,7 +162,7 @@ class ModalAntrianRajal extends Component
             "keterangan" =>    $this->keterangan,
             "nama" => $this->nama,
         ]);
-        if (env('ANTRIAN_REALTIME')) {
+        if ($request->jenispasien != "NON-JKN") {
             $res =  $api->tambah_antrean($request);
             if ($res->metadata->code == 200) {
                 $antrian->status = 1;

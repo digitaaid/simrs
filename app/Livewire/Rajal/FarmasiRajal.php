@@ -83,7 +83,7 @@ class FarmasiRajal extends Component
             $kunjungan = $antrian->kunjungan;
             $kunjungan->status = 2;
             $kunjungan->update();
-            if (env('ANTRIAN_REALTIME')) {
+            if ($antrian->jenispasien != "NON-JKN") {
                 $request = new Request([
                     'kodebooking' => $antrian->kodebooking,
                     'waktu' => $now,
@@ -331,7 +331,7 @@ class FarmasiRajal extends Component
             $antrian->status = 1;
             $antrian->user4 = auth()->user()->id;
             $antrian->update();
-            if (env('ANTRIAN_REALTIME')) {
+            if ($antrian->jenispasien != "NON-JKN") {
                 $request = new Request([
                     'kodebooking' => $antrian->kodebooking,
                     'waktu' => $now,
