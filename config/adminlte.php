@@ -658,6 +658,12 @@ return [
             'icon' => 'fas fa-user-injured',
             'submenu' => [
                 [
+                    'text' => 'Label Pasien',
+                    'shift'   => 'ml-2',
+                    'url' => 'label-pasien',
+                    'icon' => 'fas fa-address-book',
+                ],
+                [
                     'text' => 'Data Pasien',
                     'shift'   => 'ml-2',
                     'url' => 'pasien',

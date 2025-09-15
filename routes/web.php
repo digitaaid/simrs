@@ -72,6 +72,7 @@ use App\Livewire\Igd\PendaftaranIgd;
 use App\Livewire\Igd\PendaftaranIgdProses;
 use App\Livewire\Jaminan\JaminanIndex;
 use App\Livewire\Kamarbed\KamarBedIndex;
+use App\Livewire\Pasien\PasienLabel;
 use App\Livewire\Pendaftaran\DashboardPendaftaran;
 use App\Livewire\Pendaftaran\MonitoringRajal;
 use App\Livewire\Perawat\PerawatIndex;
@@ -161,6 +162,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:data-absensi'])->get('shift-pegawai-edit', ShiftPegawaiEdit::class)->name('shift.pegawai.edit');
 
     Route::middleware(['can:data-pasien'])->get('pasien', PasienIndex::class)->name('pasien.index');
+    Route::middleware(['can:data-pasien'])->get('label-pasien', PasienLabel::class)->name('pasien.label');
+    Route::get('pasien/print_label_pasien', [PasienLabel::class, 'print_label'])->name('print.label.pasien');
     Route::middleware(['can:data-pasien'])->get('pasien/create', PasienForm::class)->name('pasien.create');
     Route::middleware(['can:data-pasien'])->get('pasien/edit/{norm}', PasienForm::class)->name('pasien.edit');
 
