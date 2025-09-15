@@ -107,28 +107,19 @@
     </style>
 </head>
 
-<body style="font-size: 8px;">
-        <br>
-        <b>Pasien {{ env('APP_NAME_LONG') }}</b>
-        <hr style="margin: 0">
-        <table class="table table-borderless" style="font-size: 8px;  font-weight: bold;">
-            <tr>
-                <td>No RM</td>
-                <td>:</td>
-                <td>{{ $pasien->norm }}</td>
-            </tr>
-            <tr>
-                <td>Nama</td>
-                <td>:</td>
-                <td>{{ $pasien->nama }}</td>
-            </tr>
-            <tr>
-                <td>Tgl Lahir</td>
-                <td>:</td>
-                <td>{{ $pasien->tgl_lahir }} </td>
-            </tr>
-        </table>
-        <br>
+<body style="font-size: 13px;">
+    <br>
+    <b>{{ $pasien->nama }}</b>
+    <br>
+
+    <b>{{ $pasien->norm }}</b>
+    <br>
+
+    <b>{{ $pasien->nik }}</b>
+    <br>
+    <br>
+    <b style="font-size: 11px;">{{ $pasien->alamat }}</b>
+    <br>
 </body>
 
 </html>

@@ -171,6 +171,9 @@
                                     <x-adminlte-button wire:click='editPasien({{ $item }})' theme="warning"
                                         class="btn-xs" icon="fas fa-edit" />
                                 </a>
+                                <x-adminlte-button
+                                    onclick="window.open('{{ route('print.label.pasien') }}?norm={{ $item->norm }}', 'Print Label Pasien', 'window settings');"
+                                    theme="primary" icon="fas fa-address-book" title="Print Label" class="btn-xs" />
                                 <x-adminlte-button wire:click='nonaktifPasien({{ $item }})' theme="danger"
                                     class="btn-xs" icon="fas fa-times"
                                     wire:confirm='Apakah anda yakin akan menonaktifkan pasien tersebut ?' />
