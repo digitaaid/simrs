@@ -22,6 +22,7 @@ class ModalAntrianRajal extends Component
     public $gender, $tgl_lahir, $fktp, $jenispeserta, $hakkelas;
     public $pasienbaru, $estimasidilayani, $sisakuotajkn, $kuotajkn, $sisakuotanonjkn, $kuotanonjkn;
     public $asalRujukan, $nomorreferensi, $noRujukan, $noSurat;
+    public  $bridgingantrian;
     public $rujukans = [], $suratkontrols = [], $jadwals = [];
     public function getJadwalDokter()
     {
@@ -50,7 +51,6 @@ class ModalAntrianRajal extends Component
             'kodedokter' => 'required',
         ]);
         $this->pasienbaru = $this->pasienbaru ? 1 : 0;
-
         // proses data antrian
         if ($this->jenispasien == "JKN") {
             $this->validate([
@@ -138,6 +138,7 @@ class ModalAntrianRajal extends Component
             'nomorsuratkontrol' => $this->noSurat,
             'keterangan' => $this->keterangan,
             'pasienbaru' => $this->pasienbaru,
+            'bridgingantrian' => $this->bridgingantrian,
             'user1' => auth()->user()->id,
         ]);
         $pasien = Pasien::where('norm', $this->norm)->first();
@@ -196,7 +197,7 @@ class ModalAntrianRajal extends Component
             "keterangan" =>    $this->keterangan,
             "nama" => $this->nama,
         ]);
-        if ($request->jenispasien != "NON-JKN") {
+        if ($antrian->bridgingantrian) {
             $res =  $api->tambah_antrean($request);
             if ($res->metadata->code == 200) {
                 $antrian->status = 1;
@@ -354,6 +355,7 @@ class ModalAntrianRajal extends Component
             $this->nomorkartu = $antrian->nomorkartu;
             $this->nik = $antrian->nik;
             $this->norm = $antrian->norm;
+            $this->bridgingantrian = $antrian->bridgingantrian ?? true;
             $this->nama = $antrian->nama;
             $this->nohp = $antrian->nohp;
             $this->tanggalperiksa = $antrian->tanggalperiksa;

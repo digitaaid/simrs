@@ -25,7 +25,7 @@ class PendaftaranRajalProses extends Component
     public function batal()
     {
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
-        if ($antrian->jenispasien != "NON-JKN") {
+        if ($antrian->bridgingantrian) {
             $request = new Request([
                 'kodebooking' => $this->kodebooking,
                 'keterangan' => "Dibatalkan admin pendaftaran",
@@ -54,7 +54,7 @@ class PendaftaranRajalProses extends Component
         $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
-            if ($antrian->jenispasien != "NON-JKN") {
+            if ($antrian->bridgingantrian) {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
                     'waktu' => Carbon::createFromFormat('Y-m-d H:i:s', $antrian->taskid1, 'Asia/Jakarta')->timestamp * 1000,
@@ -98,7 +98,7 @@ class PendaftaranRajalProses extends Component
         $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
-            if ($antrian->jenispasien != "NON-JKN") {
+            if ($antrian->bridgingantrian) {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
                     'waktu' => $now,
@@ -127,7 +127,7 @@ class PendaftaranRajalProses extends Component
         $now = now();
         $antrian = Antrian::firstWhere('kodebooking', $this->kodebooking);
         if ($antrian->taskid <= 2) {
-            if ($antrian->jenispasien != "NON-JKN") {
+            if ($antrian->bridgingantrian) {
                 $request = new Request([
                     'kodebooking' => $this->kodebooking,
                     'waktu' =>  $now,

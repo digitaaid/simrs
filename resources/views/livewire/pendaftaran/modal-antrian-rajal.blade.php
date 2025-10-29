@@ -42,6 +42,13 @@
                             <label for="pasienbaru1" class="custom-control-label">Pasien Baru</label>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" wire:model='bridgingantrian' id="bridgingantrian1"
+                                value="1">
+                            <label for="bridgingantrian1" class="custom-control-label">Bridging Antrian BPJS</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <x-adminlte-input wire:model.live='tanggalperiksa' name="tanggalperiksa" type='date'
