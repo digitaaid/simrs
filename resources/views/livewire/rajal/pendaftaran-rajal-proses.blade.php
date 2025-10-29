@@ -20,30 +20,32 @@
         <div id="antrian">
             @livewire('pendaftaran.modal-antrian-rajal', ['antrian' => $antrian, 'lazy' => true])
         </div>
-        <div id="kunjungan">
-            @livewire('pendaftaran.modal-kunjungan-rajal', ['antrian' => $antrian, 'lazy' => true])
-        </div>
-        @if ($antrian->kunjungan)
-            @if ($antrian->pasien && $antrian->jenispasien == 'JKN')
-                <div id="suratkontrol">
-                    @livewire('pendaftaran.modal-suratkontrol', ['kunjungan' => $kunjungan, 'lazy' => true])
+        @if ($antrian)
+            <div id="kunjungan">
+                @livewire('pendaftaran.modal-kunjungan-rajal', ['antrian' => $antrian, 'lazy' => true])
+            </div>
+            @if ($antrian->kunjungan)
+                @if ($antrian->pasien && $antrian->jenispasien == 'JKN')
+                    <div id="suratkontrol">
+                        @livewire('pendaftaran.modal-suratkontrol', ['kunjungan' => $kunjungan, 'lazy' => true])
+                    </div>
+                    <div id="modalsep">
+                        @livewire('pendaftaran.modal-sep', ['kunjungan' => $kunjungan, 'lazy' => true])
+                    </div>
+                @endif
+                <div id="cppt">
+                    @livewire('dokter.modal-cppt', ['antrian' => $antrian, 'lazy' => true])
                 </div>
-                <div id="modalsep">
-                    @livewire('pendaftaran.modal-sep', ['kunjungan' => $kunjungan, 'lazy' => true])
+                <div id="layanan">
+                    @livewire('perawat.modal-layanan-tindakan', ['kunjungan' => $kunjungan, 'lazy' => true])
+                </div>
+                <div id="notaPembayaran">
+                    <x-adminlte-card theme="primary" title="Nota Pembayaran Pasien">
+                        <iframe src="{{ route('print.notarajalf', $antrian->kunjungan->kode) }}" width="100%"
+                            height="500" frameborder="0"></iframe>
+                    </x-adminlte-card>
                 </div>
             @endif
-            <div id="cppt">
-                @livewire('dokter.modal-cppt', ['antrian' => $antrian, 'lazy' => true])
-            </div>
-            <div id="layanan">
-                @livewire('perawat.modal-layanan-tindakan', ['kunjungan' => $kunjungan, 'lazy' => true])
-            </div>
-            <div id="notaPembayaran">
-                <x-adminlte-card theme="primary" title="Nota Pembayaran Pasien">
-                    <iframe src="{{ route('print.notarajalf', $antrian->kunjungan->kode) }}" width="100%"
-                        height="500" frameborder="0"></iframe>
-                </x-adminlte-card>
-            </div>
         @endif
     </div>
 </div>

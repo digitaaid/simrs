@@ -40,7 +40,7 @@
     <div class="col-md-12">
         <x-adminlte-card title="Data Antrian Pendaftaran" theme="secondary" icon="fas fa-user-plus">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <x-adminlte-input wire:model.change='tanggalperiksa' type="date" name="tanggalperiksa"
                         igroup-size="sm">
                         <x-slot name="appendSlot">
@@ -53,7 +53,14 @@
                         </x-slot>
                     </x-adminlte-input>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <a href="{{ route('pendaftaran.rajal.proses', 0) }}">
+                        <x-adminlte-button class="btn btn-sm" theme="success" label="Daftar Rajal"
+                            icon="fas fa-user-plus" />
+                    </a>
+
+                </div>
+                <div class="col-md-2">
                 </div>
                 <div class="col-md-4">
                     <x-adminlte-input wire:model.live="search" name="search"

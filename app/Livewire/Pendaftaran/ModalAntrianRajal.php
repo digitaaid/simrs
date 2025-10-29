@@ -18,15 +18,27 @@ use RealRashid\SweetAlert\Facades\Alert;
 class ModalAntrianRajal extends Component
 {
     public $antrian, $polikliniks, $dokters;
-    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $namadokter, $jenispasien, $keterangan, $perujuk, $jeniskunjungan, $jeniskunjunjgan;
+    public $antrianId, $kodebooking, $nomorkartu, $nik, $norm, $nama, $nohp, $tanggalperiksa, $kodepoli, $kodedokter, $jampraktek, $namadokter, $jenispasien, $keterangan, $perujuk, $jeniskunjungan, $jeniskunjunjgan;
     public $gender, $tgl_lahir, $fktp, $jenispeserta, $hakkelas;
     public $pasienbaru, $estimasidilayani, $sisakuotajkn, $kuotajkn, $sisakuotanonjkn, $kuotanonjkn;
     public $asalRujukan, $nomorreferensi, $noRujukan, $noSurat;
-    public $rujukans = [], $suratkontrols = [];
+    public $rujukans = [], $suratkontrols = [], $jadwals = [];
+    public function getJadwalDokter()
+    {
+        $this->validate([
+            'tanggalperiksa' => 'required|date',
+            'kodepoli' => 'required',
+            'kodedokter' => 'required',
+        ]);
+        $hari =  Carbon::parse($this->tanggalperiksa)->dayOfWeek;
+        $this->jadwals = JadwalDokter::where('hari', $hari)
+            ->where('kodepoli', $this->kodepoli)
+            ->where('kodedokter', $this->kodedokter)
+            ->get();
+    }
     public function editAntrian()
     {
         $this->validate([
-            'kodebooking' => 'required',
             'nomorkartu' => 'required',
             'nik' => 'required|digits:16',
             'norm' => 'required',
@@ -38,6 +50,7 @@ class ModalAntrianRajal extends Component
             'kodedokter' => 'required',
         ]);
         $this->pasienbaru = $this->pasienbaru ? 1 : 0;
+
         // proses data antrian
         if ($this->jenispasien == "JKN") {
             $this->validate([
@@ -73,8 +86,29 @@ class ModalAntrianRajal extends Component
             $this->jeniskunjungan = 2;
         }
         $this->keterangan = "Antrian proses di pendaftaran";
+        if (!$this->kodebooking) {
+            $request = new Request([
+                'nomorkartu' => $this->nomorkartu,
+                'nik' => $this->nik,
+                'nohp' => $this->nohp,
+                'kodepoli' => $this->kodepoli,
+                'norm' => $this->norm,
+                'tanggalperiksa' => $this->tanggalperiksa,
+                'kodedokter' => $this->kodedokter,
+                'jampraktek' => $this->jampraktek,
+                'jeniskunjungan' => $this->jeniskunjungan,
+                'nomorreferensi' => $this->nomorreferensi,
+            ]);
+            $api =  new AntrianController();
+            $res = $api->ambil_antrian($request);
+            if ($res->metadata->code == 200) {
+                $this->kodebooking = $res->response->kodebooking;
+            } else {
+                dd($res);
+            }
+        }
         // simpan antrean
-        $antrian = Antrian::find($this->antrianId);
+        $antrian = Antrian::where('kodebooking', $this->kodebooking)->first();
         // cek antrian sebelumnya
         $antrianx = Antrian::where('norm', $this->norm)
             ->whereDate('tanggalperiksa', $this->tanggalperiksa)
@@ -311,36 +345,38 @@ class ModalAntrianRajal extends Component
     {
         $this->dispatch('formAntrian');
     }
-    public function mount(Antrian $antrian)
+    public function mount($antrian)
     {
-        $this->antrian = $antrian;
-        $this->antrianId = $antrian->id;
-        $this->kodebooking = $antrian->kodebooking;
-        $this->nomorkartu = $antrian->nomorkartu;
-        $this->nik = $antrian->nik;
-        $this->norm = $antrian->norm;
-        $this->nama = $antrian->nama;
-        $this->nohp = $antrian->nohp;
-        $this->tanggalperiksa = $antrian->tanggalperiksa;
-        $this->kodepoli = $antrian->kodepoli;
-        $this->kodedokter = $antrian->kodedokter;
-        $this->jenispasien = $antrian->jenispasien;
-        $this->pasienbaru = $antrian->pasienbaru ? true : false;
-        if ($antrian->jeniskunjungan == 3) {
-            $this->noSurat = $antrian->nomorsuratkontrol;
-        } else {
-            $this->noRujukan = $antrian->nomorrujukan;
-            switch ($antrian->jeniskunjungan) {
-                case 1:
-                    $this->asalRujukan = 1;
-                    break;
+        if ($antrian) {
+            $this->antrian = $antrian;
+            $this->antrianId = $antrian->id;
+            $this->kodebooking = $antrian->kodebooking;
+            $this->nomorkartu = $antrian->nomorkartu;
+            $this->nik = $antrian->nik;
+            $this->norm = $antrian->norm;
+            $this->nama = $antrian->nama;
+            $this->nohp = $antrian->nohp;
+            $this->tanggalperiksa = $antrian->tanggalperiksa;
+            $this->kodepoli = $antrian->kodepoli;
+            $this->kodedokter = $antrian->kodedokter;
+            $this->jenispasien = $antrian->jenispasien;
+            $this->pasienbaru = $antrian->pasienbaru ? true : false;
+            if ($antrian->jeniskunjungan == 3) {
+                $this->noSurat = $antrian->nomorsuratkontrol;
+            } else {
+                $this->noRujukan = $antrian->nomorrujukan;
+                switch ($antrian->jeniskunjungan) {
+                    case 1:
+                        $this->asalRujukan = 1;
+                        break;
 
-                case 4:
-                    $this->asalRujukan = 2;
-                    break;
+                    case 4:
+                        $this->asalRujukan = 2;
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
         }
         $this->polikliniks = Unit::pluck('nama', 'kode');

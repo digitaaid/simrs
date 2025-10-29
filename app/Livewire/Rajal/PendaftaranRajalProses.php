@@ -20,7 +20,7 @@ class PendaftaranRajalProses extends Component
     public function render()
     {
         $pasiencount = Pasien::count();
-        return view('livewire.rajal.pendaftaran-rajal-proses', compact('pasiencount'))->title('Pendaftaran ' . $this->antrian->nama);
+        return view('livewire.rajal.pendaftaran-rajal-proses', compact('pasiencount'))->title('Pendaftaran Rajal');
     }
     public function batal()
     {
@@ -165,9 +165,6 @@ class PendaftaranRajalProses extends Component
             $this->jenispasien = $antrian->jenispasien;
             $this->kodepoli = $antrian->kodepoli;
             $this->kodedokter = $antrian->kodedokter;
-        } else {
-            flash('Antrian tidak ditemukan.', 'danger');
-            return redirect()->route('pendaftaran.rajal.index');
         }
     }
 }

@@ -44,30 +44,37 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <x-adminlte-input wire:model='tanggalperiksa' name="tanggalperiksa" type='date'
+                    <x-adminlte-input wire:model.live='tanggalperiksa' name="tanggalperiksa" type='date'
                         label="Tanggal Periksa" fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
                         igroup-size="sm" />
-                    <x-adminlte-select wire:model='jenispasien' fgroup-class="row" label-class="text-left col-4"
-                        igroup-class="col-8" igroup-size="sm" name="jenispasien" label="Jenis Pasien">
-                        <option value=null disabled>Pilih Jenis Pasien</option>
-                        <option value="JKN">JKN</option>
-                        <option value="NON-JKN">NON-JKN</option>
-                    </x-adminlte-select>
-                    <x-adminlte-select wire:model='kodepoli' fgroup-class="row" label-class="text-left col-4"
+                    <x-adminlte-select wire:model.live='kodepoli' fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" name="kodepoli" label="Poliklinik">
                         <option value=null disabled>Pilih Poliklinik</option>
                         @foreach ($polikliniks as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
                         @endforeach
                     </x-adminlte-select>
-                    <x-adminlte-select wire:model='kodedokter' fgroup-class="row" label-class="text-left col-4"
+                    <x-adminlte-select wire:model.live='kodedokter' fgroup-class="row" label-class="text-left col-4"
                         igroup-class="col-8" igroup-size="sm" name="kodedokter" label="Dokter">
                         <option value=null disabled>Pilih Dokter</option>
                         @foreach ($dokters as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
                         @endforeach
                     </x-adminlte-select>
-                    @if ($antrian->jenispasien == 'JKN')
+                    <x-adminlte-select wire:model.live='jampraktek' wire:click='getJadwalDokter' fgroup-class="row" label-class="text-left col-4"
+                        igroup-class="col-8" igroup-size="sm" name="jampraktek" label="Dokter">
+                        <option value=null disabled>Pilih Jam Praktek</option>
+                        @foreach ($jadwals as $item)
+                            <option value="{{ $item->jampraktek }}">{{ $item->jampraktek }}</option>
+                        @endforeach
+                    </x-adminlte-select>
+                    <x-adminlte-select wire:model.live='jenispasien' fgroup-class="row" label-class="text-left col-4"
+                        igroup-class="col-8" igroup-size="sm" name="jenispasien" label="Jenis Pasien">
+                        <option value=null disabled>Pilih Jenis Pasien</option>
+                        <option value="JKN">JKN</option>
+                        <option value="NON-JKN">NON-JKN</option>
+                    </x-adminlte-select>
+                    @if ($jenispasien == 'JKN')
                         <x-adminlte-select fgroup-class="row" label-class="text-left col-4" igroup-class="col-8"
                             igroup-size="sm" name="asalRujukan" wire:model='asalRujukan' label="Jenis Rujukan">
                             <option value=null>Pilih Asal Rujukan</option>
@@ -78,9 +85,11 @@
                             igroup-size="sm" name="noRujukan" wire:model='noRujukan' wire:click='cariRujukan'
                             label="No Rujukan">
                             <option value=null>Pilih Nomor Rujukan</option>
-                            @if ($antrian->nomorrujukan)
-                                <option value={{ $antrian->nomorrujukan }}>{{ $antrian->nomorrujukan }}
-                                </option>
+                            @if ($antrian)
+                                @if ($antrian->nomorrujukan)
+                                    <option value={{ $antrian->nomorrujukan }}>{{ $antrian->nomorrujukan }}
+                                    </option>
+                                @endif
                             @endif
                             @foreach ($rujukans as $key => $item)
                                 <option value="{{ $item['noKunjungan'] }}">{{ $item['noKunjungan'] }}
@@ -96,9 +105,11 @@
                             igroup-size="sm" name="noSurat" wire:model='noSurat' wire:click='cariSuratKontrol'
                             label="No Surat Kontrol">
                             <option value=null>Pilih Surat Kontrol</option>
-                            @if ($antrian->nomorsuratkontrol)
-                                <option value={{ $antrian->nomorsuratkontrol }}>{{ $antrian->nomorsuratkontrol }}
-                                </option>
+                            @if ($antrian)
+                                @if ($antrian->nomorsuratkontrol)
+                                    <option value={{ $antrian->nomorsuratkontrol }}>{{ $antrian->nomorsuratkontrol }}
+                                    </option>
+                                @endif
                             @endif
                             @foreach ($suratkontrols as $key => $item)
                                 <option value="{{ $item['noSuratKontrol'] }}">{{ $item['noSuratKontrol'] }}
@@ -118,16 +129,7 @@
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" icon="fas fa-save" class="btn-sm" label="Simpan"
                 wire:click="editAntrian" wire:confirm='Apakah anda yakin akan menyimpan data antrian ?' />
-            <div wire:loading>
-                <div class="spinner-border spinner-border-sm text-primary" role="status">
-                </div>
-                Loading ...
-            </div>
-            @if (flash()->message)
-                <div class="text-{{ flash()->class }}" wire:loading.remove>
-                    Loading Result : {{ flash()->message }}
-                </div>
-            @endif
+            <x-footer-card-message />
         </x-slot>
     </x-adminlte-card>
 </div>
