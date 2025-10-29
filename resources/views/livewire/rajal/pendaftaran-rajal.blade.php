@@ -73,6 +73,7 @@
                     </x-adminlte-input>
                 </div>
             </div>
+            <x-footer-card-message />
             @php
                 $heads = [
                     'No',
