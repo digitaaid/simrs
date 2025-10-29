@@ -355,7 +355,7 @@ class ModalAntrianRajal extends Component
             $this->nomorkartu = $antrian->nomorkartu;
             $this->nik = $antrian->nik;
             $this->norm = $antrian->norm;
-            $this->bridgingantrian = $antrian->bridgingantrian ?? true;
+            $this->bridgingantrian = $antrian->bridgingantrian == "true" ? true : false;
             $this->nama = $antrian->nama;
             $this->nohp = $antrian->nohp;
             $this->tanggalperiksa = $antrian->tanggalperiksa;
