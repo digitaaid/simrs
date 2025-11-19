@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dokter;
 use App\Models\Integration;
+use App\Models\PengaturanSatuSehat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -13,8 +14,8 @@ class PractitionerController extends SatuSehatController
     public function practitioner_by_nik(Request $request)
     {
         $token = Cache::get('satusehat_access_token');
-        $api = Integration::where('name', 'Satu Sehat')->first();
-        $url = $api->base_url . "/Practitioner?identifier=https://fhir.kemkes.go.id/id/nik|" . $request->nik;
+        $api = PengaturanSatuSehat::first();
+        $url = $api->baseUrl . "/Practitioner?identifier=https://fhir.kemkes.go.id/id/nik|" . $request->nik;
         $response = Http::withToken($token)->get($url);
         $data = $response->json();
         return $this->responseSatuSehat($data);
