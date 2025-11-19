@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Integration;
 use App\Models\Pengaturan;
+use App\Models\PengaturanSatuSehat;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -33,84 +34,85 @@ class OrganizationController extends SatuSehatController
             return $this->sendError($validator->errors()->first(), 400);
         }
         $token = Cache::get('satusehat_access_token');
-        $api = Integration::where('name', 'Satu Sehat')->first();
-        $url =  $api->base_url . "/Organization";
+        $api = PengaturanSatuSehat::firstOrFail();
+        $url =  $api->baseUrl . "/Organization";
         $data = [
-            "resourceType" => "Organization",
-            "active" => true,
-            "identifier" => [
+            'resourceType' => 'Organization',
+            'active' => true,
+            'identifier' => [
                 [
-                    "use" => "official",
-                    "system" => "http://sys-ids.kemkes.go.id/organization/" . $request->organization_id,
-                    "value" => $request->identifier
+                    'use' => 'official',
+                    'system' => 'http://sys-ids.kemkes.go.id/organization/' . $api->kode,
+                    'value' => $request->identifier
                 ]
             ],
-            "type" => [
+            'type' => [
                 [
-                    "coding" => [
+                    'coding' => [
                         [
-                            "system" => "http://terminology.hl7.org/CodeSystem/organization-type",
-                            "code" => "dept",
-                            "display" => "Hospital Department"
+                            'system' => 'http://terminology.hl7.org/CodeSystem/organization-type',
+                            'code' => 'team',
+                            'display' => 'Organizational team'
                         ]
                     ]
                 ]
             ],
-            "name" => $request->name,
-            "telecom" => [
+            'name' => $request->name,
+            'telecom' => [
                 [
-                    "system" => "phone",
-                    "value" => $request->phone,
-                    "use" => "work"
+                    'system' => 'phone',
+                    'value' => $request->phone,
+                    'use' => 'work'
                 ],
                 [
-                    "system" => "email",
-                    "value" => $request->email,
-                    "use" => "work"
+                    'system' => 'email',
+                    'value' => $request->email,
+                    'use' => 'work'
                 ],
                 [
-                    "system" => "url",
-                    "value" => $request->url,
-                    "use" => "work"
+                    'system' => 'url',
+                    'value' => $request->url,
+                    'use' => 'work'
                 ]
             ],
-            "address" => [
+            'address' => [
                 [
-                    "use" => "work",
-                    "type" => "both",
-                    "line" => [
+                    'use' => 'work',
+                    'type' => 'both',
+                    'line' => [
                         $request->address
                     ],
-                    "city" => $request->city,
-                    "postalCode" => $request->postalCode,
-                    "country" => "ID",
-                    "extension" => [
+                    'city' => 'Cirebon',
+                    'postalCode' => $request->postalCode,
+                    'country' => 'ID',
+                    'extension' => [
                         [
-                            "url" => "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode",
-                            "extension" => [
+                            'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode',
+                            'extension' => [
                                 [
-                                    "url" => "province",
-                                    "valueCode" => $request->province,
+                                    'url' => 'province',
+                                    'valueCode' => $request->province,
                                 ],
                                 [
-                                    "url" => "city",
-                                    "valueCode" =>  $request->city,
+                                    'url' => 'city',
+                                    'valueCode' =>  $request->city,
                                 ],
                                 [
-                                    "url" => "district",
-                                    "valueCode" =>  $request->district,
+                                    'url' => 'district',
+                                    'valueCode' =>  $request->district,
                                 ],
                                 [
-                                    "url" => "village",
-                                    "valueCode" =>  $request->village,
+                                    'url' => 'village',
+                                    'valueCode' =>  $request->village,
                                 ]
                             ]
                         ]
                     ]
                 ]
             ],
-            "partOf" => [
-                "reference" => "Organization/" . $request->organization_id,
+            'partOf' => [
+                'reference' => 'Organization/' . $api->kode,
+                'display' => $api->nama,
             ]
         ];
         $response = Http::withToken($token)->post($url, $data);
@@ -120,7 +122,6 @@ class OrganizationController extends SatuSehatController
     public function organization_create(Request $request)
     {
         $unit = Unit::where('kode', $request->kode)->first();
-        dd($unit);
         $pengaturan = Pengaturan::firstOrFail();
         $request['organization_id'] = $pengaturan->idorganization;
         $request['identifier'] = $unit->nama;

@@ -11,6 +11,7 @@ class PengaturanSatusehatIndex extends Component
 {
     public $pengaturan;
     public $id, $nama, $kode, $baseUrl, $authUrl, $userKey, $secretKey;
+    public $phone, $email, $url, $address, $postalCode, $province, $city, $district, $village;
     public function render()
     {
         return view('livewire.satusehat.pengaturan-satusehat-index')
@@ -29,6 +30,16 @@ class PengaturanSatusehatIndex extends Component
         $pengaturan->authUrl = $this->authUrl;
         $pengaturan->userKey = $this->userKey;
         $pengaturan->secretKey = $this->secretKey;
+        $pengaturan->phone = $this->phone;
+        $pengaturan->email = $this->email;
+        $pengaturan->url = $this->url;
+        $pengaturan->address = $this->address;
+        $pengaturan->postalCode = $this->postalCode;
+        $pengaturan->province = $this->province;
+        $pengaturan->secretKey = $this->secretKey;
+        $pengaturan->city = $this->city;
+        $pengaturan->district = $this->district;
+        $pengaturan->village = $this->village;
         $pengaturan->save();
         ActivityLog::create([
             'user_id' => $user->id,
@@ -48,6 +59,15 @@ class PengaturanSatusehatIndex extends Component
             $this->authUrl = $pengaturan->authUrl;
             $this->userKey = $pengaturan->userKey;
             $this->secretKey = $pengaturan->secretKey;
+            $this->phone = $pengaturan->phone;
+            $this->email = $pengaturan->email;
+            $this->url = $pengaturan->url;
+            $this->address = $pengaturan->address;
+            $this->postalCode = $pengaturan->postalCode;
+            $this->province = $pengaturan->province;
+            $this->city = $pengaturan->city;
+            $this->district = $pengaturan->district;
+            $this->village = $pengaturan->village;
         }
     }
 }

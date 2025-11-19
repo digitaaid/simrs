@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Integration;
+use App\Models\PengaturanSatuSehat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -33,84 +34,53 @@ class LocationController extends SatuSehatController
             return $this->sendError('Data Belum Lengkap ' . $validator->errors()->first(), 400);
         }
         $token = Cache::get('satusehat_access_token');
-        $api = Integration::where('name', 'Satu Sehat')->first();
-        $url =  $api->base_url . "/Location";
+        $api = PengaturanSatuSehat::firstOrFail();
+        $url =  $api->baseUrl . "/Location";
         $data = [
-            "resourceType" => "Location",
-            "identifier" => [
+            'resourceType' => 'Location',
+            'identifier' => [
                 [
-                    "system" => "http://sys-ids.kemkes.go.id/location/" . $request->organization_id,
-                    "value" => $request->identifier,
+                    'system' => 'http://sys-ids.kemkes.go.id/location/' . $api->kode,
+                    'value' => $request->identifier
                 ]
             ],
-            "status" => "active",
-            "name" => $request->name,
-            "description" => $request->description,
-            "mode" => "instance",
-            "telecom" => [
+            'status' => 'active',
+            'name' => $request->name,
+            'description' =>  $request->description,
+            'mode' => 'instance',
+            'telecom' => [
                 [
-                    "system" => "phone",
-                    "value" => $request->phone,
-                    "use" => "work"
+                    'system' => 'phone',
+                    'value' => $request->phone,
+                    'use' => 'work'
                 ],
                 [
-                    "system" => "email",
-                    "value" =>  $request->email,
+                    'system' => 'email',
+                    'value' => $request->email,
+                    'use' => 'work'
                 ],
                 [
-                    "system" => "url",
-                    "value" =>  $request->url,
-                    "use" => "work"
+                    'system' => 'url',
+                    'value' => $request->url,
+                    'use' => 'work'
                 ]
             ],
-            "address" => [
-                "use" => "work",
-                "line" => [
-                    $request->address,
-                ],
-                "city" => $request->city,
-                "postalCode" =>  $request->postalCode,
-                "country" => "ID",
-                "extension" => [
+            'physicalType' => [
+                'coding' => [
                     [
-                        "url" => "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode",
-                        "extension" => [
-                            [
-                                "url" => "province",
-                                "valueCode" => $request->province,
-                            ],
-                            [
-                                "url" => "city",
-                                "valueCode" => $request->city,
-                            ],
-                            [
-                                "url" => "district",
-                                "valueCode" => $request->district,
-                            ],
-                            [
-                                "url" => "village",
-                                "valueCode" => $request->village,
-                            ],
-                        ]
+                        'system' => 'http://terminology.hl7.org/CodeSystem/location-physical-type',
+                        'code' => 'ro',
+                        'display' => 'Room'
                     ]
                 ]
             ],
-            "physicalType" => [
-                "coding" => [
-                    [
-                        "system" => "http://terminology.hl7.org/CodeSystem/location-physical-type",
-                        "code" => "ro",
-                        "display" => "Room"
-                    ]
-                ]
+            'position' => [
+                'longitude' => $request->longitude,
+                'latitude' => $request->latitude,
+                'altitude' =>  $request->altitude,
             ],
-            "position" => [
-                "longitude" => $request->longitude,
-                "latitude" => $request->latitude,
-                "altitude" => $request->altitude,
-            ],
-            "managingOrganization" => [
-                "reference" => "Organization/" . $request->organization_id,
+            'managingOrganization' => [
+                'reference' => 'Organization/' . $request->organization_id,
             ]
         ];
         $response = Http::withToken($token)->post($url, $data);

@@ -19,6 +19,15 @@ return new class extends Migration
             $table->string('authUrl')->nullable();
             $table->string('userKey')->nullable();
             $table->string('secretKey')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('url')->nullable();
+            $table->string('address')->nullable();
+            $table->string('postalCode')->nullable();
+            $table->string('province')->nullable();
+            $table->string('city')->nullable();
+            $table->string('district')->nullable();
+            $table->string('village')->nullable();
             $table->timestamps();
         });
     }

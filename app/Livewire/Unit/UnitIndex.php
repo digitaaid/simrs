@@ -9,6 +9,7 @@ use App\Http\Controllers\SatuSehatController;
 use App\Imports\UnitImport;
 use App\Models\Integration;
 use App\Models\Pengaturan;
+use App\Models\PengaturanSatuSehat;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -254,14 +255,14 @@ class UnitIndex extends Component
     public function createOrganization($kode)
     {
         $unit = Unit::where('kode', $kode)->first();
-        $pengaturan = Pengaturan::firstOrFail();
+        $pengaturan = PengaturanSatuSehat::firstOrFail();
         $request = new Request();
-        $request['organization_id'] = $pengaturan->idorganization;
-        $request['identifier'] = $unit->nama;
+        $request['organization_id'] = $pengaturan->kode;
+        $request['identifier'] = $unit->kode;
         $request['name'] = $unit->nama;
         $request['phone'] = $pengaturan->phone;
         $request['email'] = $pengaturan->email;
-        $request['url'] = $pengaturan->website;
+        $request['url'] = $pengaturan->url;
         $request['address'] = $pengaturan->address;
         $request['postalCode'] = $pengaturan->postalCode;
         $request['province'] = $pengaturan->province;
@@ -282,24 +283,23 @@ class UnitIndex extends Component
     public function createLocation($kode)
     {
         $unit = Unit::where('kode', $kode)->first();
-        $pengaturan = Pengaturan::firstOrFail();
+        $pengaturan = PengaturanSatuSehat::firstOrFail();
         $request = new Request();
-        $request['organization_id'] = $pengaturan->idorganization;
-        $request['identifier'] = $unit->nama;
+        $request['organization_id'] = $unit->idorganization;
+        $request['identifier'] = $unit->kode;
         $request['name'] = $unit->nama;
         $request['phone'] = $pengaturan->phone;
         $request['email'] = $pengaturan->email;
-        $request['url'] = $pengaturan->website;
+        $request['url'] = $pengaturan->url;
         $request['address'] = $pengaturan->address;
         $request['postalCode'] = $pengaturan->postalCode;
         $request['province'] = $pengaturan->province;
         $request['city'] = $pengaturan->city;
-        $request['city'] = $pengaturan->city;
         $request['district'] = $pengaturan->district;
         $request['village'] = $pengaturan->village;
-        $request['longitude'] = floatval($pengaturan->longitude) ?? -6.8963544;
-        $request['latitude'] = floatval($pengaturan->latitude) ?? 108.7479554;
-        $request['altitude'] = floatval($pengaturan->altitude) ?? 730;
+        $request['longitude'] = $pengaturan->longitude ?? -6.8963544;
+        $request['latitude'] = $pengaturan->latitude ?? 108.7479554;
+        $request['altitude'] = $pengaturan->altitude ?? 730;
         $request['description'] = "Unit " . $unit->nama . " Lokasi " . $unit->lokasi;
         $api = new LocationController();
         $res = $api->store($request);

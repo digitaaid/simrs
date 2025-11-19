@@ -17,7 +17,6 @@ class PatientController extends SatuSehatController
         $api = PengaturanSatuSehat::first();
         $url = $api->baseUrl . "Patient?identifier=https://fhir.kemkes.go.id/id/nik|" . $request->nik;
         $response = Http::withToken($token)->get($url);
-        dd($token, $url, $response->json());
         $data = $response->json();
         return $this->responseSatuSehat($data);
     }

@@ -1027,6 +1027,13 @@ return [
             'can' => ['satusehat'],
             'submenu' => [
                 [
+                    'text' => 'Pengaturan Satu Sehat',
+                    'url' => 'satusehat/pengaturan',
+                    'icon' => 'fas fa-laptop-medical',
+                    'shift'   => 'ml-2',
+                    'can' => 'satusehat',
+                ],
+                [
                     'text' => 'Token',
                     'icon'    => 'fas fa-key',
                     'url'  => 'satusehat/token',
@@ -1175,13 +1182,6 @@ return [
                     'can' => 'bpjs-vclaim',
                     'icon' => 'fas fa-briefcase-medical',
                     'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Pengaturan Satu Sehat',
-                    'url' => 'satusehat/pengaturan',
-                    'icon' => 'fas fa-laptop-medical',
-                    'shift'   => 'ml-2',
-                    'can' => 'satusehat',
                 ],
                 [
                     'text' => 'Pengaturan Whatssapp',

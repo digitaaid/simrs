@@ -24,20 +24,48 @@
             <div class="card-body">
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tabs-akun">
-                        <form>
-                            <x-adminlte-input wire:model="nama" fgroup-class="row" label-class="text-left col-3"
-                                igroup-class="col-9" igroup-size="sm" name="nama" label="Nama Faskes" />
-                            <x-adminlte-input wire:model="kode" fgroup-class="row" label-class="text-left col-3"
-                                igroup-class="col-9" igroup-size="sm" name="kode" label="Kode Faskes" />
-                            <x-adminlte-input wire:model="baseUrl" fgroup-class="row" label-class="text-left col-3"
-                                igroup-class="col-9" igroup-size="sm" name="baseUrl" label="Base Url" />
-                            <x-adminlte-input wire:model="authUrl" fgroup-class="row" label-class="text-left col-3"
-                                igroup-class="col-9" igroup-size="sm" name="authUrl" label="Auth Url" />
-                            <x-adminlte-input wire:model="userKey" fgroup-class="row" label-class="text-left col-3"
-                                igroup-class="col-9" igroup-size="sm" name="userKey" label="User Key" />
-                            <x-adminlte-input wire:model="secretKey" fgroup-class="row" label-class="text-left col-3"
-                                igroup-class="col-9" igroup-size="sm" name="secretKey" label="Secret Key" />
-                        </form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <x-adminlte-input wire:model="nama" fgroup-class="row" label-class="text-left col-3"
+                                    igroup-class="col-9" igroup-size="sm" name="nama" label="Nama Faskes" />
+                                <x-adminlte-input wire:model="kode" fgroup-class="row" label-class="text-left col-3"
+                                    igroup-class="col-9" igroup-size="sm" name="kode" label="Kode Faskes" />
+                                <x-adminlte-input wire:model="baseUrl" fgroup-class="row" label-class="text-left col-3"
+                                    igroup-class="col-9" igroup-size="sm" name="baseUrl" label="Base Url" />
+                                <x-adminlte-input wire:model="authUrl" fgroup-class="row" label-class="text-left col-3"
+                                    igroup-class="col-9" igroup-size="sm" name="authUrl" label="Auth Url" />
+                                <x-adminlte-input wire:model="userKey" fgroup-class="row" label-class="text-left col-3"
+                                    igroup-class="col-9" igroup-size="sm" name="userKey" label="User Key" />
+                                <x-adminlte-input wire:model="secretKey" fgroup-class="row"
+                                    label-class="text-left col-3" igroup-class="col-9" igroup-size="sm" name="secretKey"
+                                    label="Secret Key" />
+                            </div>
+                            <div class="col-md-6">
+                                <x-adminlte-input wire:model="phone" fgroup-class="row" label-class="text-left col-3"
+                                    igroup-class="col-9" igroup-size="sm" name="phone" label="Phone" />
+                                <x-adminlte-input wire:model="email" fgroup-class="row" label-class="text-left col-3"
+                                    igroup-class="col-9" igroup-size="sm" name="email" label="Email" />
+                                <x-adminlte-input wire:model="url" fgroup-class="row" label-class="text-left col-3"
+                                    igroup-class="col-9" igroup-size="sm" name="url" label="Url" />
+                                <x-adminlte-input wire:model="address" fgroup-class="row" label-class="text-left col-3"
+                                    igroup-class="col-9" igroup-size="sm" name="address" label="Address" />
+                                <x-adminlte-input wire:model="postalCode" fgroup-class="row"
+                                    label-class="text-left col-3" igroup-class="col-9" igroup-size="sm"
+                                    name="postalCode" label="PostalCode" />
+                                <x-adminlte-input wire:model="province" fgroup-class="row"
+                                    label-class="text-left col-3" igroup-class="col-9" igroup-size="sm"
+                                    name="province" label="Province" />
+                                <x-adminlte-input wire:model="city" fgroup-class="row" label-class="text-left col-3"
+                                    igroup-class="col-9" igroup-size="sm" name="city" label="City" />
+                                <x-adminlte-input wire:model="district" fgroup-class="row"
+                                    label-class="text-left col-3" igroup-class="col-9" igroup-size="sm"
+                                    name="district" label="District" />
+                                <x-adminlte-input wire:model="village" fgroup-class="row"
+                                    label-class="text-left col-3" igroup-class="col-9" igroup-size="sm"
+                                    name="village" label="Village" />
+                            </div>
+                        </div>
+
                         <x-adminlte-button label="Simpan" wire:click="save"
                             wire:confirm="Apakah anda ingin menyimpan data ?" form="formUpdate" theme="warning"
                             icon="fas fa-save" />
