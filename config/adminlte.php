@@ -917,7 +917,13 @@ return [
                     'shift'   => 'ml-2',
                     'can' => 'bpjs-antrian',
                 ],
-
+                [
+                    'text' => 'Pengaturan Antrian BPJS',
+                    'url' => 'bpjs/antrian/pengaturan',
+                    'can' => 'bpjs-antrian',
+                    'icon' => 'fas fa-cogs',
+                    'shift'   => 'ml-2',
+                ],
             ],
         ],
         // VCLAIM BPJS
@@ -1003,20 +1009,12 @@ return [
                     'shift'   => 'ml-2',
                     'can' => 'bpjs-vclaim',
                 ],
-            ],
-        ],
-        // INACBG
-        [
-            'text'    => 'INACBG',
-            'icon'    => 'fas fa-project-diagram',
-            'can' => ['inacbg'],
-            'submenu' => [
                 [
-                    'text' => 'Token',
-                    'icon'    => 'fas fa-key',
-                    'url'  => 'inacbg/token',
+                    'text' => 'Pengaturan Vclaim BPJS',
+                    'url' => 'bpjs/vclaim/pengaturan',
+                    'can' => 'bpjs-vclaim',
+                    'icon' => 'fas fa-briefcase-medical',
                     'shift'   => 'ml-2',
-                    'can' => ['inacbg'],
                 ],
             ],
         ],
@@ -1026,13 +1024,7 @@ return [
             'icon'    => 'fas fa-project-diagram',
             'can' => ['satusehat'],
             'submenu' => [
-                [
-                    'text' => 'Pengaturan Satu Sehat',
-                    'url' => 'satusehat/pengaturan',
-                    'icon' => 'fas fa-laptop-medical',
-                    'shift'   => 'ml-2',
-                    'can' => 'satusehat',
-                ],
+
                 [
                     'text' => 'Token',
                     'icon'    => 'fas fa-key',
@@ -1082,6 +1074,28 @@ return [
                     'url'  => 'satusehat/condition',
                     'shift'   => 'ml-2',
                     'can' => ['satusehat'],
+                ],
+                [
+                    'text' => 'Pengaturan Satu Sehat',
+                    'url' => 'satusehat/pengaturan',
+                    'icon' => 'fas fa-laptop-medical',
+                    'shift'   => 'ml-2',
+                    'can' => 'satusehat',
+                ],
+            ],
+        ],
+        // INACBG
+        [
+            'text'    => 'INACBG',
+            'icon'    => 'fas fa-project-diagram',
+            'can' => ['inacbg'],
+            'submenu' => [
+                [
+                    'text' => 'Token',
+                    'icon'    => 'fas fa-key',
+                    'url'  => 'inacbg/token',
+                    'shift'   => 'ml-2',
+                    'can' => ['inacbg'],
                 ],
             ],
         ],
@@ -1168,20 +1182,6 @@ return [
                     'shift'   => 'ml-2',
                     'can' => 'data-pegawai',
 
-                ],
-                [
-                    'text' => 'Pengaturan Antrian BPJS',
-                    'url' => 'bpjs/antrian/pengaturan',
-                    'can' => 'bpjs-antrian',
-                    'icon' => 'fas fa-users',
-                    'shift'   => 'ml-2',
-                ],
-                [
-                    'text' => 'Pengaturan Vclaim BPJS',
-                    'url' => 'bpjs/vclaim/pengaturan',
-                    'can' => 'bpjs-vclaim',
-                    'icon' => 'fas fa-briefcase-medical',
-                    'shift'   => 'ml-2',
                 ],
                 [
                     'text' => 'Pengaturan Whatssapp',

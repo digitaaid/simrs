@@ -84,7 +84,7 @@
                     </x-adminlte-input>
                 </div>
             </div>
-            <table class="table text-nowrap table-sm table-hover table-bordered table-responsive-xl mb-3">
+            <table class="table text-nowrap table-sm table-hover table-bordered table-responsive mb-3">
                 <thead>
                     <tr>
                         <th>#</th>
