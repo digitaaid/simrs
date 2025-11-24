@@ -7,7 +7,7 @@
         </div>
     @endif
     <div class="col-md-12">
-        <x-adminlte-card title="Table Peserta Fingerprint" theme="secondary">
+        <x-adminlte-card title="Table Peserta Fingerprint" theme="secondary" icon='fas fa-fingerprint'>
             <div class="row">
                 <div class="col-md-6">
                     <x-adminlte-select wire:model='identitas' igroup-size="sm" fgroup-class="row"
